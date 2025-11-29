@@ -1,0 +1,72 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Introduction" />
+
+# VTX UI React
+
+Welcome to **@vtx-ui/react** - a production-ready React + TypeScript UI library with enterprise-grade components.
+
+## Features
+
+- ✨ **Enterprise-Ready** - Production-grade components with strict TypeScript support
+- ♿ **Accessible** - WCAG 2.1 AA compliant with full ARIA support
+- 🎨 **Themeable** - Comprehensive design token system with CSS variables
+- 📦 **Tree-Shakable** - Optimized bundle size with ESM support
+- 🧪 **Well Tested** - Unit tests, accessibility tests, and Storybook coverage
+
+## Installation
+
+```bash
+npm install @vtx-ui/react
+```
+
+## Quick Start
+
+```tsx
+import { ThemeProvider, Button } from '@vtx-ui/react';
+import '@vtx-ui/react/styles.css';
+
+function App() {
+  return (
+    <ThemeProvider>
+      <Button variant="primary">Click me</Button>
+    </ThemeProvider>
+  );
+}
+```
+
+## Components
+
+Browse the sidebar to explore all available components:
+
+- **Button** - Interactive buttons with multiple variants
+- **Input** - Text input fields with validation
+- **Select** - Dropdown selection controls
+- **Table** - Data tables with custom rendering
+- **Modal** - Accessible dialog overlays
+- **Tooltip** - Contextual information on hover
+- **Avatar** - User profile images
+- **Badge** - Status indicators and labels
+
+## Design Tokens
+
+The library uses a comprehensive design token system. Check out the **Design Tokens** section to see all available tokens for colors, spacing, typography, and more.
+
+## Accessibility
+
+All components are built with accessibility in mind:
+
+- Semantic HTML
+- ARIA attributes
+- Keyboard navigation
+- Focus management
+- Screen reader support
+
+Each component includes accessibility tests using jest-axe to ensure compliance.
+
+## Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)

@@ -1,0 +1,88 @@
+.vtx-table-container {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--vtx-color-neutral-200);
+  border-radius: var(--vtx-radius-lg);
+}
+
+.vtx-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--vtx-font-family-sans);
+  background-color: white;
+}
+
+.vtx-table-caption {
+  padding: var(--vtx-spacing-4);
+  font-size: var(--vtx-font-size-lg);
+  font-weight: var(--vtx-font-weight-semibold);
+  text-align: left;
+  color: var(--vtx-color-neutral-900);
+}
+
+/* Header */
+.vtx-table-header {
+  background-color: var(--vtx-color-neutral-50);
+  border-bottom: 2px solid var(--vtx-color-neutral-200);
+}
+
+.vtx-table-header-cell {
+  padding: var(--vtx-spacing-3) var(--vtx-spacing-4);
+  font-size: var(--vtx-font-size-sm);
+  font-weight: var(--vtx-font-weight-semibold);
+  color: var(--vtx-color-neutral-700);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+/* Body */
+.vtx-table-body {
+  background-color: white;
+}
+
+.vtx-table-row {
+  border-bottom: 1px solid var(--vtx-color-neutral-200);
+  transition: background-color var(--vtx-transition-fast);
+}
+
+.vtx-table-row:last-child {
+  border-bottom: none;
+}
+
+.vtx-table-cell {
+  padding: var(--vtx-spacing-3) var(--vtx-spacing-4);
+  font-size: var(--vtx-font-size-base);
+  color: var(--vtx-color-neutral-900);
+}
+
+/* Sizes */
+.vtx-table--small .vtx-table-header-cell,
+.vtx-table--small .vtx-table-cell {
+  padding: var(--vtx-spacing-2) var(--vtx-spacing-3);
+  font-size: var(--vtx-font-size-sm);
+}
+
+.vtx-table--large .vtx-table-header-cell,
+.vtx-table--large .vtx-table-cell {
+  padding: var(--vtx-spacing-4) var(--vtx-spacing-6);
+  font-size: var(--vtx-font-size-lg);
+}
+
+/* Striped */
+.vtx-table--striped .vtx-table-row:nth-child(even) {
+  background-color: var(--vtx-color-neutral-50);
+}
+
+/* Hoverable */
+.vtx-table--hoverable .vtx-table-row:hover {
+  background-color: var(--vtx-color-primary-50);
+}
+
+/* Empty state */
+.vtx-table-empty {
+  padding: var(--vtx-spacing-12) var(--vtx-spacing-4);
+  text-align: center;
+  color: var(--vtx-color-neutral-500);
+  font-style: italic;
+}

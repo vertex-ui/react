@@ -1,0 +1,110 @@
+/* Flex Component */
+.vtx-flex {
+  display: flex;
+  gap: var(--vtx-flex-gap, 0);
+  row-gap: var(--vtx-flex-row-gap, var(--vtx-flex-gap, 0));
+  column-gap: var(--vtx-flex-column-gap, var(--vtx-flex-gap, 0));
+}
+
+/* Full width modifier */
+.vtx-flex--full-width {
+  width: 100%;
+}
+
+/* Inline variant */
+.vtx-flex--inline {
+  display: inline-flex;
+}
+
+/* Direction variants */
+.vtx-flex--column {
+  flex-direction: column;
+}
+
+.vtx-flex--row-reverse {
+  flex-direction: row-reverse;
+}
+
+.vtx-flex--column-reverse {
+  flex-direction: column-reverse;
+}
+
+/* Wrap variants */
+.vtx-flex--wrap {
+  flex-wrap: wrap;
+}
+
+.vtx-flex--wrap-reverse {
+  flex-wrap: wrap-reverse;
+}
+
+/* Justify content variants */
+.vtx-flex--justify-start {
+  justify-content: flex-start;
+}
+
+.vtx-flex--justify-end {
+  justify-content: flex-end;
+}
+
+.vtx-flex--justify-center {
+  justify-content: center;
+}
+
+.vtx-flex--justify-between {
+  justify-content: space-between;
+}
+
+.vtx-flex--justify-around {
+  justify-content: space-around;
+}
+
+.vtx-flex--justify-evenly {
+  justify-content: space-evenly;
+}
+
+/* Align items variants */
+.vtx-flex--align-start {
+  align-items: flex-start;
+}
+
+.vtx-flex--align-end {
+  align-items: flex-end;
+}
+
+.vtx-flex--align-center {
+  align-items: center;
+}
+
+.vtx-flex--align-baseline {
+  align-items: baseline;
+}
+
+.vtx-flex--align-stretch {
+  align-items: stretch;
+}
+
+/* Align content variants (for multi-line) */
+.vtx-flex--align-content-start {
+  align-content: flex-start;
+}
+
+.vtx-flex--align-content-end {
+  align-content: flex-end;
+}
+
+.vtx-flex--align-content-center {
+  align-content: center;
+}
+
+.vtx-flex--align-content-between {
+  align-content: space-between;
+}
+
+.vtx-flex--align-content-around {
+  align-content: space-around;
+}
+
+.vtx-flex--align-content-stretch {
+  align-content: stretch;
+}

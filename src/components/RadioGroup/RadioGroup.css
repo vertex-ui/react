@@ -1,0 +1,52 @@
+/* RadioGroup Base Styles */
+.vtx-radio-group {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--vtx-spacing-2);
+}
+
+/* Group Label */
+.vtx-radio-group-label {
+  font-family: var(--vtx-font-family-sans);
+  font-size: var(--vtx-font-size-base);
+  font-weight: var(--vtx-font-weight-medium);
+  line-height: var(--vtx-line-height-normal);
+  color: var(--vtx-color-neutral-900);
+  margin-bottom: var(--vtx-spacing-1);
+}
+
+.vtx-radio-group--disabled .vtx-radio-group-label {
+  color: var(--vtx-color-neutral-500);
+}
+
+.vtx-radio-group--error .vtx-radio-group-label {
+  color: var(--vtx-color-error-600);
+}
+
+/* Options Container */
+.vtx-radio-group-options {
+  display: flex;
+  gap: var(--vtx-spacing-3);
+}
+
+.vtx-radio-group--vertical .vtx-radio-group-options {
+  flex-direction: column;
+}
+
+.vtx-radio-group--horizontal .vtx-radio-group-options {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+/* Helper Text */
+.vtx-radio-group-helper-text {
+  font-family: var(--vtx-font-family-sans);
+  font-size: var(--vtx-font-size-sm);
+  line-height: var(--vtx-line-height-normal);
+  color: var(--vtx-color-neutral-600);
+  margin-top: var(--vtx-spacing-1);
+}
+
+.vtx-radio-group--error .vtx-radio-group-helper-text {
+  color: var(--vtx-color-error-600);
+}

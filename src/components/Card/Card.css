@@ -1,0 +1,117 @@
+/* Card Component Styles */
+
+.vtx-card {
+  --vtx-card-bg: #ffffff;
+  --vtx-card-border-radius: 8px;
+  --vtx-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --vtx-card-shadow-hover: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  --vtx-card-padding: 16px;
+  --vtx-card-border-color: #e0e0e0;
+  --vtx-card-border-width: 1px;
+  --vtx-card-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  background-color: var(--vtx-card-bg);
+  border-radius: var(--vtx-card-border-radius);
+  transition: var(--vtx-card-transition);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Variants */
+.vtx-card--elevated {
+  box-shadow: var(--vtx-card-shadow);
+  border: none;
+}
+
+.vtx-card--outlined {
+  box-shadow: none;
+  border: var(--vtx-card-border-width) solid var(--vtx-card-border-color);
+}
+
+.vtx-card--filled {
+  box-shadow: none;
+  border: none;
+  background-color: #f5f5f5;
+}
+
+/* Card Content */
+.vtx-card-content {
+  padding: var(--vtx-card-padding);
+  flex: 1;
+}
+
+/* No Padding Modifier */
+.vtx-card--no-padding .vtx-card-content {
+  padding: 0;
+}
+
+/* Header and Footer */
+.vtx-card-header,
+.vtx-card-footer {
+  padding: var(--vtx-card-padding);
+}
+
+.vtx-card-header--divider {
+  border-bottom: var(--vtx-card-border-width) solid var(--vtx-card-border-color);
+}
+
+.vtx-card-footer--divider {
+  border-top: var(--vtx-card-border-width) solid var(--vtx-card-border-color);
+}
+
+/* No padding for header and footer when noPadding is set */
+.vtx-card--no-padding .vtx-card-header,
+.vtx-card--no-padding .vtx-card-footer {
+  padding: var(--vtx-card-padding);
+}
+
+/* Interactive States */
+.vtx-card--hoverable:hover {
+  box-shadow: var(--vtx-card-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.vtx-card--outlined.vtx-card--hoverable:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-color: #bdbdbd;
+}
+
+.vtx-card--filled.vtx-card--hoverable:hover {
+  background-color: #eeeeee;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.vtx-card--clickable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.vtx-card--clickable:active {
+  transform: scale(0.98);
+}
+
+/* Focus State */
+.vtx-card:focus-visible {
+  outline: 2px solid #2196f3;
+  outline-offset: 2px;
+}
+
+/* Dark Mode Support (Optional) */
+@media (prefers-color-scheme: dark) {
+  .vtx-card {
+    --vtx-card-bg: #1e1e1e;
+    --vtx-card-border-color: #424242;
+    --vtx-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.4);
+    --vtx-card-shadow-hover: 0 3px 6px rgba(0, 0, 0, 0.4), 0 3px 6px rgba(0, 0, 0, 0.5);
+  }
+
+  .vtx-card--filled {
+    background-color: #2a2a2a;
+  }
+
+  .vtx-card--filled.vtx-card--hoverable:hover {
+    background-color: #333333;
+  }
+}
