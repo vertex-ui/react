@@ -94,7 +94,7 @@
 
 /* Focus State */
 .vtx-card:focus-visible {
-  outline: 2px solid #2196f3;
+  outline: 2px solid var(--vtx-color-primary-500);
   outline-offset: 2px;
 }
 

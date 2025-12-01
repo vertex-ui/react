@@ -23,6 +23,15 @@ export type { AvatarProps } from './components/Avatar';
 export { Badge } from './components/Badge';
 export type { BadgeProps } from './components/Badge';
 
+export { Header } from './components/Header';
+export type { HeaderProps, NotificationItem } from './components/Header';
+
+export { SideMenu, SideMenuItem } from './components/SideMenu';
+export type { SideMenuProps, SideMenuItemProps } from './components/SideMenu';
+
+export { Menu, MenuItem } from './components/Menu';
+export type { MenuProps, MenuItemProps } from './components/Menu';
+
 // Theme
 export { ThemeProvider, useThemeContext } from './theme';
 export type { Theme, ThemeProviderProps } from './theme';

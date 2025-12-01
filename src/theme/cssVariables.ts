@@ -36,6 +36,17 @@ export function generateCSSVariables(): string {
   Object.entries(tokens.typography.lineHeight).forEach(([key, value]) => {
     cssVars.push(`  --vtx-line-height-${key}: ${value};`);
   });
+  Object.entries(tokens.typography.letterSpacing).forEach(([key, value]) => {
+    cssVars.push(`  --vtx-letter-spacing-${key}: ${value};`);
+  });
+
+  // Text variants
+  Object.entries(tokens.typography.textVariants).forEach(([variant, props]) => {
+    Object.entries(props).forEach(([prop, value]) => {
+      const propName = prop.replace(/([A-Z])/g, '-$1').toLowerCase();
+      cssVars.push(`  --vtx-text-${variant}-${propName}: ${value};`);
+    });
+  });
 
   // Border radius
   Object.entries(tokens.borderRadius).forEach(([key, value]) => {

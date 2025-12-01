@@ -1,0 +1,470 @@
+.accordion {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-family: var(
+    --font-family-base,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif
+  );
+}
+
+/* Variants */
+.accordion--default {
+  background: var(--accordion-bg, var(--color-background, #ffffff));
+  border: 1px solid var(--accordion-border, var(--color-border, #e5e7eb));
+  border-radius: var(--accordion-radius, var(--radius-lg, 12px));
+  overflow: hidden;
+  box-shadow: var(
+    --accordion-shadow,
+    var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06))
+  );
+}
+
+/* Dividers for default variant */
+.accordion--default.accordion--divider .accordion-item:not(:last-child) {
+  border-bottom: 1px solid var(--accordion-divider, var(--color-border, #e5e7eb));
+}
+
+.accordion--bordered .accordion-item {
+  background: var(--accordion-bg, var(--color-background, #ffffff));
+  border: 1px solid var(--accordion-border, var(--color-border, #e5e7eb));
+  border-radius: var(--accordion-item-radius, var(--radius-md, 8px));
+  box-shadow: var(--accordion-item-shadow, var(--shadow-xs, 0 1px 2px rgba(0, 0, 0, 0.05)));
+  transition:
+    box-shadow var(--transition-duration, 0.2s) var(--transition-timing, ease),
+    border-color var(--transition-duration, 0.2s) var(--transition-timing, ease);
+}
+
+.accordion--bordered .accordion-item:hover {
+  border-color: var(--accordion-border-hover, var(--color-border-hover, #d1d5db));
+  box-shadow: var(--accordion-item-shadow-hover, var(--shadow-md, 0 4px 6px rgba(0, 0, 0, 0.1)));
+}
+
+.accordion--bordered .accordion-item + .accordion-item {
+  margin-top: var(--accordion-spacing, var(--spacing-2, 8px));
+}
+
+/* Dividers for bordered variant */
+.accordion--bordered.accordion--divider .accordion-item:not(:last-child) {
+  position: relative;
+  margin-bottom: var(--accordion-divider-spacing, 12px);
+}
+
+.accordion--bordered.accordion--divider .accordion-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--accordion-divider, var(--color-border, #e5e7eb));
+}
+
+.accordion--separated .accordion-item {
+  background: var(--accordion-bg, var(--color-background, #ffffff));
+  border-radius: var(--accordion-item-radius-lg, var(--radius-lg, 10px));
+  box-shadow: var(
+    --accordion-separated-shadow,
+    var(--shadow-md, 0 4px 6px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.06))
+  );
+  border: 1px solid var(--accordion-separated-border, var(--color-border-light, #f3f4f6));
+  transition:
+    transform var(--transition-duration, 0.2s) var(--transition-timing, ease),
+    box-shadow var(--transition-duration, 0.2s) var(--transition-timing, ease);
+}
+
+.accordion--separated .accordion-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(
+    --accordion-separated-shadow-hover,
+    var(--shadow-lg, 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05))
+  );
+}
+
+.accordion--separated .accordion-item + .accordion-item {
+  margin-top: var(--accordion-spacing-lg, var(--spacing-4, 16px));
+}
+
+/* Dividers for separated variant */
+.accordion--separated.accordion--divider .accordion-item {
+  position: relative;
+}
+
+.accordion--separated.accordion--divider .accordion-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: var(
+    --accordion-divider-gradient,
+    linear-gradient(
+      to right,
+      transparent,
+      var(--color-border-hover, #d1d5db) 20%,
+      var(--color-border-hover, #d1d5db) 80%,
+      transparent
+    )
+  );
+  z-index: 1;
+}
+
+.accordion--flush {
+  border: none;
+  background: transparent;
+}
+
+.accordion--flush .accordion-item {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  border-bottom: 1px solid var(--accordion-divider, var(--color-border, #e5e7eb));
+}
+
+.accordion--flush .accordion-item:last-child {
+  border-bottom: none;
+}
+
+/* Accordion Item */
+.accordion-item {
+  position: relative;
+  background: inherit;
+  transition: all var(--transition-duration, 0.2s) var(--transition-timing, ease);
+  overflow: hidden;
+}
+
+.accordion-item--disabled {
+  opacity: var(--accordion-disabled-opacity, 0.5);
+  pointer-events: none;
+}
+
+.accordion-item--disabled .accordion-item-header {
+  cursor: not-allowed;
+  color: var(--accordion-disabled-color, var(--color-text-disabled, #9ca3af));
+}
+
+/* Accordion Item Header */
+.accordion-item-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  transition: all var(--transition-duration, 0.2s) var(--transition-timing, ease);
+  user-select: none;
+  position: relative;
+  border: none;
+  background: transparent;
+  text-align: left;
+}
+
+.accordion-item-header:hover:not(:disabled) {
+  background: var(
+    --accordion-header-hover-bg,
+    var(--color-background-hover, linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%))
+  );
+}
+
+.accordion-item-header:active {
+  transform: translateY(1px);
+}
+
+.accordion-item-header:focus {
+  outline: 2px solid var(--accordion-focus-color, var(--vtx-color-primary-500));
+  outline-offset: -2px;
+  border-radius: var(--accordion-focus-radius, var(--radius-sm, 4px));
+}
+
+.accordion-item-header:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.accordion-item-header-content {
+  flex: 1;
+  text-align: left;
+  font-weight: var(--accordion-header-font-weight, var(--font-weight-semibold, 600));
+  color: var(--accordion-header-color, var(--color-text-primary, #1f2937));
+  line-height: var(--accordion-header-line-height, var(--line-height-normal, 1.5));
+}
+
+/* Chevron Icon */
+.accordion-item-chevron {
+  transition: transform var(--accordion-icon-transition, var(--transition-duration-slow, 0.3s))
+    var(--transition-timing-smooth, cubic-bezier(0.4, 0, 0.2, 1));
+  color: var(--accordion-icon-color, var(--color-text-secondary, #6b7280));
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--accordion-icon-size, 24px);
+  height: var(--accordion-icon-size, 24px);
+  border-radius: var(--accordion-icon-radius, 50%);
+  background: var(--accordion-icon-bg, rgba(59, 130, 246, 0.1));
+}
+
+.accordion-item-chevron.open {
+  transform: rotate(180deg);
+  background: var(--accordion-icon-bg-open, rgba(59, 130, 246, 0.2));
+  color: var(--accordion-icon-color-open, var(--vtx-color-primary-500));
+}
+
+.accordion-item-header:hover .accordion-chevron {
+  background: var(--accordion-icon-bg-hover, rgba(59, 130, 246, 0.15));
+  color: var(--accordion-icon-color-hover, var(--vtx-color-primary-500));
+}
+
+/* Accordion Item Content */
+.accordion-item-content {
+  overflow: hidden;
+  transition: all var(--accordion-content-transition, var(--transition-duration-slow, 0.3s))
+    var(--transition-timing-smooth, cubic-bezier(0.4, 0, 0.2, 1));
+  max-height: 0;
+  background: var(--accordion-content-bg, var(--color-background-alt, #fafbfc));
+  border-top: 1px solid transparent;
+}
+
+.accordion-item-content--open {
+  max-height: var(--accordion-content-max-height, 500px);
+  border-top-color: var(--accordion-content-border, var(--color-border, #e5e7eb));
+}
+
+.accordion-item-body {
+  color: var(--accordion-body-color, var(--color-text-secondary, #4b5563));
+  line-height: var(--accordion-body-line-height, var(--line-height-relaxed, 1.7));
+  font-size: var(--accordion-body-font-size, 0.95em);
+}
+
+/* Size Variants */
+.accordion--sm .accordion-item-header {
+  padding: var(--accordion-sm-padding, var(--spacing-3, 12px) var(--spacing-4, 16px));
+  font-size: var(--accordion-sm-font-size, var(--font-size-sm, 14px));
+  min-height: var(--accordion-sm-min-height, 48px);
+}
+
+.accordion--sm .accordion-item-body {
+  padding: 0 var(--spacing-4, 16px) var(--spacing-4, 16px) var(--spacing-4, 16px);
+  font-size: var(--accordion-sm-body-font-size, var(--font-size-sm, 14px));
+}
+
+.accordion--sm .accordion-item-chevron {
+  width: var(--accordion-sm-icon-size, 20px);
+  height: var(--accordion-sm-icon-size, 20px);
+  margin: 0 var(--spacing-2, 8px);
+}
+
+.accordion--sm .accordion-item-chevron svg {
+  width: 14px;
+  height: 14px;
+}
+
+.accordion--md .accordion-item-header {
+  padding: var(--accordion-md-padding, var(--spacing-4, 16px) var(--spacing-5, 20px));
+  font-size: var(--accordion-md-font-size, var(--font-size-base, 16px));
+  min-height: var(--accordion-md-min-height, 56px);
+}
+
+.accordion--md .accordion-item-body {
+  padding: 0 var(--spacing-5, 20px) var(--spacing-5, 20px) var(--spacing-5, 20px);
+  font-size: var(--accordion-md-body-font-size, 15px);
+}
+
+.accordion--md .accordion-item-chevron {
+  width: var(--accordion-md-icon-size, 24px);
+  height: var(--accordion-md-icon-size, 24px);
+  margin: 0 var(--spacing-2, 8px);
+}
+
+.accordion--md .accordion-item-chevron svg {
+  width: 16px;
+  height: 16px;
+}
+
+.accordion--lg .accordion-item-header {
+  padding: var(--accordion-lg-padding, var(--spacing-5, 20px) var(--spacing-6, 24px));
+  font-size: var(--accordion-lg-font-size, var(--font-size-lg, 18px));
+  min-height: var(--accordion-lg-min-height, 64px);
+}
+
+.accordion--lg .accordion-item-body {
+  padding: 0 var(--spacing-6, 24px) var(--spacing-6, 24px) var(--spacing-6, 24px);
+  font-size: var(--accordion-lg-body-font-size, var(--font-size-base, 16px));
+}
+
+.accordion--lg .accordion-item-chevron {
+  width: var(--accordion-lg-icon-size, 28px);
+  height: var(--accordion-lg-icon-size, 28px);
+  margin: 0 var(--spacing-3, 12px);
+}
+
+.accordion--lg .accordion-item-chevron svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .accordion--default {
+    background: var(--accordion-bg-dark, var(--color-background-dark, #1f2937));
+    border-color: var(--accordion-border-dark, var(--color-border-dark, #374151));
+    box-shadow: var(
+      --accordion-shadow-dark,
+      0 1px 3px rgba(0, 0, 0, 0.3),
+      0 1px 2px rgba(0, 0, 0, 0.2)
+    );
+  }
+
+  .accordion--bordered .accordion-item,
+  .accordion--separated .accordion-item {
+    background: var(--accordion-bg-dark, var(--color-background-dark, #1f2937));
+    border-color: var(--accordion-border-dark, var(--color-border-dark, #374151));
+  }
+
+  .accordion--separated .accordion-item:hover {
+    box-shadow: var(
+      --accordion-separated-shadow-hover-dark,
+      0 10px 15px rgba(0, 0, 0, 0.3),
+      0 4px 6px rgba(0, 0, 0, 0.2)
+    );
+  }
+
+  .accordion-item-header:hover:not(:disabled) {
+    background: var(
+      --accordion-header-hover-bg-dark,
+      linear-gradient(135deg, #374151 0%, #4b5563 100%)
+    );
+  }
+
+  .accordion-item-header-content {
+    color: var(--accordion-header-color-dark, var(--color-text-primary-dark, #f9fafb));
+  }
+
+  .accordion-item-content {
+    background: var(--accordion-content-bg-dark, var(--color-background-darker, #111827));
+    border-top-color: var(--accordion-content-border-dark, var(--color-border-dark, #374151));
+  }
+
+  .accordion-item-body {
+    color: var(--accordion-body-color-dark, var(--color-text-secondary-dark, #d1d5db));
+  }
+
+  .accordion-item-chevron {
+    color: var(--accordion-icon-color-dark, var(--color-text-secondary-dark, #9ca3af));
+    background: var(--accordion-icon-bg-dark, rgba(59, 130, 246, 0.2));
+  }
+
+  .accordion-item-chevron.open {
+    background: var(--accordion-icon-bg-open-dark, rgba(59, 130, 246, 0.3));
+    color: var(--accordion-icon-color-open-dark, var(--color-primary-light, #60a5fa));
+  }
+
+  .accordion-item-header:hover .accordion-chevron {
+    background: var(--accordion-icon-bg-hover-dark, rgba(59, 130, 246, 0.25));
+    color: var(--accordion-icon-color-hover-dark, var(--vtx-color-primary-400));
+  }
+
+  .accordion--flush .accordion-item {
+    border-bottom-color: var(--accordion-divider-dark, var(--color-border-dark, #374151));
+  }
+
+  .accordion--default.accordion--divider .accordion-item:not(:last-child) {
+    border-bottom-color: var(--accordion-divider-dark, var(--color-border-dark, #4b5563));
+  }
+
+  .accordion--bordered.accordion--divider .accordion-item:not(:last-child)::after {
+    background: var(--accordion-divider-dark, var(--color-border-dark, #4b5563));
+  }
+
+  .accordion--separated.accordion--divider .accordion-item:not(:last-child)::after {
+    background: var(
+      --accordion-divider-gradient-dark,
+      linear-gradient(
+        to right,
+        transparent,
+        var(--color-border-dark, #6b7280) 20%,
+        var(--color-border-dark, #6b7280) 80%,
+        transparent
+      )
+    );
+  }
+}
+
+/* Improved Visual States */
+.accordion-item--open .accordion-item-header {
+  background: var(--accordion-header-open-bg, linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%));
+  border-bottom: 1px solid var(--accordion-header-open-border, var(--color-border, #e5e7eb));
+}
+
+.accordion-item--open .accordion-item-header-content {
+  color: var(--accordion-header-open-color, var(--color-text-primary, #0f172a));
+  font-weight: var(--accordion-header-open-font-weight, var(--font-weight-bold, 700));
+}
+
+/* Enhanced Focus States */
+.accordion-item-header:focus-visible {
+  outline: 2px solid var(--accordion-focus-color, var(--color-primary, #3b82f6));
+  outline-offset: 2px;
+  border-radius: var(--accordion-focus-radius, var(--radius-md, 6px));
+  box-shadow: var(
+    --accordion-focus-shadow,
+    0 0 0 4px var(--color-primary-alpha-10, rgba(59, 130, 246, 0.1))
+  );
+}
+
+/* Loading State */
+.accordion-item--loading {
+  opacity: var(--accordion-loading-opacity, 0.7);
+  pointer-events: none;
+}
+
+.accordion-item--loading .accordion-item-chevron {
+  animation: spin var(--accordion-loading-duration, 1s) linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .accordion-item {
+    border: 2px solid #000;
+  }
+
+  .accordion-item-header {
+    border: 1px solid #000;
+  }
+
+  .accordion-item-header:focus {
+    outline: 4px solid #000;
+    outline-offset: 2px;
+  }
+
+  .accordion-item-header-content {
+    color: #000;
+    font-weight: 800;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .accordion-item,
+  .accordion-item-header,
+  .accordion-item-chevron,
+  .accordion-item-content {
+    transition: none;
+  }
+
+  .accordion-item--loading .accordion-item-chevron {
+    animation: none;
+  }
+}

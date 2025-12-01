@@ -49,8 +49,16 @@
     "accessible",
     "a11y"
   ],
-  "author": "",
+  "author": "Innostes Solutions Pvt Ltd <contact@innostes.com>",
   "license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/vertex-ui/react"
+    },
+  "homepage": "https://innostes.com/",
+  "bugs": {
+    "url": "https://github.com/vertex-ui/react/issues"
+  },
   "peerDependencies": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0"

@@ -1,7 +1,41 @@
 import React, { useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useFocusTrap, useEscapeKey, useBodyScrollLock } from '../../hooks';
+import { Flex } from '../Flex';
+import { Button } from '../Button';
+import { Text } from '../Text';
 import './Modal.css';
+
+export interface ModalFooterButton {
+  /**
+   * Button label text
+   */
+  label: string;
+  /**
+   * Click handler for the button
+   */
+  onClick: () => void;
+  /**
+   * Button variant
+   * @default 'secondary'
+   */
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'success' | 'warning';
+  /**
+   * Button size
+   * @default 'medium'
+   */
+  size?: 'small' | 'medium' | 'large';
+  /**
+   * Loading state
+   * @default false
+   */
+  loading?: boolean;
+  /**
+   * Disabled state
+   * @default false
+   */
+  disabled?: boolean;
+}
 
 export interface ModalProps {
   /**
@@ -32,8 +66,14 @@ export interface ModalProps {
   header?: React.ReactNode;
   /**
    * Optional footer content (typically action buttons)
+   * Can be a ReactNode or an array of button configurations
    */
   footer?: React.ReactNode;
+  /**
+   * Array of footer buttons to auto-generate footer
+   * If provided, footer prop is ignored
+   */
+  footerButtons?: ModalFooterButton[];
   /**
    * Size of the modal
    * @default 'medium'
@@ -104,7 +144,7 @@ export interface ModalProps {
  * body scroll lock, keyboard navigation, and customizable animations.
  *
  * @example
- * Basic confirmation modal
+ * Basic confirmation modal with footerButtons array
  * ```tsx
  * const [isOpen, setIsOpen] = useState(false);
  *
@@ -113,14 +153,30 @@ export interface ModalProps {
  *   onClose={() => setIsOpen(false)}
  *   title="Confirm Action"
  *   description="Are you sure you want to proceed with this action?"
+ *   footerButtons={[
+ *     { label: 'Cancel', onClick: () => setIsOpen(false), variant: 'outline' },
+ *     { label: 'Confirm', onClick: handleConfirm, variant: 'primary' }
+ *   ]}
+ * >
+ *   <p>This action cannot be undone.</p>
+ * </Modal>
+ * ```
+ *
+ * @example
+ * Custom footer with ReactNode
+ * ```tsx
+ * <Modal
+ *   isOpen={isOpen}
+ *   onClose={() => setIsOpen(false)}
+ *   title="Custom Footer"
  *   footer={
  *     <>
  *       <Button onClick={() => setIsOpen(false)}>Cancel</Button>
- *       <Button variant="primary">Confirm</Button>
+ *       <Button variant="primary">Save</Button>
  *     </>
  *   }
  * >
- *   <p>This action cannot be undone.</p>
+ *   <p>Custom content here.</p>
  * </Modal>
  * ```
  *
@@ -160,6 +216,7 @@ export const Modal: React.FC<ModalProps> = ({
   children,
   header,
   footer,
+  footerButtons,
   size = 'medium',
   closeOnBackdropClick = true,
   closeOnEscape = true,
@@ -239,27 +296,29 @@ export const Modal: React.FC<ModalProps> = ({
     }
 
     return (
-      <div className="vtx-modal-header">
+      <Flex className="vtx-modal-header" justify="between" align="center" gap={8}>
         {title && (
-          <div className="vtx-modal-header-content">
-            <h2 id="vtx-modal-title" className="vtx-modal-title">
+          <Flex direction="column" gap={4} className="vtx-modal-header-content">
+            <Text as="h2" variant="h6" weight="semibold" id="vtx-modal-title" noMargin>
               {title}
-            </h2>
+            </Text>
             {description && (
-              <p className="vtx-modal-description" id="vtx-modal-description">
+              <Text variant="body2" color="neutral.600" id="vtx-modal-description" noMargin>
                 {description}
-              </p>
+              </Text>
             )}
-          </div>
+          </Flex>
         )}
         {showCloseButton && (
-          <button
-            type="button"
+          <Button
+            variant="ghost"
+            iconOnly
+            size="small"
             className="vtx-modal-close"
             onClick={onClose}
             aria-label="Close modal"
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
               <path
                 d="M18 6L6 18M6 6L18 18"
                 stroke="currentColor"
@@ -268,9 +327,9 @@ export const Modal: React.FC<ModalProps> = ({
                 strokeLinejoin="round"
               />
             </svg>
-          </button>
+          </Button>
         )}
-      </div>
+      </Flex>
     );
   };
 
@@ -285,8 +344,27 @@ export const Modal: React.FC<ModalProps> = ({
         aria-describedby={description ? 'vtx-modal-description' : undefined}
       >
         {renderHeader()}
-        <div className="vtx-modal-body">{children}</div>
-        {footer && <div className="vtx-modal-footer">{footer}</div>}
+        <Flex direction="column" className="vtx-modal-body">
+          {children}
+        </Flex>
+        {(footer || footerButtons) && (
+          <Flex className="vtx-modal-footer" justify="end" align="center" gap={8}>
+            {footerButtons
+              ? footerButtons.map((btn, index) => (
+                  <Button
+                    key={index}
+                    variant={btn.variant || 'secondary'}
+                    size={btn.size || 'medium'}
+                    loading={btn.loading}
+                    disabled={btn.disabled}
+                    onClick={btn.onClick}
+                  >
+                    {btn.label}
+                  </Button>
+                ))
+              : footer}
+          </Flex>
+        )}
       </div>
     </div>
   );

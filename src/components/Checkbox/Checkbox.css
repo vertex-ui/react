@@ -62,8 +62,8 @@
 
 /* Checked state */
 .vtx-checkbox-input:checked + .vtx-checkbox-box {
-  background-color: var(--vtx-checkbox-color, var(--vtx-color-primary-600, #1976d2));
-  border-color: var(--vtx-checkbox-color, var(--vtx-color-primary-600, #1976d2));
+  background-color: var(--vtx-checkbox-color, var(--vtx-color-primary-600));
+  border-color: var(--vtx-checkbox-color, var(--vtx-color-primary-600));
 }
 
 .vtx-checkbox-input:checked + .vtx-checkbox-box .vtx-checkbox-icon--check {
@@ -73,8 +73,8 @@
 
 /* Indeterminate state */
 .vtx-checkbox-input:indeterminate + .vtx-checkbox-box {
-  background-color: var(--vtx-checkbox-color, var(--vtx-color-primary-600, #1976d2));
-  border-color: var(--vtx-checkbox-color, var(--vtx-color-primary-600, #1976d2));
+  background-color: var(--vtx-checkbox-color, var(--vtx-color-primary-600));
+  border-color: var(--vtx-checkbox-color, var(--vtx-color-primary-600));
 }
 
 .vtx-checkbox-input:indeterminate + .vtx-checkbox-box .vtx-checkbox-icon--indeterminate {
@@ -84,18 +84,18 @@
 
 /* Hover state */
 .vtx-checkbox-label:hover .vtx-checkbox-box {
-  border-color: var(--vtx-checkbox-color, var(--vtx-color-primary-600, #1976d2));
+  border-color: var(--vtx-checkbox-color, var(--vtx-color-primary-600));
 }
 
 .vtx-checkbox-label:hover .vtx-checkbox-input:checked + .vtx-checkbox-box,
 .vtx-checkbox-label:hover .vtx-checkbox-input:indeterminate + .vtx-checkbox-box {
-  background-color: var(--vtx-checkbox-hover-color, var(--vtx-color-primary-700, #1565c0));
-  border-color: var(--vtx-checkbox-hover-color, var(--vtx-color-primary-700, #1565c0));
+  background-color: var(--vtx-checkbox-hover-color, var(--vtx-color-primary-700));
+  border-color: var(--vtx-checkbox-hover-color, var(--vtx-color-primary-700));
 }
 
 /* Focus state */
 .vtx-checkbox-input:focus-visible + .vtx-checkbox-box {
-  outline: 2px solid var(--vtx-checkbox-color, var(--vtx-color-primary-600, #1976d2));
+  outline: 2px solid var(--vtx-checkbox-color, var(--vtx-color-primary-600));
   outline-offset: 2px;
 }
 
@@ -195,31 +195,31 @@
 
 /* Variants */
 .vtx-checkbox--primary {
-  --vtx-checkbox-color: var(--vtx-color-primary-600, #1976d2);
-  --vtx-checkbox-hover-color: var(--vtx-color-primary-700, #1565c0);
+  --vtx-checkbox-color: var(--vtx-color-primary-600);
+  --vtx-checkbox-hover-color: var(--vtx-color-primary-700);
 }
 
 .vtx-checkbox--secondary {
-  --vtx-checkbox-color: var(--vtx-color-neutral-600, #757575);
-  --vtx-checkbox-hover-color: var(--vtx-color-neutral-700, #616161);
+  --vtx-checkbox-color: var(--vtx-color-neutral-600);
+  --vtx-checkbox-hover-color: var(--vtx-color-neutral-700);
 }
 
 .vtx-checkbox--success {
-  --vtx-checkbox-color: var(--vtx-color-success-600, #2e7d32);
-  --vtx-checkbox-hover-color: var(--vtx-color-success-700, #1b5e20);
+  --vtx-checkbox-color: var(--vtx-color-success-600);
+  --vtx-checkbox-hover-color: var(--vtx-color-success-700);
 }
 
 .vtx-checkbox--error {
-  --vtx-checkbox-color: var(--vtx-color-error-600, #d32f2f);
-  --vtx-checkbox-hover-color: var(--vtx-color-error-700, #c62828);
+  --vtx-checkbox-color: var(--vtx-color-error-600);
+  --vtx-checkbox-hover-color: var(--vtx-color-error-700);
 }
 
 .vtx-checkbox--warning {
-  --vtx-checkbox-color: var(--vtx-color-warning-600, #ed6c02);
-  --vtx-checkbox-hover-color: var(--vtx-color-warning-700, #e65100);
+  --vtx-checkbox-color: var(--vtx-color-warning-600);
+  --vtx-checkbox-hover-color: var(--vtx-color-warning-700);
 }
 
 .vtx-checkbox--info {
-  --vtx-checkbox-color: var(--vtx-color-info-600, #0288d1);
-  --vtx-checkbox-hover-color: var(--vtx-color-info-700, #01579b);
+  --vtx-checkbox-color: var(--vtx-color-info-600);
+  --vtx-checkbox-hover-color: var(--vtx-color-info-700);
 }
