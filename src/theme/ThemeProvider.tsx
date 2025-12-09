@@ -1,74 +1,106 @@
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { tokens, Tokens } from './tokens';
+
+import React from 'react';
 import { injectCSSVariables } from './cssVariables';
+import { tokens, Tokens, normalizeColors } from './tokens';
+
+export type Size = 'sm' | 'md' | 'lg';
+
 
 export interface Theme {
   tokens: Tokens;
   mode: 'light' | 'dark';
+  defaultSize: Size;
 }
 
-interface ThemeContextValue {
+
+export interface ThemeContextValue {
   theme: Theme;
   setMode: (mode: 'light' | 'dark') => void;
+  setDefaultSize: (size: Size) => void;
 }
 
-const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
-export interface ThemeProviderProps {
+const ThemeContext = React.createContext<ThemeContextValue | undefined>(undefined);
+
+
+export interface ThemeProviderProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Child components that will have access to the theme */
-  children: ReactNode;
+  children?: React.ReactNode;
   /** Initial theme mode, defaults to 'light' */
   initialMode?: 'light' | 'dark';
   /** Custom theme tokens to override defaults */
   customTokens?: Partial<Tokens>;
+  /** Global default size for components (e.g., 'md', 'sm', 'lg') */
+  defaultSize?: Size;
 }
 
-/**
- * ThemeProvider component that makes theme tokens available throughout the component tree
- *
- * @example
- * ```tsx
- * import { ThemeProvider } from '@vtx-ui/react';
- *
- * function App() {
- *   return (
- *     <ThemeProvider initialMode="light">
- *       <YourApp />
- *     </ThemeProvider>
- *   );
- * }
- * ```
- */
-export const ThemeProvider: React.FC<ThemeProviderProps> = ({
-  children,
-  initialMode = 'light',
-  customTokens,
-}) => {
-  const [mode, setMode] = useState<'light' | 'dark'>(initialMode);
 
-  const theme: Theme = {
-    tokens: customTokens ? { ...tokens, ...customTokens } : tokens,
-    mode,
-  };
+const ThemeProvider = React.forwardRef<HTMLDivElement, ThemeProviderProps>(
+  (
+    {
+      children,
+      initialMode = 'light',
+      customTokens,
+      defaultSize = 'md',
+      ...props
+    },
+    ref
+  ) => {
+    const [mode, setMode] = React.useState<'light' | 'dark'>(initialMode);
+    const [size, setDefaultSize] = React.useState<Size>(defaultSize);
 
-  useEffect(() => {
-    // Set data attribute for mode-specific styling (light/dark theme)
-    document.documentElement.setAttribute('data-theme', mode);
 
-    // Optionally inject CSS variables programmatically
-    // This is useful if users want to override tokens dynamically
-    if (customTokens) {
-      injectCSSVariables();
-    }
-  }, [mode, customTokens]);
+    const theme: Theme = React.useMemo(() => {
+      if (!customTokens) {
+        return {
+          tokens,
+          mode,
+          defaultSize: size,
+        };
+      }
 
-  const contextValue: ThemeContextValue = {
-    theme,
-    setMode,
-  };
+      // If customTokens.colors is present, normalize it
+      let mergedTokens = { ...tokens, ...customTokens };
+      if (customTokens.colors) {
+        mergedTokens.colors = {
+          ...tokens.colors,
+          ...normalizeColors(customTokens.colors)
+        };
+      }
+      return {
+        tokens: mergedTokens,
+        mode,
+        defaultSize: size,
+      };
+    }, [customTokens, mode, size]);
 
-  return <ThemeContext.Provider value={contextValue}>{children}</ThemeContext.Provider>;
-};
+    React.useEffect(() => {
+      document.documentElement.setAttribute('data-theme', mode);
+      if (customTokens) {
+        injectCSSVariables();
+      }
+    }, [mode, customTokens]);
+
+    const contextValue = React.useMemo<ThemeContextValue>(
+      () => ({ theme, setMode, setDefaultSize }),
+      [theme]
+    );
+
+    return (
+      <ThemeContext.Provider value={contextValue}>
+        <div ref={ref} {...props}>
+          {children}
+        </div>
+      </ThemeContext.Provider>
+    );
+  }
+);
+
+ThemeProvider.displayName = 'ThemeProvider';
+
+export { ThemeProvider };
+export default ThemeProvider as React.FC<ThemeProviderProps & React.RefAttributes<HTMLDivElement>>;
+
 
 /**
  * Hook to access the current theme and theme utilities
@@ -76,15 +108,13 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
  * @throws {Error} If used outside of ThemeProvider
  *
  * @example
- * ```tsx
  * function MyComponent() {
  *   const { theme, setMode } = useThemeContext();
  *   return <div style={{ color: theme.tokens.colors.primary[500] }}>Hello</div>;
  * }
- * ```
  */
 export const useThemeContext = (): ThemeContextValue => {
-  const context = useContext(ThemeContext);
+  const context = React.useContext(ThemeContext);
   if (!context) {
     throw new Error('useThemeContext must be used within a ThemeProvider');
   }

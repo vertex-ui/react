@@ -1,4 +1,4 @@
-import React, { forwardRef, SelectHTMLAttributes } from 'react';
+import React, { SelectHTMLAttributes } from 'react';
 import { useId } from '../../hooks';
 import './Select.css';
 
@@ -168,7 +168,7 @@ export interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement
  * }
  * ```
  */
-export const Select = forwardRef<HTMLSelectElement, SelectProps>(
+export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   (
     {
       label,
@@ -384,3 +384,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
 );
 
 Select.displayName = 'Select';
+
+export default Select as React.FC<
+  SelectProps & React.RefAttributes<HTMLSelectElement>
+>;  

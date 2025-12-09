@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Radio } from '../Radio/Radio';
 import './RadioGroup.css';
 
@@ -133,7 +133,7 @@ export interface RadioGroupProps extends Omit<React.HTMLAttributes<HTMLDivElemen
  * />
  * ```
  */
-export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
+export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
   (
     {
       name,
@@ -217,3 +217,7 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
 );
 
 RadioGroup.displayName = 'RadioGroup';
+
+export default RadioGroup as React.FC<
+  RadioGroupProps & React.RefAttributes<HTMLDivElement>
+>;

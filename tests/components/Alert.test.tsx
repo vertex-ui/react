@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '../test-utils';
 import { Alert } from '../../src/components/Alert';
 
 describe('Alert', () => {
@@ -42,41 +42,41 @@ describe('Alert', () => {
     variants.forEach((variant) => {
       rerender(<Alert variant={variant}>Test</Alert>);
       const alert = screen.getByRole('alert');
-      expect(alert).toHaveClass(`vtx-alert--${variant}`);
+      expect(alert).toHaveClass(`alert--${variant}`);
     });
   });
 
   it('renders all styles correctly', () => {
     const styles = ['filled', 'outlined', 'subtle', 'left-accent'] as const;
-    const { rerender } = render(<Alert style="filled">Test</Alert>);
+    const { rerender } = render(<Alert alertStyle="subtle">Test</Alert>);
 
-    styles.forEach((style) => {
-      rerender(<Alert style={style}>Test</Alert>);
+    styles.forEach((alertStyle) => {
+      rerender(<Alert alertStyle={alertStyle}>Test</Alert>);
       const alert = screen.getByRole('alert');
-      expect(alert).toHaveClass(`vtx-alert--${style}`);
+      expect(alert).toHaveClass(`alert--${alertStyle}`);
     });
   });
 
   it('renders all sizes correctly', () => {
-    const sizes = ['small', 'medium', 'large'] as const;
-    const { rerender } = render(<Alert size="small">Test</Alert>);
+    const sizes = ['sm', 'md', 'lg'] as const;
+    const { rerender } = render(<Alert size="sm">Test</Alert>);
 
     sizes.forEach((size) => {
       rerender(<Alert size={size}>Test</Alert>);
       const alert = screen.getByRole('alert');
-      expect(alert).toHaveClass(`vtx-alert--${size}`);
+      expect(alert).toHaveClass(`alert--${size}`);
     });
   });
 
   it('shows default icon based on variant', () => {
     const { container } = render(<Alert variant="success">Test</Alert>);
-    const icon = container.querySelector('.vtx-alert-icon');
+    const icon = container.querySelector('.alert-icon');
     expect(icon).toBeInTheDocument();
   });
 
   it('hides icon when icon prop is false', () => {
     const { container } = render(<Alert icon={false}>Test</Alert>);
-    const icon = container.querySelector('.vtx-alert-icon');
+    const icon = container.querySelector('.alert-icon');
     expect(icon).not.toBeInTheDocument();
   });
 
@@ -147,14 +147,14 @@ describe('Alert', () => {
   it('applies fullWidth class when fullWidth is true', () => {
     render(<Alert fullWidth>Test</Alert>);
     const alert = screen.getByRole('alert');
-    expect(alert).toHaveClass('vtx-alert--full-width');
+    expect(alert).toHaveClass('alert--full-width');
   });
 
   it('applies custom className', () => {
     render(<Alert className="custom-alert">Test</Alert>);
     const alert = screen.getByRole('alert');
     expect(alert).toHaveClass('custom-alert');
-    expect(alert).toHaveClass('vtx-alert');
+    expect(alert).toHaveClass('alert');
   });
 
   it('uses default role of alert', () => {
@@ -188,14 +188,14 @@ describe('Alert', () => {
     render(<Alert title="Only Title" />);
     expect(screen.getByText('Only Title')).toBeInTheDocument();
     const alert = screen.getByRole('alert');
-    expect(alert.querySelector('.vtx-alert-message')).not.toBeInTheDocument();
+    expect(alert.querySelector('.alert-message')).not.toBeInTheDocument();
   });
 
   it('forwards ref correctly', () => {
     const ref = { current: null as HTMLDivElement | null };
     render(<Alert ref={ref}>Test</Alert>);
     expect(ref.current).toBeInstanceOf(HTMLDivElement);
-    expect(ref.current).toHaveClass('vtx-alert');
+    expect(ref.current).toHaveClass('alert');
   });
 
   it('renders with all props combined', () => {
@@ -205,8 +205,8 @@ describe('Alert', () => {
     render(
       <Alert
         variant="warning"
-        style="left-accent"
-        size="large"
+        alertStyle="left-accent"
+        size="lg"
         title="Warning Title"
         dismissible
         onClose={onClose}
@@ -224,10 +224,10 @@ describe('Alert', () => {
     expect(screen.getByLabelText('Close alert')).toBeInTheDocument();
 
     const alert = screen.getByRole('alert');
-    expect(alert).toHaveClass('vtx-alert--warning');
-    expect(alert).toHaveClass('vtx-alert--left-accent');
-    expect(alert).toHaveClass('vtx-alert--large');
-    expect(alert).toHaveClass('vtx-alert--full-width');
+    expect(alert).toHaveClass('alert--warning');
+    expect(alert).toHaveClass('alert--left-accent');
+    expect(alert).toHaveClass('alert--lg');
+    expect(alert).toHaveClass('alert--full-width');
     expect(alert).toHaveClass('test-class');
   });
 
@@ -235,6 +235,6 @@ describe('Alert', () => {
     render(<Alert dismissible>Test</Alert>);
     const closeButton = screen.getByLabelText('Close alert');
     expect(closeButton).toHaveAttribute('type', 'button');
-    expect(closeButton).toHaveClass('vtx-alert-close');
+    expect(closeButton).toHaveClass('alert-close');
   });
 });

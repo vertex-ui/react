@@ -27,6 +27,18 @@
   --vtx-color-primary-800: #1e40af;
   --vtx-color-primary-900: #1e3a8a;
 
+  /* Secondary Colors */
+  --vtx-color-secondary-50: #f5f3ff;
+  --vtx-color-secondary-100: #ede9fe;
+  --vtx-color-secondary-200: #ddd6fe;
+  --vtx-color-secondary-300: #c4b5fd;
+  --vtx-color-secondary-400: #a78bfa;
+  --vtx-color-secondary-500: #8b5cf6;
+  --vtx-color-secondary-600: #7c3aed;
+  --vtx-color-secondary-700: #6d28d9;
+  --vtx-color-secondary-800: #5b21b6;
+  --vtx-color-secondary-900: #4c1d95;
+
   /* Neutral Colors */
   --vtx-color-neutral-50: #fafafa;
   --vtx-color-neutral-100: #f5f5f5;
@@ -112,6 +124,84 @@
   --vtx-line-height-relaxed: 1.75;
 
   /* ============================================
+   * TEXT VARIANT TOKENS
+   * ============================================ */
+
+  /* Heading Variants */
+  --vtx-text-h1-font-size: 3.75rem; /* 60px */
+  --vtx-text-h1-font-weight: 700;
+  --vtx-text-h1-line-height: 1.2;
+  --vtx-text-h1-letter-spacing: -0.025em;
+
+  --vtx-text-h2-font-size: 3rem; /* 48px */
+  --vtx-text-h2-font-weight: 700;
+  --vtx-text-h2-line-height: 1.25;
+  --vtx-text-h2-letter-spacing: -0.025em;
+
+  --vtx-text-h3-font-size: 2.25rem; /* 36px */
+  --vtx-text-h3-font-weight: 600;
+  --vtx-text-h3-line-height: 1.3;
+  --vtx-text-h3-letter-spacing: -0.025em;
+
+  --vtx-text-h4-font-size: 1.875rem; /* 30px */
+  --vtx-text-h4-font-weight: 600;
+  --vtx-text-h4-line-height: 1.35;
+  --vtx-text-h4-letter-spacing: 0;
+
+  --vtx-text-h5-font-size: 1.5rem; /* 24px */
+  --vtx-text-h5-font-weight: 600;
+  --vtx-text-h5-line-height: 1.4;
+  --vtx-text-h5-letter-spacing: 0;
+
+  --vtx-text-h6-font-size: 1.25rem; /* 20px */
+  --vtx-text-h6-font-weight: 600;
+  --vtx-text-h6-line-height: 1.5;
+  --vtx-text-h6-letter-spacing: 0;
+
+  /* Body Text Variants */
+  --vtx-text-body1-font-size: 1rem; /* 16px - DEFAULT WEBSITE FONT SIZE */
+  --vtx-text-body1-font-weight: 400;
+  --vtx-text-body1-line-height: 1.5;
+  --vtx-text-body1-letter-spacing: 0;
+
+  --vtx-text-body2-font-size: 0.875rem; /* 14px */
+  --vtx-text-body2-font-weight: 400;
+  --vtx-text-body2-line-height: 1.5;
+  --vtx-text-body2-letter-spacing: 0;
+
+  /* Subtitle Variants */
+  --vtx-text-subtitle1-font-size: 1.125rem; /* 18px */
+  --vtx-text-subtitle1-font-weight: 500;
+  --vtx-text-subtitle1-line-height: 1.5;
+  --vtx-text-subtitle1-letter-spacing: 0;
+
+  --vtx-text-subtitle2-font-size: 1rem; /* 16px */
+  --vtx-text-subtitle2-font-weight: 500;
+  --vtx-text-subtitle2-line-height: 1.5;
+  --vtx-text-subtitle2-letter-spacing: 0;
+
+  /* Utility Text Variants */
+  --vtx-text-caption-font-size: 0.75rem; /* 12px */
+  --vtx-text-caption-font-weight: 400;
+  --vtx-text-caption-line-height: 1.5;
+  --vtx-text-caption-letter-spacing: 0.025em;
+
+  --vtx-text-overline-font-size: 0.75rem; /* 12px */
+  --vtx-text-overline-font-weight: 600;
+  --vtx-text-overline-line-height: 1.5;
+  --vtx-text-overline-letter-spacing: 0.1em;
+
+  --vtx-text-button-font-size: 0.875rem; /* 14px */
+  --vtx-text-button-font-weight: 600;
+  --vtx-text-button-line-height: 1.5;
+  --vtx-text-button-letter-spacing: 0.025em;
+
+  --vtx-text-label-font-size: 0.875rem; /* 14px */
+  --vtx-text-label-font-weight: 500;
+  --vtx-text-label-line-height: 1.5;
+  --vtx-text-label-letter-spacing: 0;
+
+  /* ============================================
    * BORDER RADIUS TOKENS
    * ============================================ */
   --vtx-radius-none: 0;
@@ -141,13 +231,36 @@
   --vtx-transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
 
   /* ============================================
-   * Z-INDEX TOKENS
+  /* Z-INDEX TOKENS
    * ============================================ */
   --vtx-z-dropdown: 1000;
   --vtx-z-sticky: 1100;
   --vtx-z-modal: 1200;
   --vtx-z-tooltip: 1300;
   --vtx-z-notification: 1400;
+
+  /* ============================================
+   * SEMANTIC COLOR ALIASES
+   * ============================================ */
+  /* Text colors */
+  --vtx-text-primary: var(--vtx-color-neutral-900);
+  --vtx-text-secondary: var(--vtx-color-neutral-600);
+  --vtx-text-tertiary: var(--vtx-color-neutral-500);
+  --vtx-text-disabled: var(--vtx-color-neutral-400);
+
+  /* Background colors */
+  --vtx-background-primary: #ffffff;
+  --vtx-background-secondary: var(--vtx-color-neutral-50);
+  --vtx-background-hover: var(--vtx-color-neutral-100);
+  --vtx-background-active: var(--vtx-color-neutral-200);
+
+  /* Border colors */
+  --vtx-border-color: var(--vtx-color-neutral-300);
+  --vtx-border-color-light: var(--vtx-color-neutral-200);
+  --vtx-border-color-dark: var(--vtx-color-neutral-400);
+
+  /* Additional common aliases */
+  --vtx-transition-normal: var(--vtx-transition-base);
 }
 
 /* ============================================
@@ -165,6 +278,21 @@
   --vtx-color-neutral-700: #e5e5e5;
   --vtx-color-neutral-800: #f5f5f5;
   --vtx-color-neutral-900: #fafafa;
+
+  /* Dark mode semantic colors */
+  --vtx-text-primary: var(--vtx-color-neutral-50);
+  --vtx-text-secondary: var(--vtx-color-neutral-400);
+  --vtx-text-tertiary: var(--vtx-color-neutral-500);
+  --vtx-text-disabled: var(--vtx-color-neutral-600);
+
+  --vtx-background-primary: #0a0a0a;
+  --vtx-background-secondary: var(--vtx-color-neutral-900);
+  --vtx-background-hover: rgba(255, 255, 255, 0.05);
+  --vtx-background-active: rgba(255, 255, 255, 0.1);
+
+  --vtx-border-color: var(--vtx-color-neutral-700);
+  --vtx-border-color-light: var(--vtx-color-neutral-800);
+  --vtx-border-color-dark: var(--vtx-color-neutral-600);
 }
 
 /* ============================================
@@ -176,12 +304,68 @@
   box-sizing: border-box;
 }
 
-/* Set base font styles */
+/* Set root font size for rem calculations */
+html {
+  font-size: 16px; /* 1rem = 16px base */
+}
+
+/* Set base font styles for entire website */
 body {
   font-family: var(--vtx-font-family-sans);
-  font-size: var(--vtx-font-size-base);
-  line-height: var(--vtx-line-height-normal);
+  font-size: var(--vtx-font-size-base); /* 1rem = 16px */
+  line-height: var(--vtx-line-height-normal); /* 1.5 */
+  font-weight: var(--vtx-font-weight-normal); /* 400 */
   color: var(--vtx-color-neutral-900);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+/* Apply default font to all elements unless overridden */
+*:not(code):not(pre):not(kbd):not(samp) {
+  font-family: inherit;
+}
+
+/* Reset default margins and ensure consistent font inheritance */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+ul,
+ol,
+li,
+dl,
+dt,
+dd,
+figure,
+figcaption,
+table,
+thead,
+tbody,
+tfoot,
+tr,
+th,
+td {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: inherit;
+}
+
+/* Ensure form elements inherit typography */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
 }

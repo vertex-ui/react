@@ -42,15 +42,15 @@
 }
 
 /* Sizes */
-.vtx-multiselect-container--small {
+.vtx-multiselect-container--sm {
   min-height: 2rem;
 }
 
-.vtx-multiselect-container--medium {
+.vtx-multiselect-container--md {
   min-height: 2.5rem;
 }
 
-.vtx-multiselect-container--large {
+.vtx-multiselect-container--lg {
   min-height: 3rem;
 }
 
@@ -94,12 +94,12 @@
   cursor: pointer;
 }
 
-.vtx-multiselect-container--small .vtx-multiselect-input-area {
+.vtx-multiselect-container--sm .vtx-multiselect-input-area {
   padding: 0.25rem 2rem 0.25rem 0.5rem;
   gap: 0.25rem;
 }
 
-.vtx-multiselect-container--large .vtx-multiselect-input-area {
+.vtx-multiselect-container--lg .vtx-multiselect-input-area {
   padding: 0.625rem 3rem 0.625rem 1rem;
   gap: 0.5rem;
 }
@@ -116,11 +116,11 @@
   align-items: center;
 }
 
-.vtx-multiselect-container--small .vtx-multiselect-chips {
+.vtx-multiselect-container--sm .vtx-multiselect-chips {
   gap: 0.25rem;
 }
 
-.vtx-multiselect-container--large .vtx-multiselect-chips {
+.vtx-multiselect-container--lg .vtx-multiselect-chips {
   gap: 0.5rem;
 }
 
@@ -132,11 +132,11 @@
   user-select: none;
 }
 
-.vtx-multiselect-container--small .vtx-multiselect-placeholder {
+.vtx-multiselect-container--sm .vtx-multiselect-placeholder {
   font-size: 0.8125rem;
 }
 
-.vtx-multiselect-container--large .vtx-multiselect-placeholder {
+.vtx-multiselect-container--lg .vtx-multiselect-placeholder {
   font-size: 1rem;
 }
 
@@ -153,11 +153,11 @@
   align-items: center;
 }
 
-.vtx-multiselect-container--small .vtx-multiselect-icon {
+.vtx-multiselect-container--sm .vtx-multiselect-icon {
   right: 0.5rem;
 }
 
-.vtx-multiselect-container--large .vtx-multiselect-icon {
+.vtx-multiselect-container--lg .vtx-multiselect-icon {
   right: 1rem;
 }
 

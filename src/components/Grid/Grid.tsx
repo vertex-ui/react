@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import './Grid.css';
 
 type GridSize = boolean | 'auto' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
@@ -166,7 +166,7 @@ export interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
  * </Grid>
  * ```
  */
-export const Grid = forwardRef<HTMLDivElement, GridProps>(
+export const Grid = React.forwardRef<HTMLDivElement, GridProps>(
   (
     {
       container = false,
@@ -240,3 +240,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
 );
 
 Grid.displayName = 'Grid';
+
+export default Grid as React.FC<
+  GridProps & React.RefAttributes<HTMLDivElement>
+>;

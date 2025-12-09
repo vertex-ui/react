@@ -77,69 +77,79 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
  * </Badge>
  * ```
  */
-export const Badge: React.FC<BadgeProps> = ({
-  variant = 'neutral',
-  size = 'medium',
-  pill = false,
-  dot = false,
-  outline = false,
-  maxLength,
-  icon,
-  children,
-  className = '',
-  onRemove,
-  ...props
-}) => {
-  const classNames = [
-    'vtx-badge',
-    `vtx-badge--${variant}`,
-    `vtx-badge--${size}`,
-    pill && 'vtx-badge--pill',
-    dot && 'vtx-badge--with-dot',
-    outline && 'vtx-badge--outline',
-    onRemove && 'vtx-badge--removable',
-    className,
-  ]
-    .filter(Boolean)
-    .join(' ');
+const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
+  (
+    {
+      variant = 'neutral',
+      size = 'medium',
+      pill = false,
+      dot = false,
+      outline = false,
+      maxLength,
+      icon,
+      children,
+      className = '',
+      onRemove,
+      ...props
+    },
+    ref
+  ) => {
+    const classNames = [
+      'vtx-badge',
+      `vtx-badge--${variant}`,
+      `vtx-badge--${size}`,
+      pill && 'vtx-badge--pill',
+      dot && 'vtx-badge--with-dot',
+      outline && 'vtx-badge--outline',
+      onRemove && 'vtx-badge--removable',
+      className,
+    ]
+      .filter(Boolean)
+      .join(' ');
 
-  // Truncate content if maxLength is specified
-  const truncatedContent = useMemo(() => {
-    if (maxLength && typeof children === 'string' && children.length > maxLength) {
-      return `${children.slice(0, maxLength)}...`;
-    }
-    return children;
-  }, [children, maxLength]);
+    // Truncate content if maxLength is specified
+    const truncatedContent = useMemo(() => {
+      if (maxLength && typeof children === 'string' && children.length > maxLength) {
+        return `${children.slice(0, maxLength)}...`;
+      }
+      return children;
+    }, [children, maxLength]);
 
-  return (
-    <span className={classNames} {...props}>
-      {dot && <span className="vtx-badge-dot" aria-hidden="true" />}
-      {icon && (
-        <span className="vtx-badge-icon" aria-hidden="true">
-          {icon}
-        </span>
-      )}
-      <span className="vtx-badge-content">{truncatedContent}</span>
-      {onRemove && (
-        <button
-          type="button"
-          className="vtx-badge-remove"
-          onClick={onRemove}
-          aria-label="Remove badge"
-        >
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path
-              d="M9 3L3 9M3 3L9 9"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
-      )}
-    </span>
-  );
-};
+    return (
+      <span ref={ref} className={classNames} {...props}>
+        {dot && <span className="vtx-badge-dot" aria-hidden="true" />}
+        {icon && (
+          <span className="vtx-badge-icon" aria-hidden="true">
+            {icon}
+          </span>
+        )}
+        <span className="vtx-badge-content">{truncatedContent}</span>
+        {onRemove && (
+          <button
+            type="button"
+            className="vtx-badge-remove"
+            onClick={onRemove}
+            aria-label="Remove badge"
+          >
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path
+                d="M9 3L3 9M3 3L9 9"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        )}
+      </span>
+    );
+  }
+);
 
 Badge.displayName = 'Badge';
+
+export default Badge as React.FC<
+  BadgeProps & React.RefAttributes<HTMLSpanElement>
+>;
+export { Badge };

@@ -1,45 +1,35 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "target": "ES2019", // Good balance for libraries
     "module": "ESNext",
-    "skipLibCheck": true,
-
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
+    "lib": ["DOM", "ESNext"],
     "jsx": "react-jsx",
-
-    /* Linting */
+    "moduleResolution": "bundler",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "declarationDir": "dist/types",
+    "outDir": "dist",
+    "sourceMap": true,
+    "importHelpers": true,
+    "noEmitHelpers": true,
     "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    // "baseUrl": "src", // Deprecated in TS 7.0, consider using project references or path mapping in jsconfig/tsconfig if needed
+    "paths": {
+      "@x-ui/*": ["./*"]
+    },
+    "isolatedModules": true,
+    "resolveJsonModule": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictBindCallApply": true,
-    "strictPropertyInitialization": true,
-    "noImplicitThis": true,
-    "alwaysStrict": true,
-    "forceConsistentCasingInFileNames": true,
-
-    /* Path mapping */
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    },
-
-    /* For declaration files */
-    "declaration": true,
-    "declarationMap": true,
-    "emitDeclarationOnly": false
+    "removeComments": false,
+    "allowJs": false
   },
   "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "exclude": ["node_modules", "dist", "example", "tests"],
+  "ignoreDeprecations": "6.0"
 }

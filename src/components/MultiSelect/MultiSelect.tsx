@@ -1,5 +1,6 @@
-import { forwardRef, useState, useRef, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useId } from '../../hooks';
+import { useThemeContext } from '../../theme/ThemeProvider';
 import { Chip } from '../Chip';
 import './MultiSelect.css';
 
@@ -44,7 +45,7 @@ export interface MultiSelectProps {
    * Size of the select
    * @default 'medium'
    */
-  size?: 'small' | 'medium' | 'large';
+  size?: 'sm' | 'md' | 'lg';
   /**
    * If true, select will take full width of its container
    * @default false
@@ -190,14 +191,14 @@ export interface MultiSelectProps {
  * }
  * ```
  */
-export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
+export const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
   (
     {
       label,
       helperText,
       error,
       success,
-      size = 'medium',
+      size: sizeProp,
       fullWidth = false,
       options,
       value: controlledValue,
@@ -224,6 +225,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
     },
     ref
   ) => {
+    const { theme } = useThemeContext();
     const generatedId = useId('multiselect');
     const id = providedId || generatedId;
     const helperId = `${id}-helper`;
@@ -387,6 +389,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
       .filter(Boolean)
       .join(' ');
 
+    const size: 'sm' | 'md' | 'lg' = sizeProp || theme?.defaultSize || 'md';
     const containerClassNames = [
       'vtx-multiselect-container',
       `vtx-multiselect-container--${size}`,
@@ -398,7 +401,8 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
       .filter(Boolean)
       .join(' ');
 
-    const chipSize = size === 'small' ? 'small' : size === 'large' ? 'medium' : 'small';
+    // Pass the same size to Chip for consistency
+    const chipSize: 'sm' | 'md' | 'lg' = size;
 
     return (
       <div className={wrapperClassNames} ref={ref}>
@@ -670,3 +674,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
 );
 
 MultiSelect.displayName = 'MultiSelect';
+
+export default MultiSelect as React.FC<
+  MultiSelectProps & React.RefAttributes<HTMLDivElement>
+>;

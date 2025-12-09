@@ -1,4 +1,4 @@
-import React, { forwardRef, InputHTMLAttributes } from 'react';
+import React, { InputHTMLAttributes } from 'react';
 import { useId } from '../../hooks';
 import './Input.css';
 
@@ -127,7 +127,7 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
  * />
  * ```
  */
-export const Input = forwardRef<HTMLInputElement, InputProps>(
+export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
     {
       label,
@@ -294,3 +294,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 );
 
 Input.displayName = 'Input';
+
+export default Input as React.FC<
+  InputProps & React.RefAttributes<HTMLInputElement>
+>;

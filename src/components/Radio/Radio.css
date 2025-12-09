@@ -62,8 +62,8 @@
 
 /* Checked state */
 .vtx-radio-input:checked + .vtx-radio-circle {
-  background-color: var(--vtx-radio-color, var(--vtx-color-primary-600, #1976d2));
-  border-color: var(--vtx-radio-color, var(--vtx-color-primary-600, #1976d2));
+  background-color: var(--vtx-radio-color, var(--vtx-color-primary-600));
+  border-color: var(--vtx-radio-color, var(--vtx-color-primary-600));
 }
 
 .vtx-radio-input:checked + .vtx-radio-circle .vtx-radio-dot {
@@ -77,13 +77,13 @@
 }
 
 .vtx-radio-label:hover .vtx-radio-input:checked + .vtx-radio-circle {
-  background-color: var(--vtx-radio-hover-color, var(--vtx-color-primary-700, #1565c0));
-  border-color: var(--vtx-radio-hover-color, var(--vtx-color-primary-700, #1565c0));
+  background-color: var(--vtx-radio-hover-color, var(--vtx-color-primary-700));
+  border-color: var(--vtx-radio-hover-color, var(--vtx-color-primary-700));
 }
 
 /* Focus state */
 .vtx-radio-input:focus-visible + .vtx-radio-circle {
-  outline: 2px solid var(--vtx-radio-color, var(--vtx-color-primary-600, #1976d2));
+  outline: 2px solid var(--vtx-radio-color, var(--vtx-color-primary-600));
   outline-offset: 2px;
 }
 
@@ -128,17 +128,17 @@
 
 /* Error state */
 .vtx-radio--error .vtx-radio-circle {
-  border-color: var(--vtx-color-error-600, #d32f2f);
+  border-color: var(--vtx-color-error-600);
 }
 
 .vtx-radio--error .vtx-radio-input:checked + .vtx-radio-circle {
-  background-color: var(--vtx-color-error-600, #d32f2f);
-  border-color: var(--vtx-color-error-error-600, #d32f2f);
+  background-color: var(--vtx-color-error-600);
+  border-color: var(--vtx-color-error-600);
 }
 
 .vtx-radio--error .vtx-radio-label:hover .vtx-radio-input:checked + .vtx-radio-circle {
-  background-color: var(--vtx-color-error-700, #c62828);
-  border-color: var(--vtx-color-error-700, #c62828);
+  background-color: var(--vtx-color-error-700);
+  border-color: var(--vtx-color-error-700);
 }
 
 /* Helper text */
@@ -180,31 +180,31 @@
 
 /* Variants */
 .vtx-radio--primary {
-  --vtx-radio-color: var(--vtx-color-primary-600, #1976d2);
-  --vtx-radio-hover-color: var(--vtx-color-primary-700, #1565c0);
+  --vtx-radio-color: var(--vtx-color-primary-600);
+  --vtx-radio-hover-color: var(--vtx-color-primary-700);
 }
 
 .vtx-radio--secondary {
-  --vtx-radio-color: var(--vtx-color-neutral-600, #757575);
-  --vtx-radio-hover-color: var(--vtx-color-neutral-700, #616161);
+  --vtx-radio-color: var(--vtx-color-neutral-600);
+  --vtx-radio-hover-color: var(--vtx-color-neutral-700);
 }
 
 .vtx-radio--success {
-  --vtx-radio-color: var(--vtx-color-success-600, #2e7d32);
-  --vtx-radio-hover-color: var(--vtx-color-success-700, #1b5e20);
+  --vtx-radio-color: var(--vtx-color-success-600);
+  --vtx-radio-hover-color: var(--vtx-color-success-700);
 }
 
 .vtx-radio--error {
-  --vtx-radio-color: var(--vtx-color-error-600, #d32f2f);
-  --vtx-radio-hover-color: var(--vtx-color-error-700, #c62828);
+  --vtx-radio-color: var(--vtx-color-error-600);
+  --vtx-radio-hover-color: var(--vtx-color-error-700);
 }
 
 .vtx-radio--warning {
-  --vtx-radio-color: var(--vtx-color-warning-600, #ed6c02);
-  --vtx-radio-hover-color: var(--vtx-color-warning-700, #e65100);
+  --vtx-radio-color: var(--vtx-color-warning-600);
+  --vtx-radio-hover-color: var(--vtx-color-warning-700);
 }
 
 .vtx-radio--info {
-  --vtx-radio-color: var(--vtx-color-info-600, #0288d1);
-  --vtx-radio-hover-color: var(--vtx-color-info-700, #01579b);
+  --vtx-radio-color: var(--vtx-color-info-600);
+  --vtx-radio-hover-color: var(--vtx-color-info-700);
 }

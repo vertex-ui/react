@@ -1,4 +1,4 @@
-import React, { forwardRef, useId } from 'react';
+import React, { useId } from 'react';
 import './Radio.css';
 
 export interface RadioProps extends Omit<
@@ -105,7 +105,7 @@ export interface RadioProps extends Omit<
  * <Radio label="Error" variant="error" />
  * ```
  */
-export const Radio = forwardRef<HTMLInputElement, RadioProps>(
+export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
   (
     {
       checked,
@@ -190,3 +190,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
 );
 
 Radio.displayName = 'Radio';
+
+export default Radio as React.FC<
+  RadioProps & React.RefAttributes<HTMLInputElement>
+>;

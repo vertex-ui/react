@@ -1,7 +1,42 @@
 import React, { useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useFocusTrap, useEscapeKey, useBodyScrollLock } from '../../hooks';
+import { Flex } from '../Flex';
+import { Button } from '../Button';
+import { Text } from '../Text';
+import { useThemeContext } from '../../theme/ThemeProvider';
 import './Modal.css';
+
+export interface ModalFooterButton {
+  /**
+   * Button label text
+   */
+  label: string;
+  /**
+   * Click handler for the button
+   */
+  onClick: () => void;
+  /**
+   * Button variant
+   * @default 'secondary'
+   */
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'success' | 'warning';
+  /**
+   * Button size
+   * @default 'medium'
+   */
+  size?: 'sm' | 'md' | 'lg';
+  /**
+   * Loading state
+   * @default false
+   */
+  loading?: boolean;
+  /**
+   * Disabled state
+   * @default false
+   */
+  disabled?: boolean;
+}
 
 export interface ModalProps {
   /**
@@ -32,13 +67,16 @@ export interface ModalProps {
   header?: React.ReactNode;
   /**
    * Optional footer content (typically action buttons)
+   * Can be a ReactNode or an array of button configurations
    */
   footer?: React.ReactNode;
   /**
-   * Size of the modal
-   * @default 'medium'
+   * Array of footer buttons to auto-generate footer
+   * If provided, footer prop is ignored
    */
-  size?: 'small' | 'medium' | 'large' | 'fullscreen' | 'auto';
+  footerButtons?: ModalFooterButton[];
+  /** Size of the modal ('sm', 'md', 'lg', 'fullscreen', 'auto'). Defaults to theme defaultSize */
+  size?: 'sm' | 'md' | 'lg' | 'fullscreen' | 'auto';
   /**
    * If false, clicking the backdrop won't close the modal
    * @default true
@@ -104,7 +142,7 @@ export interface ModalProps {
  * body scroll lock, keyboard navigation, and customizable animations.
  *
  * @example
- * Basic confirmation modal
+ * Basic confirmation modal with footerButtons array
  * ```tsx
  * const [isOpen, setIsOpen] = useState(false);
  *
@@ -113,14 +151,30 @@ export interface ModalProps {
  *   onClose={() => setIsOpen(false)}
  *   title="Confirm Action"
  *   description="Are you sure you want to proceed with this action?"
+ *   footerButtons={[
+ *     { label: 'Cancel', onClick: () => setIsOpen(false), variant: 'outline' },
+ *     { label: 'Confirm', onClick: handleConfirm, variant: 'primary' }
+ *   ]}
+ * >
+ *   <p>This action cannot be undone.</p>
+ * </Modal>
+ * ```
+ *
+ * @example
+ * Custom footer with ReactNode
+ * ```tsx
+ * <Modal
+ *   isOpen={isOpen}
+ *   onClose={() => setIsOpen(false)}
+ *   title="Custom Footer"
  *   footer={
  *     <>
  *       <Button onClick={() => setIsOpen(false)}>Cancel</Button>
- *       <Button variant="primary">Confirm</Button>
+ *       <Button variant="primary">Save</Button>
  *     </>
  *   }
  * >
- *   <p>This action cannot be undone.</p>
+ *   <p>Custom content here.</p>
  * </Modal>
  * ```
  *
@@ -152,33 +206,46 @@ export interface ModalProps {
  * </Modal>
  * ```
  */
-export const Modal: React.FC<ModalProps> = ({
-  isOpen,
-  onClose,
-  title,
-  description,
-  children,
-  header,
-  footer,
-  size = 'medium',
-  closeOnBackdropClick = true,
-  closeOnEscape = true,
-  showCloseButton = true,
-  transparentBackdrop = false,
-  className = '',
-  backdropClassName = '',
-  preventScroll = true,
-  animation = 'fade',
-  onAfterOpen,
-  onAfterClose,
-  scrollable = false,
-  centered = true,
-}) => {
-  const modalRef = useRef<HTMLDivElement>(null);
+export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
+  (
+    {
+      isOpen,
+      onClose,
+      title,
+      description,
+      children,
+      header,
+      footer,
+      footerButtons,
+      size,
+      closeOnBackdropClick = true,
+      closeOnEscape = true,
+      showCloseButton = true,
+      transparentBackdrop = false,
+      className = '',
+      backdropClassName = '',
+      preventScroll = true,
+      animation = 'fade',
+      onAfterOpen,
+      onAfterClose,
+      scrollable = false,
+      centered = true,
+    },
+    ref
+  ) => {
+  const modalRef = useRef<HTMLDivElement>(null!);
   const previousActiveElement = useRef<HTMLElement | null>(null);
+  const { theme } = useThemeContext();
+  // Only use 'sm', 'md', 'lg', 'fullscreen', 'auto'
+  let effectiveSize: 'sm' | 'md' | 'lg' | 'fullscreen' | 'auto' = 'md';
+  if (size) {
+    effectiveSize = size;
+  } else if (theme?.defaultSize) {
+    effectiveSize = theme.defaultSize;
+  }
 
   // Focus trap
-  useFocusTrap(modalRef, isOpen);
+  useFocusTrap<HTMLDivElement>(modalRef, isOpen);
 
   // Body scroll lock
   useBodyScrollLock(preventScroll && isOpen);
@@ -221,7 +288,7 @@ export const Modal: React.FC<ModalProps> = ({
 
   const modalClassNames = [
     'vtx-modal',
-    `vtx-modal--${size}`,
+    `vtx-modal--${effectiveSize}`,
     scrollable && 'vtx-modal--scrollable',
     `vtx-modal--${animation}`,
     className,
@@ -239,27 +306,29 @@ export const Modal: React.FC<ModalProps> = ({
     }
 
     return (
-      <div className="vtx-modal-header">
+      <Flex className="vtx-modal-header" justify="between" align="center" gap={8}>
         {title && (
-          <div className="vtx-modal-header-content">
-            <h2 id="vtx-modal-title" className="vtx-modal-title">
+          <Flex direction="column" gap={4} className="vtx-modal-header-content">
+            <Text as="h2" variant="h6" weight="semibold" id="vtx-modal-title" noMargin>
               {title}
-            </h2>
+            </Text>
             {description && (
-              <p className="vtx-modal-description" id="vtx-modal-description">
+              <Text variant="body2" color="neutral.600" id="vtx-modal-description" noMargin>
                 {description}
-              </p>
+              </Text>
             )}
-          </div>
+          </Flex>
         )}
         {showCloseButton && (
-          <button
-            type="button"
+          <Button
+            variant="ghost"
+            iconOnly
+            size="sm"
             className="vtx-modal-close"
             onClick={onClose}
             aria-label="Close modal"
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
               <path
                 d="M18 6L6 18M6 6L18 18"
                 stroke="currentColor"
@@ -268,16 +337,23 @@ export const Modal: React.FC<ModalProps> = ({
                 strokeLinejoin="round"
               />
             </svg>
-          </button>
+          </Button>
         )}
-      </div>
+      </Flex>
     );
   };
 
   const modalContent = (
     <div className={backdropClassNames} onClick={handleBackdropClick} role="presentation">
       <div
-        ref={modalRef}
+        ref={(node) => {
+          modalRef.current = node!;
+          if (typeof ref === 'function') {
+            ref(node);
+          } else if (ref) {
+            ref.current = node;
+          }
+        }}
         className={modalClassNames}
         role="dialog"
         aria-modal="true"
@@ -285,13 +361,35 @@ export const Modal: React.FC<ModalProps> = ({
         aria-describedby={description ? 'vtx-modal-description' : undefined}
       >
         {renderHeader()}
-        <div className="vtx-modal-body">{children}</div>
-        {footer && <div className="vtx-modal-footer">{footer}</div>}
+        <Flex direction="column" className="vtx-modal-body">
+          {children}
+        </Flex>
+        {(footer || footerButtons) && (
+          <Flex className="vtx-modal-footer" justify="end" align="center" gap={8}>
+            {footerButtons
+              ? footerButtons.map((btn, index) => (
+                  <Button
+                    key={index}
+                    variant={btn.variant || 'secondary'}
+                    size={btn.size || theme?.defaultSize || 'md'}
+                    loading={btn.loading}
+                    disabled={btn.disabled}
+                    onClick={btn.onClick}
+                  >
+                    {btn.label}
+                  </Button>
+                ))
+              : footer}
+          </Flex>
+        )}
       </div>
     </div>
   );
 
-  return createPortal(modalContent, document.body);
-};
+    return createPortal(modalContent, document.body);
+  }
+);
 
 Modal.displayName = 'Modal';
+
+export default Modal;

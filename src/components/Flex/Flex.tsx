@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import './Flex.css';
 
 export interface FlexProps {
@@ -63,7 +63,7 @@ export interface FlexProps {
  * </Flex>
  * ```
  */
-export const Flex = forwardRef<HTMLDivElement, FlexProps & React.HTMLAttributes<HTMLDivElement>>(
+export const Flex = React.forwardRef<HTMLDivElement, FlexProps & React.HTMLAttributes<HTMLDivElement>>(
   (
     {
       children,
@@ -143,3 +143,7 @@ export const Flex = forwardRef<HTMLDivElement, FlexProps & React.HTMLAttributes<
 );
 
 Flex.displayName = 'Flex';
+
+export default Flex as React.FC<
+  FlexProps & React.RefAttributes<HTMLDivElement>
+>;

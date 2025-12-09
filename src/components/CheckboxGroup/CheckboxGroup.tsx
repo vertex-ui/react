@@ -1,5 +1,6 @@
-import React, { forwardRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Checkbox } from '../Checkbox/Checkbox';
+import { useThemeContext } from '../../theme/ThemeProvider';
 import './CheckboxGroup.css';
 
 export interface CheckboxOption {
@@ -59,9 +60,9 @@ export interface CheckboxGroupProps extends Omit<React.HTMLAttributes<HTMLDivEle
   orientation?: 'horizontal' | 'vertical';
   /**
    * The size of the checkboxes
-   * @default 'medium'
+   * @default 'md'
    */
-  size?: 'small' | 'medium' | 'large';
+  size?: 'sm' | 'md' | 'lg';
   /**
    * Additional CSS class name
    */
@@ -120,26 +121,30 @@ export interface CheckboxGroupProps extends Omit<React.HTMLAttributes<HTMLDivEle
  * />
  * ```
  */
-export const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(
+export const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
   (
     {
       label,
       options,
       value: controlledValue,
-      defaultValue = [],
+      defaultValue,
       onChange,
       disabled = false,
       error = false,
       helperText,
       orientation = 'vertical',
-      size = 'medium',
+      size,
       className = '',
       ...props
     },
     ref
   ) => {
+    // Get theme default size if size prop is not provided
+    const { theme } = useThemeContext();
+    const groupSize = size || theme.defaultSize || 'md';
+    
     // Internal state for uncontrolled mode
-    const [internalValue, setInternalValue] = useState<string[]>(defaultValue);
+    const [internalValue, setInternalValue] = useState<string[]>(defaultValue || []);
 
     // Determine if component is controlled
     const isControlled = controlledValue !== undefined;
@@ -184,7 +189,7 @@ export const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(
                 checked={isChecked}
                 disabled={isDisabled}
                 error={error}
-                size={size}
+                size={groupSize}
                 onChange={(e) => handleChange(option.value, e.target.checked)}
               />
             );
@@ -197,3 +202,8 @@ export const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(
 );
 
 CheckboxGroup.displayName = 'CheckboxGroup';
+
+
+export default CheckboxGroup as React.FC<
+  CheckboxGroupProps & React.RefAttributes<HTMLDivElement>
+>;

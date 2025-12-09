@@ -8,9 +8,9 @@ export interface ChipProps {
   label: string;
   /**
    * Size of the chip
-   * @default 'medium'
+   * @default 'md'
    */
-  size?: 'small' | 'medium' | 'large';
+  size?: 'sm' | 'md' | 'lg';
   /**
    * Visual style variant
    * @default 'filled'
@@ -88,109 +88,119 @@ export interface ChipProps {
  * />
  * ```
  */
-export const Chip: React.FC<ChipProps> = ({
-  label,
-  size = 'medium',
-  variant = 'filled',
-  color = 'default',
-  icon,
-  avatar,
-  onDelete,
-  onClick,
-  disabled = false,
-  className = '',
-  'aria-label': ariaLabel,
-  'data-testid': dataTestId,
-}) => {
-  const chipClassNames = [
-    'vtx-chip',
-    `vtx-chip--${size}`,
-    `vtx-chip--${variant}`,
-    `vtx-chip--${color}`,
-    onClick && !disabled && 'vtx-chip--clickable',
-    disabled && 'vtx-chip--disabled',
-    className,
-  ]
-    .filter(Boolean)
-    .join(' ');
 
-  const handleClick = (event: MouseEvent<HTMLDivElement>) => {
-    if (!disabled && onClick) {
-      onClick(event);
-    }
-  };
+export const Chip = React.forwardRef<HTMLDivElement, ChipProps>(
+  (
+    {
+      label,
+      size = 'md',
+      variant = 'filled',
+      color = 'default',
+      icon,
+      avatar,
+      onDelete,
+      onClick,
+      disabled = false,
+      className = '',
+      'aria-label': ariaLabel,
+      'data-testid': dataTestId
+    },
+    ref
+  ) => {
+    const chipClassNames = [
+      'vtx-chip',
+      `vtx-chip--${size}`,
+      `vtx-chip--${variant}`,
+      `vtx-chip--${color}`,
+      onClick && !disabled && 'vtx-chip--clickable',
+      disabled && 'vtx-chip--disabled',
+      className,
+    ]
+      .filter(Boolean)
+      .join(' ');
 
-  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (!disabled && onClick && (event.key === 'Enter' || event.key === ' ')) {
-      event.preventDefault();
-      onClick(event as any);
-    }
-  };
+    const handleClick = (event: MouseEvent<HTMLDivElement>) => {
+      if (!disabled && onClick) {
+        onClick(event);
+      }
+    };
 
-  const handleDeleteClick = (event: MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
-    if (!disabled && onDelete) {
-      onDelete(event);
-    }
-  };
+    const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+      if (!disabled && onClick && (event.key === 'Enter' || event.key === ' ')) {
+        event.preventDefault();
+        onClick(event as any);
+      }
+    };
 
-  const handleDeleteKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
+    const handleDeleteClick = (event: MouseEvent<HTMLButtonElement>) => {
       event.stopPropagation();
       if (!disabled && onDelete) {
-        onDelete(event as any);
+        onDelete(event);
       }
-    }
-  };
+    };
 
-  return (
-    <div
-      className={chipClassNames}
-      onClick={handleClick}
-      onKeyDown={handleKeyDown}
-      role={onClick ? 'button' : undefined}
-      tabIndex={onClick && !disabled ? 0 : undefined}
-      aria-label={ariaLabel || label}
-      aria-disabled={disabled}
-      data-testid={dataTestId}
-    >
-      {avatar && <img src={avatar} alt="" className="vtx-chip__avatar" aria-hidden="true" />}
-      {icon && !avatar && (
-        <span className="vtx-chip__icon" aria-hidden="true">
-          {icon}
-        </span>
-      )}
-      <span className="vtx-chip__label">{label}</span>
-      {onDelete && (
-        <button
-          type="button"
-          className="vtx-chip__delete"
-          onClick={handleDeleteClick}
-          onKeyDown={handleDeleteKeyDown}
-          disabled={disabled}
-          aria-label={`Remove ${label}`}
-          tabIndex={-1}
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+    const handleDeleteKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        event.stopPropagation();
+        if (!disabled && onDelete) {
+          onDelete(event as any);
+        }
+      }
+    };
+
+    return (
+      <div
+        ref={ref}
+        className={chipClassNames}
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
+        role={onClick ? 'button' : undefined}
+        tabIndex={onClick && !disabled ? 0 : undefined}
+        aria-label={ariaLabel || label}
+        aria-disabled={disabled}
+        data-testid={dataTestId}
+      >
+        {avatar && <img src={avatar} alt="" className="vtx-chip__avatar" aria-hidden="true" />}
+        {icon && !avatar && (
+          <span className="vtx-chip__icon" aria-hidden="true">
+            {icon}
+          </span>
+        )}
+        <span className="vtx-chip__label">{label}</span>
+        {onDelete && (
+          <button
+            type="button"
+            className="vtx-chip__delete"
+            onClick={handleDeleteClick}
+            onKeyDown={handleDeleteKeyDown}
+            disabled={disabled}
+            aria-label={`Remove ${label}`}
+            tabIndex={-1}
           >
-            <path
-              d="M12 4L4 12M4 4L12 12"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
-      )}
-    </div>
-  );
-};
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 4L4 12M4 4L12 12"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        )}
+      </div>
+    );
+  }
+);
 
 Chip.displayName = 'Chip';
+export default Chip as React.FC<
+  ChipProps & React.RefAttributes<HTMLDivElement>
+>;

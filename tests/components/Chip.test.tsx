@@ -59,7 +59,8 @@ describe('Chip', () => {
 
   it('renders with avatar', () => {
     render(<Chip label="User" avatar="https://example.com/avatar.jpg" />);
-    const avatar = screen.getByRole('img', { hidden: true });
+    // The avatar img is aria-hidden, but jsdom/testing-library may still give it role 'img'.
+    const avatar = screen.getByAltText('');
     expect(avatar).toHaveAttribute('src', 'https://example.com/avatar.jpg');
     expect(avatar).toHaveClass('vtx-chip__avatar');
   });
@@ -176,7 +177,8 @@ describe('Chip', () => {
     const icon = <span data-testid="icon">Icon</span>;
     render(<Chip label="Test" icon={icon} avatar="https://example.com/avatar.jpg" />);
 
-    expect(screen.getByRole('img', { hidden: true })).toBeInTheDocument();
+    // The avatar img is aria-hidden, but jsdom/testing-library may still give it role 'img'.
+    expect(screen.getByAltText('')).toBeInTheDocument();
     expect(screen.queryByTestId('icon')).not.toBeInTheDocument();
   });
 });
