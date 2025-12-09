@@ -1,9 +1,10 @@
-import React, { forwardRef, useState } from 'react';
+import React, { useState } from 'react';
+import { useThemeContext } from '../../theme/ThemeProvider';
 import './Alert.css';
 
 export interface AlertProps {
   /**
-   * Content of the alert
+   * Content of the alert (primary message, can be any ReactNode)
    */
   children?: React.ReactNode;
   /**
@@ -23,12 +24,9 @@ export interface AlertProps {
    * Visual style of the alert
    * @default 'subtle'
    */
-  style?: 'filled' | 'outlined' | 'subtle' | 'left-accent';
-  /**
-   * Size of the alert
-   * @default 'medium'
-   */
-  size?: 'small' | 'medium' | 'large';
+  alertStyle?: 'filled' | 'outlined' | 'subtle' | 'left-accent';
+  /** Size of the alert. Defaults to theme defaultSize or 'md'. */
+  size?: 'sm' | 'md' | 'lg';
   /**
    * Custom icon or false to hide icon
    * If not provided, shows default icon based on variant
@@ -56,6 +54,10 @@ export interface AlertProps {
    * Custom class name
    */
   className?: string;
+  /**
+   * Custom inline styles
+   */
+  style?: React.CSSProperties;
   /**
    * Role attribute for accessibility
    * @default 'alert'
@@ -175,26 +177,29 @@ const variantIconMap = {
  * </Alert>
  * ```
  */
-export const Alert = forwardRef<HTMLDivElement, AlertProps>(
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
   (
     {
       children,
       title,
       description,
       variant = 'info',
-      style = 'subtle',
-      size = 'medium',
+      alertStyle = 'subtle',
+      size,
       icon,
       dismissible = false,
       onClose,
       action,
       fullWidth = false,
       className = '',
+      style,
       role = 'alert',
       ...props
     },
     ref
   ) => {
+    const { theme } = useThemeContext();
+    const alertSize = size || theme?.defaultSize || 'md';
     const [isVisible, setIsVisible] = useState(true);
 
     const handleClose = () => {
@@ -213,32 +218,34 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
     // Determine content to display
     const hasContent = children || description;
 
-    const alertClassNames = [
-      'vtx-alert',
-      `vtx-alert--${variant}`,
-      `vtx-alert--${style}`,
-      `vtx-alert--${size}`,
-      fullWidth && 'vtx-alert--full-width',
-      className,
-    ]
-      .filter(Boolean)
-      .join(' ');
-
     return (
-      <div ref={ref} className={alertClassNames} role={role} {...props}>
-        {showIcon && <div className="vtx-alert-icon">{displayIcon}</div>}
+      <div
+        ref={ref}
+        className={`
+          alert
+          alert--${variant}
+          alert--${alertStyle}
+          alert--${alertSize}
+          ${fullWidth ? 'alert--full-width' : ''}
+          ${className}
+        `.trim()}
+        style={style}
+        role={role}
+        {...props}
+      >
+        {showIcon && <div className="alert-icon">{displayIcon}</div>}
 
-        <div className="vtx-alert-content">
-          {title && <div className="vtx-alert-title">{title}</div>}
-          {hasContent && <div className="vtx-alert-message">{children || description}</div>}
+        <div className="alert-content">
+          {title && <div className="alert-title">{title}</div>}
+          {hasContent && <div className="alert-message">{children ?? description}</div>}
         </div>
 
-        {action && <div className="vtx-alert-action">{action}</div>}
+        {action && <div className="alert-action">{action}</div>}
 
         {dismissible && (
           <button
             type="button"
-            className="vtx-alert-close"
+            className="alert-close"
             onClick={handleClose}
             aria-label="Close alert"
           >
@@ -251,3 +258,8 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
 );
 
 Alert.displayName = 'Alert';
+
+export default Alert as React.FC<
+  AlertProps & React.RefAttributes<HTMLDivElement>
+>;
+export { Alert };

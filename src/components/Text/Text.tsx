@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { forwardRef, CSSProperties } from 'react';
+import { CSSProperties } from 'react';
 import './Text.css';
 
 export type TextVariant =
@@ -238,7 +238,7 @@ const getDefaultElement = (variant: TextVariant): TextAs => {
  * <Text variant="body1" as="label" htmlFor="input">Label with body style</Text>
  * ```
  */
-export const Text = forwardRef<HTMLElement, TextProps>(
+const Text = React.forwardRef<HTMLElement, TextProps>(
   (
     {
       variant = 'body1',
@@ -357,3 +357,6 @@ export const Text = forwardRef<HTMLElement, TextProps>(
 );
 
 Text.displayName = 'Text';
+
+export { Text };
+export default Text as React.FC<TextProps & React.RefAttributes<HTMLElement>>;

@@ -1,4 +1,5 @@
-import React, { forwardRef, ButtonHTMLAttributes } from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
+import { useThemeContext } from '../../theme/ThemeProvider';
 import './Button.css';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -9,9 +10,9 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'success' | 'warning';
   /**
    * Size of the button
-   * @default 'medium'
+   * @default 'md'
    */
-  size?: 'small' | 'medium' | 'large';
+  size?: 'sm' | 'md' | 'lg';
   /**
    * If true, button will take full width of its container
    * @default false
@@ -62,6 +63,18 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
    * Rel attribute when rendering as link
    */
   rel?: string;
+
+  /**
+   * Optional text color for the button
+   */
+  textColor?: string;
+
+  /**
+   * If true/false, applies dark or light text color class
+   */
+  darkText?: boolean;
+
+  children?: React.ReactNode;
 }
 
 /**
@@ -105,12 +118,12 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
  * </Button>
  * ```
  */
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
   (
     {
       children,
       variant = 'primary',
-      size = 'medium',
+      size,
       fullWidth = false,
       loading = false,
       disabled = false,
@@ -128,17 +141,29 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
+    // Get theme default size if size prop is not provided
+    const { theme } = useThemeContext();
+    const buttonSize = size || theme.defaultSize || 'md';
+
     const classNames = [
       'vtx-button',
       `vtx-button--${variant}`,
-      `vtx-button--${size}`,
+      `vtx-button--${buttonSize}`,
       fullWidth && 'vtx-button--full-width',
       loading && 'vtx-button--loading',
       iconOnly && 'vtx-button--icon-only',
+      props.darkText === true && 'vtx-button--dark-text',
+      props.darkText === false && 'vtx-button--light-text',
       className,
     ]
       .filter(Boolean)
       .join(' ');
+
+    // Inline style for text color override
+    const style = props.style ? { ...props.style } : {};
+    if (props.textColor) {
+      style.color = props.textColor;
+    }
 
     const content = (
       <>
@@ -170,11 +195,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     if (asLink && href) {
       return (
         <a
+          ref={ref as any}
           href={href}
           target={target}
           rel={target === '_blank' ? 'noopener noreferrer' : rel}
           className={classNames}
           aria-disabled={disabled || loading}
+          style={style}
           {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
         >
           {content}
@@ -184,12 +211,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       <button
-        ref={ref}
+        ref={ref as any}
         type={type}
         className={classNames}
         disabled={disabled || loading}
         aria-busy={loading}
         aria-disabled={disabled || loading}
+        style={style}
         {...props}
       >
         {content}
@@ -199,3 +227,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 );
 
 Button.displayName = 'Button';
+
+export default Button as React.FC<
+  ButtonProps & React.RefAttributes<HTMLButtonElement | HTMLAnchorElement>
+>;

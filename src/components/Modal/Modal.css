@@ -65,17 +65,17 @@
 }
 
 /* Size Variants */
-.vtx-modal--small {
+.vtx-modal--sm {
   width: 100%;
   max-width: var(--vtx-modal-width-sm, 400px);
 }
 
-.vtx-modal--medium {
+.vtx-modal--md {
   width: 100%;
   max-width: var(--vtx-modal-width-md, 600px);
 }
 
-.vtx-modal--large {
+.vtx-modal--lg {
   width: 100%;
   max-width: var(--vtx-modal-width-lg, 900px);
 }
@@ -263,9 +263,9 @@
     }
   }
 
-  .vtx-modal--small,
-  .vtx-modal--medium,
-  .vtx-modal--large {
+  .vtx-modal--sm,
+  .vtx-modal--md,
+  .vtx-modal--lg {
     max-width: 100%;
     border-radius: 0;
   }

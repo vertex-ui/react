@@ -4,6 +4,7 @@ import { useFocusTrap, useEscapeKey, useBodyScrollLock } from '../../hooks';
 import { Flex } from '../Flex';
 import { Button } from '../Button';
 import { Text } from '../Text';
+import { useThemeContext } from '../../theme/ThemeProvider';
 import './Modal.css';
 
 export interface ModalFooterButton {
@@ -24,7 +25,7 @@ export interface ModalFooterButton {
    * Button size
    * @default 'medium'
    */
-  size?: 'small' | 'medium' | 'large';
+  size?: 'sm' | 'md' | 'lg';
   /**
    * Loading state
    * @default false
@@ -74,11 +75,8 @@ export interface ModalProps {
    * If provided, footer prop is ignored
    */
   footerButtons?: ModalFooterButton[];
-  /**
-   * Size of the modal
-   * @default 'medium'
-   */
-  size?: 'small' | 'medium' | 'large' | 'fullscreen' | 'auto';
+  /** Size of the modal ('sm', 'md', 'lg', 'fullscreen', 'auto'). Defaults to theme defaultSize */
+  size?: 'sm' | 'md' | 'lg' | 'fullscreen' | 'auto';
   /**
    * If false, clicking the backdrop won't close the modal
    * @default true
@@ -217,7 +215,7 @@ export const Modal: React.FC<ModalProps> = ({
   header,
   footer,
   footerButtons,
-  size = 'medium',
+  size,
   closeOnBackdropClick = true,
   closeOnEscape = true,
   showCloseButton = true,
@@ -231,11 +229,19 @@ export const Modal: React.FC<ModalProps> = ({
   scrollable = false,
   centered = true,
 }) => {
-  const modalRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null!);
   const previousActiveElement = useRef<HTMLElement | null>(null);
+  const { theme } = useThemeContext();
+  // Only use 'sm', 'md', 'lg', 'fullscreen', 'auto'
+  let effectiveSize: 'sm' | 'md' | 'lg' | 'fullscreen' | 'auto' = 'md';
+  if (size) {
+    effectiveSize = size;
+  } else if (theme?.defaultSize) {
+    effectiveSize = theme.defaultSize;
+  }
 
   // Focus trap
-  useFocusTrap(modalRef, isOpen);
+  useFocusTrap<HTMLDivElement>(modalRef, isOpen);
 
   // Body scroll lock
   useBodyScrollLock(preventScroll && isOpen);
@@ -278,7 +284,7 @@ export const Modal: React.FC<ModalProps> = ({
 
   const modalClassNames = [
     'vtx-modal',
-    `vtx-modal--${size}`,
+    `vtx-modal--${effectiveSize}`,
     scrollable && 'vtx-modal--scrollable',
     `vtx-modal--${animation}`,
     className,
@@ -313,7 +319,7 @@ export const Modal: React.FC<ModalProps> = ({
           <Button
             variant="ghost"
             iconOnly
-            size="small"
+            size="sm"
             className="vtx-modal-close"
             onClick={onClose}
             aria-label="Close modal"
@@ -354,7 +360,12 @@ export const Modal: React.FC<ModalProps> = ({
                   <Button
                     key={index}
                     variant={btn.variant || 'secondary'}
-                    size={btn.size || 'medium'}
+                    size={
+                      btn.size ? btn.size :
+                        effectiveSize === 'sm' || effectiveSize === 'md' || effectiveSize === 'lg'
+                          ? effectiveSize
+                          : undefined
+                    }
                     loading={btn.loading}
                     disabled={btn.disabled}
                     onClick={btn.onClick}
@@ -373,3 +384,5 @@ export const Modal: React.FC<ModalProps> = ({
 };
 
 Modal.displayName = 'Modal';
+
+export default Modal as React.FC<ModalProps & React.RefAttributes<HTMLDivElement>>;

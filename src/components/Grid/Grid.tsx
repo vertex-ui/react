@@ -240,3 +240,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
 );
 
 Grid.displayName = 'Grid';
+
+export default Grid as React.FC<
+  GridProps & React.RefAttributes<HTMLDivElement>
+>;

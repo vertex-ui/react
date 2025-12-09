@@ -166,30 +166,30 @@
 }
 
 /* Size variants */
-.vtx-checkbox--small {
+.vtx-checkbox--sm {
   --vtx-checkbox-size: 16px;
   --vtx-checkbox-border-width: 2px;
 }
 
-.vtx-checkbox--small .vtx-checkbox-label-text {
+.vtx-checkbox--sm .vtx-checkbox-label-text {
   font-size: var(--vtx-font-size-sm);
 }
 
-.vtx-checkbox--small .vtx-checkbox-helper-text {
+.vtx-checkbox--sm .vtx-checkbox-helper-text {
   font-size: var(--vtx-font-size-xs);
 }
 
-.vtx-checkbox--medium {
+.vtx-checkbox--md {
   --vtx-checkbox-size: 20px;
   --vtx-checkbox-border-width: 2px;
 }
 
-.vtx-checkbox--large {
+.vtx-checkbox--lg {
   --vtx-checkbox-size: 24px;
   --vtx-checkbox-border-width: 2px;
 }
 
-.vtx-checkbox--large .vtx-checkbox-label-text {
+.vtx-checkbox--lg .vtx-checkbox-label-text {
   font-size: var(--vtx-font-size-lg);
 }
 
@@ -200,26 +200,26 @@
 }
 
 .vtx-checkbox--secondary {
-  --vtx-checkbox-color: var(--vtx-color-neutral-600);
-  --vtx-checkbox-hover-color: var(--vtx-color-neutral-700);
+  --vtx-checkbox-color: var(--vtx-color-secondary-600, var(--vtx-color-neutral-600));
+  --vtx-checkbox-hover-color: var(--vtx-color-secondary-700, var(--vtx-color-neutral-700));
 }
 
 .vtx-checkbox--success {
-  --vtx-checkbox-color: var(--vtx-color-success-600);
-  --vtx-checkbox-hover-color: var(--vtx-color-success-700);
+  --vtx-checkbox-color: var(--vtx-color-success-600, #16a34a);
+  --vtx-checkbox-hover-color: var(--vtx-color-success-700, #15803d);
 }
 
 .vtx-checkbox--error {
-  --vtx-checkbox-color: var(--vtx-color-error-600);
-  --vtx-checkbox-hover-color: var(--vtx-color-error-700);
+  --vtx-checkbox-color: var(--vtx-color-error-600, #dc2626);
+  --vtx-checkbox-hover-color: var(--vtx-color-error-700, #b91c1c);
 }
 
 .vtx-checkbox--warning {
-  --vtx-checkbox-color: var(--vtx-color-warning-600);
-  --vtx-checkbox-hover-color: var(--vtx-color-warning-700);
+  --vtx-checkbox-color: var(--vtx-color-warning-600, #d97706);
+  --vtx-checkbox-hover-color: var(--vtx-color-warning-700, #b45309);
 }
 
 .vtx-checkbox--info {
-  --vtx-checkbox-color: var(--vtx-color-info-600);
-  --vtx-checkbox-hover-color: var(--vtx-color-info-700);
+  --vtx-checkbox-color: var(--vtx-color-info-600, #2563eb);
+  --vtx-checkbox-hover-color: var(--vtx-color-info-700, #1d4ed8);
 }

@@ -101,7 +101,7 @@ export const Toast = forwardRef<HTMLDivElement, ToastProps>(
     const [isAnimatingOut, setIsAnimatingOut] = useState(false);
     const [isPaused, setIsPaused] = useState(false);
     const [progress, setProgress] = useState(100);
-    const progressIntervalRef = useRef<NodeJS.Timeout>();
+    const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
     // const timeoutRef = useRef<NodeJS.Timeout>();
     const startTimeRef = useRef<number>(Date.now());
     const pausedTimeRef = useRef<number>(0);
@@ -258,3 +258,7 @@ export const Toast = forwardRef<HTMLDivElement, ToastProps>(
 );
 
 Toast.displayName = 'Toast';
+
+export default Toast as React.FC<
+  ToastProps & React.RefAttributes<HTMLDivElement>
+>;

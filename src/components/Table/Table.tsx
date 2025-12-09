@@ -469,3 +469,7 @@ export function Table<T = unknown>({
 }
 
 Table.displayName = 'Table';
+
+export default Table as React.FC<
+  TableProps & React.RefAttributes<HTMLTableElement>
+>;

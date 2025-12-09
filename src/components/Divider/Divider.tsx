@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import './Divider.css';
 
 export interface DividerProps extends React.HTMLAttributes<HTMLHRElement | HTMLDivElement> {
@@ -115,7 +115,7 @@ export interface DividerProps extends React.HTMLAttributes<HTMLHRElement | HTMLD
  * <Divider className="custom-divider">Custom</Divider>
  * ```
  */
-export const Divider = forwardRef<HTMLHRElement | HTMLDivElement, DividerProps>(
+export const Divider = React.forwardRef<HTMLHRElement | HTMLDivElement, DividerProps>(
   (
     {
       textAlign = 'center',
@@ -172,3 +172,7 @@ export const Divider = forwardRef<HTMLHRElement | HTMLDivElement, DividerProps>(
 );
 
 Divider.displayName = 'Divider';
+
+export default Divider as React.FC<
+  DividerProps & React.RefAttributes<HTMLHRElement | HTMLDivElement>
+>;

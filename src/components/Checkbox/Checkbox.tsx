@@ -1,4 +1,5 @@
-import React, { forwardRef, useId, useRef, useImperativeHandle, useEffect } from 'react';
+import React, { useId, useRef, useImperativeHandle, useEffect } from 'react';
+import { useThemeContext } from '../../theme/ThemeProvider';
 import './Checkbox.css';
 
 export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
@@ -22,9 +23,9 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   label?: React.ReactNode;
   /**
    * The size of the checkbox
-   * @default 'medium'
+   * @default 'md'
    */
-  size?: 'small' | 'medium' | 'large';
+  size?: 'sm' | 'md' | 'lg';
   /**
    * The variant of the checkbox
    * @default 'primary'
@@ -79,13 +80,15 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
  * ```
  *
  * @example
- * Controlled checkbox
+ * Controlled checkbox with size
  * ```tsx
  * const [checked, setChecked] = useState(false);
  * <Checkbox
  *   checked={checked}
  *   onChange={(e) => setChecked(e.target.checked)}
  *   label="Subscribe to newsletter"
+ *   size="lg"
+ *   variant="secondary"
  * />
  * ```
  *
@@ -108,14 +111,14 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
  * />
  * ```
  */
-export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
+const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (
     {
       checked,
       indeterminate = false,
       disabled = false,
       label,
-      size = 'medium',
+      size,
       variant = 'primary',
       error = false,
       helperText,
@@ -127,13 +130,17 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     },
     ref
   ) => {
+    // Get theme default size if size prop is not provided
+    const { theme } = useThemeContext();
+    const checkboxSize = size || theme.defaultSize || 'md';
+    
     const generatedId = useId();
     const checkboxId = id || generatedId;
 
     // Build class names
     const containerClassNames = [
       'vtx-checkbox',
-      `vtx-checkbox--${size}`,
+      `vtx-checkbox--${checkboxSize}`,
       `vtx-checkbox--${variant}`,
       disabled && 'vtx-checkbox--disabled',
       error && 'vtx-checkbox--error',
@@ -205,3 +212,8 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
 );
 
 Checkbox.displayName = 'Checkbox';
+
+export default Checkbox as React.FC<
+  CheckboxProps & React.RefAttributes<HTMLInputElement>
+>;
+export { Checkbox };

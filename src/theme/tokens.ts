@@ -2,6 +2,29 @@
  * Design tokens for the VTX UI library
  * These tokens define the core visual language of the design system
  */
+export const COLOR_KEYS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
+
+/**
+ * Normalizes a colors object so that any string value (e.g., primary: "#fff")
+ * is expanded to an object with all color keys, while objects are left as-is.
+ * Direct object keys (e.g., primary: { 100: "#fff" }) are preserved.
+ */
+export function normalizeColors(colors: Record<string, any>): Record<string, any> {
+  const result: Record<string, any> = {};
+  for (const [key, value] of Object.entries(colors)) {
+    if (typeof value === "string") {
+      // Expand string to all keys
+      result[key] = {};
+      COLOR_KEYS.forEach(k => {
+        result[key][k] = value;
+      });
+    } else if (typeof value === "object" && value !== null) {
+      result[key] = value;
+    }
+  }
+  return result;
+}
+
 export const tokens = {
   colors: {
     // Primary palette
@@ -16,6 +39,19 @@ export const tokens = {
       700: '#1d4ed8',
       800: '#1e40af',
       900: '#1e3a8a',
+    },
+    // Secondary palette
+    secondary: {
+      50: '#f5f3ff',
+      100: '#ede9fe',
+      200: '#ddd6fe',
+      300: '#c4b5fd',
+      400: '#a78bfa',
+      500: '#8b5cf6',
+      600: '#7c3aed',
+      700: '#6d28d9',
+      800: '#5b21b6',
+      900: '#4c1d95',
     },
     // Neutral palette
     neutral: {

@@ -335,3 +335,7 @@ export const Menu = forwardRef<HTMLDivElement, MenuProps>(
 );
 
 Menu.displayName = 'Menu';
+
+export default Menu as React.FC<
+  MenuProps & React.RefAttributes<HTMLDivElement>
+>;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '../test-utils';
 import userEvent from '@testing-library/user-event';
 import { Accordion } from '../../src/components/Accordion';
 import { AccordionItemProps } from '../../src/components/Accordion/types';
@@ -250,19 +250,23 @@ describe('Accordion', () => {
   describe('Chevron Icon', () => {
     it('shows chevron icons by default', () => {
       render(<Accordion items={mockItems} />);
-      const chevrons = screen.getAllByTestId('chevron-icon');
-      expect(chevrons).toHaveLength(mockItems.length);
+      expect(screen.getByTestId('item1-chevron-icon')).toBeInTheDocument();
+      expect(screen.getByTestId('item2-chevron-icon')).toBeInTheDocument();
+      expect(screen.getByTestId('item3-chevron-icon')).toBeInTheDocument();
     });
 
     it('hides chevron icons when showChevron is false', () => {
       render(<Accordion items={mockItems} showChevron={false} />);
-      expect(screen.queryByTestId('chevron-icon')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('item1-chevron-icon')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('item2-chevron-icon')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('item3-chevron-icon')).not.toBeInTheDocument();
     });
 
     it('positions chevron on the left when specified', () => {
       render(<Accordion items={mockItems} chevronPosition="left" />);
-      const chevrons = screen.getAllByTestId('chevron-icon');
-      expect(chevrons).toHaveLength(mockItems.length);
+      expect(screen.getByTestId('item1-chevron-icon')).toBeInTheDocument();
+      expect(screen.getByTestId('item2-chevron-icon')).toBeInTheDocument();
+      expect(screen.getByTestId('item3-chevron-icon')).toBeInTheDocument();
     });
   });
 

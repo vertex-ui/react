@@ -1,8 +1,30 @@
-import React, { useState, useCallback, Children, isValidElement } from 'react';
-import AccordionItem from './AccordionItem';
-import { AccordionProps, AccordionItemProps } from './types';
+import React, { Children, isValidElement, useCallback, useState } from "react";
+import AccordionItem from "./AccordionItem";
+import { AccordionProps, AccordionItemProps } from "./types";
 import './Accordion.css';
-
+/**
+ * Accordion component - Collapsible content panels for presenting information in a limited space.
+ *
+ * @example
+ * Basic usage with items prop:
+ * ```tsx
+ * <Accordion
+ *   items={[
+ *     { id: 'item1', header: 'Section 1', children: <div>Content 1</div> },
+ *     { id: 'item2', header: 'Section 2', children: <div>Content 2</div> },
+ *   ]}
+ * />
+ * ```
+ *
+ * @example
+ * Usage with AccordionItem children:
+ * ```tsx
+ * <Accordion>
+ *   <AccordionItem id="item1" header="Section 1">Content 1</AccordionItem>
+ *   <AccordionItem id="item2" header="Section 2">Content 2</AccordionItem>
+ * </Accordion>
+ * ```
+ */
 const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
   (
     {
@@ -23,6 +45,10 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
       iconType = 'chevron',
       showDivider = true,
       collapsible = true,
+      loading = false,
+      disabled = false,
+      spacing = 'default',
+      disableAnimations = false,
       ...props
     },
     ref
@@ -39,12 +65,13 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
         .filter((child) => isValidElement(child))
         .map((child, index) => {
           if (isValidElement(child) && child.props) {
+            const el = child as React.ReactElement<any>;
             return {
-              id: child.props.id || `accordion-item-${index}`,
-              header: child.props.header || `Item ${index + 1}`,
-              children: child.props.children,
-              disabled: child.props.disabled,
-              className: child.props.className,
+              id: el.props.id || `accordion-item-${index}`,
+              header: el.props.header || `Item ${index + 1}`,
+              children: el.props.children,
+              disabled: el.props.disabled,
+              className: el.props.className,
             };
           }
           return {
@@ -94,10 +121,16 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
           accordion--${variant}
           accordion--${size}
           ${showDivider ? 'accordion--divider' : ''}
+          ${spacing === 'compact' ? 'accordion--compact' : ''}
+          ${spacing === 'spacious' ? 'accordion--spacious' : ''}
+          ${disableAnimations ? 'accordion--no-animation' : ''}
+          ${loading ? 'accordion--loading' : ''}
+          ${disabled ? 'accordion--disabled' : ''}
           ${className}
         `.trim()}
         style={style}
         role="presentation"
+        aria-busy={loading}
         {...props}
       >
         {accordionItems.map((item) => (
@@ -113,6 +146,10 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
             expandedIcon={expandedIcon}
             collapsedIcon={collapsedIcon}
             iconType={iconType}
+            loading={loading}
+            disabled={disabled}
+            spacing={spacing}
+            disableAnimations={disableAnimations}
           />
         ))}
       </div>
@@ -122,4 +159,8 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
 
 Accordion.displayName = 'Accordion';
 
-export default Accordion;
+export default Accordion as React.FC<
+  AccordionProps & React.RefAttributes<HTMLDivElement>
+>;
+export { Accordion };
+export type { AccordionProps };

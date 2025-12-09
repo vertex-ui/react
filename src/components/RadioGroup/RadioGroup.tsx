@@ -217,3 +217,7 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
 );
 
 RadioGroup.displayName = 'RadioGroup';
+
+export default RadioGroup as React.FC<
+  RadioGroupProps & React.RefAttributes<HTMLDivElement>
+>;

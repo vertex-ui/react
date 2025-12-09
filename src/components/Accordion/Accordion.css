@@ -1,51 +1,120 @@
+/* =============================================================================
+ * ACCORDION COMPONENT - VTX DESIGN SYSTEM
+ * =============================================================================
+ * 
+ * A modern, accessible accordion component that fully utilizes the VTX design 
+ * system tokens for consistent theming and beautiful visual states.
+ * 
+ * Features:
+ * - Complete VTX token integration
+ * - Multiple visual variants (default, bordered, separated, flush)
+ * - Responsive size variants (sm, md, lg)
+ * - Enhanced hover, focus, and active states
+ * - Dark mode support
+ * - Accessibility features
+ * - Smooth animations
+ * ============================================================================= */
+
 .accordion {
   display: flex;
   flex-direction: column;
   width: 100%;
-  font-family: var(
-    --font-family-base,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    sans-serif
-  );
+  font-family: var(--vtx-font-family-sans);
+  font-size: var(--vtx-font-size-base);
+  line-height: var(--vtx-line-height-normal);
+  color: var(--vtx-color-neutral-900);
 }
 
-/* Variants */
+/* =============================================================================
+ * VARIANT STYLES
+ * ============================================================================= */
+
+/* Default Variant - Clean card-like appearance */
 .accordion--default {
-  background: var(--accordion-bg, var(--color-background, #ffffff));
-  border: 1px solid var(--accordion-border, var(--color-border, #e5e7eb));
-  border-radius: var(--accordion-radius, var(--radius-lg, 12px));
+  background: var(--vtx-color-neutral-50);
+  border: 1px solid var(--vtx-color-neutral-200);
+  border-radius: var(--vtx-radius-xl);
   overflow: hidden;
-  box-shadow: var(
-    --accordion-shadow,
-    var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06))
-  );
+  box-shadow: var(--vtx-shadow-base);
+  transition: box-shadow var(--vtx-transition-base);
 }
 
-/* Dividers for default variant */
+.accordion--default:hover {
+  box-shadow: var(--vtx-shadow-md);
+}
+
 .accordion--default.accordion--divider .accordion-item:not(:last-child) {
-  border-bottom: 1px solid var(--accordion-divider, var(--color-border, #e5e7eb));
+  border-bottom: 1px solid var(--vtx-color-neutral-200);
 }
 
+/* Bordered Variant - Individual cards with spacing */
 .accordion--bordered .accordion-item {
-  background: var(--accordion-bg, var(--color-background, #ffffff));
-  border: 1px solid var(--accordion-border, var(--color-border, #e5e7eb));
-  border-radius: var(--accordion-item-radius, var(--radius-md, 8px));
-  box-shadow: var(--accordion-item-shadow, var(--shadow-xs, 0 1px 2px rgba(0, 0, 0, 0.05)));
-  transition:
-    box-shadow var(--transition-duration, 0.2s) var(--transition-timing, ease),
-    border-color var(--transition-duration, 0.2s) var(--transition-timing, ease);
+  background: white;
+  border: 1px solid var(--vtx-color-neutral-200);
+  border-radius: var(--vtx-radius-lg);
+  box-shadow: var(--vtx-shadow-sm);
+  transition: 
+    box-shadow var(--vtx-transition-base),
+    border-color var(--vtx-transition-base),
+    transform var(--vtx-transition-fast);
 }
 
 .accordion--bordered .accordion-item:hover {
-  border-color: var(--accordion-border-hover, var(--color-border-hover, #d1d5db));
-  box-shadow: var(--accordion-item-shadow-hover, var(--shadow-md, 0 4px 6px rgba(0, 0, 0, 0.1)));
+  border-color: var(--vtx-color-primary-300);
+  box-shadow: var(--vtx-shadow-md);
+  transform: translateY(-1px);
 }
 
 .accordion--bordered .accordion-item + .accordion-item {
-  margin-top: var(--accordion-spacing, var(--spacing-2, 8px));
+  margin-top: var(--vtx-spacing-4);
+}
+
+/* Separated Variant - Floating cards with enhanced shadows */
+.accordion--separated .accordion-item {
+  background: white;
+  border: 1px solid var(--vtx-color-neutral-100);
+  border-radius: var(--vtx-radius-xl);
+  box-shadow: 
+    var(--vtx-shadow-base),
+    0 0 0 1px rgba(255, 255, 255, 0.8);
+  transition: 
+    box-shadow var(--vtx-transition-base),
+    transform var(--vtx-transition-base);
+  backdrop-filter: blur(10px);
+}
+
+.accordion--separated .accordion-item:hover {
+  box-shadow: 
+    var(--vtx-shadow-xl),
+    0 0 0 1px var(--vtx-color-primary-100);
+  transform: translateY(-2px);
+}
+
+.accordion--separated .accordion-item + .accordion-item {
+  margin-top: var(--vtx-spacing-6);
+}
+
+/* Flush Variant - Minimal design without borders */
+.accordion--flush {
+  border: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+.accordion--flush .accordion-item {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--vtx-color-neutral-200);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.accordion--flush .accordion-item:last-child {
+  border-bottom: none;
+}
+
+.accordion--flush .accordion-item:hover {
+  background: var(--vtx-color-neutral-50);
 }
 
 /* Dividers for bordered variant */
@@ -239,232 +308,311 @@
   font-size: var(--accordion-body-font-size, 0.95em);
 }
 
-/* Size Variants */
+/* =============================================================================
+ * SIZE VARIANTS
+ * ============================================================================= */
+
+/* Small Size */
 .accordion--sm .accordion-item-header {
-  padding: var(--accordion-sm-padding, var(--spacing-3, 12px) var(--spacing-4, 16px));
-  font-size: var(--accordion-sm-font-size, var(--font-size-sm, 14px));
-  min-height: var(--accordion-sm-min-height, 48px);
+  padding: var(--vtx-spacing-3) var(--vtx-spacing-4);
+  font-size: var(--vtx-font-size-sm);
+  min-height: 48px;
+}
+
+.accordion--sm .accordion-item-header-content {
+  font-size: var(--vtx-font-size-sm);
 }
 
 .accordion--sm .accordion-item-body {
-  padding: 0 var(--spacing-4, 16px) var(--spacing-4, 16px) var(--spacing-4, 16px);
-  font-size: var(--accordion-sm-body-font-size, var(--font-size-sm, 14px));
+  padding: var(--vtx-spacing-4);
+  font-size: var(--vtx-font-size-xs);
 }
 
 .accordion--sm .accordion-item-chevron {
-  width: var(--accordion-sm-icon-size, 20px);
-  height: var(--accordion-sm-icon-size, 20px);
-  margin: 0 var(--spacing-2, 8px);
+  width: var(--vtx-spacing-5);
+  height: var(--vtx-spacing-5);
 }
 
 .accordion--sm .accordion-item-chevron svg {
-  width: 14px;
-  height: 14px;
+  width: var(--vtx-spacing-3);
+  height: var(--vtx-spacing-3);
 }
 
+/* Medium Size (Default) */
 .accordion--md .accordion-item-header {
-  padding: var(--accordion-md-padding, var(--spacing-4, 16px) var(--spacing-5, 20px));
-  font-size: var(--accordion-md-font-size, var(--font-size-base, 16px));
-  min-height: var(--accordion-md-min-height, 56px);
+  padding: var(--vtx-spacing-4) var(--vtx-spacing-5);
+  font-size: var(--vtx-font-size-base);
+  min-height: 56px;
+}
+
+.accordion--md .accordion-item-header-content {
+  font-size: var(--vtx-font-size-base);
 }
 
 .accordion--md .accordion-item-body {
-  padding: 0 var(--spacing-5, 20px) var(--spacing-5, 20px) var(--spacing-5, 20px);
-  font-size: var(--accordion-md-body-font-size, 15px);
+  padding: var(--vtx-spacing-5);
+  font-size: var(--vtx-font-size-sm);
 }
 
 .accordion--md .accordion-item-chevron {
-  width: var(--accordion-md-icon-size, 24px);
-  height: var(--accordion-md-icon-size, 24px);
-  margin: 0 var(--spacing-2, 8px);
+  width: var(--vtx-spacing-6);
+  height: var(--vtx-spacing-6);
 }
 
 .accordion--md .accordion-item-chevron svg {
-  width: 16px;
-  height: 16px;
+  width: var(--vtx-spacing-4);
+  height: var(--vtx-spacing-4);
 }
 
+/* Large Size */
 .accordion--lg .accordion-item-header {
-  padding: var(--accordion-lg-padding, var(--spacing-5, 20px) var(--spacing-6, 24px));
-  font-size: var(--accordion-lg-font-size, var(--font-size-lg, 18px));
-  min-height: var(--accordion-lg-min-height, 64px);
+  padding: var(--vtx-spacing-5) var(--vtx-spacing-6);
+  font-size: var(--vtx-font-size-lg);
+  min-height: 64px;
+}
+
+.accordion--lg .accordion-item-header-content {
+  font-size: var(--vtx-font-size-lg);
+  font-weight: var(--vtx-font-weight-bold);
 }
 
 .accordion--lg .accordion-item-body {
-  padding: 0 var(--spacing-6, 24px) var(--spacing-6, 24px) var(--spacing-6, 24px);
-  font-size: var(--accordion-lg-body-font-size, var(--font-size-base, 16px));
+  padding: var(--vtx-spacing-6);
+  font-size: var(--vtx-font-size-base);
 }
 
 .accordion--lg .accordion-item-chevron {
-  width: var(--accordion-lg-icon-size, 28px);
-  height: var(--accordion-lg-icon-size, 28px);
-  margin: 0 var(--spacing-3, 12px);
+  width: var(--vtx-spacing-8);
+  height: var(--vtx-spacing-8);
 }
 
 .accordion--lg .accordion-item-chevron svg {
-  width: 18px;
-  height: 18px;
+  width: var(--vtx-spacing-5);
+  height: var(--vtx-spacing-5);
 }
 
-/* Dark Mode Support */
+/* =============================================================================
+ * DARK MODE SUPPORT
+ * ============================================================================= */
+
+[data-theme="dark"] .accordion,
 @media (prefers-color-scheme: dark) {
+  .accordion {
+    color: var(--vtx-color-neutral-100);
+  }
+
+  /* Dark mode variants */
   .accordion--default {
-    background: var(--accordion-bg-dark, var(--color-background-dark, #1f2937));
-    border-color: var(--accordion-border-dark, var(--color-border-dark, #374151));
-    box-shadow: var(
-      --accordion-shadow-dark,
-      0 1px 3px rgba(0, 0, 0, 0.3),
-      0 1px 2px rgba(0, 0, 0, 0.2)
-    );
+    background: var(--vtx-color-neutral-800);
+    border-color: var(--vtx-color-neutral-700);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   }
 
   .accordion--bordered .accordion-item,
   .accordion--separated .accordion-item {
-    background: var(--accordion-bg-dark, var(--color-background-dark, #1f2937));
-    border-color: var(--accordion-border-dark, var(--color-border-dark, #374151));
+    background: var(--vtx-color-neutral-900);
+    border-color: var(--vtx-color-neutral-700);
   }
 
-  .accordion--separated .accordion-item:hover {
-    box-shadow: var(
-      --accordion-separated-shadow-hover-dark,
-      0 10px 15px rgba(0, 0, 0, 0.3),
-      0 4px 6px rgba(0, 0, 0, 0.2)
-    );
+  .accordion--flush .accordion-item:hover {
+    background: var(--vtx-color-neutral-800);
   }
 
-  .accordion-item-header:hover:not(:disabled) {
-    background: var(
-      --accordion-header-hover-bg-dark,
-      linear-gradient(135deg, #374151 0%, #4b5563 100%)
-    );
+  /* Header dark mode */
+  .accordion-item-header {
+    background: var(--vtx-color-neutral-900);
+  }
+
+  .accordion-item-header:hover {
+    background: linear-gradient(135deg, var(--vtx-color-neutral-800) 0%, var(--vtx-color-neutral-700) 100%);
   }
 
   .accordion-item-header-content {
-    color: var(--accordion-header-color-dark, var(--color-text-primary-dark, #f9fafb));
+    color: var(--vtx-color-neutral-100);
   }
 
+  .accordion-item-header:hover .accordion-item-header-content {
+    color: var(--vtx-color-primary-300);
+  }
+
+  .accordion-item--open .accordion-item-header {
+    background: linear-gradient(135deg, var(--vtx-color-neutral-800) 0%, var(--vtx-color-primary-900) 100%);
+    border-bottom-color: var(--vtx-color-neutral-600);
+  }
+
+  .accordion-item--open .accordion-item-header-content {
+    color: var(--vtx-color-primary-200);
+  }
+
+  /* Content dark mode */
   .accordion-item-content {
-    background: var(--accordion-content-bg-dark, var(--color-background-darker, #111827));
-    border-top-color: var(--accordion-content-border-dark, var(--color-border-dark, #374151));
+    background: var(--vtx-color-neutral-800);
+    border-top-color: var(--vtx-color-neutral-700);
+  }
+
+  .accordion-item-content--open {
+    border-top-color: var(--vtx-color-neutral-600);
   }
 
   .accordion-item-body {
-    color: var(--accordion-body-color-dark, var(--color-text-secondary-dark, #d1d5db));
+    color: var(--vtx-color-neutral-300);
   }
 
+  /* Chevron dark mode */
   .accordion-item-chevron {
-    color: var(--accordion-icon-color-dark, var(--color-text-secondary-dark, #9ca3af));
-    background: var(--accordion-icon-bg-dark, rgba(59, 130, 246, 0.2));
+    background: var(--vtx-color-primary-900);
+    color: var(--vtx-color-primary-300);
   }
 
   .accordion-item-chevron.open {
-    background: var(--accordion-icon-bg-open-dark, rgba(59, 130, 246, 0.3));
-    color: var(--accordion-icon-color-open-dark, var(--color-primary-light, #60a5fa));
+    background: var(--vtx-color-primary-800);
+    color: var(--vtx-color-primary-200);
   }
 
-  .accordion-item-header:hover .accordion-chevron {
-    background: var(--accordion-icon-bg-hover-dark, rgba(59, 130, 246, 0.25));
-    color: var(--accordion-icon-color-hover-dark, var(--vtx-color-primary-400));
-  }
-
-  .accordion--flush .accordion-item {
-    border-bottom-color: var(--accordion-divider-dark, var(--color-border-dark, #374151));
-  }
-
-  .accordion--default.accordion--divider .accordion-item:not(:last-child) {
-    border-bottom-color: var(--accordion-divider-dark, var(--color-border-dark, #4b5563));
-  }
-
-  .accordion--bordered.accordion--divider .accordion-item:not(:last-child)::after {
-    background: var(--accordion-divider-dark, var(--color-border-dark, #4b5563));
-  }
-
-  .accordion--separated.accordion--divider .accordion-item:not(:last-child)::after {
-    background: var(
-      --accordion-divider-gradient-dark,
-      linear-gradient(
-        to right,
-        transparent,
-        var(--color-border-dark, #6b7280) 20%,
-        var(--color-border-dark, #6b7280) 80%,
-        transparent
-      )
-    );
+  .accordion-item-header:hover .accordion-item-chevron {
+    background: var(--vtx-color-primary-700);
+    color: var(--vtx-color-primary-100);
   }
 }
 
-/* Improved Visual States */
-.accordion-item--open .accordion-item-header {
-  background: var(--accordion-header-open-bg, linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%));
-  border-bottom: 1px solid var(--accordion-header-open-border, var(--color-border, #e5e7eb));
-}
+/* =============================================================================
+ * ENHANCED STATES AND ANIMATIONS
+ * ============================================================================= */
 
-.accordion-item--open .accordion-item-header-content {
-  color: var(--accordion-header-open-color, var(--color-text-primary, #0f172a));
-  font-weight: var(--accordion-header-open-font-weight, var(--font-weight-bold, 700));
-}
-
-/* Enhanced Focus States */
-.accordion-item-header:focus-visible {
-  outline: 2px solid var(--accordion-focus-color, var(--color-primary, #3b82f6));
-  outline-offset: 2px;
-  border-radius: var(--accordion-focus-radius, var(--radius-md, 6px));
-  box-shadow: var(
-    --accordion-focus-shadow,
-    0 0 0 4px var(--color-primary-alpha-10, rgba(59, 130, 246, 0.1))
-  );
-}
-
-/* Loading State */
+/* Loading state */
 .accordion-item--loading {
-  opacity: var(--accordion-loading-opacity, 0.7);
+  opacity: 0.6;
   pointer-events: none;
 }
 
 .accordion-item--loading .accordion-item-chevron {
-  animation: spin var(--accordion-loading-duration, 1s) linear infinite;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-@keyframes spin {
+/* Enhanced animations */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes slideDown {
   from {
-    transform: rotate(0deg);
+    max-height: 0;
+    opacity: 0;
   }
   to {
-    transform: rotate(360deg);
+    max-height: 500px;
+    opacity: 1;
   }
 }
 
-/* High Contrast Mode */
+/* Enhanced visual feedback */
+.accordion-item-header:active {
+  transform: scale(0.99);
+}
+
+/* Beautiful gradient accents for special states */
+.accordion-item--featured .accordion-item-header {
+  background: linear-gradient(135deg, var(--vtx-color-primary-50) 0%, var(--vtx-color-secondary-50) 100%);
+  border-left: 4px solid var(--vtx-color-primary-500);
+}
+
+/* Status indicators */
+.accordion-item--success .accordion-item-header {
+  border-left: 4px solid var(--vtx-color-success-500);
+}
+
+.accordion-item--warning .accordion-item-header {
+  border-left: 4px solid var(--vtx-color-warning-500);
+}
+
+.accordion-item--error .accordion-item-header {
+  border-left: 4px solid var(--vtx-color-error-500);
+}
+
+/* =============================================================================
+ * ACCESSIBILITY AND MOTION
+ * ============================================================================= */
+
+/* High contrast mode */
 @media (prefers-contrast: high) {
   .accordion-item {
-    border: 2px solid #000;
+    border: 2px solid currentColor;
   }
-
-  .accordion-item-header {
-    border: 1px solid #000;
-  }
-
-  .accordion-item-header:focus {
-    outline: 4px solid #000;
+  
+  .accordion-item-header:focus-visible {
+    outline: 4px solid currentColor;
     outline-offset: 2px;
   }
-
+  
   .accordion-item-header-content {
-    color: #000;
-    font-weight: 800;
+    font-weight: var(--vtx-font-weight-bold);
   }
 }
 
-/* Reduced Motion */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .accordion-item,
   .accordion-item-header,
   .accordion-item-chevron,
-  .accordion-item-content {
+  .accordion-item-content,
+  .accordion-item-body {
     transition: none;
-  }
-
-  .accordion-item--loading .accordion-item-chevron {
     animation: none;
   }
+  
+  .accordion-item-chevron.open {
+    transform: none;
+  }
 }
+
+/* Print styles */
+@media print {
+  .accordion-item {
+    page-break-inside: avoid;
+  }
+  
+  .accordion-item-content {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  
+  .accordion-item-chevron {
+    display: none;
+  }
+}
+
+/* =============================================================================
+ * UTILITY CLASSES
+ * ============================================================================= */
+
+/* Custom spacing */
+.accordion--compact .accordion-item-header {
+  padding: var(--vtx-spacing-2) var(--vtx-spacing-4);
+  min-height: 40px;
+}
+
+.accordion--compact .accordion-item-body {
+  padding: var(--vtx-spacing-3);
+}
+
+.accordion--spacious .accordion-item-header {
+  padding: var(--vtx-spacing-6) var(--vtx-spacing-8);
+  min-height: 72px;
+}
+
+.accordion--spacious .accordion-item-body {
+  padding: var(--vtx-spacing-8);
+}
+
+/* No animations */
+.accordion--no-animation * {
+  transition: none !important;
+  animation: none !important;
+}
+
+

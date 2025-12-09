@@ -380,7 +380,7 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
                 aria-label="User menu"
               >
-                <Avatar src={userAvatar} alt={userName} size="small" />
+                <Avatar src={userAvatar} alt={userName} size="sm" />
                 {!userAvatar && (
                   <span className="vtx-header-avatar-fallback">
                     {userName
@@ -416,3 +416,8 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
 );
 
 Header.displayName = 'Header';
+
+
+export default Header as React.FC<
+  HeaderProps & React.RefAttributes<HTMLElement>
+>;

@@ -27,19 +27,19 @@
 }
 
 /* Sizes */
-.vtx-button--small {
+.vtx-button--sm {
   padding: var(--vtx-spacing-1) var(--vtx-spacing-3);
   font-size: var(--vtx-font-size-sm);
   min-height: 32px;
 }
 
-.vtx-button--medium {
+.vtx-button--md {
   padding: var(--vtx-spacing-2) var(--vtx-spacing-4);
   font-size: var(--vtx-font-size-base);
   min-height: 40px;
 }
 
-.vtx-button--large {
+.vtx-button--lg {
   padding: var(--vtx-spacing-3) var(--vtx-spacing-6);
   font-size: var(--vtx-font-size-lg);
   min-height: 48px;
@@ -60,16 +60,16 @@
 }
 
 .vtx-button--secondary {
-  background-color: var(--vtx-color-neutral-200);
-  color: var(--vtx-color-neutral-900);
+  background-color: var(--vtx-color-secondary-600);
+  color: white;
 }
 
 .vtx-button--secondary:hover:not(:disabled):not([aria-disabled='true']) {
-  background-color: var(--vtx-color-neutral-300);
+  background-color: var(--vtx-color-secondary-700);
 }
 
 .vtx-button--secondary:active:not(:disabled):not([aria-disabled='true']) {
-  background-color: var(--vtx-color-neutral-400);
+  background-color: var(--vtx-color-secondary-800);
 }
 
 .vtx-button--outline {
@@ -99,6 +99,32 @@
 
 .vtx-button--danger:hover:not(:disabled):not([aria-disabled='true']) {
   background-color: var(--vtx-color-error-700);
+}
+
+.vtx-button--success {
+  background-color: var(--vtx-color-success-600, #16a34a);
+  color: white;
+}
+
+.vtx-button--success:hover:not(:disabled):not([aria-disabled='true']) {
+  background-color: var(--vtx-color-success-700, #15803d);
+}
+
+.vtx-button--success:active:not(:disabled):not([aria-disabled='true']) {
+  background-color: var(--vtx-color-success-800, #166534);
+}
+
+.vtx-button--warning {
+  background-color: var(--vtx-color-warning-500, #f59e42);
+  color: var(--vtx-color-warning-contrast, #1a1a1a);
+}
+
+.vtx-button--warning:hover:not(:disabled):not([aria-disabled='true']) {
+  background-color: var(--vtx-color-warning-600, #d97706);
+}
+
+.vtx-button--warning:active:not(:disabled):not([aria-disabled='true']) {
+  background-color: var(--vtx-color-warning-700, #b45309);
 }
 
 /* Full width */
@@ -154,4 +180,12 @@
 
 .vtx-button__icon-right {
   margin-right: calc(var(--vtx-spacing-1) * -1);
+}
+
+/* Dark/Light text override */
+.vtx-button--dark-text {
+  color: var(--vtx-color-dark-text, var(--vtx-color-neutral-900)) !important;
+}
+.vtx-button--light-text {
+  color: var(--vtx-color-light-text, var(--vtx-color-white)) !important;
 }

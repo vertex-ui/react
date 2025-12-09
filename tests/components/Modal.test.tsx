@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen } from '../test-utils';
 import userEvent from '@testing-library/user-event';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import { Modal } from '../../src/components/Modal';
@@ -47,18 +47,18 @@ describe('Modal', () => {
 
     it('renders different sizes', () => {
       const { rerender } = render(
-        <Modal isOpen size="small" onClose={() => {}}>
+        <Modal isOpen size="sm" onClose={() => {}}>
           <p>Small</p>
         </Modal>
       );
-      expect(screen.getByRole('dialog')).toHaveClass('vtx-modal--small');
+      expect(screen.getByRole('dialog')).toHaveClass('vtx-modal--sm');
 
       rerender(
-        <Modal isOpen size="large" onClose={() => {}}>
+        <Modal isOpen size="lg" onClose={() => {}}>
           <p>Large</p>
         </Modal>
       );
-      expect(screen.getByRole('dialog')).toHaveClass('vtx-modal--large');
+      expect(screen.getByRole('dialog')).toHaveClass('vtx-modal--lg');
     });
   });
 

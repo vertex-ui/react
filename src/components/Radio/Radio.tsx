@@ -190,3 +190,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
 );
 
 Radio.displayName = 'Radio';
+
+export default Radio as React.FC<
+  RadioProps & React.RefAttributes<HTMLInputElement>
+>;

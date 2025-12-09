@@ -1,53 +1,67 @@
-# Accordion Component Theming
+# 🎨 VTX Accordion Component - Comprehensive Theming Guide
 
-The Accordion component is fully customizable using CSS custom properties (CSS variables). This allows you to easily theme and customize the appearance without modifying the component code.
+The VTX Accordion component has been completely redesigned to fully integrate with the VTX design system, offering beautiful visual states, enhanced accessibility, and comprehensive theming capabilities.
 
-## Available CSS Custom Properties
+## ✨ Design Philosophy
 
-### Layout & Structure
+The redesigned accordion follows these core principles:
+- **VTX Token Integration**: Full utilization of VTX design tokens for consistent theming
+- **Beautiful Visual States**: Enhanced hover, focus, and active states with smooth animations
+- **Accessibility First**: WCAG compliant with proper ARIA attributes and keyboard navigation
+- **Performance Optimized**: Efficient animations with respect for user preferences
+- **Dark Mode Ready**: Automatic dark mode support with beautiful color adaptations
+
+## 🎯 Key Features
+
+### Visual Variants
+- **Default**: Clean card-like appearance with subtle shadows
+- **Bordered**: Individual cards with spacing and enhanced hover effects  
+- **Separated**: Floating cards with enhanced shadows and animations
+- **Flush**: Minimal design without borders
+
+### Size Variants
+- **Small (sm)**: Compact spacing for dense layouts
+- **Medium (md)**: Standard spacing (default)
+- **Large (lg)**: Spacious layout for emphasis
+
+### Enhanced States
+- **Loading**: Pulse animation for async content
+- **Disabled**: Reduced opacity with pointer events disabled
+- **Status Indicators**: Success, warning, error, and featured states
+- **Custom Icons**: Support for custom expand/collapse icons
+
+## 🛠️ VTX Design Token Usage
+
+The accordion now uses VTX design tokens exclusively for consistent theming:
+
+### Core Design Tokens Used
 
 ```css
---accordion-radius                /* Border radius for default variant (default: 12px) */
---accordion-item-radius           /* Border radius for bordered variant items (default: 8px) */
---accordion-item-radius-lg        /* Border radius for separated variant items (default: 10px) */
---accordion-spacing               /* Spacing between items in bordered variant (default: 8px) */
---accordion-spacing-lg            /* Spacing between items in separated variant (default: 16px) */
---accordion-divider-spacing       /* Spacing for dividers in bordered variant (default: 12px) */
-```
+/* Colors */
+--vtx-color-primary-*     /* Primary color scale for accents and interactive states */
+--vtx-color-secondary-*   /* Secondary colors for featured states */
+--vtx-color-neutral-*     /* Neutral colors for backgrounds and text */
+--vtx-color-success-*     /* Success state indicators */
+--vtx-color-warning-*     /* Warning state indicators */
+--vtx-color-error-*       /* Error state indicators */
 
-### Colors - Light Mode
+/* Spacing */
+--vtx-spacing-*          /* Consistent spacing scale (1-24) */
 
-```css
---accordion-bg                    /* Background color (default: #ffffff) */
---accordion-border                /* Border color (default: #e5e7eb) */
---accordion-border-hover          /* Border color on hover (default: #d1d5db) */
---accordion-divider               /* Divider line color (default: #e5e7eb) */
---accordion-separated-border      /* Border for separated variant (default: #f3f4f6) */
+/* Typography */
+--vtx-font-family-sans   /* Primary font family */
+--vtx-font-size-*        /* Font size scale (xs, sm, base, lg, xl, 2xl) */
+--vtx-font-weight-*      /* Font weight scale (normal, medium, semibold, bold) */
+--vtx-line-height-*      /* Line height scale (tight, normal, relaxed) */
 
-/* Header */
---accordion-header-color          /* Header text color (default: #1f2937) */
---accordion-header-hover-bg       /* Header background on hover (default: gradient) */
---accordion-header-open-bg        /* Header background when open (default: gradient) */
---accordion-header-open-color     /* Header text color when open (default: #0f172a) */
---accordion-header-open-border    /* Header border when open (default: #e5e7eb) */
+/* Radius */
+--vtx-radius-*           /* Border radius scale (sm, base, md, lg, xl, 2xl, full) */
 
-/* Content */
---accordion-content-bg            /* Content area background (default: #fafbfc) */
---accordion-content-border        /* Content area border (default: #e5e7eb) */
---accordion-body-color            /* Body text color (default: #4b5563) */
+/* Shadows */
+--vtx-shadow-*           /* Shadow scale (sm, base, md, lg, xl) */
 
-/* Icon */
---accordion-icon-color            /* Icon color (default: #6b7280) */
---accordion-icon-bg               /* Icon background (default: rgba(59, 130, 246, 0.1)) */
---accordion-icon-color-open       /* Icon color when open (default: #3b82f6) */
---accordion-icon-bg-open          /* Icon background when open (default: rgba(59, 130, 246, 0.2)) */
---accordion-icon-color-hover      /* Icon color on hover (default: #3b82f6) */
---accordion-icon-bg-hover         /* Icon background on hover (default: rgba(59, 130, 246, 0.15)) */
---accordion-icon-size             /* Icon container size (default: 24px) */
---accordion-icon-radius           /* Icon border radius (default: 50%) */
-
-/* States */
---accordion-disabled-color        /* Text color when disabled (default: #9ca3af) */
+/* Transitions */
+--vtx-transition-*       /* Transition timing (fast, base, slow) */
 --accordion-disabled-opacity      /* Opacity when disabled (default: 0.5) */
 --accordion-focus-color           /* Focus outline color (default: #3b82f6) */
 --accordion-focus-radius          /* Focus outline radius (default: 6px) */
@@ -56,163 +70,370 @@ The Accordion component is fully customizable using CSS custom properties (CSS v
 --accordion-loading-duration      /* Loading animation duration (default: 1s) */
 ```
 
-### Colors - Dark Mode
+## 🎨 Component Structure & Styling
 
+### Accordion Container
 ```css
---accordion-bg-dark               /* Dark mode background (default: #1f2937) */
---accordion-border-dark           /* Dark mode border (default: #374151) */
---accordion-divider-dark          /* Dark mode divider (default: #4b5563) */
---accordion-header-color-dark     /* Dark mode header text (default: #f9fafb) */
---accordion-header-hover-bg-dark  /* Dark mode header hover background (default: gradient) */
---accordion-content-bg-dark       /* Dark mode content background (default: #111827) */
---accordion-content-border-dark   /* Dark mode content border (default: #374151) */
---accordion-body-color-dark       /* Dark mode body text (default: #d1d5db) */
---accordion-icon-color-dark       /* Dark mode icon color (default: #9ca3af) */
---accordion-icon-bg-dark          /* Dark mode icon background (default: rgba(59, 130, 246, 0.2)) */
---accordion-icon-color-open-dark  /* Dark mode icon color when open (default: #60a5fa) */
---accordion-icon-bg-open-dark     /* Dark mode icon background when open (default: rgba(59, 130, 246, 0.3)) */
-```
-
-### Typography
-
-```css
---accordion-header-font-weight    /* Header font weight (default: 600) */
---accordion-header-line-height    /* Header line height (default: 1.5) */
---accordion-header-open-font-weight /* Header font weight when open (default: 700) */
---accordion-body-font-size        /* Body font size (default: 0.95em) */
---accordion-body-line-height      /* Body line height (default: 1.7) */
-```
-
-### Size-Specific Properties
-
-```css
-/* Small */
---accordion-sm-padding            /* Small size padding (default: 12px 16px) */
---accordion-sm-font-size          /* Small size font size (default: 14px) */
---accordion-sm-body-font-size     /* Small size body font size (default: 14px) */
---accordion-sm-min-height         /* Small size minimum height (default: 48px) */
---accordion-sm-icon-size          /* Small size icon size (default: 20px) */
-
-/* Medium */
---accordion-md-padding            /* Medium size padding (default: 16px 20px) */
---accordion-md-font-size          /* Medium size font size (default: 16px) */
---accordion-md-body-font-size     /* Medium size body font size (default: 15px) */
---accordion-md-min-height         /* Medium size minimum height (default: 56px) */
---accordion-md-icon-size          /* Medium size icon size (default: 24px) */
-
-/* Large */
---accordion-lg-padding            /* Large size padding (default: 20px 24px) */
---accordion-lg-font-size          /* Large size font size (default: 18px) */
---accordion-lg-body-font-size     /* Large size body font size (default: 16px) */
---accordion-lg-min-height         /* Large size minimum height (default: 64px) */
---accordion-lg-icon-size          /* Large size icon size (default: 28px) */
-```
-
-### Shadows & Effects
-
-```css
---accordion-shadow                /* Default variant shadow */
---accordion-shadow-dark           /* Default variant shadow in dark mode */
---accordion-item-shadow           /* Bordered variant item shadow */
---accordion-item-shadow-hover     /* Bordered variant item shadow on hover */
---accordion-separated-shadow      /* Separated variant shadow */
---accordion-separated-shadow-hover /* Separated variant shadow on hover */
---accordion-separated-shadow-hover-dark /* Separated variant shadow on hover in dark mode */
-```
-
-### Transitions
-
-```css
---accordion-icon-transition       /* Icon rotation transition (default: 0.3s) */
---accordion-content-transition    /* Content expand/collapse transition (default: 0.3s) */
---accordion-content-max-height    /* Maximum height for expanded content (default: 500px) */
-```
-
-### Gradients
-
-```css
---accordion-divider-gradient      /* Divider gradient for separated variant */
---accordion-divider-gradient-dark /* Divider gradient for separated variant in dark mode */
-```
-
-## Usage Examples
-
-### Basic Theming
-
-```css
-:root {
-  --accordion-bg: #f8f9fa;
-  --accordion-border: #dee2e6;
-  --accordion-header-color: #212529;
+.accordion {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-family: var(--vtx-font-family-sans);
+  font-size: var(--vtx-font-size-base);
+  line-height: var(--vtx-line-height-normal);
+  color: var(--vtx-color-neutral-900);
 }
 ```
 
-### Custom Brand Colors
+### Variant-Specific Styling
 
+#### Default Variant
 ```css
-:root {
-  --accordion-icon-bg: rgba(220, 38, 38, 0.1);
-  --accordion-icon-color-open: #dc2626;
-  --accordion-icon-bg-open: rgba(220, 38, 38, 0.2);
-  --accordion-focus-color: #dc2626;
-  --accordion-header-hover-bg: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+.accordion--default {
+  background: var(--vtx-color-neutral-50);
+  border: 1px solid var(--vtx-color-neutral-200);
+  border-radius: var(--vtx-radius-xl);
+  overflow: hidden;
+  box-shadow: var(--vtx-shadow-base);
+  transition: box-shadow var(--vtx-transition-base);
+}
+
+.accordion--default:hover {
+  box-shadow: var(--vtx-shadow-md);
 }
 ```
 
-### Compact Variant
-
+#### Bordered Variant
 ```css
-:root {
-  --accordion-md-padding: 12px 16px;
-  --accordion-md-min-height: 44px;
-  --accordion-icon-size: 20px;
-  --accordion-content-max-height: 300px;
+.accordion--bordered .accordion-item {
+  background: white;
+  border: 1px solid var(--vtx-color-neutral-200);
+  border-radius: var(--vtx-radius-lg);
+  box-shadow: var(--vtx-shadow-sm);
+  transition: 
+    box-shadow var(--vtx-transition-base),
+    border-color var(--vtx-transition-base),
+    transform var(--vtx-transition-fast);
+}
+
+.accordion--bordered .accordion-item:hover {
+  border-color: var(--vtx-color-primary-300);
+  box-shadow: var(--vtx-shadow-md);
+  transform: translateY(-1px);
 }
 ```
 
-### High Contrast Theme
-
+#### Separated Variant
 ```css
-:root {
-  --accordion-bg: #000000;
-  --accordion-border: #ffffff;
-  --accordion-header-color: #ffffff;
-  --accordion-body-color: #e0e0e0;
-  --accordion-icon-color: #ffffff;
-  --accordion-disabled-opacity: 0.3;
+.accordion--separated .accordion-item {
+  background: white;
+  border: 1px solid var(--vtx-color-neutral-100);
+  border-radius: var(--vtx-radius-xl);
+  box-shadow: 
+    var(--vtx-shadow-base),
+    0 0 0 1px rgba(255, 255, 255, 0.8);
+  transition: 
+    box-shadow var(--vtx-transition-base),
+    transform var(--vtx-transition-base);
+  backdrop-filter: blur(10px);
+}
+
+.accordion--separated .accordion-item:hover {
+  box-shadow: 
+    var(--vtx-shadow-xl),
+    0 0 0 1px var(--vtx-color-primary-100);
+  transform: translateY(-2px);
 }
 ```
 
-### Component-Specific Override
+### Interactive States
+
+#### Header Styling
+```css
+.accordion-item-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--vtx-spacing-4) var(--vtx-spacing-5);
+  background: white;
+  cursor: pointer;
+  transition: 
+    background-color var(--vtx-transition-base),
+    color var(--vtx-transition-base),
+    box-shadow var(--vtx-transition-base);
+}
+
+.accordion-item-header:hover {
+  background: linear-gradient(135deg, var(--vtx-color-primary-50) 0%, var(--vtx-color-neutral-50) 100%);
+}
+
+.accordion-item-header:focus-visible {
+  outline: 2px solid var(--vtx-color-primary-500);
+  outline-offset: -2px;
+  box-shadow: 
+    inset 0 0 0 2px var(--vtx-color-primary-500),
+    0 0 0 4px var(--vtx-color-primary-100);
+}
+```
+
+#### Open State Styling
+```css
+.accordion-item--open .accordion-item-header {
+  background: linear-gradient(135deg, var(--vtx-color-primary-100) 0%, var(--vtx-color-primary-50) 100%);
+  border-bottom: 1px solid var(--vtx-color-primary-200);
+}
+
+.accordion-item--open .accordion-item-header-content {
+  color: var(--vtx-color-primary-800);
+  font-weight: var(--vtx-font-weight-bold);
+}
+```
+
+### Status Indicators
+
+#### Success State
+```css
+.accordion-item--success .accordion-item-header {
+  border-left: 4px solid var(--vtx-color-success-500);
+}
+```
+
+#### Warning State
+```css
+.accordion-item--warning .accordion-item-header {
+  border-left: 4px solid var(--vtx-color-warning-500);
+}
+```
+
+#### Error State
+```css
+.accordion-item--error .accordion-item-header {
+  border-left: 4px solid var(--vtx-color-error-500);
+}
+```
+
+#### Featured State
+```css
+.accordion-item--featured .accordion-item-header {
+  background: linear-gradient(135deg, var(--vtx-color-primary-50) 0%, var(--vtx-color-secondary-50) 100%);
+  border-left: 4px solid var(--vtx-color-primary-500);
+}
+```
+
+### Chevron Icon Styling
+
+```css
+.accordion-item-chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--vtx-spacing-6);
+  height: var(--vtx-spacing-6);
+  margin-left: var(--vtx-spacing-3);
+  border-radius: var(--vtx-radius-full);
+  background: var(--vtx-color-primary-100);
+  color: var(--vtx-color-primary-600);
+  transition: 
+    transform var(--vtx-transition-base),
+    background-color var(--vtx-transition-base),
+    color var(--vtx-transition-base);
+  flex-shrink: 0;
+}
+
+.accordion-item-chevron.open {
+  transform: rotate(180deg);
+  background: var(--vtx-color-primary-200);
+  color: var(--vtx-color-primary-700);
+}
+```
+
+## 🌙 Dark Mode Support
+
+The accordion automatically adapts to dark mode with beautiful color transitions:
+
+```css
+[data-theme="dark"] .accordion,
+@media (prefers-color-scheme: dark) {
+  .accordion {
+    color: var(--vtx-color-neutral-100);
+  }
+
+  .accordion--default {
+    background: var(--vtx-color-neutral-800);
+    border-color: var(--vtx-color-neutral-700);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  .accordion-item-header {
+    background: var(--vtx-color-neutral-900);
+  }
+
+  .accordion-item-header:hover {
+    background: linear-gradient(135deg, var(--vtx-color-neutral-800) 0%, var(--vtx-color-neutral-700) 100%);
+  }
+
+  .accordion-item-chevron {
+    background: var(--vtx-color-primary-900);
+    color: var(--vtx-color-primary-300);
+  }
+}
+```
+
+## 📱 Size Variants
+
+### Small Size
+```css
+.accordion--sm .accordion-item-header {
+  padding: var(--vtx-spacing-3) var(--vtx-spacing-4);
+  font-size: var(--vtx-font-size-sm);
+  min-height: 48px;
+}
+
+.accordion--sm .accordion-item-body {
+  padding: var(--vtx-spacing-4);
+  font-size: var(--vtx-font-size-xs);
+}
+```
+
+### Large Size
+```css
+.accordion--lg .accordion-item-header {
+  padding: var(--vtx-spacing-5) var(--vtx-spacing-6);
+  font-size: var(--vtx-font-size-lg);
+  min-height: 64px;
+}
+
+.accordion--lg .accordion-item-body {
+  padding: var(--vtx-spacing-6);
+  font-size: var(--vtx-font-size-base);
+}
+```
+
+## 🎛️ Custom Theming
+
+### Override VTX Tokens
+You can customize the accordion by overriding VTX design tokens:
+
+```css
+:root {
+  /* Custom primary color */
+  --vtx-color-primary-500: #8b5cf6;
+  --vtx-color-primary-600: #7c3aed;
+  --vtx-color-primary-700: #6d28d9;
+  
+  /* Custom spacing */
+  --vtx-spacing-4: 1.25rem; /* 20px instead of 16px */
+  
+  /* Custom border radius */
+  --vtx-radius-lg: 1rem; /* 16px instead of 8px */
+}
+```
+
+### Component-Specific Overrides
+For more specific control, you can target accordion classes:
 
 ```css
 .my-custom-accordion {
-  --accordion-radius: 8px;
-  --accordion-header-font-weight: 700;
-  --accordion-icon-bg: transparent;
-  --accordion-content-bg: transparent;
+  --vtx-color-primary-100: #f0f9ff;
+  --vtx-color-primary-500: #0ea5e9;
+  --vtx-shadow-base: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+.my-custom-accordion .accordion-item-header {
+  font-weight: var(--vtx-font-weight-bold);
+  letter-spacing: 0.025em;
+}
+
+.my-custom-accordion .accordion-item--featured .accordion-item-header {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
 }
 ```
 
-## Integration with Design Tokens
+## ♿ Accessibility Features
 
-The Accordion component integrates seamlessly with your design token system by using fallback values:
+The accordion includes comprehensive accessibility features:
 
-```css
---accordion-bg: var(--color-background, #ffffff) --accordion-border: var(--color-border, #e5e7eb)
-  --accordion-spacing: var(--spacing-2, 8px);
+- **ARIA Labels**: Proper `aria-expanded`, `aria-controls`, and `aria-labelledby` attributes
+- **Keyboard Navigation**: Full keyboard support with Enter and Space keys
+- **Focus Management**: Clear focus indicators with `focus-visible` support
+- **Screen Reader Support**: Status announcements and semantic markup
+- **High Contrast**: Enhanced borders and focus indicators in high contrast mode
+- **Reduced Motion**: Respects `prefers-reduced-motion` preference
+
+## 🎯 Usage Examples
+
+### Basic Usage
+```tsx
+<Accordion
+  variant="default"
+  size="md"
+  items={[
+    {
+      id: 'item1',
+      header: 'Getting Started',
+      children: <p>Welcome to the accordion!</p>
+    }
+  ]}
+/>
 ```
 
-This means you can set global design tokens and the Accordion will automatically use them:
+### Advanced Configuration
+```tsx
+<Accordion
+  variant="separated"
+  size="lg"
+  spacing="spacious"
+  allowMultiple
+  showChevron
+  iconType="plus-minus"
+  chevronPosition="left"
+  defaultOpenItems={['item1']}
+  items={items}
+/>
+```
 
-```css
-:root {
-  /* Global tokens */
-  --color-background: #ffffff;
-  --color-border: #e5e7eb;
-  --color-primary: #3b82f6;
-  --spacing-2: 8px;
-  --spacing-4: 16px;
+### With Status Indicators
+```tsx
+const items = [
+  {
+    id: 'success',
+    header: 'Completed Task',
+    status: 'success',
+    children: <p>This task is complete!</p>
+  },
+  {
+    id: 'warning',
+    header: 'Needs Attention',
+    status: 'warning', 
+    children: <p>This needs your attention.</p>
+  }
+];
+
+<Accordion
+  variant="bordered"
+  items={items}
+/>
+```
+
+## 🎨 Design Guidelines
+
+### When to Use Each Variant
+
+- **Default**: General content organization, documentation, FAQ sections
+- **Bordered**: Settings panels, configuration options, card-based layouts  
+- **Separated**: Marketing content, feature showcases, premium content
+- **Flush**: Minimal interfaces, mobile layouts, nested accordions
+
+### Best Practices
+
+1. **Content Organization**: Group related content logically
+2. **Loading States**: Use loading prop for async content
+3. **Status Indicators**: Provide visual feedback for different states
+4. **Responsive Design**: Test across different screen sizes
+5. **Keyboard Navigation**: Always ensure keyboard accessibility
+6. **Performance**: Use `disableAnimations` for performance-critical scenarios
+
+The redesigned VTX Accordion component provides a perfect balance of beauty, functionality, and accessibility while maintaining full integration with your design system!
   --radius-md: 8px;
 
   /* These will be used by Accordion automatically */

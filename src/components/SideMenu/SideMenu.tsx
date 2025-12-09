@@ -306,3 +306,7 @@ export const SideMenu = forwardRef<HTMLDivElement, SideMenuProps>(
 );
 
 SideMenu.displayName = 'SideMenu';
+
+export default SideMenu as React.FC< 
+  SideMenuProps & React.RefAttributes<HTMLDivElement>
+>;

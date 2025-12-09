@@ -148,3 +148,7 @@ export const ToastContainer: React.FC<ToastContainerProps> = ({ children, ...pro
     </ToastProvider>
   );
 };
+
+export default ToastContainer as React.FC<
+  ToastContainerProps & React.RefAttributes<HTMLDivElement>
+>;

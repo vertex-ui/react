@@ -27,6 +27,18 @@
   --vtx-color-primary-800: #1e40af;
   --vtx-color-primary-900: #1e3a8a;
 
+  /* Secondary Colors */
+  --vtx-color-secondary-50: #f5f3ff;
+  --vtx-color-secondary-100: #ede9fe;
+  --vtx-color-secondary-200: #ddd6fe;
+  --vtx-color-secondary-300: #c4b5fd;
+  --vtx-color-secondary-400: #a78bfa;
+  --vtx-color-secondary-500: #8b5cf6;
+  --vtx-color-secondary-600: #7c3aed;
+  --vtx-color-secondary-700: #6d28d9;
+  --vtx-color-secondary-800: #5b21b6;
+  --vtx-color-secondary-900: #4c1d95;
+
   /* Neutral Colors */
   --vtx-color-neutral-50: #fafafa;
   --vtx-color-neutral-100: #f5f5f5;

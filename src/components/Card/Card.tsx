@@ -1,4 +1,5 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
+import { useThemeContext } from '../../theme/ThemeProvider';
 import './Card.css';
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -11,6 +12,11 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
    * @default 'elevated'
    */
   variant?: 'elevated' | 'outlined' | 'filled';
+  /**
+   * Size of the card
+   * @default 'md'
+   */
+  size?: 'sm' | 'md' | 'lg';
   /**
    * If true, removes padding from the card
    * @default false
@@ -112,11 +118,13 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
  * }
  * ```
  */
-export const Card = forwardRef<HTMLDivElement, CardProps>(
+
+export const Card = React.forwardRef<HTMLDivElement, CardProps>(
   (
     {
       children,
       variant = 'elevated',
+      size,
       noPadding = false,
       padding,
       hoverable = false,
@@ -126,28 +134,46 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
       footer,
       divider = false,
       style,
+      onClick,
+      tabIndex,
       ...props
     },
     ref
   ) => {
+    const { theme } = useThemeContext();
+    const cardSize = size || theme?.defaultSize || 'md';
+
+    // Compose class names
     const cardClassNames = [
       'vtx-card',
       `vtx-card--${variant}`,
-      hoverable && 'vtx-card--hoverable',
-      clickable && 'vtx-card--clickable',
-      noPadding && !padding && 'vtx-card--no-padding',
+      `vtx-card--${cardSize}`,
+      hoverable ? 'vtx-card--hoverable' : '',
+      clickable ? 'vtx-card--clickable' : '',
+      noPadding && !padding ? 'vtx-card--no-padding' : '',
       className,
     ]
       .filter(Boolean)
       .join(' ');
 
-    const customStyle = {
-      ...style,
-      ...(padding && ({ '--vtx-card-padding': padding } as React.CSSProperties)),
+    // Compose style, ensuring custom property is set if padding is provided
+    const customStyle: React.CSSProperties = {
+      ...(style || {}),
+      ...(padding ? { ['--vtx-card-padding' as any]: padding } : {}),
     };
 
+    // If clickable, set tabIndex to 0 by default unless provided
+    const computedTabIndex = clickable ? (typeof tabIndex === 'number' ? tabIndex : 0) : tabIndex;
+
     return (
-      <div ref={ref} className={cardClassNames} style={customStyle} {...props}>
+      <div
+        ref={ref}
+        className={cardClassNames}
+        style={customStyle}
+        onClick={onClick}
+        tabIndex={computedTabIndex}
+        {...props}
+      >
         {header && (
           <div className={`vtx-card-header${divider ? ' vtx-card-header--divider' : ''}`}>
             {header}
@@ -165,3 +191,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
 );
 
 Card.displayName = 'Card';
+
+export default Card as React.FC<
+  CardProps & React.RefAttributes<HTMLDivElement>
+>;
