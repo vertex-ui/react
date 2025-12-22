@@ -1,5 +1,5 @@
 export { ThemeProvider, useThemeContext } from './ThemeProvider';
-export { tokens } from './tokens';
+export { tokens, createCustomTokens } from './tokens';
 export { generateCSSVariables, injectCSSVariables } from './cssVariables';
 export type { Theme, ThemeProviderProps, Size } from './ThemeProvider';
 export type { Tokens, ColorScale, ColorShade, CustomTokens, CustomColors, ColorPalette } from './tokens';

@@ -32,7 +32,7 @@ export type { MenuItemProps, MenuProps } from './components/Menu';
 export { Modal } from './components/Modal';
 export type { ModalProps } from './components/Modal';
 export { Toast, toast, ToastContainer, useToast } from './components/Toast';
-export type { ToastContainerProps, ToastOptions, ToastProps } from './components/Toast/types';
+export type { ToastContainerProps, ToastOptions, ToastProps, ToastVariant, ToastPosition, ToastInstance } from './components/Toast/types';
 export { Tooltip } from './components/Tooltip';
 export type { TooltipProps } from './components/Tooltip';
 
@@ -60,6 +60,7 @@ export { Header } from './components/Header';
 export type { HeaderProps, NotificationItem } from './components/Header';
 export { SideMenu } from './components/SideMenu';
 export type { SideMenuItemProps, SideMenuProps } from './components/SideMenu';
+export { SideMenuItem } from './components/SideMenu';
 export { Table } from './components/Table';
 export type { TableColumn, TableProps } from './components/Table';
 export { Text } from './components/Text';
@@ -75,9 +76,9 @@ export type { GridProps } from './components/Grid';
 
 // --- Theme System ---
 export { ThemeProvider, useThemeContext } from './theme';
-export type { Theme, ThemeProviderProps } from './theme';
+export type { Theme, ThemeProviderProps, Size } from './theme';
 export { tokens, generateCSSVariables, injectCSSVariables } from './theme';
-export type { Tokens, ColorScale, ColorShade } from './theme';
+export type { Tokens, ColorScale, ColorShade, CustomTokens, CustomColors, ColorPalette } from './theme';
 
 // --- Hooks ---
 export {

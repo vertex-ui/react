@@ -102,24 +102,21 @@ import './custom-theme.css';
 
 ### Method 2: Use Custom Tokens with ThemeProvider
 
-```tsx
-import { ThemeProvider } from '@vtx-ui/react';
-import type { Tokens } from '@vtx-ui/react';
+VTX UI provides intelligent color palette generation. You can pass either:
+- **Single hex color** - Automatically generates all shades (50-900)
+- **Partial palette** - Define specific shades, others will be inherited
 
-const customTokens: Partial<Tokens> = {
+#### Option 1: Auto-Generate Full Palette from Single Color
+
+```tsx
+import { ThemeProvider, createCustomTokens } from '@vtx-ui/react';
+
+const customTokens = createCustomTokens({
   colors: {
-    primary: {
-      500: '#7c3aed',
-      600: '#6d28d9',
-      700: '#5b21b6',
-      // ... other shades
-    },
+    primary: '#7c3aed',    // Auto-generates shades 50-900
+    secondary: '#10b981',  // Auto-generates shades 50-900
   },
-  borderRadius: {
-    md: '0.5rem',
-    lg: '1rem',
-  },
-};
+});
 
 function App() {
   return (
@@ -128,6 +125,38 @@ function App() {
     </ThemeProvider>
   );
 }
+```
+
+#### Option 2: Mix Both Approaches
+
+```tsx
+import { ThemeProvider, createCustomTokens } from '@vtx-ui/react';
+
+const customTokens = createCustomTokens({
+  colors: {
+    primary: '#7c3aed',  // Auto-generated full palette
+    secondary: {         // Custom specific shades
+      500: '#10b981',
+      600: '#059669',
+      700: '#047857',
+    },
+  },
+  borderRadius: {
+    md: '0.5rem',
+    lg: '1rem',
+  },
+});
+
+function App() {
+  return (
+    <ThemeProvider initialMode="light" customTokens={customTokens}>
+      <YourApp />
+    </ThemeProvider>
+  );
+}
+```
+
+> **Note:** The `createCustomTokens` helper provides better TypeScript inference.
 ```
 
 ### Method 3: Inline Styles with CSS Variables

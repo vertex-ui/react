@@ -98,19 +98,8 @@ export function normalizeColors(colors: Record<string, any>): Record<string, any
 
 export const tokens = {
   colors: {
-    // Primary palette
-    primary: {
-      50: '#eff6ff',
-      100: '#dbeafe',
-      200: '#bfdbfe',
-      300: '#93c5fd',
-      400: '#60a5fa',
-      500: '#3b82f6',
-      600: '#2563eb',
-      700: '#1d4ed8',
-      800: '#1e40af',
-      900: '#1e3a8a',
-    },
+    // Primary palette - using generateColorShades for custom color
+    primary: generateColorShades('#0c6b58'),
     // Secondary palette
     secondary: {
       50: '#f5f3ff',
@@ -406,3 +395,17 @@ export type CustomTokens = {
 
 export type ColorScale = keyof Colors;
 export type ColorShade = keyof ColorPalette;
+
+/**
+ * Helper function for creating custom tokens with proper type inference
+ * @example
+ * const myTokens = createCustomTokens({
+ *   colors: {
+ *     primary: '#0c6b58',  // Auto-generates 50-900 shades
+ *     secondary: { 500: '#ff5722', 600: '#f4511e' },  // Partial palette
+ *   }
+ * });
+ */
+export function createCustomTokens(tokens: CustomTokens): CustomTokens {
+  return tokens;
+}
