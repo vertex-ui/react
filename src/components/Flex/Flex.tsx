@@ -1,4 +1,5 @@
 import React from 'react';
+import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './Flex.css';
 
 export interface FlexProps {
@@ -63,7 +64,7 @@ export interface FlexProps {
  * </Flex>
  * ```
  */
-export const Flex = React.forwardRef<HTMLDivElement, FlexProps & React.HTMLAttributes<HTMLDivElement>>(
+const Flex = React.forwardRef<HTMLDivElement, FlexProps & React.HTMLAttributes<HTMLDivElement>>(
   (
     {
       children,
@@ -76,7 +77,7 @@ export const Flex = React.forwardRef<HTMLDivElement, FlexProps & React.HTMLAttri
       rowGap,
       columnGap,
       inline = false,
-      fullWidth = true,
+      fullWidth = false,
       grow,
       shrink,
       basis,
@@ -144,6 +145,9 @@ export const Flex = React.forwardRef<HTMLDivElement, FlexProps & React.HTMLAttri
 
 Flex.displayName = 'Flex';
 
-export default Flex as React.FC<
+const FlexWithParsedClasses = withParsedClasses(Flex);
+
+export default FlexWithParsedClasses as React.FC<
   FlexProps & React.RefAttributes<HTMLDivElement>
 >;
+export { FlexWithParsedClasses as Flex };

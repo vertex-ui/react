@@ -4,6 +4,7 @@ import { Text } from '../Text';
 import { Avatar } from '../Avatar';
 import { Badge } from '../Badge';
 import { Menu } from '../Menu';
+import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './Header.css';
 
 export interface NotificationItem {
@@ -109,33 +110,8 @@ export interface HeaderProps {
   sticky?: boolean;
 }
 
-const BellIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-    <path
-      d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
 
-const MenuIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-    <path
-      d="M4 6h16M4 12h16M4 18h16"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const ChevronDownIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-    <path d="M19 9l-7 7-7-7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
+import { BellIcon, MenuIcon, ChevronDownIcon } from '../../icons/IconComponents';
 
 /**
  * NotificationPanel component
@@ -252,7 +228,7 @@ NotificationPanel.displayName = 'NotificationPanel';
  * />
  * ```
  */
-export const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
+const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
   (
     {
       logo,
@@ -346,7 +322,7 @@ export const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
                 {unreadCount > 0 && (
                   <Badge
                     variant="error"
-                    size="small"
+                    size="sm"
                     style={{
                       position: 'absolute',
                       top: '4px',
@@ -417,7 +393,6 @@ export const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
 
 Header.displayName = 'Header';
 
-
-export default Header as React.FC<
-  HeaderProps & React.RefAttributes<HTMLElement>
->;
+const HeaderWithParsedClasses = withParsedClasses(Header);
+export default HeaderWithParsedClasses as React.FC<HeaderProps & React.RefAttributes<HTMLElement>>;
+export { HeaderWithParsedClasses as Header };

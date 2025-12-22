@@ -155,26 +155,26 @@
 }
 
 /* Size variants */
-.vtx-radio--small {
+.vtx-radio--sm {
   --vtx-radio-size: 16px;
   --vtx-radio-border-width: 2px;
 }
 
-.vtx-radio--small .vtx-radio-label-text {
+.vtx-radio--sm .vtx-radio-label-text {
   font-size: var(--vtx-font-size-sm);
 }
 
-.vtx-radio--medium {
+.vtx-radio--md {
   --vtx-radio-size: 20px;
   --vtx-radio-border-width: 2px;
 }
 
-.vtx-radio--large {
+.vtx-radio--lg {
   --vtx-radio-size: 24px;
   --vtx-radio-border-width: 2px;
 }
 
-.vtx-radio--large .vtx-radio-label-text {
+.vtx-radio--lg .vtx-radio-label-text {
   font-size: var(--vtx-font-size-lg);
 }
 

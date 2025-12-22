@@ -52,15 +52,15 @@
 }
 
 /* Sizes */
-.vtx-input-container--small {
+.vtx-input-container--sm {
   min-height: 32px;
 }
 
-.vtx-input-container--medium {
+.vtx-input-container--md {
   min-height: 40px;
 }
 
-.vtx-input-container--large {
+.vtx-input-container--lg {
   min-height: 48px;
 }
 
@@ -86,12 +86,12 @@
   color: var(--vtx-color-neutral-500);
 }
 
-.vtx-input-container--small .vtx-input {
+.vtx-input-container--sm .vtx-input {
   padding: var(--vtx-spacing-1) var(--vtx-spacing-2);
   font-size: var(--vtx-font-size-sm);
 }
 
-.vtx-input-container--large .vtx-input {
+.vtx-input-container--lg .vtx-input {
   padding: var(--vtx-spacing-3) var(--vtx-spacing-4);
   font-size: var(--vtx-font-size-lg);
 }

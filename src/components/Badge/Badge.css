@@ -11,17 +11,17 @@
 }
 
 /* Sizes */
-.vtx-badge--small {
+.vtx-badge--sm {
   padding: var(--vtx-spacing-1) var(--vtx-spacing-2);
   font-size: var(--vtx-font-size-xs);
 }
 
-.vtx-badge--medium {
+.vtx-badge--md {
   padding: calc(var(--vtx-spacing-1) + 1px) var(--vtx-spacing-2);
   font-size: var(--vtx-font-size-sm);
 }
 
-.vtx-badge--large {
+.vtx-badge--lg {
   padding: var(--vtx-spacing-2) var(--vtx-spacing-3);
   font-size: var(--vtx-font-size-base);
 }

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '../test-utils';
 import { Text } from '../../src/components/Text';
 
 describe('Text', () => {

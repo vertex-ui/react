@@ -10,5 +10,6 @@ export default {
     { file: 'dist/index.cjs.js', format: 'cjs', sourcemap: true },
     { file: 'dist/index.esm.js', format: 'esm', sourcemap: true }
   ],
+  external: ['react-icons/fi'],
   plugins: [peerDepsExternal(), postcss(), typescript(), terser()]
 };

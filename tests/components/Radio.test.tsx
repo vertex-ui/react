@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '../test-utils';
 import '@testing-library/jest-dom';
 import { Radio } from '../../src/components/Radio/Radio';
 
@@ -28,13 +28,14 @@ describe('Radio', () => {
     });
 
     it('renders all three sizes', () => {
-      const { container: small } = render(<Radio size="small" />);
-      const { container: medium } = render(<Radio size="medium" />);
-      const { container: large } = render(<Radio size="large" />);
+      const { container: small } = render(<Radio size="sm" />);
+      expect(small.querySelector('.vtx-radio--sm')).toBeInTheDocument();
 
-      expect(small.querySelector('.vtx-radio--small')).toBeInTheDocument();
-      expect(medium.querySelector('.vtx-radio--medium')).toBeInTheDocument();
-      expect(large.querySelector('.vtx-radio--large')).toBeInTheDocument();
+      const { container: medium } = render(<Radio size="md" />);
+      expect(medium.querySelector('.vtx-radio--md')).toBeInTheDocument();
+
+      const { container: large } = render(<Radio size="lg" />);
+      expect(large.querySelector('.vtx-radio--lg')).toBeInTheDocument();
     });
 
     it('renders all variants', () => {

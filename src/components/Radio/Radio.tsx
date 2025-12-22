@@ -1,4 +1,6 @@
 import React, { useId } from 'react';
+import { withParsedClasses } from '../../hoc/withParsedClasses';
+import { Size, useThemeContext } from '../../theme';
 import './Radio.css';
 
 export interface RadioProps extends Omit<
@@ -20,9 +22,9 @@ export interface RadioProps extends Omit<
   label?: React.ReactNode;
   /**
    * The size of the radio
-   * @default 'medium'
+   * @default theme.defaultSize
    */
-  size?: 'small' | 'medium' | 'large';
+  size?: Size;
   /**
    * The variant of the radio
    * @default 'primary'
@@ -105,13 +107,13 @@ export interface RadioProps extends Omit<
  * <Radio label="Error" variant="error" />
  * ```
  */
-export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
+const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
   (
     {
       checked,
       disabled = false,
       label,
-      size = 'medium',
+      size,
       variant = 'primary',
       error = false,
       helperText,
@@ -123,6 +125,9 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
     },
     ref
   ) => {
+    const { theme } = useThemeContext();
+    const radioSize = size || theme.defaultSize;
+    
     const generatedId = useId();
     const radioId = id || generatedId;
     const helperTextId = helperText ? `${radioId}-helper-text` : undefined;
@@ -130,7 +135,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
     // Build class names
     const containerClassNames = [
       'vtx-radio',
-      `vtx-radio--${size}`,
+      `vtx-radio--${radioSize}`,
       `vtx-radio--${variant}`,
       disabled && 'vtx-radio--disabled',
       error && 'vtx-radio--error',
@@ -191,6 +196,6 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
 
 Radio.displayName = 'Radio';
 
-export default Radio as React.FC<
-  RadioProps & React.RefAttributes<HTMLInputElement>
->;
+const RadioWithParsedClasses = withParsedClasses(Radio);
+export default RadioWithParsedClasses as React.FC<RadioProps & React.RefAttributes<HTMLInputElement>>;
+export { RadioWithParsedClasses as Radio };

@@ -1,10 +1,13 @@
 {
   "name": "@vtx-ui/react",
-  "version": "1.0.0",
+  "version": "0.0.1-beta.4",
   "description": "A production-ready React + TypeScript UI library with enterprise-grade components",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "dist"
   ],
@@ -25,32 +28,46 @@
     "build": "rollup -c",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "peerDependencies": {
     "react": ">=17",
     "react-dom": ">=17"
   },
   "devDependencies": {
-    
+    "@chromatic-com/storybook": "^4.1.3",
     "@rollup/plugin-typescript": "^12.3.0",
+    "@storybook/addon-a11y": "^10.1.10",
+    "@storybook/addon-docs": "^10.1.10",
+    "@storybook/addon-vitest": "^10.1.10",
+    "@storybook/react-vite": "^10.1.10",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^30.0.0",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.2",
+    "@vitest/browser-playwright": "^4.0.16",
+    "@vitest/coverage-v8": "^4.0.16",
+    "eslint-plugin-storybook": "^10.1.10",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^30.2.0",
     "jest-axe": "^7.0.0",
     "jest-environment-jsdom": "^29.7.0",
+    "playwright": "^1.57.0",
     "rollup": "^2.79.2",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-terser": "^7.0.2",
-    "ts-jest": "^29.4.6"
+    "storybook": "^10.1.10",
+    "ts-jest": "^29.4.6",
+    "vitest": "^4.0.16"
   },
   "dependencies": {
+    "react-icons": "^5.5.0",
     "tslib": "^2.8.1"
   }
 }

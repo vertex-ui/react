@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '../test-utils';
 import '@testing-library/jest-dom';
 import { CheckboxGroup } from '../../src/components/CheckboxGroup/CheckboxGroup';
 import type { CheckboxOption } from '../../src/components/CheckboxGroup/CheckboxGroup';
@@ -61,8 +61,8 @@ describe('CheckboxGroup', () => {
 
   describe('Size', () => {
     it('passes size prop to checkboxes', () => {
-      const { container } = render(<CheckboxGroup options={mockOptions} size="large" />);
-      const checkboxes = container.querySelectorAll('.vtx-checkbox--large');
+      const { container } = render(<CheckboxGroup options={mockOptions} size="lg" />);
+      const checkboxes = container.querySelectorAll('.vtx-checkbox--lg');
       expect(checkboxes).toHaveLength(3);
     });
   });

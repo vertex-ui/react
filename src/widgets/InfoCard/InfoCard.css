@@ -1,0 +1,36 @@
+.infocard-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--vtx-color-primary-100, #e3f2fd);
+  color: var(--vtx-color-primary-600, #1976d2);
+}
+
+.infocard-icon--primary {
+  background: var(--vtx-color-primary-100, #e3f2fd);
+  color: var(--vtx-color-primary-600, #1976d2);
+}
+.infocard-icon--secondary {
+  background: var(--vtx-color-secondary-100, #f3e8ff);
+  color: var(--vtx-color-secondary-600, #7c3aed);
+}
+.infocard-icon--success {
+  background: var(--vtx-color-success-100, #e6f4ea);
+  color: var(--vtx-color-success-600, #388e3c);
+}
+.infocard-icon--danger {
+  background: var(--vtx-color-danger-100, #ffebee);
+  color: var(--vtx-color-danger-600, #d32f2f);
+}
+.infocard-icon--warning {
+  background: var(--vtx-color-warning-100, #fff8e1);
+  color: var(--vtx-color-warning-600, #fbc02d);
+}
+.infocard-icon--info {
+  background: var(--vtx-color-info-100, #e3f7fc);
+  color: var(--vtx-color-info-600, #0288d1);
+}

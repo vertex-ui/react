@@ -52,15 +52,15 @@
 }
 
 /* Sizes */
-.vtx-select-container--small {
+.vtx-select-container--sm {
   min-height: 32px;
 }
 
-.vtx-select-container--medium {
+.vtx-select-container--md {
   min-height: 40px;
 }
 
-.vtx-select-container--large {
+.vtx-select-container--lg {
   min-height: 48px;
 }
 
@@ -85,13 +85,13 @@
   color: var(--vtx-color-neutral-500);
 }
 
-.vtx-select-container--small .vtx-select {
+.vtx-select-container--sm .vtx-select {
   padding: var(--vtx-spacing-1) var(--vtx-spacing-2);
   padding-right: var(--vtx-spacing-6);
   font-size: var(--vtx-font-size-sm);
 }
 
-.vtx-select-container--large .vtx-select {
+.vtx-select-container--lg .vtx-select {
   padding: var(--vtx-spacing-3) var(--vtx-spacing-4);
   padding-right: var(--vtx-spacing-10);
   font-size: var(--vtx-font-size-lg);

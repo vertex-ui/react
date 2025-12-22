@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Radio } from '../Radio/Radio';
+import { withParsedClasses } from '../../hoc/withParsedClasses';
+import { Size, useThemeContext } from '../../theme';
 import './RadioGroup.css';
 
 export interface RadioOption {
@@ -63,9 +65,9 @@ export interface RadioGroupProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   orientation?: 'horizontal' | 'vertical';
   /**
    * The size of the radios
-   * @default 'medium'
+   * @default theme.defaultSize
    */
-  size?: 'small' | 'medium' | 'large';
+  size?: Size;
   /**
    * The variant of the radios
    * @default 'primary'
@@ -133,7 +135,7 @@ export interface RadioGroupProps extends Omit<React.HTMLAttributes<HTMLDivElemen
  * />
  * ```
  */
-export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
+const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
   (
     {
       name,
@@ -146,13 +148,16 @@ export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
       error = false,
       helperText,
       orientation = 'vertical',
-      size = 'medium',
+      size,
       variant = 'primary',
       className = '',
       ...props
     },
     ref
   ) => {
+    const { theme } = useThemeContext();
+    const radioSize = size || theme.defaultSize;
+    
     // Internal state for uncontrolled mode
     const [internalValue, setInternalValue] = useState<string | undefined>(defaultValue);
 
@@ -203,7 +208,7 @@ export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
                 checked={isChecked}
                 disabled={isDisabled}
                 error={error}
-                size={size}
+                size={radioSize}
                 variant={variant}
                 onChange={() => handleChange(option.value)}
               />
@@ -218,6 +223,6 @@ export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
 
 RadioGroup.displayName = 'RadioGroup';
 
-export default RadioGroup as React.FC<
-  RadioGroupProps & React.RefAttributes<HTMLDivElement>
->;
+const RadioGroupWithParsedClasses = withParsedClasses(RadioGroup);
+export default RadioGroupWithParsedClasses as React.FC<RadioGroupProps & React.RefAttributes<HTMLDivElement>>;
+export { RadioGroupWithParsedClasses as RadioGroup };

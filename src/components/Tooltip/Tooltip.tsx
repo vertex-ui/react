@@ -1,3 +1,4 @@
+import { CloseSmallIcon } from '../../icons/IconComponents';
 import React, { useState, useRef, useEffect, cloneElement, HTMLAttributes } from 'react';
 import { createPortal } from 'react-dom';
 import './Tooltip.css';
@@ -355,15 +356,7 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
                     onClick={handleDismiss}
                     aria-label="Dismiss tooltip"
                   >
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                      <path
-                        d="M11 3L3 11M3 3L11 11"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                    <CloseSmallIcon size={14} />
                   </button>
                 )}
               </div>

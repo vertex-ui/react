@@ -1,4 +1,7 @@
+import { CloseSmallIcon } from '../../icons/IconComponents';
 import React, { useMemo, HTMLAttributes } from 'react';
+import { withParsedClasses } from '../../hoc/withParsedClasses';
+import { Size, useThemeContext } from '../../theme';
 import './Badge.css';
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
@@ -9,9 +12,9 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   variant?: 'neutral' | 'primary' | 'success' | 'warning' | 'error' | 'info';
   /**
    * Size of the badge
-   * @default 'medium'
+   * @default theme.defaultSize
    */
-  size?: 'small' | 'medium' | 'large';
+  size?: Size;
   /**
    * If true, badge will be pill-shaped with rounded ends
    * @default false
@@ -81,7 +84,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
   (
     {
       variant = 'neutral',
-      size = 'medium',
+      size,
       pill = false,
       dot = false,
       outline = false,
@@ -94,10 +97,13 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
     },
     ref
   ) => {
+    const { theme } = useThemeContext();
+    const badgeSize = size || theme.defaultSize;
+    
     const classNames = [
       'vtx-badge',
       `vtx-badge--${variant}`,
-      `vtx-badge--${size}`,
+      `vtx-badge--${badgeSize}`,
       pill && 'vtx-badge--pill',
       dot && 'vtx-badge--with-dot',
       outline && 'vtx-badge--outline',
@@ -131,15 +137,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
             onClick={onRemove}
             aria-label="Remove badge"
           >
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path
-                d="M9 3L3 9M3 3L9 9"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <CloseSmallIcon />
           </button>
         )}
       </span>
@@ -149,7 +147,9 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
 
 Badge.displayName = 'Badge';
 
-export default Badge as React.FC<
+const BadgeWithParsedClasses = withParsedClasses(Badge);
+
+export default BadgeWithParsedClasses as React.FC<
   BadgeProps & React.RefAttributes<HTMLSpanElement>
 >;
-export { Badge };
+export { BadgeWithParsedClasses as Badge };

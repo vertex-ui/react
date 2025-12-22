@@ -1,4 +1,7 @@
+import { CloseSmallIcon } from '../../icons/IconComponents';
 import React, { ReactNode, MouseEvent, KeyboardEvent } from 'react';
+import { withParsedClasses } from '../../hoc/withParsedClasses';
+import { Size } from '../../theme';
 import './Chip.css';
 
 export interface ChipProps {
@@ -10,7 +13,7 @@ export interface ChipProps {
    * Size of the chip
    * @default 'md'
    */
-  size?: 'sm' | 'md' | 'lg';
+  size?: Size;
   /**
    * Visual style variant
    * @default 'filled'
@@ -89,7 +92,7 @@ export interface ChipProps {
  * ```
  */
 
-export const Chip = React.forwardRef<HTMLDivElement, ChipProps>(
+const Chip = React.forwardRef<HTMLDivElement, ChipProps>(
   (
     {
       label,
@@ -178,21 +181,7 @@ export const Chip = React.forwardRef<HTMLDivElement, ChipProps>(
             aria-label={`Remove ${label}`}
             tabIndex={-1}
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M12 4L4 12M4 4L12 12"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <CloseSmallIcon size={16} />
           </button>
         )}
       </div>
@@ -201,6 +190,10 @@ export const Chip = React.forwardRef<HTMLDivElement, ChipProps>(
 );
 
 Chip.displayName = 'Chip';
-export default Chip as React.FC<
+
+const ChipWithParsedClasses = withParsedClasses(Chip);
+
+export default ChipWithParsedClasses as React.FC<
   ChipProps & React.RefAttributes<HTMLDivElement>
 >;
+export { ChipWithParsedClasses as Chip };

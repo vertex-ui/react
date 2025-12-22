@@ -1,5 +1,6 @@
 import React from 'react';
-import { useThemeContext } from '../../theme/ThemeProvider';
+import { useThemeContext, Size } from '../../theme';
+import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './Card.css';
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -16,7 +17,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
    * Size of the card
    * @default 'md'
    */
-  size?: 'sm' | 'md' | 'lg';
+  size?: Size;
   /**
    * If true, removes padding from the card
    * @default false
@@ -119,7 +120,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
  * ```
  */
 
-export const Card = React.forwardRef<HTMLDivElement, CardProps>(
+const Card = React.forwardRef<HTMLDivElement, CardProps>(
   (
     {
       children,
@@ -192,6 +193,9 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
 
 Card.displayName = 'Card';
 
-export default Card as React.FC<
+const CardWithParsedClasses = withParsedClasses(Card);
+
+export default CardWithParsedClasses as React.FC<
   CardProps & React.RefAttributes<HTMLDivElement>
 >;
+export { CardWithParsedClasses as Card };

@@ -1,5 +1,8 @@
+import { CloseSmallIcon } from '../../icons/IconComponents';
 import React, { InputHTMLAttributes } from 'react';
 import { useId } from '../../hooks';
+import { withParsedClasses } from '../../hoc/withParsedClasses';
+import { Size, useThemeContext } from '../../theme';
 import './Input.css';
 
 export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
@@ -23,9 +26,9 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
   success?: string;
   /**
    * Size of the input
-   * @default 'medium'
+   * @default theme.defaultSize
    */
-  size?: 'small' | 'medium' | 'large';
+  size?: Size;
   /**
    * If true, input will take full width of its container
    * @default false
@@ -127,14 +130,14 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
  * />
  * ```
  */
-export const Input = React.forwardRef<HTMLInputElement, InputProps>(
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
     {
       label,
       helperText,
       error,
       success,
-      size = 'medium',
+      size,
       fullWidth = false,
       leftIcon,
       rightIcon,
@@ -156,6 +159,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
+    const { theme } = useThemeContext();
+    const inputSize = size || theme.defaultSize;
+    
     const generatedId = useId('input');
     const id = providedId || generatedId;
     const helperId = `${id}-helper`;
@@ -184,7 +190,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const inputContainerClassNames = [
       'vtx-input-container',
-      `vtx-input-container--${size}`,
+      `vtx-input-container--${inputSize}`,
       hasError && 'vtx-input-container--error',
       hasSuccess && 'vtx-input-container--success',
       disabled && 'vtx-input-container--disabled',
@@ -251,15 +257,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
               aria-label="Clear input"
               tabIndex={-1}
             >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path
-                  d="M12 4L4 12M4 4L12 12"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <CloseSmallIcon size={16} />
             </button>
           )}
           {rightIcon && !showClearButton && (
@@ -295,6 +293,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
 Input.displayName = 'Input';
 
-export default Input as React.FC<
+const InputWithParsedClasses = withParsedClasses(Input);
+
+export default InputWithParsedClasses as React.FC<
   InputProps & React.RefAttributes<HTMLInputElement>
 >;
+export { InputWithParsedClasses as Input };

@@ -1,6 +1,8 @@
+import { ChevronDownIcon, ChevronUpIcon, MenuIcon, CloseIcon } from '../../icons/IconComponents';
 import React, { useState, useRef, useEffect } from 'react';
 import { Flex } from '../Flex';
 import { Text } from '../Text';
+import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './Menu.css';
 
 export interface MenuItemProps {
@@ -79,21 +81,9 @@ export interface MenuProps {
   width?: string | number;
 }
 
-// Default chevron icon for submenus (points down when closed, up when open)
+// Chevron icon for submenus (down when closed, up when open)
 const ChevronIcon = ({ isOpen }: { isOpen: boolean }) => (
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    style={{
-      transition: 'transform 0.2s ease',
-      transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-    }}
-  >
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-  </svg>
+  isOpen ? <ChevronUpIcon size={16} /> : <ChevronDownIcon size={16} />
 );
 
 /**
@@ -239,7 +229,7 @@ MenuItem.displayName = 'MenuItem';
  * <Menu responsive items={menuItems} />
  * ```
  */
-export const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
+const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
   (
     { items, children, orientation = 'vertical', responsive = true, className = '', width },
     ref
@@ -307,23 +297,7 @@ export const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
             aria-label="Toggle menu"
             aria-expanded={isMobileMenuOpen}
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              {isMobileMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
+            {isMobileMenuOpen ? <CloseIcon size={24} /> : <MenuIcon size={24} />}
           </button>
         )}
         <div ref={ref} className={menuClassNames} role="menu" style={menuStyle}>
@@ -336,6 +310,6 @@ export const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
 
 Menu.displayName = 'Menu';
 
-export default Menu as React.FC<
-  MenuProps & React.RefAttributes<HTMLDivElement>
->;
+const MenuWithParsedClasses = withParsedClasses(Menu);
+export default MenuWithParsedClasses as React.FC<MenuProps & React.RefAttributes<HTMLDivElement>>;
+export { MenuWithParsedClasses as Menu };

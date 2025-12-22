@@ -1,3 +1,4 @@
+import { CloseIcon } from '../../icons/IconComponents';
 import React, { useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useFocusTrap, useEscapeKey, useBodyScrollLock } from '../../hooks';
@@ -5,6 +6,7 @@ import { Flex } from '../Flex';
 import { Button } from '../Button';
 import { Text } from '../Text';
 import { useThemeContext } from '../../theme/ThemeProvider';
+import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './Modal.css';
 
 export interface ModalFooterButton {
@@ -206,7 +208,7 @@ export interface ModalProps {
  * </Modal>
  * ```
  */
-export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
+const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
   (
     {
       isOpen,
@@ -328,15 +330,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
             onClick={onClose}
             aria-label="Close modal"
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M18 6L6 18M6 6L18 18"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <CloseIcon size={20} />
           </Button>
         )}
       </Flex>
@@ -392,4 +386,6 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
 
 Modal.displayName = 'Modal';
 
-export default Modal;
+const ModalWithParsedClasses = withParsedClasses(Modal);
+export default ModalWithParsedClasses as React.FC<ModalProps>;
+export { ModalWithParsedClasses as Modal };

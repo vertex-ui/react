@@ -1,0 +1,918 @@
+/* ===================================
+   AdminHeader - Professional Admin Panel Header
+   =================================== */
+
+/* CSS Variables for Theming */
+:root {
+  /* Light Theme (Default) */
+  --vtx-admin-header-bg: var(--vtx-color-neutral-50, #fafafa);
+  --vtx-admin-header-border: var(--vtx-color-neutral-200, #e5e5e5);
+  --vtx-admin-header-shadow: var(--vtx-shadow-sm, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+  
+  --vtx-admin-header-text: var(--vtx-color-neutral-900, #171717);
+  --vtx-admin-header-text-secondary: var(--vtx-color-neutral-600, #525252);
+  
+  --vtx-admin-header-button-hover: var(--vtx-color-neutral-100, #f5f5f5);
+  --vtx-admin-header-button-active: var(--vtx-color-neutral-200, #e5e5e5);
+  
+  --vtx-admin-header-input-bg: var(--vtx-color-neutral-50, #ffffff);
+  --vtx-admin-header-input-border: var(--vtx-color-neutral-300, #d4d4d4);
+  --vtx-admin-header-input-focus: var(--vtx-color-primary-500, #3b82f6);
+  
+  --vtx-admin-header-dropdown-bg: var(--vtx-color-neutral-50, #ffffff);
+  --vtx-admin-header-dropdown-shadow: var(--vtx-shadow-lg, 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1));
+  
+  --vtx-admin-header-transition: var(--vtx-transition-base, 200ms);
+}
+
+/* ===================================
+   Base Header Structure
+   =================================== */
+
+.vtx-admin-header {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--vtx-admin-header-bg);
+  border-bottom: 1px solid var(--vtx-admin-header-border);
+  z-index: var(--vtx-z-index-sticky, 1100);
+  transition: all var(--vtx-admin-header-transition) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.vtx-admin-header--sticky {
+  position: sticky;
+  top: 0;
+}
+
+.vtx-admin-header--blur {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background-color: rgba(var(--vtx-admin-header-bg-rgb, 250, 250, 250), 0.8);
+}
+
+.vtx-admin-header-container {
+  display: flex;
+  align-items: center;
+  gap: var(--vtx-spacing-4, 1rem);
+  padding: 0 var(--vtx-spacing-6, 1.5rem);
+  min-height: 64px;
+}
+
+/* ===================================
+   Left Section
+   =================================== */
+
+.vtx-admin-header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--vtx-spacing-4, 1rem);
+  flex-shrink: 0;
+}
+
+/* Toggle Button */
+.vtx-admin-header-toggle {
+  display: none; /* Hidden on desktop, shown on mobile */
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: var(--vtx-border-radius-lg, 0.5rem);
+  background: transparent;
+  color: var(--vtx-admin-header-text);
+  cursor: pointer;
+  transition: all var(--vtx-admin-header-transition) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.vtx-admin-header-toggle:hover {
+  background-color: var(--vtx-admin-header-button-hover);
+}
+
+.vtx-admin-header-toggle:active {
+  background-color: var(--vtx-admin-header-button-active);
+  transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+  .vtx-admin-header-toggle {
+    display: flex;
+  }
+}
+
+/* Brand/Logo */
+.vtx-admin-header-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--vtx-spacing-3, 0.75rem);
+  flex-shrink: 0;
+}
+
+.vtx-admin-header-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.vtx-admin-header-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vtx-admin-header-title {
+  color: var(--vtx-admin-header-text);
+  font-size: var(--vtx-font-size-lg, 1.125rem);
+  font-weight: var(--vtx-font-weight-semibold, 600);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.vtx-admin-header-subtitle {
+  color: var(--vtx-admin-header-text-secondary);
+  font-size: var(--vtx-font-size-xs, 0.75rem);
+  line-height: 1;
+}
+
+@media (max-width: 640px) {
+  .vtx-admin-header-brand-text {
+    display: none;
+  }
+}
+
+/* ===================================
+   Center Section - Search
+   =================================== */
+
+.vtx-admin-header-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .vtx-admin-header-center {
+    display: none;
+  }
+}
+
+/* Search */
+.vtx-admin-header-search {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+}
+
+.vtx-admin-header-search-form {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.vtx-admin-header-search-input {
+  width: 100%;
+  height: 40px;
+  padding: 0 36px 0 38px;
+  border: 1px solid var(--vtx-admin-header-input-border);
+  border-radius: var(--vtx-border-radius-lg, 0.5rem);
+  background-color: var(--vtx-admin-header-input-bg);
+  color: var(--vtx-admin-header-text);
+  font-size: var(--vtx-font-size-sm, 0.875rem);
+  outline: none;
+  transition: all var(--vtx-admin-header-transition) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.vtx-admin-header-search-input::placeholder {
+  color: var(--vtx-admin-header-text-secondary);
+}
+
+.vtx-admin-header-search-input:focus {
+  border-color: var(--vtx-admin-header-input-focus);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.vtx-admin-header-search-icon {
+  position: absolute;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--vtx-admin-header-text-secondary);
+  pointer-events: none;
+}
+
+.vtx-admin-header-search-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--vtx-admin-header-text-secondary);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.vtx-admin-header-search-clear {
+  position: absolute;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  border-radius: var(--vtx-border-radius-base, 0.25rem);
+  background: transparent;
+  color: var(--vtx-admin-header-text-secondary);
+  cursor: pointer;
+  transition: all var(--vtx-admin-header-transition) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.vtx-admin-header-search-clear:hover {
+  background-color: var(--vtx-admin-header-button-hover);
+  color: var(--vtx-admin-header-text);
+}
+
+/* Search Suggestions Dropdown */
+.vtx-admin-header-search-suggestions {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  max-height: 400px;
+  overflow-y: auto;
+  background-color: var(--vtx-admin-header-dropdown-bg);
+  border: 1px solid var(--vtx-admin-header-border);
+  border-radius: var(--vtx-border-radius-lg, 0.5rem);
+  box-shadow: var(--vtx-admin-header-dropdown-shadow);
+  z-index: 1000;
+  animation: slideDown 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.vtx-admin-header-search-suggestion {
+  display: flex;
+  align-items: center;
+  gap: var(--vtx-spacing-3, 0.75rem);
+  width: 100%;
+  padding: var(--vtx-spacing-3, 0.75rem) var(--vtx-spacing-4, 1rem);
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--vtx-admin-header-transition) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.vtx-admin-header-search-suggestion:hover {
+  background-color: var(--vtx-admin-header-button-hover);
+}
+
+.vtx-admin-header-search-suggestion-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--vtx-admin-header-text-secondary);
+}
+
+.vtx-admin-header-search-suggestion-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.vtx-admin-header-search-suggestion-label {
+  display: block;
+  color: var(--vtx-admin-header-text);
+  font-size: var(--vtx-font-size-sm, 0.875rem);
+  font-weight: var(--vtx-font-weight-medium, 500);
+}
+
+.vtx-admin-header-search-suggestion-category {
+  display: block;
+  color: var(--vtx-admin-header-text-secondary);
+  font-size: var(--vtx-font-size-xs, 0.75rem);
+  margin-top: 2px;
+}
+
+/* ===================================
+   Right Section
+   =================================== */
+
+.vtx-admin-header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--vtx-spacing-2, 0.5rem);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.vtx-admin-header-divider {
+  width: 1px;
+  height: 32px;
+  background-color: var(--vtx-admin-header-border);
+  margin: 0 var(--vtx-spacing-2, 0.5rem);
+}
+
+/* Quick Actions */
+.vtx-admin-header-quick-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--vtx-spacing-1, 0.25rem);
+}
+
+@media (max-width: 640px) {
+  .vtx-admin-header-quick-actions {
+    display: none;
+  }
+}
+
+/* Icon Button (Generic) */
+.vtx-admin-header-icon-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: var(--vtx-border-radius-lg, 0.5rem);
+  background: transparent;
+  color: var(--vtx-admin-header-text-secondary);
+  cursor: pointer;
+  transition: all var(--vtx-admin-header-transition) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.vtx-admin-header-icon-button:hover:not(.vtx-admin-header-icon-button--disabled) {
+  background-color: var(--vtx-admin-header-button-hover);
+  color: var(--vtx-admin-header-text);
+  transform: scale(1.05);
+}
+
+.vtx-admin-header-icon-button:active:not(.vtx-admin-header-icon-button--disabled) {
+  background-color: var(--vtx-admin-header-button-active);
+  transform: scale(0.98);
+}
+
+.vtx-admin-header-icon-button--active {
+  background-color: var(--vtx-admin-header-button-hover);
+  color: var(--vtx-admin-header-text);
+}
+
+.vtx-admin-header-icon-button--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.vtx-admin-header-icon-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  pointer-events: none;
+}
+
+/* ===================================
+   Notifications
+   =================================== */
+
+.vtx-admin-header-notifications {
+  position: relative;
+}
+
+.vtx-admin-header-notifications-panel {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 400px;
+  max-height: 600px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--vtx-admin-header-dropdown-bg);
+  border: 1px solid var(--vtx-admin-header-border);
+  border-radius: var(--vtx-border-radius-xl, 0.75rem);
+  box-shadow: var(--vtx-admin-header-dropdown-shadow);
+  z-index: 1000;
+  animation: slideDown 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (max-width: 480px) {
+  .vtx-admin-header-notifications-panel {
+    position: fixed;
+    top: 64px;
+    right: 0;
+    left: 0;
+    width: 100%;
+    max-height: calc(100vh - 64px);
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+}
+
+.vtx-admin-header-notifications-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--vtx-spacing-4, 1rem) var(--vtx-spacing-5, 1.25rem);
+  border-bottom: 1px solid var(--vtx-admin-header-border);
+  flex-shrink: 0;
+}
+
+.vtx-admin-header-notifications-header-title {
+  display: flex;
+  align-items: center;
+}
+
+.vtx-admin-header-notifications-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--vtx-spacing-2, 0.5rem);
+}
+
+.vtx-admin-header-notifications-action-btn {
+  padding: 4px 8px;
+  border: none;
+  border-radius: var(--vtx-border-radius-base, 0.25rem);
+  background: transparent;
+  color: var(--vtx-color-primary-600, #2563eb);
+  font-size: var(--vtx-font-size-xs, 0.75rem);
+  font-weight: var(--vtx-font-weight-medium, 500);
+  cursor: pointer;
+  transition: all var(--vtx-admin-header-transition) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.vtx-admin-header-notifications-action-btn:hover {
+  background-color: var(--vtx-color-primary-50, #eff6ff);
+}
+
+.vtx-admin-header-notifications-action-btn--danger {
+  color: var(--vtx-color-error-600, #dc2626);
+}
+
+.vtx-admin-header-notifications-action-btn--danger:hover {
+  background-color: var(--vtx-color-error-50, #fef2f2);
+}
+
+.vtx-admin-header-notifications-list {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.vtx-admin-header-notifications-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.vtx-admin-header-notifications-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.vtx-admin-header-notifications-list::-webkit-scrollbar-thumb {
+  background: var(--vtx-color-neutral-300, #d4d4d4);
+  border-radius: 3px;
+}
+
+.vtx-admin-header-notifications-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--vtx-spacing-10, 2.5rem);
+  color: var(--vtx-admin-header-text-secondary);
+}
+
+.vtx-admin-header-notification-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--vtx-spacing-3, 0.75rem);
+  padding: var(--vtx-spacing-4, 1rem) var(--vtx-spacing-5, 1.25rem);
+  border: none;
+  border-bottom: 1px solid var(--vtx-admin-header-border);
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--vtx-admin-header-transition) cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+}
+
+.vtx-admin-header-notification-item:last-child {
+  border-bottom: none;
+}
+
+.vtx-admin-header-notification-item:hover {
+  background-color: var(--vtx-admin-header-button-hover);
+}
+
+.vtx-admin-header-notification-item--unread {
+  background-color: var(--vtx-color-primary-50, #eff6ff);
+}
+
+.vtx-admin-header-notification-item--unread:hover {
+  background-color: var(--vtx-color-primary-100, #dbeafe);
+}
+
+.vtx-admin-header-notification-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--vtx-border-radius-lg, 0.5rem);
+  color: var(--vtx-admin-header-text-secondary);
+}
+
+.vtx-admin-header-notification-item--info .vtx-admin-header-notification-icon {
+  background-color: var(--vtx-color-info-50, #eff6ff);
+  color: var(--vtx-color-info-600, #2563eb);
+}
+
+.vtx-admin-header-notification-item--success .vtx-admin-header-notification-icon {
+  background-color: var(--vtx-color-success-50, #f0fdf4);
+  color: var(--vtx-color-success-600, #16a34a);
+}
+
+.vtx-admin-header-notification-item--warning .vtx-admin-header-notification-icon {
+  background-color: var(--vtx-color-warning-50, #fffbeb);
+  color: var(--vtx-color-warning-600, #d97706);
+}
+
+.vtx-admin-header-notification-item--error .vtx-admin-header-notification-icon {
+  background-color: var(--vtx-color-error-50, #fef2f2);
+  color: var(--vtx-color-error-600, #dc2626);
+}
+
+.vtx-admin-header-notification-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.vtx-admin-header-notification-dot {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--vtx-color-primary-600, #2563eb);
+}
+
+.vtx-admin-header-notifications-footer {
+  padding: var(--vtx-spacing-3, 0.75rem);
+  border-top: 1px solid var(--vtx-admin-header-border);
+  flex-shrink: 0;
+}
+
+.vtx-admin-header-notifications-view-all {
+  width: 100%;
+  padding: var(--vtx-spacing-2, 0.5rem);
+  border: none;
+  border-radius: var(--vtx-border-radius-base, 0.25rem);
+  background: transparent;
+  color: var(--vtx-color-primary-600, #2563eb);
+  font-size: var(--vtx-font-size-sm, 0.875rem);
+  font-weight: var(--vtx-font-weight-medium, 500);
+  cursor: pointer;
+  transition: background-color var(--vtx-admin-header-transition) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.vtx-admin-header-notifications-view-all:hover {
+  background-color: var(--vtx-color-primary-50, #eff6ff);
+}
+
+/* ===================================
+   User Menu
+   =================================== */
+
+.vtx-admin-header-user {
+  position: relative;
+}
+
+.vtx-admin-header-user-button {
+  display: flex;
+  align-items: center;
+  gap: var(--vtx-spacing-2, 0.5rem);
+  padding: 4px 8px 4px 4px;
+  border: none;
+  border-radius: var(--vtx-border-radius-lg, 0.5rem);
+  background: transparent;
+  cursor: pointer;
+  transition: all var(--vtx-admin-header-transition) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.vtx-admin-header-user-button:hover {
+  background-color: var(--vtx-admin-header-button-hover);
+}
+
+.vtx-admin-header-user-button--active {
+  background-color: var(--vtx-admin-header-button-hover);
+}
+
+.vtx-admin-header-user-avatar {
+  flex-shrink: 0;
+}
+
+.vtx-admin-header-user-avatar-fallback {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--vtx-color-primary-600, #2563eb);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--vtx-font-size-sm, 0.875rem);
+  font-weight: var(--vtx-font-weight-semibold, 600);
+  flex-shrink: 0;
+}
+
+.vtx-admin-header-user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  text-align: left;
+}
+
+@media (max-width: 640px) {
+  .vtx-admin-header-user-info {
+    display: none;
+  }
+}
+
+.vtx-admin-header-user-name {
+  color: var(--vtx-admin-header-text);
+  font-size: var(--vtx-font-size-sm, 0.875rem);
+  font-weight: var(--vtx-font-weight-medium, 500);
+  line-height: 1.2;
+}
+
+.vtx-admin-header-user-role {
+  color: var(--vtx-admin-header-text-secondary);
+  font-size: var(--vtx-font-size-xs, 0.75rem);
+  line-height: 1;
+}
+
+/* User Dropdown */
+.vtx-admin-header-user-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 220px;
+  background-color: var(--vtx-admin-header-dropdown-bg);
+  border: 1px solid var(--vtx-admin-header-border);
+  border-radius: var(--vtx-border-radius-lg, 0.5rem);
+  box-shadow: var(--vtx-admin-header-dropdown-shadow);
+  padding: var(--vtx-spacing-2, 0.5rem);
+  z-index: 1000;
+  animation: slideDown 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.vtx-admin-header-user-menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--vtx-spacing-3, 0.75rem);
+  width: 100%;
+  padding: var(--vtx-spacing-2, 0.5rem) var(--vtx-spacing-3, 0.75rem);
+  border: none;
+  border-radius: var(--vtx-border-radius-base, 0.25rem);
+  background: transparent;
+  color: var(--vtx-admin-header-text);
+  font-size: var(--vtx-font-size-sm, 0.875rem);
+  text-align: left;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color var(--vtx-admin-header-transition) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.vtx-admin-header-user-menu-item:hover:not(.vtx-admin-header-user-menu-item--disabled) {
+  background-color: var(--vtx-admin-header-button-hover);
+}
+
+.vtx-admin-header-user-menu-item--danger {
+  color: var(--vtx-color-error-600, #dc2626);
+}
+
+.vtx-admin-header-user-menu-item--danger:hover:not(.vtx-admin-header-user-menu-item--disabled) {
+  background-color: var(--vtx-color-error-50, #fef2f2);
+}
+
+.vtx-admin-header-user-menu-item--success {
+  color: var(--vtx-color-success-600, #16a34a);
+}
+
+.vtx-admin-header-user-menu-item--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.vtx-admin-header-user-menu-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.vtx-admin-header-user-menu-label {
+  flex: 1;
+}
+
+.vtx-admin-header-user-menu-shortcut {
+  color: var(--vtx-admin-header-text-secondary);
+  font-size: var(--vtx-font-size-xs, 0.75rem);
+  margin-left: auto;
+}
+
+.vtx-admin-header-user-menu-badge {
+  margin-left: auto;
+}
+
+.vtx-admin-header-user-menu-divider {
+  height: 1px;
+  background-color: var(--vtx-admin-header-border);
+  margin: var(--vtx-spacing-2, 0.5rem) 0;
+}
+
+/* ===================================
+   Breadcrumbs
+   =================================== */
+
+.vtx-admin-header-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: var(--vtx-spacing-2, 0.5rem);
+  padding: var(--vtx-spacing-2, 0.5rem) var(--vtx-spacing-6, 1.5rem);
+  border-top: 1px solid var(--vtx-admin-header-border);
+  background-color: var(--vtx-admin-header-bg);
+  overflow-x: auto;
+}
+
+.vtx-admin-header-breadcrumb {
+  color: var(--vtx-admin-header-text-secondary);
+  font-size: var(--vtx-font-size-sm, 0.875rem);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--vtx-admin-header-transition) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.vtx-admin-header-breadcrumb:hover {
+  color: var(--vtx-admin-header-text);
+  text-decoration: underline;
+}
+
+.vtx-admin-header-breadcrumb--current {
+  color: var(--vtx-admin-header-text);
+  font-weight: var(--vtx-font-weight-medium, 500);
+  cursor: default;
+}
+
+.vtx-admin-header-breadcrumb--current:hover {
+  text-decoration: none;
+}
+
+.vtx-admin-header-breadcrumb-separator {
+  color: var(--vtx-admin-header-text-secondary);
+  user-select: none;
+}
+
+/* ===================================
+   VARIANTS
+   =================================== */
+
+.vtx-admin-header--elevated {
+  box-shadow: var(--vtx-admin-header-shadow);
+}
+
+.vtx-admin-header--bordered {
+  border-bottom-width: 2px;
+}
+
+.vtx-admin-header--minimal {
+  background-color: transparent;
+  border-bottom: 1px solid transparent;
+}
+
+.vtx-admin-header--transparent {
+  background-color: transparent;
+  border-bottom-color: transparent;
+}
+
+/* ===================================
+   THEMES
+   =================================== */
+
+.vtx-admin-header--dark {
+  --vtx-admin-header-bg: var(--vtx-color-neutral-900, #171717);
+  --vtx-admin-header-border: var(--vtx-color-neutral-800, #262626);
+  --vtx-admin-header-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  
+  --vtx-admin-header-text: var(--vtx-color-neutral-50, #fafafa);
+  --vtx-admin-header-text-secondary: var(--vtx-color-neutral-400, #a3a3a3);
+  
+  --vtx-admin-header-button-hover: var(--vtx-color-neutral-800, #262626);
+  --vtx-admin-header-button-active: var(--vtx-color-neutral-700, #404040);
+  
+  --vtx-admin-header-input-bg: var(--vtx-color-neutral-800, #262626);
+  --vtx-admin-header-input-border: var(--vtx-color-neutral-700, #404040);
+  
+  --vtx-admin-header-dropdown-bg: var(--vtx-color-neutral-900, #171717);
+}
+
+.vtx-admin-header--primary {
+  --vtx-admin-header-bg: var(--vtx-color-primary-600, #2563eb);
+  --vtx-admin-header-border: var(--vtx-color-primary-700, #1d4ed8);
+  
+  --vtx-admin-header-text: var(--vtx-color-neutral-50, #ffffff);
+  --vtx-admin-header-text-secondary: var(--vtx-color-primary-100, #dbeafe);
+  
+  --vtx-admin-header-button-hover: var(--vtx-color-primary-700, #1d4ed8);
+  --vtx-admin-header-button-active: var(--vtx-color-primary-800, #1e40af);
+  
+  --vtx-admin-header-input-bg: var(--vtx-color-primary-700, #1d4ed8);
+  --vtx-admin-header-input-border: var(--vtx-color-primary-600, #2563eb);
+  
+  --vtx-admin-header-dropdown-bg: var(--vtx-color-neutral-50, #ffffff);
+}
+
+.vtx-admin-header--gradient {
+  background: linear-gradient(135deg, var(--vtx-color-primary-600, #2563eb) 0%, var(--vtx-color-secondary-600, #7c3aed) 100%);
+  --vtx-admin-header-border: rgba(255, 255, 255, 0.1);
+  
+  --vtx-admin-header-text: var(--vtx-color-neutral-50, #ffffff);
+  --vtx-admin-header-text-secondary: rgba(255, 255, 255, 0.8);
+  
+  --vtx-admin-header-button-hover: rgba(255, 255, 255, 0.1);
+  --vtx-admin-header-button-active: rgba(255, 255, 255, 0.2);
+  
+  --vtx-admin-header-input-bg: rgba(255, 255, 255, 0.1);
+  --vtx-admin-header-input-border: rgba(255, 255, 255, 0.2);
+  
+  --vtx-admin-header-dropdown-bg: var(--vtx-color-neutral-50, #ffffff);
+}
+
+/* ===================================
+   Responsive
+   =================================== */
+
+@media (max-width: 768px) {
+  .vtx-admin-header-container {
+    gap: var(--vtx-spacing-2, 0.5rem);
+    padding: 0 var(--vtx-spacing-4, 1rem);
+  }
+  
+  .vtx-admin-header-left {
+    gap: var(--vtx-spacing-2, 0.5rem);
+  }
+  
+  .vtx-admin-header-right {
+    gap: var(--vtx-spacing-1, 0.25rem);
+  }
+  
+  .vtx-admin-header-divider {
+    display: none;
+  }
+}
+
+/* ===================================
+   Accessibility
+   =================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .vtx-admin-header,
+  .vtx-admin-header * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .vtx-admin-header {
+    border: 2px solid currentColor;
+  }
+}

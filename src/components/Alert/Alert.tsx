@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useThemeContext } from '../../theme/ThemeProvider';
+import { useThemeContext, Size } from '../../theme';
+import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './Alert.css';
 
 export interface AlertProps {
@@ -26,7 +27,7 @@ export interface AlertProps {
    */
   alertStyle?: 'filled' | 'outlined' | 'subtle' | 'left-accent';
   /** Size of the alert. Defaults to theme defaultSize or 'md'. */
-  size?: 'sm' | 'md' | 'lg';
+  size?: Size;
   /**
    * Custom icon or false to hide icon
    * If not provided, shows default icon based on variant
@@ -65,65 +66,23 @@ export interface AlertProps {
   role?: string;
 }
 
-// Default icons for each variant
-const CheckCircleIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-    <path
-      d="M10 0C4.486 0 0 4.486 0 10s4.486 10 10 10 10-4.486 10-10S15.514 0 10 0zm-1.293 14.707l-3.414-3.414 1.414-1.414L9 12.172l5.293-5.293 1.414 1.414-6.707 6.707z"
-      fill="currentColor"
-    />
-  </svg>
-);
 
-const ErrorIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-    <path
-      d="M10 0C4.486 0 0 4.486 0 10s4.486 10 10 10 10-4.486 10-10S15.514 0 10 0zm1 15H9v-2h2v2zm0-4H9V5h2v6z"
-      fill="currentColor"
-    />
-  </svg>
-);
-
-const WarningIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-    <path d="M10 0L0 18h20L10 0zm1 15H9v-2h2v2zm0-4H9V7h2v4z" fill="currentColor" />
-  </svg>
-);
-
-const InfoIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-    <path
-      d="M10 0C4.486 0 0 4.486 0 10s4.486 10 10 10 10-4.486 10-10S15.514 0 10 0zm1 15H9V9h2v6zm0-8H9V5h2v2z"
-      fill="currentColor"
-    />
-  </svg>
-);
-
-const NeutralIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-    <circle cx="10" cy="10" r="9" stroke="currentColor" strokeWidth="2" fill="none" />
-    <path d="M10 6v5M10 13v1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-  </svg>
-);
-
-const CloseIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <path
-      d="M12 4L4 12M4 4l8 8"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
+// Import icons from shared IconComponents
+import {
+  CheckCircleIcon,
+  ErrorIcon,
+  WarningIcon,
+  InfoIcon,
+  NeutralIcon,
+  CloseIcon
+} from '../../icons/IconComponents';
 
 const variantIconMap = {
-  success: <CheckCircleIcon />,
-  error: <ErrorIcon />,
-  warning: <WarningIcon />,
-  info: <InfoIcon />,
-  neutral: <NeutralIcon />,
+  success: <CheckCircleIcon size={20} />,
+  error: <ErrorIcon size={20} />,
+  warning: <WarningIcon size={20} />,
+  info: <InfoIcon size={20} />,
+  neutral: <NeutralIcon size={20} />,
 };
 
 /**
@@ -249,7 +208,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
             onClick={handleClose}
             aria-label="Close alert"
           >
-            <CloseIcon />
+            <CloseIcon size={16} />
           </button>
         )}
       </div>
@@ -259,7 +218,9 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
 
 Alert.displayName = 'Alert';
 
-export default Alert as React.FC<
+const AlertWithParsedClasses = withParsedClasses(Alert);
+
+export default AlertWithParsedClasses as React.FC<
   AlertProps & React.RefAttributes<HTMLDivElement>
 >;
-export { Alert };
+export { AlertWithParsedClasses as Alert };

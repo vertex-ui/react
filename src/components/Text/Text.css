@@ -7,102 +7,103 @@
   transition: color var(--vtx-transition-fast);
 }
 
-/* ===== Text Variants ===== */
-/* Headings */
+/* ===== Typography Variants ===== */
+
+/* ===== Headings with Fluid Typography ===== */
 .vtx-text--h1 {
-  font-size: var(--vtx-text-h1-font-size, 3.75rem);
+  font-size: clamp(2.25rem, 5vw + 1rem, 3.75rem);
   font-weight: var(--vtx-text-h1-font-weight, 700);
   line-height: var(--vtx-text-h1-line-height, 1.2);
   letter-spacing: var(--vtx-text-h1-letter-spacing, -0.025em);
-  margin-bottom: var(--vtx-spacing-6, 1.5rem);
+  margin-bottom: clamp(1rem, 2vw + 0.5rem, 1.5rem);
 }
 
 .vtx-text--h2 {
-  font-size: var(--vtx-text-h2-font-size, 3rem);
+  font-size: clamp(1.875rem, 4vw + 0.75rem, 3rem);
   font-weight: var(--vtx-text-h2-font-weight, 700);
   line-height: var(--vtx-text-h2-line-height, 1.25);
   letter-spacing: var(--vtx-text-h2-letter-spacing, -0.025em);
-  margin-bottom: var(--vtx-spacing-5, 1.25rem);
+  margin-bottom: clamp(0.875rem, 1.75vw + 0.5rem, 1.25rem);
 }
 
 .vtx-text--h3 {
-  font-size: var(--vtx-text-h3-font-size, 2.25rem);
+  font-size: clamp(1.5rem, 3vw + 0.5rem, 2.25rem);
   font-weight: var(--vtx-text-h3-font-weight, 600);
   line-height: var(--vtx-text-h3-line-height, 1.3);
   letter-spacing: var(--vtx-text-h3-letter-spacing, -0.025em);
-  margin-bottom: var(--vtx-spacing-4, 1rem);
+  margin-bottom: clamp(0.75rem, 1.5vw + 0.5rem, 1rem);
 }
 
 .vtx-text--h4 {
-  font-size: var(--vtx-text-h4-font-size, 1.875rem);
+  font-size: clamp(1.25rem, 2.5vw + 0.5rem, 1.875rem);
   font-weight: var(--vtx-text-h4-font-weight, 600);
   line-height: var(--vtx-text-h4-line-height, 1.35);
   letter-spacing: var(--vtx-text-h4-letter-spacing, 0);
-  margin-bottom: var(--vtx-spacing-4, 1rem);
+  margin-bottom: clamp(0.75rem, 1.5vw + 0.25rem, 1rem);
 }
 
 .vtx-text--h5 {
-  font-size: var(--vtx-text-h5-font-size, 1.5rem);
+  font-size: clamp(1.125rem, 2vw + 0.25rem, 1.5rem);
   font-weight: var(--vtx-text-h5-font-weight, 600);
   line-height: var(--vtx-text-h5-line-height, 1.4);
   letter-spacing: var(--vtx-text-h5-letter-spacing, 0);
-  margin-bottom: var(--vtx-spacing-3, 0.75rem);
+  margin-bottom: clamp(0.625rem, 1.25vw + 0.25rem, 0.75rem);
 }
 
 .vtx-text--h6 {
-  font-size: var(--vtx-text-h6-font-size, 1.25rem);
+  font-size: clamp(1rem, 1.5vw + 0.25rem, 1.25rem);
   font-weight: var(--vtx-text-h6-font-weight, 600);
   line-height: var(--vtx-text-h6-line-height, 1.5);
   letter-spacing: var(--vtx-text-h6-letter-spacing, 0);
-  margin-bottom: var(--vtx-spacing-3, 0.75rem);
+  margin-bottom: clamp(0.625rem, 1.25vw + 0.25rem, 0.75rem);
 }
 
-/* Body Text */
+/* ===== Body Text with Responsive Sizing ===== */
 .vtx-text--body1 {
-  font-size: var(--vtx-text-body1-font-size, 1rem);
+  font-size: clamp(0.9375rem, 1vw + 0.125rem, 1rem);
   font-weight: var(--vtx-text-body1-font-weight, 400);
-  line-height: var(--vtx-text-body1-line-height, 1.5);
+  line-height: var(--vtx-text-body1-line-height, 1.6);
   letter-spacing: var(--vtx-text-body1-letter-spacing, 0);
-  margin-bottom: var(--vtx-spacing-3, 0.75rem);
+  margin-bottom: clamp(0.625rem, 1vw + 0.25rem, 0.75rem);
 }
 
 .vtx-text--body2 {
-  font-size: var(--vtx-text-body2-font-size, 0.875rem);
+  font-size: clamp(0.8125rem, 0.85vw + 0.125rem, 0.875rem);
   font-weight: var(--vtx-text-body2-font-weight, 400);
-  line-height: var(--vtx-text-body2-line-height, 1.5);
-  letter-spacing: var(--vtx-text-body2-letter-spacing, 0);
-  margin-bottom: var(--vtx-spacing-3, 0.75rem);
+  line-height: var(--vtx-text-body2-line-height, 1.6);
+  letter-spacing: var(--vtx-text-body2-letter-spacing, 0.01em);
+  margin-bottom: clamp(0.625rem, 1vw + 0.25rem, 0.75rem);
 }
 
-/* Subtitles */
+/* ===== Subtitles with Responsive Sizing ===== */
 .vtx-text--subtitle1 {
-  font-size: var(--vtx-text-subtitle1-font-size, 1.125rem);
+  font-size: clamp(1rem, 1.25vw + 0.125rem, 1.125rem);
   font-weight: var(--vtx-text-subtitle1-font-weight, 500);
   line-height: var(--vtx-text-subtitle1-line-height, 1.5);
-  letter-spacing: var(--vtx-text-subtitle1-letter-spacing, 0);
-  margin-bottom: var(--vtx-spacing-2, 0.5rem);
+  letter-spacing: var(--vtx-text-subtitle1-letter-spacing, 0.0075em);
+  margin-bottom: clamp(0.5rem, 0.75vw + 0.125rem, 0.625rem);
 }
 
 .vtx-text--subtitle2 {
-  font-size: var(--vtx-text-subtitle2-font-size, 1rem);
+  font-size: clamp(0.9375rem, 1vw + 0.0625rem, 1rem);
   font-weight: var(--vtx-text-subtitle2-font-weight, 500);
   line-height: var(--vtx-text-subtitle2-line-height, 1.5);
-  letter-spacing: var(--vtx-text-subtitle2-letter-spacing, 0);
-  margin-bottom: var(--vtx-spacing-2, 0.5rem);
+  letter-spacing: var(--vtx-text-subtitle2-letter-spacing, 0.01em);
+  margin-bottom: clamp(0.5rem, 0.75vw + 0.125rem, 0.625rem);
 }
 
-/* Caption */
+/* ===== Caption with Responsive Sizing ===== */
 .vtx-text--caption {
-  font-size: var(--vtx-text-caption-font-size, 0.75rem);
+  font-size: clamp(0.6875rem, 0.75vw + 0.0625rem, 0.75rem);
   font-weight: var(--vtx-text-caption-font-weight, 400);
   line-height: var(--vtx-text-caption-line-height, 1.5);
   letter-spacing: var(--vtx-text-caption-letter-spacing, 0.025em);
   color: var(--vtx-color-neutral-600);
 }
 
-/* Overline */
+/* ===== Overline with Responsive Sizing ===== */
 .vtx-text--overline {
-  font-size: var(--vtx-text-overline-font-size, 0.75rem);
+  font-size: clamp(0.6875rem, 0.75vw + 0.0625rem, 0.75rem);
   font-weight: var(--vtx-text-overline-font-weight, 600);
   line-height: var(--vtx-text-overline-line-height, 1.5);
   letter-spacing: var(--vtx-text-overline-letter-spacing, 0.1em);
@@ -110,22 +111,22 @@
   color: var(--vtx-color-neutral-600);
 }
 
-/* Button Text */
+/* ===== Button Text with Responsive Sizing ===== */
 .vtx-text--button {
-  font-size: var(--vtx-text-button-font-size, 0.875rem);
+  font-size: clamp(0.8125rem, 0.85vw + 0.125rem, 0.875rem);
   font-weight: var(--vtx-text-button-font-weight, 600);
   line-height: var(--vtx-text-button-line-height, 1.5);
   letter-spacing: var(--vtx-text-button-letter-spacing, 0.025em);
 }
 
-/* Label */
+/* ===== Label with Responsive Sizing ===== */
 .vtx-text--label {
-  font-size: var(--vtx-text-label-font-size, 0.875rem);
+  font-size: clamp(0.8125rem, 0.85vw + 0.125rem, 0.875rem);
   font-weight: var(--vtx-text-label-font-weight, 500);
   line-height: var(--vtx-text-label-line-height, 1.5);
-  letter-spacing: var(--vtx-text-label-letter-spacing, 0);
+  letter-spacing: var(--vtx-text-label-letter-spacing, 0.0075em);
   display: inline-block;
-  margin-bottom: var(--vtx-spacing-2, 0.5rem);
+  margin-bottom: clamp(0.375rem, 0.5vw + 0.125rem, 0.5rem);
 }
 
 /* ===== Text Alignment ===== */
@@ -275,30 +276,192 @@
   color: var(--vtx-color-neutral-400);
 }
 
-/* ===== Responsive Typography ===== */
-@media (max-width: 768px) {
+/* ===== Responsive Breakpoint Adjustments ===== */
+
+/* Small Mobile: < 480px */
+@media (max-width: 479px) {
   .vtx-text--h1 {
-    font-size: clamp(2.5rem, 8vw, 3.75rem);
+    font-size: clamp(1.875rem, 8vw, 2.5rem);
+    line-height: 1.15;
+    margin-bottom: 0.875rem;
   }
 
   .vtx-text--h2 {
-    font-size: clamp(2rem, 6vw, 3rem);
+    font-size: clamp(1.625rem, 7vw, 2.125rem);
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
   }
 
   .vtx-text--h3 {
-    font-size: clamp(1.75rem, 5vw, 2.25rem);
+    font-size: clamp(1.375rem, 6vw, 1.75rem);
+    line-height: 1.25;
+    margin-bottom: 0.625rem;
+  }
+
+  .vtx-text--h4,
+  .vtx-text--h5,
+  .vtx-text--h6 {
+    margin-bottom: 0.5rem;
+  }
+
+  .vtx-text--body1,
+  .vtx-text--body2 {
+    line-height: 1.65;
+  }
+}
+
+/* Mobile: 480px - 767px */
+@media (min-width: 480px) and (max-width: 767px) {
+  .vtx-text--h1 {
+    line-height: 1.15;
+  }
+
+  .vtx-text--h2 {
+    line-height: 1.2;
+  }
+
+  .vtx-text--body1,
+  .vtx-text--body2 {
+    line-height: 1.65;
+  }
+}
+/* Enhancements ===== */
+.vtx-text:focus-visible {
+  outline: 2px solid var(--vtx-color-primary-500);
+  outline-offset: 2px;
+  border-radius: var(--vtx-radius-sm);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .vtx-text {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .vtx-text {
+    font-weight: 500;
+  }
+
+  .vtx-text--h1,
+  .vtx-text--h2,
+  .vtx-text--h3,
+  .vtx-text--h4,
+  .vtx-text--h5,
+  .vtx-text--h6 {
+    font-weight: 700;
+  }
+
+  .vtx-text--caption,
+  .vtx-text--overline {
+    opacity: 1;
+  }
+}
+
+/* ===== Container Query Support (Modern Browsers) ===== */
+@supports (container-type: inline-size) {
+  @container (max-width: 600px) {
+    .vtx-text--h1 {
+      font-size: clamp(1.875rem, 6vw, 2.5rem);
+    }
+
+    .vtx-text--h2 {
+      font-size: clamp(1.625rem, 5vw, 2.125rem);
+    }
+
+    .vtx-text--h3 {
+      font-size: clamp(1.375rem, 4vw, 1.75rem);
+    }
+  }
+}
+
+/* ===== Touch Device Optimizations ===== */
+@media (hover: none) and (pointer: coarse) {
+  .vtx-text--body1,
+  .vtx-text--body2 {
+    line-height: 1.65;
+    font-size: clamp(0.9375rem, 1.1vw + 0.125rem, 1.0625rem);
+  }
+
+  .vtx-text--button,
+  .vtx-text--label {
+    font-size: clamp(0.875rem, 1vw + 0.125rem, 0.9375rem);
+    line-height: 1.6;
+  }
+}
+
+/* ===== Very Small Screens (<= 320px) ===== */
+@media (max-width: 320px) {
+  .vtx-text--h1 {
+    font-size: 1.75rem;
+    line-height: 1.1;
+  }
+
+  .vtx-text--h2 {
+    font-size: 1.5rem;
+    line-height: 1.15;
+  }
+
+  .vtx-text--h3 {
+    font-size: 1.25rem;
+    line-height: 1.2;
   }
 
   .vtx-text--h4 {
-    font-size: clamp(1.5rem, 4vw, 1.875rem);
+    font-size: 1.125rem;
   }
 
-  .vtx-text--h5 {
-    font-size: clamp(1.25rem, 3.5vw, 1.5rem);
-  }
-
+  .vtx-text--h5,
   .vtx-text--h6 {
-    font-size: clamp(1.125rem, 3vw, 1.25rem);
+    font-size: 1rem
+  };
+}
+
+/* Desktop: 1024px - 1439px */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .vtx-text--h1 {
+    line-height: 1.2;
+  }
+}
+
+/* Large Desktop: >= 1440px */
+@media (min-width: 1440px) {
+  .vtx-text--h1 {
+    letter-spacing: -0.03em;
+  }
+
+  .vtx-text--h2 {
+    letter-spacing: -0.03em;
+  }
+
+  .vtx-text--h3 {
+    letter-spacing: -0.03em;
+  }
+}
+
+/* ===== Landscape Mode Adjustments ===== */
+@media (max-width: 1023px) and (orientation: landscape) {
+  .vtx-text--h1,
+  .vtx-text--h2,
+  .vtx-text--h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  .vtx-text--body1,
+  .vtx-text--body2 {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* ===== High Resolution Displays ===== */
+@media (min-resolution: 2dppx) {
+  .vtx-text {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 }
 

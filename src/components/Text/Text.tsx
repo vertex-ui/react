@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { CSSProperties } from 'react';
 import './Text.css';
+import {withParsedClasses} from "../../hoc/withParsedClasses";
 
 export type TextVariant =
   | 'h1'
@@ -295,7 +296,7 @@ const Text = React.forwardRef<HTMLElement, TextProps>(
       .join(' ');
 
     // Build inline styles
-    const inlineStyles: CSSProperties = {
+    const  inlineStyles: CSSProperties = {
       ...style,
     };
 
@@ -358,5 +359,7 @@ const Text = React.forwardRef<HTMLElement, TextProps>(
 
 Text.displayName = 'Text';
 
-export { Text };
-export default Text as React.FC<TextProps & React.RefAttributes<HTMLElement>>;
+const TextWithParsedClasses = withParsedClasses(Text);
+
+export { TextWithParsedClasses as Text };
+export default TextWithParsedClasses as React.FC<TextProps & React.RefAttributes<HTMLElement>>;

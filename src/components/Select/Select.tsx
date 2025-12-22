@@ -1,5 +1,6 @@
 import React, { SelectHTMLAttributes } from 'react';
 import { useId } from '../../hooks';
+import { Size, useThemeContext } from '../../theme';
 import './Select.css';
 
 export interface SelectOption {
@@ -42,9 +43,9 @@ export interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement
   success?: string;
   /**
    * Size of the select
-   * @default 'medium'
+   * @default theme.defaultSize
    */
-  size?: 'small' | 'medium' | 'large';
+  size?: Size;
   /**
    * If true, select will take full width of its container
    * @default false
@@ -168,14 +169,14 @@ export interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement
  * }
  * ```
  */
-export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
+const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   (
     {
       label,
       helperText,
       error,
       success,
-      size = 'medium',
+      size,
       fullWidth = false,
       options,
       placeholder,
@@ -196,6 +197,9 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     },
     ref
   ) => {
+    const { theme } = useThemeContext();
+    const selectSize = size || theme.defaultSize;
+    
     const generatedId = useId('select');
     const id = providedId || generatedId;
     const helperId = `${id}-helper`;
@@ -231,7 +235,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
 
     const selectContainerClassNames = [
       'vtx-select-container',
-      `vtx-select-container--${size}`,
+      `vtx-select-container--${selectSize}`,
       hasError && 'vtx-select-container--error',
       hasSuccess && 'vtx-select-container--success',
       disabled && 'vtx-select-container--disabled',
@@ -385,6 +389,10 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
 
 Select.displayName = 'Select';
 
-export default Select as React.FC<
+import { withParsedClasses } from '../../hoc/withParsedClasses';
+const SelectWithParsedClasses = withParsedClasses(Select);
+
+export { SelectWithParsedClasses as Select };
+export default SelectWithParsedClasses as React.FC<
   SelectProps & React.RefAttributes<HTMLSelectElement>
->;  
+>;

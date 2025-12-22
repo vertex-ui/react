@@ -43,16 +43,27 @@ export { Badge } from './components/Badge';
 export type { BadgeProps } from './components/Badge';
 export { Card } from './components/Card';
 export type { CardProps } from './components/Card';
+export { DataGrid } from './components/DataGrid';
+export type {
+  DataGridColumn,
+  DataGridProps,
+  GridFilterItem,
+  GridFilterModel,
+  GridFilterOperator,
+  GridRowSelectionModel,
+} from './components/DataGrid';
 export { Divider } from './components/Divider';
 export type { DividerProps } from './components/Divider';
 export { Header } from './components/Header';
 export type { HeaderProps, NotificationItem } from './components/Header';
-export { SideMenu, SideMenuItem } from './components/SideMenu';
+export { SideMenu } from './components/SideMenu';
 export type { SideMenuItemProps, SideMenuProps } from './components/SideMenu';
 export { Table } from './components/Table';
 export type { TableColumn, TableProps } from './components/Table';
 export { Text } from './components/Text';
 export type { TextProps } from './components/Text';
+export { Timeline } from './components/Timeline';
+export type { TimelineProps, TimelineStep } from './components/Timeline';
 
 // --- Layout ---
 export { Flex } from './components/Flex';
@@ -75,3 +86,32 @@ export {
   useFocusTrap,
   useId,
 } from './hooks';
+
+// --- Widgets ---
+export { InfoCard } from './widgets/InfoCard';
+export type { InfoCardBaseProps, InfoCardMetricProps } from './widgets/InfoCard';
+export { InfoText } from './widgets/InfoText';
+export type {
+  InfoTextBaseProps,
+  InfoTextStatProps,
+  InfoTextFeatureProps,
+  InfoTextCompactProps,
+  InfoTextVerticalProps,
+} from './widgets/InfoText';
+export { ProductCard } from './widgets/ProductCard';
+export type { ProductCardProps, ProductCardWideProps } from './widgets/ProductCard';
+export { OrderCard } from './widgets/OrderCard';
+export type { OrderCardProps, OrderItem } from './widgets/OrderCard';
+export { InfoListCard } from './widgets/InfoListCard';
+export type { InfoListCardProps, InfoListItem } from './widgets/InfoListCard';
+export { OrderConfirmation } from './widgets/OrderConfirmation';
+export type { OrderConfirmationProps, OrderConfirmationItem, OrderConfirmationAddress } from './widgets/OrderConfirmation';
+export { OrderDetails } from './widgets/OrderDetails';
+export type { OrderDetailsProps, OrderDetailsItem, OrderDetailsAddress } from './widgets/OrderDetails';
+export { Header as HomeHeader } from './widgets/Header';
+export type { 
+  NavigationItem, 
+  HeaderDesktopProps, 
+  HeaderMobileProps, 
+  HeaderResponsiveProps 
+} from './widgets/Header';

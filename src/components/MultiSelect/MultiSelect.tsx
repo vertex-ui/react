@@ -1,7 +1,9 @@
+import { ChevronDownIcon, SpinnerIcon, CheckIcon } from '../../icons/IconComponents';
 import React, { useEffect, useRef, useState } from 'react';
 import { useId } from '../../hooks';
 import { useThemeContext } from '../../theme/ThemeProvider';
 import { Chip } from '../Chip';
+import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './MultiSelect.css';
 
 export interface MultiSelectOption {
@@ -191,7 +193,7 @@ export interface MultiSelectProps {
  * }
  * ```
  */
-export const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
+const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
   (
     {
       label,
@@ -474,37 +476,9 @@ export const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
 
           <span className="vtx-multiselect-icon" aria-hidden="true">
             {loading ? (
-              <svg
-                className="vtx-multiselect-icon-spinner"
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-              >
-                <circle
-                  className="vtx-multiselect-icon-spinner-track"
-                  cx="8"
-                  cy="8"
-                  r="6"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
-                <path
-                  className="vtx-multiselect-icon-spinner-path"
-                  fill="currentColor"
-                  d="M8 2C4.686 2 2 4.686 2 8h2c0-2.21 1.79-4 4-4V2z"
-                />
-              </svg>
+              <SpinnerIcon size={16} />
             ) : (
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path
-                  d="M4 6L8 10L12 6"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <ChevronDownIcon size={16} />
             )}
           </span>
 
@@ -591,15 +565,7 @@ export const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
                                   isSelected ? 'vtx-multiselect-checkbox--checked' : ''
                                 }`}
                               >
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                  <path
-                                    d="M3 8L6.5 11.5L13 5"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                  />
-                                </svg>
+                                {isSelected && <CheckIcon size={16} />}
                               </div>
                             )}
 
@@ -607,15 +573,7 @@ export const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
 
                             {selectionStyle === 'checkmark' && (
                               <div className="vtx-multiselect-checkmark">
-                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                  <path
-                                    d="M4 10L8 14L16 6"
-                                    stroke="currentColor"
-                                    strokeWidth="2.5"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                  />
-                                </svg>
+                                {isSelected && <CheckIcon size={20} />}
                               </div>
                             )}
                           </div>
@@ -675,6 +633,6 @@ export const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
 
 MultiSelect.displayName = 'MultiSelect';
 
-export default MultiSelect as React.FC<
-  MultiSelectProps & React.RefAttributes<HTMLDivElement>
->;
+const MultiSelectWithParsedClasses = withParsedClasses(MultiSelect);
+export default MultiSelectWithParsedClasses as React.FC<MultiSelectProps & React.RefAttributes<HTMLDivElement>>;
+export { MultiSelectWithParsedClasses as MultiSelect };

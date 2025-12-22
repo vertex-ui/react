@@ -1,5 +1,7 @@
 import React, { ButtonHTMLAttributes } from 'react';
 import { useThemeContext } from '../../theme/ThemeProvider';
+import { Size } from '../../theme';
+import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './Button.css';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -12,7 +14,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
    * Size of the button
    * @default 'md'
    */
-  size?: 'sm' | 'md' | 'lg';
+  size?: Size;
   /**
    * If true, button will take full width of its container
    * @default false
@@ -118,7 +120,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
  * </Button>
  * ```
  */
-export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
+const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
   (
     {
       children,
@@ -228,6 +230,9 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
 
 Button.displayName = 'Button';
 
-export default Button as React.FC<
+const ButtonWithParsedClasses = withParsedClasses(Button);
+
+export default ButtonWithParsedClasses as React.FC<
   ButtonProps & React.RefAttributes<HTMLButtonElement | HTMLAnchorElement>
 >;
+export { ButtonWithParsedClasses as Button };

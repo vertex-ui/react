@@ -239,6 +239,9 @@
   --vtx-z-tooltip: 1300;
   --vtx-z-notification: 1400;
 
+  --vtx-color-white: #ffffff;
+  --vtx-color-black: #000000;
+
   /* ============================================
    * SEMANTIC COLOR ALIASES
    * ============================================ */

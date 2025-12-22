@@ -41,3 +41,5 @@ storybook-static
 # Temporary files
 *.tmp
 *.temp
+
+*storybook.log

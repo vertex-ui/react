@@ -1,0 +1,156 @@
+.orderdetails {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Header */
+.orderdetails-header {
+  padding: var(--vtx-spacing-4);
+  background: var(--vtx-color-neutral-50);
+  border: 2px solid var(--vtx-color-neutral-300);
+}
+
+.orderdetails-date {
+  color: var(--vtx-color-neutral-600);
+}
+
+/* Items Card */
+.orderdetails-items-card {
+  padding: var(--vtx-spacing-4);
+}
+
+.orderdetails-item {
+  width: 100%;
+}
+
+.orderdetails-item-image-wrapper {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: var(--vtx-radius-md);
+  overflow: hidden;
+  background: var(--vtx-color-neutral-100);
+  border: 1px solid var(--vtx-color-neutral-200);
+}
+
+.orderdetails-item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.orderdetails-item-name {
+  color: var(--vtx-color-neutral-900);
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.orderdetails-item-variant,
+.orderdetails-item-sku {
+  color: var(--vtx-color-neutral-600);
+}
+
+.orderdetails-item-unit-price {
+  color: var(--vtx-color-neutral-500);
+}
+
+/* Summary Card */
+.orderdetails-summary-card {
+  padding: var(--vtx-spacing-4);
+}
+
+.orderdetails-discount {
+  color: var(--vtx-color-success-600);
+}
+
+.orderdetails-total {
+  color: var(--vtx-color-primary-600);
+  font-size: 1.125rem;
+}
+
+/* Address Card */
+.orderdetails-address-card {
+  padding: var(--vtx-spacing-4);
+}
+
+.orderdetails-address {
+  color: var(--vtx-color-neutral-700);
+  line-height: 1.6;
+}
+
+.orderdetails-address-name {
+  font-weight: 600;
+  color: var(--vtx-color-neutral-900);
+  margin-bottom: 4px;
+}
+
+/* Actions Card */
+.orderdetails-actions-card {
+  padding: var(--vtx-spacing-4);
+  background: var(--vtx-color-neutral-50);
+  border: 1px solid var(--vtx-color-neutral-200);
+}
+
+/* Help Card */
+.orderdetails-help-card {
+  padding: var(--vtx-spacing-3);
+  background: var(--vtx-color-neutral-50);
+  border: 1px solid var(--vtx-color-neutral-200);
+}
+
+.orderdetails-help-text {
+  color: var(--vtx-color-neutral-700);
+}
+
+.orderdetails-help-email {
+  color: var(--vtx-color-neutral-600);
+  font-weight: 500;
+}
+
+/* Tracking Link */
+.orderdetails-tracking-link {
+  color: var(--vtx-color-primary-600);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color var(--vtx-transition-base);
+}
+
+.orderdetails-tracking-link:hover {
+  color: var(--vtx-color-primary-700);
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .orderdetails-header {
+    padding: var(--vtx-spacing-3);
+  }
+
+  .orderdetails-items-card,
+  .orderdetails-summary-card,
+  .orderdetails-address-card,
+  .orderdetails-actions-card {
+    padding: var(--vtx-spacing-3);
+  }
+
+  .orderdetails-item-image-wrapper {
+    width: 56px;
+    height: 56px;
+  }
+
+  .orderdetails-item {
+    flex-wrap: wrap;
+  }
+
+  .orderdetails-total {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .orderdetails-item-image-wrapper {
+    width: 48px;
+    height: 48px;
+  }
+}

@@ -1,0 +1,185 @@
+/* ==================== Info List Card ==================== */
+.info-list-card {
+  padding: var(--vtx-spacing-4, 16px);
+  width: 100%;
+  max-width: 100%;
+}
+
+.info-list-card--compact {
+  padding: var(--vtx-spacing-3, 12px);
+}
+
+/* ==================== Heading ==================== */
+.info-list-card-heading {
+  color: var(--vtx-color-neutral-900, #171717);
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+/* ==================== Items Container ==================== */
+.info-list-card-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vtx-spacing-3, 12px);
+}
+
+.info-list-card--compact .info-list-card-items {
+  gap: var(--vtx-spacing-2, 8px);
+}
+
+/* ==================== Individual Item ==================== */
+.info-list-card-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--vtx-spacing-4, 16px);
+  min-height: 24px;
+}
+
+/* ==================== Label ==================== */
+.info-list-card-label {
+  color: var(--vtx-color-neutral-600, #525252);
+  flex: 0 0 auto;
+  max-width: 50%;
+  word-break: break-word;
+  line-height: 1.5;
+}
+
+/* ==================== Value ==================== */
+.info-list-card-value {
+  color: var(--vtx-color-neutral-900, #171717);
+  text-align: right;
+  flex: 1 1 auto;
+  word-break: break-word;
+  line-height: 1.5;
+  min-width: 0;
+}
+
+/* ==================== Value Variants ==================== */
+.info-list-card-value.value-primary {
+  color: var(--vtx-color-primary-600, #2563eb);
+}
+
+.info-list-card-value.value-success {
+  color: var(--vtx-color-success-600, #16a34a);
+}
+
+.info-list-card-value.value-warning {
+  color: var(--vtx-color-warning-600, #d97706);
+}
+
+.info-list-card-value.value-error {
+  color: var(--vtx-color-error-600, #dc2626);
+}
+
+.info-list-card-value.value-muted {
+  color: var(--vtx-color-neutral-500, #737373);
+}
+
+.info-list-card-value.value-bold {
+  font-weight: var(--vtx-font-weight-semibold, 600);
+}
+
+.info-list-card-value.value-large {
+  font-size: 1.125rem;
+  font-weight: var(--vtx-font-weight-bold, 700);
+}
+
+/* ==================== Responsive Design ==================== */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .info-list-card {
+    padding: var(--vtx-spacing-3, 12px);
+  }
+
+  .info-list-card-item {
+    gap: var(--vtx-spacing-3, 12px);
+  }
+
+  .info-list-card-label {
+    max-width: 45%;
+    font-size: 0.875rem;
+  }
+
+  .info-list-card-value {
+    font-size: 0.875rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .info-list-card {
+    padding: var(--vtx-spacing-3, 12px);
+  }
+
+  .info-list-card--compact {
+    padding: var(--vtx-spacing-2, 8px);
+  }
+
+  .info-list-card-items {
+    gap: var(--vtx-spacing-2, 8px);
+  }
+
+  .info-list-card--compact .info-list-card-items {
+    gap: var(--vtx-spacing-1, 4px);
+  }
+
+  .info-list-card-item {
+    gap: var(--vtx-spacing-2, 8px);
+    min-height: 20px;
+  }
+
+  .info-list-card-label {
+    max-width: 48%;
+    font-size: 0.8125rem;
+  }
+
+  .info-list-card-value {
+    font-size: 0.8125rem;
+  }
+
+  .info-list-card-value.value-large {
+    font-size: 1rem;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 375px) {
+  .info-list-card-item {
+    flex-direction: column;
+    gap: var(--vtx-spacing-1, 4px);
+    align-items: stretch;
+  }
+
+  .info-list-card-label {
+    max-width: 100%;
+  }
+
+  .info-list-card-value {
+    text-align: left;
+  }
+}
+
+/* ==================== Long Text Handling ==================== */
+
+/* Ensure long text doesn't break layout */
+.info-list-card-item * {
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+/* ==================== Print Styles ==================== */
+@media print {
+  .info-list-card {
+    box-shadow: none !important;
+    border: 1px solid var(--vtx-color-neutral-300, #d4d4d4);
+    page-break-inside: avoid;
+  }
+
+  .info-list-card-item {
+    page-break-inside: avoid;
+  }
+}

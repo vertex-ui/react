@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Flex } from '../Flex';
 import { Text } from '../Text';
+import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './SideMenu.css';
 
 export interface SideMenuItemProps {
@@ -164,7 +165,6 @@ export const SideMenuItem = React.forwardRef<
               {hasSubmenu && <ChevronIcon isOpen={isSubmenuOpen} />}
             </>
           )}
-          {collapsed && badge && <span className="vtx-sidemenu-item-badge">{badge}</span>}
         </Flex>
       </>
     );
@@ -245,12 +245,12 @@ SideMenuItem.displayName = 'SideMenuItem';
  * />
  * ```
  */
-export const SideMenu = React.forwardRef<HTMLDivElement, SideMenuProps>(
+const SideMenu = React.forwardRef<HTMLDivElement, SideMenuProps>(
   (
     {
       items,
       collapsed = false,
-      onCollapseToggle,
+      onCollapseToggle: _onCollapseToggle,
       className = '',
       width = '260px',
       collapsedWidth = '80px',
@@ -264,8 +264,8 @@ export const SideMenu = React.forwardRef<HTMLDivElement, SideMenuProps>(
         ? `${collapsedWidth}px`
         : collapsedWidth
       : typeof width === 'number'
-        ? `${width}px`
-        : width;
+      ? `${width}px`
+      : width;
 
     const sidebarClasses = ['vtx-sidemenu', collapsed && 'vtx-sidemenu--collapsed', className]
       .filter(Boolean)
@@ -282,24 +282,6 @@ export const SideMenu = React.forwardRef<HTMLDivElement, SideMenuProps>(
         </div>
 
         {footer && <div className="vtx-sidemenu-footer">{footer}</div>}
-
-        {onCollapseToggle && (
-          <button
-            className="vtx-sidemenu-toggle"
-            onClick={() => onCollapseToggle(!collapsed)}
-            aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-            title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d={collapsed ? 'M9 5l7 7-7 7' : 'M15 19l-7-7 7-7'}
-              />
-            </svg>
-          </button>
-        )}
       </aside>
     );
   }
@@ -307,6 +289,8 @@ export const SideMenu = React.forwardRef<HTMLDivElement, SideMenuProps>(
 
 SideMenu.displayName = 'SideMenu';
 
-export default SideMenu as React.FC< 
+const SideMenuWithParsedClasses = withParsedClasses(SideMenu);
+export default SideMenuWithParsedClasses as React.FC<
   SideMenuProps & React.RefAttributes<HTMLDivElement>
 >;
+export { SideMenuWithParsedClasses as SideMenu };

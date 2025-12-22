@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Checkbox } from '../Checkbox/Checkbox';
 import { useThemeContext } from '../../theme/ThemeProvider';
+import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './CheckboxGroup.css';
 
 export interface CheckboxOption {
@@ -121,7 +122,7 @@ export interface CheckboxGroupProps extends Omit<React.HTMLAttributes<HTMLDivEle
  * />
  * ```
  */
-export const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
+const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
   (
     {
       label,
@@ -203,7 +204,6 @@ export const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps
 
 CheckboxGroup.displayName = 'CheckboxGroup';
 
-
-export default CheckboxGroup as React.FC<
-  CheckboxGroupProps & React.RefAttributes<HTMLDivElement>
->;
+const CheckboxGroupWithParsedClasses = withParsedClasses(CheckboxGroup);
+export default CheckboxGroupWithParsedClasses as React.FC<CheckboxGroupProps & React.RefAttributes<HTMLDivElement>>;
+export { CheckboxGroupWithParsedClasses as CheckboxGroup };

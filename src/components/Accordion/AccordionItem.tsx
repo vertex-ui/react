@@ -1,3 +1,5 @@
+
+import { ChevronDownIcon, PlusIcon, MinusIcon } from '../../icons/IconComponents';
 import React, { useRef } from 'react';
 import { AccordionItemComponentProps, AccordionItemProps } from './types';
 
@@ -91,18 +93,11 @@ const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemComponentPro
             data-testid={`${dataTestId || id}-plus-minus-icon`}
           >
             {isOpen ? (
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M4 8H12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-              </svg>
+              <MinusIcon size={16} aria-hidden="true" />
             ) : (
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path
-                  d="M8 4V12M4 8H12"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </svg>
+              <>
+                <PlusIcon size={16} aria-hidden="true" />
+              </>
             )}
           </div>
         );
@@ -114,15 +109,7 @@ const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemComponentPro
           className={`accordion-item-chevron ${isOpen ? 'open' : ''}`} 
           data-testid={`${dataTestId || id}-chevron-icon`}
         >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path
-              d="M4 6L8 10L12 6"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          <ChevronDownIcon size={16} aria-hidden="true" style={{ transform: isOpen ? 'rotate(180deg)' : undefined, transition: 'transform 0.2s' }} />
         </div>
       );
     };

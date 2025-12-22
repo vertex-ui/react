@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '../test-utils';
 import '@testing-library/jest-dom';
 import { Chip } from '../../src/components/Chip';
 
@@ -11,44 +11,44 @@ describe('Chip', () => {
 
   it('applies size classes correctly', () => {
     const { rerender, container } = render(<Chip label="Small" size="small" />);
-    expect(container.firstChild).toHaveClass('vtx-chip--small');
+    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--small');
 
     rerender(<Chip label="Medium" size="medium" />);
-    expect(container.firstChild).toHaveClass('vtx-chip--medium');
+    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--medium');
 
     rerender(<Chip label="Large" size="large" />);
-    expect(container.firstChild).toHaveClass('vtx-chip--large');
+    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--large');
   });
 
   it('applies variant classes correctly', () => {
     const { rerender, container } = render(<Chip label="Test" variant="filled" />);
-    expect(container.firstChild).toHaveClass('vtx-chip--filled');
+    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--filled');
 
     rerender(<Chip label="Test" variant="outlined" />);
-    expect(container.firstChild).toHaveClass('vtx-chip--outlined');
+    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--outlined');
 
     rerender(<Chip label="Test" variant="light" />);
-    expect(container.firstChild).toHaveClass('vtx-chip--light');
+    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--light');
   });
 
   it('applies color classes correctly', () => {
     const { rerender, container } = render(<Chip label="Test" color="primary" />);
-    expect(container.firstChild).toHaveClass('vtx-chip--primary');
+    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--primary');
 
     rerender(<Chip label="Test" color="success" />);
-    expect(container.firstChild).toHaveClass('vtx-chip--success');
+    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--success');
 
     rerender(<Chip label="Test" color="error" />);
-    expect(container.firstChild).toHaveClass('vtx-chip--error');
+    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--error');
 
     rerender(<Chip label="Test" color="warning" />);
-    expect(container.firstChild).toHaveClass('vtx-chip--warning');
+    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--warning');
 
     rerender(<Chip label="Test" color="info" />);
-    expect(container.firstChild).toHaveClass('vtx-chip--info');
+    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--info');
 
     rerender(<Chip label="Test" color="default" />);
-    expect(container.firstChild).toHaveClass('vtx-chip--default');
+    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--default');
   });
 
   it('renders with icon', () => {
@@ -120,7 +120,7 @@ describe('Chip', () => {
 
   it('applies clickable class when onClick is provided', () => {
     const { container } = render(<Chip label="Click" onClick={() => {}} />);
-    expect(container.firstChild).toHaveClass('vtx-chip--clickable');
+    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--clickable');
   });
 
   it('disables interactions when disabled', () => {
@@ -137,12 +137,12 @@ describe('Chip', () => {
 
   it('applies disabled class when disabled', () => {
     const { container } = render(<Chip label="Disabled" disabled />);
-    expect(container.firstChild).toHaveClass('vtx-chip--disabled');
+    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--disabled');
   });
 
   it('applies custom className', () => {
     const { container } = render(<Chip label="Custom" className="my-custom-class" />);
-    expect(container.firstChild).toHaveClass('my-custom-class');
+    expect(container.querySelector('.vtx-chip')).toHaveClass('my-custom-class');
   });
 
   it('sets aria-label correctly', () => {

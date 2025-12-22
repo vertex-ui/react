@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '../test-utils';
 import '@testing-library/jest-dom';
 import { RadioGroup } from '../../src/components/RadioGroup/RadioGroup';
 import type { RadioOption } from '../../src/components/RadioGroup/RadioGroup';
@@ -61,8 +61,8 @@ describe('RadioGroup', () => {
 
   describe('Size', () => {
     it('passes size prop to radios', () => {
-      const { container } = render(<RadioGroup name="test" options={mockOptions} size="large" />);
-      const radios = container.querySelectorAll('.vtx-radio--large');
+      const { container } = render(<RadioGroup name="test" options={mockOptions} size="lg" />);
+      const radios = container.querySelectorAll('.vtx-radio--lg');
       expect(radios).toHaveLength(3);
     });
   });

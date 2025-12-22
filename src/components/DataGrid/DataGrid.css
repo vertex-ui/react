@@ -1,0 +1,732 @@
+/* ==========================================
+   DataGrid - Professional MUI-inspired Design
+   ========================================== */
+
+.vertex-datagrid {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 1px solid rgba(224, 224, 224, 1);
+  border-radius: 4px;
+  background: #fff;
+  overflow: hidden;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.vertex-datagrid--auto-height {
+  height: auto;
+}
+
+/* ==========================================
+   Density Variants
+   ========================================== */
+
+.vertex-datagrid--compact .vertex-datagrid-th,
+.vertex-datagrid--compact .vertex-datagrid-td {
+  padding: 4px 16px;
+  font-size: 0.8125rem;
+}
+
+.vertex-datagrid--standard .vertex-datagrid-th,
+.vertex-datagrid--standard .vertex-datagrid-td {
+  padding: 8px 16px;
+  font-size: 0.875rem;
+}
+
+.vertex-datagrid--comfortable .vertex-datagrid-th,
+.vertex-datagrid--comfortable .vertex-datagrid-td {
+  padding: 12px 20px;
+  font-size: 0.875rem;
+}
+
+/* ==========================================
+   Size Variants
+   ========================================== */
+
+.vertex-datagrid--sm .vertex-datagrid-th,
+.vertex-datagrid--sm .vertex-datagrid-td {
+  font-size: 0.75rem;
+}
+
+.vertex-datagrid--md .vertex-datagrid-th,
+.vertex-datagrid--md .vertex-datagrid-td {
+  font-size: 0.875rem;
+}
+
+.vertex-datagrid--lg .vertex-datagrid-th,
+.vertex-datagrid--lg .vertex-datagrid-td {
+  font-size: 1rem;
+}
+
+/* ==========================================
+   Table Container
+   ========================================== */
+
+.vertex-datagrid-container {
+  overflow: auto;
+  flex: 1;
+  background: #fff;
+}
+
+.vertex-datagrid-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* ==========================================
+   Table Header
+   ========================================== */
+
+.vertex-datagrid-thead {
+  background: #fafafa;
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
+}
+
+.vertex-datagrid-th {
+  text-align: left;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.87);
+  user-select: none;
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
+  position: sticky;
+  top: 0;
+  background: #fafafa;
+  z-index: 100;
+}
+
+.vertex-datagrid-th-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  min-height: 40px;
+}
+
+.vertex-datagrid-th-label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  cursor: default;
+  transition: color 0.2s;
+}
+
+.vertex-datagrid-th--sortable .vertex-datagrid-th-label {
+  cursor: pointer;
+}
+
+.vertex-datagrid-th--sortable:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.vertex-datagrid-th-text {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+  letter-spacing: 0.01071em;
+}
+
+.vertex-datagrid-sort-icon {
+  display: flex;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.26);
+  transition: color 0.2s, opacity 0.2s;
+}
+
+.vertex-datagrid-th--sortable .vertex-datagrid-sort-icon {
+  opacity: 0;
+}
+
+.vertex-datagrid-th--sortable:hover .vertex-datagrid-sort-icon {
+  opacity: 1;
+}
+
+.vertex-datagrid-sort-icon--active {
+  opacity: 1 !important;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/* ==========================================
+   Column Menu Button
+   ========================================== */
+
+.vertex-datagrid-column-menu-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.54);
+  cursor: pointer;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.2s, background 0.2s, color 0.2s;
+}
+
+.vertex-datagrid-th:hover .vertex-datagrid-column-menu-btn {
+  opacity: 1;
+}
+
+.vertex-datagrid-column-menu-btn:hover {
+  background: rgba(0, 0, 0, 0.04);
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.vertex-datagrid-column-menu-btn--filtered {
+  opacity: 1;
+  color: #1976d2;
+}
+
+.vertex-datagrid-filter-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #1976d2;
+}
+
+/* ==========================================
+   Column Menu Dropdown
+   ========================================== */
+
+.vertex-datagrid-column-menu {
+  min-width: 200px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2), 
+              0px 8px 10px 1px rgba(0,0,0,0.14), 
+              0px 3px 14px 2px rgba(0,0,0,0.12);
+  padding: 8px 0;
+}
+
+.vertex-datagrid-column-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 0.875rem;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s;
+  position: relative;
+}
+
+.vertex-datagrid-column-menu-item:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.vertex-datagrid-column-menu-item svg {
+  flex-shrink: 0;
+}
+
+.vertex-datagrid-column-menu-divider {
+  height: 1px;
+  margin: 8px 0;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.vertex-datagrid-menu-check {
+  margin-left: auto;
+  color: #1976d2;
+  font-weight: 600;
+}
+
+.vertex-datagrid-menu-badge {
+  margin-left: auto;
+  color: #1976d2;
+  font-size: 1.2rem;
+}
+
+/* ==========================================
+   Filter Panel Overlay
+   ========================================== */
+
+.vertex-datagrid-filter-panel-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1400;
+  backdrop-filter: blur(2px);
+}
+
+.vertex-datagrid-filter-panel {
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 11px 15px -7px rgba(0,0,0,0.2), 
+              0px 24px 38px 3px rgba(0,0,0,0.14), 
+              0px 9px 46px 8px rgba(0,0,0,0.12);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.vertex-datagrid-filter-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.vertex-datagrid-filter-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.54);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.vertex-datagrid-filter-close:hover {
+  background: rgba(0, 0, 0, 0.04);
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.vertex-datagrid-filter-panel-body {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.vertex-datagrid-filter-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 40px 20px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.38);
+}
+
+.vertex-datagrid-filter-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vertex-datagrid-filter-logic-btn {
+  align-self: flex-start;
+  padding: 4px 12px;
+  border: 1px solid #1976d2;
+  background: transparent;
+  color: #1976d2;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.vertex-datagrid-filter-logic-btn:hover {
+  background: rgba(25, 118, 210, 0.04);
+}
+
+.vertex-datagrid-filter-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 8px;
+  align-items: start;
+}
+
+.vertex-datagrid-filter-select {
+  padding: 8px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  background: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.vertex-datagrid-filter-select:hover {
+  border-color: rgba(0, 0, 0, 0.87);
+}
+
+.vertex-datagrid-filter-select:focus {
+  outline: none;
+  border-color: #1976d2;
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+}
+
+.vertex-datagrid-filter-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.54);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.vertex-datagrid-filter-remove:hover {
+  background: rgba(211, 47, 47, 0.04);
+  color: #d32f2f;
+}
+
+.vertex-datagrid-filter-actions {
+  display: flex;
+  gap: 8px;
+  padding-top: 8px;
+}
+
+.vertex-datagrid-filter-panel-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 12px 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  gap: 12px;
+}
+
+/* ==========================================
+   Table Body
+   ========================================== */
+
+.vertex-datagrid-tbody {
+  background: #fff;
+}
+
+.vertex-datagrid-row {
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
+  transition: background 0.15s;
+}
+
+.vertex-datagrid-row:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.vertex-datagrid-row--selected {
+  background: rgba(25, 118, 210, 0.08);
+}
+
+.vertex-datagrid-row--selected:hover {
+  background: rgba(25, 118, 210, 0.12);
+}
+
+.vertex-datagrid-td {
+  color: rgba(0, 0, 0, 0.87);
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
+}
+
+.vertex-datagrid-checkbox-cell {
+  width: 58px;
+  padding-left: 16px !important;
+  padding-right: 0 !important;
+  position: sticky !important;
+  left: 0 !important;
+  z-index: 102 !important;
+  background: #fafafa !important;
+}
+
+.vertex-datagrid-tbody .vertex-datagrid-checkbox-cell {
+  background: #fff !important;
+  z-index: 101 !important;
+}
+
+.vertex-datagrid-row:hover .vertex-datagrid-checkbox-cell {
+  background: rgba(0, 0, 0, 0.04) !important;
+}
+
+.vertex-datagrid-row--selected .vertex-datagrid-checkbox-cell {
+  background: rgba(25, 118, 210, 0.08) !important;
+}
+
+.vertex-datagrid-row--selected:hover .vertex-datagrid-checkbox-cell {
+  background: rgba(25, 118, 210, 0.12) !important;
+}
+
+/* ==========================================
+   Pinned/Frozen Columns
+   ========================================== */
+
+.vertex-datagrid-th--pinned-left,
+.vertex-datagrid-td--pinned-left {
+  position: sticky !important;
+  z-index: 100 !important;
+  box-shadow: 2px 0 5px -1px rgba(0, 0, 0, 0.15) !important;
+}
+
+.vertex-datagrid-th--pinned-left {
+  z-index: 101 !important;
+  background: #fafafa !important;
+}
+
+.vertex-datagrid-td--pinned-left {
+  background: #fff !important;
+}
+
+.vertex-datagrid-row:hover .vertex-datagrid-td--pinned-left {
+  background: rgba(0, 0, 0, 0.04) !important;
+}
+
+.vertex-datagrid-row--selected .vertex-datagrid-td--pinned-left {
+  background: rgba(25, 118, 210, 0.08) !important;
+}
+
+.vertex-datagrid-row--selected:hover .vertex-datagrid-td--pinned-left {
+  background: rgba(25, 118, 210, 0.12) !important;
+}
+
+.vertex-datagrid-th--pinned-right,
+.vertex-datagrid-td--pinned-right {
+  position: sticky !important;
+  z-index: 100 !important;
+  box-shadow: -2px 0 5px -1px rgba(0, 0, 0, 0.15) !important;
+}
+
+.vertex-datagrid-th--pinned-right {
+  z-index: 101 !important;
+  background: #fafafa !important;
+}
+
+.vertex-datagrid-td--pinned-right {
+  background: #fff !important;
+}
+
+.vertex-datagrid-row:hover .vertex-datagrid-td--pinned-right {
+  background: rgba(0, 0, 0, 0.04) !important;
+}
+
+.vertex-datagrid-row--selected .vertex-datagrid-td--pinned-right {
+  background: rgba(25, 118, 210, 0.08) !important;
+}
+
+.vertex-datagrid-row--selected:hover .vertex-datagrid-td--pinned-right {
+  background: rgba(25, 118, 210, 0.12) !important;
+}
+
+/* ==========================================
+   Loading & Empty States
+   ========================================== */
+
+.vertex-datagrid-loading,
+.vertex-datagrid-empty {
+  padding: 0;
+  text-align: center;
+  border: none;
+}
+
+.vertex-datagrid-loading-content,
+.vertex-datagrid-empty-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 64px 24px;
+  color: rgba(0, 0, 0, 0.38);
+}
+
+.vertex-datagrid-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(25, 118, 210, 0.1);
+  border-top-color: #1976d2;
+  border-radius: 50%;
+  animation: vertex-spinner-rotate 0.8s linear infinite;
+}
+
+@keyframes vertex-spinner-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================
+   Footer / Pagination
+   ========================================== */
+
+.vertex-datagrid-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 52px;
+  padding: 0 16px;
+  border-top: 1px solid rgba(224, 224, 224, 1);
+  background: #fff;
+  gap: 16px;
+}
+
+.vertex-datagrid-footer-left,
+.vertex-datagrid-footer-center,
+.vertex-datagrid-footer-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vertex-datagrid-footer-center {
+  flex: 1;
+  justify-content: center;
+}
+
+.vertex-datagrid-filter-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border: 1px solid #1976d2;
+  background: rgba(25, 118, 210, 0.08);
+  color: #1976d2;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.vertex-datagrid-filter-chip:hover {
+  background: rgba(25, 118, 210, 0.16);
+}
+
+.vertex-datagrid-pagesize-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: default;
+}
+
+.vertex-datagrid-pagesize-select {
+  padding: 4px 28px 4px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.54)" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>') no-repeat right 4px center;
+  background-size: 16px;
+  cursor: pointer;
+  appearance: none;
+  transition: border-color 0.2s;
+  min-width: 70px;
+}
+
+.vertex-datagrid-pagesize-select:hover {
+  border-color: rgba(0, 0, 0, 0.87);
+}
+
+.vertex-datagrid-pagesize-select:focus {
+  outline: none;
+  border-color: #1976d2;
+}
+
+.vertex-datagrid-pagination {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.vertex-datagrid-pagination-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.54);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.vertex-datagrid-pagination-btn:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.04);
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.vertex-datagrid-pagination-btn:disabled {
+  color: rgba(0, 0, 0, 0.26);
+  cursor: default;
+}
+
+/* ==========================================
+   Scrollbar Styling
+   ========================================== */
+
+.vertex-datagrid-container::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.vertex-datagrid-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.vertex-datagrid-container::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.vertex-datagrid-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+  background-clip: padding-box;
+}
+
+/* ==========================================
+   Responsive
+   ========================================== */
+
+@media (max-width: 768px) {
+  .vertex-datagrid-footer {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .vertex-datagrid-footer-left,
+  .vertex-datagrid-footer-center,
+  .vertex-datagrid-footer-right {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .vertex-datagrid-filter-controls {
+    grid-template-columns: 1fr;
+  }
+  
+  .vertex-datagrid-filter-panel {
+    width: 95%;
+    max-height: 90vh;
+  }
+}

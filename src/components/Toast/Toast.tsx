@@ -1,5 +1,7 @@
+import { CloseSmallIcon } from '../../icons/IconComponents';
 import React, { useEffect, useState, useRef } from 'react';
 import { ToastProps } from './types';
+import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './Toast.css';
 
 // Default icons for different variants
@@ -54,14 +56,6 @@ const DefaultIcons = {
   ),
 };
 
-const CloseIcon = (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M12.854 4.854a.5.5 0 0 0-.708-.708L8 8.293 3.854 4.146a.5.5 0 1 0-.708.708L7.293 9l-4.147 4.146a.5.5 0 0 0 .708.708L8 9.707l4.146 4.147a.5.5 0 0 0 .708-.708L8.707 9l4.147-4.146z"
-      fill="currentColor"
-    />
-  </svg>
-);
 
 /**
  * Toast component - Displays brief notifications to users
@@ -113,7 +107,7 @@ const CloseIcon = (
  * </Toast>
  * ```
  */
-export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
+const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
   (
     {
       children,
@@ -284,7 +278,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
                 type="button"
                 aria-label="Close notification"
               >
-                {CloseIcon}
+                <CloseSmallIcon size={16} />
               </button>
             )}
           </div>
@@ -308,6 +302,6 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
 
 Toast.displayName = 'Toast';
 
-export default Toast as React.FC<
-  ToastProps & React.RefAttributes<HTMLDivElement>
->;
+const ToastWithParsedClasses = withParsedClasses(Toast);
+export default ToastWithParsedClasses as React.FC<ToastProps & React.RefAttributes<HTMLDivElement>>;
+export { ToastWithParsedClasses as Toast };
