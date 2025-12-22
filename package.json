@@ -5,6 +5,25 @@
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs.js"
+    },
+    "./theme": {
+      "types": "./dist/theme/index.d.ts",
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "*": ["dist/index.d.ts"],
+      "theme": ["dist/theme/index.d.ts"]
+    }
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -24,6 +43,23 @@
   "bugs": {
     "url": "https://github.com/vertex-ui/react/issues"
   },
+  "keywords": [
+    "react",
+    "react-component",
+    "react-components",
+    "ui",
+    "ui-library",
+    "component-library",
+    "design-system",
+    "typescript",
+    "vtx-ui",
+    "vertex-ui",
+    "accessibility",
+    "a11y",
+    "themeable",
+    "dark-mode",
+    "enterprise"
+  ],
   "scripts": {
     "build": "rollup -c",
     "test": "jest",
