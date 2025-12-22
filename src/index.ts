@@ -37,6 +37,8 @@ export { Tooltip } from './components/Tooltip';
 export type { TooltipProps } from './components/Tooltip';
 
 // --- Data Display ---
+export { AdminHeader } from './components/AdminHeader';
+export type { AdminHeaderProps, NotificationItem as AdminNotificationItem, UserMenuItem, QuickAction, SearchSuggestion } from './components/AdminHeader';
 export { Avatar } from './components/Avatar';
 export type { AvatarProps } from './components/Avatar';
 export { Badge } from './components/Badge';
