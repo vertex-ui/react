@@ -77,6 +77,16 @@ export interface SideMenuProps {
    * Footer content
    */
   footer?: React.ReactNode;
+  /**
+   * Custom padding for header
+   * @default '20px 16px'
+   */
+  headerPadding?: string | number;
+  /**
+   * Custom padding for footer
+   * @default '20px 16px'
+   */
+  footerPadding?: string | number;
 }
 
 // Chevron icon for submenu expansion
@@ -256,6 +266,8 @@ const SideMenu = React.forwardRef<HTMLDivElement, SideMenuProps>(
       collapsedWidth = '80px',
       header,
       footer,
+      headerPadding,
+      footerPadding,
     },
     ref
   ) => {
@@ -273,7 +285,14 @@ const SideMenu = React.forwardRef<HTMLDivElement, SideMenuProps>(
 
     return (
       <aside ref={ref} className={sidebarClasses} style={{ width: sidebarWidth }} role="navigation">
-        {header && <div className="vtx-sidemenu-header">{header}</div>}
+        {header && (
+          <div
+            className="vtx-sidemenu-header"
+            style={headerPadding ? { padding: typeof headerPadding === 'number' ? `${headerPadding}px` : headerPadding } : undefined}
+          >
+            {header}
+          </div>
+        )}
 
         <div className="vtx-sidemenu-content">
           {items.map((item, index) => (
@@ -281,7 +300,14 @@ const SideMenu = React.forwardRef<HTMLDivElement, SideMenuProps>(
           ))}
         </div>
 
-        {footer && <div className="vtx-sidemenu-footer">{footer}</div>}
+        {footer && (
+          <div
+            className="vtx-sidemenu-footer"
+            style={footerPadding ? { padding: typeof footerPadding === 'number' ? `${footerPadding}px` : footerPadding } : undefined}
+          >
+            {footer}
+          </div>
+        )}
       </aside>
     );
   }

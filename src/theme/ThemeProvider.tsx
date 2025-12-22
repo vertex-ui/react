@@ -5,11 +5,23 @@ import { tokens, Tokens, normalizeColors, CustomTokens } from './tokens';
 
 export type Size = 'sm' | 'md' | 'lg';
 
+export type ColorContrast = 'light' | 'dark';
+
+export interface ColorContrastConfig {
+  primary?: ColorContrast;
+  secondary?: ColorContrast;
+  outline?: ColorContrast;
+  ghost?: ColorContrast;
+  danger?: ColorContrast;
+  success?: ColorContrast;
+  warning?: ColorContrast;
+}
 
 export interface Theme {
   tokens: Tokens;
   mode: 'light' | 'dark';
   defaultSize: Size;
+  colorContrast: ColorContrastConfig;
 }
 
 
@@ -32,6 +44,8 @@ export interface ThemeProviderProps extends React.HTMLAttributes<HTMLDivElement>
   customTokens?: CustomTokens;
   /** Global default size for components (e.g., 'md', 'sm', 'lg') */
   defaultSize?: Size;
+  /** Color contrast configuration - specify if variant backgrounds are light or dark */
+  colorContrast?: ColorContrastConfig;
 }
 
 
@@ -42,6 +56,7 @@ const ThemeProvider = React.forwardRef<HTMLDivElement, ThemeProviderProps>(
       initialMode = 'light',
       customTokens,
       defaultSize = 'md',
+      colorContrast,
       ...props
     },
     ref
@@ -49,13 +64,27 @@ const ThemeProvider = React.forwardRef<HTMLDivElement, ThemeProviderProps>(
     const [mode, setMode] = React.useState<'light' | 'dark'>(initialMode);
     const [size, setDefaultSize] = React.useState<Size>(defaultSize);
 
+    // Default color contrast configuration
+    const defaultColorContrast: ColorContrastConfig = {
+      primary: 'dark',      // Dark background → needs light text
+      secondary: 'dark',    // Dark background → needs light text
+      outline: 'light',     // Transparent/light background → needs dark text
+      ghost: 'light',       // Transparent/light background → needs dark text
+      danger: 'dark',       // Dark background → needs light text
+      success: 'dark',      // Dark background → needs light text
+      warning: 'dark',      // Dark background → needs light text
+    };
+
 
     const theme: Theme = React.useMemo(() => {
+      const contrastConfig = { ...defaultColorContrast, ...colorContrast };
+      
       if (!customTokens) {
         return {
           tokens: tokens as Tokens,
           mode,
           defaultSize: size,
+          colorContrast: contrastConfig,
         };
       }
 
@@ -71,15 +100,16 @@ const ThemeProvider = React.forwardRef<HTMLDivElement, ThemeProviderProps>(
         tokens: mergedTokens as Tokens,
         mode,
         defaultSize: size,
+        colorContrast: contrastConfig,
       };
-    }, [customTokens, mode, size]);
+    }, [customTokens, mode, size, colorContrast]);
 
     React.useEffect(() => {
       document.documentElement.setAttribute('data-theme', mode);
       if (customTokens) {
-        injectCSSVariables();
+        injectCSSVariables(theme.tokens);
       }
-    }, [mode, customTokens]);
+    }, [mode, customTokens, theme.tokens]);
 
     const contextValue = React.useMemo<ThemeContextValue>(
       () => ({ theme, setMode, setDefaultSize }),

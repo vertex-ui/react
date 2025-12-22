@@ -571,6 +571,82 @@
   }
 }
 
+/* Empty State with Icon & Description */
+.vertex-datagrid-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 64px 24px;
+}
+
+.vertex-datagrid-empty-state-icon {
+  font-size: 48px;
+  color: rgba(0, 0, 0, 0.26);
+  opacity: 0.6;
+}
+
+.vertex-datagrid-empty-state-message {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.vertex-datagrid-empty-state-description {
+  font-size: 0.875rem;
+  color: rgba(0, 0, 0, 0.38);
+  max-width: 400px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* Skeleton Loader */
+.vertex-datagrid-row--skeleton {
+  animation: vertex-pulse 1.5s ease-in-out infinite;
+}
+
+.vertex-datagrid-skeleton {
+  height: 16px;
+  background: linear-gradient(
+    90deg,
+    rgba(224, 224, 224, 1) 25%,
+    rgba(245, 245, 245, 1) 50%,
+    rgba(224, 224, 224, 1) 75%
+  );
+  background-size: 200% 100%;
+  border-radius: 4px;
+  animation: vertex-skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+.vertex-datagrid-skeleton--text {
+  width: 100%;
+  max-width: 180px;
+}
+
+.vertex-datagrid-skeleton--checkbox {
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+}
+
+@keyframes vertex-skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes vertex-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
 /* ==========================================
    Footer / Pagination
    ========================================== */
@@ -729,4 +805,38 @@
     width: 95%;
     max-height: 90vh;
   }
+}
+/* ==========================================
+   Dark Mode Support
+   ========================================== */
+
+[data-theme='dark'] .vertex-datagrid {
+  background: var(--vtx-color-neutral-800);
+  border-color: var(--vtx-color-neutral-700);
+}
+
+[data-theme='dark'] .vertex-datagrid-container {
+  background: var(--vtx-color-neutral-800);
+}
+
+[data-theme='dark'] .vertex-datagrid-empty-state-icon {
+  color: var(--vtx-color-neutral-500);
+}
+
+[data-theme='dark'] .vertex-datagrid-empty-state-message {
+  color: var(--vtx-color-neutral-200);
+}
+
+[data-theme='dark'] .vertex-datagrid-empty-state-description {
+  color: var(--vtx-color-neutral-400);
+}
+
+[data-theme='dark'] .vertex-datagrid-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--vtx-color-neutral-700) 25%,
+    var(--vtx-color-neutral-600) 50%,
+    var(--vtx-color-neutral-700) 75%
+  );
+  background-size: 200% 100%;
 }

@@ -23,6 +23,8 @@ export type { SelectOption, SelectProps } from './components/Select';
 // --- Interactive & Feedback ---
 export { Accordion, AccordionItem } from './components/Accordion';
 export type { AccordionItemProps, AccordionProps } from './components/Accordion/types';
+export { ActionMenu } from './components/Menu/ActionMenu';
+export type { ActionMenuProps } from './components/Menu/ActionMenu';
 export { Alert } from './components/Alert';
 export type { AlertProps } from './components/Alert';
 export { Chip } from './components/Chip';
@@ -43,6 +45,8 @@ export { Avatar } from './components/Avatar';
 export type { AvatarProps } from './components/Avatar';
 export { Badge } from './components/Badge';
 export type { BadgeProps } from './components/Badge';
+export { Breadcrumb } from './components/Breadcrumb';
+export type { BreadcrumbProps, BreadcrumbItem } from './components/Breadcrumb';
 export { Card } from './components/Card';
 export type { CardProps } from './components/Card';
 export { DataGrid } from './components/DataGrid';
@@ -58,6 +62,8 @@ export { Divider } from './components/Divider';
 export type { DividerProps } from './components/Divider';
 export { Header } from './components/Header';
 export type { HeaderProps, NotificationItem } from './components/Header';
+export { Link } from './components/Link';
+export type { LinkProps } from './components/Link';
 export { SideMenu } from './components/SideMenu';
 export type { SideMenuItemProps, SideMenuProps } from './components/SideMenu';
 export { SideMenuItem } from './components/SideMenu';
@@ -69,6 +75,8 @@ export { Timeline } from './components/Timeline';
 export type { TimelineProps, TimelineStep } from './components/Timeline';
 
 // --- Layout ---
+export { Container } from './components/Container';
+export type { ContainerProps } from './components/Container';
 export { Flex } from './components/Flex';
 export type { FlexProps } from './components/Flex';
 export { Grid } from './components/Grid';

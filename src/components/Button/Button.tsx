@@ -147,6 +147,22 @@ const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPro
     const { theme } = useThemeContext();
     const buttonSize = size || theme.defaultSize || 'md';
 
+    // Determine text color based on theme's color contrast configuration
+    const getTextColorClass = () => {
+      if (props.darkText === true) return 'vtx-button--dark-text';
+      if (props.darkText === false) return 'vtx-button--light-text';
+      
+      // Use theme's colorContrast configuration
+      const contrast = theme.colorContrast[variant];
+      if (contrast === 'light') {
+        return 'vtx-button--dark-text'; // Light background needs dark text
+      } else if (contrast === 'dark') {
+        return 'vtx-button--light-text'; // Dark background needs light text
+      }
+      
+      return null;
+    };
+
     const classNames = [
       'vtx-button',
       `vtx-button--${variant}`,
@@ -154,8 +170,7 @@ const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPro
       fullWidth && 'vtx-button--full-width',
       loading && 'vtx-button--loading',
       iconOnly && 'vtx-button--icon-only',
-      props.darkText === true && 'vtx-button--dark-text',
-      props.darkText === false && 'vtx-button--light-text',
+      getTextColorClass(),
       className,
     ]
       .filter(Boolean)

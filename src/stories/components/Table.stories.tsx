@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Table } from '../../components/Table';
+import { PackageIcon, InboxIcon, SearchIcon } from '../../icons/IconComponents';
 
 const meta: Meta<typeof Table> = {
   title: 'Components/Table',
@@ -82,6 +83,7 @@ export const WithActions: Story = {
       },
     ],
     data: basicData,
+    getRowKey: (row: any) => row.id,
   },
 };
 
@@ -183,12 +185,101 @@ export const Loading: Story = {
   },
 };
 
+export const SkeletonLoader: Story = {
+  args: {
+    columns: basicColumns,
+    data: [],
+    loading: true,
+    skeletonLoader: true,
+    skeletonRows: 8,
+    getRowKey: (row: any) => row.id,
+  },
+};
+
+export const SkeletonLoaderWithSelection: Story = {
+  args: {
+    columns: basicColumns,
+    data: [],
+    loading: true,
+    skeletonLoader: true,
+    skeletonRows: 5,
+    selectable: true,
+    getRowKey: (row: any) => row.id,
+  },
+};
+
+export const CustomLoadingContent: Story = {
+  args: {
+    columns: basicColumns,
+    data: [],
+    loading: true,
+    skeletonLoader: false,
+    loadingContent: (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+        <div style={{ 
+          width: '40px', 
+          height: '40px', 
+          border: '4px solid #e5e7eb',
+          borderTopColor: '#2563eb',
+          borderRadius: '50%',
+          animation: 'spin 1s linear infinite'
+        }} />
+        <div style={{ color: '#6b7280', fontSize: '14px' }}>Fetching data...</div>
+      </div>
+    ),
+    getRowKey: (row: any) => row.id,
+  },
+};
+
 export const Empty: Story = {
   args: {
     columns: basicColumns,
     data: [],
     emptyMessage: 'No users found. Try adjusting your search criteria.',
     getRowKey: (row: any) => row.id,
+  },
+};
+
+export const EmptyStateWithIcon: Story = {
+  args: {
+    columns: basicColumns,
+    data: [],
+    emptyMessage: 'No products found',
+    emptyStateIcon: <PackageIcon size={48} />,
+    emptyStateDescription: 'There are no products available at the moment. Try adding some products to get started.',
+    getRowKey: (row: any) => row.id,
+  },
+};
+
+export const EmptyStateSearch: Story = {
+  args: {
+    columns: basicColumns,
+    data: [],
+    emptyMessage: 'No results found',
+    emptyStateIcon: <SearchIcon size={48} />,
+    emptyStateDescription: 'We couldn\'t find any matches for your search. Try different keywords or filters.',
+    getRowKey: (row: any) => row.id,
+    toolbar: {
+      title: 'Search Results',
+    },
+  },
+};
+
+export const EmptyStateInbox: Story = {
+  args: {
+    columns: [
+      { key: 'subject', header: 'Subject' },
+      { key: 'sender', header: 'From' },
+      { key: 'date', header: 'Date' },
+    ],
+    data: [],
+    emptyMessage: 'Your inbox is empty',
+    emptyStateIcon: <InboxIcon size={48} />,
+    emptyStateDescription: 'When you receive new messages, they will appear here.',
+    getRowKey: (row: any) => row.id,
+    toolbar: {
+      title: 'Messages',
+    },
   },
 };
 

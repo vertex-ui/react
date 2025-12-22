@@ -100,6 +100,33 @@ export interface DataGridProps<T = any> extends Omit<
   
   // UI
   loading?: boolean;
+  /**
+   * Use skeleton loader instead of loading text
+   * @default false
+   */
+  skeletonLoader?: boolean;
+  /**
+   * Number of skeleton rows to show when loading
+   * @default 5
+   */
+  skeletonRows?: number;
+  /**
+   * Custom loading content (only used if skeletonLoader is false)
+   */
+  loadingContent?: React.ReactNode;
+  /**
+   * Icon to display in empty state
+   */
+  emptyStateIcon?: React.ReactNode;
+  /**
+   * Title for empty state
+   * @default 'No rows'
+   */
+  emptyStateTitle?: string;
+  /**
+   * Description text for empty state
+   */
+  emptyStateDescription?: string;
   autoHeight?: boolean;
   density?: 'compact' | 'standard' | 'comfortable';
   disableColumnMenu?: boolean;
@@ -639,6 +666,12 @@ const DataGridBase = ({
   
   // UI
   loading = false,
+  skeletonLoader = false,
+  skeletonRows = 5,
+  loadingContent,
+  emptyStateIcon,
+  emptyStateTitle = 'No rows',
+  emptyStateDescription,
   autoHeight = false,
   density = 'standard',
   disableColumnMenu = false,
@@ -939,25 +972,60 @@ const DataGridBase = ({
           </thead>
           <tbody className="vertex-datagrid-tbody">
             {loading ? (
-              <tr>
-                <td colSpan={columns.length + (checkboxSelection ? 1 : 0)} className="vertex-datagrid-loading">
-                  <div className="vertex-datagrid-loading-content">
-                    <div className="vertex-datagrid-spinner" />
-                    <Text size="sm" color="secondary">Loading...</Text>
-                  </div>
-                </td>
-              </tr>
+              skeletonLoader ? (
+                // Skeleton loader rows
+                Array.from({ length: skeletonRows }).map((_, index) => (
+                  <tr key={`skeleton-${index}`} className="vertex-datagrid-row vertex-datagrid-row--skeleton">
+                    {checkboxSelection && (
+                      <td className="vertex-datagrid-td vertex-datagrid-checkbox-cell">
+                        <div className="vertex-datagrid-skeleton vertex-datagrid-skeleton--checkbox" />
+                      </td>
+                    )}
+                    {columns.map((column) => (
+                      <td key={column.field} className="vertex-datagrid-td">
+                        <div className="vertex-datagrid-skeleton vertex-datagrid-skeleton--text" />
+                      </td>
+                    ))}
+                  </tr>
+                ))
+              ) : (
+                // Traditional loading state
+                <tr>
+                  <td colSpan={columns.length + (checkboxSelection ? 1 : 0)} className="vertex-datagrid-loading">
+                    <div className="vertex-datagrid-loading-content">
+                      {loadingContent || (
+                        <>
+                          <div className="vertex-datagrid-spinner" />
+                          <Text size="sm" color="secondary">Loading...</Text>
+                        </>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              )
             ) : paginatedRows.length === 0 ? (
               <tr>
                 <td colSpan={columns.length + (checkboxSelection ? 1 : 0)} className="vertex-datagrid-empty">
-                  <div className="vertex-datagrid-empty-content">
-                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.3">
-                      <rect x="3" y="3" width="18" height="18" rx="2" />
-                      <line x1="3" y1="9" x2="21" y2="9" />
-                      <line x1="9" y1="21" x2="9" y2="9" />
-                    </svg>
-                    <Text size="sm" color="secondary">No rows</Text>
-                  </div>
+                  {emptyStateIcon || emptyStateDescription ? (
+                    <div className="vertex-datagrid-empty-state">
+                      {emptyStateIcon && (
+                        <div className="vertex-datagrid-empty-state-icon">{emptyStateIcon}</div>
+                      )}
+                      <div className="vertex-datagrid-empty-state-message">{emptyStateTitle}</div>
+                      {emptyStateDescription && (
+                        <div className="vertex-datagrid-empty-state-description">{emptyStateDescription}</div>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="vertex-datagrid-empty-content">
+                      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.3">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <line x1="3" y1="9" x2="21" y2="9" />
+                        <line x1="9" y1="21" x2="9" y2="9" />
+                      </svg>
+                      <Text size="sm" color="secondary">{emptyStateTitle}</Text>
+                    </div>
+                  )}
                 </td>
               </tr>
             ) : (

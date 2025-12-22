@@ -1,0 +1,93 @@
+/* Container Component Styles */
+
+.vtx-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--vtx-spacing-4);
+  padding-right: var(--vtx-spacing-4);
+  box-sizing: border-box;
+}
+
+/* Fluid container - 100% width */
+.vtx-container--fluid {
+  max-width: 100%;
+}
+
+/* Fixed max-width variants */
+.vtx-container--xs {
+  max-width: 540px;
+}
+
+.vtx-container--sm {
+  max-width: 720px;
+}
+
+.vtx-container--md {
+  max-width: 960px;
+}
+
+.vtx-container--lg {
+  max-width: 1140px;
+}
+
+.vtx-container--xl {
+  max-width: 1320px;
+}
+
+/* No gutters variant */
+.vtx-container--no-gutters {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Responsive breakpoints - Bootstrap-like behavior */
+@media (min-width: 576px) {
+  .vtx-container--xs,
+  .vtx-container--sm,
+  .vtx-container--md,
+  .vtx-container--lg,
+  .vtx-container--xl {
+    padding-left: var(--vtx-spacing-4);
+    padding-right: var(--vtx-spacing-4);
+  }
+}
+
+@media (min-width: 768px) {
+  .vtx-container--xs,
+  .vtx-container--sm,
+  .vtx-container--md,
+  .vtx-container--lg,
+  .vtx-container--xl {
+    padding-left: var(--vtx-spacing-6);
+    padding-right: var(--vtx-spacing-6);
+  }
+}
+
+@media (min-width: 992px) {
+  .vtx-container--xs,
+  .vtx-container--sm,
+  .vtx-container--md,
+  .vtx-container--lg,
+  .vtx-container--xl {
+    padding-left: var(--vtx-spacing-6);
+    padding-right: var(--vtx-spacing-6);
+  }
+}
+
+@media (min-width: 1200px) {
+  .vtx-container--xs,
+  .vtx-container--sm,
+  .vtx-container--md,
+  .vtx-container--lg,
+  .vtx-container--xl {
+    padding-left: var(--vtx-spacing-8);
+    padding-right: var(--vtx-spacing-8);
+  }
+}
+
+/* Dark mode support */
+[data-theme='dark'] .vtx-container {
+  /* Container doesn't have background by default, so nothing to change */
+  /* If you want to add background colors, do it here */
+}

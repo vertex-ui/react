@@ -132,14 +132,32 @@ export interface TableProps<T = unknown> extends Omit<
    */
   emptyMessage?: React.ReactNode;
   /**
+   * Icon to display in empty state
+   */
+  emptyStateIcon?: React.ReactNode;
+  /**
+   * Description text for empty state
+   */
+  emptyStateDescription?: string;
+  /**
    * Loading state
    * @default false
    */
   loading?: boolean;
   /**
-   * Custom loading content
+   * Custom loading content (only used if skeletonLoader is false)
    */
   loadingContent?: React.ReactNode;
+  /**
+   * Use skeleton loader instead of loading text
+   * @default false
+   */
+  skeletonLoader?: boolean;
+  /**
+   * Number of skeleton rows to show when loading
+   * @default 5
+   */
+  skeletonRows?: number;
   /**
    * If true, table will be horizontally scrollable
    * @default true
@@ -332,8 +350,12 @@ function Table<T = unknown>({
   size,
   caption,
   emptyMessage = 'No data available',
+  emptyStateIcon,
+  emptyStateDescription,
   loading = false,
   loadingContent,
+  skeletonLoader = false,
+  skeletonRows = 5,
   scrollable = true,
   maxHeight,
   onRowClick,
@@ -736,21 +758,57 @@ function Table<T = unknown>({
           </thead>
           <tbody className="vtx-table-body">
             {loading ? (
-              <tr>
-                <td
-                  colSpan={columns.length + (selectable ? 1 : 0) + (expandableRows ? 1 : 0)}
-                  className="vtx-table-loading"
-                >
-                  {loadingContent || <span className="vtx-table-loading-spinner">Loading...</span>}
-                </td>
-              </tr>
+              skeletonLoader ? (
+                // Skeleton loader rows
+                Array.from({ length: skeletonRows }).map((_, index) => (
+                  <tr key={`skeleton-${index}`} className="vtx-table-row vtx-table-row--skeleton">
+                    {selectable && (
+                      <td className="vtx-table-cell">
+                        <div className="vtx-table-skeleton vtx-table-skeleton--checkbox" />
+                      </td>
+                    )}
+                    {expandableRows && (
+                      <td className="vtx-table-cell">
+                        <div className="vtx-table-skeleton vtx-table-skeleton--icon" />
+                      </td>
+                    )}
+                    {columns.map((column) => (
+                      <td key={column.key} className="vtx-table-cell">
+                        <div className="vtx-table-skeleton vtx-table-skeleton--text" />
+                      </td>
+                    ))}
+                  </tr>
+                ))
+              ) : (
+                // Traditional loading state
+                <tr>
+                  <td
+                    colSpan={columns.length + (selectable ? 1 : 0) + (expandableRows ? 1 : 0)}
+                    className="vtx-table-loading"
+                  >
+                    {loadingContent || <span className="vtx-table-loading-spinner">Loading...</span>}
+                  </td>
+                </tr>
+              )
             ) : displayData.length === 0 ? (
               <tr>
                 <td
                   colSpan={columns.length + (selectable ? 1 : 0) + (expandableRows ? 1 : 0)}
                   className="vtx-table-empty"
                 >
-                  {emptyMessage}
+                  {emptyStateIcon || emptyStateDescription ? (
+                    <div className="vtx-table-empty-state">
+                      {emptyStateIcon && (
+                        <div className="vtx-table-empty-state-icon">{emptyStateIcon}</div>
+                      )}
+                      <div className="vtx-table-empty-state-message">{emptyMessage}</div>
+                      {emptyStateDescription && (
+                        <div className="vtx-table-empty-state-description">{emptyStateDescription}</div>
+                      )}
+                    </div>
+                  ) : (
+                    emptyMessage
+                  )}
                 </td>
               </tr>
             ) : (
