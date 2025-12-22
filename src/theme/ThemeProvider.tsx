@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { injectCSSVariables } from './cssVariables';
-import { tokens, Tokens, normalizeColors } from './tokens';
+import { tokens, Tokens, normalizeColors, CustomTokens } from './tokens';
 
 export type Size = 'sm' | 'md' | 'lg';
 
@@ -29,7 +29,7 @@ export interface ThemeProviderProps extends React.HTMLAttributes<HTMLDivElement>
   /** Initial theme mode, defaults to 'light' */
   initialMode?: 'light' | 'dark';
   /** Custom theme tokens to override defaults */
-  customTokens?: Partial<Tokens>;
+  customTokens?: CustomTokens;
   /** Global default size for components (e.g., 'md', 'sm', 'lg') */
   defaultSize?: Size;
 }
@@ -53,14 +53,14 @@ const ThemeProvider = React.forwardRef<HTMLDivElement, ThemeProviderProps>(
     const theme: Theme = React.useMemo(() => {
       if (!customTokens) {
         return {
-          tokens,
+          tokens: tokens as Tokens,
           mode,
           defaultSize: size,
         };
       }
 
       // If customTokens.colors is present, normalize it
-      let mergedTokens = { ...tokens, ...customTokens };
+      let mergedTokens: any = { ...tokens, ...customTokens };
       if (customTokens.colors) {
         mergedTokens.colors = {
           ...tokens.colors,
@@ -68,7 +68,7 @@ const ThemeProvider = React.forwardRef<HTMLDivElement, ThemeProviderProps>(
         };
       }
       return {
-        tokens: mergedTokens,
+        tokens: mergedTokens as Tokens,
         mode,
         defaultSize: size,
       };

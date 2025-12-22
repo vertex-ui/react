@@ -2,26 +2,97 @@
  * Design tokens for the VTX UI library
  * These tokens define the core visual language of the design system
  */
-export const COLOR_KEYS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
+export const COLOR_KEYS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900] as const;
 
 /**
- * Normalizes a colors object so that any string value (e.g., primary: "#fff")
- * is expanded to an object with all color keys, while objects are left as-is.
- * Direct object keys (e.g., primary: { 100: "#fff" }) are preserved.
+ * Generates a color palette from a single hex color
+ * Creates lighter shades (50-400) and darker shades (600-900) based on the base color (500)
+ */
+function generateColorShades(hexColor: string): Record<number, string> {
+  // Remove # if present
+  const hex = hexColor.replace('#', '');
+  
+  // Convert hex to RGB
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+  
+  const shades: Record<number, string> = {};
+  
+  // Generate shades
+  const shadeMap = {
+    50: 0.95,   // Much lighter
+    100: 0.90,  // Very light
+    200: 0.75,  // Light
+    300: 0.60,  // Lighter
+    400: 0.30,  // Slightly lighter
+    500: 0,     // Base color
+    600: -0.15, // Slightly darker
+    700: -0.30, // Darker
+    800: -0.45, // Very dark
+    900: -0.60, // Much darker
+  };
+  
+  for (const [key, adjustment] of Object.entries(shadeMap)) {
+    if (adjustment === 0) {
+      shades[Number(key)] = hexColor.startsWith('#') ? hexColor : `#${hexColor}`;
+    } else {
+      // Adjust brightness
+      let newR, newG, newB;
+      
+      if (adjustment > 0) {
+        // Lighten by mixing with white
+        newR = Math.round(r + (255 - r) * adjustment);
+        newG = Math.round(g + (255 - g) * adjustment);
+        newB = Math.round(b + (255 - b) * adjustment);
+      } else {
+        // Darken by reducing values
+        newR = Math.round(r * (1 + adjustment));
+        newG = Math.round(g * (1 + adjustment));
+        newB = Math.round(b * (1 + adjustment));
+      }
+      
+      // Ensure values are within 0-255
+      newR = Math.max(0, Math.min(255, newR));
+      newG = Math.max(0, Math.min(255, newG));
+      newB = Math.max(0, Math.min(255, newB));
+      
+      const newHex = `#${newR.toString(16).padStart(2, '0')}${newG.toString(16).padStart(2, '0')}${newB.toString(16).padStart(2, '0')}`;
+      shades[Number(key)] = newHex;
+    }
+  }
+  
+  return shades;
+}
+
+/**
+ * Normalizes a colors object so that:
+ * - String values (e.g., primary: "#fff") are expanded to full color palettes
+ * - Object values with specific shades are preserved and merged with generated shades
+ * - Allows mixing: primary: { 500: "#fff", 600: "#000" } will generate other shades from 500
  */
 export function normalizeColors(colors: Record<string, any>): Record<string, any> {
   const result: Record<string, any> = {};
-  for (const [key, value] of Object.entries(colors)) {
+  
+  for (const [colorName, value] of Object.entries(colors)) {
     if (typeof value === "string") {
-      // Expand string to all keys
-      result[key] = {};
-      COLOR_KEYS.forEach(k => {
-        result[key][k] = value;
-      });
+      // Generate full palette from single color (treated as shade 500)
+      result[colorName] = generateColorShades(value);
     } else if (typeof value === "object" && value !== null) {
-      result[key] = value;
+      // User provided specific shades
+      // If they provided 500, use it as base to generate missing shades
+      // Otherwise just use what they provided
+      if (value[500]) {
+        // Generate full palette from shade 500, then override with user values
+        const generated = generateColorShades(value[500]);
+        result[colorName] = { ...generated, ...value };
+      } else {
+        // No base color provided, just use what they gave us
+        result[colorName] = value;
+      }
     }
   }
+  
   return result;
 }
 
@@ -273,8 +344,65 @@ export const tokens = {
     tooltip: 1300,
     notification: 1400,
   },
-} as const;
+};
 
-export type Tokens = typeof tokens;
-export type ColorScale = keyof typeof tokens.colors;
-export type ColorShade = keyof typeof tokens.colors.primary;
+// Define proper types that allow string values instead of literal types
+export type ColorPalette = {
+  50?: string;
+  100?: string;
+  200?: string;
+  300?: string;
+  400?: string;
+  500?: string;
+  600?: string;
+  700?: string;
+  800?: string;
+  900?: string;
+};
+
+export type Colors = {
+  primary: ColorPalette;
+  secondary: ColorPalette;
+  neutral: ColorPalette;
+  success: ColorPalette;
+  warning: ColorPalette;
+  error: ColorPalette;
+  info: ColorPalette;
+};
+
+// For custom tokens, allow both string (single color) and ColorPalette (specific shades)
+export type CustomColorValue = string | ColorPalette;
+
+export type CustomColors = {
+  primary?: CustomColorValue;
+  secondary?: CustomColorValue;
+  neutral?: CustomColorValue;
+  success?: CustomColorValue;
+  warning?: CustomColorValue;
+  error?: CustomColorValue;
+  info?: CustomColorValue;
+  [key: string]: CustomColorValue | undefined;
+};
+
+export type Tokens = {
+  colors: Colors;
+  spacing: Record<string | number, string>;
+  typography: typeof tokens.typography;
+  borderRadius: Record<string, string>;
+  shadows: Record<string, string>;
+  transitions: Record<string, string>;
+  zIndex: Record<string, number>;
+};
+
+export type CustomTokens = {
+  colors?: CustomColors;
+  spacing?: Partial<Tokens['spacing']>;
+  typography?: Partial<Tokens['typography']>;
+  borderRadius?: Partial<Tokens['borderRadius']>;
+  shadows?: Partial<Tokens['shadows']>;
+  transitions?: Partial<Tokens['transitions']>;
+  zIndex?: Partial<Tokens['zIndex']>;
+};
+
+export type ColorScale = keyof Colors;
+export type ColorShade = keyof ColorPalette;
