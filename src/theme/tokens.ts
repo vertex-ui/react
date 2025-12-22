@@ -8,7 +8,7 @@ export const COLOR_KEYS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900] as c
  * Generates a color palette from a single hex color
  * Creates lighter shades (50-400) and darker shades (600-900) based on the base color (500)
  */
-function generateColorShades(hexColor: string): Record<number, string> {
+export function generateColorShades(hexColor: string): Record<number, string> {
   // Remove # if present
   const hex = hexColor.replace('#', '');
   

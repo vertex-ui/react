@@ -77,7 +77,7 @@ export type { GridProps } from './components/Grid';
 // --- Theme System ---
 export { ThemeProvider, useThemeContext } from './theme';
 export type { Theme, ThemeProviderProps, Size } from './theme';
-export { tokens, generateCSSVariables, injectCSSVariables } from './theme';
+export { tokens, generateCSSVariables, injectCSSVariables, createCustomTokens, generateColorShades, normalizeColors } from './theme';
 export type { Tokens, ColorScale, ColorShade, CustomTokens, CustomColors, ColorPalette } from './theme';
 
 // --- Hooks ---
