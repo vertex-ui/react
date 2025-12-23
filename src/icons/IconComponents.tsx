@@ -47,7 +47,8 @@ import {
     FiArrowDown,
     FiFilter,
     FiChevronsLeft,
-    FiChevronsRight
+    FiChevronsRight,
+    FiCalendar
 } from 'react-icons/fi';
 
 export const SpinnerIcon = (props: { size?: number }) => (
@@ -77,9 +78,24 @@ export const SpinnerIcon = (props: { size?: number }) => (
 export const CheckIcon = FiCheck;
 
 export const CloseSmallIcon = (props: { size?: number }) => (
-    <FiX size={props.size || 12} aria-hidden="true" />
+    <svg
+        width={props.size || 16}
+        height={props.size || 16}
+        viewBox="0 0 16 16"
+        fill="none"
+        className="vtx-icon-close"
+    >
+        <path
+            d="M12 4L4 12M4 4L12 12"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+    </svg>
 );
 
+export const CalendarIcon = FiCalendar;
 export const ChevronDownIcon = FiChevronDown;
 export const PlusIcon = FiPlus;
 export const MinusIcon = FiMinus;

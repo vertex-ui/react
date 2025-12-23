@@ -1,0 +1,287 @@
+/* Widget System Styles */
+
+/* Intelligent Grid Styles */
+.vtx-widget-grid {
+  display: grid;
+  width: 100%;
+}
+
+.vtx-widget-grid-item {
+  width: 100%;
+}
+
+/* Grid Column Classes */
+.vtx-widget-grid.mobile-cols-1 { grid-template-columns: 1fr; }
+.vtx-widget-grid.mobile-cols-2 { grid-template-columns: repeat(2, 1fr); }
+.vtx-widget-grid.mobile-cols-3 { grid-template-columns: repeat(3, 1fr); }
+.vtx-widget-grid.mobile-cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+/* Gap Classes */
+.vtx-widget-grid.gap-none { gap: 0; }
+.vtx-widget-grid.gap-sm { gap: 0.5rem; }
+.vtx-widget-grid.gap-md { gap: 1rem; }
+.vtx-widget-grid.gap-lg { gap: 1.5rem; }
+
+/* Responsive Grid Breakpoints */
+@media (min-width: 768px) {
+  .vtx-widget-grid.tablet-cols-1 { grid-template-columns: 1fr; }
+  .vtx-widget-grid.tablet-cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .vtx-widget-grid.tablet-cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .vtx-widget-grid.tablet-cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .vtx-widget-grid.tablet-cols-6 { grid-template-columns: repeat(6, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .vtx-widget-grid.desktop-cols-1 { grid-template-columns: 1fr; }
+  .vtx-widget-grid.desktop-cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .vtx-widget-grid.desktop-cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .vtx-widget-grid.desktop-cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .vtx-widget-grid.desktop-cols-6 { grid-template-columns: repeat(6, 1fr); }
+}
+
+/* Widget Base Styles */
+.vtx-metric-widget,
+.vtx-info-widget,
+.vtx-product-widget,
+.vtx-order-widget,
+.vtx-list-widget,
+.vtx-text-widget,
+.vtx-header-widget {
+  position: relative;
+}
+
+/* Metric Widget Specific Styles */
+.metric-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  background-color: var(--vtx-color-neutral-50);
+  color: var(--vtx-color-neutral-600);
+}
+
+.metric-icon--primary {
+  background-color: var(--vtx-color-primary-50);
+  color: var(--vtx-color-primary-600);
+}
+
+.metric-icon--secondary {
+  background-color: var(--vtx-color-secondary-50);
+  color: var(--vtx-color-secondary-600);
+}
+
+.metric-icon--success {
+  background-color: var(--vtx-color-success-50);
+  color: var(--vtx-color-success-600);
+}
+
+.metric-icon--danger {
+  background-color: var(--vtx-color-danger-50);
+  color: var(--vtx-color-danger-600);
+}
+
+.metric-icon--warning {
+  background-color: var(--vtx-color-warning-50);
+  color: var(--vtx-color-warning-600);
+}
+
+.metric-icon--info {
+  background-color: var(--vtx-color-info-50);
+  color: var(--vtx-color-info-600);
+}
+
+.metric-icon--sm {
+  width: 2rem;
+  height: 2rem;
+  font-size: 0.875rem;
+}
+
+.metric-icon--md {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1rem;
+}
+
+.metric-icon--lg {
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.125rem;
+}
+
+/* Info Widget Specific Styles */
+.info-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--vtx-color-neutral-100);
+  color: var(--vtx-color-neutral-600);
+}
+
+.info-icon--primary {
+  background-color: var(--vtx-color-primary-100);
+  color: var(--vtx-color-primary-600);
+}
+
+.info-icon--secondary {
+  background-color: var(--vtx-color-secondary-100);
+  color: var(--vtx-color-secondary-600);
+}
+
+.info-icon--success {
+  background-color: var(--vtx-color-success-100);
+  color: var(--vtx-color-success-600);
+}
+
+.info-icon--danger {
+  background-color: var(--vtx-color-danger-100);
+  color: var(--vtx-color-danger-600);
+}
+
+.info-icon--warning {
+  background-color: var(--vtx-color-warning-100);
+  color: var(--vtx-color-warning-600);
+}
+
+.info-icon--info {
+  background-color: var(--vtx-color-info-100);
+  color: var(--vtx-color-info-600);
+}
+
+.info-icon--sm {
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 0.75rem;
+}
+
+.info-icon--md {
+  width: 2rem;
+  height: 2rem;
+  font-size: 0.875rem;
+}
+
+.info-icon--lg {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1rem;
+}
+
+/* Product Widget Specific Styles */
+.product-image {
+  overflow: hidden;
+  border-radius: 0.5rem;
+  background-color: var(--vtx-color-neutral-50);
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s ease-in-out;
+}
+
+.product-image--minimal {
+  aspect-ratio: 1;
+}
+
+.product-image--modern {
+  aspect-ratio: 4 / 3;
+}
+
+.product-image--professional {
+  aspect-ratio: 16 / 9;
+}
+
+.product-image--compact {
+  width: 4rem;
+  height: 4rem;
+  flex-shrink: 0;
+}
+
+.product-image--inline {
+  width: 3rem;
+  height: 3rem;
+  flex-shrink: 0;
+}
+
+.vtx-product-widget:hover .product-image img {
+  transform: scale(1.05);
+}
+
+.vtx-product-widget--out-of-stock {
+  opacity: 0.7;
+}
+
+.vtx-product-widget--out-of-stock .product-image img {
+  filter: grayscale(50%);
+}
+
+/* Widget Theme Variations */
+.vtx-metric-widget--minimal,
+.vtx-info-widget--minimal,
+.vtx-text-widget--minimal,
+.vtx-header-widget--minimal {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.vtx-metric-widget--compact,
+.vtx-info-widget--compact,
+.vtx-product-widget--compact,
+.vtx-order-widget--compact,
+.vtx-list-widget--compact,
+.vtx-text-widget--compact,
+.vtx-header-widget--compact {
+  padding: 0.75rem;
+}
+
+.vtx-metric-widget--inline,
+.vtx-info-widget--inline,
+.vtx-product-widget--inline,
+.vtx-order-widget--inline,
+.vtx-list-widget--inline,
+.vtx-text-widget--inline,
+.vtx-header-widget--inline {
+  background: transparent;
+  border: 1px solid var(--vtx-color-neutral-200);
+  padding: 0.75rem;
+}
+
+/* Widget Size Variations */
+.vtx-metric-widget--sm,
+.vtx-info-widget--sm,
+.vtx-product-widget--sm,
+.vtx-order-widget--sm,
+.vtx-list-widget--sm,
+.vtx-text-widget--sm,
+.vtx-header-widget--sm {
+  font-size: 0.875rem;
+}
+
+.vtx-metric-widget--lg,
+.vtx-info-widget--lg,
+.vtx-product-widget--lg,
+.vtx-order-widget--lg,
+.vtx-list-widget--lg,
+.vtx-text-widget--lg,
+.vtx-header-widget--lg {
+  font-size: 1.125rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .vtx-widget-grid {
+    gap: 0.75rem;
+  }
+  
+  .vtx-metric-widget--lg,
+  .vtx-info-widget--lg,
+  .vtx-product-widget--lg,
+  .vtx-order-widget--lg,
+  .vtx-list-widget--lg,
+  .vtx-text-widget--lg,
+  .vtx-header-widget--lg {
+    font-size: 1rem;
+  }
+}

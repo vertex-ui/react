@@ -71,7 +71,7 @@ const Flex = React.forwardRef<HTMLDivElement, FlexProps & React.HTMLAttributes<H
       direction = 'row',
       wrap = 'nowrap',
       justify = 'start',
-      align = 'center',
+      align = 'stretch',
       alignContent,
       gap,
       rowGap,

@@ -120,7 +120,7 @@ export interface DataGridProps<T = any> extends Omit<
   emptyStateIcon?: React.ReactNode;
   /**
    * Title for empty state
-   * @default 'No rows'
+   * @default 'No data available'
    */
   emptyStateTitle?: string;
   /**
@@ -670,7 +670,7 @@ const DataGridBase = ({
   skeletonRows = 5,
   loadingContent,
   emptyStateIcon,
-  emptyStateTitle = 'No rows',
+  emptyStateTitle = 'No data available',
   emptyStateDescription,
   autoHeight = false,
   density = 'standard',

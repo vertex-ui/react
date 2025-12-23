@@ -2,6 +2,8 @@
 import React from 'react';
 import { injectCSSVariables } from './cssVariables';
 import { tokens, Tokens, normalizeColors, CustomTokens } from './tokens';
+import { ToastContainer } from '../components/Toast/ToastContainer';
+import type { ToastPosition } from '../components/Toast/types';
 
 export type Size = 'sm' | 'md' | 'lg';
 
@@ -46,6 +48,12 @@ export interface ThemeProviderProps extends React.HTMLAttributes<HTMLDivElement>
   defaultSize?: Size;
   /** Color contrast configuration - specify if variant backgrounds are light or dark */
   colorContrast?: ColorContrastConfig;
+  /** Toast container position */
+  toastPosition?: ToastPosition;
+  /** Maximum number of toasts to display at once */
+  toastLimit?: number;
+  /** Disable toast notifications globally */
+  disableToasts?: boolean;
 }
 
 
@@ -57,6 +65,9 @@ const ThemeProvider = React.forwardRef<HTMLDivElement, ThemeProviderProps>(
       customTokens,
       defaultSize = 'md',
       colorContrast,
+      toastPosition = 'top-right',
+      toastLimit = 5,
+      disableToasts = false,
       ...props
     },
     ref
@@ -118,9 +129,11 @@ const ThemeProvider = React.forwardRef<HTMLDivElement, ThemeProviderProps>(
 
     return (
       <ThemeContext.Provider value={contextValue}>
-        <div ref={ref} {...props}>
-          {children}
-        </div>
+        <ToastContainer position={toastPosition} limit={toastLimit}>
+          <div ref={ref} {...props}>
+            {children}
+          </div>
+        </ToastContainer>
       </ThemeContext.Provider>
     );
   }

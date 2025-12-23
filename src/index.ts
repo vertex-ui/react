@@ -9,6 +9,8 @@ export { Checkbox } from './components/Checkbox';
 export type { CheckboxProps } from './components/Checkbox';
 export { CheckboxGroup } from './components/CheckboxGroup';
 export type { CheckboxGroupProps } from './components/CheckboxGroup';
+export { FormControl } from './components/FormControl';
+export type { FormControlProps } from './components/FormControl';
 export { Input } from './components/Input';
 export type { InputProps } from './components/Input';
 export { MultiSelect } from './components/MultiSelect';
@@ -17,8 +19,14 @@ export { Radio } from './components/Radio';
 export type { RadioProps } from './components/Radio';
 export { RadioGroup } from './components/RadioGroup';
 export type { RadioGroupProps } from './components/RadioGroup';
+export { RichTextEditor } from './components/RichTextEditor';
+export type { RichTextEditorProps, ToolbarButton } from './components/RichTextEditor';
 export { Select } from './components/Select';
 export type { SelectOption, SelectProps } from './components/Select';
+export { Textarea } from './components/Textarea';
+export type { TextareaProps } from './components/Textarea';
+export { DatePicker, DateRangePicker, Calendar } from './components/DatePicker';
+export type { DatePickerProps, DateRangePickerProps, DateRange, CalendarProps } from './components/DatePicker';
 
 // --- Interactive & Feedback ---
 export { Accordion, AccordionItem } from './components/Accordion';
@@ -37,6 +45,24 @@ export { Toast, toast, ToastContainer, useToast } from './components/Toast';
 export type { ToastContainerProps, ToastOptions, ToastProps, ToastVariant, ToastPosition, ToastInstance } from './components/Toast/types';
 export { Tooltip } from './components/Tooltip';
 export type { TooltipProps } from './components/Tooltip';
+
+// --- Widget System ---
+export { Widget } from './components/Widget';
+export type { 
+  WidgetProps,
+  WidgetConfig,
+  WidgetTheme,
+  WidgetVariant,
+  MetricWidgetData,
+  InfoWidgetData,
+  ProductWidgetData,
+  OrderWidgetData,
+  ListWidgetData,
+  TextWidgetData,
+  HeaderWidgetData,
+  GridWidgetData,
+  IntelligentGridProps
+} from './components/Widget';
 
 // --- Data Display ---
 export { AdminHeader } from './components/AdminHeader';

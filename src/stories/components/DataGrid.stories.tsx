@@ -5,6 +5,7 @@ import { DataGrid } from '../../components/DataGrid';
 import type { DataGridColumn, GridFilterModel } from '../../components/DataGrid';
 import { Badge } from '../../components/Badge';
 import { Chip } from '../../components/Chip';
+import { PackageIcon, InboxIcon, SearchIcon } from '../../icons/IconComponents';
 
 const meta: Meta<typeof DataGrid> = {
   title: 'Components/DataGrid',
@@ -615,3 +616,102 @@ export const PinnedColumns: Story = {
     );
   },
 };
+
+export const SkeletonLoader: Story = {
+  args: {
+    columns: basicColumns,
+    rows: [],
+    loading: true,
+    skeletonLoader: true,
+    skeletonRows: 8,
+    getRowId: (row: any) => row.id,
+  },
+};
+
+export const SkeletonLoaderWithSelection: Story = {
+  args: {
+    columns: basicColumns,
+    rows: [],
+    loading: true,
+    skeletonLoader: true,
+    skeletonRows: 5,
+    checkboxSelection: true,
+    getRowId: (row: any) => row.id,
+  },
+};
+
+export const CustomLoadingContent: Story = {
+  args: {
+    columns: basicColumns,
+    rows: [],
+    loading: true,
+    skeletonLoader: false,
+    loadingContent: (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+        <div style={{ 
+          width: '40px', 
+          height: '40px', 
+          border: '4px solid #e5e7eb',
+          borderTopColor: '#2563eb',
+          borderRadius: '50%',
+          animation: 'spin 1s linear infinite'
+        }} />
+        <div style={{ color: '#6b7280', fontSize: '14px' }}>Fetching data...</div>
+      </div>
+    ),
+    getRowId: (row: any) => row.id,
+  },
+};
+
+export const EmptyStateWithIcon: Story = {
+  args: {
+    columns: basicColumns,
+    rows: [],
+    emptyStateTitle: 'No products found',
+    emptyStateIcon: <PackageIcon size={48} />,
+    emptyStateDescription: 'There are no products available at the moment. Try adding some products to get started.',
+    getRowId: (row: any) => row.id,
+  },
+};
+
+export const EmptyStateSearch: Story = {
+  args: {
+    columns: basicColumns,
+    rows: [],
+    emptyStateTitle: 'No results found',
+    emptyStateIcon: <SearchIcon size={48} />,
+    emptyStateDescription: 'We couldn\'t find any matches for your search. Try different keywords or filters.',
+    getRowId: (row: any) => row.id,
+  },
+};
+
+export const EmptyStateInbox: Story = {
+  args: {
+    columns: [
+      { 
+        field: 'subject', 
+        headerName: 'Subject', 
+        width: 300,
+        type: 'string',
+      },
+      { 
+        field: 'sender', 
+        headerName: 'From', 
+        width: 200,
+        type: 'string',
+      },
+      { 
+        field: 'date', 
+        headerName: 'Date', 
+        width: 150,
+        type: 'date',
+      },
+    ],
+    rows: [],
+    emptyStateTitle: 'Your inbox is empty',
+    emptyStateIcon: <InboxIcon size={48} />,
+    emptyStateDescription: 'When you receive new messages, they will appear here.',
+    getRowId: (row: any) => row.id,
+  },
+};
+
