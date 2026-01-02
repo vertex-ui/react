@@ -2,7 +2,7 @@
   <img src="https://innostes.com/images/home/section_navbar/company-latest-logo.png" alt="Innostes Solutions Pvt Ltd" width="220"/>
 </p>
 
-<h1 align="center">@vui/react</h1>
+<h1 align="center">@vtx-ui/react</h1>
 
 <p align="center">
   <strong>Enterprise-Grade React UI Library</strong><br/>
@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@vui/react"><img src="https://badge.fury.io/js/%40vui%2Freact.svg" alt="npm version" /></a>
+  <a href="https://www.npmjs.com/package/@vtx-ui/react"><img src="https://badge.fury.io/js/%40vui%2Freact.svg" alt="npm version" /></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a>
   <img src="https://img.shields.io/badge/TypeScript-100%25-blue" alt="TypeScript" />
   <img src="https://img.shields.io/badge/Tests-508%20Passing-success" alt="Tests" />
@@ -27,7 +27,7 @@
 ## Table of Contents
 
 - [Overview](#overview)
-- [Why Choose @vui/react](#why-choose-vuireact)
+- [Why Choose @vtx-ui/react](#why-choose-vuireact)
 - [Key Features](#key-features)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
@@ -48,9 +48,9 @@
 
 ## Overview
 
-**@vui/react** is a comprehensive UI component library built with React and TypeScript, designed for enterprise applications that demand reliability, accessibility, and seamless customization. With **35+ production-ready components** and **10+ specialized widgets**, our library provides everything you need to build modern, scalable web applications.
+**@vtx-ui/react** is a comprehensive UI component library built with React and TypeScript, designed for enterprise applications that demand reliability, accessibility, and seamless customization. With **35+ production-ready components** and **10+ specialized widgets**, our library provides everything you need to build modern, scalable web applications.
 
-## Why Choose @vui/react?
+## Why Choose @vtx-ui/react?
 
 ### Built for Enterprise
 
@@ -108,17 +108,17 @@ Custom hooks, HOCs, and utilities to accelerate development. Theme debugging too
 
 ### npm
 ```bash
-npm install @vui/react
+npm install @vtx-ui/react
 ```
 
 ### yarn
 ```bash
-yarn add @vui/react
+yarn add @vtx-ui/react
 ```
 
 ### pnpm
 ```bash
-pnpm add @vui/react
+pnpm add @vtx-ui/react
 ```
 
 ### Requirements
@@ -134,7 +134,7 @@ pnpm add @vui/react
 Import the base stylesheet in your application entry point:
 
 ```tsx
-import '@vui/react/styles.css';
+import '@vtx-ui/react/styles.css';
 ```
 
 ### 2. Wrap with ThemeProvider
@@ -142,7 +142,7 @@ import '@vui/react/styles.css';
 Wrap your application with the `ThemeProvider` to enable theming:
 
 ```tsx
-import { ThemeProvider, Button } from '@vui/react';
+import { ThemeProvider, Button } from '@vtx-ui/react';
 
 function App() {
   return (
@@ -162,7 +162,7 @@ export default App;
 Import and use any component:
 
 ```tsx
-import { Button, Input, Card, Modal } from '@vui/react';
+import { Button, Input, Card, Modal } from '@vtx-ui/react';
 
 function MyComponent() {
   return (
@@ -297,7 +297,7 @@ Pre-built, domain-specific widgets for rapid application development. **10 speci
 ### Using Widgets
 
 ```tsx
-import { ProductCard, MetricCard, Navbar } from '@vui/react';
+import { ProductCard, MetricCard, Navbar } from '@vtx-ui/react';
 
 function Dashboard() {
   return (
@@ -328,7 +328,7 @@ function Dashboard() {
 
 ## Theming System
 
-@vui/react features a powerful, flexible theming system built on CSS custom properties, enabling dynamic theme changes without rebuilding your application.
+@vtx-ui/react features a powerful, flexible theming system built on CSS custom properties, enabling dynamic theme changes without rebuilding your application.
 
 ### Unified Primary Color System
 
@@ -347,7 +347,7 @@ All components use a **consistent primary color palette** for branding:
 Built-in light and dark mode support:
 
 ```tsx
-import { ThemeProvider, useTheme } from '@vui/react';
+import { ThemeProvider, useTheme } from '@vtx-ui/react';
 
 function App() {
   return (
@@ -436,7 +436,7 @@ Customize spacing, typography, border radius, and more:
 ### Using Theme Tokens in JavaScript
 
 ```tsx
-import { useTheme } from '@vui/react';
+import { useTheme } from '@vtx-ui/react';
 
 function MyComponent() {
   const { tokens, mode } = useTheme();
@@ -508,7 +508,7 @@ import {
   useFocusTrap, 
   useDebounce,
   useTheme 
-} from '@vui/react';
+} from '@vtx-ui/react';
 
 function SearchDropdown() {
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -537,7 +537,7 @@ function SearchDropdown() {
 Every component, hook, and utility is fully typed with comprehensive TypeScript definitions:
 
 ```tsx
-import { ButtonProps, InputProps, ModalProps } from '@vui/react';
+import { ButtonProps, InputProps, ModalProps } from '@vtx-ui/react';
 
 // Full IntelliSense support
 const buttonProps: ButtonProps = {
@@ -583,7 +583,7 @@ import type {
   // Utility Types
   ComponentWithChildren,
   HTMLDivProps,
-} from '@vui/react';
+} from '@vtx-ui/react';
 ```
 
 ---
@@ -682,16 +682,16 @@ Full bundle: ~45 KB gzipped
 
 ```tsx
 // ✅ Good - Tree-shakable imports
-import { Button, Input } from '@vui/react';
+import { Button, Input } from '@vtx-ui/react';
 
 // ❌ Avoid - Imports entire library
-import * as VUI from '@vui/react';
+import * as VUI from '@vtx-ui/react';
 
 // ✅ Good - Lazy load heavy components
-const DataGrid = lazy(() => import('@vui/react').then(m => ({ default: m.DataGrid })));
+const DataGrid = lazy(() => import('@vtx-ui/react').then(m => ({ default: m.DataGrid })));
 
 // ✅ Good - Import only required widgets
-import { ProductCard } from '@vui/react';
+import { ProductCard } from '@vtx-ui/react';
 ```
 
 ---
@@ -806,7 +806,7 @@ describe('Button', () => {
 
 ### Modern Browsers
 
-@vui/react supports all modern browsers with the following minimum versions:
+@vtx-ui/react supports all modern browsers with the following minimum versions:
 
 | Browser | Version |
 |---------|---------|
@@ -836,7 +836,7 @@ describe('Button', () => {
 
 ### Professional Services
 
-[Innostes Solutions Pvt Ltd](https://innostes.com/) offers comprehensive enterprise support for @vui/react:
+[Innostes Solutions Pvt Ltd](https://innostes.com/) offers comprehensive enterprise support for @vtx-ui/react:
 
 #### 🎯 Enterprise Licensing
 - Volume licensing options
@@ -873,7 +873,7 @@ describe('Button', () => {
 
 ## Contributing
 
-We welcome contributions from the community! Whether it's bug fixes, new features, documentation improvements, or examples—your help makes @vui/react better for everyone.
+We welcome contributions from the community! Whether it's bug fixes, new features, documentation improvements, or examples—your help makes @vtx-ui/react better for everyone.
 
 ### Getting Started
 
@@ -968,7 +968,7 @@ Building enterprise-grade software solutions
 
 - 📘 **[Official Documentation](https://vertexui.com/)** - Complete guides and API reference
 - 📖 **[Storybook](https://vertexui.com/storybook)** - Interactive component explorer
-- 📦 **[npm Package](https://www.npmjs.com/package/@vui/react)** - Package registry
+- 📦 **[npm Package](https://www.npmjs.com/package/@vtx-ui/react)** - Package registry
 - 💻 **[GitHub Repository](https://github.com/vertex-ui/react)** - Source code
 - 🐛 **[Issue Tracker](https://github.com/vertex-ui/react/issues)** - Bug reports and feature requests
 - 📋 **[Changelog](https://github.com/vertex-ui/react/releases)** - Release history

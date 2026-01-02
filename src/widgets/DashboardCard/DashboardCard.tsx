@@ -17,6 +17,7 @@ interface BaseDashboardCardProps {
   onClick?: () => void;
   loading?: boolean;
   size?: DashboardCardSize;
+  variant?: 'outlined' | 'filled';
 }
 
 // ==================== TREND INDICATOR ====================
@@ -39,6 +40,7 @@ export interface StatCardData {
 
 export interface StatCardSettings {
   theme?: DashboardCardTheme;
+  variant?: 'outlined' | 'filled';
   showIcon?: boolean;
   showTrend?: boolean;
   valueSize?: 'sm' | 'md' | 'lg';
@@ -64,6 +66,7 @@ export interface ProgressCardData {
 
 export interface ProgressCardSettings {
   theme?: DashboardCardTheme;
+  variant?: 'outlined' | 'filled';
   showPercentage?: boolean;
   showValues?: boolean;
   progressType?: 'bar' | 'circle';
@@ -90,6 +93,7 @@ export interface ComparisonCardData {
 
 export interface ComparisonCardSettings {
   theme?: DashboardCardTheme;
+  variant?: 'outlined' | 'filled';
   layout?: 'horizontal' | 'vertical';
   showTrends?: boolean;
   showDivider?: boolean;
@@ -105,6 +109,7 @@ export interface ComparisonCardProps extends BaseDashboardCardProps {
 
 export interface ActivityCardData {
   title: string;
+  onViewAll?: () => void;
   activities: Array<{
     id: string;
     label: string;
@@ -117,6 +122,7 @@ export interface ActivityCardData {
 
 export interface ActivityCardSettings {
   theme?: DashboardCardTheme;
+  variant?: 'outlined' | 'filled';
   maxItems?: number;
   showTimestamps?: boolean;
   showIcons?: boolean;
@@ -144,6 +150,7 @@ export interface OrderCardData {
 
 export interface OrderCardSettings {
   theme?: DashboardCardTheme;
+  variant?: 'outlined' | 'filled';
   showCustomer?: boolean;
   showItems?: boolean;
   showDate?: boolean;
@@ -172,6 +179,7 @@ export interface UserCardData {
 
 export interface UserCardSettings {
   theme?: DashboardCardTheme;
+  variant?: 'outlined' | 'filled';
   showStatus?: boolean;
   showMetrics?: boolean;
   layout?: 'horizontal' | 'vertical';
@@ -202,6 +210,7 @@ export interface RevenueCardData {
 
 export interface RevenueCardSettings {
   theme?: DashboardCardTheme;
+  variant?: 'outlined' | 'filled';
   showTrend?: boolean;
   showBreakdown?: boolean;
   showPeriod?: boolean;
@@ -228,6 +237,7 @@ export interface AlertCardData {
 
 export interface AlertCardSettings {
   theme?: DashboardCardTheme;
+  variant?: 'outlined' | 'filled';
   showIcon?: boolean;
   showTimestamp?: boolean;
   dismissible?: boolean;
@@ -255,6 +265,7 @@ export interface RankingCardData {
 
 export interface RankingCardSettings {
   theme?: DashboardCardTheme;
+  variant?: 'outlined' | 'filled';
   maxItems?: number;
   showPercentages?: boolean;
   showBars?: boolean;
@@ -265,6 +276,37 @@ export interface RankingCardProps extends BaseDashboardCardProps {
   type: 'ranking';
   data: RankingCardData;
   settings?: RankingCardSettings;
+}
+
+// ==================== METRIC CARD ====================
+
+export interface MetricCardData {
+  value: string | number;
+  label: string;
+  icon?: React.ReactNode;
+  trend?: TrendData;
+  subtitle?: string;
+  chartData?: Array<number>;
+  chartType?: 'line' | 'bar';
+  targetValue?: number;
+  comparisonValue?: string | number;
+  comparisonLabel?: string;
+}
+
+export interface MetricCardSettings {
+  theme?: DashboardCardTheme;
+  variant?: 'outlined' | 'filled';
+  showChart?: boolean;
+  showTrend?: boolean;
+  showComparison?: boolean;
+  chartHeight?: number;
+  valueSize?: 'sm' | 'md' | 'lg';
+}
+
+export interface MetricCardProps extends BaseDashboardCardProps {
+  type: 'metric';
+  data: MetricCardData;
+  settings?: MetricCardSettings;
 }
 
 // ==================== STATUS CARD ====================
@@ -283,6 +325,7 @@ export interface StatusCardData {
 
 export interface StatusCardSettings {
   theme?: DashboardCardTheme;
+  variant?: 'outlined' | 'filled';
   showMetrics?: boolean;
   showUptime?: boolean;
   showLastChecked?: boolean;
@@ -307,6 +350,7 @@ export type DashboardCardProps =
   | RevenueCardProps
   | AlertCardProps
   | RankingCardProps
+  | MetricCardProps
   | StatusCardProps;
 
 // ==================== HELPER COMPONENTS ====================
@@ -394,6 +438,7 @@ const StatusBadge: React.FC<{ status: string; label?: string }> = ({ status, lab
 const StatCard: React.FC<StatCardProps> = ({ data, settings = {}, className = '', style, onClick, loading, size = 'md' }) => {
   const {
     theme = 'primary',
+    variant = 'outlined',
     showIcon = true,
     showTrend = true,
     valueSize = 'lg',
@@ -401,11 +446,11 @@ const StatCard: React.FC<StatCardProps> = ({ data, settings = {}, className = ''
   } = settings;
 
   const isClickable = !!onClick;
-  const cardClass = `dashboard-card dashboard-card--stat dashboard-card--${layout} ${isClickable ? 'dashboard-card--clickable' : ''} ${className}`;
+  const cardClass = `dashboard-card dashboard-card--stat dashboard-card--${layout} dashboard-card--${variant} dashboard-card--${theme} ${isClickable ? 'dashboard-card--clickable' : ''} ${className}`;
 
   return (
     <Card 
-      variant="outlined" 
+      variant={variant === 'filled' ? 'elevated' : 'outlined'}
       className={cardClass}
       style={style}
       onClick={onClick}
@@ -415,24 +460,40 @@ const StatCard: React.FC<StatCardProps> = ({ data, settings = {}, className = ''
           <Text variant="body2">Loading...</Text>
         </Flex>
       ) : (
-        <Flex direction="column" gap={1.5}>
-          <Flex align="center" justify="between" wrap="nowrap">
-            <Text variant="body2" className="dashboard-card__label">{data.label}</Text>
+        <Flex direction="column" gap={2}>
+          <Flex align="center" justify="between" wrap="nowrap" gap={2}>
+            <Text 
+              variant="overline" 
+              weight="semibold" 
+              color="secondary"
+              className="dashboard-card__label"
+              style={{ flex: 1 }}
+            >
+              {data.label}
+            </Text>
             {showIcon && data.icon && <IconWrapper icon={data.icon} theme={theme} size={size} />}
           </Flex>
           
           <Flex direction="column" gap={0.5}>
-            <Text variant={valueSize === 'lg' ? 'h2' : valueSize === 'md' ? 'h3' : 'h4'} className="dashboard-card__value">
+            <Text 
+              variant={valueSize === 'lg' ? 'h2' : valueSize === 'md' ? 'h3' : 'h4'} 
+              weight="bold"
+              className="dashboard-card__value"
+            >
               {data.value}
             </Text>
             {data.subtitle && (
-              <Text variant="caption" className="dashboard-card__subtitle">
+              <Text variant="caption" color="secondary" className="dashboard-card__subtitle">
                 {data.subtitle}
               </Text>
             )}
           </Flex>
 
-          {showTrend && data.trend && <TrendIndicator trend={data.trend} />}
+          {showTrend && data.trend && (
+            <Flex>
+              <TrendIndicator trend={data.trend} />
+            </Flex>
+          )}
         </Flex>
       )}
     </Card>
@@ -442,6 +503,7 @@ const StatCard: React.FC<StatCardProps> = ({ data, settings = {}, className = ''
 const ProgressCard: React.FC<ProgressCardProps> = ({ data, settings = {}, className = '', style, onClick, loading, size = 'md' }) => {
   const {
     theme = 'primary',
+    variant = 'outlined',
     showPercentage = true,
     showValues = true,
     progressType = 'bar',
@@ -450,11 +512,11 @@ const ProgressCard: React.FC<ProgressCardProps> = ({ data, settings = {}, classN
 
   const percentage = (data.current / data.target) * 100;
   const isClickable = !!onClick;
-  const cardClass = `dashboard-card dashboard-card--progress ${isClickable ? 'dashboard-card--clickable' : ''} ${className}`;
+  const cardClass = `dashboard-card dashboard-card--progress dashboard-card--${variant} dashboard-card--${theme} ${isClickable ? 'dashboard-card--clickable' : ''} ${className}`;
 
   return (
     <Card 
-      variant="outlined" 
+      variant={variant === 'filled' ? 'elevated' : 'outlined'}
       className={cardClass}
       style={style}
       onClick={onClick}
@@ -464,12 +526,18 @@ const ProgressCard: React.FC<ProgressCardProps> = ({ data, settings = {}, classN
           <Text variant="body2">Loading...</Text>
         </Flex>
       ) : (
-        <Flex direction="column" gap={1.5}>
-          <Flex align="center" justify="between">
-            <Flex direction="column" gap={0.5}>
-              <Text variant="body2" className="dashboard-card__label">{data.label}</Text>
+        <Flex direction="column" gap={2}>
+          <Flex align="center" justify="between" gap={2}>
+            <Flex direction="column" gap={0.5} style={{ flex: 1 }}>
+              <Text 
+                variant="overline" 
+                weight="semibold" 
+                className="dashboard-card__label"
+              >
+                {data.label}
+              </Text>
               {data.subtitle && (
-                <Text variant="caption" className="dashboard-card__subtitle">
+                <Text variant="caption" color="secondary" className="dashboard-card__subtitle">
                   {data.subtitle}
                 </Text>
               )}
@@ -477,17 +545,25 @@ const ProgressCard: React.FC<ProgressCardProps> = ({ data, settings = {}, classN
             {data.icon && <IconWrapper icon={data.icon} theme={theme} size={size} />}
           </Flex>
 
-          <Flex direction="column" gap={1}>
+          <Flex direction="column" gap={1.5}>
             {progressType === 'bar' && <ProgressBar percentage={percentage} theme={theme} status={status} />}
             
-            <Flex align="center" justify="between">
+            <Flex align="center" justify="between" gap={2}>
               {showValues && (
-                <Text variant="body2" className="dashboard-card__progress-values">
+                <Text 
+                  variant="body2" 
+                  weight="medium" 
+                  className="dashboard-card__progress-values"
+                >
                   {data.current}{data.unit && ` ${data.unit}`} / {data.target}{data.unit && ` ${data.unit}`}
                 </Text>
               )}
               {showPercentage && (
-                <Text variant="h4" className={`dashboard-card__percentage dashboard-card__percentage--${theme}`}>
+                <Text 
+                  variant="h3" 
+                  weight="bold"
+                  className={`dashboard-card__percentage dashboard-card__percentage--${theme}`}
+                >
                   {Math.round(percentage)}%
                 </Text>
               )}
@@ -505,20 +581,21 @@ const ProgressCard: React.FC<ProgressCardProps> = ({ data, settings = {}, classN
   );
 };
 
-const ComparisonCard: React.FC<ComparisonCardProps> = ({ data, settings = {}, className = '', style, onClick, loading }) => {
+const ComparisonCard: React.FC<ComparisonCardProps> = ({ data, settings = {}, className = '', style, onClick, loading, size = 'md' }) => {
   const {
     theme = 'primary',
+    variant = 'outlined',
     layout = 'horizontal',
     showTrends = true,
     showDivider = true
   } = settings;
 
   const isClickable = !!onClick;
-  const cardClass = `dashboard-card dashboard-card--comparison dashboard-card--${layout} ${isClickable ? 'dashboard-card--clickable' : ''} ${className}`;
+  const cardClass = `dashboard-card dashboard-card--comparison dashboard-card--${layout} dashboard-card--${variant} dashboard-card--${theme} ${isClickable ? 'dashboard-card--clickable' : ''} ${className}`;
 
   return (
     <Card 
-      variant="outlined" 
+      variant={variant === 'filled' ? 'elevated' : 'outlined'}
       className={cardClass}
       style={style}
       onClick={onClick}
@@ -528,28 +605,45 @@ const ComparisonCard: React.FC<ComparisonCardProps> = ({ data, settings = {}, cl
           <Text variant="body2">Loading...</Text>
         </Flex>
       ) : (
-        <Flex direction="column" gap={1.5}>
-          <Text variant="body2" className="dashboard-card__label">{data.label}</Text>
+        <Flex direction="column" gap={2}>
+          <Text 
+            variant="overline" 
+            weight="semibold" 
+            className="dashboard-card__label"
+          >
+            {data.label}
+          </Text>
           
           <Flex 
             direction={layout === 'vertical' ? 'column' : 'row'} 
-            gap={2} 
-            justify="between"
+            gap={layout === 'vertical' ? 2 : 3} 
+            justify={layout === 'horizontal' ? 'between' : 'start'}
+            align={layout === 'horizontal' ? 'stretch' : 'start'}
             className="dashboard-card__comparison-items"
           >
             {data.items.map((item, index) => (
               <React.Fragment key={index}>
-                <Flex direction="column" gap={0.5} style={{ flex: 1 }}>
+                <Flex direction="column" gap={1} style={{ flex: 1, minWidth: 0 }}>
                   <Flex align="center" gap={1}>
-                    {item.icon && <IconWrapper icon={item.icon} theme={theme} size="sm" />}
-                    <Text variant="caption" className="dashboard-card__comparison-label">
+                    {item.icon && <IconWrapper icon={item.icon} theme={theme} size={size} />}
+                    <Text 
+                      variant="caption" 
+                      weight="medium"
+                      color="secondary"
+                      className="dashboard-card__comparison-label"
+                      truncate
+                    >
                       {item.label}
                     </Text>
                   </Flex>
-                  <Text variant="h3" className="dashboard-card__value">
+                  <Text variant="h3" weight="bold" className="dashboard-card__value">
                     {item.value}
                   </Text>
-                  {showTrends && item.trend && <TrendIndicator trend={item.trend} size="sm" />}
+                  {showTrends && item.trend && (
+                    <Flex>
+                      <TrendIndicator trend={item.trend} size="sm" />
+                    </Flex>
+                  )}
                 </Flex>
                 
                 {showDivider && index < data.items.length - 1 && (
@@ -567,19 +661,19 @@ const ComparisonCard: React.FC<ComparisonCardProps> = ({ data, settings = {}, cl
 const ActivityCard: React.FC<ActivityCardProps> = ({ data, settings = {}, className = '', style, onClick, loading }) => {
   const {
     theme = 'primary',
+    variant = 'outlined',
     maxItems = 5,
     showTimestamps = true,
-    showIcons = true,
     compact = false
   } = settings;
 
   const displayActivities = data.activities.slice(0, maxItems);
   const isClickable = !!onClick;
-  const cardClass = `dashboard-card dashboard-card--activity ${compact ? 'dashboard-card--compact' : ''} ${isClickable ? 'dashboard-card--clickable' : ''} ${className}`;
+  const cardClass = `dashboard-card dashboard-card--activity dashboard-card--${variant} dashboard-card--${theme} ${compact ? 'dashboard-card--compact' : ''} ${isClickable ? 'dashboard-card--clickable' : ''} ${className}`;
 
   return (
     <Card 
-      variant="outlined" 
+      variant={variant === 'filled' ? 'elevated' : 'outlined'}
       className={cardClass}
       style={style}
       onClick={onClick}
@@ -589,42 +683,112 @@ const ActivityCard: React.FC<ActivityCardProps> = ({ data, settings = {}, classN
           <Text variant="body2">Loading...</Text>
         </Flex>
       ) : (
-        <Flex direction="column" gap={1.5}>
-          <Text variant="body2" className="dashboard-card__label">{data.title}</Text>
+        <Flex direction="column" gap={2.5}>
+          {/* Header */}
+          <Flex align="center" justify="between">
+            <Text 
+              variant="h6" 
+              weight="semibold"
+              className="dashboard-card__label"
+            >
+              {data.title}
+            </Text>
+            {data.onViewAll && (
+              <button 
+                className="dashboard-card__view-all-btn"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  data.onViewAll?.();
+                }}
+              >
+                View All
+                <span style={{ marginLeft: 4 }}>›</span>
+              </button>
+            )}
+          </Flex>
           
-          <Flex direction="column" gap={compact ? 0.5 : 1} className="dashboard-card__activity-list">
+          {/* Activity List */}
+          <Flex direction="column" gap={0} className="dashboard-card__activity-list">
             {displayActivities.map((activity) => (
-              <Flex key={activity.id} align="center" justify="between" gap={1} className="dashboard-card__activity-item">
-                <Flex align="center" gap={1} style={{ flex: 1, minWidth: 0 }}>
-                  {showIcons && activity.icon && (
-                    <IconWrapper icon={activity.icon} theme={activity.status || theme} size="sm" />
-                  )}
-                  {activity.status && !activity.icon && (
-                    <StatusBadge status={activity.status} />
-                  )}
-                  <Text variant="body2" className="dashboard-card__activity-label" style={{ flex: 1 }}>
-                    {activity.label}
-                  </Text>
-                </Flex>
-                
-                <Flex align="center" gap={1}>
+              <div 
+                key={activity.id} 
+                className="dashboard-card__activity-item"
+              >
+                <Flex align="start" justify="between" gap={2}>
+                  {/* Left: Badge + Content */}
+                  <Flex align="start" gap={1.5} style={{ flex: 1, minWidth: 0 }}>
+                    {/* Status Badge */}
+                    {activity.status && (
+                      <Flex style={{ flexShrink: 0, paddingTop: 2 }}>
+                        <StatusBadge status={activity.status} />
+                      </Flex>
+                    )}
+                    
+                    {/* Content Column */}
+                    <Flex direction="column" gap={0.5} style={{ flex: 1, minWidth: 0 }}>
+                      {/* Order Label */}
+                      <Text 
+                        variant="body2" 
+                        weight="medium"
+                        className="dashboard-card__activity-label"
+                      >
+                        {activity.label}
+                      </Text>
+                      
+                      {/* Status Text + Timestamp */}
+                      <Flex align="center" gap={1}>
+                        <Text 
+                          variant="caption" 
+                          color="secondary"
+                          className="dashboard-card__activity-status-text"
+                          style={{ textTransform: 'capitalize' }}
+                        >
+                          {activity.status || 'Pending'}
+                        </Text>
+                        {showTimestamps && activity.timestamp && (
+                          <>
+                            <span style={{ color: 'var(--color-text-secondary, #6b7280)', fontSize: '12px' }}>•</span>
+                            <Text 
+                              variant="caption" 
+                              color="secondary"
+                              className="dashboard-card__timestamp"
+                            >
+                              {activity.timestamp}
+                            </Text>
+                          </>
+                        )}
+                      </Flex>
+                    </Flex>
+                  </Flex>
+                  
+                  {/* Right: Value Column */}
                   {activity.value && (
-                    <Text variant="body2" className="dashboard-card__activity-value">
-                      {activity.value}
-                    </Text>
-                  )}
-                  {showTimestamps && activity.timestamp && (
-                    <Text variant="caption" className="dashboard-card__timestamp">
-                      {activity.timestamp}
-                    </Text>
+                    <Flex direction="column" align="end" gap={0.5} style={{ flexShrink: 0 }}>
+                      {/* Main Value */}
+                      <Text 
+                        variant="body2" 
+                        weight="semibold"
+                        className="dashboard-card__activity-value"
+                      >
+                        {activity.value}
+                      </Text>
+                      {/* Secondary Value (lighter) */}
+                      <Text 
+                        variant="caption" 
+                        color="secondary"
+                        className="dashboard-card__activity-value-secondary"
+                      >
+                        {activity.value}
+                      </Text>
+                    </Flex>
                   )}
                 </Flex>
-              </Flex>
+              </div>
             ))}
           </Flex>
 
           {data.activities.length > maxItems && (
-            <Text variant="caption" className="dashboard-card__more">
+            <Text variant="caption" color="secondary" className="dashboard-card__more" style={{ textAlign: 'center', paddingTop: 4 }}>
               +{data.activities.length - maxItems} more
             </Text>
           )}
@@ -634,9 +798,10 @@ const ActivityCard: React.FC<ActivityCardProps> = ({ data, settings = {}, classN
   );
 };
 
-const OrderCard: React.FC<OrderCardProps> = ({ data, settings = {}, className = '', style, onClick, loading }) => {
+const OrderCard: React.FC<OrderCardProps> = ({ data, settings = {}, className = '', style, onClick, loading, size = 'md' }) => {
   const {
     theme = 'primary',
+    variant = 'outlined',
     showCustomer = true,
     showItems = true,
     showDate = true,
@@ -644,7 +809,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ data, settings = {}, className = 
   } = settings;
 
   const isClickable = !!onClick;
-  const cardClass = `dashboard-card dashboard-card--order dashboard-card--${layout} ${isClickable ? 'dashboard-card--clickable' : ''} ${className}`;
+  const cardClass = `dashboard-card dashboard-card--order dashboard-card--${layout} dashboard-card--${variant} dashboard-card--${theme} ${isClickable ? 'dashboard-card--clickable' : ''} ${className}`;
 
   const formatCurrency = (amount: number, currency = 'USD') => {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(amount);
@@ -652,7 +817,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ data, settings = {}, className = 
 
   return (
     <Card 
-      variant="outlined" 
+      variant={variant === 'filled' ? 'elevated' : 'outlined'}
       className={cardClass}
       style={style}
       onClick={onClick}
@@ -662,42 +827,60 @@ const OrderCard: React.FC<OrderCardProps> = ({ data, settings = {}, className = 
           <Text variant="body2">Loading...</Text>
         </Flex>
       ) : (
-        <Flex direction="column" gap={1.5}>
-          <Flex align="center" justify="between">
+        <Flex direction="column" gap={2}>
+          <Flex align="center" justify="between" gap={2}>
             <Flex align="center" gap={1}>
-              {data.icon && <IconWrapper icon={data.icon} theme={theme} size="sm" />}
-              <Text variant="body2" className="dashboard-card__label">
+              {data.icon && <IconWrapper icon={data.icon} theme={theme} size={size} />}
+              <Text 
+                variant="body2" 
+                weight="medium"
+                className="dashboard-card__label dashboard-card__label--order"
+              >
                 Order #{data.orderId}
               </Text>
             </Flex>
             <StatusBadge status={data.status} />
           </Flex>
 
-          <Flex direction="column" gap={1}>
-            <Text variant="h3" className="dashboard-card__value">
+          <Flex direction="column" gap={1.5}>
+            <Text variant="h3" weight="bold" className="dashboard-card__value">
               {formatCurrency(data.amount, data.currency)}
             </Text>
 
-            <Flex direction="column" gap={0.5} className="dashboard-card__order-details">
-              {showCustomer && data.customer && (
-                <Flex align="center" gap={0.5}>
-                  <Text variant="caption" className="dashboard-card__detail-label">Customer:</Text>
-                  <Text variant="caption" className="dashboard-card__detail-value">{data.customer}</Text>
-                </Flex>
-              )}
-              {showItems && data.items && (
-                <Flex align="center" gap={0.5}>
-                  <Text variant="caption" className="dashboard-card__detail-label">Items:</Text>
-                  <Text variant="caption" className="dashboard-card__detail-value">{data.items}</Text>
-                </Flex>
-              )}
-              {showDate && data.date && (
-                <Flex align="center" gap={0.5}>
-                  <Text variant="caption" className="dashboard-card__detail-label">Date:</Text>
-                  <Text variant="caption" className="dashboard-card__detail-value">{data.date}</Text>
-                </Flex>
-              )}
-            </Flex>
+            {(showCustomer && data.customer || showItems && data.items || showDate && data.date) && (
+              <Flex direction="column" gap={0.75} className="dashboard-card__order-details">
+                {showCustomer && data.customer && (
+                  <Flex align="center" gap={1}>
+                    <Text variant="caption" weight="medium" color="secondary" className="dashboard-card__detail-label">
+                      Customer:
+                    </Text>
+                    <Text variant="caption" className="dashboard-card__detail-value">
+                      {data.customer}
+                    </Text>
+                  </Flex>
+                )}
+                {showItems && data.items && (
+                  <Flex align="center" gap={1}>
+                    <Text variant="caption" weight="medium" color="secondary" className="dashboard-card__detail-label">
+                      Items:
+                    </Text>
+                    <Text variant="caption" className="dashboard-card__detail-value">
+                      {data.items}
+                    </Text>
+                  </Flex>
+                )}
+                {showDate && data.date && (
+                  <Flex align="center" gap={1}>
+                    <Text variant="caption" weight="medium" color="secondary" className="dashboard-card__detail-label">
+                      Date:
+                    </Text>
+                    <Text variant="caption" className="dashboard-card__detail-value">
+                      {data.date}
+                    </Text>
+                  </Flex>
+                )}
+              </Flex>
+            )}
           </Flex>
         </Flex>
       )}
@@ -705,20 +888,24 @@ const OrderCard: React.FC<OrderCardProps> = ({ data, settings = {}, className = 
   );
 };
 
-const UserCard: React.FC<UserCardProps> = ({ data, settings = {}, className = '', style, onClick, loading }) => {
+const UserCard: React.FC<UserCardProps> = ({ data, settings = {}, className = '', style, onClick, loading, size = 'md' }) => {
   const {
+    theme = 'primary',
+    variant = 'outlined',
     showStatus = true,
     showMetrics = true,
     layout = 'horizontal',
-    avatarSize = 'md'
+    avatarSize
   } = settings;
+  
+  const effectiveAvatarSize = avatarSize || size;
 
   const isClickable = !!onClick;
-  const cardClass = `dashboard-card dashboard-card--user dashboard-card--${layout} ${isClickable ? 'dashboard-card--clickable' : ''} ${className}`;
+  const cardClass = `dashboard-card dashboard-card--user dashboard-card--${layout} dashboard-card--${variant} dashboard-card--${theme} ${isClickable ? 'dashboard-card--clickable' : ''} ${className}`;
 
   return (
     <Card 
-      variant="outlined" 
+      variant={variant === 'filled' ? 'elevated' : 'outlined'}
       className={cardClass}
       style={style}
       onClick={onClick}
@@ -728,17 +915,17 @@ const UserCard: React.FC<UserCardProps> = ({ data, settings = {}, className = ''
           <Text variant="body2">Loading...</Text>
         </Flex>
       ) : (
-        <Flex direction="column" gap={1.5}>
-          <Flex align="center" gap={1.5}>
+        <Flex direction="column" gap={2}>
+          <Flex align="center" gap={2}>
             {data.avatar && (
-              <div className={`dashboard-card__avatar dashboard-card__avatar--${avatarSize}`}>
+              <div className={`dashboard-card__avatar dashboard-card__avatar--${effectiveAvatarSize} ${variant === 'filled' ? 'dashboard-card__avatar--filled' : ''}`}>
                 {data.avatar}
               </div>
             )}
             
-            <Flex direction="column" gap={0.5} style={{ flex: 1 }}>
-              <Flex align="center" gap={1}>
-                <Text variant="h4" className="dashboard-card__user-name">
+            <Flex direction="column" gap={0.5} style={{ flex: 1, minWidth: 0 }}>
+              <Flex align="center" gap={1} wrap="wrap">
+                <Text variant="h4" weight="semibold" className="dashboard-card__user-name" truncate>
                   {data.name}
                 </Text>
                 {showStatus && data.status && (
@@ -747,13 +934,13 @@ const UserCard: React.FC<UserCardProps> = ({ data, settings = {}, className = ''
               </Flex>
               
               {data.role && (
-                <Text variant="body2" className="dashboard-card__user-role">
+                <Text variant="body2" color="secondary" className="dashboard-card__user-role" truncate>
                   {data.role}
                 </Text>
               )}
               
               {data.department && (
-                <Text variant="caption" className="dashboard-card__user-department">
+                <Text variant="caption" color="secondary" className="dashboard-card__user-department" truncate>
                   {data.department}
                 </Text>
               )}
@@ -761,13 +948,13 @@ const UserCard: React.FC<UserCardProps> = ({ data, settings = {}, className = ''
           </Flex>
 
           {showMetrics && data.metrics && data.metrics.length > 0 && (
-            <Flex direction="column" gap={0.5} className="dashboard-card__user-metrics">
+            <Flex direction="column" gap={1} className="dashboard-card__user-metrics">
               {data.metrics.map((metric, index) => (
-                <Flex key={index} align="center" justify="between">
-                  <Text variant="caption" className="dashboard-card__metric-label">
+                <Flex key={index} align="center" justify="between" gap={2}>
+                  <Text variant="caption" weight="medium" color="secondary" className="dashboard-card__metric-label">
                     {metric.label}
                   </Text>
-                  <Text variant="body2" className="dashboard-card__metric-value">
+                  <Text variant="body2" weight="semibold" className="dashboard-card__metric-value">
                     {metric.value}
                   </Text>
                 </Flex>
@@ -780,9 +967,10 @@ const UserCard: React.FC<UserCardProps> = ({ data, settings = {}, className = ''
   );
 };
 
-const RevenueCard: React.FC<RevenueCardProps> = ({ data, settings = {}, className = '', style, onClick, loading }) => {
+const RevenueCard: React.FC<RevenueCardProps> = ({ data, settings = {}, className = '', style, onClick, loading, size = 'md' }) => {
   const {
     theme = 'primary',
+    variant = 'outlined',
     showTrend = true,
     showBreakdown = true,
     showPeriod = true,
@@ -803,7 +991,7 @@ const RevenueCard: React.FC<RevenueCardProps> = ({ data, settings = {}, classNam
 
   return (
     <Card 
-      variant="outlined" 
+      variant={variant === 'filled' ? 'elevated' : 'outlined'}
       className={cardClass}
       style={style}
       onClick={onClick}
@@ -816,7 +1004,7 @@ const RevenueCard: React.FC<RevenueCardProps> = ({ data, settings = {}, classNam
         <Flex direction="column" gap={1.5}>
           <Flex align="center" justify="between">
             <Text variant="body2" className="dashboard-card__label">{data.label}</Text>
-            {data.icon && <IconWrapper icon={data.icon} theme={theme} size="md" />}
+            {data.icon && <IconWrapper icon={data.icon} theme={theme} size={size} />}
           </Flex>
 
           <Flex direction="column" gap={0.5}>
@@ -859,9 +1047,10 @@ const RevenueCard: React.FC<RevenueCardProps> = ({ data, settings = {}, classNam
   );
 };
 
-const AlertCard: React.FC<AlertCardProps> = ({ data, settings = {}, className = '', style, onClick, loading }) => {
+const AlertCard: React.FC<AlertCardProps> = ({ data, settings = {}, className = '', style, onClick, loading, size = 'md' }) => {
   const {
     theme,
+    variant = 'outlined',
     showIcon = true,
     showTimestamp = true,
     dismissible = false,
@@ -874,7 +1063,7 @@ const AlertCard: React.FC<AlertCardProps> = ({ data, settings = {}, className = 
 
   return (
     <Card 
-      variant="outlined" 
+      variant={variant === 'filled' ? 'elevated' : 'outlined'}
       className={cardClass}
       style={style}
       onClick={onClick}
@@ -887,7 +1076,7 @@ const AlertCard: React.FC<AlertCardProps> = ({ data, settings = {}, className = 
         <Flex direction="column" gap={1.5}>
           <Flex align="center" justify="between">
             <Flex align="center" gap={1}>
-              {showIcon && data.icon && <IconWrapper icon={data.icon} theme={severityTheme} size="md" />}
+              {showIcon && data.icon && <IconWrapper icon={data.icon} theme={severityTheme} size={size} />}
               <Text variant="h4" className="dashboard-card__alert-title">
                 {data.title}
               </Text>
@@ -933,9 +1122,10 @@ const AlertCard: React.FC<AlertCardProps> = ({ data, settings = {}, className = 
   );
 };
 
-const RankingCard: React.FC<RankingCardProps> = ({ data, settings = {}, className = '', style, onClick, loading }) => {
+const RankingCard: React.FC<RankingCardProps> = ({ data, settings = {}, className = '', style, onClick, loading, size = 'md' }) => {
   const {
     theme = 'primary',
+    variant = 'outlined',
     maxItems = 5,
     showPercentages = true,
     showBars = true,
@@ -949,7 +1139,7 @@ const RankingCard: React.FC<RankingCardProps> = ({ data, settings = {}, classNam
 
   return (
     <Card 
-      variant="outlined" 
+      variant={variant === 'filled' ? 'elevated' : 'outlined'}
       className={cardClass}
       style={style}
       onClick={onClick}
@@ -974,7 +1164,7 @@ const RankingCard: React.FC<RankingCardProps> = ({ data, settings = {}, classNam
                       <div className={`dashboard-card__rank ${isHighlighted ? `dashboard-card__rank--${theme}` : ''}`}>
                         {item.rank}
                       </div>
-                      {item.icon && <IconWrapper icon={item.icon} theme={theme} size="sm" />}
+                      {item.icon && <IconWrapper icon={item.icon} theme={theme} size={size} />}
                       <Text variant="body2" className="dashboard-card__ranking-label" style={{ flex: 1 }}>
                         {item.label}
                       </Text>
@@ -1016,9 +1206,186 @@ const RankingCard: React.FC<RankingCardProps> = ({ data, settings = {}, classNam
   );
 };
 
-const StatusCard: React.FC<StatusCardProps> = ({ data, settings = {}, className = '', style, onClick, loading }) => {
+// ==================== METRIC CARD COMPONENT ====================
+
+const MetricCard: React.FC<MetricCardProps> = ({ data, settings = {}, className = '', style, onClick, loading, size = 'md' }) => {
   const {
     theme = 'primary',
+    variant = 'outlined',
+    showChart = true,
+    showTrend = true,
+    showComparison = false,
+    chartHeight = 60,
+    valueSize = 'lg'
+  } = settings;
+
+  const isClickable = !!onClick;
+  const cardClass = `dashboard-card dashboard-card--metric dashboard-card--${variant} dashboard-card--theme-${theme} ${isClickable ? 'dashboard-card--clickable' : ''} ${className}`;
+
+  // Calculate chart dimensions
+  const chartData = data.chartData || [];
+  const hasChart = showChart && chartData.length > 0;
+  const chartType = data.chartType || 'line';
+
+  // Normalize chart data to percentage
+  const maxValue = Math.max(...chartData, 1);
+  const minValue = Math.min(...chartData, 0);
+  const range = maxValue - minValue || 1;
+
+  const normalizedData = chartData.map(value => ((value - minValue) / range) * 100);
+
+  // Generate SVG path for line chart
+  const generateLinePath = () => {
+    if (normalizedData.length === 0) return '';
+    
+    const width = 100;
+    const height = 100;
+    const stepX = width / (normalizedData.length - 1 || 1);
+    
+    const points = normalizedData.map((value, index) => ({
+      x: index * stepX,
+      y: height - value
+    }));
+
+    return points.map((point, index) => 
+      `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`
+    ).join(' ');
+  };
+
+  return (
+    <Card 
+      className={cardClass}
+      size={size}
+      style={style}
+      onClick={onClick}
+      padding="lg"
+    >
+      {loading ? (
+        <Flex direction="column" gap={2} align="center" justify="center" style={{ minHeight: '200px' }}>
+          <Text variant="body2" className="dashboard-card__loading">Loading...</Text>
+        </Flex>
+      ) : (
+        <Flex direction="column" gap={2} style={{ height: '100%' }}>
+          {/* Header: Icon + Label */}
+          <Flex align="center" justify="between" gap={2}>
+            <Flex align="center" gap={1.5}>
+              {data.icon && (
+                <div className={`dashboard-card__metric-icon dashboard-card__metric-icon--${theme}`}>
+                  {data.icon}
+                </div>
+              )}
+              <Text variant="body2" className="dashboard-card__metric-label">
+                {data.label}
+              </Text>
+            </Flex>
+
+            {/* Trend Indicator */}
+            {showTrend && data.trend && (
+              <div className={`dashboard-card__metric-trend ${data.trend.isPositive ? 'dashboard-card__metric-trend--up' : 'dashboard-card__metric-trend--down'}`}>
+                <span className="dashboard-card__metric-trend-icon">
+                  {data.trend.isPositive ? '↑' : '↓'}
+                </span>
+                <Text variant="caption" className="dashboard-card__metric-trend-value">
+                  {Math.abs(data.trend.value)}%
+                </Text>
+              </div>
+            )}
+          </Flex>
+
+          {/* Main Value */}
+          <Flex direction="column" gap={0.5}>
+            <Text 
+              variant="h1" 
+              className={`dashboard-card__metric-value dashboard-card__metric-value--${valueSize}`}
+            >
+              {data.value}
+            </Text>
+            
+            {data.subtitle && (
+              <Text variant="caption" className="dashboard-card__metric-subtitle">
+                {data.subtitle}
+              </Text>
+            )}
+          </Flex>
+
+          {/* Comparison Value */}
+          {showComparison && (data.comparisonValue || data.comparisonLabel) && (
+            <Flex align="center" gap={1} className="dashboard-card__metric-comparison">
+              <Text variant="caption" className="dashboard-card__metric-comparison-label">
+                {data.comparisonLabel || 'vs previous'}:
+              </Text>
+              <Text variant="caption" weight="semibold" className="dashboard-card__metric-comparison-value">
+                {data.comparisonValue}
+              </Text>
+            </Flex>
+          )}
+
+          {/* Chart */}
+          {hasChart && (
+            <div className="dashboard-card__metric-chart" style={{ height: `${chartHeight}px` }}>
+              {chartType === 'line' ? (
+                <svg 
+                  viewBox="0 0 100 100" 
+                  preserveAspectRatio="none"
+                  className={`dashboard-card__metric-chart-svg dashboard-card__metric-chart-svg--${theme}`}
+                >
+                  <defs>
+                    <linearGradient id={`gradient-${theme}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" className="dashboard-card__metric-gradient-start" />
+                      <stop offset="100%" className="dashboard-card__metric-gradient-end" />
+                    </linearGradient>
+                  </defs>
+                  
+                  {/* Fill area under line */}
+                  <path
+                    d={`${generateLinePath()} L 100 100 L 0 100 Z`}
+                    className="dashboard-card__metric-chart-area"
+                    fill={`url(#gradient-${theme})`}
+                  />
+                  
+                  {/* Line */}
+                  <path
+                    d={generateLinePath()}
+                    className={`dashboard-card__metric-chart-line dashboard-card__metric-chart-line--${theme}`}
+                    fill="none"
+                  />
+
+                  {/* Target line (optional) */}
+                  {data.targetValue && (
+                    <line
+                      x1="0"
+                      y1={100 - ((data.targetValue - minValue) / range) * 100}
+                      x2="100"
+                      y2={100 - ((data.targetValue - minValue) / range) * 100}
+                      className="dashboard-card__metric-chart-target"
+                      strokeDasharray="2,2"
+                    />
+                  )}
+                </svg>
+              ) : (
+                <div className="dashboard-card__metric-chart-bars">
+                  {normalizedData.map((value, index) => (
+                    <div key={index} className="dashboard-card__metric-chart-bar-container">
+                      <div 
+                        className={`dashboard-card__metric-chart-bar dashboard-card__metric-chart-bar--${theme}`}
+                        style={{ height: `${value}%` }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </Flex>
+      )}
+    </Card>
+  );
+};
+
+const StatusCard: React.FC<StatusCardProps> = ({ data, settings = {}, className = '', style, onClick, loading, size = 'md' }) => {
+  const {
+    theme = 'primary',
+    variant = 'outlined',
     showMetrics = true,
     showUptime = true,
     showLastChecked = true,
@@ -1030,7 +1397,7 @@ const StatusCard: React.FC<StatusCardProps> = ({ data, settings = {}, className 
 
   return (
     <Card 
-      variant="outlined" 
+      variant={variant === 'filled' ? 'elevated' : 'outlined'}
       className={cardClass}
       style={style}
       onClick={onClick}
@@ -1043,7 +1410,7 @@ const StatusCard: React.FC<StatusCardProps> = ({ data, settings = {}, className 
         <Flex direction="column" gap={1.5}>
           <Flex align="center" justify="between">
             <Flex align="center" gap={1}>
-              {data.icon && <IconWrapper icon={data.icon} theme={theme} size="md" />}
+              {data.icon && <IconWrapper icon={data.icon} theme={theme} size={size} />}
               <Text variant="h4" className="dashboard-card__service-name">
                 {data.service}
               </Text>
@@ -1097,6 +1464,7 @@ const DashboardCardComponent = React.forwardRef<HTMLDivElement, DashboardCardPro
       onClick: props.onClick,
       loading: props.loading,
       size: props.size,
+      variant: props.variant,
     };
 
     switch (props.type) {
@@ -1118,6 +1486,8 @@ const DashboardCardComponent = React.forwardRef<HTMLDivElement, DashboardCardPro
         return <AlertCard {...props} {...commonProps} />;
       case 'ranking':
         return <RankingCard {...props} {...commonProps} />;
+      case 'metric':
+        return <MetricCard {...props} {...commonProps} />;
       case 'status':
         return <StatusCard {...props} {...commonProps} />;
       default:

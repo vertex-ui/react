@@ -1,6 +1,6 @@
 {
-  "name": "@vui/react",
-  "version": "0.0.1-beta.1",
+  "name": "@vtx-ui/react",
+  "version": "0.0.1-beta.14",
   "description": "A production-ready React + TypeScript UI library with enterprise-grade components",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
