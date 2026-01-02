@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   WidgetConfig,
+  WidgetSettings,
   WidgetTheme,
   WidgetVariant,
   MetricWidgetData,
@@ -14,6 +15,7 @@ import {
   TestimonialWidgetData,
   GridCarouselWidgetData,
   GridWidgetData,
+  ContentBlockWidgetData,
 } from './types';
 import IntelligentGrid from './IntelligentGrid';
 import MetricWidget from './renderers/MetricWidget';
@@ -26,6 +28,7 @@ import HeaderWidget from './renderers/HeaderWidget';
 import CarouselWidget from './renderers/CarouselWidget';
 import TestimonialWidget from './renderers/TestimonialWidget';
 import GridCarouselWidget from './renderers/GridCarouselWidget';
+import ContentBlockWidget from './renderers/ContentBlockWidget';
 
 export interface WidgetProps {
   config: WidgetConfig;
@@ -41,39 +44,44 @@ const Widget: React.FC<WidgetProps> = ({
   const renderSingleWidget = (
     type: string,
     data: any,
-    theme: WidgetTheme = 'modern',
-    variant: WidgetVariant = 'primary',
-    size: 'sm' | 'md' | 'lg' = 'md'
+    settings?: WidgetSettings,
+    // Legacy support
+    theme?: WidgetTheme,
+    variant?: WidgetVariant,
+    size?: 'sm' | 'md' | 'lg'
   ) => {
-    const commonProps = {
-      theme,
-      variant,
-      size,
+    // Support both new settings object and legacy props
+    const widgetSettings = settings || {
+      theme: theme || 'modern',
+      variant: variant || 'primary',
+      size: size || 'md',
       className,
       style,
     };
 
     switch (type) {
       case 'metric':
-        return <MetricWidget data={data as MetricWidgetData} {...commonProps} />;
+        return <MetricWidget data={data as MetricWidgetData} settings={widgetSettings as any} />;
       case 'info':
-        return <InfoWidget data={data as InfoWidgetData} {...commonProps} />;
+        return <InfoWidget data={data as InfoWidgetData} settings={widgetSettings as any} />;
       case 'product':
-        return <ProductWidget data={data as ProductWidgetData} {...commonProps} />;
+        return <ProductWidget data={data as ProductWidgetData} settings={widgetSettings as any} />;
       case 'order':
-        return <OrderWidget data={data as OrderWidgetData} {...commonProps} />;
+        return <OrderWidget data={data as OrderWidgetData} settings={widgetSettings as any} />;
       case 'list':
-        return <ListWidget data={data as ListWidgetData} {...commonProps} />;
+        return <ListWidget data={data as ListWidgetData} settings={widgetSettings as any} />;
       case 'text':
-        return <TextWidget data={data as TextWidgetData} {...commonProps} />;
+        return <TextWidget data={data as TextWidgetData} settings={widgetSettings as any} />;
       case 'header':
-        return <HeaderWidget data={data as HeaderWidgetData} {...commonProps} />;
+        return <HeaderWidget data={data as HeaderWidgetData} settings={widgetSettings as any} />;
       case 'carousel':
-        return <CarouselWidget data={data as CarouselWidgetData} {...commonProps} />;
+        return <CarouselWidget data={data as CarouselWidgetData} settings={widgetSettings as any} />;
       case 'testimonial':
         return <TestimonialWidget data={data as TestimonialWidgetData} className={className} style={style} />;
       case 'gridCarousel':
         return <GridCarouselWidget {...(data as GridCarouselWidgetData)} className={className} style={style} />;
+      case 'contentBlock':
+        return <ContentBlockWidget data={data as ContentBlockWidgetData} settings={widgetSettings as any} />;
       default:
         console.warn(`Unknown widget type: ${type}`);
         return null;
@@ -83,15 +91,17 @@ const Widget: React.FC<WidgetProps> = ({
   // Handle grid configuration
   if (config.type === 'grid') {
     const gridData = config.data as GridWidgetData;
+    const gridSettings = (config.settings as any) || {};
     
     return (
       <IntelligentGrid
         data={gridData.widgets}
-        grid={config.grid}
+        grid={config.grid || gridSettings.grid}
         renderItem={(widgetConfig: WidgetConfig) =>
           renderSingleWidget(
             widgetConfig.type,
             widgetConfig.data,
+            widgetConfig.settings,
             widgetConfig.theme,
             widgetConfig.variant,
             widgetConfig.size
@@ -104,14 +114,17 @@ const Widget: React.FC<WidgetProps> = ({
 
   // Handle array data with auto-grid
   if (Array.isArray(config.data)) {
+    const gridSettings = (config.settings as any) || {};
+    
     return (
       <IntelligentGrid
         data={config.data}
-        grid={config.grid}
+        grid={config.grid || gridSettings.grid}
         renderItem={(item: any) =>
           renderSingleWidget(
             config.type,
             item,
+            config.settings,
             config.theme,
             config.variant,
             config.size
@@ -126,6 +139,7 @@ const Widget: React.FC<WidgetProps> = ({
   return renderSingleWidget(
     config.type,
     config.data,
+    config.settings,
     config.theme,
     config.variant,
     config.size

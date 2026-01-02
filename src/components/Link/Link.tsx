@@ -1,5 +1,6 @@
 import React, { AnchorHTMLAttributes } from 'react';
 import { withParsedClasses } from '../../hoc/withParsedClasses';
+import { useThemeContext } from '../../theme/ThemeProvider';
 import './Link.css';
 
 export interface LinkProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> {
@@ -54,6 +55,11 @@ export interface LinkProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>,
    * @default false
    */
   external?: boolean;
+  /**
+   * If true or string, triggers browser download
+   * @default false
+   */
+  download?: boolean | string;
   
   children?: React.ReactNode;
 }
@@ -118,6 +124,7 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       leftIcon,
       rightIcon,
       external = false,
+      download,
       className = '',
       target,
       rel,
@@ -125,6 +132,27 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     },
     ref
   ) => {
+    // Try to get theme context (may not be available if ThemeProvider is not used)
+    let themeContext;
+    try {
+      themeContext = useThemeContext();
+    } catch (e) {
+      // ThemeProvider not used, that's okay
+      themeContext = null;
+    }
+
+    // Intelligent component selection logic:
+    // Use <a> tag if:
+    // 1. external is true (external links)
+    // 2. target prop is provided (opening in specific target)
+    // 3. download prop is provided (file downloads)
+    // Otherwise, use the configured component from theme or the component prop
+    const shouldUseAnchor = external || target !== undefined || download !== undefined;
+    
+    // Determine which component to use
+    const effectiveComponent = shouldUseAnchor 
+      ? null 
+      : (component || themeContext?.theme.linkComponent);
 
     const classNames = [
       'vtx-link',
@@ -145,9 +173,9 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       </>
     );
 
-    // If custom component is provided (React Router, Next.js, etc.)
-    if (component) {
-      const Component = component;
+    // If custom component should be used (React Router, Next.js, etc.)
+    if (effectiveComponent) {
+      const Component = effectiveComponent;
       
       return (
         <Component
@@ -175,6 +203,7 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
         className={classNames}
         aria-disabled={disabled}
         onClick={disabled ? (e) => e.preventDefault() : props.onClick}
+        download={download}
         {...props}
       >
         {content}

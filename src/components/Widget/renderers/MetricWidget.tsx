@@ -1,5 +1,5 @@
 import React from 'react';
-import { MetricWidgetData, WidgetTheme, WidgetVariant } from '../types';
+import { MetricWidgetData, MetricWidgetSettings, WidgetTheme, WidgetVariant } from '../types';
 import { Card } from '../../Card';
 import { Text } from '../../Text';
 import { Badge } from '../../Badge';
@@ -8,21 +8,41 @@ import { TrendingUpIcon, MinusIcon } from '../../../icons/IconComponents';
 
 interface MetricWidgetProps {
   data: MetricWidgetData;
-  theme: WidgetTheme;
+  settings?: MetricWidgetSettings;
+  
+  // Deprecated: Use settings instead
+  /** @deprecated Use settings.theme */
+  theme?: WidgetTheme;
+  /** @deprecated Use settings.variant */
   variant?: WidgetVariant;
+  /** @deprecated Use settings.size */
   size?: 'sm' | 'md' | 'lg';
+  /** @deprecated Use settings.className */
   className?: string;
+  /** @deprecated Use settings.style */
   style?: React.CSSProperties;
 }
 
 const MetricWidget: React.FC<MetricWidgetProps> = ({
   data,
-  theme,
-  variant = 'primary',
-  size = 'md',
-  className = '',
-  style,
+  settings,
+  // Backward compatibility
+  theme: legacyTheme,
+  variant: legacyVariant,
+  size: legacySize,
+  className: legacyClassName,
+  style: legacyStyle,
 }) => {
+  // Merge settings with legacy props for backward compatibility
+  const theme = settings?.theme || legacyTheme || 'modern';
+  const variant = settings?.variant || legacyVariant || 'primary';
+  const size = settings?.size || legacySize || 'md';
+  const className = settings?.className || legacyClassName || '';
+  const style = settings?.style || legacyStyle;
+  
+  const showTrend = settings?.showTrend !== false; // Default true
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const showProgress = settings?.showProgress !== false; // Default true
   const mapVariantToBadge = (v?: WidgetVariant) => {
     if (v === 'error') return 'error';
     if (v === 'secondary') return 'neutral';
@@ -30,7 +50,7 @@ const MetricWidget: React.FC<MetricWidgetProps> = ({
   };
 
   const renderTrend = () => {
-    if (!data.trend) return null;
+    if (!data.trend || !showTrend) return null;
     
     const { direction, value, label } = data.trend;
     const isPositive = direction === 'up';

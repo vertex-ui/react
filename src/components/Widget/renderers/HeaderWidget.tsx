@@ -1,5 +1,5 @@
 import React from 'react';
-import { HeaderWidgetData, WidgetTheme, WidgetVariant } from '../types';
+import { HeaderWidgetData, HeaderWidgetSettings, WidgetTheme, WidgetVariant } from '../types';
 import { Card } from '../../Card';
 import { Text } from '../../Text';
 import { Button } from '../../Button';
@@ -11,21 +11,43 @@ import { Breadcrumb } from '../../Breadcrumb';
 
 interface HeaderWidgetProps {
   data: HeaderWidgetData;
-  theme: WidgetTheme;
+  settings?: HeaderWidgetSettings;
+  
+  // Deprecated: Use settings instead
+  /** @deprecated Use settings.theme */
+  theme?: WidgetTheme;
+  /** @deprecated Use settings.variant */
   variant?: WidgetVariant;
+  /** @deprecated Use settings.size */
   size?: 'sm' | 'md' | 'lg';
+  /** @deprecated Use settings.className */
   className?: string;
+  /** @deprecated Use settings.style */
   style?: React.CSSProperties;
 }
 
 const HeaderWidget: React.FC<HeaderWidgetProps> = ({
   data,
-  theme,
-  variant = 'primary',
-  size = 'md',
-  className = '',
-  style,
+  settings,
+  // Backward compatibility
+  theme: legacyTheme,
+  variant: legacyVariant,
+  size: legacySize,
+  className: legacyClassName,
+  style: legacyStyle,
 }) => {
+  // Merge settings with legacy props for backward compatibility
+  const theme = settings?.theme || legacyTheme || 'modern';
+  const variant = settings?.variant || legacyVariant || 'primary';
+  const size = settings?.size || legacySize || 'md';
+  const className = settings?.className || legacyClassName || '';
+  const style = settings?.style || legacyStyle;
+  
+  const showBreadcrumbs = settings?.showBreadcrumbs !== false; // Default true
+  const showAvatar = settings?.showAvatar !== false; // Default true
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const layout = settings?.layout || 'default';
+  const bgColor = settings?.backgroundColor;
   const getTitleVariant = () => {
     if (size === 'lg') return 'h1';
     if (size === 'sm') return 'h3';
@@ -39,7 +61,7 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
   };
 
   const renderBreadcrumbs = () => {
-    if (!data.breadcrumbs || data.breadcrumbs.length === 0) return null;
+    if (!data.breadcrumbs || data.breadcrumbs.length === 0 || !showBreadcrumbs) return null;
     
     return (
       <Breadcrumb
@@ -54,7 +76,7 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
   };
 
   const renderAvatar = () => {
-    if (!data.avatar) return null;
+    if (!data.avatar || !showAvatar) return null;
     
     return (
       <Avatar
@@ -269,7 +291,7 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
       className={getCardClassName()}
       style={{
         ...style,
-        backgroundColor: data.backgroundColor,
+        backgroundColor: bgColor,
       }}
       padding={getPadding()}
     >

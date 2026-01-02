@@ -28,17 +28,20 @@ type Story = StoryObj<typeof Widget>;
 const sampleMetricConfigs: WidgetConfig[] = [
   {
     type: 'metric',
-    theme: 'modern',
     data: {
       value: '1,234',
       label: 'Total Sales',
       trend: { direction: 'up', value: 12, label: 'vs last month' },
       icon: 'TrendingUp',
     },
+    settings: {
+      theme: 'modern',
+      variant: 'primary',
+      showTrend: true,
+    },
   },
   {
     type: 'metric',
-    theme: 'professional',
     data: {
       value: '$45,678',
       label: 'Revenue',
@@ -46,14 +49,25 @@ const sampleMetricConfigs: WidgetConfig[] = [
       target: { value: '$50,000', label: 'Target' },
       progress: 91,
     },
+    settings: {
+      theme: 'professional',
+      variant: 'success',
+      showTrend: true,
+      showTarget: true,
+      showProgress: true,
+    },
   },
   {
     type: 'metric',
-    theme: 'minimal',
     data: {
       value: '89',
       label: 'Active Users',
       trend: { direction: 'down', value: -3, label: 'vs yesterday' },
+    },
+    settings: {
+      theme: 'minimal',
+      variant: 'info',
+      showTrend: true,
     },
   },
 ];
@@ -62,12 +76,14 @@ export const MetricWidgets: Story = {
   args: {
     config: {
       type: 'grid',
-      theme: 'modern',
       data: {
         widgets: sampleMetricConfigs,
-        gap: 'lg',
       },
-      grid: { mobile: 1, tablet: 2, desktop: 3 },
+      settings: {
+        theme: 'modern',
+        gap: 'lg',
+        grid: { mobile: 1, tablet: 2, desktop: 3 },
+      },
     },
   },
 };
@@ -76,23 +92,25 @@ export const MetricWidgets: Story = {
 const sampleInfoConfigs: WidgetConfig[] = [
   {
     type: 'info',
-    theme: 'modern',
     data: {
       title: 'Server Status',
-      content: 'All systems operational',
+      text: 'All systems operational',
       badge: { text: 'Online', variant: 'success' },
       metadata: {
         'Uptime': '99.9%',
         'Last Check': '2 minutes ago',
       },
     },
+    settings: {
+      theme: 'modern',
+      variant: 'success',
+    },
   },
   {
     type: 'info',
-    theme: 'professional',
     data: {
       title: 'Database Performance',
-      content: 'Query response time within acceptable limits',
+      text: 'Query response time within acceptable limits',
       icon: 'Database',
       badge: { text: 'Healthy', variant: 'success' },
       metadata: {
@@ -105,6 +123,10 @@ const sampleInfoConfigs: WidgetConfig[] = [
         { label: 'Optimize', variant: 'secondary' },
       ],
     },
+    settings: {
+      theme: 'professional',
+      variant: 'info',
+    },
   },
 ];
 
@@ -112,12 +134,14 @@ export const InfoWidgets: Story = {
   args: {
     config: {
       type: 'grid',
-      theme: 'modern',
       data: {
         widgets: sampleInfoConfigs,
-        gap: 'lg',
       },
-      grid: { mobile: 1, tablet: 1, desktop: 2 },
+      settings: {
+        theme: 'modern',
+        gap: 'lg',
+        grid: { mobile: 1, tablet: 1, desktop: 2 },
+      },
     },
   },
 };
@@ -127,7 +151,6 @@ export const AutoGrid: Story = {
   args: {
     config: {
       type: 'metric',
-      theme: 'modern',
       data: [
         {
           value: '1,234',
@@ -150,7 +173,10 @@ export const AutoGrid: Story = {
           trend: { direction: 'up' as const, value: 8 },
         },
       ] as MetricWidgetData[],
-      grid: { mobile: 1, tablet: 2, desktop: 3, spacing: 'md' },
+      settings: {
+        theme: 'modern',
+        grid: { mobile: 1, tablet: 2, desktop: 3, spacing: 'md' },
+      },
     },
   },
 };
@@ -182,8 +208,10 @@ export const ThemeComparison: Story = {
             <Widget
               config={{
                 type: 'metric',
-                theme: theme as any,
                 data: sampleData,
+                settings: {
+                  theme: theme as any,
+                },
               }}
             />
           </div>
@@ -198,11 +226,15 @@ export const SimpleMetric: Story = {
   args: {
     config: {
       type: 'metric',
-      theme: 'modern',
       data: {
         value: '1,234',
         label: 'Total Sales',
         trend: { direction: 'up', value: 12 },
+      },
+      settings: {
+        theme: 'modern',
+        variant: 'primary',
+        showTrend: true,
       },
     },
   },

@@ -786,7 +786,14 @@ function Table<T = unknown>({
                     colSpan={columns.length + (selectable ? 1 : 0) + (expandableRows ? 1 : 0)}
                     className="vtx-table-loading"
                   >
-                    {loadingContent || <span className="vtx-table-loading-spinner">Loading...</span>}
+                    <div className="vtx-table-loading-content">
+                      {loadingContent || (
+                        <>
+                          <div className="vtx-table-spinner" />
+                          <Text size="sm">Loading...</Text>
+                        </>
+                      )}
+                    </div>
                   </td>
                 </tr>
               )

@@ -48,7 +48,8 @@ import {
     FiFilter,
     FiChevronsLeft,
     FiChevronsRight,
-    FiCalendar
+    FiCalendar,
+    FiBriefcase
 } from 'react-icons/fi';
 
 export const SpinnerIcon = (props: { size?: number }) => (
@@ -144,3 +145,4 @@ export const ArrowDownIcon = FiArrowDown;
 export const FilterIcon = FiFilter;
 export const ChevronsLeftIcon = FiChevronsLeft;
 export const ChevronsRightIcon = FiChevronsRight;
+export const BuildingIcon = FiBriefcase;

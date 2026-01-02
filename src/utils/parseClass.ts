@@ -2,8 +2,11 @@
 // Utility to parse Tailwind-like utility classes (e.g., mb-2, p-4, mb-[2px])
 // and inject them into a <style> tag at runtime.
 // Supports both standard scale values (mb-2) and arbitrary values (mb-[2px])
+// Can be used with HOC (withParsedClasses) or globally for plain HTML
 
 const STYLE_TAG_ID = "dynamic-styles";
+let observer: MutationObserver | null = null;
+let isInitialized = false;
 
 // Ensure we have a single <style> tag in <head>
 function getStyleTag(): HTMLStyleElement {
@@ -155,3 +158,74 @@ export function parseClass(className: string): string {
   // If not a recognized utility class, return unchanged
   return className;
 }
+
+// Process all classes on an element
+function processElement(element: Element): void {
+  if (!element.classList || element.classList.length === 0) return;
+  
+  const originalClasses = Array.from(element.classList);
+  const processedClasses = originalClasses.map(cls => parseClass(cls));
+  
+  // Only update if there are changes
+  if (processedClasses.some((cls, i) => cls !== originalClasses[i])) {
+    element.className = processedClasses.join(' ');
+  }
+}
+
+// Process all elements in the document
+function processAllElements(): void {
+  const allElements = document.querySelectorAll('*');
+  allElements.forEach(element => processElement(element));
+}
+
+// Initialize global style processing
+export function initGlobalStyles(): void {
+  if (isInitialized) return;
+  
+  // Process existing elements
+  if (document.body) {
+    processAllElements();
+  }
+  
+  // Set up MutationObserver to watch for new elements and class changes
+  observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      // Handle added nodes
+      if (mutation.type === 'childList') {
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            processElement(node as Element);
+            // Also process children
+            (node as Element).querySelectorAll('*').forEach(child => processElement(child));
+          }
+        });
+      }
+      // Handle className attribute changes
+      else if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+        processElement(mutation.target as Element);
+      }
+    });
+  });
+  
+  // Start observing
+  observer.observe(document.body || document.documentElement, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ['class']
+  });
+  
+  isInitialized = true;
+}
+
+// Cleanup function
+export function cleanupGlobalStyles(): void {
+  if (observer) {
+    observer.disconnect();
+    observer = null;
+  }
+  isInitialized = false;
+}
+
+// Note: Global styles are automatically initialized by ThemeProvider.
+// If you're not using ThemeProvider, you can manually call initGlobalStyles().

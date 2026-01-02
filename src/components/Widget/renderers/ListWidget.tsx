@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListWidgetData, WidgetTheme, WidgetVariant } from '../types';
+import { ListWidgetData, ListWidgetSettings, WidgetTheme, WidgetVariant } from '../types';
 import { Card } from '../../Card';
 import { Text } from '../../Text';
 import { Button } from '../../Button';
@@ -9,21 +9,41 @@ import { Badge } from '../../Badge';
 
 interface ListWidgetProps {
   data: ListWidgetData;
-  theme: WidgetTheme;
+  settings?: ListWidgetSettings;
+  
+  // Deprecated: Use settings instead
+  /** @deprecated Use settings.theme */
+  theme?: WidgetTheme;
+  /** @deprecated Use settings.variant */
   variant?: WidgetVariant;
+  /** @deprecated Use settings.size */
   size?: 'sm' | 'md' | 'lg';
+  /** @deprecated Use settings.className */
   className?: string;
+  /** @deprecated Use settings.style */
   style?: React.CSSProperties;
 }
 
 const ListWidget: React.FC<ListWidgetProps> = ({
   data,
-  theme,
-  variant = 'primary',
-  size = 'md',
-  className = '',
-  style,
+  settings,
+  // Backward compatibility
+  theme: legacyTheme,
+  variant: legacyVariant,
+  size: legacySize,
+  className: legacyClassName,
+  style: legacyStyle,
 }) => {
+  // Merge settings with legacy props for backward compatibility
+  const theme = settings?.theme || legacyTheme || 'modern';
+  const variant = settings?.variant || legacyVariant || 'primary';
+  const size = settings?.size || legacySize || 'md';
+  const className = settings?.className || legacyClassName || '';
+  const style = settings?.style || legacyStyle;
+  
+  const showDividers = settings?.showDividers !== false; // Default true
+  const maxItems = settings?.maxItems;
+  const layout = settings?.layout || 'default';
   const renderAvatar = (item: any) => {
     if (!item.avatar) return null;
     
@@ -57,7 +77,7 @@ const ListWidget: React.FC<ListWidgetProps> = ({
   };
 
   const renderContent = () => {
-    const itemsToShow = data.maxItems ? data.items.slice(0, data.maxItems) : data.items;
+    const itemsToShow = maxItems ? data.items.slice(0, maxItems) : data.items;
     
     return (
       <Flex direction="column" gap="sm">
@@ -115,15 +135,15 @@ const ListWidget: React.FC<ListWidgetProps> = ({
               </Flex>
             </Flex>
             
-            {data.showDividers && index < itemsToShow.length - 1 && (
+            {showDividers && index < itemsToShow.length - 1 && (
               <div className="border-b border-neutral-200 my-2" />
             )}
           </div>
         ))}
         
-        {data.maxItems && data.items.length > data.maxItems && (
+        {maxItems && data.items.length > maxItems && (
           <Text variant="caption" className="text-neutral-500 text-center mt-2">
-            +{data.items.length - data.maxItems} more items
+            +{data.items.length - maxItems} more items
           </Text>
         )}
       </Flex>

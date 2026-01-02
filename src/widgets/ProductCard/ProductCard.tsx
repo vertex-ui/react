@@ -144,7 +144,8 @@ const ProductCardBase = React.forwardRef<HTMLDivElement, ProductCardProps>(
     <Card 
       variant="outlined" 
       className={`productcard ${className}`} 
-      style={{ padding: 0, ...style }}
+      style={{ ...style }}
+      noPadding
       ref={ref as any}
       {...props}
     >
@@ -203,7 +204,7 @@ const ProductCardBase = React.forwardRef<HTMLDivElement, ProductCardProps>(
         </div>
 
         {/* CONTENT */}
-        <Flex direction="column" gap={5} style={{ padding: '12px' }}>
+        <Flex direction="column" gap={5} className='p-3'>
           {/* CATEGORY */}
           {category && (
             <div style={{ display: 'inline-flex', alignSelf: 'flex-start' }}>

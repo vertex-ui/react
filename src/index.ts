@@ -3,6 +3,8 @@
 // =============================
 
 // --- Form Controls ---
+export { Autocomplete } from './components/Autocomplete';
+export type { AutocompleteOption, AutocompleteProps } from './components/Autocomplete';
 export { Button } from './components/Button';
 export type { ButtonProps } from './components/Button';
 export { Checkbox } from './components/Checkbox';
@@ -52,10 +54,13 @@ export type {
   WidgetProps,
   WidgetConfig,
   WidgetTheme,
+  InfoWidgetTheme,
   WidgetVariant,
   MetricWidgetData,
+  MetricWidgetSettings,
   InfoWidgetData,
   ProductWidgetData,
+  ProductWidgetSettings,
   OrderWidgetData,
   ListWidgetData,
   TextWidgetData,
@@ -86,8 +91,6 @@ export type {
 } from './components/DataGrid';
 export { Divider } from './components/Divider';
 export type { DividerProps } from './components/Divider';
-export { Header } from './components/Header';
-export type { HeaderProps, NotificationItem } from './components/Header';
 export { Link } from './components/Link';
 export type { LinkProps } from './components/Link';
 export { SideMenu } from './components/SideMenu';
@@ -145,10 +148,34 @@ export { OrderConfirmation } from './widgets/OrderConfirmation';
 export type { OrderConfirmationProps, OrderConfirmationItem, OrderConfirmationAddress } from './widgets/OrderConfirmation';
 export { OrderDetails } from './widgets/OrderDetails';
 export type { OrderDetailsProps, OrderDetailsItem, OrderDetailsAddress } from './widgets/OrderDetails';
-export { Header as HomeHeader } from './widgets/Header';
+
+// --- Navigation Bar ---
+export { Navbar } from './components/Navbar';
 export type { 
-  NavigationItem, 
-  HeaderDesktopProps, 
-  HeaderMobileProps, 
-  HeaderResponsiveProps 
-} from './widgets/Header';
+  NavigationItem,
+  MegaMenuColumn,
+  TopBarConfig, 
+  NavbarDesktopProps, 
+  NavbarMobileProps, 
+  NavbarResponsiveProps 
+} from './components/Navbar';
+
+// Backward compatibility - Header alias for Navbar
+export { Navbar as Header } from './components/Navbar';
+export type { 
+  NavbarDesktopProps as HeaderDesktopProps,
+  NavbarMobileProps as HeaderMobileProps,
+  NavbarResponsiveProps as HeaderResponsiveProps
+} from './components/Navbar';
+
+// --- MetricCard ---
+export { MetricCard } from './widgets/MetricCard';
+export type {
+  MetricCardBaseProps,
+  MetricCardCompactProps,
+  MetricCardDetailedProps,
+  MetricCardChartProps,
+  TrendData,
+  TargetData,
+  ChartData,
+} from './widgets/MetricCard';

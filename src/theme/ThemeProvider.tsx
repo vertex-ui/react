@@ -4,6 +4,7 @@ import { injectCSSVariables } from './cssVariables';
 import { tokens, Tokens, normalizeColors, CustomTokens } from './tokens';
 import { ToastContainer } from '../components/Toast/ToastContainer';
 import type { ToastPosition } from '../components/Toast/types';
+import { initGlobalStyles } from '../utils/parseClass';
 
 export type Size = 'sm' | 'md' | 'lg';
 
@@ -17,6 +18,7 @@ export interface ColorContrastConfig {
   danger?: ColorContrast;
   success?: ColorContrast;
   warning?: ColorContrast;
+  info?: ColorContrast;
 }
 
 export interface Theme {
@@ -24,6 +26,8 @@ export interface Theme {
   mode: 'light' | 'dark';
   defaultSize: Size;
   colorContrast: ColorContrastConfig;
+  linkComponent?: React.ElementType;
+  imageComponent?: React.ElementType;
 }
 
 
@@ -54,6 +58,10 @@ export interface ThemeProviderProps extends React.HTMLAttributes<HTMLDivElement>
   toastLimit?: number;
   /** Disable toast notifications globally */
   disableToasts?: boolean;
+  /** Default link component for routing (e.g., React Router Link, Next.js Link) */
+  linkComponent?: React.ElementType;
+  /** Default image component for images (e.g., Next.js Image, native img) */
+  imageComponent?: React.ElementType;
 }
 
 
@@ -68,6 +76,8 @@ const ThemeProvider = React.forwardRef<HTMLDivElement, ThemeProviderProps>(
       toastPosition = 'top-right',
       toastLimit = 5,
       disableToasts = false,
+      linkComponent,
+      imageComponent,
       ...props
     },
     ref
@@ -84,21 +94,22 @@ const ThemeProvider = React.forwardRef<HTMLDivElement, ThemeProviderProps>(
       danger: 'dark',       // Dark background → needs light text
       success: 'dark',      // Dark background → needs light text
       warning: 'dark',      // Dark background → needs light text
+      info: 'dark',         // Dark background → needs light text
     };
 
 
     const theme: Theme = React.useMemo(() => {
       const contrastConfig = { ...defaultColorContrast, ...colorContrast };
-      
       if (!customTokens) {
         return {
           tokens: tokens as Tokens,
           mode,
           defaultSize: size,
           colorContrast: contrastConfig,
+          linkComponent,
+          imageComponent: imageComponent || 'img',
         };
       }
-
       // If customTokens.colors is present, normalize it
       let mergedTokens: any = { ...tokens, ...customTokens };
       if (customTokens.colors) {
@@ -112,14 +123,18 @@ const ThemeProvider = React.forwardRef<HTMLDivElement, ThemeProviderProps>(
         mode,
         defaultSize: size,
         colorContrast: contrastConfig,
+        linkComponent,
+        imageComponent: imageComponent || 'img',
       };
-    }, [customTokens, mode, size, colorContrast]);
+    }, [customTokens, mode, size, colorContrast, linkComponent, imageComponent]);
 
     React.useEffect(() => {
       document.documentElement.setAttribute('data-theme', mode);
       if (customTokens) {
         injectCSSVariables(theme.tokens);
       }
+      // Initialize global parseClass styles (safe to call multiple times)
+      initGlobalStyles();
     }, [mode, customTokens, theme.tokens]);
 
     const contextValue = React.useMemo<ThemeContextValue>(

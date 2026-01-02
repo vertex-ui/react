@@ -66,10 +66,17 @@ export interface TextProps extends Omit<React.HTMLAttributes<HTMLElement>, 'colo
   align?: TextAlign;
 
   /**
-   * Text color - accepts CSS color values or theme color tokens
-   * Examples: 'primary.500', '#000', 'rgb(0,0,0)', 'neutral.700'
+   * Semantic text color - applies predefined theme colors via CSS classes
+   * Examples: 'primary', 'secondary', 'success', 'error', 'warning', 'info'
    */
-  color?: string;
+  color?: 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info' | 'inherit';
+
+  /**
+   * Direct text color override - accepts any CSS color value
+   * Examples: '#000', 'rgb(0,0,0)', '#primary.500'
+   * Overrides semantic color if both are provided
+   */
+  textColor?: string;
 
   /**
    * Font weight override
@@ -246,6 +253,7 @@ const Text = React.forwardRef<HTMLElement, TextProps>(
       as,
       align,
       color,
+      textColor,
       weight,
       transform,
       decoration,
@@ -278,6 +286,7 @@ const Text = React.forwardRef<HTMLElement, TextProps>(
       `vtx-text--${variant}`,
       align && `vtx-text--align-${align}`,
       weight && typeof weight === 'string' && `vtx-text--weight-${weight}`,
+      color && color !== 'inherit' && `vtx-text--color-${color}`,
       transform && `vtx-text--transform-${transform}`,
       decoration && `vtx-text--decoration-${decoration}`,
       truncate && 'vtx-text--truncate',
@@ -296,19 +305,13 @@ const Text = React.forwardRef<HTMLElement, TextProps>(
       .join(' ');
 
     // Build inline styles
-    const  inlineStyles: CSSProperties = {
+    const inlineStyles: CSSProperties = {
       ...style,
     };
 
-    // Handle color (support theme tokens and CSS colors)
-    if (color) {
-      // Check if it's a theme token (e.g., 'primary.500')
-      if (color.includes('.')) {
-        const [colorName, shade] = color.split('.');
-        inlineStyles.color = `var(--vtx-color-${colorName}-${shade})`;
-      } else {
-        inlineStyles.color = color;
-      }
+    // Handle textColor override (direct CSS color)
+    if (textColor) {
+      inlineStyles.color = textColor;
     }
 
     // Handle numeric weight

@@ -77,10 +77,12 @@ export const Default: Story = {
   args: {
     config: {
       type: 'carousel',
-      theme: 'modern',
-      variant: 'primary',
       data: {
         slides: sampleSlides,
+      } as CarouselWidgetData,
+      settings: {
+        theme: 'modern',
+        variant: 'primary',
         swiperConfig: {
           navigation: { enabled: true },
           pagination: { enabled: true, clickable: true },
@@ -92,7 +94,7 @@ export const Default: Story = {
         minHeight: '400px',
         maxHeight: '600px',
         showOverlay: true,
-      } as CarouselWidgetData,
+      },
     },
   },
 };
@@ -101,10 +103,12 @@ export const WithLightOverlay: Story = {
   args: {
     config: {
       type: 'carousel',
-      theme: 'modern',
-      variant: 'primary',
       data: {
         slides: sampleSlides,
+      } as CarouselWidgetData,
+      settings: {
+        theme: 'modern',
+        variant: 'primary',
         swiperConfig: {
           navigation: { enabled: true },
           pagination: { enabled: true, clickable: true },
@@ -116,7 +120,7 @@ export const WithLightOverlay: Story = {
         minHeight: '350px',
         maxHeight: '500px',
         showOverlay: true,
-      } as CarouselWidgetData,
+      },
     },
   },
 };
@@ -125,10 +129,12 @@ export const NoOverlay: Story = {
   args: {
     config: {
       type: 'carousel',
-      theme: 'modern',
-      variant: 'primary',
       data: {
         slides: sampleSlides,
+      } as CarouselWidgetData,
+      settings: {
+        theme: 'modern',
+        variant: 'primary',
         swiperConfig: {
           navigation: { enabled: true },
           pagination: { enabled: true, clickable: true },
@@ -140,7 +146,7 @@ export const NoOverlay: Story = {
         minHeight: '300px',
         maxHeight: '450px',
         showOverlay: false,
-      } as CarouselWidgetData,
+      },
     },
   },
 };
@@ -149,10 +155,12 @@ export const MinimalNavigation: Story = {
   args: {
     config: {
       type: 'carousel',
-      theme: 'minimal',
-      variant: 'primary',
       data: {
         slides: sampleSlides,
+      } as CarouselWidgetData,
+      settings: {
+        theme: 'minimal',
+        variant: 'primary',
         swiperConfig: {
           navigation: { enabled: false },
           pagination: { enabled: true, clickable: true },
@@ -164,7 +172,7 @@ export const MinimalNavigation: Story = {
         minHeight: '300px',
         maxHeight: '400px',
         showOverlay: true,
-      } as CarouselWidgetData,
+      },
     },
   },
 };
@@ -173,10 +181,12 @@ export const SingleSlide: Story = {
   args: {
     config: {
       type: 'carousel',
-      theme: 'modern',
-      variant: 'primary',
       data: {
         slides: [sampleSlides[0]],
+      } as CarouselWidgetData,
+      settings: {
+        theme: 'modern',
+        variant: 'primary',
         swiperConfig: {
           navigation: { enabled: false },
           pagination: { enabled: false },
@@ -188,7 +198,7 @@ export const SingleSlide: Story = {
         minHeight: '400px',
         maxHeight: '600px',
         showOverlay: true,
-      } as CarouselWidgetData,
+      },
     },
   },
 };
@@ -232,16 +242,18 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
   args: {
     config: {
       type: 'carousel',
-      theme: 'modern',
-      variant: 'primary',
       data: {
         slides: sampleSlides,
+      } as CarouselWidgetData,
+      settings: {
+        theme: 'modern',
+        variant: 'primary',
         overlayTheme: 'dark',
         height: '60vh',
         minHeight: '400px',
         maxHeight: '600px',
         showOverlay: true,
-      } as CarouselWidgetData,
+      },
     },
   },
 };

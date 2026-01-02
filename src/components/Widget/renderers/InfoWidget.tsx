@@ -1,169 +1,75 @@
 import React from 'react';
-import { InfoWidgetData, WidgetTheme, WidgetVariant } from '../types';
-import { Card } from '../../Card';
-import { Text } from '../../Text';
-import { Badge } from '../../Badge';
-import { Button } from '../../Button';
-import { Flex } from '../../Flex';
+import { InfoWidgetData, InfoWidgetSettings, WidgetTheme, WidgetVariant } from '../types';
+import { InfoCard } from '../../../widgets/InfoCard';
+import { InfoText } from '../../../widgets/InfoText';
 
 interface InfoWidgetProps {
   data: InfoWidgetData;
-  theme: WidgetTheme;
+  settings?: InfoWidgetSettings;
+  
+  // Deprecated: Use settings instead
+  /** @deprecated Use settings.theme */
+  theme?: WidgetTheme;
+  /** @deprecated Use settings.variant */
   variant?: WidgetVariant;
+  /** @deprecated Use settings.size */
   size?: 'sm' | 'md' | 'lg';
+  /** @deprecated Use settings.className */
   className?: string;
+  /** @deprecated Use settings.style */
   style?: React.CSSProperties;
 }
 
 const InfoWidget: React.FC<InfoWidgetProps> = ({
   data,
-  theme,
-  variant = 'primary',
-  size = 'md',
-  className = '',
-  style,
+  settings,
+  // Backward compatibility
+  theme: legacyTheme,
+  variant: legacyVariant,
+  size: legacySize,
+  className: legacyClassName,
+  style: legacyStyle,
 }) => {
-  const mapVariantToBadge = (v?: WidgetVariant) => {
-    if (v === 'error') return 'error';
-    if (v === 'secondary') return 'neutral';
-    return v as 'primary' | 'success' | 'warning' | 'info' | 'neutral' | 'error' | undefined;
+  // Merge settings with legacy props for backward compatibility
+  const theme = settings?.theme || legacyTheme || 'modern';
+  const variant = settings?.variant || legacyVariant || 'primary';
+  const className = settings?.className || legacyClassName || '';
+  const style = settings?.style || legacyStyle;
+  
+  // Map WidgetVariant to InfoCard/InfoText variant
+  const mapVariant = (v?: WidgetVariant): 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' => {
+    if (v === 'error') return 'danger';
+    if (v === 'neutral') return 'secondary';
+    return v as 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' || 'primary';
   };
 
-  const mapVariantToButton = (v?: string) => {
-    if (v === 'outlined') return 'outline';
-    return v as 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'ghost' | 'outline' | undefined;
-  };
+  const iconVariant = mapVariant(settings?.iconVariant || variant);
 
-  const renderContent = () => {
-    switch (theme) {
-      case 'minimal':
-        return (
-          <Flex direction="column" align="center" gap="sm">
-            {data.icon && (
-              <div className={`info-icon info-icon--${data.status || variant} info-icon--${size}`}>
-                {data.icon}
-              </div>
-            )}
-            <Text variant={size === 'lg' ? 'h4' : size === 'sm' ? 'body2' : 'h5'} className="font-medium text-center">
-              {data.text}
-            </Text>
-            {data.subText && (
-              <Text variant="caption" className="text-neutral-500 text-center">
-                {data.subText}
-              </Text>
-            )}
-          </Flex>
-        );
-        
-      case 'modern':
-        return (
-          <Flex direction="column" gap="md">
-            <Flex align="start" gap="md">
-              {data.icon && (
-                <div className={`info-icon info-icon--${data.status || variant} info-icon--${size}`}>
-                  {data.icon}
-                </div>
-              )}
-              <Flex direction="column" gap="xs" style={{ flex: 1 }}>
-                {data.title && (
-                  <Text variant="subtitle1" className="font-semibold">
-                    {data.title}
-                  </Text>
-                )}
-                <Text variant={size === 'lg' ? 'h5' : size === 'sm' ? 'body2' : 'body1'} className="font-medium">
-                  {data.text}
-                </Text>
-                {data.subText && (
-                  <Text variant="caption" className="text-neutral-500">
-                    {data.subText}
-                  </Text>
-                )}
-              </Flex>
-              {data.badge && (
-                <Badge variant={mapVariantToBadge(data.badge.variant || data.status) || 'neutral'}>
-                  {data.badge.text}
-                </Badge>
-              )}
-            </Flex>
-            {data.action && (
-              <Button
-                variant={mapVariantToButton(data.action.variant) || 'ghost'}
-                size="sm"
-                onClick={data.action.onClick}
-                href={data.action.href}
-              >
-                {data.action.label}
-              </Button>
-            )}
-          </Flex>
-        );
-        
-      case 'compact':
-        return (
-          <Flex align="center" gap="md">
-            {data.icon && (
-              <div className={`info-icon info-icon--${data.status || variant} info-icon--sm`}>
-                {data.icon}
-              </div>
-            )}
-            <Flex direction="column" gap="xs" style={{ flex: 1 }}>
-              <Text variant={size === 'lg' ? 'body1' : size === 'sm' ? 'caption' : 'body2'} className="font-medium">
-                {data.text}
-              </Text>
-              {data.subText && (
-                <Text variant="caption" className="text-neutral-500">
-                  {data.subText}
-                </Text>
-              )}
-            </Flex>
-            {data.badge && (
-              <Badge variant={mapVariantToBadge(data.badge.variant || data.status) || 'neutral'} size="sm">
-                {data.badge.text}
-              </Badge>
-            )}
-          </Flex>
-        );
-        
-      default:
-        return (
-          <Flex direction="column" gap="sm">
-            {data.icon && (
-              <div className={`info-icon info-icon--${data.status || variant} info-icon--${size}`}>
-                {data.icon}
-              </div>
-            )}
-            <Text variant={size === 'lg' ? 'h4' : size === 'sm' ? 'body2' : 'h5'} className="font-medium">
-              {data.text}
-            </Text>
-            {data.subText && (
-              <Text variant="caption" className="text-neutral-500">
-                {data.subText}
-              </Text>
-            )}
-          </Flex>
-        );
-    }
-  };
+  // Use InfoText for minimal/compact themes, InfoCard for others
+  if (theme === 'minimal' || theme === 'compact') {
+    return (
+      <InfoText.Base
+        icon={data.icon || <></>}
+        iconVariant={iconVariant}
+        iconCircle={theme !== 'compact'}
+        heading={data.text}
+        subText={data.subText}
+        className={className}
+        style={style}
+      />
+    );
+  }
 
-  const getCardClassName = () => {
-    return [
-      'vtx-info-widget',
-      `vtx-info-widget--${theme}`,
-      `vtx-info-widget--${size}`,
-      `vtx-info-widget--${data.status || variant}`,
-      className,
-    ].filter(Boolean).join(' ');
-  };
-
+  // Use InfoCard for modern/default themes
   return (
-    <Card
-      variant="elevated"
-      className={getCardClassName()}
+    <InfoCard.Base
+      icon={data.icon || <></>}
+      iconVariant={iconVariant}
+      text={data.text}
+      subText={data.subText}
+      className={className}
       style={style}
-      padding={theme === 'minimal' ? 'lg' : theme === 'compact' ? 'md' : 'lg'}
-    >
-      {renderContent()}
-    </Card>
+    />
   );
 };
 

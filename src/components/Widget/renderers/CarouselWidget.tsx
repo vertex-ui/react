@@ -1,11 +1,15 @@
 import React, { useCallback, useState } from 'react';
 import { Button } from '../../Button';
+import { Text } from '../../Text';
 import { useTheme } from '../../../hooks/useTheme';
 import { ChevronLeftIcon, ChevronRightIcon } from '../../../icons/IconComponents';
-import type { CarouselWidgetData } from '../types';
+import type { CarouselWidgetData, CarouselWidgetSettings } from '../types';
 
 interface CarouselWidgetProps {
   data: CarouselWidgetData;
+  settings?: CarouselWidgetSettings;
+  
+  // Backward compatibility
   className?: string;
   theme?: any;
   variant?: any;
@@ -64,6 +68,7 @@ interface SlideData {
 
 const CarouselWidget: React.FC<CarouselWidgetProps> = ({
   data,
+  settings,
   className = '',
   style,
   borderRadius = false,
@@ -75,15 +80,36 @@ const CarouselWidget: React.FC<CarouselWidgetProps> = ({
 }) => {
   const { tokens } = useTheme();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  // Detect mobile on mount and resize
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768); // tailwind md breakpoint
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const {
     slides = [],
-    overlayTheme = 'dark',
-    height = '60vh',
-    minHeight = '350px',
-    maxHeight = '600px',
-    showOverlay = true,
   } = data;
+
+  const overlayTheme = settings?.overlayTheme || 'dark';
+  const height = settings?.height || '60vh';
+  const minHeight = settings?.minHeight || '350px';
+  const maxHeight = settings?.maxHeight || '600px';
+  const showOverlay = settings?.showOverlay !== false;
+  const hideNavigationOnMobile = settings?.hideNavigationOnMobile || false;
+  const buttonSize = settings?.buttonSize || 'md';
+  const buttonVariant = settings?.buttonVariant || 'primary';
+
+  // Determine if navigation should be shown
+  const showNavigation = !hideNavigationOnMobile || !isMobile;
 
   // Default Swiper configuration
   const defaultSwiperConfig = {
@@ -95,7 +121,7 @@ const CarouselWidget: React.FC<CarouselWidgetProps> = ({
     speed: 600,
   };
 
-  const mergedConfig = { ...defaultSwiperConfig, ...data.swiperConfig };
+  const mergedConfig = { ...defaultSwiperConfig, ...settings?.swiperConfig };
 
   // Generate SEO structured data
   const generateStructuredData = useCallback((slide: SlideData, index: number) => {
@@ -131,6 +157,29 @@ const CarouselWidget: React.FC<CarouselWidgetProps> = ({
     setCurrentSlide(index);
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    setTouchEnd(e.changedTouches[0].clientX);
+    handleSwipe();
+  };
+
+  const handleSwipe = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50; // swipe threshold
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      nextSlide();
+    } else if (isRightSwipe) {
+      prevSlide();
+    }
+  };
+
   if (!slides || slides.length === 0) {
     return (
       <div
@@ -151,7 +200,7 @@ const CarouselWidget: React.FC<CarouselWidgetProps> = ({
     width: '100%',
     height: `clamp(${minHeight}, ${height}, ${maxHeight})`,
     position: 'relative',
-    overflow: 'hidden',
+    overflow: 'visible',
     ...(borderRadius && { borderRadius: tokens?.borderRadius?.lg || '8px' }),
     ...style,
   };
@@ -265,64 +314,70 @@ const CarouselWidget: React.FC<CarouselWidgetProps> = ({
           <div style={getCaptionStyles(slide.caption.position)}>
             <div style={{ width: '100%' }}>
               {slide.caption.heading && (
-                <h2
-                  style={{
-                    color: '#fff',
-                    textShadow: '2px 2px 8px rgba(0, 0, 0, 0.5)',
-                    fontWeight: 700,
-                    fontSize: 'clamp(24px, 5vw, 48px)',
-                    lineHeight: 1.2,
-                    margin: '0 0 clamp(12px, 2vw, 16px) 0',
-                  }}
-                >
-                  {slide.caption.heading}
-                </h2>
+                <div style={{ marginBottom: 'clamp(12px, 2vw, 16px)' }}>
+                  <Text
+                    variant="h2"
+                    as="h2"
+                    textColor="#fff"
+                    size="clamp(24px, 5vw, 48px)"
+                    lineHeight={1.2}
+                    noMargin
+                    style={{
+                      textShadow: '2px 2px 8px rgba(0, 0, 0, 0.5)',
+                    }}
+                  >
+                    {slide.caption.heading}
+                  </Text>
+                </div>
               )}
 
               {slide.caption.subheading && (
-                <h3
-                  style={{
-                    color: '#fff',
-                    textShadow: '2px 2px 8px rgba(0, 0, 0, 0.5)',
-                    fontWeight: 500,
-                    fontSize: 'clamp(18px, 3vw, 32px)',
-                    lineHeight: 1.3,
-                    margin: '0 0 clamp(12px, 2vw, 16px) 0',
-                  }}
-                >
-                  {slide.caption.subheading}
-                </h3>
+                <div style={{ marginBottom: 'clamp(12px, 2vw, 16px)' }}>
+                  <Text
+                    variant="h4"
+                    as="h3"
+                    textColor="#fff"
+                    weight="medium"
+                    size="clamp(18px, 3vw, 32px)"
+                    lineHeight={1.3}
+                    noMargin
+                    style={{
+                      textShadow: '2px 2px 8px rgba(0, 0, 0, 0.5)',
+                    }}
+                  >
+                    {slide.caption.subheading}
+                  </Text>
+                </div>
               )}
 
               {slide.caption.description && (
-                <p
-                  style={{
-                    fontSize: 'clamp(14px, 2vw, 18px)',
-                    lineHeight: 1.6,
-                    textShadow: '1px 1px 4px rgba(0, 0, 0, 0.6)',
-                    color: '#fff',
-                    margin: '0 0 clamp(20px, 2.5vw, 24px) 0',
-                  }}
-                >
-                  {slide.caption.description}
-                </p>
+                <div style={{ marginBottom: 'clamp(20px, 2.5vw, 24px)' }}>
+                  <Text
+                    variant="body1"
+                    textColor="#fff"
+                    size="clamp(14px, 2vw, 18px)"
+                    lineHeight={1.6}
+                    noMargin
+                    style={{
+                      textShadow: '1px 1px 4px rgba(0, 0, 0, 0.6)',
+                    }}
+                  >
+                    {slide.caption.description}
+                  </Text>
+                </div>
               )}
 
               {slide.caption.buttonText && (
-                <div style={{ display: 'inline-block' }}>
-                  <Button
-                    variant="primary"
-                    size="md"
-                    onClick={() => handleSlideClick(slide.caption?.buttonUrl)}
-                    style={{
-                      fontSize: 'clamp(14px, 1.8vw, 16px)',
-                      padding: 'clamp(10px, 1.5vw, 14px) clamp(20px, 3vw, 32px)',
-                      transition: 'all 0.3s ease',
-                    }}
-                  >
-                    {slide.caption.buttonText}
-                  </Button>
-                </div>
+                <Button
+                  variant={buttonVariant as any}
+                  size={buttonSize as any}
+                  onClick={() => handleSlideClick(slide.caption?.buttonUrl)}
+                  style={{
+                    transition: 'all 0.3s ease',
+                  }}
+                >
+                  {slide.caption.buttonText}
+                </Button>
               )}
             </div>
           </div>
@@ -352,17 +407,30 @@ const CarouselWidget: React.FC<CarouselWidgetProps> = ({
   // Default fallback carousel with navigation
   return (
     <div className={className} style={carouselStyles}>
-      {/* Carousel container */}
+      {/* Inner carousel wrapper with overflow hidden */}
       <div
         style={{
           position: 'relative',
           width: '100%',
           height: '100%',
-          transform: `translateX(-${currentSlide * 100}%)`,
-          transition: 'transform 0.3s ease',
-          display: 'flex',
+          overflow: 'hidden',
+          borderRadius: borderRadius ? tokens?.borderRadius?.lg || '8px' : '0',
         }}
       >
+        {/* Carousel container */}
+        <div
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          style={{
+            position: 'relative',
+            width: '100%',
+            height: '100%',
+            transform: `translateX(-${currentSlide * 100}%)`,
+            transition: 'transform 0.3s ease',
+            display: 'flex',
+            touchAction: 'pan-y',
+          }}
+        >
         {slides.map((slide: SlideData, index: number) => (
           <div
             key={slide.id || index}
@@ -374,63 +442,54 @@ const CarouselWidget: React.FC<CarouselWidgetProps> = ({
             {renderSlideContent(slide, index)}
           </div>
         ))}
+        </div>
       </div>
 
       {/* Navigation buttons */}
-      {slides.length > 1 && mergedConfig.navigation?.enabled && (
+      {slides.length > 1 && mergedConfig.navigation?.enabled && showNavigation && (
         <>
-          <button
+          <Button
+            variant="ghost"
+            iconOnly
+            darkText={true}
             onClick={prevSlide}
+            aria-label="Previous slide"
             style={{
               position: 'absolute',
               left: '20px',
               top: '50%',
               transform: 'translateY(-50%)',
-              backgroundColor: '#ffffff',
-              borderRadius: '50%',
               width: '44px',
               height: '44px',
-              border: 'none',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#000000',
+              backgroundColor: '#ffffff',
+              borderRadius: '50%',
               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-              cursor: 'pointer',
               zIndex: 10,
-              fontSize: '16px',
-              fontWeight: 'bold',
             }}
-            aria-label="Previous slide"
           >
-            <ChevronLeftIcon size={24} />
-          </button>
-          <button
+            <ChevronLeftIcon size={34} />
+          </Button>
+          <Button
+            variant="ghost"
+            iconOnly
+            darkText={true}
             onClick={nextSlide}
+            aria-label="Next slide"
             style={{
               position: 'absolute',
               right: '20px',
               top: '50%',
               transform: 'translateY(-50%)',
-              backgroundColor: '#ffffff',
-              borderRadius: '50%',
               width: '44px',
               height: '44px',
-              border: 'none',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#000000',
+              backgroundColor: '#ffffff',
+              borderRadius: '50%',
               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-              cursor: 'pointer',
               zIndex: 10,
-              fontSize: '16px',
-              fontWeight: 'bold',
             }}
-            aria-label="Next slide"
           >
-            <ChevronRightIcon size={24} />
-          </button>
+            <ChevronRightIcon size={34} />
+          </Button>
         </>
       )}
 
@@ -439,12 +498,17 @@ const CarouselWidget: React.FC<CarouselWidgetProps> = ({
         <div
           style={{
             position: 'absolute',
-            bottom: '20px',
+            bottom: 'clamp(12px, 3vw, 20px)',
             left: '50%',
             transform: 'translateX(-50%)',
             display: 'flex',
-            gap: '8px',
-            zIndex: 10,
+            gap: 'clamp(6px, 1.5vw, 10px)',
+            zIndex: 20,
+            padding: '8px 12px',
+            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+            borderRadius: '20px',
+            backdropFilter: 'blur(4px)',
+            pointerEvents: 'auto',
           }}
         >
           {slides.map((_, index) => (
@@ -452,13 +516,15 @@ const CarouselWidget: React.FC<CarouselWidgetProps> = ({
               key={index}
               onClick={() => goToSlide(index)}
               style={{
-                width: currentSlide === index ? '32px' : '12px',
-                height: '12px',
-                borderRadius: currentSlide === index ? '6px' : '50%',
+                width: currentSlide === index ? '28px' : '10px',
+                height: '10px',
+                borderRadius: currentSlide === index ? '5px' : '50%',
                 border: 'none',
-                backgroundColor: currentSlide === index ? '#fff' : '#bdbdbd',
+                backgroundColor: currentSlide === index ? '#fff' : 'rgba(255, 255, 255, 0.6)',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
+                padding: 0,
+                pointerEvents: 'auto',
               }}
               aria-label={`Go to slide ${index + 1}`}
             />

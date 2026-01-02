@@ -146,6 +146,35 @@
   text-align: justify;
 }
 
+/* ===== Semantic Colors ===== */
+.vtx-text--color-primary {
+  color: var(--vtx-color-primary-500);
+}
+
+.vtx-text--color-secondary {
+  color: var(--vtx-color-secondary-500);
+}
+
+.vtx-text--color-success {
+  color: var(--vtx-color-success-500);
+}
+
+.vtx-text--color-error {
+  color: var(--vtx-color-error-500);
+}
+
+.vtx-text--color-warning {
+  color: var(--vtx-color-warning-500);
+}
+
+.vtx-text--color-info {
+  color: var(--vtx-color-info-500);
+}
+
+.vtx-text--color-inherit {
+  color: inherit;
+}
+
 /* ===== Font Weights ===== */
 .vtx-text--weight-thin {
   font-weight: var(--vtx-font-weight-thin, 100);
