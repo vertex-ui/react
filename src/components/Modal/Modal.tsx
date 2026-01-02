@@ -315,7 +315,7 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
               {title}
             </Text>
             {description && (
-              <Text variant="body2" color="neutral.600" id="vtx-modal-description" noMargin>
+              <Text variant="body2" textColor="var(--color-neutral-600)" id="vtx-modal-description" noMargin>
                 {description}
               </Text>
             )}

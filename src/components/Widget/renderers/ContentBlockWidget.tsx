@@ -133,6 +133,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
   const layout = settings.layout ?? 'media-left';
   const variant = settings.variant ?? 'minimal';
   const size = settings.size ?? themeDefaultSize;
+  const sizeKey = size as keyof typeof sizeMap;
   const gap = settings.gap ?? 'lg';
   const padding = settings.padding ?? 'lg';
   const contentAlign = settings.contentAlign ?? 'left';
@@ -363,7 +364,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
           <Text
             variant={content.eyebrowVariant || 'overline'}
             className="vtx-content-block__eyebrow"
-            style={{ color: colors.eyebrow, marginBottom: gapMap[gap] || gapMap.sm, display: 'block', textTransform: 'uppercase', letterSpacing: '0.05em', fontSize: sizeMap[size].eyebrow }}
+            style={{ color: colors.eyebrow, marginBottom: gapMap[gap] || gapMap.sm, display: 'block', textTransform: 'uppercase', letterSpacing: '0.05em', fontSize: sizeMap[sizeKey].eyebrow }}
           >
             {content.eyebrow}
           </Text>
@@ -397,7 +398,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
           <Text
             variant={content.headingVariant || 'h2'}
             className="vtx-content-block__heading"
-            style={{ color: colors.heading, marginBottom: content.subheading || content.body ? gapMap[gap] || gapMap.md : '0', fontWeight: 'bold', fontSize: sizeMap[size].heading }}
+            style={{ color: colors.heading, marginBottom: content.subheading || content.body ? gapMap[gap] || gapMap.md : '0', fontWeight: 'bold', fontSize: sizeMap[sizeKey].heading }}
           >
             {content.heading}
           </Text>
@@ -408,7 +409,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
           <Text
             variant={content.subheadingVariant || 'h4'}
             className="vtx-content-block__subheading"
-            style={{ color: colors.subheading, marginBottom: content.body ? gapMap[gap] || gapMap.md : '0', fontSize: sizeMap[size].subheading }}
+            style={{ color: colors.subheading, marginBottom: content.body ? gapMap[gap] || gapMap.md : '0', fontSize: sizeMap[sizeKey].subheading }}
           >
             {content.subheading}
           </Text>
@@ -419,7 +420,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
           <Text
             variant={content.bodyVariant || 'body1'}
             className="vtx-content-block__body"
-            style={{ color: colors.body, marginBottom: content.list || data.product || data.stats ? gapMap[gap] || gapMap.md : '0', lineHeight: '1.6', fontSize: sizeMap[size].body }}
+            style={{ color: colors.body, marginBottom: content.list || data.product || data.stats ? gapMap[gap] || gapMap.md : '0', lineHeight: '1.6', fontSize: sizeMap[sizeKey].body }}
           >
             {content.body}
           </Text>
@@ -444,7 +445,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
                 {content.listType === 'number' && (
                   <span style={{ marginRight: '0.5rem', flexShrink: 0 }}>{index + 1}.</span>
                 )}
-                <Text variant="body1" style={{ flex: 1, fontSize: sizeMap[size].body }}>{item.text}</Text>
+                <Text variant="body1" style={{ flex: 1, fontSize: sizeMap[sizeKey].body }}>{item.text}</Text>
               </li>
             ))}
           </ul>
@@ -456,11 +457,11 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
             <Flex gap="sm" align="center" wrap="wrap">
               {data.product.price && (
                 <Flex gap="xs" align="center">
-                  <Text variant="h3" style={{ fontWeight: 'bold', color: 'var(--color-primary)', fontSize: `calc(${sizeMap[size].heading} * 0.8)` }}>
+                  <Text variant="h3" style={{ fontWeight: 'bold', color: 'var(--color-primary)', fontSize: `calc(${sizeMap[sizeKey].heading} * 0.8)` }}>
                     {data.product.currency || '$'}{data.product.price}
                   </Text>
                   {data.product.comparePrice && (
-                    <Text variant="body1" style={{ textDecoration: 'line-through', color: 'var(--color-text-muted)', fontSize: sizeMap[size].body }}>
+                    <Text variant="body1" style={{ textDecoration: 'line-through', color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].body }}>
                       {data.product.currency || '$'}{data.product.comparePrice}
                     </Text>
                   )}
@@ -474,9 +475,9 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
             <Flex gap="sm" align="center" style={{ marginTop: gapMap.sm }} wrap="wrap">
               {data.product.rating && (
                 <Flex gap="xs" align="center">
-                  <Text variant="body1" style={{ fontSize: sizeMap[size].body }}>⭐ {data.product.rating}</Text>
+                  <Text variant="body1" style={{ fontSize: sizeMap[sizeKey].body }}>⭐ {data.product.rating}</Text>
                   {data.product.reviewCount && (
-                    <Text variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[size].caption }}>
+                    <Text variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].caption }}>
                       ({data.product.reviewCount} reviews)
                     </Text>
                   )}
@@ -491,7 +492,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
                 </Badge>
               )}
               {data.product.sku && (
-                <Text variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[size].caption }}>
+                <Text variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].caption }}>
                   SKU: {data.product.sku}
                 </Text>
               )}
@@ -505,11 +506,11 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
             <Flex gap="lg" wrap="wrap" justify={contentAlign === 'center' ? 'center' : contentAlign === 'right' ? 'end' : 'start'}>
               {data.stats.map((stat, index) => (
                 <div key={index} className="vtx-content-block__stat-item">
-                  {stat.icon && <div style={{ marginBottom: gapMap.sm, fontSize: `calc(1.5rem * ${sizeMap[size].scale})` }}>{stat.icon}</div>}
-                  <Text variant="h3" style={{ fontWeight: 'bold', marginBottom: gapMap.xs, fontSize: `calc(${sizeMap[size].heading} * 0.85)` }}>
+                  {stat.icon && <div style={{ marginBottom: gapMap.sm, fontSize: `calc(1.5rem * ${sizeMap[sizeKey].scale})` }}>{stat.icon}</div>}
+                  <Text variant="h3" style={{ fontWeight: 'bold', marginBottom: gapMap.xs, fontSize: `calc(${sizeMap[sizeKey].heading} * 0.85)` }}>
                     {stat.value}
                   </Text>
-                  <Text variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[size].body }}>
+                  <Text variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].body }}>
                     {stat.label}
                   </Text>
                 </div>
@@ -527,11 +528,11 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
             backgroundColor: 'var(--color-background-subtle)',
             borderRadius: '0.25rem'
           }}>
-            <Text variant="body1" style={{ fontStyle: 'italic', marginBottom: data.quote.author ? gapMap.sm : '0', fontSize: sizeMap[size].body }}>
+            <Text variant="body1" style={{ fontStyle: 'italic', marginBottom: data.quote.author ? gapMap.sm : '0', fontSize: sizeMap[sizeKey].body }}>
               "{data.quote.text}"
             </Text>
             {data.quote.author && (
-              <Text variant="body2" style={{ color: 'var(--color-text-muted)', fontWeight: 'bold', fontSize: sizeMap[size].caption }}>
+              <Text variant="body2" style={{ color: 'var(--color-text-muted)', fontWeight: 'bold', fontSize: sizeMap[sizeKey].caption }}>
                 — {data.quote.author}
               </Text>
             )}
@@ -545,7 +546,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
               {data.metadata.map((meta, index) => (
                 <Flex key={index} gap="sm" align="center">
                   {meta.icon && <span style={{ color: 'var(--color-text-muted)' }}>{meta.icon}</span>}
-                  <Text variant="body2" style={{ fontSize: sizeMap[size].caption }}>
+                  <Text variant="body2" style={{ fontSize: sizeMap[sizeKey].caption }}>
                     <strong>{meta.label}:</strong> {meta.value}
                   </Text>
                 </Flex>
@@ -562,18 +563,18 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
                 <Avatar src={data.author.avatar} alt={data.author.name} size={size === 'xs' ? 'sm' : size === 'sm' ? 'md' : 'lg'} />
               )}
               <div>
-                <Text variant="body1" style={{ fontWeight: 'bold', marginBottom: gapMap.xs, fontSize: sizeMap[size].subheading }}>
+                <Text variant="body1" style={{ fontWeight: 'bold', marginBottom: gapMap.xs, fontSize: sizeMap[sizeKey].subheading }}>
                   {data.author.name}
                 </Text>
                 {data.author.role && (
-                  <Text variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[size].caption }}>
+                  <Text variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].caption }}>
                     {data.author.role}{data.author.company && ` at ${data.author.company}`}
                   </Text>
                 )}
                 {data.author.social && data.author.social.length > 0 && (
                   <Flex gap="sm" style={{ marginTop: gapMap.sm }}>
                     {data.author.social.map((social, index) => (
-                      <Link key={index} href={social.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: sizeMap[size].body }}>
+                      <Link key={index} href={social.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: sizeMap[sizeKey].body }}>
                         {social.icon || social.platform}
                       </Link>
                     ))}
@@ -589,7 +590,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
           <Text
             variant="caption"
             className="vtx-content-block__caption"
-            style={{ color: colors.caption || 'var(--color-text-muted)', marginTop: gapMap[gap] || gapMap.md, display: 'block', fontSize: sizeMap[size].caption }}
+            style={{ color: colors.caption || 'var(--color-text-muted)', marginTop: gapMap[gap] || gapMap.md, display: 'block', fontSize: sizeMap[sizeKey].caption }}
           >
             {content.caption}
           </Text>
@@ -600,7 +601,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
           <Text
             variant="caption"
             className="vtx-content-block__footnote"
-            style={{ color: 'var(--color-text-muted)', marginTop: gapMap.sm, fontSize: sizeMap[size].caption, display: 'block' }}
+            style={{ color: 'var(--color-text-muted)', marginTop: gapMap.sm, fontSize: sizeMap[sizeKey].caption, display: 'block' }}
           >
             {content.footnote}
           </Text>

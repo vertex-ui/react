@@ -41,8 +41,6 @@ const MetricWidget: React.FC<MetricWidgetProps> = ({
   const style = settings?.style || legacyStyle;
   
   const showTrend = settings?.showTrend !== false; // Default true
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const showProgress = settings?.showProgress !== false; // Default true
   const mapVariantToBadge = (v?: WidgetVariant) => {
     if (v === 'error') return 'error';
     if (v === 'secondary') return 'neutral';

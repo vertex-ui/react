@@ -54,7 +54,6 @@ export type {
   WidgetProps,
   WidgetConfig,
   WidgetTheme,
-  InfoWidgetTheme,
   WidgetVariant,
   MetricWidgetData,
   MetricWidgetSettings,
@@ -141,13 +140,51 @@ export type {
 export { ProductCard } from './widgets/ProductCard';
 export type { ProductCardProps, ProductCardWideProps } from './widgets/ProductCard';
 export { OrderCard } from './widgets/OrderCard';
-export type { OrderCardProps, OrderItem } from './widgets/OrderCard';
+export type { OrderItem } from './widgets/OrderCard';
 export { InfoListCard } from './widgets/InfoListCard';
 export type { InfoListCardProps, InfoListItem } from './widgets/InfoListCard';
 export { OrderConfirmation } from './widgets/OrderConfirmation';
 export type { OrderConfirmationProps, OrderConfirmationItem, OrderConfirmationAddress } from './widgets/OrderConfirmation';
 export { OrderDetails } from './widgets/OrderDetails';
 export type { OrderDetailsProps, OrderDetailsItem, OrderDetailsAddress } from './widgets/OrderDetails';
+
+// --- DashboardCard ---
+export { DashboardCard } from './widgets/DashboardCard';
+export type {
+  DashboardCardProps,
+  DashboardCardTheme,
+  DashboardCardSize,
+  StatCardProps,
+  StatCardData,
+  StatCardSettings,
+  ProgressCardProps,
+  ProgressCardData,
+  ProgressCardSettings,
+  ComparisonCardProps,
+  ComparisonCardData,
+  ComparisonCardSettings,
+  ActivityCardProps,
+  ActivityCardData,
+  ActivityCardSettings,
+  OrderCardProps,
+  OrderCardData,
+  OrderCardSettings,
+  UserCardProps,
+  UserCardData,
+  UserCardSettings,
+  RevenueCardProps,
+  RevenueCardData,
+  RevenueCardSettings,
+  AlertCardProps,
+  AlertCardData,
+  AlertCardSettings,
+  RankingCardProps,
+  RankingCardData,
+  RankingCardSettings,
+  StatusCardProps,
+  StatusCardData,
+  StatusCardSettings,
+} from './widgets/DashboardCard';
 
 // --- Navigation Bar ---
 export { Navbar } from './components/Navbar';
@@ -167,15 +204,3 @@ export type {
   NavbarMobileProps as HeaderMobileProps,
   NavbarResponsiveProps as HeaderResponsiveProps
 } from './components/Navbar';
-
-// --- MetricCard ---
-export { MetricCard } from './widgets/MetricCard';
-export type {
-  MetricCardBaseProps,
-  MetricCardCompactProps,
-  MetricCardDetailedProps,
-  MetricCardChartProps,
-  TrendData,
-  TargetData,
-  ChartData,
-} from './widgets/MetricCard';

@@ -57,7 +57,7 @@ const TestimonialWidget: React.FC<TestimonialWidgetProps> = ({
   if (!testimonials || testimonials.length === 0) {
     return (
       <Flex justify="center" align="center" style={{ padding: '48px 24px' }}>
-        <Text variant="body1" color={tokens?.colors?.neutral?.[500] || '#666'}>
+        <Text variant="body1" textColor={tokens?.colors?.neutral?.[500] || '#666'}>
           No testimonials available
         </Text>
       </Flex>
@@ -196,7 +196,7 @@ const TestimonialWidget: React.FC<TestimonialWidgetProps> = ({
       <Text
         variant="h4"
         weight="bold"
-        color={textColor}
+        textColor={textColor}
         align="center"
         style={{ fontSize: '20px', margin: 0, lineHeight: 1.3 }}
       >
@@ -208,7 +208,7 @@ const TestimonialWidget: React.FC<TestimonialWidgetProps> = ({
         {currentTestimonial.author.role && (
           <Text
             variant="body2"
-            color={secondaryTextColor}
+            textColor={secondaryTextColor}
             align="center"
             style={{ fontSize: '14px', lineHeight: 1.4 }}
           >
@@ -219,7 +219,7 @@ const TestimonialWidget: React.FC<TestimonialWidgetProps> = ({
           <Text
             variant="body2"
             weight="medium"
-            color={secondaryTextColor}
+            textColor={secondaryTextColor}
             align="center"
             style={{ fontSize: '14px', lineHeight: 1.4 }}
           >
@@ -232,7 +232,7 @@ const TestimonialWidget: React.FC<TestimonialWidgetProps> = ({
       {currentTestimonial.date && (
         <Text
           variant="caption"
-          color={secondaryTextColor}
+          textColor={secondaryTextColor}
           align="center"
           style={{ fontSize: '13px', opacity: 0.7 }}
         >
@@ -280,7 +280,7 @@ const TestimonialWidget: React.FC<TestimonialWidgetProps> = ({
         {currentTestimonial.content && (
           <Text
             variant="body1"
-            color={textColor}
+            textColor={textColor}
             align="center"
             style={{
               fontSize: 'clamp(18px, 2.5vw, 22px)',

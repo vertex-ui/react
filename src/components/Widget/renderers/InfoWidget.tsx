@@ -26,7 +26,6 @@ const InfoWidget: React.FC<InfoWidgetProps> = ({
   // Backward compatibility
   theme: legacyTheme,
   variant: legacyVariant,
-  size: legacySize,
   className: legacyClassName,
   style: legacyStyle,
 }) => {

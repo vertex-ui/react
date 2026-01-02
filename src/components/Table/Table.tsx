@@ -929,7 +929,7 @@ function Table<T = unknown>({
         <div className="vtx-table-pagination">
           <Flex align="center" justify="between" style={{ width: '100%' }}>
             <Flex align="center" gap={8}>
-              <Text variant="body2" color="neutral.600" noMargin>
+              <Text variant="body2" textColor="var(--color-neutral-600)" noMargin>
                 Rows per page:
               </Text>
               <select
@@ -946,7 +946,7 @@ function Table<T = unknown>({
               </select>
             </Flex>
             <Flex align="center" gap={16}>
-              <Text variant="body2" color="neutral.600" noMargin>
+              <Text variant="body2" textColor="var(--color-neutral-600)" noMargin>
                 {currentPage * currentRowsPerPage + 1}–
                 {Math.min((currentPage + 1) * currentRowsPerPage, filteredData.length)} of{' '}
                 {filteredData.length}

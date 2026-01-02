@@ -149,7 +149,7 @@ const UserProfile = ({ collapsed }: { collapsed?: boolean }) => (
         <Text variant="body2" weight="semibold" noMargin>
           John Doe
         </Text>
-        <Text variant="caption" color="#6b7280" noMargin>
+        <Text variant="caption" textColor="#6b7280" noMargin>
           john@example.com
         </Text>
       </div>
@@ -174,7 +174,7 @@ const InteractiveSideMenu = (props: SideMenuProps) => {
         <Text variant="h4" weight="bold">
           Main Content Area
         </Text>
-        <Text variant="body1" color="#6b7280">
+        <Text variant="body1" textColor="#6b7280">
           Sidebar navigation with collapsible state and nested menus.
         </Text>
       </div>
@@ -228,7 +228,7 @@ export const SimpleMenu: Story = {
         <Text variant="h4" weight="bold">
           Clean Layout
         </Text>
-        <Text variant="body1" color="#6b7280">
+        <Text variant="body1" textColor="#6b7280">
           Sidebar without header or footer for minimal layouts.
         </Text>
       </div>
@@ -260,7 +260,7 @@ export const NestedMenus: Story = {
           <Text variant="h4" weight="bold">
             Nested Navigation
           </Text>
-          <Text variant="body1" color="#6b7280">
+          <Text variant="body1" textColor="#6b7280">
             Click on items with submenus to expand them. Nested menus automatically hide when sidebar is collapsed.
           </Text>
         </div>

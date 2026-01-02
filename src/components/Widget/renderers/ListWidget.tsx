@@ -43,7 +43,6 @@ const ListWidget: React.FC<ListWidgetProps> = ({
   
   const showDividers = settings?.showDividers !== false; // Default true
   const maxItems = settings?.maxItems;
-  const layout = settings?.layout || 'default';
   const renderAvatar = (item: any) => {
     if (!item.avatar) return null;
     

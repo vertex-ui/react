@@ -1,5 +1,4 @@
 import React from 'react';
-import type { InfoWidgetTheme } from './renderers/InfoWidget';
 
 // Widget Configuration Types
 export type WidgetType = 
@@ -18,7 +17,7 @@ export type WidgetType =
   | 'contentBlock';
 
 /**
- * WidgetTheme now also accepts InfoWidgetTheme values for unified theme typing
+ * WidgetTheme - all available theme options
  */
 export type WidgetTheme =
   | 'minimal'
@@ -35,8 +34,7 @@ export type WidgetTheme =
   | 'editorial'
   | 'ecommerce'
   | 'creative'
-  | 'luxury'
-  | InfoWidgetTheme;
+  | 'luxury';
 
 export type GridConfig = {
   mobile?: number;
@@ -203,6 +201,7 @@ export interface OrderWidgetData extends BaseWidgetData {
     name: string;
     quantity?: number;
     price?: number | string;
+    image?: string;
   }>;
   shippingAddress?: {
     street: string;
@@ -214,6 +213,9 @@ export interface OrderWidgetData extends BaseWidgetData {
   subtotal?: number | string;
   tax?: number | string;
   shipping?: number | string;
+  discount?: number | string;
+  currency?: string;
+  trackingNumber?: string;
   actions?: Array<{
     label: React.ReactNode;
     onClick?: () => void;
@@ -298,7 +300,7 @@ export interface TextWidgetData extends BaseWidgetData {
 /**
  * Text Widget Settings - Typography and styling options
  */
-export interface TextWidgetSettings extends BaseWidgetSettings {
+export interface TextWidgetSettings extends Omit<BaseWidgetSettings, 'variant'> {
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body';
   alignment?: 'left' | 'center' | 'right';
   titleColor?: string;
@@ -467,6 +469,8 @@ export interface TestimonialWidgetData extends BaseWidgetData {
     rating?: number;
     date?: string;
   }>;
+  showNavigation?: boolean;
+  showDots?: boolean;
 }
 
 /**
@@ -587,7 +591,7 @@ export interface GridCarouselWidgetSettings {
 }
 
 // Content Block Widget Data
-export interface ContentBlockWidgetData extends BaseWidgetData {
+export interface ContentBlockWidgetData extends Omit<BaseWidgetData, 'metadata'> {
   // Media Configuration (Multi-type support)
   media?: {
     type?: 'image' | 'avatar' | 'icon' | 'video' | 'gallery' | 'logo' | 'illustration';

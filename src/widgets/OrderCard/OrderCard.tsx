@@ -12,6 +12,7 @@ export interface OrderItem {
   name: string;
   image?: string;
   quantity?: number;
+  price?: string | number;
 }
 
 export interface OrderCardProps extends React.HTMLAttributes<HTMLDivElement> {

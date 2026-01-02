@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Widget } from '../../components/Widget';
-import type { WidgetConfig, MetricWidgetData } from '../../components/Widget/types';
+import type { WidgetConfig } from '../../components/Widget/types';
 
 const meta: Meta<typeof Widget> = {
   title: 'Components/Widget',
@@ -151,28 +151,11 @@ export const AutoGrid: Story = {
   args: {
     config: {
       type: 'metric',
-      data: [
-        {
-          value: '1,234',
-          label: 'Total Sales',
-          trend: { direction: 'up' as const, value: 12 },
-        },
-        {
-          value: '$45,678',
-          label: 'Revenue',
-          trend: { direction: 'up' as const, value: 5.3 },
-        },
-        {
-          value: '89',
-          label: 'Active Users',
-          trend: { direction: 'down' as const, value: -3 },
-        },
-        {
-          value: '567',
-          label: 'Orders',
-          trend: { direction: 'up' as const, value: 8 },
-        },
-      ] as MetricWidgetData[],
+      data: {
+        value: '1,234',
+        label: 'Total Sales',
+        trend: { direction: 'up' as const, value: 12 },
+      },
       settings: {
         theme: 'modern',
         grid: { mobile: 1, tablet: 2, desktop: 3, spacing: 'md' },

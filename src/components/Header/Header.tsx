@@ -151,7 +151,7 @@ const NotificationPanel = React.forwardRef<
         {notifications.length === 0 ? (
           <div className="vtx-header-notifications-empty">
             <BellIcon />
-            <Text variant="body2" color="neutral.500" noMargin>
+            <Text variant="body2" textColor="var(--color-neutral-500)" noMargin>
               No notifications
             </Text>
           </div>
@@ -177,11 +177,11 @@ const NotificationPanel = React.forwardRef<
                   {notification.title}
                 </Text>
                 {notification.description && (
-                  <Text variant="caption" color="neutral.600" noMargin>
+                  <Text variant="caption" textColor="var(--color-neutral-600)" noMargin>
                     {notification.description}
                   </Text>
                 )}
-                <Text variant="caption" color="neutral.500" noMargin style={{ marginTop: '4px' }}>
+                <Text variant="caption" textColor="var(--color-neutral-500)" noMargin style={{ marginTop: '4px' }}>
                   {notification.time}
                 </Text>
               </div>
@@ -371,7 +371,7 @@ const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
                     {userName}
                   </Text>
                   {userSubtitle && (
-                    <Text variant="caption" color="neutral.600" noMargin>
+                    <Text variant="caption" textColor="var(--color-neutral-600)" noMargin>
                       {userSubtitle}
                     </Text>
                   )}

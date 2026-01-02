@@ -1,0 +1,700 @@
+/* ==================== BASE DASHBOARD CARD STYLES ==================== */
+
+.dashboard-card {
+  position: relative;
+  transition: all 0.2s ease-in-out;
+}
+
+.dashboard-card--clickable {
+  cursor: pointer;
+}
+
+.dashboard-card--clickable:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-card--clickable:active {
+  transform: translateY(0);
+}
+
+/* ==================== TYPOGRAPHY & TEXT ==================== */
+
+.dashboard-card__label {
+  color: var(--color-text-secondary, #6b7280);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dashboard-card__value {
+  color: var(--color-text-primary, #111827);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.dashboard-card__subtitle {
+  color: var(--color-text-tertiary, #9ca3af);
+}
+
+.dashboard-card__timestamp {
+  color: var(--color-text-tertiary, #9ca3af);
+  white-space: nowrap;
+}
+
+.dashboard-card__more {
+  color: var(--color-text-secondary, #6b7280);
+  text-align: center;
+  font-style: italic;
+}
+
+/* ==================== ICON WRAPPER ==================== */
+
+.dashboard-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: all 0.2s ease-in-out;
+}
+
+.dashboard-card__icon--sm {
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+}
+
+.dashboard-card__icon--md {
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+}
+
+.dashboard-card__icon--lg {
+  width: 48px;
+  height: 48px;
+  font-size: 24px;
+}
+
+/* Theme variants */
+.dashboard-card__icon--primary {
+  background-color: var(--color-primary-100, #dbeafe);
+  color: var(--color-primary-600, #2563eb);
+}
+
+.dashboard-card__icon--secondary {
+  background-color: var(--color-secondary-100, #f3f4f6);
+  color: var(--color-secondary-600, #4b5563);
+}
+
+.dashboard-card__icon--success {
+  background-color: var(--color-success-100, #d1fae5);
+  color: var(--color-success-600, #059669);
+}
+
+.dashboard-card__icon--danger {
+  background-color: var(--color-danger-100, #fee2e2);
+  color: var(--color-danger-600, #dc2626);
+}
+
+.dashboard-card__icon--warning {
+  background-color: var(--color-warning-100, #fef3c7);
+  color: var(--color-warning-600, #d97706);
+}
+
+.dashboard-card__icon--info {
+  background-color: var(--color-info-100, #dbeafe);
+  color: var(--color-info-600, #0284c7);
+}
+
+/* ==================== TREND INDICATOR ==================== */
+
+.dashboard-card__trend {
+  display: inline-flex;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.dashboard-card__trend--sm {
+  padding: 2px 6px;
+  font-size: 12px;
+}
+
+.dashboard-card__trend--md {
+  padding: 4px 8px;
+  font-size: 14px;
+}
+
+.dashboard-card__trend--positive {
+  background-color: var(--color-success-100, #d1fae5);
+  color: var(--color-success-700, #047857);
+}
+
+.dashboard-card__trend--negative {
+  background-color: var(--color-danger-100, #fee2e2);
+  color: var(--color-danger-700, #b91c1c);
+}
+
+.dashboard-card__trend-icon {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.dashboard-card__trend-value {
+  font-weight: 600;
+  color: inherit;
+}
+
+.dashboard-card__trend-label {
+  color: inherit;
+  opacity: 0.8;
+}
+
+/* ==================== PROGRESS BAR ==================== */
+
+.dashboard-card__progress-bar-container {
+  width: 100%;
+  height: 8px;
+  background-color: var(--color-gray-200, #e5e7eb);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.dashboard-card__progress-bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.dashboard-card__progress-bar--primary {
+  background-color: var(--color-primary-600, #2563eb);
+}
+
+.dashboard-card__progress-bar--secondary {
+  background-color: var(--color-secondary-600, #4b5563);
+}
+
+.dashboard-card__progress-bar--success {
+  background-color: var(--color-success-600, #059669);
+}
+
+.dashboard-card__progress-bar--danger {
+  background-color: var(--color-danger-600, #dc2626);
+}
+
+.dashboard-card__progress-bar--warning {
+  background-color: var(--color-warning-600, #d97706);
+}
+
+.dashboard-card__progress-bar--info {
+  background-color: var(--color-info-600, #0284c7);
+}
+
+.dashboard-card__progress-bar--on-track {
+  background-color: var(--color-success-600, #059669);
+}
+
+.dashboard-card__progress-bar--at-risk {
+  background-color: var(--color-warning-600, #d97706);
+}
+
+.dashboard-card__progress-bar--exceeded {
+  background-color: var(--color-primary-600, #2563eb);
+}
+
+.dashboard-card__progress-bar--behind {
+  background-color: var(--color-danger-600, #dc2626);
+}
+
+.dashboard-card__progress-values {
+  color: var(--color-text-secondary, #6b7280);
+}
+
+.dashboard-card__percentage {
+  font-weight: 700;
+}
+
+.dashboard-card__percentage--primary {
+  color: var(--color-primary-600, #2563eb);
+}
+
+.dashboard-card__percentage--success {
+  color: var(--color-success-600, #059669);
+}
+
+.dashboard-card__percentage--warning {
+  color: var(--color-warning-600, #d97706);
+}
+
+.dashboard-card__percentage--danger {
+  color: var(--color-danger-600, #dc2626);
+}
+
+/* ==================== COMPARISON CARD ==================== */
+
+.dashboard-card--comparison .dashboard-card__comparison-items {
+  width: 100%;
+}
+
+.dashboard-card__comparison-label {
+  color: var(--color-text-secondary, #6b7280);
+}
+
+.dashboard-card__divider {
+  background-color: var(--color-gray-200, #e5e7eb);
+}
+
+.dashboard-card__divider--horizontal {
+  width: 1px;
+  min-height: 60px;
+}
+
+.dashboard-card__divider--vertical {
+  width: 100%;
+  height: 1px;
+}
+
+/* ==================== ACTIVITY CARD ==================== */
+
+.dashboard-card--activity .dashboard-card__activity-list {
+  width: 100%;
+}
+
+.dashboard-card--compact .dashboard-card__activity-item {
+  padding: 4px 0;
+}
+
+.dashboard-card__activity-item {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-gray-100, #f3f4f6);
+  transition: background-color 0.2s ease-in-out;
+}
+
+.dashboard-card__activity-item:last-child {
+  border-bottom: none;
+}
+
+.dashboard-card__activity-item:hover {
+  background-color: var(--color-gray-50, #f9fafb);
+  margin-left: -12px;
+  margin-right: -12px;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-radius: 4px;
+}
+
+.dashboard-card__activity-label {
+  color: var(--color-text-primary, #111827);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dashboard-card__activity-value {
+  color: var(--color-text-secondary, #6b7280);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ==================== ORDER CARD ==================== */
+
+.dashboard-card--order .dashboard-card__order-details {
+  background-color: var(--color-gray-50, #f9fafb);
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.dashboard-card__detail-label {
+  color: var(--color-text-secondary, #6b7280);
+  font-weight: 500;
+}
+
+.dashboard-card__detail-value {
+  color: var(--color-text-primary, #111827);
+  font-weight: 600;
+}
+
+/* ==================== USER CARD ==================== */
+
+.dashboard-card__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: var(--color-gray-200, #e5e7eb);
+  flex-shrink: 0;
+}
+
+.dashboard-card__avatar--sm {
+  width: 40px;
+  height: 40px;
+}
+
+.dashboard-card__avatar--md {
+  width: 56px;
+  height: 56px;
+}
+
+.dashboard-card__avatar--lg {
+  width: 72px;
+  height: 72px;
+}
+
+.dashboard-card__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dashboard-card__user-name {
+  color: var(--color-text-primary, #111827);
+  font-weight: 600;
+}
+
+.dashboard-card__user-role {
+  color: var(--color-text-secondary, #6b7280);
+  font-weight: 500;
+}
+
+.dashboard-card__user-department {
+  color: var(--color-text-tertiary, #9ca3af);
+}
+
+.dashboard-card__user-metrics {
+  background-color: var(--color-gray-50, #f9fafb);
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+/* ==================== REVENUE CARD ==================== */
+
+.dashboard-card--revenue .dashboard-card__value {
+  color: var(--color-success-600, #059669);
+}
+
+.dashboard-card__period {
+  color: var(--color-text-tertiary, #9ca3af);
+  font-style: italic;
+}
+
+.dashboard-card__breakdown {
+  background-color: var(--color-gray-50, #f9fafb);
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.dashboard-card__breakdown-label {
+  color: var(--color-text-secondary, #6b7280);
+}
+
+.dashboard-card__breakdown-value {
+  color: var(--color-text-primary, #111827);
+  font-weight: 600;
+}
+
+.dashboard-card__breakdown-percentage {
+  color: var(--color-text-tertiary, #9ca3af);
+}
+
+/* ==================== ALERT CARD ==================== */
+
+.dashboard-card--alert {
+  border-width: 2px;
+}
+
+.dashboard-card--alert-error {
+  border-color: var(--color-danger-300, #fca5a5);
+  background-color: var(--color-danger-50, #fef2f2);
+}
+
+.dashboard-card--alert-warning {
+  border-color: var(--color-warning-300, #fcd34d);
+  background-color: var(--color-warning-50, #fffbeb);
+}
+
+.dashboard-card--alert-success {
+  border-color: var(--color-success-300, #6ee7b7);
+  background-color: var(--color-success-50, #f0fdf4);
+}
+
+.dashboard-card--alert-info {
+  border-color: var(--color-info-300, #7dd3fc);
+  background-color: var(--color-info-50, #f0f9ff);
+}
+
+.dashboard-card__alert-title {
+  color: var(--color-text-primary, #111827);
+  font-weight: 600;
+}
+
+.dashboard-card__alert-message {
+  color: var(--color-text-secondary, #6b7280);
+  line-height: 1.5;
+}
+
+.dashboard-card__dismiss-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--color-text-tertiary, #9ca3af);
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+}
+
+.dashboard-card__dismiss-btn:hover {
+  background-color: var(--color-gray-100, #f3f4f6);
+  color: var(--color-text-primary, #111827);
+}
+
+.dashboard-card__action-btn {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  white-space: nowrap;
+}
+
+.dashboard-card__action-btn--primary {
+  background-color: var(--color-primary-600, #2563eb);
+  color: white;
+}
+
+.dashboard-card__action-btn--primary:hover {
+  background-color: var(--color-primary-700, #1d4ed8);
+}
+
+.dashboard-card__action-btn--danger {
+  background-color: var(--color-danger-600, #dc2626);
+  color: white;
+}
+
+.dashboard-card__action-btn--danger:hover {
+  background-color: var(--color-danger-700, #b91c1c);
+}
+
+.dashboard-card__action-btn--warning {
+  background-color: var(--color-warning-600, #d97706);
+  color: white;
+}
+
+.dashboard-card__action-btn--warning:hover {
+  background-color: var(--color-warning-700, #b45309);
+}
+
+.dashboard-card__action-btn--success {
+  background-color: var(--color-success-600, #059669);
+  color: white;
+}
+
+.dashboard-card__action-btn--success:hover {
+  background-color: var(--color-success-700, #047857);
+}
+
+.dashboard-card__action-btn--info {
+  background-color: var(--color-info-600, #0284c7);
+  color: white;
+}
+
+.dashboard-card__action-btn--info:hover {
+  background-color: var(--color-info-700, #0369a1);
+}
+
+/* ==================== RANKING CARD ==================== */
+
+.dashboard-card--ranking .dashboard-card__ranking-list {
+  width: 100%;
+}
+
+.dashboard-card__ranking-item {
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.dashboard-card__ranking-item:hover {
+  background-color: var(--color-gray-50, #f9fafb);
+}
+
+.dashboard-card__ranking-item--highlighted {
+  background-color: var(--color-gray-50, #f9fafb);
+}
+
+.dashboard-card__rank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--color-gray-200, #e5e7eb);
+  color: var(--color-text-secondary, #6b7280);
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.dashboard-card__rank--primary {
+  background-color: var(--color-primary-600, #2563eb);
+  color: white;
+}
+
+.dashboard-card__rank--success {
+  background-color: var(--color-success-600, #059669);
+  color: white;
+}
+
+.dashboard-card__ranking-label {
+  color: var(--color-text-primary, #111827);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dashboard-card__ranking-value {
+  color: var(--color-text-primary, #111827);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.dashboard-card__ranking-percentage {
+  color: var(--color-text-tertiary, #9ca3af);
+  white-space: nowrap;
+}
+
+.dashboard-card__ranking-bar-container {
+  width: 100%;
+  height: 4px;
+  background-color: var(--color-gray-200, #e5e7eb);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.dashboard-card__ranking-bar {
+  height: 100%;
+  background-color: var(--color-gray-400, #9ca3af);
+  border-radius: 2px;
+  transition: width 0.3s ease-in-out;
+}
+
+.dashboard-card__ranking-bar--primary {
+  background-color: var(--color-primary-600, #2563eb);
+}
+
+.dashboard-card__ranking-bar--success {
+  background-color: var(--color-success-600, #059669);
+}
+
+/* ==================== STATUS CARD ==================== */
+
+.dashboard-card__service-name {
+  color: var(--color-text-primary, #111827);
+  font-weight: 600;
+}
+
+.dashboard-card__status-info {
+  background-color: var(--color-gray-50, #f9fafb);
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.dashboard-card__status-metrics {
+  background-color: var(--color-gray-50, #f9fafb);
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.dashboard-card__metric-label {
+  color: var(--color-text-secondary, #6b7280);
+}
+
+.dashboard-card__metric-value {
+  color: var(--color-text-primary, #111827);
+  font-weight: 600;
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+
+@media (max-width: 768px) {
+  .dashboard-card__icon--lg {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .dashboard-card__icon--md {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+
+  .dashboard-card--comparison.dashboard-card--horizontal .dashboard-card__comparison-items {
+    flex-direction: column;
+  }
+
+  .dashboard-card__divider--horizontal {
+    width: 100%;
+    height: 1px;
+    min-height: auto;
+  }
+
+  .dashboard-card__avatar--lg {
+    width: 56px;
+    height: 56px;
+  }
+
+  .dashboard-card__avatar--md {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/* ==================== LOADING STATE ==================== */
+
+.dashboard-card--loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* ==================== ACCESSIBILITY ==================== */
+
+.dashboard-card--clickable:focus {
+  outline: 2px solid var(--color-primary-500, #3b82f6);
+  outline-offset: 2px;
+}
+
+.dashboard-card__action-btn:focus,
+.dashboard-card__dismiss-btn:focus {
+  outline: 2px solid var(--color-primary-500, #3b82f6);
+  outline-offset: 2px;
+}
+
+/* ==================== DARK MODE SUPPORT (OPTIONAL) ==================== */
+
+@media (prefers-color-scheme: dark) {
+  .dashboard-card__label {
+    color: var(--color-text-secondary-dark, #9ca3af);
+  }
+
+  .dashboard-card__value {
+    color: var(--color-text-primary-dark, #f9fafb);
+  }
+
+  .dashboard-card__subtitle,
+  .dashboard-card__timestamp {
+    color: var(--color-text-tertiary-dark, #6b7280);
+  }
+}

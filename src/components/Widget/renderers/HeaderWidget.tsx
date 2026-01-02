@@ -45,8 +45,6 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
   
   const showBreadcrumbs = settings?.showBreadcrumbs !== false; // Default true
   const showAvatar = settings?.showAvatar !== false; // Default true
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const layout = settings?.layout || 'default';
   const bgColor = settings?.backgroundColor;
   const getTitleVariant = () => {
     if (size === 'lg') return 'h1';

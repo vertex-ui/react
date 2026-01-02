@@ -1,23 +1,15 @@
 import React from 'react';
-import { OrderWidgetData, WidgetTheme, WidgetVariant } from '../types';
+import { OrderWidgetData, OrderWidgetSettings } from '../types';
 import { OrderCard } from '../../../widgets/OrderCard';
 
 interface OrderWidgetProps {
   data: OrderWidgetData;
-  theme: WidgetTheme;
-  variant?: WidgetVariant;
-  size?: 'sm' | 'md' | 'lg';
-  className?: string;
-  style?: React.CSSProperties;
+  settings?: OrderWidgetSettings;
 }
 
 const OrderWidget: React.FC<OrderWidgetProps> = ({
   data,
-  theme,
-  variant = 'primary',
-  size = 'md',
-  className = '',
-  style,
+  settings,
 }) => {
   // Map status to OrderCard status type
   const mapStatus = (status: string): 'pending' | 'processing' | 'delivered' | 'cancelled' | 'shipped' => {
@@ -88,8 +80,8 @@ const OrderWidget: React.FC<OrderWidgetProps> = ({
       onTrackOrder={handleTrackOrder}
       onViewDetails={handleViewDetails}
       trackButtonText={data.actions?.[0]?.label as string || 'Track Order'}
-      className={className}
-      style={style}
+      className={settings?.className}
+      style={settings?.style}
     />
   );
 };

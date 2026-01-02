@@ -83,7 +83,7 @@ const InfoTextBase = React.forwardRef<HTMLDivElement, InfoTextBaseProps>(
           {heading}
         </Text>
         {subText && (
-          <Text variant="caption" color="text-secondary" noMargin>
+          <Text variant="caption" textColor="var(--text-secondary)" noMargin>
             {subText}
           </Text>
         )}
@@ -183,7 +183,7 @@ const InfoTextStat = React.forwardRef<HTMLDivElement, InfoTextStatProps>(
           {label}
         </Text>
         {subText && (
-          <Text variant="caption" color="text-secondary" noMargin>
+          <Text variant="caption" textColor="var(--text-secondary)" noMargin>
             {subText}
           </Text>
         )}
@@ -280,7 +280,7 @@ const InfoTextFeature = React.forwardRef<HTMLDivElement, InfoTextFeatureProps>(
           </Text>
           {badge && <span className="infotext-badge">{badge}</span>}
         </Flex>
-        <Text variant="body2" color="text-secondary" noMargin>
+        <Text variant="body2" textColor="var(--text-secondary)" noMargin>
           {description}
         </Text>
       </Flex>
@@ -440,7 +440,7 @@ const InfoTextVertical = React.forwardRef<HTMLDivElement, InfoTextVerticalProps>
           {heading}
         </Text>
         {subText && (
-          <Text variant="caption" color="text-secondary" align="center" noMargin>
+          <Text variant="caption" textColor="var(--text-secondary)" align="center" noMargin>
             {subText}
           </Text>
         )}

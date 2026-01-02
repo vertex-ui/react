@@ -171,7 +171,7 @@ export const MenuItem = React.forwardRef<HTMLDivElement, MenuItemProps>(
             {shortcut && (
               <Text
                 variant="caption"
-                color="neutral.500"
+                textColor="var(--color-neutral-500)"
                 noMargin
                 className="vtx-menu-item-shortcut"
               >
