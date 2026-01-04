@@ -47,6 +47,8 @@ export { Toast, toast, ToastContainer, useToast } from './components/Toast';
 export type { ToastContainerProps, ToastOptions, ToastProps, ToastVariant, ToastPosition, ToastInstance } from './components/Toast/types';
 export { Tooltip } from './components/Tooltip';
 export type { TooltipProps } from './components/Tooltip';
+export { Tabs, TabList, Tab, TabPanels, TabPanel } from './components/Tabs';
+export type { TabsProps, TabListProps, TabProps, TabPanelsProps, TabPanelProps, TabsVariant, TabsOrientation } from './components/Tabs';
 
 // --- Widget System ---
 export { Widget } from './components/Widget';
