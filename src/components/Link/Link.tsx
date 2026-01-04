@@ -1,5 +1,4 @@
 import React, { AnchorHTMLAttributes } from 'react';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import { useThemeContext } from '../../theme/ThemeProvider';
 import './Link.css';
 
@@ -214,10 +213,6 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
 
 Link.displayName = 'Link';
 
-const LinkWithParsedClasses = withParsedClasses(Link);
-
-export default LinkWithParsedClasses as React.FC<
-  LinkProps & React.RefAttributes<HTMLAnchorElement>
->;
-export { LinkWithParsedClasses as Link };
+export default Link as React.FC<LinkProps & React.RefAttributes<HTMLAnchorElement>>;
+export { Link };
 

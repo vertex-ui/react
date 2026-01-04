@@ -1,6 +1,5 @@
 import { CloseSmallIcon } from '../../icons/IconComponents';
 import React, { useMemo, HTMLAttributes } from 'react';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import { Size, useThemeContext } from '../../theme';
 import './Badge.css';
 
@@ -147,9 +146,5 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
 
 Badge.displayName = 'Badge';
 
-const BadgeWithParsedClasses = withParsedClasses(Badge);
-
-export default BadgeWithParsedClasses as React.FC<
-  BadgeProps & React.RefAttributes<HTMLSpanElement>
->;
-export { BadgeWithParsedClasses as Badge };
+export default Badge as React.FC<BadgeProps & React.RefAttributes<HTMLSpanElement>>;
+export { Badge };

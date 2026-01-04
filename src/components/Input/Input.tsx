@@ -1,7 +1,6 @@
 import { CloseSmallIcon } from '../../icons/IconComponents';
 import React, { InputHTMLAttributes } from 'react';
 import { useId } from '../../hooks';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import { Size, useThemeContext } from '../../theme';
 import './Input.css';
 
@@ -293,9 +292,5 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
 Input.displayName = 'Input';
 
-const InputWithParsedClasses = withParsedClasses(Input);
-
-export default InputWithParsedClasses as React.FC<
-  InputProps & React.RefAttributes<HTMLInputElement>
->;
-export { InputWithParsedClasses as Input };
+export default Input as React.FC<InputProps & React.RefAttributes<HTMLInputElement>>;
+export { Input };

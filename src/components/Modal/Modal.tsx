@@ -6,7 +6,6 @@ import { Flex } from '../Flex';
 import { Button } from '../Button';
 import { Text } from '../Text';
 import { useThemeContext } from '../../theme/ThemeProvider';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './Modal.css';
 
 export interface ModalFooterButton {
@@ -386,6 +385,5 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
 
 Modal.displayName = 'Modal';
 
-const ModalWithParsedClasses = withParsedClasses(Modal);
-export default ModalWithParsedClasses as React.FC<ModalProps>;
-export { ModalWithParsedClasses as Modal };
+export default Modal as React.FC<ModalProps>;
+export { Modal };

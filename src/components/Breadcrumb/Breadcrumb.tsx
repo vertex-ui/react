@@ -1,6 +1,5 @@
 import React from 'react';
 import { useThemeContext } from '../../theme/ThemeProvider';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import { ChevronRightIcon } from '../../icons/IconComponents';
 import Link from '../Link/Link';
 import Text from '../Text/Text';
@@ -297,9 +296,5 @@ const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
 
 Breadcrumb.displayName = 'Breadcrumb';
 
-const BreadcrumbWithParsedClasses = withParsedClasses(Breadcrumb);
-
-export default BreadcrumbWithParsedClasses as React.FC<
-  BreadcrumbProps & React.RefAttributes<HTMLElement>
->;
-export { BreadcrumbWithParsedClasses as Breadcrumb };
+export default Breadcrumb as React.FC<BreadcrumbProps & React.RefAttributes<HTMLElement>>;
+export { Breadcrumb };

@@ -1,6 +1,5 @@
 import React, { useId, useRef, useImperativeHandle, useEffect } from 'react';
 import { useThemeContext } from '../../theme/ThemeProvider';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './Checkbox.css';
 
 export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
@@ -214,9 +213,5 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
 
 Checkbox.displayName = 'Checkbox';
 
-const CheckboxWithParsedClasses = withParsedClasses(Checkbox);
-
-export default CheckboxWithParsedClasses as React.FC<
-  CheckboxProps & React.RefAttributes<HTMLInputElement>
->;
-export { CheckboxWithParsedClasses as Checkbox };
+export default Checkbox as React.FC<CheckboxProps & React.RefAttributes<HTMLInputElement>>;
+export { Checkbox };

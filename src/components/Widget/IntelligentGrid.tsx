@@ -43,7 +43,7 @@ const getGridClasses = (mobile: number, tablet: number, desktop: number, spacing
  * Intelligent grid system that auto-adjusts based on data array length
  * or uses explicit configuration
  */
-export const IntelligentGrid: React.FC<IntelligentGridProps> = ({
+const IntelligentGrid: React.FC<IntelligentGridProps> = ({
   data,
   grid,
   renderItem,
@@ -94,4 +94,7 @@ export const IntelligentGrid: React.FC<IntelligentGridProps> = ({
   );
 };
 
-export default IntelligentGrid;
+IntelligentGrid.displayName = 'IntelligentGrid';
+
+export default IntelligentGrid as React.FC<IntelligentGridProps & React.RefAttributes<HTMLDivElement>>;
+export { IntelligentGrid };

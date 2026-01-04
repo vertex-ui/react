@@ -1,6 +1,5 @@
 import React from 'react';
 import { useId } from '../../hooks';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import { Size } from '../../theme';
 import './FormControl.css';
 
@@ -208,9 +207,5 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
 
 FormControl.displayName = 'FormControl';
 
-const FormControlWithParsedClasses = withParsedClasses(FormControl);
-
-export default FormControlWithParsedClasses as React.FC<
-  FormControlProps & React.RefAttributes<HTMLDivElement>
->;
-export { FormControlWithParsedClasses as FormControl };
+export default FormControl as React.FC<FormControlProps & React.RefAttributes<HTMLDivElement>>;
+export { FormControl };

@@ -4,7 +4,6 @@ import { Text } from '../Text';
 import { Avatar } from '../Avatar';
 import { Badge } from '../Badge';
 import { Menu } from '../Menu';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './Header.css';
 
 export interface NotificationItem {
@@ -393,6 +392,5 @@ const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
 
 Header.displayName = 'Header';
 
-const HeaderWithParsedClasses = withParsedClasses(Header);
-export default HeaderWithParsedClasses as React.FC<HeaderProps & React.RefAttributes<HTMLElement>>;
-export { HeaderWithParsedClasses as Header };
+export default Header as React.FC<HeaderProps & React.RefAttributes<HTMLElement>>;
+export { Header };

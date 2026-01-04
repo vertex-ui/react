@@ -1,6 +1,5 @@
 import React, { InputHTMLAttributes, useRef, useState, useEffect } from 'react';
 import { useId } from '../../hooks';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import { Size, useThemeContext } from '../../theme';
 import { SearchIcon, CloseSmallIcon } from '../../icons/IconComponents';
 import './Autocomplete.css';
@@ -644,9 +643,5 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
 
 Autocomplete.displayName = 'Autocomplete';
 
-const AutocompleteWithParsedClasses = withParsedClasses(Autocomplete);
-
-export default AutocompleteWithParsedClasses as React.FC<
-  AutocompleteProps & React.RefAttributes<HTMLInputElement>
->;
-export { AutocompleteWithParsedClasses as Autocomplete };
+export default Autocomplete as React.FC<AutocompleteProps & React.RefAttributes<HTMLInputElement>>;
+export { Autocomplete };

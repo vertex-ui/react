@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useState, ReactNode, forwardRef } from 'react';
+import React, { ReactNode, createContext, forwardRef, useContext, useState } from 'react';
 import { withParsedClasses } from '../../hoc/withParsedClasses';
-import { Size } from '../../theme';
 import { ChevronLeftIcon, ChevronRightIcon } from '../../icons';
+import { Size } from '../../theme';
 import './Tabs.css';
 
 // --- Types ---
@@ -176,6 +176,7 @@ const TabList = forwardRef<HTMLDivElement, TabListProps>(
         window.addEventListener('resize', checkScroll);
         return () => window.removeEventListener('resize', checkScroll);
       }
+      return undefined;
     }, [showScrollControls, orientation, children]);
 
     const scroll = (direction: 'left' | 'right') => {

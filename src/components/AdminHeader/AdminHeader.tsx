@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Text } from '../Text';
 import { Avatar } from '../Avatar';
 import { Badge } from '../Badge';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import {
   MenuIcon,
   SearchIcon,
@@ -848,9 +847,5 @@ const AdminHeader = React.forwardRef<HTMLElement, AdminHeaderProps>(
 
 AdminHeader.displayName = 'AdminHeader';
 
-// ==================== EXPORTS ====================
-
-const AdminHeaderWithParsedClasses = withParsedClasses(AdminHeader);
-
-export { AdminHeaderWithParsedClasses as AdminHeader };
-export default AdminHeaderWithParsedClasses as React.FC<AdminHeaderProps & React.RefAttributes<HTMLElement>>;
+export default AdminHeader as React.FC<AdminHeaderProps & React.RefAttributes<HTMLElement>>;
+export { AdminHeader };

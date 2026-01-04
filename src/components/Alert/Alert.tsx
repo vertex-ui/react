@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useThemeContext, Size } from '../../theme';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './Alert.css';
 
 export interface AlertProps {
@@ -218,9 +217,5 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
 
 Alert.displayName = 'Alert';
 
-const AlertWithParsedClasses = withParsedClasses(Alert);
-
-export default AlertWithParsedClasses as React.FC<
-  AlertProps & React.RefAttributes<HTMLDivElement>
->;
-export { AlertWithParsedClasses as Alert };
+export default Alert as React.FC<AlertProps & React.RefAttributes<HTMLDivElement>>;
+export { Alert };

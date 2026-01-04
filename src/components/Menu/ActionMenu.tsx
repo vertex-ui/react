@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '../../icons/IconComponents';
 import { Flex } from '../Flex';
 import { Text } from '../Text';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import { MenuItem, MenuItemProps } from './Menu';
 import './ActionMenu.css';
 
@@ -271,6 +270,5 @@ const ActionMenu = React.forwardRef<HTMLDivElement, ActionMenuProps>(
 
 ActionMenu.displayName = 'ActionMenu';
 
-const ActionMenuWithParsedClasses = withParsedClasses(ActionMenu);
-export default ActionMenuWithParsedClasses as React.FC<ActionMenuProps & React.RefAttributes<HTMLDivElement>>;
-export { ActionMenuWithParsedClasses as ActionMenu };
+export default ActionMenu as React.FC<ActionMenuProps & React.RefAttributes<HTMLDivElement>>;
+export { ActionMenu };

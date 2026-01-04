@@ -183,6 +183,8 @@ AccordionItem.displayName = 'AccordionItem';
 export default AccordionItem as React.FC<
   AccordionItemComponentProps & React.RefAttributes<HTMLDivElement>
 >;
+export { AccordionItem };
+export type { AccordionItemComponentProps, AccordionItemProps };
 
 // Create a simple wrapper component for use as children
 export const AccordionItemWrapper: React.FC<AccordionItemProps> = ({ children, ...props }) => {

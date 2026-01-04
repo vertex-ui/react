@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Input } from '../Input';
 import { Calendar } from './Calendar';
 import { CalendarIcon } from '../../icons/IconComponents';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import { Size } from '../../theme';
 import './DatePicker.css';
 
@@ -421,9 +420,5 @@ const DateRangePicker = React.forwardRef<HTMLInputElement, DateRangePickerProps>
 
 DateRangePicker.displayName = 'DateRangePicker';
 
-const DateRangePickerWithParsedClasses = withParsedClasses(DateRangePicker);
-
-export default DateRangePickerWithParsedClasses as React.FC<
-  DateRangePickerProps & React.RefAttributes<HTMLInputElement>
->;
-export { DateRangePickerWithParsedClasses as DateRangePicker };
+export default DateRangePicker as React.FC<DateRangePickerProps & React.RefAttributes<HTMLInputElement>>;
+export { DateRangePicker };

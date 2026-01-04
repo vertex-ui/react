@@ -1,5 +1,4 @@
 import React, { useState, useMemo, TableHTMLAttributes, useCallback } from 'react';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import { useThemeContext, Size } from '../../theme';
 import { Checkbox } from '../Checkbox';
 import { Flex } from '../Flex';
@@ -1001,6 +1000,5 @@ function Table<T = unknown>({
 
 Table.displayName = 'Table';
 
-const TableWithParsedClasses = withParsedClasses(Table);
-export default TableWithParsedClasses as React.FC<TableProps & React.RefAttributes<HTMLTableElement>>;
-export { TableWithParsedClasses as Table };
+export default Table as React.FC<TableProps & React.RefAttributes<HTMLTableElement>>;
+export { Table };

@@ -146,4 +146,7 @@ const Widget: React.FC<WidgetProps> = ({
   );
 };
 
-export default Widget;
+Widget.displayName = 'Widget';
+
+export default Widget as React.FC<WidgetProps & React.RefAttributes<HTMLDivElement>>;
+export { Widget };

@@ -1,5 +1,4 @@
 import React from 'react';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './Container.css';
 
 export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -104,9 +103,5 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
 
 Container.displayName = 'Container';
 
-const ContainerWithParsedClasses = withParsedClasses(Container);
-
-export default ContainerWithParsedClasses as React.FC<
-  ContainerProps & React.RefAttributes<HTMLDivElement>
->;
-export { ContainerWithParsedClasses as Container };
+export default Container as React.FC<ContainerProps & React.RefAttributes<HTMLDivElement>>;
+export { Container };

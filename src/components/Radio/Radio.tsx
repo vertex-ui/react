@@ -1,5 +1,4 @@
 import React, { useId } from 'react';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import { Size, useThemeContext } from '../../theme';
 import './Radio.css';
 
@@ -196,6 +195,5 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
 
 Radio.displayName = 'Radio';
 
-const RadioWithParsedClasses = withParsedClasses(Radio);
-export default RadioWithParsedClasses as React.FC<RadioProps & React.RefAttributes<HTMLInputElement>>;
-export { RadioWithParsedClasses as Radio };
+export default Radio as React.FC<RadioProps & React.RefAttributes<HTMLInputElement>>;
+export { Radio };

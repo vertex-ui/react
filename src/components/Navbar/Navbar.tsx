@@ -827,4 +827,4 @@ export const Navbar = Object.assign(NavbarResponsive, {
   Responsive: withParsedClasses(NavbarResponsive) as React.FC<NavbarResponsiveProps>,
 });
 
-export default Navbar;
+export default Navbar as React.FC<NavbarResponsiveProps & React.RefAttributes<HTMLDivElement>>;

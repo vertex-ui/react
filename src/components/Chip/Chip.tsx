@@ -1,6 +1,5 @@
 import { CloseSmallIcon } from '../../icons/IconComponents';
 import React, { ReactNode, MouseEvent, KeyboardEvent } from 'react';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import { Size } from '../../theme';
 import './Chip.css';
 
@@ -191,9 +190,5 @@ const Chip = React.forwardRef<HTMLDivElement, ChipProps>(
 
 Chip.displayName = 'Chip';
 
-const ChipWithParsedClasses = withParsedClasses(Chip);
-
-export default ChipWithParsedClasses as React.FC<
-  ChipProps & React.RefAttributes<HTMLDivElement>
->;
-export { ChipWithParsedClasses as Chip };
+export default Chip as React.FC<ChipProps & React.RefAttributes<HTMLDivElement>>;
+export { Chip };

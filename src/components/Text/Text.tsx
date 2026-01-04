@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { CSSProperties } from 'react';
 import './Text.css';
-import {withParsedClasses} from "../../hoc/withParsedClasses";
 
 export type TextVariant =
   | 'h1'
@@ -362,7 +361,5 @@ const Text = React.forwardRef<HTMLElement, TextProps>(
 
 Text.displayName = 'Text';
 
-const TextWithParsedClasses = withParsedClasses(Text);
-
-export { TextWithParsedClasses as Text };
-export default TextWithParsedClasses as React.FC<TextProps & React.RefAttributes<HTMLElement>>;
+export default Text as React.FC<TextProps & React.RefAttributes<HTMLElement>>;
+export { Text };

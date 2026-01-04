@@ -389,10 +389,5 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
 
 Select.displayName = 'Select';
 
-import { withParsedClasses } from '../../hoc/withParsedClasses';
-const SelectWithParsedClasses = withParsedClasses(Select);
-
-export { SelectWithParsedClasses as Select };
-export default SelectWithParsedClasses as React.FC<
-  SelectProps & React.RefAttributes<HTMLSelectElement>
->;
+export default Select as React.FC<SelectProps & React.RefAttributes<HTMLSelectElement>>;
+export { Select };

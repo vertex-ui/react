@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Radio } from '../Radio/Radio';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import { Size, useThemeContext } from '../../theme';
 import './RadioGroup.css';
 
@@ -223,6 +222,5 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
 
 RadioGroup.displayName = 'RadioGroup';
 
-const RadioGroupWithParsedClasses = withParsedClasses(RadioGroup);
-export default RadioGroupWithParsedClasses as React.FC<RadioGroupProps & React.RefAttributes<HTMLDivElement>>;
-export { RadioGroupWithParsedClasses as RadioGroup };
+export default RadioGroup as React.FC<RadioGroupProps & React.RefAttributes<HTMLDivElement>>;
+export { RadioGroup };

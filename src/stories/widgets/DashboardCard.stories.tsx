@@ -2,18 +2,10 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DashboardCard } from '../../widgets/DashboardCard';
 import {
   UserIcon,
-  ShoppingCartIcon,
   TrendingUpIcon,
-  StarIcon,
-  ServerIcon,
   ChartBarIcon,
-  PackageIcon,
-  CheckCircleIcon,
   WarningIcon,
-  ErrorIcon,
-  InboxIcon,
-  DollarSignIcon,
-  ActivityIcon,
+  InboxIcon
 } from '../../icons';
 
 const meta: Meta<typeof DashboardCard> = {

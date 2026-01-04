@@ -1,7 +1,6 @@
 import React, { ButtonHTMLAttributes } from 'react';
 import { useThemeContext } from '../../theme/ThemeProvider';
 import { Size } from '../../theme';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './Button.css';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -245,9 +244,5 @@ const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPro
 
 Button.displayName = 'Button';
 
-const ButtonWithParsedClasses = withParsedClasses(Button);
-
-export default ButtonWithParsedClasses as React.FC<
-  ButtonProps & React.RefAttributes<HTMLButtonElement | HTMLAnchorElement>
->;
-export { ButtonWithParsedClasses as Button };
+export default Button as React.FC<ButtonProps & React.RefAttributes<HTMLButtonElement | HTMLAnchorElement>>;
+export { Button };

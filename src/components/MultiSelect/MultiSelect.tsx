@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useId } from '../../hooks';
 import { useThemeContext } from '../../theme/ThemeProvider';
 import { Chip } from '../Chip';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './MultiSelect.css';
 
 export interface MultiSelectOption {
@@ -633,6 +632,5 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
 
 MultiSelect.displayName = 'MultiSelect';
 
-const MultiSelectWithParsedClasses = withParsedClasses(MultiSelect);
-export default MultiSelectWithParsedClasses as React.FC<MultiSelectProps & React.RefAttributes<HTMLDivElement>>;
-export { MultiSelectWithParsedClasses as MultiSelect };
+export default MultiSelect as React.FC<MultiSelectProps & React.RefAttributes<HTMLDivElement>>;
+export { MultiSelect };

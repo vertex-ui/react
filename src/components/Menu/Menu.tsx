@@ -2,7 +2,6 @@ import { ChevronDownIcon, ChevronUpIcon, MenuIcon, CloseIcon } from '../../icons
 import React, { useState, useRef, useEffect } from 'react';
 import { Flex } from '../Flex';
 import { Text } from '../Text';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './Menu.css';
 
 export interface MenuItemProps {
@@ -310,6 +309,5 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
 
 Menu.displayName = 'Menu';
 
-const MenuWithParsedClasses = withParsedClasses(Menu);
-export default MenuWithParsedClasses as React.FC<MenuProps & React.RefAttributes<HTMLDivElement>>;
-export { MenuWithParsedClasses as Menu };
+export default Menu as React.FC<MenuProps & React.RefAttributes<HTMLDivElement>>;
+export { Menu };

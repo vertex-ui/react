@@ -188,10 +188,10 @@ export const AccordionExamples: React.FC = () => {
         <h2>Status Indicators</h2>
         <p>Visual feedback with colored accent indicators for different states.</p>
         <Accordion
-          items={statusItems}
-          variant="bordered"
-          allowMultiple
-          defaultOpenItems={['success-item']}
+            items={statusItems}
+            variant="bordered"
+            allowMultiple
+            defaultOpenItems={['success-item']}
         />
       </section>
 

@@ -1,4 +1,6 @@
-export { AdminHeader, default } from './AdminHeader';
+
+
+export { default, AdminHeader } from './AdminHeader';
 export type {
   AdminHeaderProps,
   NotificationItem,

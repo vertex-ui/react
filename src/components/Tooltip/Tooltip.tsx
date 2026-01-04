@@ -120,7 +120,7 @@ export interface TooltipProps extends Omit<HTMLAttributes<HTMLDivElement>, 'cont
  * ```
  */
 
-export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
+const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
   (
     {
       content,
@@ -368,8 +368,8 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
   }
 );
 
+
 Tooltip.displayName = 'Tooltip';
 
-export default Tooltip as React.FC<
-  TooltipProps & React.RefAttributes<HTMLDivElement>
->;
+export default Tooltip as React.FC<TooltipProps & React.RefAttributes<HTMLDivElement>>;
+export { Tooltip };

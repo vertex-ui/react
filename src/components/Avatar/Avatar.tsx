@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { HTMLAttributes, ImgHTMLAttributes } from "react";
 import { useThemeContext } from '../../theme/ThemeProvider';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './Avatar.css';
 /**
  * Avatar component - Displays user profile image, initials, or fallback
@@ -144,9 +143,5 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
 
 Avatar.displayName = 'Avatar';
 
-const AvatarWithParsedClasses = withParsedClasses(Avatar);
-
-export default AvatarWithParsedClasses as React.FC<
-  AvatarProps & React.RefAttributes<HTMLDivElement>
->;
-export { AvatarWithParsedClasses as Avatar };
+export default Avatar as React.FC<AvatarProps & React.RefAttributes<HTMLDivElement>>;
+export { Avatar };

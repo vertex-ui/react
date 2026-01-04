@@ -1,5 +1,4 @@
 import React from 'react';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './Flex.css';
 
 export interface FlexProps {
@@ -145,9 +144,5 @@ const Flex = React.forwardRef<HTMLDivElement, FlexProps & React.HTMLAttributes<H
 
 Flex.displayName = 'Flex';
 
-const FlexWithParsedClasses = withParsedClasses(Flex);
-
-export default FlexWithParsedClasses as React.FC<
-  FlexProps & React.RefAttributes<HTMLDivElement>
->;
-export { FlexWithParsedClasses as Flex };
+export default Flex as React.FC<FlexProps & React.RefAttributes<HTMLDivElement>>;
+export { Flex };

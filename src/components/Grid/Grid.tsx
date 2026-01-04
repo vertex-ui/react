@@ -1,5 +1,4 @@
 import React from 'react';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './Grid.css';
 
 type GridSize = boolean | 'auto' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
@@ -242,9 +241,5 @@ const Grid = React.forwardRef<HTMLDivElement, GridProps>(
 
 Grid.displayName = 'Grid';
 
-const GridWithParsedClasses = withParsedClasses(Grid);
-
-export default GridWithParsedClasses as React.FC<
-  GridProps & React.RefAttributes<HTMLDivElement>
->;
-export { GridWithParsedClasses as Grid };
+export default Grid as React.FC<GridProps & React.RefAttributes<HTMLDivElement>>;
+export { Grid };

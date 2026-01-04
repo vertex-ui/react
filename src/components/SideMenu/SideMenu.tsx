@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Flex } from '../Flex';
 import { Text } from '../Text';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './SideMenu.css';
 
 export interface SideMenuItemProps {
@@ -315,8 +314,5 @@ const SideMenu = React.forwardRef<HTMLDivElement, SideMenuProps>(
 
 SideMenu.displayName = 'SideMenu';
 
-const SideMenuWithParsedClasses = withParsedClasses(SideMenu);
-export default SideMenuWithParsedClasses as React.FC<
-  SideMenuProps & React.RefAttributes<HTMLDivElement>
->;
-export { SideMenuWithParsedClasses as SideMenu };
+export default SideMenu as React.FC<SideMenuProps & React.RefAttributes<HTMLDivElement>>;
+export { SideMenu };

@@ -1,7 +1,6 @@
-import { CloseSmallIcon } from '../../icons/IconComponents';
 import React, { TextareaHTMLAttributes } from 'react';
 import { useId } from '../../hooks';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
+import { CloseSmallIcon } from '../../icons/IconComponents';
 import { Size, useThemeContext } from '../../theme';
 import './Textarea.css';
 
@@ -343,9 +342,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 
 Textarea.displayName = 'Textarea';
 
-const TextareaWithParsedClasses = withParsedClasses(Textarea);
+export default Textarea as React.FC<TextareaProps & React.RefAttributes<HTMLTextAreaElement>>;
+export { Textarea };
 
-export default TextareaWithParsedClasses as React.FC<
-  TextareaProps & React.RefAttributes<HTMLTextAreaElement>
->;
-export { TextareaWithParsedClasses as Textarea };

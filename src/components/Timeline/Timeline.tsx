@@ -164,4 +164,5 @@ const Timeline: React.FC<TimelineProps> = ({
 
 Timeline.displayName = 'Timeline';
 
-export default Timeline;
+export default Timeline as React.FC<TimelineProps & React.RefAttributes<HTMLDivElement>>;
+export { Timeline };

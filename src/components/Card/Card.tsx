@@ -1,6 +1,5 @@
 import React from 'react';
 import { useThemeContext, Size } from '../../theme';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './Card.css';
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -193,9 +192,5 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
 
 Card.displayName = 'Card';
 
-const CardWithParsedClasses = withParsedClasses(Card);
-
-export default CardWithParsedClasses as React.FC<
-  CardProps & React.RefAttributes<HTMLDivElement>
->;
-export { CardWithParsedClasses as Card };
+export default Card as React.FC<CardProps & React.RefAttributes<HTMLDivElement>>;
+export { Card };

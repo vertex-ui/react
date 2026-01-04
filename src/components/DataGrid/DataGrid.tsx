@@ -1,5 +1,4 @@
 import React, { useState, useMemo, useCallback, TableHTMLAttributes, useRef, useEffect } from 'react';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import { Size, useThemeContext } from '../../theme';
 import { Checkbox } from '../Checkbox';
 import { Text } from '../Text';
@@ -1201,7 +1200,5 @@ const DataGridBase = ({
 
 DataGridBase.displayName = 'DataGrid';
 
-const DataGridWithParsedClasses = withParsedClasses(DataGridBase);
-
-export default DataGridWithParsedClasses as React.FC<DataGridProps>;
-export { DataGridWithParsedClasses as DataGrid };
+export default DataGridBase as React.FC<DataGridProps>;
+export { DataGridBase as DataGrid };

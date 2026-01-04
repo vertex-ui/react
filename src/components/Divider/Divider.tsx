@@ -1,5 +1,4 @@
 import React from 'react';
-import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './Divider.css';
 
 export interface DividerProps extends React.HTMLAttributes<HTMLHRElement | HTMLDivElement> {
@@ -174,6 +173,5 @@ const Divider = React.forwardRef<HTMLHRElement | HTMLDivElement, DividerProps>(
 
 Divider.displayName = 'Divider';
 
-const DividerWithParsedClasses = withParsedClasses(Divider);
-export default DividerWithParsedClasses as React.FC<DividerProps & React.RefAttributes<HTMLHRElement | HTMLDivElement>>;
-export { DividerWithParsedClasses as Divider };
+export default Divider as React.FC<DividerProps & React.RefAttributes<HTMLHRElement | HTMLDivElement>>;
+export { Divider };
