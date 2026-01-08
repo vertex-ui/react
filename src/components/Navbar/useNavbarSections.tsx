@@ -46,6 +46,8 @@ export const useNavbarSections = (props: NavbarBaseProps) => {
           className="vtx-navbar__logo-image"
           onClick={onLogoClick}
           style={{ cursor: onLogoClick ? 'pointer' : 'default' }}
+          loading="eager"
+          fetchPriority="high"
         />
       ) : (
         <Text 

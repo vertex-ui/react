@@ -39,6 +39,12 @@ export interface ProductCardProps extends React.HTMLAttributes<HTMLDivElement> {
   onQuickView?: () => void;
   onClick?: () => void;
   loading?: boolean;
+  /**
+   * Whether this card is high priority (e.g. LCP element)
+   * If true, image will be eager loaded with high priority
+   * @default false
+   */
+  priority?: boolean;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -91,6 +97,7 @@ const ProductCardBase = React.forwardRef<HTMLDivElement, ProductCardProps>(
   onQuickView,
   onClick,
   loading = false,
+  priority = false,
   className = '',
   style,
   ...props
@@ -165,7 +172,13 @@ const ProductCardBase = React.forwardRef<HTMLDivElement, ProductCardProps>(
           onClick={onClick}
           style={{ cursor: onClick ? 'pointer' : 'default' }}
         >
-          <img src={image} alt={imageAlt} className="productcard-image" />
+          <img
+            src={image}
+            alt={imageAlt}
+            className="productcard-image"
+            loading={priority ? "eager" : "lazy"}
+            fetchPriority={priority ? "high" : "auto"}
+          />
           
           {/* BADGES */}
           <div className="productcard-badges">
@@ -361,6 +374,7 @@ const ProductCardWide = React.forwardRef<HTMLDivElement, ProductCardWideProps>(
     onQuickView,
     onClick,
     loading = false,
+    priority = false,
     className = '',
     style,
   } = props;
@@ -428,7 +442,13 @@ const ProductCardWide = React.forwardRef<HTMLDivElement, ProductCardWideProps>(
           onClick={onClick}
           style={{ cursor: onClick ? 'pointer' : 'default' }}
         >
-          <img src={image} alt={imageAlt} className="productcard-wide-image" />
+          <img
+            src={image}
+            alt={imageAlt}
+            className="productcard-wide-image"
+            loading={priority ? "eager" : "lazy"}
+            fetchPriority={priority ? "high" : "auto"}
+          />
 
           {/* BADGES */}
           <div className="productcard-badges">
@@ -563,6 +583,7 @@ const ProductCardMinimal = React.forwardRef<HTMLDivElement, ProductCardProps>(
     onWishlist,
     onClick,
     loading = false,
+    priority = false,
     className = '',
     style,
   } = props;
@@ -620,7 +641,13 @@ const ProductCardMinimal = React.forwardRef<HTMLDivElement, ProductCardProps>(
     <div className={`productcard-minimal ${className}`} style={style} ref={ref}>
       {/* IMAGE */}
       <div className="productcard-minimal-image-wrapper" onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default' }}>
-        <img src={image} alt={imageAlt} className="productcard-minimal-image" />
+        <img
+          src={image}
+          alt={imageAlt}
+          className="productcard-minimal-image"
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : "auto"}
+        />
 
         {discount && <span className="productcard-minimal-discount">{discount}</span>}
 
