@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './OrderConfirmation.css';
 import { Card } from '../../components/Card';
@@ -119,6 +119,37 @@ export interface OrderConfirmationProps extends React.HTMLAttributes<HTMLDivElem
   style?: React.CSSProperties;
 }
 
+// Helpers
+const getStatusVariant = (status: string) => {
+  switch (status) {
+    case 'confirmed':
+    case 'delivered':
+      return 'success';
+    case 'cancelled':
+      return 'error';
+    case 'processing':
+      return 'info';
+    case 'pending':
+      return 'warning';
+    default:
+      return 'neutral';
+  }
+};
+
+// Memoized Address Component
+const AddressDisplay = React.memo(({ address }: { address: OrderConfirmationAddress }) => (
+  <div className="orderconfirmation-address">
+    <div className="orderconfirmation-address-name">{address.name}</div>
+    <div>{address.addressLine1}</div>
+    {address.addressLine2 && <div>{address.addressLine2}</div>}
+    <div>
+      {address.city}, {address.state} {address.zipCode}
+    </div>
+    {address.phone && <div>Phone: {address.phone}</div>}
+  </div>
+));
+AddressDisplay.displayName = 'AddressDisplay';
+
 const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProps>(
   (
     {
@@ -167,64 +198,41 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
     },
     ref
   ) => {
-  // Get status badge variant
-  const getStatusVariant = () => {
-    switch (status) {
-      case 'confirmed':
-      case 'delivered':
-        return 'success';
-      case 'cancelled':
-        return 'error';
-      case 'processing':
-        return 'info';
-      case 'pending':
-        return 'warning';
-      default:
-        return 'neutral';
-    }
-  };
 
   // Get status text
-  const getStatusText = () => {
+  const statusTextDisplay = useMemo(() => {
     if (statusText) return statusText;
     return status.charAt(0).toUpperCase() + status.slice(1);
-  };
-
-  // Format address
-  const formatAddress = (address: OrderConfirmationAddress) => {
-    return (
-      <div className="orderconfirmation-address">
-        <div className="orderconfirmation-address-name">{address.name}</div>
-        <div>{address.addressLine1}</div>
-        {address.addressLine2 && <div>{address.addressLine2}</div>}
-        <div>
-          {address.city}, {address.state} {address.zipCode}
-        </div>
-        {address.phone && <div>Phone: {address.phone}</div>}
-      </div>
-    );
-  };
+  }, [status, statusText]);
 
   // Order Details Items
-  const orderDetailsItems: InfoListItem[] = [
-    { label: 'Order Number', value: orderNumber || `#${orderId}`, valueClass: 'value-bold' },
+  const orderDetailsItems: InfoListItem[] = useMemo(() => [
+    { label: 'Order Number', value: orderNumber || `#${orderId}`, valueClass: 'orderconfirmation-value-bold' },
     orderDate ? { label: 'Order Date', value: orderDate } : { label: '', value: '', hidden: true },
-    { label: 'Status', value: <Badge variant={getStatusVariant()}>{getStatusText()}</Badge> },
-    estimatedDelivery ? { label: 'Estimated Delivery', value: estimatedDelivery, valueClass: 'value-primary' } : { label: '', value: '', hidden: true },
-    trackingNumber ? { label: 'Tracking Number', value: trackingNumber, valueClass: 'value-bold' } : { label: '', value: '', hidden: true },
-  ].filter(item => !item.hidden);
+    { label: 'Status', value: <Badge variant={getStatusVariant(status)}>{statusTextDisplay}</Badge> },
+    estimatedDelivery ? { label: 'Estimated Delivery', value: estimatedDelivery, valueClass: 'orderconfirmation-value-primary' } : { label: '', value: '', hidden: true },
+    trackingNumber ? { label: 'Tracking Number', value: trackingNumber, valueClass: 'orderconfirmation-value-bold' } : { label: '', value: '', hidden: true },
+  ].filter(item => !item.hidden), [orderNumber, orderId, orderDate, status, statusTextDisplay, estimatedDelivery, trackingNumber]);
 
   // Customer Details Items
-  const customerDetailsItems: InfoListItem[] = [
+  const customerDetailsItems: InfoListItem[] = useMemo(() => [
     customerEmail ? { label: 'Email', value: customerEmail } : { label: '', value: '', hidden: true },
     customerPhone ? { label: 'Phone', value: customerPhone } : { label: '', value: '', hidden: true },
-  ].filter(item => !item.hidden);
+  ].filter(item => !item.hidden), [customerEmail, customerPhone]);
 
   // Payment Details Items
-  const paymentDetailsItems: InfoListItem[] = [
+  const paymentDetailsItems: InfoListItem[] = useMemo(() => [
     paymentMethod ? { label: 'Payment Method', value: paymentMethod } : { label: '', value: '', hidden: true },
-    transactionId ? { label: 'Transaction ID', value: transactionId, valueClass: 'value-muted' } : { label: '', value: '', hidden: true },
-  ].filter(item => !item.hidden);
+    transactionId ? { label: 'Transaction ID', value: transactionId, valueClass: 'orderconfirmation-value-muted' } : { label: '', value: '', hidden: true },
+  ].filter(item => !item.hidden), [paymentMethod, transactionId]);
+
+  // Handlers
+  const handleDownloadInvoice = useCallback(() => onDownloadInvoice?.(orderId), [onDownloadInvoice, orderId]);
+  const handleTrackOrder = useCallback(() => onTrackOrder?.(orderId), [onTrackOrder, orderId]);
+  const handleContinueShopping = useCallback(() => onContinueShopping?.(), [onContinueShopping]);
+  const handleViewDetails = useCallback(() => onViewDetails?.(orderId), [onViewDetails, orderId]);
+  const handleContactSupport = useCallback(() => onContactSupport?.(orderId), [onContactSupport, orderId]);
+  const handleShareOrder = useCallback(() => onShareOrder?.(orderId), [onShareOrder, orderId]);
 
   return (
     <div className={`orderconfirmation ${className}`} style={style} ref={ref} {...props}>
@@ -246,7 +254,7 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
             </Text>
             <Badge 
               variant="success" 
-              style={{ padding: '8px 20px', borderRadius: '20px', fontWeight: 600, marginTop: '8px' }}
+              className="orderconfirmation-order-badge"
             >
               Order {orderNumber || `#${orderId}`}
             </Badge>
@@ -399,7 +407,7 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
                 </Text>
               </Flex>
               <Divider />
-              {formatAddress(shippingAddress)}
+              <AddressDisplay address={shippingAddress} />
             </Flex>
           </Card>
 
@@ -414,7 +422,7 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
                   </Text>
                 </Flex>
                 <Divider />
-                {formatAddress(billingAddress)}
+                <AddressDisplay address={billingAddress} />
               </Flex>
             </Card>
           )}
@@ -435,9 +443,9 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
                   <Button
                     variant="primary"
                     size="md"
-                    onClick={() => onDownloadInvoice(orderId)}
+                    onClick={handleDownloadInvoice}
                     leftIcon={<DownloadIcon size={18} />}
-                    style={{ flex: '1 1 auto', minWidth: '170px' }}
+                    className="orderconfirmation-action-btn-primary"
                   >
                     {downloadInvoiceText}
                   </Button>
@@ -446,9 +454,9 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
                   <Button
                     variant="primary"
                     size="md"
-                    onClick={() => onTrackOrder(orderId)}
+                    onClick={handleTrackOrder}
                     leftIcon={<PackageIcon size={18} />}
-                    style={{ flex: '1 1 auto', minWidth: '170px' }}
+                    className="orderconfirmation-action-btn-primary"
                   >
                     {trackOrderText}
                   </Button>
@@ -461,9 +469,9 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
                   <Button
                     variant="outline"
                     size="md"
-                    onClick={onContinueShopping}
+                    onClick={handleContinueShopping}
                     leftIcon={<ShoppingBagIcon size={18} />}
-                    style={{ flex: '1 1 auto', minWidth: '170px' }}
+                    className="orderconfirmation-action-btn-primary"
                   >
                     {continueShoppingText}
                   </Button>
@@ -472,9 +480,9 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
                   <Button
                     variant="outline"
                     size="md"
-                    onClick={() => onViewDetails(orderId)}
+                    onClick={handleViewDetails}
                     leftIcon={<EyeIcon size={18} />}
-                    style={{ flex: '1 1 auto', minWidth: '170px' }}
+                    className="orderconfirmation-action-btn-primary"
                   >
                     {viewDetailsText}
                   </Button>
@@ -487,7 +495,7 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
                   <Button
                     variant="ghost"
                     size="md"
-                    onClick={() => onContactSupport(orderId)}
+                    onClick={handleContactSupport}
                     leftIcon={<MessageIcon size={18} />}
                   >
                     {contactSupportText}
@@ -497,7 +505,7 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
                   <Button
                     variant="ghost"
                     size="md"
-                    onClick={() => onShareOrder(orderId)}
+                    onClick={handleShareOrder}
                     leftIcon={<ShareIcon size={18} />}
                   >
                     {shareOrderText}
@@ -509,14 +517,7 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
         )}
 
         {/* Help Text - Enhanced */}
-        <Card 
-          variant="filled" 
-          className="orderconfirmation-help-card"
-          style={{ 
-            background: 'var(--vtx-color-primary-50)', 
-            border: '1px solid var(--vtx-color-primary-100)' 
-          }}
-        >
+        <Card variant="filled" className="orderconfirmation-help-card">
           <Flex direction="column" gap={12} align="center">
             <Flex align="center" gap={8}>
               <MessageIcon size={20} />
@@ -524,7 +525,7 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
                 Need Help?
               </Text>
             </Flex>
-            <Text variant="body2" align="center" noMargin style={{ color: 'var(--vtx-color-text-secondary)' }}>
+            <Text variant="body2" align="center" noMargin className="orderconfirmation-subtitle">
               Our support team is available 24/7 to assist you with your order
             </Text>
             <Flex direction="row" gap={16} wrap="wrap" justify="center" style={{ marginTop: '4px' }}>
