@@ -25,6 +25,8 @@ export { RichTextEditor } from './components/RichTextEditor';
 export type { RichTextEditorProps, ToolbarButton } from './components/RichTextEditor';
 export { Select } from './components/Select';
 export type { SelectOption, SelectProps } from './components/Select';
+export { FileUpload } from './components/FileUpload';
+export type { FileUploadProps, FileItem } from './components/FileUpload';
 export { Textarea } from './components/Textarea';
 export type { TextareaProps } from './components/Textarea';
 export { DatePicker, DateRangePicker, Calendar } from './components/DatePicker';
