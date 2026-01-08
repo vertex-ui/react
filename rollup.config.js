@@ -20,7 +20,10 @@ const preserveUseClient = () => ({
       if (fs.existsSync(id)) {
         const content = fs.readFileSync(id, 'utf8');
         if (/['"]use client['"]/.test(content)) {
-          return '"use client";\n' + code;
+          return {
+            code: '"use client";\n' + code,
+            map: null // Preserve existing sourcemap
+          };
         }
       }
     } catch (e) {
@@ -71,7 +74,7 @@ const copyCss = () => ({
  * Auto-discover entry points (MUI-style)
  */
 const getEntries = () => {
-  const entries = [];
+  const entries = {};
 
   const scan = (dir) => {
     if (!fs.existsSync(dir)) return;
@@ -92,11 +95,21 @@ const getEntries = () => {
         if (file.includes('.test.') ||
           file.includes('.spec.') ||
           file.includes('.stories.') ||
+          file.includes('.examples.') ||
           file.includes('setupTests') ||
           file.includes('jest.setup')) return;
+        // Exclude type-only files that create empty chunks
+        if (file === 'types.ts' || file === 'types.tsx') return;
 
-        // Add absolute path to entries array
-        entries.push(fullPath);
+        // Create entry key relative to src
+        // e.g. src/components/Button/index.ts -> components/Button/index
+        const relativePath = path.relative('src', fullPath);
+        const entryKey = relativePath
+          .replace(/\.(ts|tsx)$/, '')
+          .replace(/\\/g, '/'); // Ensure forward slashes for rollup keys
+
+        // Use the full path from src directory as the input
+        entries[entryKey] = fullPath.replace(/\\/g, '/');
       }
     });
   };
@@ -160,7 +173,9 @@ export default {
     if (
       warning.code === 'CIRCULAR_DEPENDENCY' ||
       warning.code === 'THIS_IS_UNDEFINED' ||
-      warning.code === 'MODULE_LEVEL_DIRECTIVE'
+      warning.code === 'MODULE_LEVEL_DIRECTIVE' ||
+      warning.code === 'SOURCEMAP_BROKEN' ||
+      warning.code === 'EMPTY_BUNDLE'
     ) {
       return;
     }

@@ -178,6 +178,7 @@ const OrderCard = React.forwardRef<HTMLDivElement, OrderCardProps>(
                   src={firstItem.image}
                   alt={firstItem.name}
                   className="ordercard-image"
+                  loading="lazy"
                 />
               </div>
             )}

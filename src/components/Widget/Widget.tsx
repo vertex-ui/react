@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import {
   WidgetConfig,
@@ -22,6 +24,7 @@ import {
   EmptyStateWidgetData,
 } from './types';
 import IntelligentGrid from './IntelligentGrid';
+import './Widget.css';
 import MetricWidget from './renderers/MetricWidget';
 import InfoWidget from './renderers/InfoWidget';
 import ProductWidget from './renderers/ProductWidget';
@@ -109,10 +112,18 @@ const Widget: React.FC<WidgetProps> = ({
     const gridData = config.data as GridWidgetData;
     const gridSettings = (config.settings as any) || {};
     
+    // Merge grid config with gap/spacing from settings if needed
+    const gridConfig = config.grid || gridSettings.grid || {};
+    const finalGridConfig = {
+      ...gridConfig,
+      // Support both 'spacing' (correct) and 'gap' (legacy) properties
+      spacing: gridConfig.spacing || gridSettings.gap || gridSettings.spacing || 'md',
+    };
+
     return (
       <IntelligentGrid
         data={gridData.widgets}
-        grid={config.grid || gridSettings.grid}
+        grid={finalGridConfig}
         renderItem={(widgetConfig: WidgetConfig) =>
           renderSingleWidget(
             widgetConfig.type,
@@ -132,10 +143,18 @@ const Widget: React.FC<WidgetProps> = ({
   if (Array.isArray(config.data)) {
     const gridSettings = (config.settings as any) || {};
     
+    // Merge grid config with gap/spacing from settings if needed
+    const gridConfig = config.grid || gridSettings.grid || {};
+    const finalGridConfig = {
+      ...gridConfig,
+      // Support both 'spacing' (correct) and 'gap' (legacy) properties
+      spacing: gridConfig.spacing || gridSettings.gap || gridSettings.spacing || 'md',
+    };
+
     return (
       <IntelligentGrid
         data={config.data}
-        grid={config.grid || gridSettings.grid}
+        grid={finalGridConfig}
         renderItem={(item: any) =>
           renderSingleWidget(
             config.type,
