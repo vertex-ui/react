@@ -5,7 +5,6 @@
  * Supports 404, 500, 403, 401, 503, and custom error pages.
  */
 
-import React from 'react';
 import { ErrorPageWidget } from '../../Widget';
 
 // ========================================================================

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { TextareaHTMLAttributes } from 'react';
 import { useId } from '../../hooks';
 import { CloseSmallIcon } from '../../icons/IconComponents';

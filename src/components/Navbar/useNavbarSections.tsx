@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from 'react';
 import { Flex } from '../Flex';
 import { Autocomplete } from '../Autocomplete';

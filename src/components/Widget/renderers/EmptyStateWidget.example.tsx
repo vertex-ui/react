@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { Widget, EmptyStateWidget } from '../../Widget';
 import type { WidgetConfig } from '../../Widget/types';

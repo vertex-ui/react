@@ -20,7 +20,11 @@ function getStyleTag(): HTMLStyleElement {
 }
 
 // Cache to avoid duplicate injections
+// Cache to avoid duplicate injections
+// We use a Set to track injected CSS rules for standard utility classes
+// This is moved to the top to avoid duplicate declarations
 const injectedRules = new Set<string>();
+const parseCache = new Map<string, string>();
 
 // Spacing scale mapping (similar to Tailwind's default scale)
 const spacingScale: Record<string, string> = {
@@ -53,7 +57,7 @@ const spacingScale: Record<string, string> = {
 const propertyMap: Record<string, string> = {
   // Margin
   m: "margin",
-  mt: "margin-top", 
+  mt: "margin-top",
   mr: "margin-right",
   mb: "margin-bottom",
   ml: "margin-left",
@@ -62,7 +66,7 @@ const propertyMap: Record<string, string> = {
   // Padding
   p: "padding",
   pt: "padding-top",
-  pr: "padding-right", 
+  pr: "padding-right",
   pb: "padding-bottom",
   pl: "padding-left",
   px: "padding-left, padding-right", // Will be handled specially
@@ -72,28 +76,42 @@ const propertyMap: Record<string, string> = {
   h: "height",
   // Typography
   fs: "font-size",
-  lh: "line-height", 
+  lh: "line-height",
   ls: "letter-spacing",
   // Gap
   gap: "gap",
-  // Border radius
-  rounded: "border-radius",
 };
 
+// Caches are now declared at the top of the file
+
 export function parseClass(className: string): string {
+  // Check cache first
+  if (parseCache.has(className)) {
+    return parseCache.get(className) as string;
+  }
+
+  // Simple optimization: if no hyphen, it can't be one of our utility classes
+  if (!className.includes('-')) {
+    parseCache.set(className, className);
+    return className;
+  }
+
+  let result = className;
+
   // First, try to match arbitrary value patterns like mb-[2px]
   let match = className.match(/^([a-z]+)-\[(.+)\]$/);
   if (match) {
     const property = match[1];
     const value = match[2];
 
-    // Generate a safe CSS class name (no brackets)
-    const safeClass = `${property}-${value.replace(/[^a-z0-9]/gi, "")}`;
-
     const cssProp = propertyMap[property];
     if (cssProp) {
+      // Generate a safe CSS class name (no brackets)
+      const safeClass = `${property}-${value.replace(/[^a-z0-9]/gi, "")}`;
+      result = safeClass;
+
       let cssRule: string;
-      
+
       // Handle special cases for x/y axis properties
       if (property === 'mx') {
         cssRule = `.${safeClass} { margin-left: ${value}; margin-right: ${value}; }`;
@@ -108,64 +126,69 @@ export function parseClass(className: string): string {
       }
 
       if (!injectedRules.has(cssRule)) {
-        const styleTag = getStyleTag();
-        styleTag.appendChild(document.createTextNode(cssRule));
-        injectedRules.add(cssRule);
+        try {
+          const styleTag = getStyleTag();
+          styleTag.appendChild(document.createTextNode(cssRule));
+          injectedRules.add(cssRule);
+        } catch (e) {
+          console.warn("Failed to inject dynamic style rule:", cssRule);
+        }
       }
+    }
+  } else {
+    // Then try to match standard Tailwind-like patterns like mb-2, p-4, etc.
+    match = className.match(/^([a-z]+)-(.+)$/);
+    if (match) {
+      const property = match[1];
+      const scaleValue = match[2];
 
-      return safeClass;
+      const cssProp = propertyMap[property];
+      const mappedValue = spacingScale[scaleValue];
+
+      if (cssProp && mappedValue) {
+        // Generate a safe CSS class name
+        const safeClass = `${property}-${scaleValue.replace(/[^a-z0-9]/gi, "")}`;
+        result = safeClass;
+
+        let cssRule: string;
+
+        // Handle special cases for x/y axis properties
+        if (property === 'mx') {
+          cssRule = `.${safeClass} { margin-left: ${mappedValue}; margin-right: ${mappedValue}; }`;
+        } else if (property === 'my') {
+          cssRule = `.${safeClass} { margin-top: ${mappedValue}; margin-bottom: ${mappedValue}; }`;
+        } else if (property === 'px') {
+          cssRule = `.${safeClass} { padding-left: ${mappedValue}; padding-right: ${mappedValue}; }`;
+        } else if (property === 'py') {
+          cssRule = `.${safeClass} { padding-top: ${mappedValue}; padding-bottom: ${mappedValue}; }`;
+        } else {
+          cssRule = `.${safeClass} { ${cssProp}: ${mappedValue}; }`;
+        }
+
+        if (!injectedRules.has(cssRule)) {
+          try {
+            const styleTag = getStyleTag();
+            styleTag.appendChild(document.createTextNode(cssRule));
+            injectedRules.add(cssRule);
+          } catch (e) {
+            console.warn("Failed to inject dynamic style rule:", cssRule);
+          }
+        }
+      }
     }
   }
 
-  // Then try to match standard Tailwind-like patterns like mb-2, p-4, etc.
-  match = className.match(/^([a-z]+)-(.+)$/);
-  if (match) {
-    const property = match[1];
-    const scaleValue = match[2];
-
-    const cssProp = propertyMap[property];
-    const mappedValue = spacingScale[scaleValue];
-    
-    if (cssProp && mappedValue) {
-      // Generate a safe CSS class name
-      const safeClass = `${property}-${scaleValue.replace(/[^a-z0-9]/gi, "")}`;
-      
-      let cssRule: string;
-      
-      // Handle special cases for x/y axis properties
-      if (property === 'mx') {
-        cssRule = `.${safeClass} { margin-left: ${mappedValue}; margin-right: ${mappedValue}; }`;
-      } else if (property === 'my') {
-        cssRule = `.${safeClass} { margin-top: ${mappedValue}; margin-bottom: ${mappedValue}; }`;
-      } else if (property === 'px') {
-        cssRule = `.${safeClass} { padding-left: ${mappedValue}; padding-right: ${mappedValue}; }`;
-      } else if (property === 'py') {
-        cssRule = `.${safeClass} { padding-top: ${mappedValue}; padding-bottom: ${mappedValue}; }`;
-      } else {
-        cssRule = `.${safeClass} { ${cssProp}: ${mappedValue}; }`;
-      }
-
-      if (!injectedRules.has(cssRule)) {
-        const styleTag = getStyleTag();
-        styleTag.appendChild(document.createTextNode(cssRule));
-        injectedRules.add(cssRule);
-      }
-
-      return safeClass;
-    }
-  }
-
-  // If not a recognized utility class, return unchanged
-  return className;
+  parseCache.set(className, result);
+  return result;
 }
 
 // Process all classes on an element
 function processElement(element: Element): void {
   if (!element.classList || element.classList.length === 0) return;
-  
+
   const originalClasses = Array.from(element.classList);
   const processedClasses = originalClasses.map(cls => parseClass(cls));
-  
+
   // Only update if there are changes
   if (processedClasses.some((cls, i) => cls !== originalClasses[i])) {
     element.className = processedClasses.join(' ');
@@ -181,12 +204,12 @@ function processAllElements(): void {
 // Initialize global style processing
 export function initGlobalStyles(): void {
   if (isInitialized) return;
-  
+
   // Process existing elements
   if (document.body) {
     processAllElements();
   }
-  
+
   // Set up MutationObserver to watch for new elements and class changes
   observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
@@ -206,7 +229,7 @@ export function initGlobalStyles(): void {
       }
     });
   });
-  
+
   // Start observing
   observer.observe(document.body || document.documentElement, {
     childList: true,
@@ -214,7 +237,7 @@ export function initGlobalStyles(): void {
     attributes: true,
     attributeFilter: ['class']
   });
-  
+
   isInitialized = true;
 }
 

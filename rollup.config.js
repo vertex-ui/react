@@ -1,15 +1,169 @@
-// rollup.config.js
-import typescript from '@rollup/plugin-typescript';
+import fs from 'fs';
+import path from 'path';
+
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import typescript from '@rollup/plugin-typescript';
 import postcss from 'rollup-plugin-postcss';
-import { terser } from 'rollup-plugin-terser';
+
+/**
+ * Preserve "use client" for Next.js App Router
+ */
+const preserveUseClient = () => ({
+  name: 'preserve-use-client',
+  renderChunk(code, chunk) {
+    const id = chunk.facadeModuleId;
+    if (!id) return null;
+    if (id.includes('node_modules')) return null;
+
+    // Check original source for 'use client'
+    try {
+      if (fs.existsSync(id)) {
+        const content = fs.readFileSync(id, 'utf8');
+        if (/['"]use client['"]/.test(content)) {
+          return '"use client";\n' + code;
+        }
+      }
+    } catch (e) {
+      console.warn('Error checking use client for ' + id, e);
+    }
+    return null;
+  }
+});
+
+const copyCss = () => ({
+  name: 'copy-css',
+  writeBundle() {
+    // Find the generated CSS file in dist/esm
+    const cssFiles = fs.readdirSync('dist/esm').filter(f => f.endsWith('.css'));
+    if (cssFiles.length === 0) return;
+
+    // Assume the largest CSS file is the main bundle if multiple exist, 
+    // or just take the first one if it's the only one.
+    // In this case we saw Alert.css containing the full bundle.
+    const srcFile = cssFiles[0];
+    const src = path.join('dist/esm', srcFile);
+    const dest = 'dist/esm/theme/base.css';
+
+    if (fs.existsSync(src)) {
+      const destDir = path.dirname(dest);
+      if (!fs.existsSync(destDir)) {
+        fs.mkdirSync(destDir, { recursive: true });
+      }
+      fs.copyFileSync(src, dest);
+      console.log(`Copied ${src} to ${dest}`);
+
+      // Copy d.ts for styles if source exists
+      const dtsSrc = 'src/styles.d.ts';
+      const dtsDest = 'dist/types/styles.d.ts';
+      if (fs.existsSync(dtsSrc)) {
+        const dtsDir = path.dirname(dtsDest);
+        if (!fs.existsSync(dtsDir)) {
+          fs.mkdirSync(dtsDir, { recursive: true });
+        }
+        fs.copyFileSync(dtsSrc, dtsDest);
+        console.log(`Copied ${dtsSrc} to ${dtsDest}`);
+      }
+    }
+  }
+});
+
+/**
+ * Auto-discover entry points (MUI-style)
+ */
+const getEntries = () => {
+  const entries = [];
+
+  const scan = (dir) => {
+    if (!fs.existsSync(dir)) return;
+    const files = fs.readdirSync(dir);
+
+    files.forEach((file) => {
+      const fullPath = path.join(dir, file);
+      const stat = fs.statSync(fullPath);
+
+      if (stat.isDirectory()) {
+        scan(fullPath);
+      } else {
+        // Filter for .ts and .tsx files
+        if (!/\.(ts|tsx)$/.test(file)) return;
+        // Exclude type definition files
+        if (file.endsWith('.d.ts')) return;
+        // Exclude tests, stories, and setup files
+        if (file.includes('.test.') ||
+          file.includes('.spec.') ||
+          file.includes('.stories.') ||
+          file.includes('setupTests') ||
+          file.includes('jest.setup')) return;
+
+        // Add absolute path to entries array
+        entries.push(fullPath);
+      }
+    });
+  };
+
+  scan('src');
+  return entries;
+};
 
 export default {
-  input: 'src/index.ts',
+  input: getEntries(),
+
   output: [
-    { file: 'dist/index.cjs.js', format: 'cjs', sourcemap: true },
-    { file: 'dist/index.esm.js', format: 'esm', sourcemap: true }
+    {
+      dir: 'dist/esm',
+      format: 'esm',
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+      sourcemap: true,
+      entryFileNames: '[name].js'
+    },
+    {
+      dir: 'dist/cjs',
+      format: 'cjs',
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+      sourcemap: true,
+      exports: 'named',
+      entryFileNames: '[name].js'
+    }
   ],
-  external: ['react-icons/fi'],
-  plugins: [peerDepsExternal(), postcss(), typescript(), terser()]
+
+  external: [
+    'react',
+    'react-dom',
+    'react/jsx-runtime',
+    /^react\/.*/,
+    /^react-dom\/.*/,
+    /^react-icons\/.*/
+  ],
+
+  plugins: [
+    peerDepsExternal(),
+
+    postcss({
+      extract: true,
+      minimize: true,
+      modules: false
+    }),
+
+    typescript({
+      tsconfig: './tsconfig.build.json',
+      sourceMap: true
+    }),
+
+    preserveUseClient(),
+
+    copyCss()
+  ],
+
+  onwarn(warning, warn) {
+    if (
+      warning.code === 'CIRCULAR_DEPENDENCY' ||
+      warning.code === 'THIS_IS_UNDEFINED' ||
+      warning.code === 'MODULE_LEVEL_DIRECTIVE'
+    ) {
+      return;
+    }
+    warn(warning);
+  }
 };

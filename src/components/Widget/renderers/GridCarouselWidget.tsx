@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useCallback, useState, useEffect } from 'react';
 import { useTheme } from '../../../hooks/useTheme';
 import { ChevronLeftIcon, ChevronRightIcon } from '../../../icons/IconComponents';

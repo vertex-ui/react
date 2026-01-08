@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import Widget from '../../components/Widget/Widget';
 import { Grid } from '../../components/Grid';

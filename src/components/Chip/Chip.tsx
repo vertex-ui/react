@@ -1,3 +1,5 @@
+"use client";
+
 import { CloseSmallIcon } from '../../icons/IconComponents';
 import React, { ReactNode, MouseEvent, KeyboardEvent } from 'react';
 import { Size } from '../../theme';

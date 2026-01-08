@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useId, useRef, useImperativeHandle, useEffect } from 'react';
 import { useThemeContext } from '../../theme/ThemeProvider';
 import './Checkbox.css';

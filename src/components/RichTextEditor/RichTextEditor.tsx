@@ -1,3 +1,5 @@
+"use client";
+
 import { CloseSmallIcon } from '../../icons/IconComponents';
 import React, { useEffect, useRef, useState } from 'react';
 import { useId } from '../../hooks';

@@ -1,3 +1,5 @@
+"use client";
+
 import { ChevronDownIcon, SpinnerIcon, CheckIcon } from '../../icons/IconComponents';
 import React, { useEffect, useRef, useState } from 'react';
 import { useId } from '../../hooks';

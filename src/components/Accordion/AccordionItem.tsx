@@ -1,3 +1,5 @@
+"use client";
+
 
 import { ChevronDownIcon, PlusIcon, MinusIcon } from '../../icons/IconComponents';
 import React, { useRef } from 'react';

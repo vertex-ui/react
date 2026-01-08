@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './ProductCard.css';

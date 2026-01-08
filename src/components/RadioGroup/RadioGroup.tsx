@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import { Radio } from '../Radio/Radio';
 import { Size, useThemeContext } from '../../theme';

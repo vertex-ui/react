@@ -174,26 +174,23 @@ export interface TextProps extends Omit<React.HTMLAttributes<HTMLElement>, 'colo
 }
 
 /**
- * Get default HTML element based on variant
+ * Default HTML element mapping for each variant
  */
-const getDefaultElement = (variant: TextVariant): TextAs => {
-  const elementMap: Record<TextVariant, TextAs> = {
-    h1: 'h1',
-    h2: 'h2',
-    h3: 'h3',
-    h4: 'h4',
-    h5: 'h5',
-    h6: 'h6',
-    body1: 'p',
-    body2: 'p',
-    subtitle1: 'p',
-    subtitle2: 'p',
-    caption: 'span',
-    overline: 'span',
-    button: 'span',
-    label: 'label',
-  };
-  return elementMap[variant];
+const ELEMENT_MAP: Record<TextVariant, TextAs> = {
+  h1: 'h1',
+  h2: 'h2',
+  h3: 'h3',
+  h4: 'h4',
+  h5: 'h5',
+  h6: 'h6',
+  body1: 'p',
+  body2: 'p',
+  subtitle1: 'p',
+  subtitle2: 'p',
+  caption: 'span',
+  overline: 'span',
+  button: 'span',
+  label: 'label',
 };
 
 /**
@@ -201,51 +198,8 @@ const getDefaultElement = (variant: TextVariant): TextAs => {
  *
  * A comprehensive text component that provides consistent typography across your application
  * with full theming support and extensive customization options.
- *
- * @example
- * Basic usage with variants
- * ```tsx
- * <Text variant="h1">Heading 1</Text>
- * <Text variant="body1">Regular body text</Text>
- * <Text variant="caption" color="neutral.500">Small caption text</Text>
- * ```
- *
- * @example
- * Custom styling
- * ```tsx
- * <Text
- *   variant="body1"
- *   weight="bold"
- *   align="center"
- *   color="primary.600"
- * >
- *   Centered bold text
- * </Text>
- * ```
- *
- * @example
- * Truncation and line clamping
- * ```tsx
- * <Text truncate>This text will be truncated with ellipsis...</Text>
- * <Text lineClamp={3}>This text will show only 3 lines before truncating...</Text>
- * ```
- *
- * @example
- * Gradient text
- * ```tsx
- * <Text variant="h2" gradient={['#667eea', '#764ba2']}>
- *   Gradient Heading
- * </Text>
- * ```
- *
- * @example
- * Semantic HTML control
- * ```tsx
- * <Text variant="h1" as="h2">Visually h1, semantically h2</Text>
- * <Text variant="body1" as="label" htmlFor="input">Label with body style</Text>
- * ```
  */
-const Text = React.forwardRef<HTMLElement, TextProps>(
+const TextComponent = React.forwardRef<HTMLElement, TextProps>(
   (
     {
       variant = 'body1',
@@ -277,74 +231,83 @@ const Text = React.forwardRef<HTMLElement, TextProps>(
     ref
   ) => {
     // Determine the HTML element to render
-    const Component = as || getDefaultElement(variant);
+    const Component = as || ELEMENT_MAP[variant] || 'p';
 
-    // Build class names
-    const classNames = [
-      'vtx-text',
-      `vtx-text--${variant}`,
-      align && `vtx-text--align-${align}`,
-      weight && typeof weight === 'string' && `vtx-text--weight-${weight}`,
-      color && color !== 'inherit' && `vtx-text--color-${color}`,
-      transform && `vtx-text--transform-${transform}`,
-      decoration && `vtx-text--decoration-${decoration}`,
-      truncate && 'vtx-text--truncate',
-      lineClamp && 'vtx-text--line-clamp',
-      breakWord && 'vtx-text--break-word',
-      italic && 'vtx-text--italic',
-      underline && 'vtx-text--underline',
-      strikethrough && 'vtx-text--strikethrough',
-      gradient && 'vtx-text--gradient',
-      noSelect && 'vtx-text--no-select',
-      noMargin && 'vtx-text--no-margin',
-      noPadding && 'vtx-text--no-padding',
+    // Build class names - memoized for performance
+    const classNames = React.useMemo(() => {
+      return [
+        'vtx-text',
+        `vtx-text--${variant}`,
+        align && `vtx-text--align-${align}`,
+        weight && typeof weight === 'string' && `vtx-text--weight-${weight}`,
+        color && color !== 'inherit' && `vtx-text--color-${color}`,
+        transform && `vtx-text--transform-${transform}`,
+        decoration && `vtx-text--decoration-${decoration}`,
+        truncate && 'vtx-text--truncate',
+        lineClamp && 'vtx-text--line-clamp',
+        breakWord && 'vtx-text--break-word',
+        italic && 'vtx-text--italic',
+        underline && 'vtx-text--underline',
+        strikethrough && 'vtx-text--strikethrough',
+        gradient && 'vtx-text--gradient',
+        noSelect && 'vtx-text--no-select',
+        noMargin && 'vtx-text--no-margin',
+        noPadding && 'vtx-text--no-padding',
+        className,
+      ]
+        .filter(Boolean)
+        .join(' ');
+    }, [
+      variant,
+      align,
+      weight,
+      color,
+      transform,
+      decoration,
+      truncate,
+      lineClamp,
+      breakWord,
+      italic,
+      underline,
+      strikethrough,
+      gradient,
+      noSelect,
+      noMargin,
+      noPadding,
       className,
-    ]
-      .filter(Boolean)
-      .join(' ');
+    ]);
 
-    // Build inline styles
-    const inlineStyles: CSSProperties = {
-      ...style,
-    };
+    // Build inline styles - memoized for performance
+    const inlineStyles = React.useMemo(() => {
+      const s: CSSProperties = { ...style };
 
-    // Handle textColor override (direct CSS color)
-    if (textColor) {
-      inlineStyles.color = textColor;
-    }
+      if (textColor) s.color = textColor;
+      if (weight && typeof weight === 'number') s.fontWeight = weight;
+      if (lineClamp) s.WebkitLineClamp = lineClamp;
 
-    // Handle numeric weight
-    if (weight && typeof weight === 'number') {
-      inlineStyles.fontWeight = weight;
-    }
+      if (gradient && gradient.length > 0) {
+        s.backgroundImage = gradient.length === 1
+          ? gradient[0]
+          : `linear-gradient(135deg, ${gradient.join(', ')})`;
+      }
 
-    // Handle line clamp
-    if (lineClamp) {
-      inlineStyles.WebkitLineClamp = lineClamp;
-    }
+      if (size) s.fontSize = typeof size === 'number' ? `${size}px` : size;
+      if (lineHeight) s.lineHeight = typeof lineHeight === 'number' ? `${lineHeight}` : lineHeight;
+      if (letterSpacing) {
+        s.letterSpacing = typeof letterSpacing === 'number' ? `${letterSpacing}px` : letterSpacing;
+      }
 
-    // Handle gradient
-    if (gradient && gradient.length > 0) {
-      const gradientValue =
-        gradient.length === 1 ? gradient[0] : `linear-gradient(135deg, ${gradient.join(', ')})`;
-      inlineStyles.backgroundImage = gradientValue;
-    }
-
-    // Handle custom size
-    if (size) {
-      inlineStyles.fontSize = typeof size === 'number' ? `${size}px` : size;
-    }
-
-    // Handle custom line height
-    if (lineHeight) {
-      inlineStyles.lineHeight = typeof lineHeight === 'number' ? `${lineHeight}` : lineHeight;
-    }
-
-    // Handle custom letter spacing
-    if (letterSpacing) {
-      inlineStyles.letterSpacing =
-        typeof letterSpacing === 'number' ? `${letterSpacing}px` : letterSpacing;
-    }
+      return s;
+    }, [
+      style,
+      textColor,
+      weight,
+      lineClamp,
+      gradient,
+      size,
+      lineHeight,
+      letterSpacing,
+    ]);
 
     return React.createElement(
       Component,
@@ -359,7 +322,11 @@ const Text = React.forwardRef<HTMLElement, TextProps>(
   }
 );
 
-Text.displayName = 'Text';
+TextComponent.displayName = 'Text';
+
+// Using React.memo for high-frequency typography component
+const Text = React.memo(TextComponent);
 
 export default Text as React.FC<TextProps & React.RefAttributes<HTMLElement>>;
 export { Text };
+

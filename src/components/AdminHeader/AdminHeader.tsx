@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Text } from '../Text';
 import { Avatar } from '../Avatar';

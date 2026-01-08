@@ -1,3 +1,5 @@
+"use client";
+
 import React, { ReactNode, createContext, forwardRef, useContext, useState } from 'react';
 import { withParsedClasses } from '../../hoc/withParsedClasses';
 import { ChevronLeftIcon, ChevronRightIcon } from '../../icons';

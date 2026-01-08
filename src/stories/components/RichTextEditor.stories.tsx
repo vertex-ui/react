@@ -1,3 +1,5 @@
+"use client";
+
 import type { Meta, StoryObj } from '@storybook/react';
 import { RichTextEditor } from '../../components/RichTextEditor';
 import { useState } from 'react';

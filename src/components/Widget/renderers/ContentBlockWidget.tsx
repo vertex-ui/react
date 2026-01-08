@@ -121,14 +121,6 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
 }) => {
   // Get size from theme context if available
   let themeDefaultSize = 'md';
-  try {
-    const { useThemeContext } = require('../../../theme/ThemeProvider');
-    const { theme: themeContext } = useThemeContext();
-    themeDefaultSize = themeContext.defaultSize;
-  } catch {
-    // Theme context not available, use default
-  }
-
   // Extract settings with defaults
   const layout = settings.layout ?? 'media-left';
   const variant = settings.variant ?? 'minimal';

@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { useThemeContext, Size } from '../../theme';
 import './Card.css';

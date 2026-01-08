@@ -1,3 +1,5 @@
+"use client";
+
 import type { Meta, StoryObj } from '@storybook/react';
 import { SideMenu, SideMenuProps } from '../../components/SideMenu/SideMenu';
 import { useState } from 'react';

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { ButtonHTMLAttributes } from 'react';
 import { useThemeContext } from '../../theme/ThemeProvider';
 import { Size } from '../../theme';
