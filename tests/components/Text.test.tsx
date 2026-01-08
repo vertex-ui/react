@@ -44,7 +44,7 @@ describe('Text', () => {
   });
 
   it('applies color styles', () => {
-    render(<Text color="#ff0000">Red text</Text>);
+    render(<Text textColor="#ff0000">Red text</Text>);
     const element = screen.getByText('Red text');
     expect(element.style.color).toBe('rgb(255, 0, 0)');
   });

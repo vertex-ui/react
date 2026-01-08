@@ -289,10 +289,9 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
         {progressBar && autoClose !== false && (
           <div className="vtx-toast__progress-container">
             <div
-              className="vtx-toast__progress"
+              className={`vtx-toast__progress ${isPaused ? 'vtx-toast__progress--paused' : 'vtx-toast__progress--running'}`}
               style={{
                 transform: `scaleX(${progress / 100})`,
-                animationPlayState: isPaused ? 'paused' : 'running',
               }}
             />
           </div>

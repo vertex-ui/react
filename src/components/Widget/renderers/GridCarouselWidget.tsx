@@ -3,6 +3,7 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { useTheme } from '../../../hooks/useTheme';
 import { ChevronLeftIcon, ChevronRightIcon } from '../../../icons/IconComponents';
+import './GridCarouselWidget.css';
 
 export interface GridCarouselWidgetProps {
   items: React.ReactNode[];
@@ -124,69 +125,21 @@ const GridCarouselWidget: React.FC<GridCarouselWidgetProps> = ({
     return Math.floor(currentIndex / currentItemsPerView);
   };
 
-  const containerStyles: React.CSSProperties = {
-    position: 'relative',
-    width: '100%',
-    overflow: 'hidden',
-    padding: `clamp(20px, 4vw, 40px)`,
-    backgroundColor: tokens.colors.neutral[50],
-    borderRadius: borderRadius ? tokens.borderRadius.lg : '0',
-    boxShadow: tokens.shadows.sm,
-    ...style,
-  };
+  const containerClass = `vtx-grid-carousel-widget ${borderRadius ? 'vtx-grid-carousel-widget--rounded' : ''} ${className}`;
 
   const trackStyles: React.CSSProperties = {
-    display: 'flex',
     gap: typeof gap === 'number' ? `${gap}px` : gap,
-    transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
     transform: `translateX(-${(currentIndex * (100 / currentItemsPerView))}%)`,
   };
 
   const itemStyles: React.CSSProperties = {
     flex: `0 0 calc((100% - (${typeof gap === 'number' ? `${gap}px` : gap} * ${currentItemsPerView - 1})) / ${currentItemsPerView})`,
-    minWidth: 0,
   };
-
-  const navButtonStyles: React.CSSProperties = {
-    position: 'absolute',
-    top: '50%',
-    transform: 'translateY(-50%)',
-    zIndex: 10,
-    backgroundColor: '#ffffff',
-    border: `1px solid ${tokens.colors.neutral[300]}`,
-    borderRadius: tokens.borderRadius.full,
-    width: '40px',
-    height: '40px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    cursor: 'pointer',
-    boxShadow: tokens.shadows.md,
-    transition: 'all 0.2s ease',
-  };
-
-  const paginationContainerStyles: React.CSSProperties = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: '8px',
-    marginTop: '24px',
-  };
-
-  const paginationDotStyles = (isActive: boolean): React.CSSProperties => ({
-    width: isActive ? '24px' : '8px',
-    height: '8px',
-    borderRadius: tokens.borderRadius.full,
-    backgroundColor: isActive ? tokens.colors.primary[500] : tokens.colors.neutral[300],
-    cursor: 'pointer',
-    transition: 'all 0.3s ease',
-    opacity: isActive ? 1 : 0.5,
-  });
 
   if (items.length === 0) {
     return (
-      <div style={containerStyles}>
-        <div style={{ textAlign: 'center', padding: '40px', color: tokens.colors.neutral[500] }}>
+      <div className={containerClass} style={style}>
+        <div className="vtx-grid-carousel-widget__empty">
           No items to display
         </div>
       </div>
@@ -197,64 +150,34 @@ const GridCarouselWidget: React.FC<GridCarouselWidgetProps> = ({
   const canGoNext = currentIndex < maxIndex;
 
   return (
-    <div className={className} style={containerStyles}>
+    <div className={containerClass} style={style}>
       {/* Navigation Buttons */}
       {showNavigation && (
         <>
           <button
             onClick={handlePrevious}
             disabled={!canGoPrevious}
-            style={{
-              ...navButtonStyles,
-              left: '10px',
-              opacity: canGoPrevious ? 1 : 0.3,
-              cursor: canGoPrevious ? 'pointer' : 'not-allowed',
-            }}
-            onMouseEnter={(e) => {
-              if (canGoPrevious) {
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
-                e.currentTarget.style.backgroundColor = tokens.colors.neutral[100] || '#f5f5f5';
-              }
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-              e.currentTarget.style.backgroundColor = '#ffffff';
-            }}
+            className="vtx-grid-carousel-widget__nav-button vtx-grid-carousel-widget__nav-button--prev"
             aria-label="Previous"
           >
-            <ChevronLeftIcon style={{ width: '20px', height: '20px', color: tokens.colors.neutral[900] }} />
+            <ChevronLeftIcon className="vtx-grid-carousel-widget__nav-icon" />
           </button>
 
           <button
             onClick={handleNext}
             disabled={!canGoNext && !autoplay}
-            style={{
-              ...navButtonStyles,
-              right: '10px',
-              opacity: canGoNext || autoplay ? 1 : 0.3,
-              cursor: canGoNext || autoplay ? 'pointer' : 'not-allowed',
-            }}
-            onMouseEnter={(e) => {
-              if (canGoNext || autoplay) {
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
-                e.currentTarget.style.backgroundColor = tokens.colors.neutral[100] || '#f5f5f5';
-              }
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-              e.currentTarget.style.backgroundColor = '#ffffff';
-            }}
+            className="vtx-grid-carousel-widget__nav-button vtx-grid-carousel-widget__nav-button--next"
             aria-label="Next"
           >
-            <ChevronRightIcon style={{ width: '20px', height: '20px', color: tokens.colors.neutral[900] }} />
+            <ChevronRightIcon className="vtx-grid-carousel-widget__nav-icon" />
           </button>
         </>
       )}
 
       {/* Carousel Track */}
-      <div style={trackStyles}>
+      <div className="vtx-grid-carousel-widget__track" style={trackStyles}>
         {items.map((item, index) => (
-          <div key={index} style={itemStyles}>
+          <div key={index} className="vtx-grid-carousel-widget__item" style={itemStyles}>
             {item}
           </div>
         ))}
@@ -262,22 +185,12 @@ const GridCarouselWidget: React.FC<GridCarouselWidgetProps> = ({
 
       {/* Pagination Dots */}
       {showPagination && totalPages > 1 && (
-        <div style={paginationContainerStyles}>
+        <div className="vtx-grid-carousel-widget__pagination">
           {Array.from({ length: totalPages }).map((_, pageIndex) => (
             <div
               key={pageIndex}
               onClick={() => handlePageClick(pageIndex)}
-              style={paginationDotStyles(getCurrentPage() === pageIndex)}
-              onMouseEnter={(e) => {
-                if (getCurrentPage() !== pageIndex) {
-                  e.currentTarget.style.opacity = '0.8';
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (getCurrentPage() !== pageIndex) {
-                  e.currentTarget.style.opacity = '0.5';
-                }
-              }}
+              className={`vtx-grid-carousel-widget__dot ${getCurrentPage() === pageIndex ? 'vtx-grid-carousel-widget__dot--active' : ''}`}
               role="button"
               aria-label={`Go to page ${pageIndex + 1}`}
             />
@@ -286,7 +199,7 @@ const GridCarouselWidget: React.FC<GridCarouselWidgetProps> = ({
       )}
 
       {/* Screen Reader Info */}
-      <div style={{ position: 'absolute', left: '-9999px' }} aria-live="polite" aria-atomic="true">
+      <div className="vtx-grid-carousel-widget__sr-only" aria-live="polite" aria-atomic="true">
         Showing items {currentIndex + 1} to {Math.min(currentIndex + currentItemsPerView, items.length)} of {items.length}
       </div>
     </div>

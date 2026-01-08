@@ -520,3 +520,11 @@
     transition: none;
   }
 }
+
+.vtx-toast__progress--paused {
+  animation-play-state: paused;
+}
+
+.vtx-toast__progress--running {
+  animation-play-state: running;
+}

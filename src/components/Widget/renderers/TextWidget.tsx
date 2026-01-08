@@ -93,8 +93,8 @@ const TextWidget: React.FC<TextWidgetProps> = ({
         {data.title && (
           <Text 
             variant={getTextVariant('title')} 
-            className="font-bold"
-            style={{ color: titleColor }}
+            weight="bold"
+            textColor={titleColor}
           >
             {data.title}
           </Text>
@@ -104,7 +104,7 @@ const TextWidget: React.FC<TextWidgetProps> = ({
           <Text 
             variant={getTextVariant('content')} 
             className="text-neutral-700 leading-relaxed"
-            style={{ color: contentColor }}
+            textColor={contentColor}
           >
             {data.content}
           </Text>
@@ -114,7 +114,7 @@ const TextWidget: React.FC<TextWidgetProps> = ({
           <Text 
             variant={getTextVariant('caption')} 
             className="text-neutral-500"
-            style={{ color: captionColor }}
+            textColor={captionColor}
           >
             {data.caption}
           </Text>

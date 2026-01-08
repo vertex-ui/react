@@ -145,11 +145,11 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
               <Flex align="center" gap="sm">
                 {renderAvatar()}
                 <Flex direction="column">
-                  <Text variant={getTitleVariant()} className="font-bold">
+                  <Text variant={getTitleVariant()} weight="bold">
                     {data.title}
                   </Text>
                   {data.subtitle && (
-                    <Text variant={getSubtitleVariant()} className="text-neutral-600">
+                    <Text variant={getSubtitleVariant()} textColor="var(--vtx-color-neutral-600)">
                       {data.subtitle}
                     </Text>
                   )}
@@ -173,16 +173,16 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
                 <Flex align="center" gap="md">
                   {renderAvatar()}
                   <Flex direction="column" gap="xs">
-                    <Text variant={getTitleVariant()} className="font-bold">
+                    <Text variant={getTitleVariant()} weight="bold">
                       {data.title}
                     </Text>
                     {data.subtitle && (
-                      <Text variant={getSubtitleVariant()} className="text-neutral-700">
+                      <Text variant={getSubtitleVariant()} textColor="var(--vtx-color-neutral-700)">
                         {data.subtitle}
                       </Text>
                     )}
                     {data.description && (
-                      <Text variant="body2" className="text-neutral-600">
+                      <Text variant="body2" textColor="var(--vtx-color-neutral-600)">
                         {data.description}
                       </Text>
                     )}
@@ -195,10 +195,10 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
                   <Flex gap="lg">
                     {Object.entries(data.metadata).map(([key, value]) => (
                       <Flex key={key} direction="column" gap="xs">
-                        <Text variant="caption" className="text-neutral-500 uppercase font-medium">
+                        <Text variant="caption" transform="uppercase" weight="medium" textColor="var(--vtx-color-neutral-500)">
                           {key}
                         </Text>
-                        <Text variant="body2" className="font-medium">
+                        <Text variant="body2" weight="medium">
                           {String(value)}
                         </Text>
                       </Flex>
@@ -221,11 +221,11 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
               <Flex align="center" gap="sm">
                 {renderAvatar()}
                 <Flex direction="column">
-                  <Text variant={getTitleVariant()} className="font-semibold">
+                  <Text variant={getTitleVariant()} weight="semibold">
                     {data.title}
                   </Text>
                   {data.subtitle && (
-                    <Text variant="caption" className="text-neutral-500">
+                    <Text variant="caption" textColor="var(--vtx-color-neutral-500)">
                       {data.subtitle}
                     </Text>
                   )}
@@ -252,11 +252,11 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
       default:
         return (
           <Flex direction="column" gap="md">
-            <Text variant={getTitleVariant()} className="font-bold">
+            <Text variant={getTitleVariant()} weight="bold">
               {data.title}
             </Text>
             {data.subtitle && (
-              <Text variant={getSubtitleVariant()} className="text-neutral-600">
+              <Text variant={getSubtitleVariant()} textColor="var(--vtx-color-neutral-600)">
                 {data.subtitle}
               </Text>
             )}

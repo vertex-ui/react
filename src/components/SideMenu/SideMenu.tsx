@@ -156,19 +156,14 @@ export const SideMenuItem = React.forwardRef<
 
     const content = (
       <>
-        <Flex align="center" gap={collapsed ? 0 : 12} style={{ flex: 1, minWidth: 0 }}>
+        <Flex align="center" gap={collapsed ? 0 : 12} className="vtx-sidemenu-item-container">
           {icon && <span className="vtx-sidemenu-item-icon">{icon}</span>}
           {!collapsed && (
             <>
               <Text
                 variant="body2"
                 noMargin
-                style={{
-                  flex: 1,
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                }}
+                className="vtx-sidemenu-item-label"
               >
                 {label}
               </Text>

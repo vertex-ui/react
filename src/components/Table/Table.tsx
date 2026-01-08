@@ -725,7 +725,7 @@ function Table<T = unknown>({
                   >
                     <div className="vtx-table-header-content">
                       <div
-                        className="vtx-table-header-label"
+                        className={`vtx-table-header-label ${isSortable ? 'vtx-table-header-label--sortable' : ''}`}
                         onClick={() => isSortable && handleSort(column.key)}
                         onKeyDown={(e) => {
                           if (isSortable && (e.key === 'Enter' || e.key === ' ')) {
@@ -735,7 +735,6 @@ function Table<T = unknown>({
                         }}
                         role={isSortable ? 'button' : undefined}
                         tabIndex={isSortable ? 0 : undefined}
-                        style={{ cursor: isSortable ? 'pointer' : 'default' }}
                       >
                         <span>{column.header}</span>
                         {isSortable && renderSortIcon(column.key)}

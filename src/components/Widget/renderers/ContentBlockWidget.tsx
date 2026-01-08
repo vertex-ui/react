@@ -7,6 +7,7 @@ import { Flex } from '../../Flex';
 import { Link } from '../../Link';
 import { Avatar } from '../../Avatar';
 import { Badge } from '../../Badge';
+import './ContentBlockWidget.css';
 
 export type ContentBlockLayout = 
   // Horizontal Layouts
@@ -797,6 +798,8 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
     `vtx-content-block--${theme}`,
     `vtx-content-block--${variant}`,
     hoverClass,
+    responsive.stackOnMobile ? 'vtx-content-block__container--stack-mobile' : '',
+    responsive.hideMediaOnMobile ? 'vtx-content-block__container--hide-media-mobile' : '',
     className,
   ].filter(Boolean).join(' ');
 
@@ -875,41 +878,6 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
         <div style={layoutStyles.content}>{renderContent()}</div>
       </div>
 
-      {/* Inline CSS for hover effects */}
-      <style dangerouslySetInnerHTML={{__html: `
-        .vtx-content-block--hover-lift:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-        }
-        .vtx-content-block--hover-scale:hover {
-          transform: scale(1.02);
-        }
-        .vtx-content-block--hover-glow:hover {
-          box-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.3);
-        }
-        .vtx-content-block__media--zoom:hover {
-          transform: scale(1.1);
-        }
-
-        @media (max-width: 768px) {
-          ${responsive.stackOnMobile ? `
-            .vtx-content-block__container {
-              flex-direction: column !important;
-            }
-            .vtx-content-block__media,
-            .vtx-content-block__content {
-              flex: 1 !important;
-              max-width: 100% !important;
-              width: 100% !important;
-            }
-          ` : ''}
-          ${responsive.hideMediaOnMobile ? `
-            .vtx-content-block__media {
-              display: none;
-            }
-          ` : ''}
-        }
-      `}} />
     </div>
   );
 };

@@ -837,3 +837,15 @@
     outline-offset: -2px;
   }
 }
+
+.vtx-sidemenu-item-container {
+  flex: 1;
+  min-width: 0;
+}
+
+.vtx-sidemenu-item-label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

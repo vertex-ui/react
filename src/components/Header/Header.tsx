@@ -173,7 +173,7 @@ const NotificationPanel = React.forwardRef<
                 <Text
                   variant="body2"
                   noMargin
-                  style={{ fontWeight: notification.read ? 400 : 600 }}
+                  className={notification.read ? 'vtx-header-notification-text--read' : 'vtx-header-notification-text--unread'}
                 >
                   {notification.title}
                 </Text>
@@ -182,7 +182,7 @@ const NotificationPanel = React.forwardRef<
                     {notification.description}
                   </Text>
                 )}
-                <Text variant="caption" textColor="var(--color-neutral-500)" noMargin style={{ marginTop: '4px' }}>
+                <Text variant="caption" textColor="var(--color-neutral-500)" noMargin className="vtx-header-notification-time">
                   {notification.time}
                 </Text>
               </div>
@@ -283,7 +283,7 @@ const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
 
     return (
       <header ref={ref} className={headerClasses}>
-        <Flex align="center" gap={16} style={{ flex: 1 }}>
+        <div className="vtx-header-left">
           {/* Toggle Button */}
           {showToggle && onToggleSidebar && (
             <button
@@ -304,7 +304,7 @@ const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
               {title}
             </Text>
           )}
-        </Flex>
+        </div>
 
         {/* Actions */}
         {actions && <div className="vtx-header-actions">{actions}</div>}
@@ -324,14 +324,7 @@ const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
                   <Badge
                     variant="error"
                     size="sm"
-                    style={{
-                      position: 'absolute',
-                      top: '4px',
-                      right: '4px',
-                      minWidth: '18px',
-                      height: '18px',
-                      padding: '0 4px',
-                    }}
+                    className="vtx-header-notification-badge"
                   >
                     {unreadCount > 9 ? '9+' : unreadCount}
                   </Badge>
@@ -368,7 +361,7 @@ const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
                   </span>
                 )}
                 <div className="vtx-header-user-info">
-                  <Text variant="body2" noMargin style={{ fontWeight: 600 }}>
+                  <Text variant="body2" noMargin className="vtx-header-user-name">
                     {userName}
                   </Text>
                   {userSubtitle && (

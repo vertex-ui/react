@@ -7,6 +7,7 @@ import { Flex } from '../../Flex';
 import { useTheme } from '../../../hooks/useTheme';
 import { ChevronLeftIcon, ChevronRightIcon } from '../../../icons/IconComponents';
 import type { TestimonialWidgetData } from '../types';
+import './TestimonialWidget.css';
 
 export interface TestimonialWidgetProps {
   data: TestimonialWidgetData;
@@ -88,74 +89,15 @@ const TestimonialWidget: React.FC<TestimonialWidgetProps> = ({
     );
   };
 
-  // Theme-specific styles
-  const getContainerStyles = (): React.CSSProperties => {
-    const baseStyles: React.CSSProperties = {
-      position: 'relative',
-      width: '100%',
-      padding: '48px 32px',
-      minHeight: '400px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      overflow: 'hidden',
-      ...(borderRadius && { borderRadius: tokens?.borderRadius?.xl || '16px' }),
-      transition: 'all 0.3s ease',
-      ...style,
-    };
-
-    switch (theme) {
-      case 'minimal':
-        return {
-          ...baseStyles,
-          background: 'transparent',
-          padding: '48px 24px',
-        };
-
-      case 'card':
-        return {
-          ...baseStyles,
-          background: '#ffffff',
-          border: `1px solid ${tokens?.colors?.neutral?.[200] || '#e5e7eb'}`,
-          boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
-        };
-
-      case 'gradient':
-        return {
-          ...baseStyles,
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          color: '#ffffff',
-          boxShadow: '0 10px 40px rgba(102, 126, 234, 0.25)',
-        };
-
-      case 'modern':
-        return {
-          ...baseStyles,
-          background: tokens?.colors?.neutral?.[900] || '#111827',
-          color: '#ffffff',
-          boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.08)',
-        };
-
-      case 'professional':
-        return {
-          ...baseStyles,
-          background: '#ffffff',
-          border: `1px solid ${tokens?.colors?.neutral?.[200] || '#e5e7eb'}`,
-          boxShadow: '0 10px 30px rgba(0, 0, 0, 0.08)',
-        };
-
-      case 'glassmorphism':
-        return {
-          ...baseStyles,
-          background: 'rgba(255, 255, 255, 0.15)',
-          backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255, 255, 255, 0.25)',
-          boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
-        };
-
-      default:
-        return baseStyles;
-    }
+  const getContainerClassName = () => {
+    return [
+      'vtx-testimonial-widget',
+      borderRadius && 'vtx-testimonial-widget--rounded',
+      `vtx-testimonial-widget--${theme}`,
+      className,
+    ]
+      .filter(Boolean)
+      .join(' ');
   };
 
   const getTextColor = (): string => {
@@ -170,7 +112,7 @@ const TestimonialWidget: React.FC<TestimonialWidgetProps> = ({
     return tokens?.colors?.neutral?.[600] || '#4b5563';
   };
 
-  const containerStyles = getContainerStyles();
+  const containerClassName = getContainerClassName();
   const textColor = getTextColor();
   const secondaryTextColor = getSecondaryTextColor();
 
@@ -245,35 +187,25 @@ const TestimonialWidget: React.FC<TestimonialWidgetProps> = ({
   );
 
   return (
-    <div className={className} style={containerStyles}>
+    <div className={containerClassName} style={style}>
       {/* Content Container */}
       <Flex
         direction="column"
         align="center"
         justify="center"
         gap="32px"
-        style={{
-          maxWidth: '800px',
-          width: '100%',
-          margin: '0 auto',
-          position: 'relative',
-          zIndex: 1,
-        }}
+        className="vtx-testimonial-widget-content"
       >
         {/* Author at Top */}
         {authorPosition === 'top' && renderAuthor()}
 
         {/* Quote Icon */}
         <div
-          style={{
-            fontSize: '48px',
-            lineHeight: 1,
-            color: theme === 'gradient' || theme === 'modern' 
-              ? 'rgba(255, 255, 255, 0.2)' 
-              : tokens?.colors?.neutral?.[300] || '#d1d5db',
-            fontFamily: 'Georgia, serif',
-            marginBottom: '-16px',
-          }}
+          className={`vtx-testimonial-quote-icon ${
+            theme === 'gradient' || theme === 'modern'
+              ? 'vtx-testimonial-quote-icon--light'
+              : 'vtx-testimonial-quote-icon--dark'
+          }`}
         >
           "
         </div>
@@ -284,12 +216,7 @@ const TestimonialWidget: React.FC<TestimonialWidgetProps> = ({
             variant="body1"
             textColor={textColor}
             align="center"
-            style={{
-              fontSize: 'clamp(18px, 2.5vw, 22px)',
-              lineHeight: 1.7,
-              fontWeight: 400,
-              maxWidth: '700px',
-            }}
+            className="vtx-testimonial-text"
           >
             {currentTestimonial.content}
           </Text>
@@ -315,69 +242,23 @@ const TestimonialWidget: React.FC<TestimonialWidgetProps> = ({
         <>
           <button
             onClick={prevTestimonial}
-            style={{
-              position: 'absolute',
-              left: '24px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              backgroundColor: theme === 'gradient' || theme === 'modern' ? 'rgba(255, 255, 255, 0.15)' : '#ffffff',
-              borderRadius: '50%',
-              width: '48px',
-              height: '48px',
-              border: theme === 'gradient' || theme === 'modern' ? 'none' : `2px solid ${tokens?.colors?.neutral?.[200] || '#e5e7eb'}`,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: theme === 'gradient' || theme === 'modern' ? '#ffffff' : tokens?.colors?.neutral?.[700] || '#374151',
-              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.12)',
-              cursor: 'pointer',
-              zIndex: 10,
-              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-              backdropFilter: 'blur(8px)',
-            }}
+            className={`vtx-testimonial-nav-button vtx-testimonial-nav-button--prev ${
+              theme === 'gradient' || theme === 'modern'
+                ? 'vtx-testimonial-nav-button--light'
+                : 'vtx-testimonial-nav-button--dark'
+            }`}
             aria-label="Previous testimonial"
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
-              e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.18)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.12)';
-            }}
           >
             <ChevronLeftIcon size={24} />
           </button>
           <button
             onClick={nextTestimonial}
-            style={{
-              position: 'absolute',
-              right: '24px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              backgroundColor: theme === 'gradient' || theme === 'modern' ? 'rgba(255, 255, 255, 0.15)' : '#ffffff',
-              borderRadius: '50%',
-              width: '48px',
-              height: '48px',
-              border: theme === 'gradient' || theme === 'modern' ? 'none' : `2px solid ${tokens?.colors?.neutral?.[200] || '#e5e7eb'}`,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: theme === 'gradient' || theme === 'modern' ? '#ffffff' : tokens?.colors?.neutral?.[700] || '#374151',
-              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.12)',
-              cursor: 'pointer',
-              zIndex: 10,
-              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-              backdropFilter: 'blur(8px)',
-            }}
+            className={`vtx-testimonial-nav-button vtx-testimonial-nav-button--next ${
+              theme === 'gradient' || theme === 'modern'
+                ? 'vtx-testimonial-nav-button--light'
+                : 'vtx-testimonial-nav-button--dark'
+            }`}
             aria-label="Next testimonial"
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
-              e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.18)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.12)';
-            }}
           >
             <ChevronRightIcon size={24} />
           </button>
@@ -389,18 +270,13 @@ const TestimonialWidget: React.FC<TestimonialWidgetProps> = ({
         <Flex
           justify="center"
           gap="12px"
-          style={{
-            position: 'absolute',
-            bottom: '32px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            zIndex: 10,
-          }}
+          className="vtx-testimonial-dots-container"
         >
           {testimonials.map((_, index) => (
             <button
               key={index}
               onClick={() => goToTestimonial(index)}
+              className="vtx-testimonial-dot"
               style={{
                 width: currentIndex === index ? '40px' : '12px',
                 height: '12px',
@@ -414,19 +290,9 @@ const TestimonialWidget: React.FC<TestimonialWidgetProps> = ({
                     : theme === 'gradient' || theme === 'modern'
                     ? 'rgba(255, 255, 255, 0.3)'
                     : tokens?.colors?.neutral?.[300] || '#d1d5db',
-                cursor: 'pointer',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 boxShadow: currentIndex === index ? '0 2px 8px rgba(0, 0, 0, 0.15)' : 'none',
               }}
               aria-label={`Go to testimonial ${index + 1}`}
-              onMouseEnter={(e) => {
-                if (currentIndex !== index) {
-                  e.currentTarget.style.transform = 'scale(1.2)';
-                }
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'scale(1)';
-              }}
             />
           ))}
         </Flex>

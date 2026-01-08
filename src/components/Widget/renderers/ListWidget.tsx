@@ -6,6 +6,7 @@ import { Button } from '../../Button';
 import { Flex } from '../../Flex';
 import { Avatar } from '../../Avatar';
 import { Badge } from '../../Badge';
+import './ListWidget.css';
 
 interface ListWidgetProps {
   data: ListWidgetData;
@@ -81,7 +82,7 @@ const ListWidget: React.FC<ListWidgetProps> = ({
     return (
       <Flex direction="column" gap="sm">
         {data.title && (
-          <Text variant="h6" className="font-semibold mb-2">
+          <Text variant="h6" weight="semibold" className="mb-2">
             {data.title}
           </Text>
         )}
@@ -91,10 +92,10 @@ const ListWidget: React.FC<ListWidgetProps> = ({
             <Flex align="start" gap="md" className="py-2">
               {renderAvatar(item)}
               
-              <Flex direction="column" gap="xs" style={{ flex: 1 }}>
+              <Flex direction="column" gap="xs" className="vtx-list-widget-content">
                 <Flex justify="between" align="start">
                   <Flex direction="column" gap="xs">
-                    <Text variant={size === 'lg' ? 'body1' : 'body2'} className="font-medium">
+                    <Text variant={size === 'lg' ? 'body1' : 'body2'} weight="medium">
                       {item.title}
                     </Text>
                     {item.subtitle && (
