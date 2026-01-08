@@ -1,6 +1,9 @@
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 import { useId } from '../../hooks';
 import { useThemeContext } from '../../theme';
+import { Flex } from '../Flex';
+import { Text } from '../Text';
+import { Button } from '../Button';
 import {
   FiUploadCloud,
   FiFile,
@@ -279,12 +282,12 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   };
 
   return (
-    <div className={`vtx-fileupload-wrapper ${className}`}>
+    <Flex direction="column" gap={8} className={`vtx-fileupload-wrapper ${className}`}>
       {label && (
-        <label htmlFor={id} className="vtx-fileupload-label">
+        <Text as="label" htmlFor={id} variant="label" className="vtx-fileupload-label">
           {label}
           {required && <span className="vtx-fileupload-label__required"> *</span>}
-        </label>
+        </Text>
       )}
 
       <div
@@ -313,30 +316,39 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           disabled={disabled}
         />
 
-        <div className="vtx-fileupload-content">
+        <Flex direction="column" align="center" gap={12} className="vtx-fileupload-content">
           <FiUploadCloud className="vtx-fileupload-icon" />
-          <div className="vtx-fileupload-text">
-            <button type="button" className="vtx-fileupload-browse-btn" disabled={disabled}>
+          <Text variant="body2" align="center" className="vtx-fileupload-text">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="vtx-fileupload-browse-btn"
+              disabled={disabled}
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent bubbling since parent is also clickable
+                inputRef.current?.click();
+              }}
+            >
               Click to upload
-            </button>
+            </Button>
             {' '}or drag and drop
-          </div>
+          </Text>
           {helperText && !error && (
-            <div className="vtx-fileupload-helper">{helperText}</div>
+            <Text variant="caption" color="secondary" className="vtx-fileupload-helper">{helperText}</Text>
           )}
           {error && (
-            <div className="vtx-fileupload-error">
+            <Text variant="caption" color="error" className="vtx-fileupload-error">
               <FiAlertCircle style={{ marginRight: 4, verticalAlign: 'text-bottom' }} />
               {error}
-            </div>
+            </Text>
           )}
-        </div>
+        </Flex>
       </div>
 
       {files.length > 0 && (
-        <div className="vtx-fileupload-list">
+        <Flex direction="column" gap={12} className="vtx-fileupload-list">
           {files.map((item) => (
-            <div key={item.id} className="vtx-fileupload-item">
+            <Flex key={item.id} align="center" className="vtx-fileupload-item">
               <div className="vtx-fileupload-item__preview">
                 {item.previewUrl ? (
                   <img src={item.previewUrl} alt={item.file.name} />
@@ -345,34 +357,36 @@ export const FileUpload: React.FC<FileUploadProps> = ({
                 )}
               </div>
 
-              <div className="vtx-fileupload-item__info">
-                <div className="vtx-fileupload-item__name" title={item.file.name}>
+              <Flex direction="column" gap={2} className="vtx-fileupload-item__info">
+                <Text variant="body2" weight="medium" className="vtx-fileupload-item__name" title={item.file.name}>
                   {item.file.name}
-                </div>
-                <div className="vtx-fileupload-item__meta">
-                  <span>{formatFileSize(item.file.size)}</span>
+                </Text>
+                <Flex gap={8} className="vtx-fileupload-item__meta">
+                  <Text variant="caption" color="secondary">{formatFileSize(item.file.size)}</Text>
                   {item.status === 'error' && (
-                    <span className="vtx-fileupload-item__error-text">
+                    <Text variant="caption" color="error" className="vtx-fileupload-item__error-text">
                        • {item.error}
-                    </span>
+                    </Text>
                   )}
-                </div>
-              </div>
+                </Flex>
+              </Flex>
 
-              <div className="vtx-fileupload-item__actions">
+              <Flex align="center" className="vtx-fileupload-item__actions">
                 {item.status === 'success' && (
                   <FiCheckCircle className="text-success-500" style={{ color: 'var(--vtx-color-success-500)', marginRight: 8 }} />
                 )}
-                <button
-                  type="button"
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  iconOnly
                   className="vtx-fileupload-item__remove"
                   onClick={() => handleRemove(item.id)}
                   aria-label="Remove file"
                   disabled={disabled}
                 >
                   {item.status === 'error' ? <FiTrash2 /> : <FiX />}
-                </button>
-              </div>
+                </Button>
+              </Flex>
 
               {item.status === 'uploading' && (
                 <div
@@ -386,11 +400,11 @@ export const FileUpload: React.FC<FileUploadProps> = ({
               {item.status === 'success' && (
                 <div className="vtx-fileupload-item__progress vtx-fileupload-item__progress--complete" style={{ width: '100%' }} />
               )}
-            </div>
+            </Flex>
           ))}
-        </div>
+        </Flex>
       )}
-    </div>
+    </Flex>
   );
 };
 
