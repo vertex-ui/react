@@ -1,0 +1,74 @@
+/* ==================== Base Skeleton Styles ==================== */
+
+.vtx-skeleton {
+  display: block;
+  background-color: var(--vtx-color-neutral-200, #e5e5e5);
+  border-radius: var(--vtx-radius-sm, 4px);
+}
+
+.vtx-skeleton--text {
+  height: 1em;
+  margin-top: 0;
+  margin-bottom: 0;
+  transform-origin: 0 60%;
+  border-radius: var(--vtx-radius-sm, 4px);
+}
+
+.vtx-skeleton--circular {
+  border-radius: 50%;
+}
+
+.vtx-skeleton--rectangular {
+  border-radius: 0;
+}
+
+.vtx-skeleton--rounded {
+  border-radius: var(--vtx-radius-lg, 12px);
+}
+
+/* ==================== Animations ==================== */
+
+.vtx-skeleton--wave {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    90deg,
+    var(--vtx-color-neutral-200, #e5e5e5) 25%,
+    var(--vtx-color-neutral-100, #f5f5f5) 50%,
+    var(--vtx-color-neutral-200, #e5e5e5) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-wave 1.5s ease-in-out infinite;
+}
+
+.vtx-skeleton--pulse {
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-wave {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ==================== Motion Preference ==================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .vtx-skeleton--respect-motion.vtx-skeleton--wave,
+  .vtx-skeleton--respect-motion.vtx-skeleton--pulse {
+    animation: none;
+    background: var(--vtx-color-neutral-200, #e5e5e5);
+  }
+}

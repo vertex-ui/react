@@ -1,0 +1,195 @@
+/* Error Page Widget Styles */
+
+.vtx-error-page {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: clamp(32px, 5vw, 64px);
+  text-align: center;
+}
+
+.vtx-error-page--left {
+  text-align: left;
+}
+
+.vtx-error-page--full-height {
+  min-height: 100vh;
+}
+
+/* Themes */
+.vtx-error-page--minimal {
+  background: transparent;
+}
+
+.vtx-error-page--modern {
+  padding: clamp(32px, 6vw, 64px);
+  border-radius: var(--vtx-border-radius-xl, 16px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+}
+
+.vtx-error-page--modern.vtx-error-page--primary {
+  background: linear-gradient(135deg, var(--vtx-color-primary-50, #f0f9ff) 0%, var(--vtx-color-primary-100, #e0f2fe) 100%);
+}
+
+.vtx-error-page--modern.vtx-error-page--danger {
+  background: linear-gradient(135deg, var(--vtx-color-danger-50, #fef2f2) 0%, var(--vtx-color-danger-100, #fee2e2) 100%);
+}
+
+.vtx-error-page--modern.vtx-error-page--warning {
+  background: linear-gradient(135deg, var(--vtx-color-warning-50, #fffbeb) 0%, var(--vtx-color-warning-100, #fef3c7) 100%);
+}
+
+.vtx-error-page--modern.vtx-error-page--info {
+  background: linear-gradient(135deg, var(--vtx-color-info-50, #eff6ff) 0%, var(--vtx-color-info-100, #dbeafe) 100%);
+}
+
+.vtx-error-page--professional {
+  background: #ffffff;
+  padding: clamp(40px, 7vw, 80px);
+  border-radius: var(--vtx-border-radius-lg, 12px);
+  border: 2px solid var(--vtx-color-neutral-200, #e0e0e0);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+}
+
+.vtx-error-page--playful {
+  padding: clamp(32px, 6vw, 64px);
+  border-radius: var(--vtx-border-radius-xl, 20px);
+}
+
+.vtx-error-page--playful.vtx-error-page--primary {
+  background: radial-gradient(circle at top right, var(--vtx-color-primary-100, #dbeafe), transparent 70%), 
+              radial-gradient(circle at bottom left, var(--vtx-color-primary-100, #dbeafe), transparent 70%);
+}
+
+.vtx-error-page--technical {
+  background: var(--vtx-color-neutral-900, #1a1a1a);
+  padding: clamp(32px, 6vw, 64px);
+  border-radius: var(--vtx-border-radius-md, 8px);
+  border: 1px solid var(--vtx-color-neutral-700, #404040);
+  font-family: 'Courier New', monospace;
+}
+
+.vtx-error-page--elegant {
+  background: linear-gradient(to bottom, var(--vtx-color-neutral-50, #fafafa), var(--vtx-color-neutral-100, #f5f5f5));
+  padding: clamp(48px, 8vw, 96px);
+  border-radius: var(--vtx-border-radius-xl, 16px);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+}
+
+/* Illustration */
+.vtx-error-page__illustration {
+  opacity: 0.9;
+}
+
+/* Error Code */
+.vtx-error-page__code {
+  line-height: 0.9;
+}
+
+.vtx-error-page--minimal .vtx-error-page__code {
+  font-size: clamp(80px, 15vw, 180px);
+  font-weight: 800;
+  opacity: 0.3;
+  letter-spacing: -0.02em;
+}
+
+.vtx-error-page--modern .vtx-error-page__code {
+  font-size: clamp(100px, 18vw, 200px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.vtx-error-page--modern.vtx-error-page--primary .vtx-error-page__code {
+  background: linear-gradient(135deg, var(--vtx-color-primary-500, #3b82f6), var(--vtx-color-primary-700, #1d4ed8));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.vtx-error-page--modern.vtx-error-page--danger .vtx-error-page__code {
+  background: linear-gradient(135deg, var(--vtx-color-danger-500, #ef4444), var(--vtx-color-danger-700, #b91c1c));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.vtx-error-page--professional .vtx-error-page__code {
+  font-size: clamp(90px, 16vw, 160px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.vtx-error-page--playful .vtx-error-page__code {
+  font-size: clamp(110px, 20vw, 220px);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  transform: rotate(-5deg);
+}
+
+.vtx-error-page--technical .vtx-error-page__code {
+  font-size: clamp(80px, 14vw, 140px);
+  font-weight: 700;
+  color: #00ff00;
+  letter-spacing: 0.05em;
+  font-family: 'Courier New', monospace;
+}
+
+.vtx-error-page--elegant .vtx-error-page__code {
+  font-size: clamp(70px, 12vw, 120px);
+  font-weight: 300;
+  letter-spacing: 0.1em;
+}
+
+/* Content */
+.vtx-error-page__content {
+  width: 100%;
+}
+
+/* Actions */
+.vtx-error-page__actions a {
+  text-decoration: none;
+}
+
+@media (max-width: 640px) {
+  .vtx-error-page__actions {
+    width: 100%;
+  }
+
+  .vtx-error-page__actions a,
+  .vtx-error-page__actions button {
+    width: 100%;
+  }
+}
+
+/* Additional Info */
+.vtx-error-page__info {
+  padding: clamp(16px, 2.5vw, 24px);
+  border-radius: var(--vtx-border-radius-md, 8px);
+  max-width: 600px;
+  width: 100%;
+}
+
+.vtx-error-page--technical .vtx-error-page__info {
+  background: rgba(0, 0, 0, 0.3);
+  border-left: 4px solid #00ff00;
+}
+
+.vtx-error-page:not(.vtx-error-page--technical) .vtx-error-page__info {
+  background: var(--vtx-color-neutral-100, #f5f5f5);
+}
+
+.vtx-error-page--primary .vtx-error-page__info {
+  border-left: 4px solid var(--vtx-color-primary-500, #3b82f6);
+}
+
+.vtx-error-page--danger .vtx-error-page__info {
+  border-left: 4px solid var(--vtx-color-danger-500, #ef4444);
+}
+
+.vtx-error-page--warning .vtx-error-page__info {
+  border-left: 4px solid var(--vtx-color-warning-500, #f59e0b);
+}
+
+.vtx-error-page--info .vtx-error-page__info {
+  border-left: 4px solid var(--vtx-color-info-500, #3b82f6);
+}

@@ -6,6 +6,8 @@ import { Flex } from '../../components/Flex';
 import { Text } from '../../components/Text';
 import { Button } from '../../components/Button';
 import { Chip } from '../../components/Chip';
+import { Rating } from '../../components/Rating';
+import { SkeletonTheme } from '../../components/Skeleton';
 
 export interface ProductCardProps extends React.HTMLAttributes<HTMLDivElement> {
   id?: string;
@@ -140,6 +142,11 @@ const ProductCardBase = React.forwardRef<HTMLDivElement, ProductCardProps>(
 
   const showLoading = isLoading || loading;
 
+  // Render skeleton loading state
+  if (loading && !isLoading) {
+    return <SkeletonTheme theme="product" />;
+  }
+
   return (
     <Card 
       variant="outlined" 
@@ -239,14 +246,7 @@ const ProductCardBase = React.forwardRef<HTMLDivElement, ProductCardProps>(
 
           {/* RATING */}
           {rating !== undefined && (
-            <Flex align="center" gap={5} className="productcard-rating-wrapper">
-              <div className="productcard-rating">
-                {'★'.repeat(Math.floor(rating))}{'☆'.repeat(5 - Math.floor(rating))}
-              </div>
-              <Text variant="caption" noMargin>
-                {rating}
-              </Text>
-            </Flex>
+            <Rating value={rating} size="sm" showValue />
           )}
 
           {/* PRICE */}
@@ -407,6 +407,11 @@ const ProductCardWide = React.forwardRef<HTMLDivElement, ProductCardWideProps>(
 
   const showLoading = isLoading || loading;
 
+  // Render skeleton loading state
+  if (loading && !isLoading) {
+    return <SkeletonTheme theme="product" />;
+  }
+
   return (
     <Card
       variant="outlined"
@@ -464,14 +469,7 @@ const ProductCardWide = React.forwardRef<HTMLDivElement, ProductCardWideProps>(
           </Flex>
 
           {rating !== undefined && (
-            <Flex align="center" gap={6}>
-              <div className="productcard-rating">
-                {'★'.repeat(Math.floor(rating))}{'☆'.repeat(5 - Math.floor(rating))}
-              </div>
-              <Text variant="caption" noMargin>
-                {rating}
-              </Text>
-            </Flex>
+            <Rating value={rating} size="sm" showValue />
           )}
 
           <Flex align="center" gap={8} wrap="wrap" style={{ marginTop: 'auto' }}>
@@ -611,6 +609,11 @@ const ProductCardMinimal = React.forwardRef<HTMLDivElement, ProductCardProps>(
 
   const showLoading = isLoading || loading;
 
+  // Render skeleton loading state
+  if (loading && !isLoading) {
+    return <SkeletonTheme theme="product" />;
+  }
+
   return (
     <div className={`productcard-minimal ${className}`} style={style} ref={ref}>
       {/* IMAGE */}
@@ -650,9 +653,7 @@ const ProductCardMinimal = React.forwardRef<HTMLDivElement, ProductCardProps>(
         </Flex>
 
         {rating !== undefined && (
-          <div className="productcard-rating-minimal">
-            {'★'.repeat(Math.floor(rating))}{'☆'.repeat(5 - Math.floor(rating))}
-          </div>
+          <Rating value={rating} size="sm" />
         )}
 
         {showLoading ? (

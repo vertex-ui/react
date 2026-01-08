@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
-    "target": "ES2019", // Good balance for libraries
+    "target": "ES2019",
     "module": "ESNext",
-    "lib": ["DOM", "ESNext"],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "jsx": "react-jsx",
     "moduleResolution": "bundler",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "declaration": true,
     "declarationDir": "dist/types",
+    "declarationMap": true,
     "outDir": "dist",
     "sourceMap": true,
     "importHelpers": true,
@@ -16,10 +17,6 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    // "baseUrl": "src", // Deprecated in TS 7.0, consider using project references or path mapping in jsconfig/tsconfig if needed
-    "paths": {
-      "@x-ui/*": ["./*"]
-    },
     "isolatedModules": true,
     "resolveJsonModule": true,
     "noUnusedLocals": true,
@@ -30,6 +27,5 @@
     "allowJs": false
   },
   "include": ["src"],
-  "exclude": ["node_modules", "dist", "example", "tests"],
-  "ignoreDeprecations": "6.0"
+  "exclude": ["node_modules", "dist", "example", "tests"]
 }

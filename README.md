@@ -967,7 +967,7 @@ Building enterprise-grade software solutions
 ### Documentation & Resources
 
 - 📘 **[Official Documentation](https://vertexui.com/)** - Complete guides and API reference
-- 📖 **[Storybook](https://vertexui.com/storybook)** - Interactive component explorer
+- 📖 **[Storybook](https://storybook.vertexui.com)** - Interactive component explorer
 - 📦 **[npm Package](https://www.npmjs.com/package/@vtx-ui/react)** - Package registry
 - 💻 **[GitHub Repository](https://github.com/vertex-ui/react)** - Source code
 - 🐛 **[Issue Tracker](https://github.com/vertex-ui/react/issues)** - Bug reports and feature requests
@@ -977,7 +977,7 @@ Building enterprise-grade software solutions
 
 - 💬 **[Discussions](https://github.com/vertex-ui/react/discussions)** - Community Q&A
 - 🐦 **[Twitter](https://twitter.com/vertexui)** - Latest updates
-- 💼 **[LinkedIn](https://linkedin.com/company/innostes)** - Company updates
+- 💼 **[LinkedIn](https://www.linkedin.com/company/innostes-solutions)** - Company updates
 
 ---
 

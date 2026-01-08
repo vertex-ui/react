@@ -1,0 +1,275 @@
+/* ==================== Rating Component ==================== */
+
+.vtx-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vtx-spacing-2, 8px);
+  font-family: var(--vtx-font-family-base, inherit);
+}
+
+.vtx-rating-stars {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vtx-spacing-1, 4px);
+}
+
+.vtx-rating-star-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vtx-rating-star-wrapper--interactive {
+  cursor: pointer;
+}
+
+.vtx-rating-star-half,
+.vtx-rating-star-full {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.vtx-rating-star-half {
+  left: 0;
+  right: 50%;
+}
+
+.vtx-rating-star-full {
+  left: 0;
+  right: 0;
+}
+
+.vtx-rating-star {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--vtx-transition-fast, all 0.15s ease);
+  user-select: none;
+  line-height: 1;
+}
+
+/* ==================== Sizes ==================== */
+
+.vtx-rating--sm .vtx-rating-star {
+  font-size: 1rem;
+  width: 1rem;
+  height: 1rem;
+}
+
+.vtx-rating--sm .vtx-rating-value {
+  font-size: 0.75rem;
+}
+
+.vtx-rating--md .vtx-rating-star {
+  font-size: 1.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.vtx-rating--md .vtx-rating-value {
+  font-size: 0.875rem;
+}
+
+.vtx-rating--lg .vtx-rating-star {
+  font-size: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.vtx-rating--lg .vtx-rating-value {
+  font-size: 1rem;
+}
+
+.vtx-rating--xl .vtx-rating-star {
+  font-size: 2rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+.vtx-rating--xl .vtx-rating-value {
+  font-size: 1.125rem;
+}
+
+/* ==================== Colors ==================== */
+
+.vtx-rating--primary .vtx-rating-star--filled {
+  color: var(--vtx-color-primary-500, #3b82f6);
+}
+
+.vtx-rating--secondary .vtx-rating-star--filled {
+  color: var(--vtx-color-secondary-500, #6366f1);
+}
+
+.vtx-rating--success .vtx-rating-star--filled {
+  color: var(--vtx-color-success-500, #10b981);
+}
+
+.vtx-rating--warning .vtx-rating-star--filled {
+  color: var(--vtx-color-warning-500, #f59e0b);
+}
+
+.vtx-rating--error .vtx-rating-star--filled {
+  color: var(--vtx-color-error-500, #ef4444);
+}
+
+.vtx-rating--neutral .vtx-rating-star--filled {
+  color: var(--vtx-color-neutral-500, #737373);
+}
+
+/* ==================== Star States ==================== */
+
+.vtx-rating-star--empty {
+  color: var(--vtx-color-neutral-300, #d4d4d4);
+}
+
+.vtx-rating-star--half {
+  background: linear-gradient(
+    90deg,
+    var(--vtx-color-warning-500, #f59e0b) 50%,
+    var(--vtx-color-neutral-300, #d4d4d4) 50%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Half star specific color gradients */
+.vtx-rating--primary .vtx-rating-star--half {
+  background: linear-gradient(
+    90deg,
+    var(--vtx-color-primary-500, #3b82f6) 50%,
+    var(--vtx-color-neutral-300, #d4d4d4) 50%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.vtx-rating--secondary .vtx-rating-star--half {
+  background: linear-gradient(
+    90deg,
+    var(--vtx-color-secondary-500, #6366f1) 50%,
+    var(--vtx-color-neutral-300, #d4d4d4) 50%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.vtx-rating--success .vtx-rating-star--half {
+  background: linear-gradient(
+    90deg,
+    var(--vtx-color-success-500, #10b981) 50%,
+    var(--vtx-color-neutral-300, #d4d4d4) 50%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.vtx-rating--warning .vtx-rating-star--half {
+  background: linear-gradient(
+    90deg,
+    var(--vtx-color-warning-500, #f59e0b) 50%,
+    var(--vtx-color-neutral-300, #d4d4d4) 50%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.vtx-rating--error .vtx-rating-star--half {
+  background: linear-gradient(
+    90deg,
+    var(--vtx-color-error-500, #ef4444) 50%,
+    var(--vtx-color-neutral-300, #d4d4d4) 50%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.vtx-rating--neutral .vtx-rating-star--half {
+  background: linear-gradient(
+    90deg,
+    var(--vtx-color-neutral-500, #737373) 50%,
+    var(--vtx-color-neutral-300, #d4d4d4) 50%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+/* ==================== Interactive States ==================== */
+
+.vtx-rating--selectable .vtx-rating-star-wrapper:hover .vtx-rating-star--empty,
+.vtx-rating--selectable .vtx-rating-star-wrapper:hover .vtx-rating-star--half {
+  transform: scale(1.1);
+}
+
+.vtx-rating--selectable .vtx-rating-star-wrapper:active .vtx-rating-star {
+  transform: scale(0.95);
+}
+
+/* Hover effects - fill stars on hover */
+.vtx-rating--selectable:not(.vtx-rating--readonly) .vtx-rating-star-wrapper:hover .vtx-rating-star {
+  color: var(--vtx-color-warning-400, #fbbf24);
+}
+
+.vtx-rating--selectable.vtx-rating--primary:not(.vtx-rating--readonly) .vtx-rating-star-wrapper:hover .vtx-rating-star {
+  color: var(--vtx-color-primary-400, #60a5fa);
+}
+
+.vtx-rating--selectable.vtx-rating--secondary:not(.vtx-rating--readonly) .vtx-rating-star-wrapper:hover .vtx-rating-star {
+  color: var(--vtx-color-secondary-400, #818cf8);
+}
+
+.vtx-rating--selectable.vtx-rating--success:not(.vtx-rating--readonly) .vtx-rating-star-wrapper:hover .vtx-rating-star {
+  color: var(--vtx-color-success-400, #34d399);
+}
+
+.vtx-rating--selectable.vtx-rating--error:not(.vtx-rating--readonly) .vtx-rating-star-wrapper:hover .vtx-rating-star {
+  color: var(--vtx-color-error-400, #f87171);
+}
+
+/* ==================== Value Display ==================== */
+
+.vtx-rating-value {
+  font-weight: 500;
+  color: var(--vtx-color-text-secondary, #525252);
+  line-height: 1;
+}
+
+/* ==================== Read-only State ==================== */
+
+.vtx-rating--readonly {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.vtx-rating--readonly .vtx-rating-star-wrapper {
+  cursor: not-allowed;
+}
+
+/* ==================== Accessibility ==================== */
+
+.vtx-rating-star-wrapper:focus-visible {
+  outline: 2px solid var(--vtx-color-primary-500, #3b82f6);
+  outline-offset: 2px;
+  border-radius: var(--vtx-radius-sm, 4px);
+}
+
+/* ==================== Responsive ==================== */
+
+@media (max-width: 480px) {
+  .vtx-rating--xl .vtx-rating-star {
+    font-size: 1.75rem;
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .vtx-rating--lg .vtx-rating-star {
+    font-size: 1.375rem;
+    width: 1.375rem;
+    height: 1.375rem;
+  }
+}

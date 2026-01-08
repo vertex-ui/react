@@ -8,6 +8,8 @@ import {
   InfoWidgetData,
   ProductWidgetData,
   OrderWidgetData,
+  OrderConfirmationWidgetData,
+  OrderDetailsWidgetData,
   ListWidgetData,
   TextWidgetData,
   HeaderWidgetData,
@@ -16,12 +18,16 @@ import {
   GridCarouselWidgetData,
   GridWidgetData,
   ContentBlockWidgetData,
+  ErrorPageWidgetData,
+  EmptyStateWidgetData,
 } from './types';
 import IntelligentGrid from './IntelligentGrid';
 import MetricWidget from './renderers/MetricWidget';
 import InfoWidget from './renderers/InfoWidget';
 import ProductWidget from './renderers/ProductWidget';
 import OrderWidget from './renderers/OrderWidget';
+import OrderConfirmationWidget from './renderers/OrderConfirmationWidget';
+import OrderDetailsWidget from './renderers/OrderDetailsWidget';
 import ListWidget from './renderers/ListWidget';
 import TextWidget from './renderers/TextWidget';
 import HeaderWidget from './renderers/HeaderWidget';
@@ -29,6 +35,8 @@ import CarouselWidget from './renderers/CarouselWidget';
 import TestimonialWidget from './renderers/TestimonialWidget';
 import GridCarouselWidget from './renderers/GridCarouselWidget';
 import ContentBlockWidget from './renderers/ContentBlockWidget';
+import ErrorPageWidget from './renderers/ErrorPageWidget';
+import EmptyStateWidget from './renderers/EmptyStateWidget';
 
 export interface WidgetProps {
   config: WidgetConfig;
@@ -68,6 +76,10 @@ const Widget: React.FC<WidgetProps> = ({
         return <ProductWidget data={data as ProductWidgetData} settings={widgetSettings as any} />;
       case 'order':
         return <OrderWidget data={data as OrderWidgetData} settings={widgetSettings as any} />;
+      case 'order-confirmation':
+        return <OrderConfirmationWidget data={data as OrderConfirmationWidgetData} settings={widgetSettings as any} />;
+      case 'order-details':
+        return <OrderDetailsWidget data={data as OrderDetailsWidgetData} settings={widgetSettings as any} />;
       case 'list':
         return <ListWidget data={data as ListWidgetData} settings={widgetSettings as any} />;
       case 'text':
@@ -82,6 +94,10 @@ const Widget: React.FC<WidgetProps> = ({
         return <GridCarouselWidget {...(data as GridCarouselWidgetData)} className={className} style={style} />;
       case 'contentBlock':
         return <ContentBlockWidget data={data as ContentBlockWidgetData} settings={widgetSettings as any} />;
+      case 'errorPage':
+        return <ErrorPageWidget data={data as ErrorPageWidgetData} settings={widgetSettings as any} className={className} style={style} />;
+      case 'emptyState':
+        return <EmptyStateWidget data={data as EmptyStateWidgetData} settings={widgetSettings as any} className={className} style={style} />;
       default:
         console.warn(`Unknown widget type: ${type}`);
         return null;

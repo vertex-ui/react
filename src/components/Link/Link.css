@@ -40,7 +40,7 @@
 }
 
 .vtx-link--no-underline:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 /* Color variants */

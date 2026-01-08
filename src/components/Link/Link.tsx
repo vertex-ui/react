@@ -59,7 +59,7 @@ export interface LinkProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>,
    * @default false
    */
   download?: boolean | string;
-  
+
   children?: React.ReactNode;
 }
 
@@ -117,9 +117,9 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       component,
       componentProps = {},
       variant = 'body1',
-      noUnderline = false,
+      noUnderline = true,
       disabled = false,
-      color = 'primary',
+      color = 'inherit',
       leftIcon,
       rightIcon,
       external = false,
@@ -147,10 +147,10 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     // 3. download prop is provided (file downloads)
     // Otherwise, use the configured component from theme or the component prop
     const shouldUseAnchor = external || target !== undefined || download !== undefined;
-    
+
     // Determine which component to use
-    const effectiveComponent = shouldUseAnchor 
-      ? null 
+    const effectiveComponent = shouldUseAnchor
+      ? null
       : (component || themeContext?.theme.linkComponent);
 
     const classNames = [
@@ -175,7 +175,7 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     // If custom component should be used (React Router, Next.js, etc.)
     if (effectiveComponent) {
       const Component = effectiveComponent;
-      
+
       return (
         <Component
           ref={ref}

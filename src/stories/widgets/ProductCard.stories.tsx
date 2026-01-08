@@ -21,6 +21,10 @@ export const Basic = () => (
   <Widget config={{ type: 'product', data: { ...sampleProduct }, settings: { theme: 'ecommerce' } }} />
 );
 
+export const Loading = () => (
+  <Widget config={{ type: 'product', data: { ...sampleProduct }, settings: { theme: 'ecommerce', loading: true } }} />
+);
+
 export const WithWishlist = () => (
   <Widget
     config={{

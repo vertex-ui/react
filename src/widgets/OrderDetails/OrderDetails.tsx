@@ -10,6 +10,7 @@ import { Divider } from '../../components/Divider';
 import Timeline from '../../components/Timeline/Timeline';
 import InfoListCard from '../InfoListCard/InfoListCard';
 import { InfoListItem } from '../InfoListCard/InfoListCard';
+import { SkeletonTheme } from '../../components/Skeleton';
 import { MapPinIcon, DownloadIcon, 
     CreditCardIcon,
     MessageIcon,
@@ -122,6 +123,12 @@ export interface OrderDetailsProps extends React.HTMLAttributes<HTMLDivElement> 
   allowReturn?: boolean;
   allowReorder?: boolean;
 
+  /**
+   * If true, shows skeleton loading state
+   * @default false
+   */
+  loading?: boolean;
+
   className?: string;
   style?: React.CSSProperties;
 }
@@ -173,6 +180,7 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
       allowCancel = true,
       allowReturn = true,
       allowReorder = true,
+      loading = false,
       className = '',
       style,
       ...props
@@ -281,6 +289,11 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
     } : { label: '', value: '', hidden: true },
     transactionId ? { label: 'Transaction ID', value: transactionId, valueClass: 'value-muted' } : { label: '', value: '', hidden: true },
   ].filter(item => !item.hidden);
+
+  // Render skeleton loading state
+  if (loading) {
+    return <SkeletonTheme theme="order-details" />;
+  }
 
   return (
     <div className={`orderdetails ${className}`} style={style} ref={ref} {...props}>

@@ -1,0 +1,111 @@
+/* ===== Box Component Base Styles ===== */
+.vtx-box {
+  box-sizing: border-box;
+}
+
+/* ===== Display Utilities ===== */
+.vtx-box--display-block {
+  display: block;
+}
+
+.vtx-box--display-inline-block {
+  display: inline-block;
+}
+
+.vtx-box--display-inline {
+  display: inline;
+}
+
+.vtx-box--display-flex {
+  display: flex;
+}
+
+.vtx-box--display-inline-flex {
+  display: inline-flex;
+}
+
+.vtx-box--display-grid {
+  display: grid;
+}
+
+.vtx-box--display-inline-grid {
+  display: inline-grid;
+}
+
+.vtx-box--display-none {
+  display: none;
+}
+
+/* ===== Position Utilities ===== */
+.vtx-box--position-static {
+  position: static;
+}
+
+.vtx-box--position-relative {
+  position: relative;
+}
+
+.vtx-box--position-absolute {
+  position: absolute;
+}
+
+.vtx-box--position-fixed {
+  position: fixed;
+}
+
+.vtx-box--position-sticky {
+  position: sticky;
+}
+
+/* ===== Overflow Utilities ===== */
+.vtx-box--overflow-visible {
+  overflow: visible;
+}
+
+.vtx-box--overflow-hidden {
+  overflow: hidden;
+}
+
+.vtx-box--overflow-scroll {
+  overflow: scroll;
+}
+
+.vtx-box--overflow-auto {
+  overflow: auto;
+}
+
+/* ===== Shadow Utilities ===== */
+.vtx-box--shadow-none {
+  box-shadow: none;
+}
+
+.vtx-box--shadow-sm {
+  box-shadow: var(
+    --vtx-shadow-sm,
+    0 1px 2px 0 rgba(0, 0, 0, 0.05)
+  );
+}
+
+.vtx-box--shadow-md {
+  box-shadow: var(
+    --vtx-shadow-md,
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06)
+  );
+}
+
+.vtx-box--shadow-lg {
+  box-shadow: var(
+    --vtx-shadow-lg,
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05)
+  );
+}
+
+.vtx-box--shadow-xl {
+  box-shadow: var(
+    --vtx-shadow-xl,
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04)
+  );
+}

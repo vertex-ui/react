@@ -6,6 +6,7 @@ import { Flex } from '../../components/Flex';
 import { Text } from '../../components/Text';
 import { Button } from '../../components/Button';
 import { Badge } from '../../components/Badge';
+import { SkeletonTheme } from '../../components/Skeleton';
 
 export interface OrderItem {
   id?: string;
@@ -68,6 +69,11 @@ export interface OrderCardProps extends React.HTMLAttributes<HTMLDivElement> {
    * @default 'Track Order'
    */
   trackButtonText?: string;
+  /**
+   * If true, shows skeleton loading state
+   * @default false
+   */
+  loading?: boolean;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -106,6 +112,7 @@ const OrderCard = React.forwardRef<HTMLDivElement, OrderCardProps>(
       onTrackOrder,
       onViewDetails,
       trackButtonText = 'Track Order',
+      loading = false,
       className = '',
       style,
       ...props
@@ -138,6 +145,11 @@ const OrderCard = React.forwardRef<HTMLDivElement, OrderCardProps>(
     // Get first item and remaining count
     const firstItem = items[0];
     const remainingCount = items.length - 1;
+
+    // Render skeleton loading state
+    if (loading) {
+      return <SkeletonTheme theme="order-card" />;
+    }
 
     return (
       <Card
