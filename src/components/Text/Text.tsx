@@ -174,6 +174,26 @@ export interface TextProps extends Omit<React.HTMLAttributes<HTMLElement>, 'colo
 }
 
 /**
+ * Pre-computed base class names for each variant (performance optimization)
+ */
+const CLASS_VARIANTS: Record<TextVariant, string> = {
+  h1: 'vtx-text vtx-text--h1',
+  h2: 'vtx-text vtx-text--h2',
+  h3: 'vtx-text vtx-text--h3',
+  h4: 'vtx-text vtx-text--h4',
+  h5: 'vtx-text vtx-text--h5',
+  h6: 'vtx-text vtx-text--h6',
+  body1: 'vtx-text vtx-text--body1',
+  body2: 'vtx-text vtx-text--body2',
+  subtitle1: 'vtx-text vtx-text--subtitle1',
+  subtitle2: 'vtx-text vtx-text--subtitle2',
+  caption: 'vtx-text vtx-text--caption',
+  overline: 'vtx-text vtx-text--overline',
+  button: 'vtx-text vtx-text--button',
+  label: 'vtx-text vtx-text--label',
+};
+
+/**
  * Default HTML element mapping for each variant
  */
 const ELEMENT_MAP: Record<TextVariant, TextAs> = {
@@ -233,53 +253,39 @@ const TextComponent = React.forwardRef<HTMLElement, TextProps>(
     // Determine the HTML element to render
     const Component = as || ELEMENT_MAP[variant] || 'p';
 
-    // Build class names - memoized for performance
+    // Build class names - optimized with pre-computed base
     const classNames = React.useMemo(() => {
-      return [
-        'vtx-text',
-        `vtx-text--${variant}`,
-        align && `vtx-text--align-${align}`,
-        weight && typeof weight === 'string' && `vtx-text--weight-${weight}`,
-        color && color !== 'inherit' && `vtx-text--color-${color}`,
-        transform && `vtx-text--transform-${transform}`,
-        decoration && `vtx-text--decoration-${decoration}`,
-        truncate && 'vtx-text--truncate',
-        lineClamp && 'vtx-text--line-clamp',
-        breakWord && 'vtx-text--break-word',
-        italic && 'vtx-text--italic',
-        underline && 'vtx-text--underline',
-        strikethrough && 'vtx-text--strikethrough',
-        gradient && 'vtx-text--gradient',
-        noSelect && 'vtx-text--no-select',
-        noMargin && 'vtx-text--no-margin',
-        noPadding && 'vtx-text--no-padding',
-        className,
-      ]
-        .filter(Boolean)
-        .join(' ');
-    }, [
-      variant,
-      align,
-      weight,
-      color,
-      transform,
-      decoration,
-      truncate,
-      lineClamp,
-      breakWord,
-      italic,
-      underline,
-      strikethrough,
-      gradient,
-      noSelect,
-      noMargin,
-      noPadding,
-      className,
-    ]);
+      const classes = [CLASS_VARIANTS[variant]];
+      
+      if (align) classes.push(`vtx-text--align-${align}`);
+      if (weight && typeof weight === 'string') classes.push(`vtx-text--weight-${weight}`);
+      if (color && color !== 'inherit') classes.push(`vtx-text--color-${color}`);
+      if (transform) classes.push(`vtx-text--transform-${transform}`);
+      if (decoration) classes.push(`vtx-text--decoration-${decoration}`);
+      if (truncate) classes.push('vtx-text--truncate');
+      if (lineClamp) classes.push('vtx-text--line-clamp');
+      if (breakWord) classes.push('vtx-text--break-word');
+      if (italic) classes.push('vtx-text--italic');
+      if (underline) classes.push('vtx-text--underline');
+      if (strikethrough) classes.push('vtx-text--strikethrough');
+      if (gradient) classes.push('vtx-text--gradient');
+      if (noSelect) classes.push('vtx-text--no-select');
+      if (noMargin) classes.push('vtx-text--no-margin');
+      if (noPadding) classes.push('vtx-text--no-padding');
+      if (className) classes.push(className);
+      
+      return classes.join(' ');
+    }, [variant, align, weight, color, transform, decoration, truncate, lineClamp, breakWord, italic, underline, strikethrough, gradient, noSelect, noMargin, noPadding, className]);
 
-    // Build inline styles - memoized for performance
+    // Build inline styles - optimized with conditional object creation
     const inlineStyles = React.useMemo(() => {
-      const s: CSSProperties = { ...style };
+      // Only create style object if we have custom styles
+      if (!textColor && !(weight && typeof weight === 'number') && !lineClamp && 
+          !gradient && !size && !lineHeight && !letterSpacing && !style) {
+        return undefined;
+      }
+
+      const s: CSSProperties = style ? { ...style } : {};
 
       if (textColor) s.color = textColor;
       if (weight && typeof weight === 'number') s.fontWeight = weight;
@@ -298,16 +304,7 @@ const TextComponent = React.forwardRef<HTMLElement, TextProps>(
       }
 
       return s;
-    }, [
-      style,
-      textColor,
-      weight,
-      lineClamp,
-      gradient,
-      size,
-      lineHeight,
-      letterSpacing,
-    ]);
+    }, [style, textColor, weight, lineClamp, gradient, size, lineHeight, letterSpacing]);
 
     return React.createElement(
       Component,

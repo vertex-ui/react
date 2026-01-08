@@ -1,5 +1,5 @@
 import React from 'react';
-import { ContentBlockWidgetData, WidgetTheme } from '../types';
+import { ContentBlockWidgetData, ContentBlockWidgetSettings, WidgetTheme } from '../types';
 import { Card } from '../../Card';
 import { Text } from '../../Text';
 import { Button } from '../../Button';
@@ -32,77 +32,6 @@ export type ContentBlockLayout =
   // Asymmetric Layouts
   | 'sidebar-left'         // Narrow sidebar (30%) left
   | 'sidebar-right';       // Narrow sidebar (30%) right
-
-export interface ContentBlockWidgetSettings {
-  // Layout
-  layout?: ContentBlockLayout;
-  
-  // Size & Spacing
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  mediaWidth?: '20%' | '30%' | '40%' | '50%' | '60%' | '70%' | 'auto';
-  contentWidth?: 'narrow' | 'medium' | 'wide' | 'full';
-  gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-  padding?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-  
-  // Alignment
-  contentAlign?: 'left' | 'center' | 'right' | 'justify';
-  verticalAlign?: 'start' | 'center' | 'end' | 'stretch';
-  
-  // Visual Style
-  variant?: 
-    | 'minimal'        // Clean, no borders/shadows
-    | 'card'           // Contained in card
-    | 'bordered'       // With border
-    | 'elevated'       // With shadow elevation
-    | 'outlined'       // Outlined style
-    | 'flat';          // Flat design
-  
-  rounded?: boolean | 'sm' | 'md' | 'lg' | 'xl' | 'full';
-  shadow?: boolean | 'sm' | 'md' | 'lg' | 'xl' | 'inner';
-  border?: boolean | 'all' | 'left' | 'right' | 'top' | 'bottom';
-  
-  // Background
-  background?: {
-    color?: string;
-    gradient?: string;
-    opacity?: number;
-  };
-
-  // Overlay (for media-background layout)
-  overlay?: {
-    enabled: boolean;
-    color?: string;
-    opacity?: number;
-    blur?: number;
-    gradient?: 'top' | 'bottom' | 'center' | 'none';
-  };
-
-  // Grid Configuration (for grid layouts)
-  grid?: {
-    columns?: number;
-    gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-    minItemWidth?: string;
-  };
-
-  // Responsive Behavior
-  responsive?: {
-    stackOnMobile?: boolean;
-    stackOnTablet?: boolean;
-    reverseOnMobile?: boolean;
-    hideMediaOnMobile?: boolean;
-  };
-
-  // Interactions
-  hover?: {
-    enabled?: boolean;
-    effect?: 'lift' | 'glow' | 'scale' | 'none';
-    mediaZoom?: boolean;
-  };
-
-  // Animation
-  animate?: boolean;
-  animationType?: 'fade' | 'slide-up' | 'slide-left' | 'slide-right' | 'zoom' | 'none';
-}
 
 export interface ContentBlockWidgetProps {
   data: ContentBlockWidgetData;
@@ -232,8 +161,10 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
     } = data.media;
 
     const mediaStyles: React.CSSProperties = {
-      width: '100%',
-      height: aspectRatio === 'auto' ? 'auto' : undefined,
+      width: settings.imageWidth || '100%',
+      height: settings.imageHeight || (aspectRatio === 'auto' ? 'auto' : undefined),
+      maxWidth: settings.imageMaxWidth,
+      maxHeight: settings.imageMaxHeight,
       aspectRatio: aspectRatio && aspectRatio !== 'auto' ? aspectRatio.replace(':', '/') : undefined,
       objectFit: objectFit as any,
       borderRadius: mediaRounded ? (typeof mediaRounded === 'boolean' ? '0.5rem' : `var(--border-radius-${mediaRounded})`) : undefined,
@@ -245,6 +176,9 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
     const mediaContainerStyles: React.CSSProperties = {
       overflow: zoom ? 'hidden' : 'visible',
       borderRadius: mediaRounded ? (typeof mediaRounded === 'boolean' ? '0.5rem' : `var(--border-radius-${mediaRounded})`) : undefined,
+      display: contentAlign === 'center' ? 'flex' : undefined,
+      justifyContent: contentAlign === 'center' ? 'center' : contentAlign === 'right' ? 'flex-end' : undefined,
+      alignItems: contentAlign === 'center' ? 'center' : undefined,
     };
 
     const mediaHoverClass = zoom ? 'vtx-content-block__media--zoom' : '';
@@ -283,14 +217,27 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
 
       case 'icon':
         if (icon) {
-          const iconSizeMap = { sm: '2rem', md: '3rem', lg: '4rem', xl: '6rem' };
+          // Extended icon size map with xs and 2xl
+          const iconSizeMap = { 
+            xs: '1.5rem',   // 24px
+            sm: '2rem',     // 32px
+            md: '3rem',     // 48px
+            lg: '4rem',     // 64px
+            xl: '6rem',     // 96px
+            '2xl': '8rem'   // 128px
+          };
+          
+          // Use settings override if available, otherwise use data.media iconSize
+          const effectiveIconSize = settings.iconSize || iconSize;
+          const finalIconSize = settings.customIconSize || iconSizeMap[effectiveIconSize];
+          
           return (
             <div
               className="vtx-content-block__icon"
               style={{
-                fontSize: iconSizeMap[iconSize],
-                width: iconSizeMap[iconSize],
-                height: iconSizeMap[iconSize],
+                fontSize: finalIconSize,
+                width: finalIconSize,
+                height: finalIconSize,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -644,7 +591,10 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
         gap: gapMap[gap],
         alignItems: verticalAlign,
       } as React.CSSProperties,
-      media: {} as React.CSSProperties,
+      media: {
+        display: contentAlign === 'center' ? 'flex' : undefined,
+        justifyContent: contentAlign === 'center' ? 'center' : contentAlign === 'right' ? 'flex-end' : undefined,
+      } as React.CSSProperties,
       content: {} as React.CSSProperties,
     };
 

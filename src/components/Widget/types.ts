@@ -914,6 +914,91 @@ export interface ContentBlockWidgetData extends Omit<BaseWidgetData, 'metadata'>
   };
 }
 
+// Content Block Widget Settings
+export interface ContentBlockWidgetSettings extends Omit<BaseWidgetSettings, 'variant'> {
+  // Layout-specific variant (overrides base variant)
+  variant?: 'minimal' | 'card' | 'elevated' | 'outlined' | 'bordered';
+  
+  // Layout
+  layout?: 
+    | 'media-left'           // Media 40%, Content 60%
+    | 'media-right'          // Content 60%, Media 40%
+    | 'split-equal'          // 50/50 split
+    | 'media-top'            // Media above content
+    | 'media-bottom'         // Content above media
+    | 'media-background'     // Full background with overlay
+    | 'centered'             // All centered
+    | 'centered-media-top'   // Centered with media on top
+    | 'grid-2col'            // 2 column grid
+    | 'grid-3col'            // 3 column grid
+    | 'sidebar-left'         // Narrow sidebar (30%) left
+    | 'sidebar-right';       // Narrow sidebar (30%) right
+  
+  // Size & Spacing
+  mediaWidth?: '20%' | '30%' | '40%' | '50%' | '60%' | '70%' | 'auto';
+  contentWidth?: 'narrow' | 'medium' | 'wide' | 'full';
+  gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+  padding?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+  
+  // Media Dimensions (override data.media properties)
+  imageWidth?: string;        // CSS value like '100%', '400px', 'auto'
+  imageHeight?: string;       // CSS value like 'auto', '300px', '100%'
+  imageMaxWidth?: string;     // Max width constraint
+  imageMaxHeight?: string;    // Max height constraint
+  iconSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';  // Override icon size
+  customIconSize?: string;    // Custom icon size (e.g., '5rem', '80px')
+  
+  // Alignment
+  contentAlign?: 'left' | 'center' | 'right' | 'justify';
+  verticalAlign?: 'start' | 'center' | 'end' | 'stretch';
+  
+  rounded?: boolean | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  shadow?: boolean | 'sm' | 'md' | 'lg' | 'xl' | 'inner';
+  border?: boolean | 'all' | 'left' | 'right' | 'top' | 'bottom';
+  
+  // Background
+  background?: {
+    color?: string;
+    gradient?: string;
+    opacity?: number;
+  };
+
+  // Overlay (for media-background layout)
+  overlay?: {
+    enabled: boolean;
+    color?: string;
+    opacity?: number;
+    blur?: number;
+    gradient?: 'top' | 'bottom' | 'center' | 'none';
+  };
+
+  // Grid Configuration (for grid layouts)
+  grid?: {
+    columns?: number;
+    gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+    minItemWidth?: string;
+  };
+
+  // Responsive Behavior
+  responsive?: {
+    stackOnMobile?: boolean;
+    stackOnTablet?: boolean;
+    reverseOnMobile?: boolean;
+    hideMediaOnMobile?: boolean;
+  };
+
+  // Interactions
+  hover?: {
+    enabled?: boolean;
+    effect?: 'lift' | 'glow' | 'scale' | 'none';
+    mediaZoom?: boolean;
+  };
+
+  // Animation
+  animate?: boolean;
+  animationType?: 'fade' | 'slide-up' | 'slide-left' | 'slide-right' | 'zoom' | 'none';
+}
+
 // ========================================================================
 // GRID WIDGET - Data and Settings
 // ========================================================================
@@ -1211,6 +1296,7 @@ export type WidgetSettings =
   | GridCarouselWidgetSettings
   | NavbarWidgetSettings
   | GridWidgetSettings
+  | ContentBlockWidgetSettings
   | ErrorPageWidgetSettings
   | EmptyStateWidgetSettings
   | BaseWidgetSettings;
