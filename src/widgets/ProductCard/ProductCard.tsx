@@ -207,10 +207,10 @@ const ProductCardBase = React.forwardRef<HTMLDivElement, ProductCardProps>(
           {/* BADGES */}
           <div className="productcard-badges">
             {featured && (
-              <Badge variant="primary" size="sm" pill>{featuredText}</Badge>
+              <Badge size="sm" className="productcard-featured-badge">{featuredText}</Badge>
             )}
             {discount && (
-              <Badge variant="error" size="sm" pill>{discount}</Badge>
+              <Badge size="sm" className="productcard-discount-badge">{discount}</Badge>
             )}
           </div>
 
@@ -543,8 +543,8 @@ const ProductCardWide = React.forwardRef<HTMLDivElement, ProductCardWideProps>(
 
           {/* BADGES */}
           <div className="productcard-badges">
-            {featured && <Badge variant="primary" size="sm" pill>{featuredText}</Badge>}
-            {discount && <Badge variant="error" size="sm" pill>{discount}</Badge>}
+            {featured && <Badge size="sm" className="productcard-featured-badge">{featuredText}</Badge>}
+            {discount && <Badge size="sm" className="productcard-discount-badge">{discount}</Badge>}
           </div>
 
           {/* WISHLIST BUTTON */}
@@ -696,7 +696,6 @@ ProductCardWide.displayName = 'ProductCardWide';
  *   name="Product"
  *   image="/product.jpg"
  *   price={19.99}
- *   imagePosition="left"
  * />
  * ```
  */
@@ -801,7 +800,7 @@ const ProductCardMinimal = React.forwardRef<HTMLDivElement, ProductCardProps>(
           </div>
         )}
 
-        {discount && <Badge variant="error" size="sm" pill className="productcard-minimal-discount">{discount}</Badge>}
+        {discount && <Badge size="sm" className="productcard-minimal-discount">{discount}</Badge>}
 
         {showWishlist && !readonly && (
           <button
