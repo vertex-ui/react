@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ErrorPageWidget } from '../../components/Widget';
+import { Widget } from '../../components/Widget';
 import { ThemeProvider } from '../../theme';
 
-const meta: Meta<typeof ErrorPageWidget> = {
+const meta: Meta<typeof Widget> = {
   title: 'Widgets/ErrorPageWidget',
-  component: ErrorPageWidget,
+  component: Widget,
   decorators: [
     (Story) => (
       <ThemeProvider>
@@ -18,7 +18,7 @@ const meta: Meta<typeof ErrorPageWidget> = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'Professional error page widget with multiple themes and error types. Includes 404, 500, 403, 401, 503, and search error pages.',
+        component: 'Professional error page widget with multiple themes and error types. Includes 404, 500, 403, 401, 503, and search error pages. Accessed via unified `Widget` component.',
       },
     },
   },
@@ -26,7 +26,7 @@ const meta: Meta<typeof ErrorPageWidget> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof ErrorPageWidget>;
+type Story = StoryObj<typeof Widget>;
 
 // ========================================================================
 // 404 ERROR PAGES
@@ -34,16 +34,19 @@ type Story = StoryObj<typeof ErrorPageWidget>;
 
 export const Error404Modern: Story = {
   args: {
-    data: {
-      errorCode: '404',
-      actions: [
-        { variant: 'primary', label: 'Back to Home', href: '/', icon: 'home' },
-        { variant: 'outline', label: 'Go Back', icon: 'back', onClick: () => window.history.back() },
-      ],
-    },
-    settings: {
-      theme: 'modern',
-      variant: 'primary',
+    config: {
+      type: 'errorPage',
+      data: {
+        errorCode: '404',
+        actions: [
+          { variant: 'primary', label: 'Back to Home', href: '/', icon: 'home' },
+          { variant: 'outline', label: 'Go Back', icon: 'back', onClick: () => window.history.back() },
+        ],
+      },
+      settings: {
+        theme: 'modern',
+        variant: 'primary',
+      },
     },
   },
   parameters: {
@@ -57,18 +60,21 @@ export const Error404Modern: Story = {
 
 export const Error404Minimal: Story = {
   args: {
-    data: {
-      errorCode: '404',
-      title: 'Page Not Found',
-      message: "We couldn't find the page you're looking for.",
-      suggestion: 'The page may have been moved or deleted.',
-      actions: [
-        { variant: 'primary', label: 'Go Home', href: '/', icon: 'home' },
-      ],
-    },
-    settings: {
-      theme: 'minimal',
-      variant: 'neutral',
+    config: {
+      type: 'errorPage',
+      data: {
+        errorCode: '404',
+        title: 'Page Not Found',
+        message: "We couldn't find the page you're looking for.",
+        suggestion: 'The page may have been moved or deleted.',
+        actions: [
+          { variant: 'primary', label: 'Go Home', href: '/', icon: 'home' },
+        ],
+      },
+      settings: {
+        theme: 'minimal',
+        variant: 'neutral',
+      },
     },
   },
   parameters: {
@@ -82,16 +88,19 @@ export const Error404Minimal: Story = {
 
 export const Error404Professional: Story = {
   args: {
-    data: {
-      errorCode: '404',
-      actions: [
-        { variant: 'primary', label: 'Return Home', href: '/', icon: 'home' },
-        { variant: 'secondary', label: 'Contact Support', href: '/support' },
-      ],
-    },
-    settings: {
-      theme: 'professional',
-      variant: 'primary',
+    config: {
+      type: 'errorPage',
+      data: {
+        errorCode: '404',
+        actions: [
+          { variant: 'primary', label: 'Return Home', href: '/', icon: 'home' },
+          { variant: 'secondary', label: 'Contact Support', href: '/support' },
+        ],
+      },
+      settings: {
+        theme: 'professional',
+        variant: 'primary',
+      },
     },
   },
   parameters: {
@@ -105,24 +114,27 @@ export const Error404Professional: Story = {
 
 export const Error404Playful: Story = {
   args: {
-    data: {
-      errorCode: '404',
-      title: 'Oops! Lost in Space',
-      message: "We can't seem to find that page anywhere!",
-      suggestion: "Let's get you back on track.",
-      primaryAction: {
-        label: 'Take Me Home',
-        href: '/',
-        icon: 'home',
+    config: {
+      type: 'errorPage',
+      data: {
+        errorCode: '404',
+        title: 'Oops! Lost in Space',
+        message: "We can't seem to find that page anywhere!",
+        suggestion: "Let's get you back on track.",
+        primaryAction: {
+          label: 'Take Me Home',
+          href: '/',
+          icon: 'home',
+        },
+        secondaryAction: {
+          label: 'Go Back',
+          icon: 'back',
+        },
       },
-      secondaryAction: {
-        label: 'Go Back',
-        icon: 'back',
+      settings: {
+        theme: 'playful',
+        variant: 'primary',
       },
-    },
-    settings: {
-      theme: 'playful',
-      variant: 'primary',
     },
   },
   parameters: {
@@ -136,25 +148,28 @@ export const Error404Playful: Story = {
 
 export const Error404Technical: Story = {
   args: {
-    data: {
-      errorCode: '404',
-      title: 'HTTP 404: Resource Not Found',
-      message: 'The requested URL was not found on this server.',
-      suggestion: 'Check the URL for typos or use the navigation to find what you need.',
-      primaryAction: {
-        label: '> Return Home',
-        href: '/',
-        icon: 'home',
+    config: {
+      type: 'errorPage',
+      data: {
+        errorCode: '404',
+        title: 'HTTP 404: Resource Not Found',
+        message: 'The requested URL was not found on this server.',
+        suggestion: 'Check the URL for typos or use the navigation to find what you need.',
+        primaryAction: {
+          label: '> Return Home',
+          href: '/',
+          icon: 'home',
+        },
+        secondaryAction: {
+          label: '> Go Back',
+          icon: 'back',
+        },
+        additionalInfo: 'Error ID: ERR_404_NOT_FOUND | Timestamp: 2026-01-08T12:00:00Z',
       },
-      secondaryAction: {
-        label: '> Go Back',
-        icon: 'back',
+      settings: {
+        theme: 'technical',
+        variant: 'success',
       },
-      additionalInfo: 'Error ID: ERR_404_NOT_FOUND | Timestamp: 2026-01-08T12:00:00Z',
-    },
-    settings: {
-      theme: 'technical',
-      variant: 'success',
     },
   },
   parameters: {
@@ -168,24 +183,27 @@ export const Error404Technical: Story = {
 
 export const Error404Elegant: Story = {
   args: {
-    data: {
-      errorCode: '404',
-      title: 'Page Not Found',
-      message: 'The page you are looking for does not exist.',
-      suggestion: 'Please check the URL or navigate back to our homepage.',
-      primaryAction: {
-        label: 'Home',
-        href: '/',
-        icon: 'home',
+    config: {
+      type: 'errorPage',
+      data: {
+        errorCode: '404',
+        title: 'Page Not Found',
+        message: 'The page you are looking for does not exist.',
+        suggestion: 'Please check the URL or navigate back to our homepage.',
+        primaryAction: {
+          label: 'Home',
+          href: '/',
+          icon: 'home',
+        },
+        secondaryAction: {
+          label: 'Back',
+          icon: 'back',
+        },
       },
-      secondaryAction: {
-        label: 'Back',
-        icon: 'back',
+      settings: {
+        theme: 'elegant',
+        variant: 'primary',
       },
-    },
-    settings: {
-      theme: 'elegant',
-      variant: 'primary',
     },
   },
   parameters: {
@@ -203,22 +221,25 @@ export const Error404Elegant: Story = {
 
 export const Error500Modern: Story = {
   args: {
-    data: {
-      errorCode: '500',
-      primaryAction: {
-        label: 'Refresh Page',
-        onClick: () => window.location.reload(),
-        icon: 'refresh',
+    config: {
+      type: 'errorPage',
+      data: {
+        errorCode: '500',
+        primaryAction: {
+          label: 'Refresh Page',
+          onClick: () => window.location.reload(),
+          icon: 'refresh',
+        },
+        secondaryAction: {
+          label: 'Go Home',
+          href: '/',
+          icon: 'home',
+        },
       },
-      secondaryAction: {
-        label: 'Go Home',
-        href: '/',
-        icon: 'home',
+      settings: {
+        theme: 'modern',
+        variant: 'danger',
       },
-    },
-    settings: {
-      theme: 'modern',
-      variant: 'danger',
     },
   },
   parameters: {
@@ -232,25 +253,28 @@ export const Error500Modern: Story = {
 
 export const Error500Professional: Story = {
   args: {
-    data: {
-      errorCode: '500',
-      title: 'Internal Server Error',
-      message: 'An unexpected error occurred on our servers.',
-      suggestion: 'Our team has been notified and is working on a fix. Please try again later.',
-      primaryAction: {
-        label: 'Try Again',
-        onClick: () => window.location.reload(),
-        icon: 'refresh',
+    config: {
+      type: 'errorPage',
+      data: {
+        errorCode: '500',
+        title: 'Internal Server Error',
+        message: 'An unexpected error occurred on our servers.',
+        suggestion: 'Our team has been notified and is working on a fix. Please try again later.',
+        primaryAction: {
+          label: 'Try Again',
+          onClick: () => window.location.reload(),
+          icon: 'refresh',
+        },
+        secondaryAction: {
+          label: 'Contact Support',
+          href: '/support',
+        },
+        additionalInfo: 'If this problem persists, please contact our support team with error code: ERR-500-2026-01-08',
       },
-      secondaryAction: {
-        label: 'Contact Support',
-        href: '/support',
+      settings: {
+        theme: 'professional',
+        variant: 'danger',
       },
-      additionalInfo: 'If this problem persists, please contact our support team with error code: ERR-500-2026-01-08',
-    },
-    settings: {
-      theme: 'professional',
-      variant: 'danger',
     },
   },
   parameters: {
@@ -268,21 +292,24 @@ export const Error500Professional: Story = {
 
 export const Error403Modern: Story = {
   args: {
-    data: {
-      errorCode: '403',
-      primaryAction: {
-        label: 'Go Home',
-        href: '/',
-        icon: 'home',
+    config: {
+      type: 'errorPage',
+      data: {
+        errorCode: '403',
+        primaryAction: {
+          label: 'Go Home',
+          href: '/',
+          icon: 'home',
+        },
+        secondaryAction: {
+          label: 'Request Access',
+          href: '/request-access',
+        },
       },
-      secondaryAction: {
-        label: 'Request Access',
-        href: '/request-access',
+      settings: {
+        theme: 'modern',
+        variant: 'warning',
       },
-    },
-    settings: {
-      theme: 'modern',
-      variant: 'warning',
     },
   },
   parameters: {
@@ -300,21 +327,24 @@ export const Error403Modern: Story = {
 
 export const Error401Modern: Story = {
   args: {
-    data: {
-      errorCode: '401',
-      primaryAction: {
-        label: 'Sign In',
-        href: '/login',
+    config: {
+      type: 'errorPage',
+      data: {
+        errorCode: '401',
+        primaryAction: {
+          label: 'Sign In',
+          href: '/login',
+        },
+        secondaryAction: {
+          label: 'Go Home',
+          href: '/',
+          icon: 'home',
+        },
       },
-      secondaryAction: {
-        label: 'Go Home',
-        href: '/',
-        icon: 'home',
+      settings: {
+        theme: 'modern',
+        variant: 'info',
       },
-    },
-    settings: {
-      theme: 'modern',
-      variant: 'info',
     },
   },
   parameters: {
@@ -332,24 +362,27 @@ export const Error401Modern: Story = {
 
 export const Error503Modern: Story = {
   args: {
-    data: {
-      errorCode: '503',
-      title: 'Under Maintenance',
-      message: "We're currently performing scheduled maintenance.",
-      suggestion: "We'll be back online shortly. Thank you for your patience!",
-      primaryAction: {
-        label: 'Check Status',
-        href: '/status',
+    config: {
+      type: 'errorPage',
+      data: {
+        errorCode: '503',
+        title: 'Under Maintenance',
+        message: "We're currently performing scheduled maintenance.",
+        suggestion: "We'll be back online shortly. Thank you for your patience!",
+        primaryAction: {
+          label: 'Check Status',
+          href: '/status',
+        },
+        secondaryAction: {
+          label: 'Refresh',
+          onClick: () => window.location.reload(),
+          icon: 'refresh',
+        },
       },
-      secondaryAction: {
-        label: 'Refresh',
-        onClick: () => window.location.reload(),
-        icon: 'refresh',
+      settings: {
+        theme: 'modern',
+        variant: 'warning',
       },
-    },
-    settings: {
-      theme: 'modern',
-      variant: 'warning',
     },
   },
   parameters: {
@@ -367,23 +400,26 @@ export const Error503Modern: Story = {
 
 export const SearchNotFoundModern: Story = {
   args: {
-    data: {
-      errorCode: 'search',
-      title: 'No Results Found',
-      message: "We couldn't find anything matching your search.",
-      suggestion: 'Try using different keywords or browse our categories.',
-      primaryAction: {
-        label: 'Browse All',
-        href: '/browse',
+    config: {
+      type: 'errorPage',
+      data: {
+        errorCode: 'search',
+        title: 'No Results Found',
+        message: "We couldn't find anything matching your search.",
+        suggestion: 'Try using different keywords or browse our categories.',
+        primaryAction: {
+          label: 'Browse All',
+          href: '/browse',
+        },
+        secondaryAction: {
+          label: 'Clear Search',
+          onClick: () => console.log('Clear search'),
+        },
       },
-      secondaryAction: {
-        label: 'Clear Search',
-        onClick: () => console.log('Clear search'),
+      settings: {
+        theme: 'modern',
+        variant: 'info',
       },
-    },
-    settings: {
-      theme: 'modern',
-      variant: 'info',
     },
   },
   parameters: {
@@ -401,20 +437,23 @@ export const SearchNotFoundModern: Story = {
 
 export const CustomErrorNoIllustration: Story = {
   args: {
-    data: {
-      errorCode: '418',
-      title: "I'm a teapot",
-      message: 'The server refuses to brew coffee because it is, permanently, a teapot.',
-      suggestion: 'This is a joke error code defined in RFC 2324.',
-      primaryAction: {
-        label: 'Get Coffee Elsewhere',
-        href: '/',
+    config: {
+      type: 'errorPage',
+      data: {
+        errorCode: '418',
+        title: "I'm a teapot",
+        message: 'The server refuses to brew coffee because it is, permanently, a teapot.',
+        suggestion: 'This is a joke error code defined in RFC 2324.',
+        primaryAction: {
+          label: 'Get Coffee Elsewhere',
+          href: '/',
+        },
       },
-    },
-    settings: {
-      theme: 'playful',
-      variant: 'primary',
-      showIllustration: false,
+      settings: {
+        theme: 'playful',
+        variant: 'primary',
+        showIllustration: false,
+      },
     },
   },
   parameters: {
@@ -432,16 +471,19 @@ export const CustomErrorNoIllustration: Story = {
 
 export const CustomBackground: Story = {
   args: {
-    data: {
-      errorCode: '404',
-      actions: [
-        { variant: 'primary', label: 'Go Home', href: '/', icon: 'home' },
-      ],
-    },
-    settings: {
-      theme: 'modern',
-      variant: 'primary',
-      backgroundColor: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    config: {
+      type: 'errorPage',
+      data: {
+        errorCode: '404',
+        actions: [
+          { variant: 'primary', label: 'Go Home', href: '/', icon: 'home' },
+        ],
+      },
+      settings: {
+        theme: 'modern',
+        variant: 'primary',
+        backgroundColor: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      },
     },
   },
   parameters: {
@@ -455,18 +497,21 @@ export const CustomBackground: Story = {
 
 export const CustomSolidBackground: Story = {
   args: {
-    data: {
-      errorCode: '404',
-      title: 'Page Not Found',
-      message: "We couldn't find this page.",
-      actions: [
-        { variant: 'primary', label: 'Go Home', href: '/', icon: 'home' },
-      ],
-    },
-    settings: {
-      theme: 'minimal',
-      variant: 'primary',
-      backgroundColor: '#fef3c7',
+    config: {
+      type: 'errorPage',
+      data: {
+        errorCode: '404',
+        title: 'Page Not Found',
+        message: "We couldn't find this page.",
+        actions: [
+          { variant: 'primary', label: 'Go Home', href: '/', icon: 'home' },
+        ],
+      },
+      settings: {
+        theme: 'minimal',
+        variant: 'primary',
+        backgroundColor: '#fef3c7',
+      },
     },
   },
   parameters: {
@@ -480,16 +525,19 @@ export const CustomSolidBackground: Story = {
 
 export const DarkCustomBackground: Story = {
   args: {
-    data: {
-      errorCode: '404',
-      actions: [
-        { variant: 'success', label: 'Return Home', href: '/', icon: 'home' },
-      ],
-    },
-    settings: {
-      theme: 'technical',
-      variant: 'success',
-      backgroundColor: 'linear-gradient(135deg, #1e3a8a 0%, #1e293b 100%)',
+    config: {
+      type: 'errorPage',
+      data: {
+        errorCode: '404',
+        actions: [
+          { variant: 'success', label: 'Return Home', href: '/', icon: 'home' },
+        ],
+      },
+      settings: {
+        theme: 'technical',
+        variant: 'success',
+        backgroundColor: 'linear-gradient(135deg, #1e3a8a 0%, #1e293b 100%)',
+      },
     },
   },
   parameters: {
@@ -507,18 +555,21 @@ export const DarkCustomBackground: Story = {
 
 export const LeftAligned: Story = {
   args: {
-    data: {
-      errorCode: '404',
-      primaryAction: {
-        label: 'Back to Home',
-        href: '/',
-        icon: 'home',
+    config: {
+      type: 'errorPage',
+      data: {
+        errorCode: '404',
+        primaryAction: {
+          label: 'Back to Home',
+          href: '/',
+          icon: 'home',
+        },
       },
-    },
-    settings: {
-      theme: 'modern',
-      variant: 'primary',
-      centered: false,
+      settings: {
+        theme: 'modern',
+        variant: 'primary',
+        centered: false,
+      },
     },
   },
   parameters: {
@@ -536,20 +587,23 @@ export const LeftAligned: Story = {
 
 export const Compact: Story = {
   args: {
-    data: {
-      errorCode: '404',
-      title: 'Page Not Found',
-      message: "The page you're looking for doesn't exist.",
-      primaryAction: {
-        label: 'Go Home',
-        href: '/',
-        icon: 'home',
+    config: {
+      type: 'errorPage',
+      data: {
+        errorCode: '404',
+        title: 'Page Not Found',
+        message: "The page you're looking for doesn't exist.",
+        primaryAction: {
+          label: 'Go Home',
+          href: '/',
+          icon: 'home',
+        },
       },
-    },
-    settings: {
-      theme: 'minimal',
-      variant: 'primary',
-      fullHeight: false,
+      settings: {
+        theme: 'minimal',
+        variant: 'primary',
+        fullHeight: false,
+      },
     },
   },
   parameters: {
@@ -570,71 +624,89 @@ export const AllThemesComparison: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '40px', padding: '20px' }}>
       <div>
         <h3 style={{ marginBottom: '20px', textAlign: 'center' }}>Modern Theme</h3>
-        <ErrorPageWidget
-          data={{
-            errorCode: '404',
-            primaryAction: { label: 'Go Home', href: '/', icon: 'home' },
+        <Widget
+          config={{
+            type: 'errorPage',
+            data: {
+              errorCode: '404',
+              primaryAction: { label: 'Go Home', href: '/', icon: 'home' },
+            },
+            settings: { theme: 'modern', variant: 'primary', fullHeight: false }
           }}
-          settings={{ theme: 'modern', variant: 'primary', fullHeight: false }}
         />
       </div>
       
       <div>
         <h3 style={{ marginBottom: '20px', textAlign: 'center' }}>Professional Theme</h3>
-        <ErrorPageWidget
-          data={{
-            errorCode: '404',
-            primaryAction: { label: 'Go Home', href: '/', icon: 'home' },
+        <Widget
+          config={{
+            type: 'errorPage',
+            data: {
+              errorCode: '404',
+              primaryAction: { label: 'Go Home', href: '/', icon: 'home' },
+            },
+            settings: { theme: 'professional', variant: 'primary', fullHeight: false }
           }}
-          settings={{ theme: 'professional', variant: 'primary', fullHeight: false }}
         />
       </div>
       
       <div>
         <h3 style={{ marginBottom: '20px', textAlign: 'center' }}>Playful Theme</h3>
-        <ErrorPageWidget
-          data={{
-            errorCode: '404',
-            title: 'Oops! Lost in Space',
-            message: "We can't find that page!",
-            primaryAction: { label: 'Take Me Home', href: '/', icon: 'home' },
+        <Widget
+          config={{
+            type: 'errorPage',
+            data: {
+              errorCode: '404',
+              title: 'Oops! Lost in Space',
+              message: "We can't find that page!",
+              primaryAction: { label: 'Take Me Home', href: '/', icon: 'home' },
+            },
+            settings: { theme: 'playful', variant: 'primary', fullHeight: false }
           }}
-          settings={{ theme: 'playful', variant: 'primary', fullHeight: false }}
         />
       </div>
       
       <div style={{ background: '#000', padding: '20px' }}>
         <h3 style={{ marginBottom: '20px', textAlign: 'center', color: '#fff' }}>Technical Theme</h3>
-        <ErrorPageWidget
-          data={{
-            errorCode: '404',
-            title: 'HTTP 404: Not Found',
-            message: 'Resource not found on server.',
-            primaryAction: { label: '> Home', href: '/', icon: 'home' },
+        <Widget
+          config={{
+            type: 'errorPage',
+            data: {
+              errorCode: '404',
+              title: 'HTTP 404: Not Found',
+              message: 'Resource not found on server.',
+              primaryAction: { label: '> Home', href: '/', icon: 'home' },
+            },
+            settings: { theme: 'technical', variant: 'success', fullHeight: false }
           }}
-          settings={{ theme: 'technical', variant: 'success', fullHeight: false }}
         />
       </div>
       
       <div>
         <h3 style={{ marginBottom: '20px', textAlign: 'center' }}>Elegant Theme</h3>
-        <ErrorPageWidget
-          data={{
-            errorCode: '404',
-            primaryAction: { label: 'Home', href: '/', icon: 'home' },
+        <Widget
+          config={{
+            type: 'errorPage',
+            data: {
+              errorCode: '404',
+              primaryAction: { label: 'Home', href: '/', icon: 'home' },
+            },
+            settings: { theme: 'elegant', variant: 'primary', fullHeight: false }
           }}
-          settings={{ theme: 'elegant', variant: 'primary', fullHeight: false }}
         />
       </div>
       
       <div>
         <h3 style={{ marginBottom: '20px', textAlign: 'center' }}>Minimal Theme</h3>
-        <ErrorPageWidget
-          data={{
-            errorCode: '404',
-            primaryAction: { label: 'Go Home', href: '/', icon: 'home' },
+        <Widget
+          config={{
+            type: 'errorPage',
+            data: {
+              errorCode: '404',
+              primaryAction: { label: 'Go Home', href: '/', icon: 'home' },
+            },
+            settings: { theme: 'minimal', variant: 'neutral', fullHeight: false }
           }}
-          settings={{ theme: 'minimal', variant: 'neutral', fullHeight: false }}
         />
       </div>
     </div>

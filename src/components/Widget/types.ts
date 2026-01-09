@@ -18,7 +18,10 @@ export type WidgetType =
   | 'navbar'
   | 'contentBlock'
   | 'errorPage'
-  | 'emptyState';
+  | 'emptyState'
+  | 'stat'
+  | 'progress'
+  | 'comparison';
 
 /**
  * WidgetTheme - all available theme options
@@ -631,6 +634,11 @@ export interface CarouselWidgetSettings extends BaseWidgetSettings {
 
 // Image Widget Data
 import type { ButtonProps } from '../Button/Button';
+import {
+  StatCardData, StatCardSettings,
+  ProgressCardData, ProgressCardSettings,
+  ComparisonCardData, ComparisonCardSettings
+} from '../../widgets/DashboardCard';
 
 /**
  * Image Widget Data - Image content
@@ -1304,7 +1312,10 @@ export type WidgetData =
   | ContentBlockWidgetData
   | GridWidgetData
   | ErrorPageWidgetData
-  | EmptyStateWidgetData;
+  | EmptyStateWidgetData
+  | StatCardData
+  | ProgressCardData
+  | ComparisonCardData;
 
 export type WidgetSettings =
   | MetricWidgetSettings
@@ -1325,6 +1336,9 @@ export type WidgetSettings =
   | ContentBlockWidgetSettings
   | ErrorPageWidgetSettings
   | EmptyStateWidgetSettings
+  | StatCardSettings
+  | ProgressCardSettings
+  | ComparisonCardSettings
   | BaseWidgetSettings;
 
 // ========================================================================

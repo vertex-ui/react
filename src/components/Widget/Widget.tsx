@@ -40,6 +40,7 @@ import GridCarouselWidget from './renderers/GridCarouselWidget';
 import ContentBlockWidget from './renderers/ContentBlockWidget';
 import ErrorPageWidget from './renderers/ErrorPageWidget';
 import EmptyStateWidget from './renderers/EmptyStateWidget';
+import { DashboardCard } from '../../widgets/DashboardCard';
 
 export interface WidgetProps {
   config: WidgetConfig;
@@ -101,6 +102,10 @@ const Widget: React.FC<WidgetProps> = ({
         return <ErrorPageWidget data={data as ErrorPageWidgetData} settings={widgetSettings as any} className={className} style={style} />;
       case 'emptyState':
         return <EmptyStateWidget data={data as EmptyStateWidgetData} settings={widgetSettings as any} className={className} style={style} />;
+      case 'stat':
+      case 'progress':
+      case 'comparison':
+        return <DashboardCard type={type} data={data as any} settings={widgetSettings as any} className={className} style={style} />;
       default:
         console.warn(`Unknown widget type: ${type}`);
         return null;
