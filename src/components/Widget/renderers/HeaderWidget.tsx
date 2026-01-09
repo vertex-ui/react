@@ -145,7 +145,7 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
               <Flex align="center" gap="sm">
                 {renderAvatar()}
                 <Flex direction="column">
-                  <Text variant={getTitleVariant()} weight="bold">
+                  <Text variant={getTitleVariant()}>
                     {data.title}
                   </Text>
                   {data.subtitle && (
@@ -173,7 +173,7 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
                 <Flex align="center" gap="md">
                   {renderAvatar()}
                   <Flex direction="column" gap="xs">
-                    <Text variant={getTitleVariant()} weight="bold">
+                    <Text variant={getTitleVariant()}>
                       {data.title}
                     </Text>
                     {data.subtitle && (
@@ -195,10 +195,10 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
                   <Flex gap="lg">
                     {Object.entries(data.metadata).map(([key, value]) => (
                       <Flex key={key} direction="column" gap="xs">
-                        <Text variant="caption" transform="uppercase" weight="medium" textColor="var(--vtx-color-neutral-500)">
+                        <Text variant="caption" transform="uppercase" textColor="var(--vtx-color-neutral-500)">
                           {key}
                         </Text>
-                        <Text variant="body2" weight="medium">
+                        <Text variant="body2">
                           {String(value)}
                         </Text>
                       </Flex>
@@ -221,7 +221,7 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
               <Flex align="center" gap="sm">
                 {renderAvatar()}
                 <Flex direction="column">
-                  <Text variant={getTitleVariant()} weight="semibold">
+                  <Text variant={getTitleVariant()}>
                     {data.title}
                   </Text>
                   {data.subtitle && (
@@ -252,7 +252,7 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
       default:
         return (
           <Flex direction="column" gap="md">
-            <Text variant={getTitleVariant()} weight="bold">
+            <Text variant={getTitleVariant()}>
               {data.title}
             </Text>
             {data.subtitle && (

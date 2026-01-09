@@ -530,6 +530,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
             {data.quote.author && (
               <Text
                 variant="body2"
+                weight="bold"
                 className="vtx-content-block__quote-author"
                 style={{ fontSize: sizeMap[sizeKey].caption }}
               >

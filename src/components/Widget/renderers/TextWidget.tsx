@@ -93,7 +93,6 @@ const TextWidget: React.FC<TextWidgetProps> = ({
         {data.title && (
           <Text 
             variant={getTextVariant('title')} 
-            weight="bold"
             textColor={titleColor}
           >
             {data.title}
