@@ -102,6 +102,35 @@ describe('Advanced Widget Renderers', () => {
         expect(screen.getByText('Users')).toBeInTheDocument();
         expect(screen.getByText('1M')).toBeInTheDocument();
     });
+
+    it('renders different layouts', () => {
+        const { rerender, container } = render(<ContentBlockWidget data={defaultData} settings={{ layout: 'media-right' }} />);
+        expect(container.querySelector('.vtx-content-block--media-right')).toBeInTheDocument();
+
+        rerender(<ContentBlockWidget data={defaultData} settings={{ layout: 'centered' }} />);
+        expect(container.querySelector('.vtx-content-block--centered')).toBeInTheDocument();
+
+        rerender(<ContentBlockWidget data={defaultData} settings={{ layout: 'media-background', overlay: { enabled: true } }} />);
+        expect(container.querySelector('.vtx-content-block--media-background')).toBeInTheDocument();
+    });
+
+    it('renders different media types', () => {
+        const avatarData = { ...defaultData, media: { type: 'avatar' as const, src: 'avatar.jpg' } };
+        const { rerender } = render(<ContentBlockWidget data={avatarData} />);
+        // Avatar component renders a wrapper div with role="img" which has vtx-avatar class
+        // The image inside has vtx-avatar-image but might not be the direct target of getByRole('img')
+        // Actually Avatar component structure: <div role="img" class="vtx-avatar..."><img class="vtx-avatar-image"...></div>
+        // So getByRole('img') returns the wrapper.
+        expect(screen.getByRole('img')).toHaveClass('vtx-avatar');
+
+        const galleryData = { ...defaultData, media: { type: 'gallery' as const, items: [{ src: 'g1.jpg' }] } };
+        rerender(<ContentBlockWidget data={galleryData} />);
+        // Gallery renders multiple images.
+        const images = screen.getAllByRole('img');
+        // Filter out any potential other images if any, but in isolation should be just the gallery items
+        // Gallery items are simple <img> tags, so they have implicit role="img"
+        expect(images[0]).toHaveAttribute('src', 'g1.jpg');
+    });
   });
 
   describe('GridCarouselWidget', () => {

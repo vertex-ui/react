@@ -106,5 +106,48 @@ describe('Widget Renderers', () => {
         expect(screen.getByLabelText('Next testimonial')).toBeInTheDocument();
         expect(screen.getByLabelText('Previous testimonial')).toBeInTheDocument();
     });
+
+    it('handles theme variations', () => {
+        const { rerender, container } = render(<TestimonialWidget data={defaultData} theme="gradient" className="test-widget-gradient" />);
+        // Gradient theme sets specific background style which might be hard to test directly via class if inline styles are used
+        // But we can check if style attribute contains the gradient
+        const gradientWidget = container.querySelector('.test-widget-gradient');
+        expect(gradientWidget).toHaveStyle({ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' });
+
+        rerender(<TestimonialWidget data={defaultData} theme="minimal" />);
+        // When using wrapper, container.firstChild is ThemeProvider
+        // We need to query the widget div. Since it doesn't have a specific class in tests by default,
+        // we might need to look for a known element or structure.
+        // TestimonialWidget renders a div with inline styles.
+        // Let's use the fact that it contains "Great product!" text.
+        // But the style is on the container div.
+        // Actually, previous test passed for gradient because I checked container.firstChild which might be wrong if ThemeProvider wraps it.
+        // Wait, render() from test-utils wraps in ThemeProvider.
+        // So container.firstChild is ThemeProvider div.
+        // ThemeProvider renders a div.
+        // TestimonialWidget returns a div.
+        // So container -> div(ThemeProvider) -> div(ToastContainer) -> div(TestimonialWidget) ??
+        // Let's inspect the hierarchy or query properly.
+        // I'll query by text content's parent's parent... risky.
+        // Better: add a test id or class if possible? The component allows className.
+        // Let's re-render with a class.
+        rerender(<TestimonialWidget data={defaultData} theme="minimal" className="test-widget" />);
+        // Now query by class.
+        // But wait, render returns container which is a DOM element.
+        // Let's use container.querySelector('.test-widget')
+        const widget = container.querySelector('.test-widget');
+        expect(widget).toHaveStyle({ background: 'transparent' });
+    });
+
+    it('renders author positions', () => {
+        const { rerender } = render(<TestimonialWidget data={defaultData} authorPosition="top" />);
+        // When author is top, it appears before the quote/content
+        // We can check order or existence
+        // Let's verify rendering passes
+        expect(screen.getByText('John Doe')).toBeInTheDocument();
+
+        rerender(<TestimonialWidget data={defaultData} authorPosition="bottom" />);
+        expect(screen.getByText('John Doe')).toBeInTheDocument();
+    });
   });
 });
