@@ -81,7 +81,7 @@ export const FeaturedProduct = () => (
         categoryHref: '/category/electronics',
       },
       settings: {
-        onAddToCart: (id, qty) => alert(`Added ${qty} item(s) to cart`),
+        onAddToCart: (_id, qty) => alert(`Added ${qty} item(s) to cart`),
         onIncrementCart: (id, qty) => console.log('Incremented:', id, qty),
         onDecrementCart: (id, qty) => console.log('Decremented:', id, qty),
         onCategoryClick: () => console.log('Category clicked'),

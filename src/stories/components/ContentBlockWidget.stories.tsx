@@ -356,7 +356,7 @@ export const ServiceAboutUs: Story = {
         variant: 'minimal',
         gap: 'xl',
         padding: 'xl',
-        mediaWidth: '45%',
+        mediaWidth: '50%',
       },
     } as WidgetConfig,
   },

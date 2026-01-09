@@ -192,7 +192,7 @@ describe('FileUpload', () => {
     });
 
     // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-    const successIcon = container.querySelector('.text-success-500');
+    const successIcon = container.querySelector('.vtx-fileupload-item__actions svg');
     expect(successIcon).toBeInTheDocument();
   });
 });
