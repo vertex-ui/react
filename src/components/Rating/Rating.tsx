@@ -2,6 +2,11 @@
 
 import React, { useState } from 'react';
 import './Rating.css';
+import {
+  StarFullIcon,
+  StarHalfIcon,
+  StarEmptyIcon
+} from '../../icons/IconComponents';
 
 export interface RatingProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   /**
@@ -187,7 +192,7 @@ const Rating = React.forwardRef<HTMLDivElement, RatingProps>(
               emptyIcon
             ) : (
               <>
-                {filled ? '★' : halfFilled ? '⯨' : '☆'}
+                {filled ? <StarFullIcon /> : halfFilled ? <StarHalfIcon /> : <StarEmptyIcon />}
               </>
             )}
           </span>

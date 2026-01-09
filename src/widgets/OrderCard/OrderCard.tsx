@@ -7,6 +7,7 @@ import { Text } from '../../components/Text';
 import { Button } from '../../components/Button';
 import { Badge } from '../../components/Badge';
 import { SkeletonTheme } from '../../components/Skeleton';
+import { RupeeIcon, XIcon } from '../../icons/IconComponents';
 
 export interface OrderItem {
   id?: string;
@@ -52,10 +53,10 @@ export interface OrderCardProps extends React.HTMLAttributes<HTMLDivElement> {
    */
   totalAmount: number;
   /**
-   * Currency symbol
-   * @default '₹'
+   * Currency symbol or icon
+   * @default <RupeeIcon />
    */
-  currency?: string;
+  currency?: React.ReactNode;
   /**
    * Track order button handler
    */
@@ -108,7 +109,7 @@ const OrderCard = React.forwardRef<HTMLDivElement, OrderCardProps>(
       deliveryDate,
       deliveryLabel = 'Delivered on',
       totalAmount,
-      currency = '₹',
+      currency = <RupeeIcon size={14} />,
       onTrackOrder,
       onViewDetails,
       trackButtonText = 'Track Order',
@@ -191,7 +192,12 @@ const OrderCard = React.forwardRef<HTMLDivElement, OrderCardProps>(
                 className="ordercard-product-name"
               >
                 {firstItem.name}
-                {firstItem.quantity && firstItem.quantity > 1 && ` × ${firstItem.quantity}`}
+                {firstItem.quantity && firstItem.quantity > 1 && (
+                  <>
+                    <XIcon size={12} style={{ margin: '0 4px' }} />
+                    {firstItem.quantity}
+                  </>
+                )}
               </Text>
 
               {remainingCount > 0 && (

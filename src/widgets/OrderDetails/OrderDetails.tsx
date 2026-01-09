@@ -20,7 +20,8 @@ import { MapPinIcon, DownloadIcon,
     CloseIcon,
     ReturnIcon,
     RefreshIcon,
-    StarIcon
+    StarIcon,
+    RupeeIcon
   } from '../../icons/IconComponents';
 
 export interface OrderDetailsItem {
@@ -84,7 +85,7 @@ export interface OrderDetailsProps extends React.HTMLAttributes<HTMLDivElement> 
   tax?: number;
   discount?: number;
   total: number;
-  currency?: string;
+  currency?: React.ReactNode;
   couponCode?: string; // Coupon applied
 
   // Payment
@@ -152,7 +153,7 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
       tax = 0,
       discount = 0,
       total,
-      currency = '₹',
+      currency = <RupeeIcon size={14} />,
       couponCode,
       paymentMethod,
       paymentStatus,

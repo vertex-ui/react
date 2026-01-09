@@ -7,6 +7,11 @@ import { Flex } from '../../Flex';
 import { Link } from '../../Link';
 import { Avatar } from '../../Avatar';
 import { Badge } from '../../Badge';
+import {
+  BulletIcon,
+  StarFullIcon,
+  DashIcon
+} from '../../../icons/IconComponents';
 
 export type ContentBlockLayout = 
   // Horizontal Layouts
@@ -386,6 +391,9 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
                 {content.listType === 'number' && (
                   <span style={{ marginRight: '0.5rem', flexShrink: 0 }}>{index + 1}.</span>
                 )}
+                {content.listType === 'bullet' && (
+                  <span style={{ marginRight: '0.5rem', flexShrink: 0 }}><BulletIcon size={8} /></span>
+                )}
                 <Text variant="body1" style={{ flex: 1, fontSize: sizeMap[sizeKey].body }}>{item.text}</Text>
               </li>
             ))}
@@ -416,7 +424,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
             <Flex gap="sm" align="center" style={{ marginTop: gapMap.sm }} wrap="wrap">
               {data.product.rating && (
                 <Flex gap="xs" align="center">
-                  <Text variant="body1" style={{ fontSize: sizeMap[sizeKey].body }}>⭐ {data.product.rating}</Text>
+                  <Text variant="body1" style={{ fontSize: sizeMap[sizeKey].body }}><StarFullIcon size={12} color="orange" /> {data.product.rating}</Text>
                   {data.product.reviewCount && (
                     <Text variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].caption }}>
                       ({data.product.reviewCount} reviews)
@@ -474,7 +482,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
             </Text>
             {data.quote.author && (
               <Text variant="body2" style={{ color: 'var(--color-text-muted)', fontWeight: 'bold', fontSize: sizeMap[sizeKey].caption }}>
-                — {data.quote.author}
+                <DashIcon /> {data.quote.author}
               </Text>
             )}
           </div>
