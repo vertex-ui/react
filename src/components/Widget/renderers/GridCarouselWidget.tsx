@@ -6,7 +6,7 @@ import { useTheme } from '../../../hooks/useTheme';
 import { ChevronLeftIcon, ChevronRightIcon } from '../../../icons/IconComponents';
 import ProductWidget from './ProductWidget';
 
-interface GridCarouselWidgetProps {
+export interface GridCarouselWidgetProps {
   data: GridCarouselWidgetData;
   settings?: GridCarouselWidgetSettings;
 }
@@ -73,7 +73,7 @@ const GridCarouselWidget: React.FC<GridCarouselWidgetProps> = ({
     const handleResize = () => {
       const width = window.innerWidth;
       setIsMobile(width < 768);
-      
+
       if (width < 768) {
         setCurrentItemsPerView(itemsPerView.mobile || 1);
       } else if (width < 1024) {
@@ -148,7 +148,7 @@ const GridCarouselWidget: React.FC<GridCarouselWidgetProps> = ({
           />
         );
       }
-      
+
       // Base theme - render React node as-is
       return (
         <div key={index} style={{ height: '100%' }}>
