@@ -1,328 +1,643 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { GridCarouselWidget } from '../../components/Widget';
-import { Card } from '../../components/Card';
+import { Widget } from '../../components/Widget';
+import { GridCarouselWidgetData, ProductWidgetData } from '../../components/Widget/types';
+import { Box } from '../../components/Box';
 import { Text } from '../../components/Text';
-import { Avatar } from '../../components/Avatar';
-import { Badge } from '../../components/Badge';
-import { Flex } from '../../components/Flex';
+import { Card } from '../../components/Card';
 
-const meta: Meta<typeof GridCarouselWidget> = {
+const meta: Meta<typeof Widget> = {
   title: 'Widgets/GridCarouselWidget',
-  component: GridCarouselWidget,
-  tags: ['autodocs'],
+  component: Widget,
+  parameters: {
+    layout: 'padded',
+  },
   argTypes: {
-    borderRadius: {
-      control: 'boolean',
-      description: 'Apply border radius to the carousel container',
-    },
-    autoplay: {
-      control: 'boolean',
-      description: 'Enable auto-play',
-    },
-    autoplayDelay: {
-      control: 'number',
-      description: 'Delay between auto-play transitions (in milliseconds)',
-    },
-    showNavigation: {
-      control: 'boolean',
-      description: 'Show navigation arrows',
-    },
-    showPagination: {
-      control: 'boolean',
-      description: 'Show pagination dots',
-    },
-    scrollBehavior: {
-      control: 'select',
-      options: ['page', 'item'],
-      description: 'Scroll behavior: page scrolls by full page, item scrolls by one item',
-    },
-    gap: {
-      control: 'text',
-      description: 'Gap between grid items',
+    config: {
+      control: { type: 'object' },
     },
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof GridCarouselWidget>;
+type Story = StoryObj<typeof Widget>;
 
-// Sample Card Items
-const createCardItems = (count: number) => {
-  return Array.from({ length: count }, (_, i) => (
-    <Card key={i} variant="elevated" style={{ padding: '20px', height: '100%' }}>
-      <Flex direction="column" gap={12}>
-        <Text variant="h3">Card {i + 1}</Text>
-        <Text variant="body1" color="secondary">
-          This is a sample card item in the grid carousel. It demonstrates how components can be displayed in a responsive grid layout.
-        </Text>
-        <Badge variant="primary">Featured</Badge>
-      </Flex>
-    </Card>
-  ));
-};
+// ========================================================================
+// PRODUCT THEME EXAMPLES
+// ========================================================================
 
-// Sample Product Cards
-const createProductCards = (count: number) => {
-  const products = [
-    { name: 'Wireless Headphones', price: '$199', image: '🎧' },
-    { name: 'Smart Watch', price: '$299', image: '⌚' },
-    { name: 'Laptop Stand', price: '$49', image: '💻' },
-    { name: 'USB-C Hub', price: '$79', image: '🔌' },
-    { name: 'Mechanical Keyboard', price: '$159', image: '⌨️' },
-    { name: 'Wireless Mouse', price: '$69', image: '🖱️' },
-    { name: 'Monitor Arm', price: '$129', image: '🖥️' },
-    { name: 'Webcam HD', price: '$89', image: '📹' },
-  ];
+const sampleProducts: ProductWidgetData[] = [
+  {
+    id: 'product-1',
+    name: 'Wireless Headphones',
+    price: 299.99,
+    originalPrice: 399.99,
+    category: 'Electronics',
+    rating: 4.5,
+    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop',
+    imageAlt: 'Wireless Headphones',
+    discount: '25% OFF',
+    featured: true,
+    featuredText: 'Bestseller',
+    href: '/products/wireless-headphones',
+  },
+  {
+    id: 'product-2',
+    name: 'Smart Watch Pro',
+    price: 449.99,
+    category: 'Wearables',
+    rating: 4.8,
+    image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop',
+    imageAlt: 'Smart Watch Pro',
+    href: '/products/smart-watch-pro',
+  },
+  {
+    id: 'product-3',
+    name: 'Laptop Backpack',
+    price: 89.99,
+    originalPrice: 129.99,
+    category: 'Accessories',
+    rating: 4.3,
+    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&h=500&fit=crop',
+    imageAlt: 'Laptop Backpack',
+    discount: '30% OFF',
+    href: '/products/laptop-backpack',
+  },
+  {
+    id: 'product-4',
+    name: 'Bluetooth Speaker',
+    price: 79.99,
+    category: 'Audio',
+    rating: 4.6,
+    image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500&h=500&fit=crop',
+    imageAlt: 'Bluetooth Speaker',
+    featured: true,
+    featuredText: 'New',
+    href: '/products/bluetooth-speaker',
+  },
+  {
+    id: 'product-5',
+    name: 'USB-C Hub',
+    price: 49.99,
+    category: 'Accessories',
+    rating: 4.4,
+    image: 'https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop',
+    imageAlt: 'USB-C Hub',
+    href: '/products/usb-c-hub',
+  },
+  {
+    id: 'product-6',
+    name: 'Wireless Mouse',
+    price: 39.99,
+    originalPrice: 59.99,
+    category: 'Accessories',
+    rating: 4.2,
+    image: 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500&h=500&fit=crop',
+    imageAlt: 'Wireless Mouse',
+    discount: '33% OFF',
+    href: '/products/wireless-mouse',
+  },
+  {
+    id: 'product-7',
+    name: 'Mechanical Keyboard',
+    price: 149.99,
+    category: 'Accessories',
+    rating: 4.9,
+    image: 'https://images.unsplash.com/photo-1595225476474-87563907a212?w=500&h=500&fit=crop',
+    imageAlt: 'Mechanical Keyboard',
+    featured: true,
+    featuredText: 'Popular',
+    href: '/products/mechanical-keyboard',
+  },
+  {
+    id: 'product-8',
+    name: 'HD Webcam',
+    price: 99.99,
+    category: 'Electronics',
+    rating: 4.5,
+    image: 'https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=500&h=500&fit=crop',
+    imageAlt: 'HD Webcam',
+    href: '/products/hd-webcam',
+  },
+];
 
-  return Array.from({ length: count }, (_, i) => {
-    const product = products[i % products.length];
-    return (
-      <Card key={i} variant="elevated" style={{ padding: '0', height: '100%', overflow: 'hidden' }}>
-        <div style={{ 
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          padding: '40px',
-          textAlign: 'center',
-          fontSize: '48px'
-        }}>
-          {product.image}
-        </div>
-        <div style={{ padding: '20px' }}>
-          <Text variant="h4" style={{ marginBottom: '8px' }}>{product.name}</Text>
-          <Text variant="h3" style={{ marginBottom: '12px', color: '#667eea' }}>{product.price}</Text>
-          <Text variant="body2" color="secondary">
-            High quality product with excellent reviews
-          </Text>
-        </div>
-      </Card>
-    );
-  });
-};
-
-// Sample User Profile Cards
-const createUserCards = (count: number) => {
-  const users = [
-    { name: 'Alice Johnson', role: 'Product Designer', avatar: 'https://i.pravatar.cc/150?img=1' },
-    { name: 'Bob Smith', role: 'Frontend Developer', avatar: 'https://i.pravatar.cc/150?img=2' },
-    { name: 'Carol Williams', role: 'UX Researcher', avatar: 'https://i.pravatar.cc/150?img=3' },
-    { name: 'David Brown', role: 'Backend Developer', avatar: 'https://i.pravatar.cc/150?img=4' },
-    { name: 'Emma Davis', role: 'Product Manager', avatar: 'https://i.pravatar.cc/150?img=5' },
-    { name: 'Frank Miller', role: 'DevOps Engineer', avatar: 'https://i.pravatar.cc/150?img=6' },
-  ];
-
-  return Array.from({ length: count }, (_, i) => {
-    const user = users[i % users.length];
-    return (
-      <Card key={i} variant="elevated" style={{ padding: '24px', height: '100%' }}>
-        <Flex direction="column" align="center" gap={12}>
-          <Avatar src={user.avatar} alt={user.name} size="lg" />
-          <Text variant="h4" style={{ textAlign: 'center' }}>{user.name}</Text>
-          <Text variant="body2" color="secondary" style={{ textAlign: 'center' }}>
-            {user.role}
-          </Text>
-          <Badge variant="success">Available</Badge>
-        </Flex>
-      </Card>
-    );
-  });
-};
-
-// Stories
-export const Default: Story = {
+/**
+ * Product Theme - Default carousel with product widgets
+ */
+export const ProductTheme: Story = {
   args: {
-    items: createCardItems(6),
-    borderRadius: true,
-    autoplay: false,
-    autoplayDelay: 3000,
-    itemsPerView: {
-      mobile: 1,
-      tablet: 2,
-      desktop: 3,
+    config: {
+      type: 'gridCarousel',
+      data: {
+        theme: 'product',
+        products: sampleProducts,
+      } as GridCarouselWidgetData,
+      settings: {
+        theme: 'modern',
+        variant: 'primary',
+        itemsPerView: {
+          mobile: 1,
+          tablet: 2,
+          desktop: 4,
+        },
+        gap: 20,
+        autoplay: false,
+        showNavigation: true,
+        showPagination: true,
+        scrollBehavior: 'page',
+        borderRadius: true,
+        productSettings: {
+          showWishlist: true,
+          onAddToCart: (id?: string, quantity?: number) => {
+            console.log(`Added product ${id} to cart with quantity ${quantity}`);
+          },
+          onWishlist: () => {
+            console.log('Added to wishlist');
+          },
+        },
+      },
     },
-    gap: '20px',
-    showNavigation: true,
-    showPagination: true,
-    scrollBehavior: 'page',
   },
 };
 
-export const ProductShowcase: Story = {
+/**
+ * Product Theme with Autoplay
+ */
+export const ProductThemeAutoplay: Story = {
   args: {
-    items: createProductCards(8),
-    borderRadius: true,
-    autoplay: true,
-    autoplayDelay: 4000,
-    itemsPerView: {
-      mobile: 1,
-      tablet: 2,
-      desktop: 4,
+    config: {
+      type: 'gridCarousel',
+      data: {
+        theme: 'product',
+        products: sampleProducts,
+      } as GridCarouselWidgetData,
+      settings: {
+        theme: 'modern',
+        variant: 'primary',
+        itemsPerView: {
+          mobile: 1,
+          tablet: 2,
+          desktop: 3,
+        },
+        gap: 24,
+        autoplay: true,
+        autoplayDelay: 3000,
+        showNavigation: true,
+        showPagination: true,
+        scrollBehavior: 'page',
+        borderRadius: true,
+        productSettings: {
+          showWishlist: true,
+        },
+      },
     },
-    gap: '16px',
-    showNavigation: true,
-    showPagination: true,
-    scrollBehavior: 'page',
   },
 };
 
-export const TeamMembers: Story = {
+/**
+ * Product Theme - Single Item Scroll
+ */
+export const ProductThemeSingleScroll: Story = {
   args: {
-    items: createUserCards(6),
-    borderRadius: true,
-    autoplay: false,
-    itemsPerView: {
-      mobile: 1,
-      tablet: 2,
-      desktop: 3,
+    config: {
+      type: 'gridCarousel',
+      data: {
+        theme: 'product',
+        products: sampleProducts,
+      } as GridCarouselWidgetData,
+      settings: {
+        theme: 'modern',
+        variant: 'primary',
+        itemsPerView: {
+          mobile: 1,
+          tablet: 2,
+          desktop: 4,
+        },
+        gap: 16,
+        autoplay: false,
+        showNavigation: true,
+        showPagination: true,
+        scrollBehavior: 'item',
+        borderRadius: true,
+        hideNavigationOnMobile: true,
+        productSettings: {
+          showWishlist: false,
+        },
+      },
     },
-    gap: '24px',
-    showNavigation: true,
-    showPagination: true,
-    scrollBehavior: 'page',
   },
 };
 
-export const AutoPlay: Story = {
+// ========================================================================
+// BASE THEME EXAMPLES
+// ========================================================================
+
+const customCards = [
+  <Card key="card-1" variant="elevated" style={{ height: '100%', padding: '24px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <Text variant="h3" textColor="primary" noMargin>
+        Feature One
+      </Text>
+      <Text variant="body1" textColor="secondary">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
+      </Text>
+    </div>
+  </Card>,
+  <Card key="card-2" variant="elevated" style={{ height: '100%', padding: '24px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <Text variant="h3" textColor="success" noMargin>
+        Feature Two
+      </Text>
+      <Text variant="body1" textColor="secondary">
+        Ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
+      </Text>
+    </div>
+  </Card>,
+  <Card key="card-3" variant="elevated" style={{ height: '100%', padding: '24px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <Text variant="h3" textColor="warning" noMargin>
+        Feature Three
+      </Text>
+      <Text variant="body1" textColor="secondary">
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.
+      </Text>
+    </div>
+  </Card>,
+  <Card key="card-4" variant="elevated" style={{ height: '100%', padding: '24px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <Text variant="h3" textColor="info" noMargin>
+        Feature Four
+      </Text>
+      <Text variant="body1" textColor="secondary">
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.
+      </Text>
+    </div>
+  </Card>,
+  <Card key="card-5" variant="elevated" style={{ height: '100%', padding: '24px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <Text variant="h3" textColor="danger" noMargin>
+        Feature Five
+      </Text>
+      <Text variant="body1" textColor="secondary">
+        Mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error.
+      </Text>
+    </div>
+  </Card>,
+  <Card key="card-6" variant="elevated" style={{ height: '100%', padding: '24px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <Text variant="h3" textColor="secondary" noMargin>
+        Feature Six
+      </Text>
+      <Text variant="body1" textColor="secondary">
+        Sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa.
+      </Text>
+    </div>
+  </Card>,
+];
+
+/**
+ * Base Theme - Custom React Nodes
+ * Renders any custom React components in a carousel grid
+ */
+export const BaseTheme: Story = {
   args: {
-    items: createCardItems(9),
-    borderRadius: true,
-    autoplay: true,
-    autoplayDelay: 2500,
-    itemsPerView: {
-      mobile: 1,
-      tablet: 2,
-      desktop: 3,
+    config: {
+      type: 'gridCarousel',
+      data: {
+        theme: 'base',
+        items: customCards,
+      } as GridCarouselWidgetData,
+      settings: {
+        theme: 'modern',
+        variant: 'primary',
+        itemsPerView: {
+          mobile: 1,
+          tablet: 2,
+          desktop: 3,
+        },
+        gap: 24,
+        autoplay: false,
+        showNavigation: true,
+        showPagination: true,
+        scrollBehavior: 'page',
+        borderRadius: true,
+      },
     },
-    gap: '20px',
-    showNavigation: true,
-    showPagination: true,
-    scrollBehavior: 'page',
   },
 };
 
-export const ItemScrollBehavior: Story = {
+/**
+ * Base Theme - Image Grid
+ */
+const imageCards = [
+  <Box key="img-1" style={{ height: '300px', position: 'relative', borderRadius: '8px', overflow: 'hidden' }}>
+    <img
+      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop"
+      alt="Mountain"
+      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+    />
+    <Box
+      style={{
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        padding: '16px',
+        background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
+      }}
+    >
+      <Text variant="h4" textColor="#fff" noMargin>
+        Mountain Peaks
+      </Text>
+    </Box>
+  </Box>,
+  <Box key="img-2" style={{ height: '300px', position: 'relative', borderRadius: '8px', overflow: 'hidden' }}>
+    <img
+      src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop"
+      alt="Beach"
+      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+    />
+    <Box
+      style={{
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        padding: '16px',
+        background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
+      }}
+    >
+      <Text variant="h4" textColor="#fff" noMargin>
+        Beach Paradise
+      </Text>
+    </Box>
+  </Box>,
+  <Box key="img-3" style={{ height: '300px', position: 'relative', borderRadius: '8px', overflow: 'hidden' }}>
+    <img
+      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop"
+      alt="Forest"
+      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+    />
+    <Box
+      style={{
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        padding: '16px',
+        background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
+      }}
+    >
+      <Text variant="h4" textColor="#fff" noMargin>
+        Deep Forest
+      </Text>
+    </Box>
+  </Box>,
+  <Box key="img-4" style={{ height: '300px', position: 'relative', borderRadius: '8px', overflow: 'hidden' }}>
+    <img
+      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop"
+      alt="Desert"
+      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+    />
+    <Box
+      style={{
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        padding: '16px',
+        background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
+      }}
+    >
+      <Text variant="h4" textColor="#fff" noMargin>
+        Desert Dunes
+      </Text>
+    </Box>
+  </Box>,
+];
+
+export const BaseThemeImages: Story = {
   args: {
-    items: createProductCards(10),
-    borderRadius: true,
-    autoplay: false,
-    itemsPerView: {
-      mobile: 1,
-      tablet: 2,
-      desktop: 3,
+    config: {
+      type: 'gridCarousel',
+      data: {
+        theme: 'base',
+        items: imageCards,
+      } as GridCarouselWidgetData,
+      settings: {
+        theme: 'modern',
+        variant: 'primary',
+        itemsPerView: {
+          mobile: 1,
+          tablet: 2,
+          desktop: 3,
+        },
+        gap: 20,
+        autoplay: true,
+        autoplayDelay: 4000,
+        showNavigation: true,
+        showPagination: true,
+        scrollBehavior: 'page',
+        borderRadius: true,
+      },
     },
-    gap: '20px',
-    showNavigation: true,
-    showPagination: true,
-    scrollBehavior: 'item', // Scroll one item at a time
   },
 };
 
-export const ManyItems: Story = {
+/**
+ * Base Theme - Minimal Layout
+ */
+export const BaseThemeMinimal: Story = {
   args: {
-    items: createCardItems(20),
-    borderRadius: true,
-    autoplay: false,
-    itemsPerView: {
-      mobile: 1,
-      tablet: 2,
-      desktop: 4,
+    config: {
+      type: 'gridCarousel',
+      data: {
+        theme: 'base',
+        items: customCards.slice(0, 4),
+      } as GridCarouselWidgetData,
+      settings: {
+        theme: 'minimal',
+        variant: 'neutral',
+        itemsPerView: {
+          mobile: 1,
+          tablet: 2,
+          desktop: 4,
+        },
+        gap: 16,
+        autoplay: false,
+        showNavigation: true,
+        showPagination: false,
+        scrollBehavior: 'page',
+        borderRadius: false,
+        backgroundColor: 'transparent',
+      },
     },
-    gap: '16px',
-    showNavigation: true,
-    showPagination: true,
-    scrollBehavior: 'page',
   },
 };
 
-export const TwoColumns: Story = {
+/**
+ * Responsive Showcase - Shows different layouts at breakpoints
+ */
+export const ResponsiveShowcase: Story = {
   args: {
-    items: createProductCards(8),
-    borderRadius: true,
-    autoplay: false,
-    itemsPerView: {
-      mobile: 1,
-      tablet: 2,
-      desktop: 2,
+    config: {
+      type: 'gridCarousel',
+      data: {
+        theme: 'product',
+        products: sampleProducts.slice(0, 6),
+      } as GridCarouselWidgetData,
+      settings: {
+        theme: 'modern',
+        variant: 'primary',
+        itemsPerView: {
+          mobile: 1,
+          tablet: 2,
+          desktop: 3,
+        },
+        gap: 20,
+        autoplay: false,
+        showNavigation: true,
+        showPagination: true,
+        scrollBehavior: 'page',
+        borderRadius: true,
+        hideNavigationOnMobile: true,
+        productSettings: {
+          showWishlist: true,
+        },
+      },
     },
-    gap: '24px',
-    showNavigation: true,
-    showPagination: true,
-    scrollBehavior: 'page',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demonstrates responsive behavior: 1 item on mobile, 2 on tablet, 3 on desktop. Navigation arrows hide on mobile devices.',
+      },
+    },
   },
 };
 
-export const FiveColumns: Story = {
-  args: {
-    items: createUserCards(15),
-    borderRadius: true,
-    autoplay: true,
-    autoplayDelay: 3500,
-    itemsPerView: {
-      mobile: 2,
-      tablet: 3,
-      desktop: 5,
-    },
-    gap: '12px',
-    showNavigation: true,
-    showPagination: true,
-    scrollBehavior: 'page',
-  },
-};
+/**
+ * Usage Example Documentation
+ */
+export const UsageExamples: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: `
+# GridCarouselWidget Usage
 
-export const MinimalControls: Story = {
-  args: {
-    items: createCardItems(6),
-    borderRadius: true,
-    autoplay: false,
-    itemsPerView: {
-      mobile: 1,
-      tablet: 2,
-      desktop: 3,
-    },
-    gap: '20px',
-    showNavigation: false,
-    showPagination: true,
-    scrollBehavior: 'page',
-  },
-};
+The GridCarouselWidget supports two themes: **product** and **base**.
 
-export const NoControls: Story = {
-  args: {
-    items: createCardItems(3),
-    borderRadius: true,
-    autoplay: false,
-    itemsPerView: {
-      mobile: 1,
-      tablet: 2,
-      desktop: 3,
-    },
-    gap: '20px',
-    showNavigation: false,
-    showPagination: false,
-    scrollBehavior: 'page',
-  },
-};
+## Product Theme
 
-export const LargeGap: Story = {
-  args: {
-    items: createProductCards(6),
-    borderRadius: true,
-    autoplay: false,
-    itemsPerView: {
-      mobile: 1,
-      tablet: 2,
-      desktop: 3,
-    },
-    gap: '40px',
-    showNavigation: true,
-    showPagination: true,
-    scrollBehavior: 'page',
-  },
-};
+Display product widgets with automatic rendering and interactions:
 
-export const EmptyState: Story = {
+\`\`\`tsx
+<Widget
+  config={{
+    type: 'gridCarousel',
+    data: {
+      theme: 'product',
+      products: [
+        {
+          id: 'prod-1',
+          name: 'Product Name',
+          price: 99.99,
+          image: 'https://...',
+          category: 'Electronics',
+          rating: 4.5,
+          // ... other product data
+        },
+        // ... more products
+      ],
+    },
+    settings: {
+      itemsPerView: {
+        mobile: 1,
+        tablet: 2,
+        desktop: 4,
+      },
+      gap: 20,
+      autoplay: true,
+      autoplayDelay: 3000,
+      showNavigation: true,
+      showPagination: true,
+      scrollBehavior: 'page',
+      productSettings: {
+        showWishlist: true,
+        onAddToCart: (id, quantity) => {...},
+        onWishlist: () => {...},
+      },
+    },
+  }}
+/>
+\`\`\`
+
+## Base Theme
+
+Display any custom React nodes (cards, images, components):
+
+\`\`\`tsx
+<Widget
+  config={{
+    type: 'gridCarousel',
+    data: {
+      theme: 'base',
+      items: [
+        <Card>...</Card>,
+        <CustomComponent />,
+        <div>Custom HTML</div>,
+        // ... any React nodes
+      ],
+    },
+    settings: {
+      itemsPerView: {
+        mobile: 1,
+        tablet: 2,
+        desktop: 3,
+      },
+      gap: 24,
+      autoplay: false,
+      showNavigation: true,
+      showPagination: true,
+    },
+  }}
+/>
+\`\`\`
+
+## Settings Options
+
+- **itemsPerView**: Responsive breakpoints for items per view
+- **gap**: Spacing between items (number or CSS value)
+- **autoplay**: Enable automatic sliding
+- **autoplayDelay**: Delay between slides in milliseconds
+- **showNavigation**: Show/hide navigation arrows
+- **showPagination**: Show/hide pagination dots
+- **scrollBehavior**: 'page' (full page scroll) or 'item' (single item)
+- **borderRadius**: Apply border radius to container
+- **hideNavigationOnMobile**: Hide arrows on mobile devices
+- **backgroundColor**: Custom background color
+- **productSettings**: Additional settings for product widgets (only for product theme)
+        `,
+      },
+    },
+  },
   args: {
-    items: [],
-    borderRadius: true,
-    showNavigation: true,
-    showPagination: true,
+    config: {
+      type: 'gridCarousel',
+      data: {
+        theme: 'product',
+        products: sampleProducts.slice(0, 4),
+      } as GridCarouselWidgetData,
+      settings: {
+        itemsPerView: {
+          mobile: 1,
+          tablet: 2,
+          desktop: 4,
+        },
+        gap: 20,
+        showNavigation: true,
+        showPagination: true,
+      },
+    },
   },
 };

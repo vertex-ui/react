@@ -94,7 +94,7 @@ const Widget: React.FC<WidgetProps> = ({
       case 'testimonial':
         return <TestimonialWidget data={data as TestimonialWidgetData} className={className} style={style} />;
       case 'gridCarousel':
-        return <GridCarouselWidget {...(data as GridCarouselWidgetData)} className={className} style={style} />;
+        return <GridCarouselWidget data={data as GridCarouselWidgetData} settings={widgetSettings as any} />;
       case 'contentBlock':
         return <ContentBlockWidget data={data as ContentBlockWidgetData} settings={widgetSettings as any} />;
       case 'errorPage':
