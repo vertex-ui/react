@@ -316,7 +316,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
                     style={mediaStyles}
                   />
                   {item.caption && (
-                    <Text variant="caption" className="vtx-content-block__gallery-caption" style={{ marginTop: '0.5rem' }}>
+                    <Text variant="caption" className="vtx-content-block__gallery-caption">
                       {item.caption}
                     </Text>
                   )}
@@ -331,12 +331,12 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
       case 'illustration':
         if (src) {
           return (
-            <div className="vtx-content-block__media-container" style={{ ...mediaContainerStyles, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div className="vtx-content-block__media-container vtx-content-block__media-container--centered" style={mediaContainerStyles}>
               <img
                 src={src}
                 alt={alt}
-                className="vtx-content-block__media"
-                style={{ ...mediaStyles, maxWidth: '100%', height: 'auto' }}
+                className="vtx-content-block__media vtx-content-block__media--contain"
+                style={mediaStyles}
               />
             </div>
           );
@@ -425,22 +425,22 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
         {content.list && content.list.length > 0 && (
           <ul className="vtx-content-block__list" style={{ margin: `${gapMap[gap] || gapMap.md} 0`, padding: 0, listStyle: 'none' }}>
             {content.list.map((item, index) => (
-              <li key={index} style={{ display: 'flex', alignItems: 'flex-start', marginBottom: gapMap.sm }}>
+              <li key={index} className="vtx-content-block__list-item" style={{ marginBottom: gapMap.sm }}>
                 {content.listType === 'check' && item.checked && (
-                  <span style={{ color: 'var(--color-success)', marginRight: '0.5rem', flexShrink: 0 }}>
+                  <span className="vtx-content-block__list-check">
                     <CheckIcon />
                   </span>
                 )}
                 {content.listType === 'icon' && item.icon && (
-                  <span style={{ marginRight: '0.5rem', flexShrink: 0 }}>{item.icon}</span>
+                  <span className="vtx-content-block__list-icon">{item.icon}</span>
                 )}
                 {content.listType === 'bullet' && (
-                  <span style={{ marginRight: '0.5rem', flexShrink: 0 }}>•</span>
+                  <span className="vtx-content-block__list-bullet">•</span>
                 )}
                 {content.listType === 'number' && (
-                  <span style={{ marginRight: '0.5rem', flexShrink: 0 }}>{index + 1}.</span>
+                  <span className="vtx-content-block__list-number">{index + 1}.</span>
                 )}
-                <Text variant="body1" style={{ flex: 1, fontSize: sizeMap[sizeKey].body }}>{item.text}</Text>
+                <Text variant="body1" className="vtx-content-block__list-text" style={{ fontSize: sizeMap[sizeKey].body }}>{item.text}</Text>
               </li>
             ))}
           </ul>
@@ -519,15 +519,20 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
           <div className="vtx-content-block__quote" style={{ 
             margin: `${gapMap[gap] || gapMap.lg} 0`, 
             padding: `1rem ${gapMap.lg}`,
-            borderLeft: '4px solid var(--color-primary)',
-            backgroundColor: 'var(--color-background-subtle)',
-            borderRadius: '0.25rem'
           }}>
-            <Text variant="body1" style={{ fontStyle: 'italic', marginBottom: data.quote.author ? gapMap.sm : '0', fontSize: sizeMap[sizeKey].body }}>
+            <Text
+              variant="body1"
+              className="vtx-content-block__quote-text"
+              style={{ marginBottom: data.quote.author ? gapMap.sm : '0', fontSize: sizeMap[sizeKey].body }}
+            >
               "{data.quote.text}"
             </Text>
             {data.quote.author && (
-              <Text variant="body2" style={{ color: 'var(--color-text-muted)', fontWeight: 'bold', fontSize: sizeMap[sizeKey].caption }}>
+              <Text
+                variant="body2"
+                className="vtx-content-block__quote-author"
+                style={{ fontSize: sizeMap[sizeKey].caption }}
+              >
                 — {data.quote.author}
               </Text>
             )}
@@ -540,7 +545,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
             <Flex direction="column" gap="xs">
               {data.metadata.map((meta, index) => (
                 <Flex key={index} gap="sm" align="center">
-                  {meta.icon && <span style={{ color: 'var(--color-text-muted)' }}>{meta.icon}</span>}
+                  {meta.icon && <span className="vtx-content-block__metadata-icon">{meta.icon}</span>}
                   <Text variant="body2" style={{ fontSize: sizeMap[sizeKey].caption }}>
                     <strong>{meta.label}:</strong> {meta.value}
                   </Text>
@@ -558,11 +563,11 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
                 <Avatar src={data.author.avatar} alt={data.author.name} size={size === 'xs' ? 'sm' : size === 'sm' ? 'md' : 'lg'} />
               )}
               <div>
-                <Text variant="body1" style={{ fontWeight: 'bold', marginBottom: gapMap.xs, fontSize: sizeMap[sizeKey].subheading }}>
+                <Text variant="body1" weight="bold" style={{ marginBottom: gapMap.xs, fontSize: sizeMap[sizeKey].subheading }}>
                   {data.author.name}
                 </Text>
                 {data.author.role && (
-                  <Text variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].caption }}>
+                  <Text variant="body2" className="vtx-content-block__author-role" style={{ fontSize: sizeMap[sizeKey].caption }}>
                     {data.author.role}{data.author.company && ` at ${data.author.company}`}
                   </Text>
                 )}
@@ -585,7 +590,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
           <Text
             variant="caption"
             className="vtx-content-block__caption"
-            style={{ color: colors.caption || 'var(--color-text-muted)', marginTop: gapMap[gap] || gapMap.md, display: 'block', fontSize: sizeMap[sizeKey].caption }}
+            style={{ color: colors.caption, marginTop: gapMap[gap] || gapMap.md, fontSize: sizeMap[sizeKey].caption }}
           >
             {content.caption}
           </Text>
@@ -596,7 +601,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
           <Text
             variant="caption"
             className="vtx-content-block__footnote"
-            style={{ color: 'var(--color-text-muted)', marginTop: gapMap.sm, fontSize: sizeMap[sizeKey].caption, display: 'block' }}
+            style={{ marginTop: gapMap.sm, fontSize: sizeMap[sizeKey].caption }}
           >
             {content.footnote}
           </Text>
@@ -612,9 +617,9 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
                   href={action.href}
                   variant={action.variant as any}
                 >
-                  {action.iconPosition === 'left' && action.icon && <span style={{ marginRight: '0.25rem' }}>{action.icon}</span>}
+                  {action.iconPosition === 'left' && action.icon && <span className="vtx-content-block__action-icon-left">{action.icon}</span>}
                   {action.label}
-                  {action.iconPosition === 'right' && action.icon && <span style={{ marginLeft: '0.25rem' }}>{action.icon}</span>}
+                  {action.iconPosition === 'right' && action.icon && <span className="vtx-content-block__action-icon-right">{action.icon}</span>}
                 </Link>
               ) : (
                 <Button
@@ -625,9 +630,9 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
                   href={action.href}
                   style={{ width: action.fullWidth ? '100%' : 'auto' }}
                 >
-                  {action.iconPosition === 'left' && action.icon && <span style={{ marginRight: '0.25rem' }}>{action.icon}</span>}
+                  {action.iconPosition === 'left' && action.icon && <span className="vtx-content-block__action-icon-left">{action.icon}</span>}
                   {action.label}
-                  {action.iconPosition === 'right' && action.icon && <span style={{ marginLeft: '0.25rem' }}>{action.icon}</span>}
+                  {action.iconPosition === 'right' && action.icon && <span className="vtx-content-block__action-icon-right">{action.icon}</span>}
                 </Button>
               )
             ))}

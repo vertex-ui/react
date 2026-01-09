@@ -59,7 +59,7 @@ const TestimonialWidget: React.FC<TestimonialWidgetProps> = ({
 
   if (!testimonials || testimonials.length === 0) {
     return (
-      <Flex justify="center" align="center" style={{ padding: '48px 24px' }}>
+      <Flex justify="center" align="center" className="vtx-testimonial-widget--empty">
         <Text variant="body1" textColor={tokens?.colors?.neutral?.[500] || '#666'}>
           No testimonials available
         </Text>
@@ -125,14 +125,11 @@ const TestimonialWidget: React.FC<TestimonialWidgetProps> = ({
           src={currentTestimonial.author.avatar}
           alt={currentTestimonial.author.name}
           size="lg"
-          style={{
-            width: '80px',
-            height: '80px',
-            border: theme === 'gradient' || theme === 'modern' 
-              ? '3px solid rgba(255, 255, 255, 0.2)' 
-              : `3px solid ${tokens?.colors?.neutral?.[200] || '#e5e7eb'}`,
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-          }}
+          className={`vtx-testimonial-avatar ${
+            theme === 'gradient' || theme === 'modern'
+              ? 'vtx-testimonial-avatar--light-border'
+              : 'vtx-testimonial-avatar--bordered'
+          }`}
         />
       )}
 
@@ -276,12 +273,8 @@ const TestimonialWidget: React.FC<TestimonialWidgetProps> = ({
             <button
               key={index}
               onClick={() => goToTestimonial(index)}
-              className="vtx-testimonial-dot"
+              className={`vtx-testimonial-dot ${currentIndex === index ? 'vtx-testimonial-dot--active' : ''}`}
               style={{
-                width: currentIndex === index ? '40px' : '12px',
-                height: '12px',
-                borderRadius: currentIndex === index ? '6px' : '50%',
-                border: 'none',
                 backgroundColor:
                   currentIndex === index
                     ? theme === 'gradient' || theme === 'modern'
@@ -290,7 +283,6 @@ const TestimonialWidget: React.FC<TestimonialWidgetProps> = ({
                     : theme === 'gradient' || theme === 'modern'
                     ? 'rgba(255, 255, 255, 0.3)'
                     : tokens?.colors?.neutral?.[300] || '#d1d5db',
-                boxShadow: currentIndex === index ? '0 2px 8px rgba(0, 0, 0, 0.15)' : 'none',
               }}
               aria-label={`Go to testimonial ${index + 1}`}
             />

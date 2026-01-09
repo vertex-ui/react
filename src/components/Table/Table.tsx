@@ -655,14 +655,14 @@ function Table<T = unknown>({
           toolbar !== null &&
           !React.isValidElement(toolbar) &&
           'title' in toolbar ? (
-            <Flex justify="between" align="center" style={{ width: '100%' }}>
+            <div className="vtx-table-toolbar-content">
               {toolbar.title && (
                 <Text variant="h6" noMargin>
                   {toolbar.title}
                 </Text>
               )}
               {toolbar.actions && <div className="vtx-table-toolbar-actions">{toolbar.actions}</div>}
-            </Flex>
+            </div>
           ) : (
             <>{toolbar}</>
           )}
@@ -927,7 +927,7 @@ function Table<T = unknown>({
       </div>
       {pagination && (
         <div className="vtx-table-pagination">
-          <Flex align="center" justify="between" style={{ width: '100%' }}>
+          <div className="vtx-table-pagination-container">
             <Flex align="center" gap={8}>
               <Text variant="body2" textColor="var(--color-neutral-600)" noMargin>
                 Rows per page:
@@ -992,7 +992,7 @@ function Table<T = unknown>({
                 </button>
               </Flex>
             </Flex>
-          </Flex>
+          </div>
         </div>
       )}
     </div>

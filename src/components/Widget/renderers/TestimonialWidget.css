@@ -50,6 +50,10 @@
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 }
 
+.vtx-testimonial-widget--empty {
+  padding: 48px 24px;
+}
+
 .vtx-testimonial-widget-content {
   max-width: 800px;
   width: 100%;
@@ -145,8 +149,18 @@
 }
 
 .vtx-testimonial-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.vtx-testimonial-dot--active {
+  width: 40px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .vtx-testimonial-dot:hover {
