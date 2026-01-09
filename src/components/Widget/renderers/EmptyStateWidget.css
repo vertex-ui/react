@@ -63,22 +63,22 @@
    Theme: Modern
    ============================================ */
 .vtx-empty-state--modern {
-  background: linear-gradient(135deg, 
-    var(--vtx-color-primary-50, #eff6ff) 0%, 
+  background: linear-gradient(135deg,
+    var(--vtx-color-primary-50, #eff6ff) 0%,
     var(--vtx-color-gray-50, #f9fafb) 100%);
   border-radius: var(--vtx-border-radius-lg, 12px);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .vtx-empty-state--modern.vtx-empty-state--danger {
-  background: linear-gradient(135deg, 
-    var(--vtx-color-danger-50, #fef2f2) 0%, 
+  background: linear-gradient(135deg,
+    var(--vtx-color-danger-50, #fef2f2) 0%,
     var(--vtx-color-gray-50, #f9fafb) 100%);
 }
 
 .vtx-empty-state--modern.vtx-empty-state--warning {
-  background: linear-gradient(135deg, 
-    var(--vtx-color-warning-50, #fffbeb) 0%, 
+  background: linear-gradient(135deg,
+    var(--vtx-color-warning-50, #fffbeb) 0%,
     var(--vtx-color-gray-50, #f9fafb) 100%);
 }
 
@@ -120,11 +120,11 @@
    Theme: Playful
    ============================================ */
 .vtx-empty-state--playful {
-  background: radial-gradient(circle at 30% 20%, 
-    var(--vtx-color-primary-100, #dbeafe) 0%, 
+  background: radial-gradient(circle at 30% 20%,
+    var(--vtx-color-primary-100, #dbeafe) 0%,
     transparent 50%),
-    radial-gradient(circle at 70% 80%, 
-    var(--vtx-color-secondary-100, #e0e7ff) 0%, 
+    radial-gradient(circle at 70% 80%,
+    var(--vtx-color-secondary-100, #e0e7ff) 0%,
     transparent 50%),
     var(--vtx-color-gray-50, #f9fafb);
   border-radius: var(--vtx-border-radius-xl, 16px);
@@ -132,11 +132,11 @@
 }
 
 .vtx-empty-state--playful.vtx-empty-state--danger {
-  background: radial-gradient(circle at 30% 20%, 
-    var(--vtx-color-danger-100, #fee2e2) 0%, 
+  background: radial-gradient(circle at 30% 20%,
+    var(--vtx-color-danger-100, #fee2e2) 0%,
     transparent 50%),
-    radial-gradient(circle at 70% 80%, 
-    var(--vtx-color-warning-100, #fef3c7) 0%, 
+    radial-gradient(circle at 70% 80%,
+    var(--vtx-color-warning-100, #fef3c7) 0%,
     transparent 50%),
     var(--vtx-color-gray-50, #f9fafb);
 }
@@ -155,8 +155,8 @@
    Theme: Technical
    ============================================ */
 .vtx-empty-state--technical {
-  background: linear-gradient(135deg, 
-    #1a1a1a 0%, 
+  background: linear-gradient(135deg,
+    #1a1a1a 0%,
     #0a0a0a 100%);
   border: 1px solid #333;
   border-radius: var(--vtx-border-radius-sm, 4px);
@@ -180,8 +180,8 @@
    Theme: Elegant
    ============================================ */
 .vtx-empty-state--elegant {
-  background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.95) 0%, 
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.95) 0%,
     rgba(248, 250, 252, 0.95) 100%);
   border: 1px solid var(--vtx-color-gray-100, #f3f4f6);
   border-radius: var(--vtx-border-radius-lg, 12px);

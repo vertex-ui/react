@@ -57,7 +57,7 @@
 }
 
 .vtx-error-page--playful.vtx-error-page--primary {
-  background: radial-gradient(circle at top right, var(--vtx-color-primary-100, #dbeafe), transparent 70%), 
+  background: radial-gradient(circle at top right, var(--vtx-color-primary-100, #dbeafe), transparent 70%),
               radial-gradient(circle at bottom left, var(--vtx-color-primary-100, #dbeafe), transparent 70%);
 }
 

@@ -25,9 +25,9 @@ export const TopBar: React.FC<TopBarProps> = ({
               return <Component key={index} {...(item.componentProps || {})} />;
             }
             return (
-              <Link 
-                key={index} 
-                href={item.href} 
+              <Link
+                key={index}
+                href={item.href}
                 onClick={item.onClick}
                 className="vtx-navbar__topbar-link"
                 variant="small"

@@ -48,11 +48,11 @@ export const useNavbarSections = (props: NavbarBaseProps) => {
           style={{ cursor: onLogoClick ? 'pointer' : 'default' }}
         />
       ) : (
-        <Text 
-          variant="h5" 
-          as="span" 
-          className="vtx-navbar__brand-text" 
-          onClick={onLogoClick} 
+        <Text
+          variant="h5"
+          as="span"
+          className="vtx-navbar__brand-text"
+          onClick={onLogoClick}
           weight="bold"
           style={{ cursor: onLogoClick ? 'pointer' : 'default' }}
         >

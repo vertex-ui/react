@@ -1,0 +1,97 @@
+
+> @vtx-ui/react@0.0.1-beta.16 build
+> npm run clean && rollup -c && tsc -p tsconfig.types.json
+
+
+> @vtx-ui/react@0.0.1-beta.16 clean
+> rimraf dist
+
+[36m
+[1msrc/components/Accordion/Accordion.tsx, src/components/Accordion/AccordionItem.tsx, src/components/Accordion/index.ts, src/components/AdminHeader/AdminHeader.tsx, src/components/AdminHeader/index.ts, src/components/Alert/Alert.tsx, src/components/Alert/index.ts, src/components/Autocomplete/Autocomplete.tsx, src/components/Autocomplete/index.ts, src/components/Avatar/Avatar.tsx, src/components/Avatar/index.ts, src/components/Badge/Badge.tsx, src/components/Badge/index.ts, src/components/Box/Box.tsx, src/components/Box/index.ts, src/components/Breadcrumb/Breadcrumb.tsx, src/components/Breadcrumb/index.ts, src/components/Button/Button.tsx, src/components/Button/index.ts, src/components/Card/Card.tsx, src/components/Card/index.ts, src/components/Checkbox/Checkbox.tsx, src/components/Checkbox/index.ts, src/components/CheckboxGroup/CheckboxGroup.tsx, src/components/CheckboxGroup/index.ts, src/components/Chip/Chip.tsx, src/components/Chip/index.ts, src/components/Container/Container.tsx, src/components/Container/index.ts, src/components/DataGrid/DataGrid.tsx, src/components/DataGrid/index.ts, src/components/DatePicker/Calendar.tsx, src/components/DatePicker/DatePicker.tsx, src/components/DatePicker/DateRangePicker.tsx, src/components/DatePicker/index.ts, src/components/Divider/Divider.tsx, src/components/Divider/index.ts, src/components/FileUpload/FileUpload.tsx, src/components/FileUpload/index.ts, src/components/Flex/Flex.tsx, src/components/Flex/index.ts, src/components/FormControl/FormControl.tsx, src/components/FormControl/index.ts, src/components/Grid/Grid.tsx, src/components/Grid/index.ts, src/components/Header/Header.tsx, src/components/Header/index.ts, src/components/Input/Input.tsx, src/components/Input/index.ts, src/components/Link/Link.tsx, src/components/Link/index.ts, src/components/Menu/ActionMenu.tsx, src/components/Menu/Menu.tsx, src/components/Menu/index.ts, src/components/Modal/Modal.tsx, src/components/Modal/index.ts, src/components/MultiSelect/MultiSelect.tsx, src/components/MultiSelect/index.ts, src/components/Navbar/NavItem.tsx, src/components/Navbar/Navbar.tsx, src/components/Navbar/TopBar.tsx, src/components/Navbar/index.ts, src/components/Navbar/useNavbarSections.tsx, src/components/Navbar/variants/CenteredNavbar.tsx, src/components/Navbar/variants/SingleRowNavbar.tsx, src/components/Navbar/variants/TransparentNavbar.tsx, src/components/Navbar/variants/TwoRowNavbar.tsx, src/components/Radio/Radio.tsx, src/components/Radio/index.ts, src/components/RadioGroup/RadioGroup.tsx, src/components/RadioGroup/index.ts, src/components/Rating/Rating.tsx, src/components/Rating/index.ts, src/components/RichTextEditor/RichTextEditor.tsx, src/components/RichTextEditor/index.ts, src/components/Select/Select.tsx, src/components/Select/index.ts, src/components/SideMenu/SideMenu.tsx, src/components/SideMenu/index.ts, src/components/Skeleton/Skeleton.tsx, src/components/Skeleton/SkeletonTheme.tsx, src/components/Skeleton/index.ts, src/components/Table/Table.tsx, src/components/Table/index.ts, src/components/Tabs/Tabs.tsx, src/components/Tabs/index.ts, src/components/Text/Text.tsx, src/components/Text/index.ts, src/components/Textarea/Textarea.tsx, src/components/Textarea/index.ts, src/components/Timeline/Timeline.tsx, src/components/Timeline/index.ts, src/components/Toast/Toast.tsx, src/components/Toast/ToastContainer.tsx, src/components/Toast/index.ts, src/components/Toast/useToast.tsx, src/components/Tooltip/Tooltip.tsx, src/components/Tooltip/index.ts, src/components/Widget/IntelligentGrid.tsx, src/components/Widget/Widget.tsx, src/components/Widget/index.ts, src/components/Widget/renderers/CarouselWidget.tsx, src/components/Widget/renderers/ContentBlockWidget.tsx, src/components/Widget/renderers/EmptyStateWidget.example.tsx, src/components/Widget/renderers/EmptyStateWidget.tsx, src/components/Widget/renderers/ErrorPageWidget.example.tsx, src/components/Widget/renderers/ErrorPageWidget.tsx, src/components/Widget/renderers/GridCarouselWidget.tsx, src/components/Widget/renderers/HeaderWidget.tsx, src/components/Widget/renderers/InfoWidget.tsx, src/components/Widget/renderers/ListWidget.tsx, src/components/Widget/renderers/MetricWidget.tsx, src/components/Widget/renderers/OrderConfirmationWidget.tsx, src/components/Widget/renderers/OrderDetailsWidget.tsx, src/components/Widget/renderers/OrderWidget.tsx, src/components/Widget/renderers/ProductWidget.tsx, src/components/Widget/renderers/TestimonialWidget.tsx, src/components/Widget/renderers/TextWidget.tsx, src/hoc/withParsedClasses.tsx, src/hooks/index.ts, src/hooks/useTheme.ts, src/icons/IconComponents.tsx, src/icons/index.ts, src/index.ts, src/theme/ThemeProvider.tsx, src/theme/cssVariables.ts, src/theme/index.ts, src/theme/tokens.ts, src/utils/parseClass.ts, src/widgets/DashboardCard/DashboardCard.tsx, src/widgets/DashboardCard/index.ts, src/widgets/InfoCard/InfoCard.tsx, src/widgets/InfoCard/index.ts, src/widgets/InfoListCard/InfoListCard.tsx, src/widgets/InfoListCard/index.ts, src/widgets/InfoText/InfoText.tsx, src/widgets/InfoText/index.ts, src/widgets/OrderCard/OrderCard.tsx, src/widgets/OrderCard/index.ts, src/widgets/OrderConfirmation/OrderConfirmation.tsx, src/widgets/OrderConfirmation/index.ts, src/widgets/OrderDetails/OrderDetails.tsx, src/widgets/OrderDetails/index.ts, src/widgets/ProductCard/ProductCard.tsx, src/widgets/ProductCard/index.ts[22m → [1mdist/esm, dist/cjs[22m...[39m
+Copied dist/esm/Accordion.css to dist/esm/theme/base.css
+Copied src/styles.d.ts to dist/types/styles.d.ts
+Copied dist/esm/Accordion.css to dist/esm/theme/base.css
+Copied src/styles.d.ts to dist/types/styles.d.ts
+[1m[33m(!) Plugin typescript: @rollup/plugin-typescript TS6133: 'index' is declared but its value is never read.[39m[22m
+[1msrc/components/DataGrid/DataGrid.tsx: (680:3)[22m
+[90m
+[7m680[0m   index,
+[7m   [0m [91m  ~~~~~[0m
+[39m
+[1m[33m(!) Plugin typescript: @rollup/plugin-typescript TS6133: 'useCallback' is declared but its value is never read.[39m[22m
+[1msrc/components/FileUpload/FileUpload.tsx: (1:35)[22m
+[90m
+[7m1[0m import React, { useRef, useState, useCallback, useEffect } from 'react';
+[7m [0m [91m                                  ~~~~~~~~~~~[0m
+[39m
+[1m[33m(!) Plugin typescript: @rollup/plugin-typescript TS6133: 'theme' is declared but its value is never read.[39m[22m
+[1msrc/components/FileUpload/FileUpload.tsx: (104:9)[22m
+[90m
+[7m104[0m   const { theme } = useThemeContext();
+[7m   [0m [91m        ~~~~~~~~~[0m
+[39m
+[1m[33m(!) Plugin typescript: @rollup/plugin-typescript TS2322: Type '{ children: (string | false | Element)[]; as: "label"; htmlFor: string; variant: "label"; className: string; }' is not assignable to type 'IntrinsicAttributes & TextProps & RefAttributes<HTMLElement>'.
+  Property 'htmlFor' does not exist on type 'IntrinsicAttributes & TextProps & RefAttributes<HTMLElement>'.[39m[22m
+[1msrc/components/FileUpload/FileUpload.tsx: (287:26)[22m
+[90m
+[7m287[0m         <Text as="label" htmlFor={id} variant="label" className="vtx-fileupload-label">
+[7m   [0m [91m                         ~~~~~~~[0m
+[39m
+[1m[33m(!) Plugin typescript: @rollup/plugin-typescript TS2322: Type 'TableColumn<T>[]' is not assignable to type 'TableColumn<unknown>[]'.
+  Type 'TableColumn<T>' is not assignable to type 'TableColumn<unknown>'.
+    Type 'unknown' is not assignable to type 'T'.
+      'T' could be instantiated with an arbitrary type which could be unrelated to 'unknown'.[39m[22m
+[1msrc/components/Table/Table.tsx: (913:21)[22m
+[90m
+[7m913[0m                     columns={columns}
+[7m   [0m [91m                    ~~~~~~~[0m
+
+  [96msrc/components/Table/Table.tsx[0m:[93m309[0m:[93m3[0m
+    [7m309[0m   columns: TableColumn[];
+    [7m   [0m [96m  ~~~~~~~[0m
+    The expected type comes from property 'columns' which is declared here on type 'IntrinsicAttributes & { row: any; rowIndex: number; rowKey: string | number; columns: TableColumn<unknown>[]; isSelected: boolean; isExpanded: boolean; selectable: boolean; ... 5 more ...; onExpandRow?: ((rowKey: string | number) => void) | undefined; }'
+[39m
+[1m[33m(!) Plugin typescript: @rollup/plugin-typescript TS2353: Object literal may only specify known properties, and 'placeholder' does not exist in type 'Partial<{ label?: string | undefined; helperText?: string | undefined; error?: string | undefined; accept?: string | undefined; multiple?: boolean | undefined; maxSize?: number | undefined; ... 6 more ...; initialFiles?: FileItem[] | undefined; }> & { ...; }'.[39m[22m
+[1msrc/stories/components/FileUpload.stories.tsx: (23:5)[22m
+[90m
+[7m23[0m     placeholder: 'Click to upload or drag and drop',
+[7m  [0m [91m    ~~~~~~~~~~~[0m
+
+  [96mnode_modules/storybook/dist/csf/index.d.ts[0m:[93m791[0m:[93m5[0m
+    [7m791[0m     args?: Partial<TArgs>;
+    [7m   [0m [96m    ~~~~[0m
+    The expected type comes from property 'args' which is declared here on type 'StoryAnnotations<ReactRenderer, { label?: string | undefined; helperText?: string | undefined; error?: string | undefined; accept?: string | undefined; multiple?: boolean | undefined; ... 7 more ...; initialFiles?: FileItem[] | undefined; }, { ...; }>'
+[39m
+[1msrc/stories/components/FileUpload.stories.tsx: (31:5)[22m
+[90m
+[7m31[0m     placeholder: 'Select a file',
+[7m  [0m [91m    ~~~~~~~~~~~[0m
+
+  [96mnode_modules/storybook/dist/csf/index.d.ts[0m:[93m791[0m:[93m5[0m
+    [7m791[0m     args?: Partial<TArgs>;
+    [7m   [0m [96m    ~~~~[0m
+    The expected type comes from property 'args' which is declared here on type 'StoryAnnotations<ReactRenderer, { label?: string | undefined; helperText?: string | undefined; error?: string | undefined; accept?: string | undefined; multiple?: boolean | undefined; ... 7 more ...; initialFiles?: FileItem[] | undefined; }, { ...; }>'
+[39m
+[1msrc/stories/components/FileUpload.stories.tsx: (39:5)[22m
+[90m
+[7m39[0m     placeholder: 'Select an image',
+[7m  [0m [91m    ~~~~~~~~~~~[0m
+
+  [96mnode_modules/storybook/dist/csf/index.d.ts[0m:[93m791[0m:[93m5[0m
+    [7m791[0m     args?: Partial<TArgs>;
+    [7m   [0m [96m    ~~~~[0m
+    The expected type comes from property 'args' which is declared here on type 'StoryAnnotations<ReactRenderer, { label?: string | undefined; helperText?: string | undefined; error?: string | undefined; accept?: string | undefined; multiple?: boolean | undefined; ... 7 more ...; initialFiles?: FileItem[] | undefined; }, { ...; }>'
+[39m
+[32mcreated [1mdist/esm, dist/cjs[22m in [1m20.5s[22m[39m
+src/components/DataGrid/DataGrid.tsx(680,3): error TS6133: 'index' is declared but its value is never read.
+src/components/FileUpload/FileUpload.tsx(1,35): error TS6133: 'useCallback' is declared but its value is never read.
+src/components/FileUpload/FileUpload.tsx(104,9): error TS6133: 'theme' is declared but its value is never read.
+src/components/FileUpload/FileUpload.tsx(287,26): error TS2322: Type '{ children: (string | false | Element)[]; as: "label"; htmlFor: string; variant: "label"; className: string; }' is not assignable to type 'IntrinsicAttributes & TextProps & RefAttributes<HTMLElement>'.
+  Property 'htmlFor' does not exist on type 'IntrinsicAttributes & TextProps & RefAttributes<HTMLElement>'.
+src/components/Table/Table.tsx(913,21): error TS2322: Type 'TableColumn<T>[]' is not assignable to type 'TableColumn<unknown>[]'.
+  Type 'TableColumn<T>' is not assignable to type 'TableColumn<unknown>'.
+    Type 'unknown' is not assignable to type 'T'.
+      'T' could be instantiated with an arbitrary type which could be unrelated to 'unknown'.
+src/stories/components/FileUpload.stories.tsx(23,5): error TS2353: Object literal may only specify known properties, and 'placeholder' does not exist in type 'Partial<{ label?: string | undefined; helperText?: string | undefined; error?: string | undefined; accept?: string | undefined; multiple?: boolean | undefined; maxSize?: number | undefined; ... 6 more ...; initialFiles?: FileItem[] | undefined; }> & { ...; }'.
+src/stories/components/FileUpload.stories.tsx(31,5): error TS2353: Object literal may only specify known properties, and 'placeholder' does not exist in type 'Partial<{ label?: string | undefined; helperText?: string | undefined; error?: string | undefined; accept?: string | undefined; multiple?: boolean | undefined; maxSize?: number | undefined; ... 6 more ...; initialFiles?: FileItem[] | undefined; }> & { ...; }'.
+src/stories/components/FileUpload.stories.tsx(39,5): error TS2353: Object literal may only specify known properties, and 'placeholder' does not exist in type 'Partial<{ label?: string | undefined; helperText?: string | undefined; error?: string | undefined; accept?: string | undefined; multiple?: boolean | undefined; maxSize?: number | undefined; ... 6 more ...; initialFiles?: FileItem[] | undefined; }> & { ...; }'.

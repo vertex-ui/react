@@ -578,7 +578,7 @@ export const AllThemesComparison: Story = {
           settings={{ theme: 'modern', variant: 'primary', fullHeight: false }}
         />
       </div>
-      
+
       <div>
         <h3 style={{ marginBottom: '20px', textAlign: 'center' }}>Professional Theme</h3>
         <ErrorPageWidget
@@ -589,7 +589,7 @@ export const AllThemesComparison: Story = {
           settings={{ theme: 'professional', variant: 'primary', fullHeight: false }}
         />
       </div>
-      
+
       <div>
         <h3 style={{ marginBottom: '20px', textAlign: 'center' }}>Playful Theme</h3>
         <ErrorPageWidget
@@ -602,7 +602,7 @@ export const AllThemesComparison: Story = {
           settings={{ theme: 'playful', variant: 'primary', fullHeight: false }}
         />
       </div>
-      
+
       <div style={{ background: '#000', padding: '20px' }}>
         <h3 style={{ marginBottom: '20px', textAlign: 'center', color: '#fff' }}>Technical Theme</h3>
         <ErrorPageWidget
@@ -615,7 +615,7 @@ export const AllThemesComparison: Story = {
           settings={{ theme: 'technical', variant: 'success', fullHeight: false }}
         />
       </div>
-      
+
       <div>
         <h3 style={{ marginBottom: '20px', textAlign: 'center' }}>Elegant Theme</h3>
         <ErrorPageWidget
@@ -626,7 +626,7 @@ export const AllThemesComparison: Story = {
           settings={{ theme: 'elegant', variant: 'primary', fullHeight: false }}
         />
       </div>
-      
+
       <div>
         <h3 style={{ marginBottom: '20px', textAlign: 'center' }}>Minimal Theme</h3>
         <ErrorPageWidget

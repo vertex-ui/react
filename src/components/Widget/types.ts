@@ -170,21 +170,10 @@ export interface ProductWidgetData extends BaseWidgetData {
   price: number | string;
   originalPrice?: number | string;
   category?: string;
-  categoryHref?: string;
-  categoryUrl?: string;
   rating?: number;
   reviews?: number;
   inStock?: boolean;
   tags?: string[];
-  imageAlt?: string;
-  weight?: number;
-  units?: string;
-  discount?: string;
-  initialQuantity?: number;
-  featured?: boolean;
-  featuredText?: string;
-  href?: string;
-  url?: string;
 }
 
 /**
@@ -196,21 +185,6 @@ export interface ProductWidgetSettings extends BaseWidgetSettings {
   showTags?: boolean;
   imagePosition?: 'top' | 'left' | 'right';
   cardStyle?: 'elevated' | 'outlined' | 'flat';
-  showWishlist?: boolean;
-  isWishlisted?: boolean;
-  cartIcon?: React.ReactNode;
-  wishlistIcon?: React.ReactNode;
-  wishlistFilledIcon?: React.ReactNode;
-  quickViewIcon?: React.ReactNode;
-  linkComponent?: React.ComponentType<any>;
-  onAddToCart?: (id?: string, quantity?: number) => void | Promise<void>;
-  onIncrementCart?: (id?: string, quantity?: number) => void | Promise<void>;
-  onDecrementCart?: (id?: string, quantity?: number) => void | Promise<void>;
-  onWishlist?: () => void;
-  onQuickView?: () => void;
-  onClick?: () => void;
-  onCategoryClick?: () => void;
-  loading?: boolean;
 }
 
 // ========================================================================
@@ -286,13 +260,13 @@ export interface OrderConfirmationWidgetData {
   orderDate?: string;
   status?: 'pending' | 'processing' | 'confirmed' | 'delivered' | 'cancelled';
   statusText?: string;
-  
+
   headerText?: string;
   headerSubtitle?: string;
-  
+
   customerEmail?: string;
   customerPhone?: string;
-  
+
   shippingAddress: {
     name: string;
     addressLine1: string;
@@ -311,7 +285,7 @@ export interface OrderConfirmationWidgetData {
     zipCode: string;
     phone?: string;
   };
-  
+
   items: Array<{
     id: string;
     name: string;
@@ -320,20 +294,20 @@ export interface OrderConfirmationWidgetData {
     price: number;
     variant?: string;
   }>;
-  
+
   subtotal: number;
   shippingCost?: number;
   tax?: number;
   discount?: number;
   total: number;
   currency?: string;
-  
+
   paymentMethod?: string;
   transactionId?: string;
-  
+
   estimatedDelivery?: string;
   trackingNumber?: string;
-  
+
   actions?: {
     onDownloadInvoice?: (orderId: string) => void;
     onContinueShopping?: () => void;
@@ -369,11 +343,11 @@ export interface OrderDetailsWidgetData {
   orderDate: string;
   status: 'pending' | 'processing' | 'confirmed' | 'shipped' | 'delivered' | 'cancelled' | 'returned';
   statusText?: string;
-  
+
   customerName?: string;
   customerEmail?: string;
   customerPhone?: string;
-  
+
   shippingAddress: {
     name: string;
     addressLine1: string;
@@ -392,7 +366,7 @@ export interface OrderDetailsWidgetData {
     zipCode: string;
     phone?: string;
   };
-  
+
   items: Array<{
     id: string;
     name: string;
@@ -401,7 +375,7 @@ export interface OrderDetailsWidgetData {
     price: number;
     variant?: string;
   }>;
-  
+
   subtotal: number;
   shippingCost?: number;
   tax?: number;
@@ -409,17 +383,17 @@ export interface OrderDetailsWidgetData {
   total: number;
   currency?: string;
   couponCode?: string;
-  
+
   paymentMethod?: string;
   paymentStatus?: 'pending' | 'paid' | 'failed' | 'refunded';
   transactionId?: string;
-  
+
   estimatedDelivery?: string;
   deliveredDate?: string;
   trackingNumber?: string;
   trackingUrl?: string;
   carrier?: string;
-  
+
   actions?: {
     onDownloadInvoice?: (orderId: string) => void;
     onTrackOrder?: (orderId: string) => void;
@@ -944,9 +918,9 @@ export interface ContentBlockWidgetData extends Omit<BaseWidgetData, 'metadata'>
 export interface ContentBlockWidgetSettings extends Omit<BaseWidgetSettings, 'variant'> {
   // Layout-specific variant (overrides base variant)
   variant?: 'minimal' | 'card' | 'elevated' | 'outlined' | 'bordered';
-  
+
   // Layout
-  layout?: 
+  layout?:
     | 'media-left'           // Media 40%, Content 60%
     | 'media-right'          // Content 60%, Media 40%
     | 'split-equal'          // 50/50 split
@@ -959,13 +933,13 @@ export interface ContentBlockWidgetSettings extends Omit<BaseWidgetSettings, 'va
     | 'grid-3col'            // 3 column grid
     | 'sidebar-left'         // Narrow sidebar (30%) left
     | 'sidebar-right';       // Narrow sidebar (30%) right
-  
+
   // Size & Spacing
   mediaWidth?: '20%' | '30%' | '40%' | '50%' | '60%' | '70%' | 'auto';
   contentWidth?: 'narrow' | 'medium' | 'wide' | 'full';
   gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
   padding?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-  
+
   // Media Dimensions (override data.media properties)
   imageWidth?: string;        // CSS value like '100%', '400px', 'auto'
   imageHeight?: string;       // CSS value like 'auto', '300px', '100%'
@@ -973,15 +947,15 @@ export interface ContentBlockWidgetSettings extends Omit<BaseWidgetSettings, 'va
   imageMaxHeight?: string;    // Max height constraint
   iconSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';  // Override icon size
   customIconSize?: string;    // Custom icon size (e.g., '5rem', '80px')
-  
+
   // Alignment
   contentAlign?: 'left' | 'center' | 'right' | 'justify';
   verticalAlign?: 'start' | 'center' | 'end' | 'stretch';
-  
+
   rounded?: boolean | 'sm' | 'md' | 'lg' | 'xl' | 'full';
   shadow?: boolean | 'sm' | 'md' | 'lg' | 'xl' | 'inner';
   border?: boolean | 'all' | 'left' | 'right' | 'top' | 'bottom';
-  
+
   // Background
   background?: {
     color?: string;
@@ -1057,25 +1031,25 @@ export interface ErrorPageWidgetData {
    * @default '404'
    */
   errorCode?: string;
-  
+
   /**
    * Main error title
    * @example 'Page Not Found'
    */
   title?: string;
-  
+
   /**
    * Error message description
    * @example "Oops! The page you're looking for doesn't exist."
    */
   message?: string;
-  
+
   /**
    * Helpful suggestion or next steps
    * @example 'Try checking the URL or return to the homepage.'
    */
   suggestion?: string;
-  
+
   /**
    * Call-to-action buttons/links
    * @example
@@ -1092,7 +1066,7 @@ export interface ErrorPageWidgetData {
     icon?: 'home' | 'back' | 'refresh';
     external?: boolean;
   }>;
-  
+
   /**
    * @deprecated Use actions array instead
    */
@@ -1102,7 +1076,7 @@ export interface ErrorPageWidgetData {
     onClick?: () => void;
     icon?: 'home' | 'back' | 'refresh';
   };
-  
+
   /**
    * @deprecated Use actions array instead
    */
@@ -1112,12 +1086,12 @@ export interface ErrorPageWidgetData {
     onClick?: () => void;
     icon?: 'home' | 'back' | 'refresh';
   };
-  
+
   /**
    * Custom icon component to display
    */
   customIcon?: React.ReactNode;
-  
+
   /**
    * Additional information or help text
    */
@@ -1139,25 +1113,25 @@ export interface ErrorPageWidgetSettings extends BaseWidgetSettings {
    * @default 'modern'
    */
   theme?: 'minimal' | 'modern' | 'professional' | 'playful' | 'technical' | 'elegant';
-  
+
   /**
    * Show illustration/icon
    * @default true
    */
   showIllustration?: boolean;
-  
+
   /**
    * Center the content
    * @default true
    */
   centered?: boolean;
-  
+
   /**
    * Take full viewport height
    * @default true
    */
   fullHeight?: boolean;
-  
+
   /**
    * Custom background color or gradient
    * Overrides theme default background
@@ -1174,7 +1148,7 @@ export interface ErrorPageWidgetSettings extends BaseWidgetSettings {
 /**
  * Empty State Types - Different contexts for empty states
  */
-export type EmptyStateType = 
+export type EmptyStateType =
   | 'general'
   | 'search'
   | 'data'
@@ -1184,7 +1158,7 @@ export type EmptyStateType =
 
 /**
  * EmptyStateWidgetData - Data for empty state widget
- * 
+ *
  * @example
  * const emptyCartData: EmptyStateWidgetData = {
  *   type: 'cart',

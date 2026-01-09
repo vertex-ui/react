@@ -5,7 +5,7 @@ import type { OrderConfirmationWidgetData, OrderConfirmationWidgetSettings } fro
 const meta = {
   title: 'Widgets/OrderConfirmation (Widget Pattern)',
   component: Widget,
-  parameters: { 
+  parameters: {
     layout: 'padded',
     docs: {
       description: {
@@ -20,7 +20,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /**
- * Complete order confirmation with all features: multiple items, customer info, 
+ * Complete order confirmation with all features: multiple items, customer info,
  * shipping & billing addresses, payment details, and action buttons.
  */
 export const Complete: Story = {
@@ -32,13 +32,13 @@ export const Complete: Story = {
         orderNumber: 'VTX-2025-001',
         orderDate: 'January 7, 2025',
         status: 'confirmed',
-        
+
         headerText: '🎉 Order Confirmed Successfully!',
         headerSubtitle: 'Thank you for your purchase! Your order is being prepared for shipment.',
-        
+
         customerEmail: 'john.doe@example.com',
         customerPhone: '+1 (555) 123-4567',
-        
+
         items: [
           {
             id: '1',
@@ -71,14 +71,14 @@ export const Complete: Story = {
             price: 2499,
           },
         ],
-        
+
         subtotal: 42295,
         shippingCost: 150,
         tax: 2115,
         discount: 4230,
         total: 40330,
         currency: '₹',
-        
+
         shippingAddress: {
           name: 'John Doe',
           addressLine1: '123 Tech Street, Building A, Floor 4',
@@ -88,7 +88,7 @@ export const Complete: Story = {
           zipCode: '560001',
           phone: '+91 98765 43210',
         },
-        
+
         billingAddress: {
           name: 'John Doe',
           addressLine1: '456 Business Avenue',
@@ -97,12 +97,12 @@ export const Complete: Story = {
           zipCode: '400001',
           phone: '+91 98765 43210',
         },
-        
+
         paymentMethod: 'Credit Card (**** 4242)',
         transactionId: 'TXN20250107ABCD1234',
         estimatedDelivery: 'January 10-12, 2025',
         trackingNumber: 'FDX1234567890',
-        
+
         actions: {
           onDownloadInvoice: (orderId) => console.log('Download invoice:', orderId),
           onContinueShopping: () => console.log('Continue shopping'),
@@ -131,7 +131,7 @@ export const Simple: Story = {
         orderId: 'ORD987654321',
         orderDate: 'January 7, 2025',
         status: 'confirmed',
-        
+
         items: [
           {
             id: '1',
@@ -141,13 +141,13 @@ export const Simple: Story = {
             price: 3499,
           },
         ],
-        
+
         subtotal: 3499,
         shippingCost: 50,
         tax: 177,
         total: 3726,
         currency: '₹',
-        
+
         shippingAddress: {
           name: 'Jane Smith',
           addressLine1: '789 Main Street',
@@ -155,7 +155,7 @@ export const Simple: Story = {
           state: 'Delhi',
           zipCode: '110001',
         },
-        
+
         estimatedDelivery: 'January 9, 2025',
       } as OrderConfirmationWidgetData,
       settings: {
@@ -177,9 +177,9 @@ export const WithDiscount: Story = {
         orderNumber: 'VTX-2025-002',
         orderDate: 'January 7, 2025',
         status: 'processing',
-        
+
         customerEmail: 'sarah.wilson@example.com',
-        
+
         items: [
           {
             id: '1',
@@ -204,14 +204,14 @@ export const WithDiscount: Story = {
             price: 1299,
           },
         ],
-        
+
         subtotal: 11096,
         shippingCost: 0,
         tax: 555,
         discount: 2219,
         total: 9432,
         currency: '₹',
-        
+
         shippingAddress: {
           name: 'Sarah Wilson',
           addressLine1: '321 Oak Avenue',
@@ -219,11 +219,11 @@ export const WithDiscount: Story = {
           state: 'Maharashtra',
           zipCode: '411001',
         },
-        
+
         paymentMethod: 'UPI (Google Pay)',
         estimatedDelivery: 'January 11, 2025',
         trackingNumber: 'DHL9876543210',
-        
+
         actions: {
           onDownloadInvoice: (orderId) => console.log('Download invoice:', orderId),
           onContinueShopping: () => console.log('Continue shopping'),
@@ -249,13 +249,13 @@ export const LargeOrder: Story = {
         orderNumber: 'VTX-2025-003',
         orderDate: 'January 7, 2025',
         status: 'confirmed',
-        
+
         headerText: '🎉 Order Successfully Placed!',
         headerSubtitle: 'Thank you for your purchase! Your order has been confirmed and will be shipped soon.',
-        
+
         customerEmail: 'michael.chen@example.com',
         customerPhone: '+1 (555) 987-6543',
-        
+
         items: [
           {
             id: '1',
@@ -303,14 +303,14 @@ export const LargeOrder: Story = {
             price: 1499,
           },
         ],
-        
+
         subtotal: 73493,
         shippingCost: 250,
         tax: 3675,
         discount: 7349,
         total: 70069,
         currency: '₹',
-        
+
         shippingAddress: {
           name: 'Michael Chen',
           addressLine1: '555 Gaming Plaza, Tower B, Apt 1204',
@@ -320,7 +320,7 @@ export const LargeOrder: Story = {
           zipCode: '500001',
           phone: '+91 99999 88888',
         },
-        
+
         billingAddress: {
           name: 'Michael Chen',
           addressLine1: '555 Gaming Plaza, Tower B, Apt 1204',
@@ -330,12 +330,12 @@ export const LargeOrder: Story = {
           zipCode: '500001',
           phone: '+91 99999 88888',
         },
-        
+
         paymentMethod: 'Debit Card (**** 8765)',
         transactionId: 'TXN20250107XYZ9876',
         estimatedDelivery: 'January 12-14, 2025',
         trackingNumber: 'BLUEDART567890123',
-        
+
         actions: {
           onDownloadInvoice: (orderId) => console.log('Download invoice:', orderId),
           onContinueShopping: () => console.log('Continue shopping'),
@@ -362,12 +362,12 @@ export const Processing: Story = {
         orderId: 'ORD111222333',
         orderDate: 'January 7, 2025',
         status: 'processing',
-        
+
         headerText: 'Order Received!',
         headerSubtitle: 'We are processing your order. You will receive a confirmation email shortly.',
-        
+
         customerEmail: 'alex.johnson@example.com',
-        
+
         items: [
           {
             id: '1',
@@ -377,13 +377,13 @@ export const Processing: Story = {
             price: 3999,
           },
         ],
-        
+
         subtotal: 3999,
         shippingCost: 99,
         tax: 200,
         total: 4298,
         currency: '₹',
-        
+
         shippingAddress: {
           name: 'Alex Johnson',
           addressLine1: '678 Health Street',
@@ -391,9 +391,9 @@ export const Processing: Story = {
           state: 'Tamil Nadu',
           zipCode: '600001',
         },
-        
+
         estimatedDelivery: 'January 10, 2025',
-        
+
         actions: {
           onDownloadInvoice: (orderId) => console.log('Download invoice:', orderId),
           onContinueShopping: () => console.log('Continue shopping'),
@@ -445,13 +445,13 @@ export const Delivered: Story = {
         orderNumber: 'VTX-2024-999',
         orderDate: 'December 28, 2024',
         status: 'delivered',
-        
+
         headerText: 'Order Delivered!',
         headerSubtitle: 'Your order has been successfully delivered. Thank you for shopping with us!',
-        
+
         customerEmail: 'emma.davis@example.com',
         customerPhone: '+1 (555) 246-8135',
-        
+
         items: [
           {
             id: '1',
@@ -469,13 +469,13 @@ export const Delivered: Story = {
             price: 799,
           },
         ],
-        
+
         subtotal: 6298,
         shippingCost: 75,
         tax: 315,
         total: 6688,
         currency: '₹',
-        
+
         shippingAddress: {
           name: 'Emma Davis',
           addressLine1: '999 Success Road',
@@ -483,12 +483,12 @@ export const Delivered: Story = {
           state: 'West Bengal',
           zipCode: '700001',
         },
-        
+
         paymentMethod: 'Net Banking',
         transactionId: 'TXN20241228ABC5678',
         estimatedDelivery: 'Delivered on January 2, 2025',
         trackingNumber: 'DELIVERED123456',
-        
+
         actions: {
           onDownloadInvoice: (orderId) => console.log('Download invoice:', orderId),
           onContinueShopping: () => console.log('Continue shopping'),

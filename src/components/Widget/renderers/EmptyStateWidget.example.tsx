@@ -6,7 +6,7 @@ import type { WidgetConfig } from '../../Widget/types';
 
 /**
  * EmptyStateWidget Examples
- * 
+ *
  * This file demonstrates various use cases for the EmptyStateWidget component
  * with different themes, types, and configurations.
  */

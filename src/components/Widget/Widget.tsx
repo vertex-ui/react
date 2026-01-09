@@ -119,7 +119,7 @@ const Widget: React.FC<WidgetProps> = ({
       // Support both 'spacing' (correct) and 'gap' (legacy) properties
       spacing: gridConfig.spacing || gridSettings.gap || gridSettings.spacing || 'md',
     };
-    
+
     return (
       <IntelligentGrid
         data={gridData.widgets}
@@ -150,7 +150,7 @@ const Widget: React.FC<WidgetProps> = ({
       // Support both 'spacing' (correct) and 'gap' (legacy) properties
       spacing: gridConfig.spacing || gridSettings.gap || gridSettings.spacing || 'md',
     };
-    
+
     return (
       <IntelligentGrid
         data={config.data}

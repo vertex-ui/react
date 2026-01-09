@@ -40,7 +40,7 @@ const copyCss = () => ({
     const cssFiles = fs.readdirSync('dist/esm').filter(f => f.endsWith('.css'));
     if (cssFiles.length === 0) return;
 
-    // Assume the largest CSS file is the main bundle if multiple exist, 
+    // Assume the largest CSS file is the main bundle if multiple exist,
     // or just take the first one if it's the only one.
     // In this case we saw Alert.css containing the full bundle.
     const srcFile = cssFiles[0];

@@ -218,7 +218,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
       case 'icon':
         if (icon) {
           // Extended icon size map with xs and 2xl
-          const iconSizeMap = { 
+          const iconSizeMap = {
             xs: '1.5rem',   // 24px
             sm: '2rem',     // 32px
             md: '3rem',     // 48px
@@ -226,11 +226,11 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
             xl: '6rem',     // 96px
             '2xl': '8rem'   // 128px
           };
-          
+
           // Use settings override if available, otherwise use data.media iconSize
           const effectiveIconSize = settings.iconSize || iconSize;
           const finalIconSize = settings.customIconSize || iconSizeMap[effectiveIconSize];
-          
+
           return (
             <div
               className="vtx-content-block__icon"

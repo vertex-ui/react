@@ -6,7 +6,7 @@ export interface SkeletonThemeProps extends React.HTMLAttributes<HTMLDivElement>
   /**
    * Theme preset for different content types
    */
-  theme: 
+  theme:
     | 'card'
     | 'product'
     | 'article'

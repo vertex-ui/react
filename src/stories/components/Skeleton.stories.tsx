@@ -276,7 +276,7 @@ export const ECommerceHomePage: Story = {
   render: () => (
     <div style={{ maxWidth: '1200px' }}>
       <h2 style={{ marginBottom: '24px' }}>E-Commerce Home Page Loading</h2>
-      
+
       {/* Hero */}
       <div style={{ marginBottom: '40px' }}>
         <SkeletonTheme theme="hero" />
@@ -294,7 +294,7 @@ export const BlogPage: Story = {
     <div style={{ maxWidth: '900px' }}>
       <h2 style={{ marginBottom: '24px' }}>Blog Post Loading</h2>
       <SkeletonTheme theme="blog-post" />
-      
+
       <h3 style={{ marginTop: '40px', marginBottom: '20px' }}>Comments</h3>
       <SkeletonTheme theme="comment" count={4} />
     </div>
@@ -305,7 +305,7 @@ export const AboutUsPage: Story = {
   render: () => (
     <div style={{ maxWidth: '1100px' }}>
       <h2 style={{ marginBottom: '24px' }}>About Us Page Loading</h2>
-      
+
       {/* Hero */}
       <div style={{ marginBottom: '40px' }}>
         <SkeletonTheme theme="hero" />
@@ -332,7 +332,7 @@ export const PricingPage: Story = {
   render: () => (
     <div style={{ maxWidth: '1200px' }}>
       <h2 style={{ marginBottom: '24px' }}>Pricing Page Loading</h2>
-      
+
       {/* Hero */}
       <div style={{ marginBottom: '40px', textAlign: 'center' }}>
         <Skeleton variant="text" width="50%" height={40} style={{ margin: '0 auto' }} />
@@ -368,7 +368,7 @@ export const DashboardPage: Story = {
   render: () => (
     <div style={{ maxWidth: '1200px' }}>
       <h2 style={{ marginBottom: '24px' }}>Dashboard Loading</h2>
-      
+
       {/* Stats */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '40px' }}>
         <SkeletonTheme theme="stats" />
@@ -388,9 +388,9 @@ export const UserProfilePage: Story = {
   render: () => (
     <div style={{ maxWidth: '900px' }}>
       <h2 style={{ marginBottom: '24px' }}>User Profile Loading</h2>
-      
+
       <SkeletonTheme theme="profile" />
-      
+
       <h3 style={{ marginTop: '40px', marginBottom: '20px' }}>Recent Activity</h3>
       <SkeletonTheme theme="list-item" count={5} />
     </div>
@@ -401,7 +401,7 @@ export const PrivacyPolicyPage: Story = {
   render: () => (
     <div style={{ maxWidth: '900px' }}>
       <h2 style={{ marginBottom: '24px' }}>Privacy Policy Loading</h2>
-      
+
       <Skeleton variant="text" width="50%" height={32} />
       <div style={{ marginTop: '24px' }}>
         <Skeleton variant="text" width="100%" />

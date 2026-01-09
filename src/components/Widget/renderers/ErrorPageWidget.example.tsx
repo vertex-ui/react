@@ -1,6 +1,6 @@
 /**
  * ErrorPageWidget Usage Examples
- * 
+ *
  * Professional error page widget with multiple themes and customization options.
  * Supports 404, 500, 403, 401, 503, and custom error pages.
  */
@@ -484,7 +484,7 @@ export const AppErrorBoundary = () => {
   return (
     <div>
       {/* Your Router Setup */}
-      {/* 
+      {/*
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />

@@ -20,7 +20,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     label: 'Upload Documents',
-    placeholder: 'Click to upload or drag and drop',
   },
 };
 
@@ -28,7 +27,6 @@ export const WithHelperText: Story = {
   args: {
     label: 'Upload Report',
     helperText: 'PDF, DOCX up to 5MB',
-    placeholder: 'Select a file',
   },
 };
 
@@ -36,7 +34,6 @@ export const WithError: Story = {
   args: {
     label: 'Upload Avatar',
     error: 'File size exceeds limit',
-    placeholder: 'Select an image',
   },
 };
 

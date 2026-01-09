@@ -5,7 +5,7 @@ import { OrderConfirmation } from '../../../widgets/OrderConfirmation';
 interface OrderConfirmationWidgetProps {
   data: OrderConfirmationWidgetData;
   settings?: OrderConfirmationWidgetSettings;
-  
+
   // Deprecated: Use settings instead
   /** @deprecated Use settings.theme */
   theme?: WidgetTheme;
@@ -27,7 +27,7 @@ const OrderConfirmationWidget: React.FC<OrderConfirmationWidgetProps> = ({
   // Merge settings with legacy props for backward compatibility
   const className = settings?.className || legacyClassName || '';
   const style = settings?.style || legacyStyle;
-  
+
   return (
     <OrderConfirmation
       orderId={data.orderId}

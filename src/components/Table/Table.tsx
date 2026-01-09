@@ -306,7 +306,7 @@ const TableRow = React.memo(({
   row: any;
   rowIndex: number;
   rowKey: string | number;
-  columns: TableColumn[];
+  columns: TableColumn<any>[];
   isSelected: boolean;
   isExpanded: boolean;
   selectable: boolean;

@@ -5,7 +5,7 @@ import type { OrderConfirmationProps } from '../../widgets/OrderConfirmation';
 const meta = {
   title: 'Widgets/OrderConfirmation',
   component: OrderConfirmation,
-  parameters: { 
+  parameters: {
     layout: 'padded',
     docs: {
       description: {
@@ -32,7 +32,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /**
- * Complete order confirmation with all features: multiple items, customer info, 
+ * Complete order confirmation with all features: multiple items, customer info,
  * shipping & billing addresses, payment details, and action buttons.
  */
 export const Complete: Story = {
@@ -41,11 +41,11 @@ export const Complete: Story = {
     orderNumber: 'VTX-2025-001',
     orderDate: 'January 7, 2025',
     status: 'confirmed',
-    
+
     // Customer Information
     customerEmail: 'john.doe@example.com',
     customerPhone: '+1 (555) 123-4567',
-    
+
     // Order Items
     items: [
       {
@@ -79,7 +79,7 @@ export const Complete: Story = {
         price: 2499,
       },
     ],
-    
+
     // Pricing
     subtotal: 42295,
     shippingCost: 150,
@@ -87,7 +87,7 @@ export const Complete: Story = {
     discount: 4230, // 10% discount
     total: 40330,
     currency: '₹',
-    
+
     // Shipping Address
     shippingAddress: {
       name: 'John Doe',
@@ -98,7 +98,7 @@ export const Complete: Story = {
       zipCode: '560001',
       phone: '+91 98765 43210',
     },
-    
+
     // Billing Address
     billingAddress: {
       name: 'John Doe',
@@ -108,15 +108,15 @@ export const Complete: Story = {
       zipCode: '400001',
       phone: '+91 98765 43210',
     },
-    
+
     // Payment Information
     paymentMethod: 'Credit Card (**** 4242)',
     transactionId: 'TXN20250107ABCD1234',
-    
+
     // Delivery
     estimatedDelivery: 'January 10-12, 2025',
     trackingNumber: 'FDX1234567890',
-    
+
     // Actions
     onDownloadInvoice: (orderId) => console.log('Download invoice:', orderId),
     onContinueShopping: () => console.log('Continue shopping'),
@@ -124,7 +124,7 @@ export const Complete: Story = {
     onViewDetails: (orderId) => console.log('View details:', orderId),
     onContactSupport: (orderId) => console.log('Contact support:', orderId),
     onShareOrder: (orderId) => console.log('Share order:', orderId),
-    
+
     showActions: true,
   } as OrderConfirmationProps,
 };
@@ -137,7 +137,7 @@ export const Simple: Story = {
     orderId: 'ORD987654321',
     orderDate: 'January 7, 2025',
     status: 'confirmed',
-    
+
     items: [
       {
         id: '1',
@@ -147,13 +147,13 @@ export const Simple: Story = {
         price: 3499,
       },
     ],
-    
+
     subtotal: 3499,
     shippingCost: 50,
     tax: 177,
     total: 3726,
     currency: '₹',
-    
+
     shippingAddress: {
       name: 'Jane Smith',
       addressLine1: '789 Main Street',
@@ -161,9 +161,9 @@ export const Simple: Story = {
       state: 'Delhi',
       zipCode: '110001',
     },
-    
+
     estimatedDelivery: 'January 9, 2025',
-    
+
     showActions: false,
   } as OrderConfirmationProps,
 };
@@ -177,9 +177,9 @@ export const WithDiscount: Story = {
     orderNumber: 'VTX-2025-002',
     orderDate: 'January 7, 2025',
     status: 'processing',
-    
+
     customerEmail: 'sarah.wilson@example.com',
-    
+
     items: [
       {
         id: '1',
@@ -204,14 +204,14 @@ export const WithDiscount: Story = {
         price: 1299,
       },
     ],
-    
+
     subtotal: 11096,
     shippingCost: 0, // Free shipping
     tax: 555,
     discount: 2219, // 20% off
     total: 9432,
     currency: '₹',
-    
+
     shippingAddress: {
       name: 'Sarah Wilson',
       addressLine1: '321 Oak Avenue',
@@ -219,11 +219,11 @@ export const WithDiscount: Story = {
       state: 'Maharashtra',
       zipCode: '411001',
     },
-    
+
     paymentMethod: 'UPI (Google Pay)',
     estimatedDelivery: 'January 11, 2025',
     trackingNumber: 'DHL9876543210',
-    
+
     onDownloadInvoice: (orderId) => console.log('Download invoice:', orderId),
     onContinueShopping: () => console.log('Continue shopping'),
     onTrackOrder: (orderId) => console.log('Track order:', orderId),
@@ -239,13 +239,13 @@ export const LargeOrder: Story = {
     orderNumber: 'VTX-2025-003',
     orderDate: 'January 7, 2025',
     status: 'confirmed',
-    
+
     headerText: '🎉 Order Successfully Placed!',
     headerSubtitle: 'Thank you for your purchase! Your order has been confirmed and will be shipped soon.',
-    
+
     customerEmail: 'michael.chen@example.com',
     customerPhone: '+1 (555) 987-6543',
-    
+
     items: [
       {
         id: '1',
@@ -293,14 +293,14 @@ export const LargeOrder: Story = {
         price: 1499,
       },
     ],
-    
+
     subtotal: 73493,
     shippingCost: 250,
     tax: 3675,
     discount: 7349, // 10% discount
     total: 70069,
     currency: '₹',
-    
+
     shippingAddress: {
       name: 'Michael Chen',
       addressLine1: '555 Gaming Plaza, Tower B, Apt 1204',
@@ -310,7 +310,7 @@ export const LargeOrder: Story = {
       zipCode: '500001',
       phone: '+91 99999 88888',
     },
-    
+
     billingAddress: {
       name: 'Michael Chen',
       addressLine1: '555 Gaming Plaza, Tower B, Apt 1204',
@@ -320,12 +320,12 @@ export const LargeOrder: Story = {
       zipCode: '500001',
       phone: '+91 99999 88888',
     },
-    
+
     paymentMethod: 'Debit Card (**** 8765)',
     transactionId: 'TXN20250107XYZ9876',
     estimatedDelivery: 'January 12-14, 2025',
     trackingNumber: 'BLUEDART567890123',
-    
+
     onDownloadInvoice: (orderId) => console.log('Download invoice:', orderId),
     onContinueShopping: () => console.log('Continue shopping'),
     onTrackOrder: (orderId) => console.log('Track order:', orderId),
@@ -342,12 +342,12 @@ export const Processing: Story = {
     orderId: 'ORD111222333',
     orderDate: 'January 7, 2025',
     status: 'processing',
-    
+
     headerText: 'Order Received!',
     headerSubtitle: 'We are processing your order. You will receive a confirmation email shortly.',
-    
+
     customerEmail: 'alex.johnson@example.com',
-    
+
     items: [
       {
         id: '1',
@@ -357,13 +357,13 @@ export const Processing: Story = {
         price: 3999,
       },
     ],
-    
+
     subtotal: 3999,
     shippingCost: 99,
     tax: 200,
     total: 4298,
     currency: '₹',
-    
+
     shippingAddress: {
       name: 'Alex Johnson',
       addressLine1: '678 Health Street',
@@ -371,9 +371,9 @@ export const Processing: Story = {
       state: 'Tamil Nadu',
       zipCode: '600001',
     },
-    
+
     estimatedDelivery: 'January 10, 2025',
-    
+
     onDownloadInvoice: (orderId) => console.log('Download invoice:', orderId),
     onContinueShopping: () => console.log('Continue shopping'),
   } as OrderConfirmationProps,
@@ -408,13 +408,13 @@ export const Delivered: Story = {
     orderNumber: 'VTX-2024-999',
     orderDate: 'December 28, 2024',
     status: 'delivered',
-    
+
     headerText: 'Order Delivered!',
     headerSubtitle: 'Your order has been successfully delivered. Thank you for shopping with us!',
-    
+
     customerEmail: 'emma.davis@example.com',
     customerPhone: '+1 (555) 246-8135',
-    
+
     items: [
       {
         id: '1',
@@ -432,13 +432,13 @@ export const Delivered: Story = {
         price: 799,
       },
     ],
-    
+
     subtotal: 6298,
     shippingCost: 75,
     tax: 315,
     total: 6688,
     currency: '₹',
-    
+
     shippingAddress: {
       name: 'Emma Davis',
       addressLine1: '999 Success Road',
@@ -446,14 +446,14 @@ export const Delivered: Story = {
       state: 'West Bengal',
       zipCode: '700001',
     },
-    
+
     paymentMethod: 'Net Banking',
     transactionId: 'TXN20241228ABC5678',
     estimatedDelivery: 'Delivered on January 2, 2025',
     trackingNumber: 'DELIVERED123456',
-    
+
     hideTrackOrder: true, // Hide track order since it's delivered
-    
+
     onDownloadInvoice: (orderId) => console.log('Download invoice:', orderId),
     onContinueShopping: () => console.log('Continue shopping'),
     onViewDetails: (orderId) => console.log('View details:', orderId),

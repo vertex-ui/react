@@ -677,7 +677,6 @@ const DataGridRow = React.memo(({
   isSelected,
   checkboxSelection,
   onRowSelect,
-  index,
   columnsList
 }: {
   row: any,
@@ -686,7 +685,7 @@ const DataGridRow = React.memo(({
   isSelected: boolean,
   checkboxSelection: boolean,
   onRowSelect: (id: string | number) => void,
-  index: number,
+  index?: number,
   columnsList: DataGridColumn[]
 }) => {
   return (

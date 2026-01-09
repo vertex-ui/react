@@ -5,7 +5,7 @@ import type { OrderDetailsProps } from '../../widgets/OrderDetails';
 const meta = {
   title: 'Widgets/OrderDetails',
   component: OrderDetails,
-  parameters: { 
+  parameters: {
     layout: 'padded',
     docs: {
       description: {
@@ -42,7 +42,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /**
- * Complete order details with all features: tracking timeline, multiple items, 
+ * Complete order details with all features: tracking timeline, multiple items,
  * customer info, addresses, payment details, and all action buttons.
  */
 export const Complete: Story = {
@@ -51,12 +51,12 @@ export const Complete: Story = {
     orderNumber: 'VTX-2025-456',
     orderDate: 'January 5, 2025',
     status: 'shipped',
-    
+
     // Customer Information
     customerName: 'Sarah Johnson',
     customerEmail: 'sarah.johnson@example.com',
     customerPhone: '+1 (555) 789-0123',
-    
+
     // Order Items
     items: [
       {
@@ -90,7 +90,7 @@ export const Complete: Story = {
         price: 2499,
       },
     ],
-    
+
     // Pricing
     subtotal: 61995,
     shippingCost: 299,
@@ -99,7 +99,7 @@ export const Complete: Story = {
     total: 59194,
     currency: '₹',
     couponCode: 'WELCOME10',
-    
+
     // Shipping Address
     shippingAddress: {
       name: 'Sarah Johnson',
@@ -110,7 +110,7 @@ export const Complete: Story = {
       zipCode: '560100',
       phone: '+91 98765 43210',
     },
-    
+
     // Billing Address
     billingAddress: {
       name: 'Sarah Johnson',
@@ -121,18 +121,18 @@ export const Complete: Story = {
       zipCode: '560100',
       phone: '+91 98765 43210',
     },
-    
+
     // Payment Information
     paymentMethod: 'Credit Card (**** 5678)',
     paymentStatus: 'paid',
     transactionId: 'TXN20250105XYZ456',
-    
+
     // Delivery & Tracking
     estimatedDelivery: 'January 9-10, 2025',
     trackingNumber: 'BLUEDART123456789',
     trackingUrl: 'https://example.com/track/BLUEDART123456789',
     carrier: 'BlueDart Express',
-    
+
     // Actions
     onDownloadInvoice: (orderId) => console.log('Download invoice:', orderId),
     onTrackOrder: (orderId) => console.log('Track order:', orderId),
@@ -141,7 +141,7 @@ export const Complete: Story = {
     onReorder: (orderId) => console.log('Reorder:', orderId),
     onContactSupport: (orderId) => console.log('Contact support:', orderId),
     onWriteReview: (orderId) => console.log('Write review:', orderId),
-    
+
     showActions: true,
     allowCancel: false, // Can't cancel shipped orders
     allowReturn: false, // Not delivered yet
@@ -158,11 +158,11 @@ export const Processing: Story = {
     orderNumber: 'VTX-2025-123',
     orderDate: 'January 7, 2025',
     status: 'processing',
-    
+
     customerName: 'John Doe',
     customerEmail: 'john.doe@example.com',
     customerPhone: '+1 (555) 123-4567',
-    
+
     items: [
       {
         id: '1',
@@ -181,14 +181,14 @@ export const Processing: Story = {
         variant: 'GPS + Cellular, 44mm',
       },
     ],
-    
+
     subtotal: 37998,
     shippingCost: 150,
     tax: 1900,
     discount: 3800,
     total: 36248,
     currency: '₹',
-    
+
     shippingAddress: {
       name: 'John Doe',
       addressLine1: '123 Main Street, Apartment 4B',
@@ -197,17 +197,17 @@ export const Processing: Story = {
       zipCode: '400001',
       phone: '+91 98765 43210',
     },
-    
+
     paymentMethod: 'UPI (PhonePe)',
     paymentStatus: 'paid',
     transactionId: 'TXN20250107ABC123',
-    
+
     estimatedDelivery: 'January 10-11, 2025',
-    
+
     onDownloadInvoice: (orderId) => console.log('Download invoice:', orderId),
     onCancelOrder: (orderId) => console.log('Cancel order:', orderId),
     onContactSupport: (orderId) => console.log('Contact support:', orderId),
-    
+
     allowCancel: true, // Can cancel while processing
     allowReturn: false,
   } as OrderDetailsProps,
@@ -222,11 +222,11 @@ export const Delivered: Story = {
     orderNumber: 'VTX-2024-999',
     orderDate: 'December 20, 2024',
     status: 'delivered',
-    
+
     customerName: 'Mike Wilson',
     customerEmail: 'mike.wilson@example.com',
     customerPhone: '+1 (555) 246-8135',
-    
+
     items: [
       {
         id: '1',
@@ -245,14 +245,14 @@ export const Delivered: Story = {
         variant: '16000 DPI, RGB',
       },
     ],
-    
+
     subtotal: 13998,
     shippingCost: 100,
     tax: 700,
     discount: 1400,
     total: 13398,
     currency: '₹',
-    
+
     shippingAddress: {
       name: 'Mike Wilson',
       addressLine1: '789 Tech Avenue',
@@ -261,21 +261,21 @@ export const Delivered: Story = {
       zipCode: '411001',
       phone: '+91 91234 56789',
     },
-    
+
     paymentMethod: 'Net Banking (HDFC)',
     paymentStatus: 'paid',
     transactionId: 'TXN20241220DEF789',
-    
+
     deliveredDate: 'December 25, 2024',
     trackingNumber: 'FDX9876543210',
     carrier: 'FedEx',
-    
+
     onDownloadInvoice: (orderId) => console.log('Download invoice:', orderId),
     onReturnOrder: (orderId) => console.log('Return order:', orderId),
     onReorder: (orderId) => console.log('Reorder:', orderId),
     onWriteReview: (orderId) => console.log('Write review:', orderId),
     onContactSupport: (orderId) => console.log('Contact support:', orderId),
-    
+
     allowCancel: false,
     allowReturn: true, // Can return delivered items
     allowReorder: true,
@@ -291,10 +291,10 @@ export const Shipped: Story = {
     orderNumber: 'VTX-2025-333',
     orderDate: 'January 4, 2025',
     status: 'shipped',
-    
+
     customerName: 'Emily Chen',
     customerEmail: 'emily.chen@example.com',
-    
+
     items: [
       {
         id: '1',
@@ -319,7 +319,7 @@ export const Shipped: Story = {
         price: 599,
       },
     ],
-    
+
     subtotal: 6396,
     shippingCost: 0, // Free shipping
     tax: 320,
@@ -327,7 +327,7 @@ export const Shipped: Story = {
     total: 6076,
     currency: '₹',
     couponCode: 'FREESHIP',
-    
+
     shippingAddress: {
       name: 'Emily Chen',
       addressLine1: '321 Park Street, Building C',
@@ -336,18 +336,18 @@ export const Shipped: Story = {
       zipCode: '110001',
       phone: '+91 88888 77777',
     },
-    
+
     paymentMethod: 'Debit Card (**** 1234)',
     paymentStatus: 'paid',
-    
+
     estimatedDelivery: 'January 8, 2025',
     trackingNumber: 'DELHIVERY987654',
     carrier: 'Delhivery',
-    
+
     onDownloadInvoice: (orderId) => console.log('Download invoice:', orderId),
     onTrackOrder: (orderId) => console.log('Track order:', orderId),
     onContactSupport: (orderId) => console.log('Contact support:', orderId),
-    
+
     allowCancel: false, // Can't cancel once shipped
     allowReturn: false,
   } as OrderDetailsProps,
@@ -363,10 +363,10 @@ export const Cancelled: Story = {
     orderDate: 'January 3, 2025',
     status: 'cancelled',
     statusText: 'Cancelled by Customer',
-    
+
     customerName: 'David Kumar',
     customerEmail: 'david.kumar@example.com',
-    
+
     items: [
       {
         id: '1',
@@ -376,13 +376,13 @@ export const Cancelled: Story = {
         price: 4999,
       },
     ],
-    
+
     subtotal: 4999,
     shippingCost: 75,
     tax: 250,
     total: 5324,
     currency: '₹',
-    
+
     shippingAddress: {
       name: 'David Kumar',
       addressLine1: '555 Lake View',
@@ -390,15 +390,15 @@ export const Cancelled: Story = {
       state: 'Telangana',
       zipCode: '500001',
     },
-    
+
     paymentMethod: 'Credit Card (**** 9876)',
     paymentStatus: 'refunded',
     transactionId: 'TXN20250103REF123',
-    
+
     onDownloadInvoice: (orderId) => console.log('Download invoice:', orderId),
     onReorder: (orderId) => console.log('Reorder:', orderId),
     onContactSupport: (orderId) => console.log('Contact support:', orderId),
-    
+
     allowCancel: false,
     allowReturn: false,
     allowReorder: true, // Allow reordering cancelled items
@@ -413,9 +413,9 @@ export const Pending: Story = {
     orderId: 'ORD111222333',
     orderDate: 'January 7, 2025',
     status: 'pending',
-    
+
     customerEmail: 'alex.smith@example.com',
-    
+
     items: [
       {
         id: '1',
@@ -425,13 +425,13 @@ export const Pending: Story = {
         price: 2999,
       },
     ],
-    
+
     subtotal: 2999,
     shippingCost: 50,
     tax: 150,
     total: 3199,
     currency: '₹',
-    
+
     shippingAddress: {
       name: 'Alex Smith',
       addressLine1: '111 New Colony',
@@ -439,15 +439,15 @@ export const Pending: Story = {
       state: 'Tamil Nadu',
       zipCode: '600001',
     },
-    
+
     paymentMethod: 'Cash on Delivery',
     paymentStatus: 'pending',
-    
+
     estimatedDelivery: 'January 11, 2025',
-    
+
     onCancelOrder: (orderId) => console.log('Cancel order:', orderId),
     onContactSupport: (orderId) => console.log('Contact support:', orderId),
-    
+
     allowCancel: true, // Can cancel pending orders
     allowReturn: false,
   } as OrderDetailsProps,
@@ -462,11 +462,11 @@ export const LargeOrder: Story = {
     orderNumber: 'VTX-2025-777',
     orderDate: 'January 6, 2025',
     status: 'confirmed',
-    
+
     customerName: 'Jessica Martinez',
     customerEmail: 'jessica.martinez@example.com',
     customerPhone: '+1 (555) 555-5555',
-    
+
     items: [
       {
         id: '1',
@@ -519,7 +519,7 @@ export const LargeOrder: Story = {
         price: 3499,
       },
     ],
-    
+
     subtotal: 146493,
     shippingCost: 500,
     tax: 7325,
@@ -527,7 +527,7 @@ export const LargeOrder: Story = {
     total: 139669,
     currency: '₹',
     couponCode: 'LAPTOP10',
-    
+
     shippingAddress: {
       name: 'Jessica Martinez',
       addressLine1: '888 Innovation Park, Phase 2',
@@ -537,7 +537,7 @@ export const LargeOrder: Story = {
       zipCode: '560066',
       phone: '+91 99999 11111',
     },
-    
+
     billingAddress: {
       name: 'TechCorp Solutions Pvt Ltd',
       addressLine1: '999 Corporate Street',
@@ -546,19 +546,19 @@ export const LargeOrder: Story = {
       zipCode: '560001',
       phone: '+91 80 2345 6789',
     },
-    
+
     paymentMethod: 'Corporate Card (**** 4321)',
     paymentStatus: 'paid',
     transactionId: 'TXN20250106CORP999',
-    
+
     estimatedDelivery: 'January 9-10, 2025',
     trackingNumber: 'BLUEDART999888777',
     carrier: 'BlueDart Express',
-    
+
     onDownloadInvoice: (orderId) => console.log('Download invoice:', orderId),
     onTrackOrder: (orderId) => console.log('Track order:', orderId),
     onContactSupport: (orderId) => console.log('Contact support:', orderId),
-    
+
     allowCancel: false,
     allowReturn: false,
   } as OrderDetailsProps,

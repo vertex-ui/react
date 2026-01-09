@@ -257,12 +257,12 @@ Short and long aliases are available for all spacing props:
   <Box as="header" mb={4}>
     <Text variant="h2">Article Title</Text>
   </Box>
-  
+
   <Box as="section" mb={4}>
     <Text variant="h4">Section 1</Text>
     <Text>Content...</Text>
   </Box>
-  
+
   <Box as="footer" pt={4} borderTop="1px solid #e0e0e0">
     <Text variant="body2">Footer content</Text>
   </Box>
@@ -281,7 +281,7 @@ Short and long aliases are available for all spacing props:
   >
     Centered Content
   </Box>
-  
+
   <Box position="absolute" top={10} right={10}>
     Top Right Badge
   </Box>
@@ -312,8 +312,8 @@ Short and long aliases are available for all spacing props:
 ### Before (with div)
 
 ```tsx
-<div style={{ 
-  display: 'flex', 
+<div style={{
+  display: 'flex',
   justifyContent: 'space-between',
   padding: '16px',
   backgroundColor: '#f5f5f5',
@@ -374,9 +374,9 @@ Short and long aliases are available for all spacing props:
 
 ```tsx
 // ✅ Good - using theme values
-<Box 
-  p={4} 
-  bg="var(--vtx-color-background)" 
+<Box
+  p={4}
+  bg="var(--vtx-color-background)"
   borderRadius="var(--vtx-border-radius-md)"
 />
 
@@ -388,9 +388,9 @@ Short and long aliases are available for all spacing props:
 
 ```tsx
 // ✅ Good - easy to read
-<Box 
-  display="flex" 
-  flexDirection="column" 
+<Box
+  display="flex"
+  flexDirection="column"
   gap={3}
   p={4}
   bg="white"
