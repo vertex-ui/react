@@ -24,6 +24,13 @@
   box-shadow: var(--vtx-shadow-md);
 }
 
+.orderconfirmation-order-badge {
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
 .orderconfirmation-subtitle {
   color: var(--vtx-color-neutral-600);
   max-width: 400px;
@@ -83,6 +90,19 @@
   font-size: 1.125rem;
 }
 
+.orderconfirmation-value-bold {
+  font-weight: 600;
+}
+
+.orderconfirmation-value-muted {
+  color: var(--vtx-color-text-secondary);
+}
+
+.orderconfirmation-value-primary {
+  color: var(--vtx-color-primary-600);
+  font-weight: 500;
+}
+
 /* Address Card */
 .orderconfirmation-address-card {
   padding: var(--vtx-spacing-4);
@@ -106,11 +126,16 @@
   border: 1px solid var(--vtx-color-neutral-200);
 }
 
+.orderconfirmation-action-btn-primary {
+  flex: 1 1 auto;
+  min-width: 170px;
+}
+
 /* Help Card */
 .orderconfirmation-help-card {
   padding: var(--vtx-spacing-3);
-  background: var(--vtx-color-neutral-50);
-  border: 1px solid var(--vtx-color-neutral-200);
+  background: var(--vtx-color-primary-50);
+  border: 1px solid var(--vtx-color-primary-100);
 }
 
 .orderconfirmation-help-text {

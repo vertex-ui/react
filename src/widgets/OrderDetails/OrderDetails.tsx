@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './OrderDetails.css';
 import { Card } from '../../components/Card';
@@ -133,6 +133,74 @@ export interface OrderDetailsProps extends React.HTMLAttributes<HTMLDivElement> 
   style?: React.CSSProperties;
 }
 
+// Helpers
+const getStatusVariant = (status: string) => {
+  switch (status) {
+    case 'delivered':
+      return 'success';
+    case 'cancelled':
+    case 'returned':
+      return 'error';
+    case 'shipped':
+    case 'processing':
+      return 'info';
+    case 'pending':
+      return 'warning';
+    default:
+      return 'neutral';
+  }
+};
+
+const getPaymentStatusVariant = (paymentStatus: string) => {
+  switch (paymentStatus) {
+    case 'paid':
+      return 'success';
+    case 'failed':
+      return 'error';
+    case 'pending':
+      return 'warning';
+    case 'refunded':
+      return 'info';
+    default:
+      return 'neutral';
+  }
+};
+
+const getTimelineStep = (status: string) => {
+  switch (status) {
+    case 'pending':
+      return 0;
+    case 'processing':
+    case 'confirmed':
+      return 1;
+    case 'shipped':
+      return 2;
+    case 'delivered':
+      return 3;
+    case 'cancelled':
+    case 'returned':
+      return 0;
+    default:
+      return 0;
+  }
+};
+
+const TIMELINE_STEPS = ['Order Placed', 'Packed', 'Shipped', 'Delivered'];
+
+// Memoized Address Component
+const AddressDisplay = React.memo(({ address }: { address: OrderDetailsAddress }) => (
+  <div className="orderdetails-address">
+    <div className="orderdetails-address-name">{address.name}</div>
+    <div>{address.addressLine1}</div>
+    {address.addressLine2 && <div>{address.addressLine2}</div>}
+    <div>
+      {address.city}, {address.state} {address.zipCode}
+    </div>
+    {address.phone && <div>Phone: {address.phone}</div>}
+  </div>
+));
+AddressDisplay.displayName = 'AddressDisplay';
+
 const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
   (
     {
@@ -187,60 +255,12 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
     },
     ref
   ) => {
-  // Get status badge variant
-  const getStatusVariant = () => {
-    switch (status) {
-      case 'delivered':
-        return 'success';
-      case 'cancelled':
-      case 'returned':
-        return 'error';
-      case 'shipped':
-      case 'processing':
-        return 'info';
-      case 'pending':
-        return 'warning';
-      default:
-        return 'neutral';
-    }
-  };
-
-  // Get payment status variant
-  const getPaymentStatusVariant = () => {
-    switch (paymentStatus) {
-      case 'paid':
-        return 'success';
-      case 'failed':
-        return 'error';
-      case 'pending':
-        return 'warning';
-      case 'refunded':
-        return 'info';
-      default:
-        return 'neutral';
-    }
-  };
 
   // Get status text
-  const getStatusText = () => {
+  const statusTextDisplay = useMemo(() => {
     if (statusText) return statusText;
     return status.charAt(0).toUpperCase() + status.slice(1);
-  };
-
-  // Format address
-  const formatAddress = (address: OrderDetailsAddress) => {
-    return (
-      <div className="orderdetails-address">
-        <div className="orderdetails-address-name">{address.name}</div>
-        <div>{address.addressLine1}</div>
-        {address.addressLine2 && <div>{address.addressLine2}</div>}
-        <div>
-          {address.city}, {address.state} {address.zipCode}
-        </div>
-        {address.phone && <div>Phone: {address.phone}</div>}
-      </div>
-    );
-  };
+  }, [status, statusText]);
 
   // Check if order can be cancelled
   const canCancel = allowCancel && (status === 'pending' || status === 'processing');
@@ -251,44 +271,33 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
   // Check if tracking is available
   const hasTracking = trackingNumber && (status === 'shipped' || status === 'delivered');
 
-  // Get timeline current step based on order status
-  const getTimelineStep = () => {
-    switch (status) {
-      case 'pending':
-        return 0;
-      case 'processing':
-      case 'confirmed':
-        return 1;
-      case 'shipped':
-        return 2;
-      case 'delivered':
-        return 3;
-      case 'cancelled':
-      case 'returned':
-        return 0;
-      default:
-        return 0;
-    }
-  };
-
-  const timelineSteps = ['Order Placed', 'Packed', 'Shipped', 'Delivered'];
+  const timelineStep = useMemo(() => getTimelineStep(status), [status]);
 
   // Customer Details Items
-  const customerDetailsItems: InfoListItem[] = [
+  const customerDetailsItems: InfoListItem[] = useMemo(() => [
     customerName ? { label: 'Name', value: customerName } : { label: '', value: '', hidden: true },
     customerEmail ? { label: 'Email', value: customerEmail } : { label: '', value: '', hidden: true },
     customerPhone ? { label: 'Phone', value: customerPhone } : { label: '', value: '', hidden: true },
-  ].filter(item => !item.hidden);
+  ].filter(item => !item.hidden), [customerName, customerEmail, customerPhone]);
 
   // Payment Details Items
-  const paymentDetailsItems: InfoListItem[] = [
+  const paymentDetailsItems: InfoListItem[] = useMemo(() => [
     paymentMethod ? { label: 'Payment Method', value: paymentMethod } : { label: '', value: '', hidden: true },
     paymentStatus ? { 
       label: 'Payment Status', 
-      value: <Badge variant={getPaymentStatusVariant()}>{paymentStatus.charAt(0).toUpperCase() + paymentStatus.slice(1)}</Badge>
+      value: <Badge variant={getPaymentStatusVariant(paymentStatus)}>{paymentStatus.charAt(0).toUpperCase() + paymentStatus.slice(1)}</Badge>
     } : { label: '', value: '', hidden: true },
     transactionId ? { label: 'Transaction ID', value: transactionId, valueClass: 'value-muted' } : { label: '', value: '', hidden: true },
-  ].filter(item => !item.hidden);
+  ].filter(item => !item.hidden), [paymentMethod, paymentStatus, transactionId]);
+
+  // Handlers
+  const handleDownloadInvoice = useCallback(() => onDownloadInvoice?.(orderId), [onDownloadInvoice, orderId]);
+  const handleTrackOrder = useCallback(() => onTrackOrder?.(orderId), [onTrackOrder, orderId]);
+  const handleCancelOrder = useCallback(() => onCancelOrder?.(orderId), [onCancelOrder, orderId]);
+  const handleReturnOrder = useCallback(() => onReturnOrder?.(orderId), [onReturnOrder, orderId]);
+  const handleReorder = useCallback(() => onReorder?.(orderId), [onReorder, orderId]);
+  const handleContactSupport = useCallback(() => onContactSupport?.(orderId), [onContactSupport, orderId]);
+  const handleWriteReview = useCallback(() => onWriteReview?.(orderId), [onWriteReview, orderId]);
 
   // Render skeleton loading state
   if (loading) {
@@ -303,16 +312,16 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
           <Text variant="h3" weight="bold" noMargin>
             Order Details
           </Text>
-          <Text variant="body1" noMargin style={{ color: 'var(--vtx-color-text-secondary)' }}>
+          <Text variant="body1" noMargin className="orderdetails-date">
             Placed on {orderDate}
           </Text>
         </Flex>
 
         {/* Order Status Timeline using Timeline component */}
-        <Card variant="outlined" style={{ padding: '32px 24px' }}>
+        <Card variant="outlined" className="orderdetails-timeline-card">
           <Timeline
-            steps={timelineSteps}
-            currentStep={getTimelineStep()}
+            steps={TIMELINE_STEPS}
+            currentStep={timelineStep}
             orientation="horizontal"
             variant="circle"
             showCheckmarks={true}
@@ -324,9 +333,9 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
         {/* Order Info Cards */}
         <Flex direction="row" gap={16} wrap="wrap">
           {/* Order Number Card */}
-          <Card variant="outlined" style={{ flex: '1 1 200px', minWidth: '200px' }}>
+          <Card variant="outlined" className="orderdetails-info-card">
             <Flex direction="column" gap={8}>
-              <Text variant="caption" noMargin style={{ color: 'var(--vtx-color-text-secondary)', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: 600 }}>
+              <Text variant="caption" noMargin className="orderdetails-info-label">
                 Order Number
               </Text>
               <Text variant="h6" weight="bold" noMargin>
@@ -336,25 +345,30 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
           </Card>
 
           {/* Status Card */}
-          <Card variant="outlined" style={{ flex: '1 1 200px', minWidth: '200px' }}>
+          <Card variant="outlined" className="orderdetails-info-card">
             <Flex direction="column" gap={8}>
-              <Text variant="caption" noMargin style={{ color: 'var(--vtx-color-text-secondary)', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: 600 }}>
+              <Text variant="caption" noMargin className="orderdetails-info-label">
                 Status
               </Text>
-              <Badge variant={getStatusVariant()} style={{ alignSelf: 'flex-start', padding: '4px 12px' }}>
-                {getStatusText()}
+              <Badge variant={getStatusVariant(status)} className="orderdetails-info-badge">
+                {statusTextDisplay}
               </Badge>
             </Flex>
           </Card>
 
           {/* Delivery Date Card */}
           {(deliveredDate || estimatedDelivery) && (
-            <Card variant="outlined" style={{ flex: '1 1 200px', minWidth: '200px' }}>
+            <Card variant="outlined" className="orderdetails-info-card">
               <Flex direction="column" gap={8}>
-                <Text variant="caption" noMargin style={{ color: 'var(--vtx-color-text-secondary)', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: 600 }}>
+                <Text variant="caption" noMargin className="orderdetails-info-label">
                   {deliveredDate ? 'Delivered On' : 'Estimated Delivery'}
                 </Text>
-                <Text variant="h6" weight="bold" noMargin style={{ color: deliveredDate ? 'var(--vtx-color-success-600)' : 'inherit' }}>
+                <Text
+                  variant="h6"
+                  weight="bold"
+                  noMargin
+                  className={deliveredDate ? 'orderdetails-delivery-date' : undefined}
+                >
                   {deliveredDate || estimatedDelivery}
                 </Text>
               </Flex>
@@ -363,12 +377,12 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
 
           {/* Payment Status Card */}
           {paymentStatus && (
-            <Card variant="outlined" style={{ flex: '1 1 200px', minWidth: '200px' }}>
+            <Card variant="outlined" className="orderdetails-info-card">
               <Flex direction="column" gap={8}>
-                <Text variant="caption" noMargin style={{ color: 'var(--vtx-color-text-secondary)', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: 600 }}>
+                <Text variant="caption" noMargin className="orderdetails-info-label">
                   Payment
                 </Text>
-                <Badge variant={getPaymentStatusVariant()} style={{ alignSelf: 'flex-start', padding: '4px 12px' }}>
+                <Badge variant={getPaymentStatusVariant(paymentStatus)} className="orderdetails-info-badge">
                   {paymentStatus.charAt(0).toUpperCase() + paymentStatus.slice(1)}
                 </Badge>
               </Flex>
@@ -383,9 +397,9 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
               <Button
                 variant="outline"
                 size="md"
-                onClick={() => onDownloadInvoice(orderId)}
+                onClick={handleDownloadInvoice}
                 leftIcon={<DownloadIcon size={18} />}
-                style={{ flex: '1 1 auto', minWidth: '180px' }}
+                className="orderdetails-action-btn-primary"
               >
                 {downloadInvoiceText}
               </Button>
@@ -394,9 +408,9 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
               <Button
                 variant="primary"
                 size="md"
-                onClick={() => onTrackOrder(orderId)}
+                onClick={handleTrackOrder}
                 leftIcon={<PackageIcon size={18} />}
-                style={{ flex: '1 1 auto', minWidth: '180px' }}
+                className="orderdetails-action-btn-primary"
               >
                 {trackOrderText}
               </Button>
@@ -418,7 +432,7 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
               <Flex direction="column" gap={12}>
                 {trackingNumber && (
                   <Flex direction="column" gap={4}>
-                    <Text variant="caption" noMargin style={{ color: 'var(--vtx-color-text-secondary)', fontSize: '0.75rem' }}>
+                    <Text variant="caption" noMargin className="orderdetails-info-label">
                       Tracking Number
                     </Text>
                     {trackingUrl ? (
@@ -426,11 +440,7 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
                         href={trackingUrl} 
                         target="_blank" 
                         rel="noopener noreferrer" 
-                        style={{ 
-                          color: 'var(--vtx-color-primary-600)', 
-                          fontWeight: 600,
-                          textDecoration: 'none'
-                        }}
+                        className="orderdetails-tracking-link"
                       >
                         {trackingNumber}
                       </a>
@@ -443,7 +453,7 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
                 )}
                 {carrier && (
                   <Flex direction="column" gap={4}>
-                    <Text variant="caption" noMargin style={{ color: 'var(--vtx-color-text-secondary)', fontSize: '0.75rem' }}>
+                    <Text variant="caption" noMargin className="orderdetails-info-label">
                       Carrier
                     </Text>
                     <Text variant="body2" weight="medium" noMargin>
@@ -595,7 +605,7 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
         {/* Addresses with Icons */}
         <Flex direction="row" gap={16} wrap="wrap">
           {/* Shipping Address */}
-          <Card variant="outlined" className="orderdetails-address-card" style={{ flex: '1 1 280px' }}>
+          <Card variant="outlined" className="orderdetails-address-card">
             <Flex direction="column" gap={12}>
               <Flex align="center" gap={8}>
                 <MapPinIcon size={20} />
@@ -604,13 +614,13 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
                 </Text>
               </Flex>
               <Divider />
-              {formatAddress(shippingAddress)}
+              <AddressDisplay address={shippingAddress} />
             </Flex>
           </Card>
 
           {/* Billing Address */}
           {billingAddress && (
-            <Card variant="outlined" className="orderdetails-address-card" style={{ flex: '1 1 280px' }}>
+            <Card variant="outlined" className="orderdetails-address-card">
               <Flex direction="column" gap={12}>
                 <Flex align="center" gap={8}>
                   <CreditCardIcon size={20} />
@@ -619,7 +629,7 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
                   </Text>
                 </Flex>
                 <Divider />
-                {formatAddress(billingAddress)}
+                <AddressDisplay address={billingAddress} />
               </Flex>
             </Card>
           )}
@@ -641,14 +651,9 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
                   <Button
                     variant="outline"
                     size="md"
-                    onClick={() => onCancelOrder(orderId)}
+                    onClick={handleCancelOrder}
                     leftIcon={<CloseIcon size={18} />}
-                    style={{ 
-                      flex: '1 1 auto', 
-                      minWidth: '160px',
-                      borderColor: 'var(--vtx-color-error-500)', 
-                      color: 'var(--vtx-color-error-600)' 
-                    }}
+                    className="orderdetails-action-btn-secondary orderdetails-cancel-btn"
                   >
                     {cancelOrderText}
                   </Button>
@@ -657,9 +662,9 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
                   <Button
                     variant="outline"
                     size="md"
-                    onClick={() => onReturnOrder(orderId)}
+                    onClick={handleReturnOrder}
                     leftIcon={<ReturnIcon size={18} />}
-                    style={{ flex: '1 1 auto', minWidth: '160px' }}
+                    className="orderdetails-action-btn-secondary"
                   >
                     {returnOrderText}
                   </Button>
@@ -668,9 +673,9 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
                   <Button
                     variant="outline"
                     size="md"
-                    onClick={() => onReorder(orderId)}
+                    onClick={handleReorder}
                     leftIcon={<RefreshIcon size={18} />}
-                    style={{ flex: '1 1 auto', minWidth: '160px' }}
+                    className="orderdetails-action-btn-secondary"
                   >
                     {reorderText}
                   </Button>
@@ -683,9 +688,9 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
                   <Button
                     variant="ghost"
                     size="md"
-                    onClick={() => onWriteReview(orderId)}
+                    onClick={handleWriteReview}
                     leftIcon={<StarIcon size={18} />}
-                    style={{ flex: '1 1 auto', minWidth: '160px' }}
+                    className="orderdetails-action-btn-secondary"
                   >
                     {writeReviewText}
                   </Button>
@@ -694,9 +699,9 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
                   <Button
                     variant="ghost"
                     size="md"
-                    onClick={() => onContactSupport(orderId)}
+                    onClick={handleContactSupport}
                     leftIcon={<MessageIcon size={18} />}
-                    style={{ flex: '1 1 auto', minWidth: '160px' }}
+                    className="orderdetails-action-btn-secondary"
                   >
                     {contactSupportText}
                   </Button>
@@ -707,7 +712,7 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
         )}
 
         {/* Help Text with Better Design */}
-        <Card variant="filled" className="orderdetails-help-card" style={{ background: 'var(--vtx-color-primary-50)', border: '1px solid var(--vtx-color-primary-100)' }}>
+        <Card variant="filled" className="orderdetails-help-card">
           <Flex direction="column" gap={12} align="center">
             <Flex align="center" gap={8}>
               <MessageIcon size={20} />
@@ -715,13 +720,13 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
                 Need Help?
               </Text>
             </Flex>
-            <Text variant="body2" align="center" noMargin style={{ color: 'var(--vtx-color-text-secondary)' }}>
+            <Text variant="body2" align="center" noMargin className="orderdetails-help-text">
               Our support team is available 24/7 to assist you with your order
             </Text>
             <Flex direction="row" gap={16} wrap="wrap" justify="center" style={{ marginTop: '4px' }}>
               <Flex align="center" gap={6}>
                 <MessageIcon size={16} />
-                <Text variant="body2" weight="medium" noMargin>
+                <Text variant="body2" weight="medium" noMargin className="orderdetails-help-email">
                   support@example.com
                 </Text>
               </Flex>

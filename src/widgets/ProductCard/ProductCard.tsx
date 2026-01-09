@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './ProductCard.css';
 import { Card } from '../../components/Card';
@@ -48,6 +48,68 @@ export interface ProductCardProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
   style?: React.CSSProperties;
 }
+
+// Custom hook to manage cart logic
+const useProductCart = (
+  id: string | undefined,
+  initialQuantity: number,
+  onAddToCart?: (id?: string, quantity?: number) => void | Promise<void>,
+  onIncrementCart?: (id?: string, quantity?: number) => void | Promise<void>,
+  onDecrementCart?: (id?: string, quantity?: number) => void | Promise<void>,
+) => {
+  const [quantity, setQuantity] = useState(initialQuantity);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleAddToCart = useCallback(async () => {
+    if (!onAddToCart) return;
+
+    setIsLoading(true);
+    try {
+      await onAddToCart(id, 1);
+      setQuantity(1);
+    } catch (error) {
+      console.error('Add to cart error:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [id, onAddToCart]);
+
+  const handleIncrement = useCallback(async () => {
+    if (!onIncrementCart) return;
+
+    setIsLoading(true);
+    try {
+      await onIncrementCart(id, quantity);
+      setQuantity(prev => prev + 1);
+    } catch (error) {
+      console.error('Increment error:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [id, quantity, onIncrementCart]);
+
+  const handleDecrement = useCallback(async () => {
+    if (!onDecrementCart || quantity <= 0) return;
+
+    setIsLoading(true);
+    try {
+      await onDecrementCart(id, quantity);
+      setQuantity(prev => prev - 1);
+    } catch (error) {
+      console.error('Decrement error:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [id, quantity, onDecrementCart]);
+
+  return {
+    quantity,
+    isLoading,
+    handleAddToCart,
+    handleIncrement,
+    handleDecrement
+  };
+};
 
 /**
  * ProductCard.Base - Standard product card
@@ -107,50 +169,13 @@ const ProductCardBase = React.forwardRef<HTMLDivElement, ProductCardProps>(
     },
     ref
   ) => {
-  const [quantity, setQuantity] = useState(initialQuantity);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleAddToCart = async () => {
-    if (!onAddToCart) return;
-    
-    setIsLoading(true);
-    try {
-      await onAddToCart(id, 1);
-      setQuantity(1);
-    } catch (error) {
-      console.error('Add to cart error:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleIncrement = async () => {
-    if (!onIncrementCart) return;
-    
-    setIsLoading(true);
-    try {
-      await onIncrementCart(id, quantity);
-      setQuantity(quantity + 1);
-    } catch (error) {
-      console.error('Increment error:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleDecrement = async () => {
-    if (!onDecrementCart || quantity <= 0) return;
-    
-    setIsLoading(true);
-    try {
-      await onDecrementCart(id, quantity);
-      setQuantity(quantity - 1);
-    } catch (error) {
-      console.error('Decrement error:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const { quantity, isLoading, handleAddToCart, handleIncrement, handleDecrement } = useProductCart(
+    id,
+    initialQuantity,
+    onAddToCart,
+    onIncrementCart,
+    onDecrementCart
+  );
 
   const showLoading = isLoading || loading;
 
@@ -248,8 +273,7 @@ const ProductCardBase = React.forwardRef<HTMLDivElement, ProductCardProps>(
                     <Chip
                       label={category}
                       variant="outlined"
-                      className="productcard-category"
-                      style={{ cursor: 'pointer' }}
+                      className="productcard-category pointer-cursor"
                     />
                   </LinkComponent>
                 ) : (
@@ -257,8 +281,7 @@ const ProductCardBase = React.forwardRef<HTMLDivElement, ProductCardProps>(
                     <Chip
                       label={category}
                       variant="outlined"
-                      className="productcard-category"
-                      style={{ cursor: 'pointer' }}
+                      className="productcard-category pointer-cursor"
                     />
                   </a>
                 )
@@ -434,47 +457,13 @@ const ProductCardWide = React.forwardRef<HTMLDivElement, ProductCardWideProps>(
     style,
   } = props;
 
-  const [quantity, setQuantity] = useState(initialQuantity);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleAddToCart = async () => {
-    if (!onAddToCart) return;
-    setIsLoading(true);
-    try {
-      await onAddToCart(id, 1);
-      setQuantity(1);
-    } catch (error) {
-      console.error('Add to cart error:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleIncrement = async () => {
-    if (!onIncrementCart) return;
-    setIsLoading(true);
-    try {
-      await onIncrementCart(id, quantity);
-      setQuantity(quantity + 1);
-    } catch (error) {
-      console.error('Increment error:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleDecrement = async () => {
-    if (!onDecrementCart || quantity <= 0) return;
-    setIsLoading(true);
-    try {
-      await onDecrementCart(id, quantity);
-      setQuantity(quantity - 1);
-    } catch (error) {
-      console.error('Decrement error:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const { quantity, isLoading, handleAddToCart, handleIncrement, handleDecrement } = useProductCart(
+    id,
+    initialQuantity,
+    onAddToCart,
+    onIncrementCart,
+    onDecrementCart
+  );
 
   const showLoading = isLoading || loading;
 
@@ -682,47 +671,13 @@ const ProductCardMinimal = React.forwardRef<HTMLDivElement, ProductCardProps>(
     style,
   } = props;
 
-  const [quantity, setQuantity] = useState(initialQuantity);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleAddToCart = async () => {
-    if (!onAddToCart) return;
-    setIsLoading(true);
-    try {
-      await onAddToCart(id, 1);
-      setQuantity(1);
-    } catch (error) {
-      console.error('Add to cart error:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleIncrement = async () => {
-    if (!onIncrementCart) return;
-    setIsLoading(true);
-    try {
-      await onIncrementCart(id, quantity);
-      setQuantity(quantity + 1);
-    } catch (error) {
-      console.error('Increment error:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleDecrement = async () => {
-    if (!onDecrementCart || quantity <= 0) return;
-    setIsLoading(true);
-    try {
-      await onDecrementCart(id, quantity);
-      setQuantity(quantity - 1);
-    } catch (error) {
-      console.error('Decrement error:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const { quantity, isLoading, handleAddToCart, handleIncrement, handleDecrement } = useProductCart(
+    id,
+    initialQuantity,
+    onAddToCart,
+    onIncrementCart,
+    onDecrementCart
+  );
 
   const showLoading = isLoading || loading;
 
@@ -838,9 +793,9 @@ const ProductCardMinimal = React.forwardRef<HTMLDivElement, ProductCardProps>(
 
 ProductCardMinimal.displayName = 'ProductCardMinimal';
 
-const ProductCardBaseWithParsedClasses = withParsedClasses(ProductCardBase);
-const ProductCardWideWithParsedClasses = withParsedClasses(ProductCardWide);
-const ProductCardMinimalWithParsedClasses = withParsedClasses(ProductCardMinimal);
+const ProductCardBaseWithParsedClasses = withParsedClasses(React.memo(ProductCardBase));
+const ProductCardWideWithParsedClasses = withParsedClasses(React.memo(ProductCardWide));
+const ProductCardMinimalWithParsedClasses = withParsedClasses(React.memo(ProductCardMinimal));
 
 export const ProductCard = {
   Base: ProductCardBaseWithParsedClasses as React.FC<ProductCardProps & React.RefAttributes<HTMLDivElement>>,

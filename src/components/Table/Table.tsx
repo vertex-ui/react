@@ -287,59 +287,145 @@ export interface TableProps<T = unknown> extends Omit<
   onFiltersChange?: (filters: Record<string, string>) => void;
 }
 
+// Memoized Table Row Component
+const TableRow = React.memo(({
+  row,
+  rowIndex,
+  rowKey,
+  columns,
+  isSelected,
+  isExpanded,
+  selectable,
+  expandableRows,
+  renderExpandedRow,
+  onRowClick,
+  onRowSelect,
+  onRowSelection,
+  onExpandRow,
+}: {
+  row: any;
+  rowIndex: number;
+  rowKey: string | number;
+  columns: TableColumn[];
+  isSelected: boolean;
+  isExpanded: boolean;
+  selectable: boolean;
+  expandableRows: boolean;
+  renderExpandedRow?: (row: any, rowIndex: number) => React.ReactNode;
+  onRowClick?: (row: any, index: number, event: React.MouseEvent<HTMLTableRowElement>) => void;
+  onRowSelect?: (row: any, index: number) => void;
+  onRowSelection?: (rowKey: string | number, checked: boolean) => void;
+  onExpandRow?: (rowKey: string | number) => void;
+}) => {
+  const rowClassNames = [
+    'vtx-table-row',
+    isSelected && 'vtx-table-row--selected',
+    isExpanded && 'vtx-table-row--expanded',
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  const handleClick = (e: React.MouseEvent<HTMLTableRowElement>) => {
+    if (!selectable || (e.target as HTMLElement).closest('input, button')) {
+      if (onRowSelect) {
+        onRowSelect(row, rowIndex);
+      }
+      onRowClick?.(row, rowIndex, e);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTableRowElement>) => {
+    if (onRowClick && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      handleClick(e as unknown as React.MouseEvent<HTMLTableRowElement>);
+    }
+  };
+
+  return (
+    <React.Fragment>
+      <tr
+        className={rowClassNames}
+        onClick={handleClick}
+        role={onRowClick ? 'button' : undefined}
+        tabIndex={onRowClick ? 0 : undefined}
+        aria-selected={isSelected}
+        onKeyDown={handleKeyDown}
+      >
+        {selectable && (
+          <td className="vtx-table-cell vtx-table-cell--checkbox">
+            <Checkbox
+              checked={isSelected}
+              onChange={(e) => {
+                e.stopPropagation();
+                onRowSelection?.(rowKey, e.target.checked);
+              }}
+              aria-label={`Select row ${rowIndex + 1}`}
+            />
+          </td>
+        )}
+        {expandableRows && (
+          <td className="vtx-table-cell vtx-table-cell--expand">
+            <button
+              className="vtx-table-expand-button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onExpandRow?.(rowKey);
+              }}
+              aria-label={isExpanded ? 'Collapse row' : 'Expand row'}
+              aria-expanded={isExpanded}
+            >
+              {isExpanded ? <ChevronUpIcon size={16} /> : <ChevronDownIcon size={16} />}
+            </button>
+          </td>
+        )}
+        {columns.map((column) => {
+          const cellClassNames = [
+            'vtx-table-cell',
+            column.sticky && `vtx-table-cell--sticky-${column.sticky}`,
+            column.className,
+          ]
+            .filter(Boolean)
+            .join(' ');
+
+          return (
+            <td
+              key={column.key}
+              className={cellClassNames}
+              style={{
+                textAlign: column.align || 'left',
+                width: column.width,
+                minWidth: column.minWidth,
+                maxWidth: column.maxWidth,
+              }}
+            >
+              {column.render
+                ? column.render(row, rowIndex)
+                : ((row as Record<string, unknown>)[column.key] as React.ReactNode)}
+            </td>
+          );
+        })}
+      </tr>
+      {expandableRows && isExpanded && renderExpandedRow && (
+        <tr className="vtx-table-row-expanded">
+          <td
+            colSpan={columns.length + (selectable ? 1 : 0) + 1}
+            className="vtx-table-cell-expanded"
+          >
+            {renderExpandedRow(row, rowIndex)}
+          </td>
+        </tr>
+      )}
+    </React.Fragment>
+  );
+});
+
+TableRow.displayName = 'TableRow';
+
 /**
  * Table component - Displays data in rows and columns with advanced features
  *
  * A comprehensive table component with support for sorting, selection, loading states,
  * sticky columns, and customizable rendering.
- *
- * @example
- * Basic usage
- * ```tsx
- * const columns = [
- *   { key: 'name', header: 'Name' },
- *   { key: 'email', header: 'Email' },
- *   { key: 'role', header: 'Role', align: 'center' },
- * ];
- *
- * const data = [
- *   { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Admin' },
- * ];
- *
- * <Table
- *   columns={columns}
- *   data={data}
- *   getRowKey={(row) => row.id}
- *   striped
- * />
- * ```
- *
- * @example
- * With sorting and row click
- * ```tsx
- * <Table
- *   columns={columns}
- *   data={data}
- *   getRowKey={(row) => row.id}
- *   sortable
- *   onRowClick={(row) => console.log('Clicked:', row)}
- * />
- * ```
- *
- * @example
- * With loading state and custom rendering
- * ```tsx
- * <Table
- *   columns={[
- *     { key: 'name', header: 'Name', sticky: 'left' },
- *     { key: 'status', header: 'Status', render: (row) => <Badge>{row.status}</Badge> }
- *   ]}
- *   data={data}
- *   getRowKey={(row) => row.id}
- *   loading={isLoading}
- *   maxHeight="400px"
- * />
- * ```
  */
 function Table<T = unknown>({
   columns,
@@ -619,13 +705,6 @@ function Table<T = unknown>({
     .filter(Boolean)
     .join(' ');
 
-  const handleRowClick = (row: T, index: number, event: React.MouseEvent<HTMLTableRowElement>) => {
-    if (onRowSelect) {
-      onRowSelect(row, index);
-    }
-    onRowClick?.(row, index, event);
-  };
-
   const renderSortIcon = (columnKey: string) => {
     if (!sortable) return null;
 
@@ -824,102 +903,24 @@ function Table<T = unknown>({
                 const rowKey = getRowKey(row, rowIndex);
                 const isSelected = currentSelectedRows.includes(rowKey);
                 const isExpanded = currentExpandedRows.includes(rowKey);
-                const rowClassNames = [
-                  'vtx-table-row',
-                  isSelected && 'vtx-table-row--selected',
-                  isExpanded && 'vtx-table-row--expanded',
-                ]
-                  .filter(Boolean)
-                  .join(' ');
 
                 return (
-                  <React.Fragment key={rowKey}>
-                    <tr
-                      className={rowClassNames}
-                      onClick={(e) => {
-                        if (!selectable || (e.target as HTMLElement).closest('input, button')) {
-                          handleRowClick(row, rowIndex, e);
-                        }
-                      }}
-                      role={onRowClick ? 'button' : undefined}
-                      tabIndex={onRowClick ? 0 : undefined}
-                      aria-selected={isSelected}
-                      onKeyDown={(e) => {
-                        if (onRowClick && (e.key === 'Enter' || e.key === ' ')) {
-                          e.preventDefault();
-                          handleRowClick(
-                            row,
-                            rowIndex,
-                            e as unknown as React.MouseEvent<HTMLTableRowElement>
-                          );
-                        }
-                      }}
-                    >
-                      {selectable && (
-                        <td className="vtx-table-cell vtx-table-cell--checkbox">
-                          <Checkbox
-                            checked={isSelected}
-                            onChange={(e) => {
-                              e.stopPropagation();
-                              handleRowSelection(rowKey, e.target.checked);
-                            }}
-                            aria-label={`Select row ${rowIndex + 1}`}
-                          />
-                        </td>
-                      )}
-                      {expandableRows && (
-                        <td className="vtx-table-cell vtx-table-cell--expand">
-                          <button
-                            className="vtx-table-expand-button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleExpandRow(rowKey);
-                            }}
-                            aria-label={isExpanded ? 'Collapse row' : 'Expand row'}
-                            aria-expanded={isExpanded}
-                          >
-                            {isExpanded ? <ChevronUpIcon size={16} /> : <ChevronDownIcon size={16} />}
-                          </button>
-                        </td>
-                      )}
-                      {columns.map((column) => {
-                        const cellClassNames = [
-                          'vtx-table-cell',
-                          column.sticky && `vtx-table-cell--sticky-${column.sticky}`,
-                          column.className,
-                        ]
-                          .filter(Boolean)
-                          .join(' ');
-
-                        return (
-                          <td
-                            key={column.key}
-                            className={cellClassNames}
-                            style={{
-                              textAlign: column.align || 'left',
-                              width: column.width,
-                              minWidth: column.minWidth,
-                              maxWidth: column.maxWidth,
-                            }}
-                          >
-                            {column.render
-                              ? column.render(row, rowIndex)
-                              : ((row as Record<string, unknown>)[column.key] as React.ReactNode)}
-                          </td>
-                        );
-                      })}
-                    </tr>
-                    {expandableRows && isExpanded && renderExpandedRow && (
-                      <tr className="vtx-table-row-expanded">
-                        <td
-                          colSpan={columns.length + (selectable ? 1 : 0) + 1}
-                          className="vtx-table-cell-expanded"
-                        >
-                          {renderExpandedRow(row, rowIndex)}
-                        </td>
-                      </tr>
-                    )}
-                  </React.Fragment>
+                  <TableRow
+                    key={rowKey}
+                    row={row}
+                    rowIndex={rowIndex}
+                    rowKey={rowKey}
+                    columns={columns}
+                    isSelected={isSelected}
+                    isExpanded={isExpanded}
+                    selectable={selectable}
+                    expandableRows={expandableRows}
+                    renderExpandedRow={renderExpandedRow}
+                    onRowClick={onRowClick}
+                    onRowSelect={onRowSelect}
+                    onRowSelection={handleRowSelection}
+                    onExpandRow={handleExpandRow}
+                  />
                 );
               })
             )}

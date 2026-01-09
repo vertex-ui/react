@@ -372,3 +372,7 @@ textarea {
   font-size: inherit;
   line-height: inherit;
 }
+
+.pointer-cursor {
+  cursor: pointer;
+}

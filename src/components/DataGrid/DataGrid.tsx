@@ -341,6 +341,37 @@ const getOperatorsForColumnType = (type: string = 'string'): GridFilterOperator[
   }
 };
 
+const getCellPinnedStyle = (column: DataGridColumn, index: number, columns: DataGridColumn[], checkboxSelection: boolean, isHeader = false) => {
+  if (!column.pinned) return {};
+
+  const style: React.CSSProperties = {
+    position: 'sticky',
+    zIndex: isHeader ? 101 : 100,
+    background: isHeader ? '#fafafa' : 'inherit',
+  };
+
+  if (column.pinned === 'left') {
+    let leftOffset = checkboxSelection ? 58 : 0;
+    for (let i = 0; i < index; i++) {
+      if (columns[i].pinned === 'left') {
+        leftOffset += columns[i].width || 150;
+      }
+    }
+    style.left = leftOffset;
+  } else if (column.pinned === 'right') {
+    let rightOffset = 0;
+    const colIndex = columns.indexOf(column);
+    for (let i = colIndex + 1; i < columns.length; i++) {
+      if (columns[i].pinned === 'right') {
+        rightOffset += columns[i].width || 150;
+      }
+    }
+    style.right = rightOffset;
+  }
+
+  return style;
+};
+
 // Column Menu Component
 const ColumnMenu: React.FC<{
   column: DataGridColumn;
@@ -638,6 +669,65 @@ const FilterPanel: React.FC<{
   );
 };
 
+// Memoized DataGrid Row
+const DataGridRow = React.memo(({
+  row,
+  rowId,
+  columns,
+  isSelected,
+  checkboxSelection,
+  onRowSelect,
+  index,
+  columnsList
+}: {
+  row: any,
+  rowId: string | number,
+  columns: DataGridColumn[],
+  isSelected: boolean,
+  checkboxSelection: boolean,
+  onRowSelect: (id: string | number) => void,
+  index: number,
+  columnsList: DataGridColumn[]
+}) => {
+  return (
+    <tr
+      className={`vertex-datagrid-row ${isSelected ? 'vertex-datagrid-row--selected' : ''}`}
+    >
+      {checkboxSelection && (
+        <td className="vertex-datagrid-td vertex-datagrid-checkbox-cell">
+          <Checkbox
+            checked={isSelected}
+            onChange={() => onRowSelect(rowId)}
+          />
+        </td>
+      )}
+      {columns.map((column, colIndex) => {
+        const value = column.valueGetter ? column.valueGetter(row) : row[column.field];
+        const formattedValue = column.valueFormatter ? column.valueFormatter(value) : value;
+        const cellContent = column.renderCell
+          ? column.renderCell({ row, value, field: column.field })
+          : formattedValue;
+        const pinnedStyle = getCellPinnedStyle(column, colIndex, columnsList, checkboxSelection, false);
+
+        return (
+          <td
+            key={column.field}
+            className={`vertex-datagrid-td ${column.pinned ? `vertex-datagrid-td--pinned-${column.pinned}` : ''}`}
+            style={{
+              textAlign: column.align || 'left',
+              ...pinnedStyle,
+            }}
+          >
+            {cellContent}
+          </td>
+        );
+      })}
+    </tr>
+  );
+});
+
+DataGridRow.displayName = 'DataGridRow';
+
 // Main DataGrid component
 const DataGridBase = ({
   columns,
@@ -853,37 +943,6 @@ const DataGridBase = ({
   const densityClass = `vertex-datagrid--${density}`;
   const sizeClass = `vertex-datagrid--${gridSize}`;
 
-  const getCellPinnedStyle = (column: DataGridColumn, index: number, isHeader = false) => {
-    if (!column.pinned) return {};
-    
-    const style: React.CSSProperties = {
-      position: 'sticky',
-      zIndex: isHeader ? 101 : 100,
-      background: isHeader ? '#fafafa' : 'inherit',
-    };
-    
-    if (column.pinned === 'left') {
-      let leftOffset = checkboxSelection ? 58 : 0;
-      for (let i = 0; i < index; i++) {
-        if (columns[i].pinned === 'left') {
-          leftOffset += columns[i].width || 150;
-        }
-      }
-      style.left = leftOffset;
-    } else if (column.pinned === 'right') {
-      let rightOffset = 0;
-      const colIndex = columns.indexOf(column);
-      for (let i = colIndex + 1; i < columns.length; i++) {
-        if (columns[i].pinned === 'right') {
-          rightOffset += columns[i].width || 150;
-        }
-      }
-      style.right = rightOffset;
-    }
-    
-    return style;
-  };
-
   return (
     <div
       className={`vertex-datagrid ${densityClass} ${sizeClass} ${autoHeight ? 'vertex-datagrid--auto-height' : ''} ${className || ''}`}
@@ -908,7 +967,7 @@ const DataGridBase = ({
                 const isSorted = !!sortItem;
                 const sortDirection = sortItem?.sort;
                 const hasFilter = filterModel.items.some(item => item.field === column.field);
-                const pinnedStyle = getCellPinnedStyle(column, colIndex, true);
+                const pinnedStyle = getCellPinnedStyle(column, colIndex, columns, checkboxSelection, true);
 
                 return (
                   <th
@@ -1035,40 +1094,17 @@ const DataGridBase = ({
                 const isSelected = selectionModel.includes(rowId);
 
                 return (
-                  <tr
+                  <DataGridRow
                     key={rowId}
-                    className={`vertex-datagrid-row ${isSelected ? 'vertex-datagrid-row--selected' : ''}`}
-                  >
-                    {checkboxSelection && (
-                      <td className="vertex-datagrid-td vertex-datagrid-checkbox-cell">
-                        <Checkbox
-                          checked={isSelected}
-                          onChange={() => handleRowSelect(rowId)}
-                        />
-                      </td>
-                    )}
-                    {columns.map((column, colIndex) => {
-                      const value = column.valueGetter ? column.valueGetter(row) : row[column.field];
-                      const formattedValue = column.valueFormatter ? column.valueFormatter(value) : value;
-                      const cellContent = column.renderCell
-                        ? column.renderCell({ row, value, field: column.field })
-                        : formattedValue;
-                      const pinnedStyle = getCellPinnedStyle(column, colIndex, false);
-
-                      return (
-                        <td
-                          key={column.field}
-                          className={`vertex-datagrid-td ${column.pinned ? `vertex-datagrid-td--pinned-${column.pinned}` : ''}`}
-                          style={{
-                            textAlign: column.align || 'left',
-                            ...pinnedStyle,
-                          }}
-                        >
-                          {cellContent}
-                        </td>
-                      );
-                    })}
-                  </tr>
+                    row={row}
+                    rowId={rowId}
+                    columns={columns}
+                    isSelected={isSelected}
+                    checkboxSelection={checkboxSelection}
+                    onRowSelect={handleRowSelect}
+                    index={rowIndex}
+                    columnsList={columns}
+                  />
                 );
               })
             )}
