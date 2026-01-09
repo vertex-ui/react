@@ -282,10 +282,10 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   return (
     <Flex direction="column" gap={8} className={`vtx-fileupload-wrapper ${className}`}>
       {label && (
-        <Text as="label" htmlFor={id} variant="label" className="vtx-fileupload-label">
+        <label htmlFor={id} className="vtx-text vtx-text--label vtx-fileupload-label">
           {label}
           {required && <span className="vtx-fileupload-label__required"> *</span>}
-        </Text>
+        </label>
       )}
 
       <div
