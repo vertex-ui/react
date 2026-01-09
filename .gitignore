@@ -47,3 +47,5 @@ storybook-static
 *.temp
 
 *storybook.log
+package-lock.json
+yarn.lock
