@@ -62,28 +62,6 @@
   z-index: 2;
 }
 
-.productcard-featured-badge {
-  background: linear-gradient(135deg, var(--vtx-color-primary-600, #2563eb) 0%, var(--vtx-color-secondary-600, #7c3aed) 100%);
-  color: var(--vtx-color-neutral-50, #ffffff);
-  font-size: 11px;
-  font-weight: 600;
-  padding: 4px 10px;
-  border-radius: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: var(--vtx-shadow-sm, 0 2px 8px rgba(0, 0, 0, 0.15));
-}
-
-.productcard-discount-badge {
-  background: var(--vtx-color-error-600, #dc2626);
-  color: var(--vtx-color-neutral-50, #ffffff);
-  font-size: 12px;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 4px;
-  box-shadow: var(--vtx-shadow-sm, 0 2px 8px rgba(220, 38, 38, 0.3));
-}
-
 /* Wishlist Button */
 .productcard-wishlist-btn {
   position: absolute;
@@ -213,6 +191,11 @@
   min-width: 40px;
 }
 
+.productcard-quantity-readonly {
+    height: 44px;
+    padding-left: 4px;
+}
+
 /* ==================== Compact ProductCard ==================== */
 .productcard-compact {
   transition: box-shadow 0.2s ease-in-out;
@@ -269,8 +252,8 @@
 
 .productcard-image-list-wrapper {
   position: relative;
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   flex-shrink: 0;
   overflow: hidden;
   border-radius: 8px;
@@ -291,19 +274,21 @@
 }
 
 .productcard-quantity-btn {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   border: 1px solid var(--vtx-color-neutral-300, #d0d0d0);
   border-radius: 4px;
   background-color: var(--vtx-color-neutral-50, #fafafa);
   color: var(--vtx-color-text-primary, #212121);
   font-size: 1rem;
+  line-height: 1;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0;
 }
 
 .productcard-quantity-btn:hover {
@@ -313,6 +298,11 @@
 
 .productcard-quantity-btn:active {
   transform: scale(0.95);
+}
+
+.productcard-quantity-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 /* ==================== Featured ProductCard ==================== */
@@ -461,13 +451,6 @@
   position: absolute;
   top: 10px;
   left: 10px;
-  background: var(--vtx-color-error-600, #dc2626);
-  color: var(--vtx-color-neutral-50, #ffffff);
-  font-size: 11px;
-  font-weight: 700;
-  padding: 4px 8px;
-  border-radius: 4px;
-  box-shadow: var(--vtx-shadow-sm, 0 2px 6px rgba(220, 38, 38, 0.3));
   z-index: 2;
 }
 
