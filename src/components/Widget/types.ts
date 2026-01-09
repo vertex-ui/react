@@ -170,10 +170,21 @@ export interface ProductWidgetData extends BaseWidgetData {
   price: number | string;
   originalPrice?: number | string;
   category?: string;
+  categoryHref?: string;
+  categoryUrl?: string;
   rating?: number;
   reviews?: number;
   inStock?: boolean;
   tags?: string[];
+  imageAlt?: string;
+  weight?: number;
+  units?: string;
+  discount?: string;
+  initialQuantity?: number;
+  featured?: boolean;
+  featuredText?: string;
+  href?: string;
+  url?: string;
 }
 
 /**
@@ -185,6 +196,21 @@ export interface ProductWidgetSettings extends BaseWidgetSettings {
   showTags?: boolean;
   imagePosition?: 'top' | 'left' | 'right';
   cardStyle?: 'elevated' | 'outlined' | 'flat';
+  showWishlist?: boolean;
+  isWishlisted?: boolean;
+  cartIcon?: React.ReactNode;
+  wishlistIcon?: React.ReactNode;
+  wishlistFilledIcon?: React.ReactNode;
+  quickViewIcon?: React.ReactNode;
+  linkComponent?: React.ComponentType<any>;
+  onAddToCart?: (id?: string, quantity?: number) => void | Promise<void>;
+  onIncrementCart?: (id?: string, quantity?: number) => void | Promise<void>;
+  onDecrementCart?: (id?: string, quantity?: number) => void | Promise<void>;
+  onWishlist?: () => void;
+  onQuickView?: () => void;
+  onClick?: () => void;
+  onCategoryClick?: () => void;
+  loading?: boolean;
 }
 
 // ========================================================================
