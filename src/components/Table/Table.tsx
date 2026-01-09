@@ -15,6 +15,7 @@ import {
   ChevronsRightIcon,
   ChevronDownIcon,
   ChevronUpIcon,
+  DashIcon
 } from '../../icons/IconComponents';
 import './Table.css';
 
@@ -948,7 +949,8 @@ function Table<T = unknown>({
             </Flex>
             <Flex align="center" gap={16}>
               <Text variant="body2" textColor="var(--color-neutral-600)" noMargin>
-                {currentPage * currentRowsPerPage + 1}–
+                  {currentPage * currentRowsPerPage + 1}
+                  <DashIcon style={{ margin: '0 4px', verticalAlign: 'middle' }} />
                 {Math.min((currentPage + 1) * currentRowsPerPage, filteredData.length)} of{' '}
                 {filteredData.length}
               </Text>
