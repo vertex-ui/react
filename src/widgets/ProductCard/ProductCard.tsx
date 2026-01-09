@@ -244,21 +244,19 @@ const ProductCardBase = React.forwardRef<HTMLDivElement, ProductCardProps>(
             <div style={{ display: 'inline-flex', alignSelf: 'flex-start' }}>
               {categoryHref ? (
                 LinkComponent ? (
-                  <LinkComponent href={categoryHref} style={{ textDecoration: 'none' }}>
+                  <LinkComponent href={categoryHref} style={{ textDecoration: 'none', cursor: 'pointer' }}>
                     <Chip
                       label={category}
                       variant="outlined"
                       className="productcard-category"
-                      style={{ cursor: 'pointer' }}
                     />
                   </LinkComponent>
                 ) : (
-                  <a href={categoryHref} style={{ textDecoration: 'none' }}>
+                  <a href={categoryHref} style={{ textDecoration: 'none', cursor: 'pointer' }}>
                     <Chip
                       label={category}
                       variant="outlined"
                       className="productcard-category"
-                      style={{ cursor: 'pointer' }}
                     />
                   </a>
                 )
@@ -268,7 +266,6 @@ const ProductCardBase = React.forwardRef<HTMLDivElement, ProductCardProps>(
                   variant="outlined"
                   className="productcard-category"
                   onClick={onCategoryClick}
-                  style={{ cursor: onCategoryClick ? 'pointer' : 'default' }}
                 />
               )}
             </div>
@@ -541,16 +538,16 @@ const ProductCardWide = React.forwardRef<HTMLDivElement, ProductCardWideProps>(
             <div style={{ display: 'inline-flex', alignSelf: 'flex-start' }}>
               {categoryHref ? (
                 LinkComponent ? (
-                  <LinkComponent href={categoryHref} style={{ textDecoration: 'none' }}>
-                    <Chip label={category} variant="outlined" className="productcard-category" style={{ cursor: 'pointer' }} />
+                  <LinkComponent href={categoryHref} style={{ textDecoration: 'none', cursor: 'pointer' }}>
+                    <Chip label={category} variant="outlined" className="productcard-category" />
                   </LinkComponent>
                 ) : (
-                  <a href={categoryHref} style={{ textDecoration: 'none' }}>
-                    <Chip label={category} variant="outlined" className="productcard-category" style={{ cursor: 'pointer' }} />
+                  <a href={categoryHref} style={{ textDecoration: 'none', cursor: 'pointer' }}>
+                    <Chip label={category} variant="outlined" className="productcard-category" />
                   </a>
                 )
               ) : (
-                <Chip label={category} variant="outlined" className="productcard-category" onClick={onCategoryClick} style={{ cursor: onCategoryClick ? 'pointer' : 'default' }} />
+                <Chip label={category} variant="outlined" className="productcard-category" onClick={onCategoryClick} />
               )}
             </div>
           )}
