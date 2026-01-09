@@ -1,0 +1,212 @@
+.vtx-fileupload-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vtx-spacing-2);
+  width: 100%;
+}
+
+.vtx-fileupload-label {
+  display: block;
+  font-size: var(--vtx-font-size-sm);
+  font-weight: var(--vtx-font-weight-medium);
+  color: var(--vtx-color-neutral-700);
+  margin-bottom: var(--vtx-spacing-1);
+}
+
+.vtx-fileupload-label__required {
+  color: var(--vtx-color-error-500);
+}
+
+.vtx-fileupload-dropzone {
+  border: 2px dashed var(--vtx-border-color);
+  border-radius: var(--vtx-radius-md);
+  padding: var(--vtx-spacing-6);
+  text-align: center;
+  transition: all var(--vtx-transition-base);
+  background-color: var(--vtx-background-secondary);
+  cursor: pointer;
+  position: relative;
+  outline: none;
+}
+
+.vtx-fileupload-dropzone:hover:not(.vtx-fileupload-dropzone--disabled) {
+  border-color: var(--vtx-color-primary-400);
+  background-color: var(--vtx-color-primary-50);
+}
+
+.vtx-fileupload-dropzone:focus-visible {
+  box-shadow: 0 0 0 2px var(--vtx-color-primary-100);
+  border-color: var(--vtx-color-primary-500);
+}
+
+.vtx-fileupload-dropzone--active {
+  border-color: var(--vtx-color-primary-500);
+  background-color: var(--vtx-color-primary-50);
+}
+
+.vtx-fileupload-dropzone--error {
+  border-color: var(--vtx-color-error-500);
+  background-color: var(--vtx-color-error-50);
+}
+
+.vtx-fileupload-dropzone--disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: var(--vtx-color-neutral-100);
+}
+
+.vtx-fileupload-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--vtx-spacing-3);
+  color: var(--vtx-text-secondary);
+}
+
+.vtx-fileupload-icon {
+  color: var(--vtx-color-neutral-400);
+  width: 48px;
+  height: 48px;
+}
+
+.vtx-fileupload-text {
+  font-size: var(--vtx-font-size-sm);
+}
+
+.vtx-fileupload-browse-btn {
+  color: var(--vtx-color-primary-600);
+  font-weight: var(--vtx-font-weight-medium);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.vtx-fileupload-browse-btn:hover {
+  color: var(--vtx-color-primary-700);
+}
+
+.vtx-fileupload-input {
+  display: none;
+}
+
+.vtx-fileupload-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vtx-spacing-3);
+  margin-top: var(--vtx-spacing-3);
+}
+
+.vtx-fileupload-item {
+  display: flex;
+  align-items: center;
+  padding: var(--vtx-spacing-3);
+  border: 1px solid var(--vtx-border-color);
+  border-radius: var(--vtx-radius-md);
+  background-color: var(--vtx-background-primary);
+  transition: background-color var(--vtx-transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.vtx-fileupload-item__preview {
+  width: 40px;
+  height: 40px;
+  margin-right: var(--vtx-spacing-3);
+  border-radius: var(--vtx-radius-sm);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--vtx-color-neutral-100);
+  color: var(--vtx-color-neutral-500);
+  flex-shrink: 0;
+}
+
+.vtx-fileupload-item__preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vtx-fileupload-item__info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vtx-fileupload-item__name {
+  font-size: var(--vtx-font-size-sm);
+  font-weight: var(--vtx-font-weight-medium);
+  color: var(--vtx-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vtx-fileupload-item__meta {
+  font-size: var(--vtx-font-size-xs);
+  color: var(--vtx-text-tertiary);
+  display: flex;
+  gap: var(--vtx-spacing-2);
+}
+
+.vtx-fileupload-item__error-text {
+  color: var(--vtx-color-error-600);
+}
+
+.vtx-fileupload-item__actions {
+  margin-left: var(--vtx-spacing-3);
+  display: flex;
+  align-items: center;
+}
+
+.vtx-fileupload-item__remove {
+  background: none;
+  border: none;
+  color: var(--vtx-text-tertiary);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: var(--vtx-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--vtx-transition-fast);
+}
+
+.vtx-fileupload-item__remove:hover {
+  color: var(--vtx-color-error-600);
+  background-color: var(--vtx-color-error-50);
+}
+
+.vtx-fileupload-item__progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background-color: var(--vtx-color-primary-500);
+  transition: width 0.3s ease;
+}
+
+.vtx-fileupload-item__progress--error {
+  background-color: var(--vtx-color-error-500);
+}
+
+.vtx-fileupload-item__progress--complete {
+  background-color: var(--vtx-color-success-500);
+}
+
+.vtx-fileupload-helper {
+  font-size: var(--vtx-font-size-xs);
+  color: var(--vtx-text-tertiary);
+  margin-top: var(--vtx-spacing-1);
+}
+
+.vtx-fileupload-error {
+  font-size: var(--vtx-font-size-xs);
+  color: var(--vtx-color-error-600);
+  margin-top: var(--vtx-spacing-1);
+}
