@@ -696,6 +696,7 @@ ProductCardWide.displayName = 'ProductCardWide';
  *   name="Product"
  *   image="/product.jpg"
  *   price={19.99}
+ *   imagePosition="left"
  * />
  * ```
  */
