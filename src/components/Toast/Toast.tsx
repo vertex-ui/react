@@ -1,3 +1,5 @@
+"use client";
+
 import { CloseSmallIcon } from '../../icons/IconComponents';
 import React, { useEffect, useState, useRef } from 'react';
 import { ToastProps } from './types';

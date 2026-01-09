@@ -1,3 +1,5 @@
+"use client";
+
 import React, { InputHTMLAttributes, useRef, useState, useEffect } from 'react';
 import { useId } from '../../hooks';
 import { Size, useThemeContext } from '../../theme';

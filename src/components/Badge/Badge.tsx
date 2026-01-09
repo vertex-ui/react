@@ -1,3 +1,5 @@
+"use client";
+
 import { CloseSmallIcon } from '../../icons/IconComponents';
 import React, { useMemo, HTMLAttributes } from 'react';
 import { Size, useThemeContext } from '../../theme';

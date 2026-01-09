@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useMemo, TableHTMLAttributes, useCallback } from 'react';
 import { useThemeContext, Size } from '../../theme';
 import { Checkbox } from '../Checkbox';

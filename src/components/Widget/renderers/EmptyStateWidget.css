@@ -1,0 +1,226 @@
+/* Base Empty State Styles */
+.vtx-empty-state {
+  padding: clamp(32px, 5vw, 64px) clamp(24px, 4vw, 48px);
+  text-align: center;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.vtx-empty-state--left {
+  text-align: left;
+  align-items: flex-start;
+}
+
+.vtx-empty-state--compact {
+  padding: clamp(24px, 3vw, 40px) clamp(16px, 2vw, 32px);
+  max-width: 500px;
+}
+
+/* Illustration */
+.vtx-empty-state__illustration {
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.vtx-empty-state:hover .vtx-empty-state__illustration {
+  opacity: 1;
+}
+
+.vtx-empty-state--compact .vtx-empty-state__illustration svg {
+  width: 80px;
+  height: 80px;
+}
+
+/* Content */
+.vtx-empty-state__content {
+  width: 100%;
+}
+
+/* Actions */
+.vtx-empty-state__actions {
+  width: 100%;
+}
+
+/* Additional Info */
+.vtx-empty-state__info {
+  width: 100%;
+  opacity: 0.7;
+}
+
+/* ============================================
+   Theme: Minimal
+   ============================================ */
+.vtx-empty-state--minimal {
+  background: transparent;
+}
+
+.vtx-empty-state--minimal .vtx-empty-state__illustration {
+  color: var(--vtx-color-gray-400, #9ca3af);
+}
+
+/* ============================================
+   Theme: Modern
+   ============================================ */
+.vtx-empty-state--modern {
+  background: linear-gradient(135deg, 
+    var(--vtx-color-primary-50, #eff6ff) 0%, 
+    var(--vtx-color-gray-50, #f9fafb) 100%);
+  border-radius: var(--vtx-border-radius-lg, 12px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.vtx-empty-state--modern.vtx-empty-state--danger {
+  background: linear-gradient(135deg, 
+    var(--vtx-color-danger-50, #fef2f2) 0%, 
+    var(--vtx-color-gray-50, #f9fafb) 100%);
+}
+
+.vtx-empty-state--modern.vtx-empty-state--warning {
+  background: linear-gradient(135deg, 
+    var(--vtx-color-warning-50, #fffbeb) 0%, 
+    var(--vtx-color-gray-50, #f9fafb) 100%);
+}
+
+.vtx-empty-state--modern .vtx-empty-state__illustration {
+  color: var(--vtx-color-primary-500, #3b82f6);
+}
+
+.vtx-empty-state--modern.vtx-empty-state--danger .vtx-empty-state__illustration {
+  color: var(--vtx-color-danger-500, #ef4444);
+}
+
+.vtx-empty-state--modern.vtx-empty-state--warning .vtx-empty-state__illustration {
+  color: var(--vtx-color-warning-500, #f59e0b);
+}
+
+/* ============================================
+   Theme: Professional
+   ============================================ */
+.vtx-empty-state--professional {
+  background: var(--vtx-color-gray-50, #f9fafb);
+  border: 1px solid var(--vtx-color-gray-200, #e5e7eb);
+  border-radius: var(--vtx-border-radius-md, 8px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.vtx-empty-state--professional .vtx-empty-state__illustration {
+  color: var(--vtx-color-primary-600, #2563eb);
+}
+
+.vtx-empty-state--professional.vtx-empty-state--danger .vtx-empty-state__illustration {
+  color: var(--vtx-color-danger-600, #dc2626);
+}
+
+.vtx-empty-state--professional.vtx-empty-state--warning .vtx-empty-state__illustration {
+  color: var(--vtx-color-warning-600, #d97706);
+}
+
+/* ============================================
+   Theme: Playful
+   ============================================ */
+.vtx-empty-state--playful {
+  background: radial-gradient(circle at 30% 20%, 
+    var(--vtx-color-primary-100, #dbeafe) 0%, 
+    transparent 50%),
+    radial-gradient(circle at 70% 80%, 
+    var(--vtx-color-secondary-100, #e0e7ff) 0%, 
+    transparent 50%),
+    var(--vtx-color-gray-50, #f9fafb);
+  border-radius: var(--vtx-border-radius-xl, 16px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.vtx-empty-state--playful.vtx-empty-state--danger {
+  background: radial-gradient(circle at 30% 20%, 
+    var(--vtx-color-danger-100, #fee2e2) 0%, 
+    transparent 50%),
+    radial-gradient(circle at 70% 80%, 
+    var(--vtx-color-warning-100, #fef3c7) 0%, 
+    transparent 50%),
+    var(--vtx-color-gray-50, #f9fafb);
+}
+
+.vtx-empty-state--playful .vtx-empty-state__illustration {
+  color: var(--vtx-color-primary-500, #3b82f6);
+  transform: scale(1);
+  transition: transform 0.3s ease;
+}
+
+.vtx-empty-state--playful:hover .vtx-empty-state__illustration {
+  transform: scale(1.05);
+}
+
+/* ============================================
+   Theme: Technical
+   ============================================ */
+.vtx-empty-state--technical {
+  background: linear-gradient(135deg, 
+    #1a1a1a 0%, 
+    #0a0a0a 100%);
+  border: 1px solid #333;
+  border-radius: var(--vtx-border-radius-sm, 4px);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.vtx-empty-state--technical .vtx-empty-state__illustration {
+  color: #00ff00;
+}
+
+.vtx-empty-state--technical.vtx-empty-state--danger .vtx-empty-state__illustration {
+  color: #ff4444;
+}
+
+.vtx-empty-state--technical.vtx-empty-state--warning .vtx-empty-state__illustration {
+  color: #ffaa00;
+}
+
+/* ============================================
+   Theme: Elegant
+   ============================================ */
+.vtx-empty-state--elegant {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.95) 0%, 
+    rgba(248, 250, 252, 0.95) 100%);
+  border: 1px solid var(--vtx-color-gray-100, #f3f4f6);
+  border-radius: var(--vtx-border-radius-lg, 12px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(10px);
+}
+
+.vtx-empty-state--elegant .vtx-empty-state__illustration {
+  color: var(--vtx-color-primary-400, #60a5fa);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.vtx-empty-state--elegant.vtx-empty-state--danger .vtx-empty-state__illustration {
+  color: var(--vtx-color-danger-400, #f87171);
+}
+
+.vtx-empty-state--elegant.vtx-empty-state--warning .vtx-empty-state__illustration {
+  color: var(--vtx-color-warning-400, #fbbf24);
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+@media (max-width: 640px) {
+  .vtx-empty-state {
+    padding: clamp(24px, 4vw, 40px) clamp(16px, 3vw, 32px);
+  }
+
+  .vtx-empty-state__illustration svg {
+    width: 80px;
+    height: 80px;
+  }
+
+  .vtx-empty-state--compact .vtx-empty-state__illustration svg {
+    width: 60px;
+    height: 60px;
+  }
+
+  .vtx-empty-state__actions {
+    flex-direction: column;
+  }
+}

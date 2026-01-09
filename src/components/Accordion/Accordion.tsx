@@ -1,3 +1,5 @@
+"use client";
+
 import React, { Children, isValidElement, useCallback, useState } from "react";
 import AccordionItem from "./AccordionItem";
 import { AccordionProps, AccordionItemProps } from "./types";

@@ -22,6 +22,14 @@
   background: linear-gradient(135deg, var(--vtx-color-primary-50, #f5f5f5), var(--vtx-color-neutral-100, #fafafa));
 }
 
+.productcard-image-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
 .productcard-image {
   width: 100%;
   height: 100%;
@@ -95,9 +103,15 @@
   z-index: 3;
   transition: var(--vtx-transition-normal, all 0.3s ease);
   box-shadow: var(--vtx-shadow-sm, 0 2px 8px rgba(0, 0, 0, 0.1));
+  backdrop-filter: blur(4px);
 }
 
-.productcard-wishlist-btn:hover {
+.productcard-wishlist-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.productcard-wishlist-btn:not(:disabled):hover {
   background: var(--vtx-color-neutral-50, #ffffff);
   color: var(--vtx-color-error-600, #dc2626);
   transform: scale(1.1);
@@ -109,7 +123,7 @@
   color: var(--vtx-color-neutral-50, #ffffff);
 }
 
-.productcard-wishlist-btn--active:hover {
+.productcard-wishlist-btn--active:not(:disabled):hover {
   background: var(--vtx-color-error-700, #b91c1c);
   transform: scale(1.1);
 }
@@ -120,7 +134,8 @@
   left: 0;
   bottom: 0;
   width: 100%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  height: 80px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
   opacity: 0;
   display: flex;
   justify-content: center;
@@ -134,6 +149,10 @@
 .productcard-image-wrapper:hover .productcard-hover-overlay {
   opacity: 1;
   pointer-events: all;
+}
+
+.productcard-hover-overlay button {
+  box-shadow: var(--vtx-shadow-md, 0 4px 12px rgba(0, 0, 0, 0.2));
 }
 
 /* Category Chip */
@@ -470,9 +489,15 @@
   z-index: 3;
   transition: var(--vtx-transition-normal, all 0.3s ease);
   box-shadow: var(--vtx-shadow-sm, 0 2px 6px rgba(0, 0, 0, 0.1));
+  backdrop-filter: blur(4px);
 }
 
-.productcard-minimal-wishlist:hover {
+.productcard-minimal-wishlist:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.productcard-minimal-wishlist:not(:disabled):hover {
   background: var(--vtx-color-neutral-50, #ffffff);
   color: var(--vtx-color-error-600, #dc2626);
   transform: scale(1.1);

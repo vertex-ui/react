@@ -9,6 +9,7 @@ import { Badge } from '../../components/Badge';
 import { Button } from '../../components/Button';
 import InfoListCard from '../InfoListCard/InfoListCard';
 import { InfoListItem } from '../InfoListCard/InfoListCard';
+import { SkeletonTheme } from '../../components/Skeleton';
 import { CheckCircleIcon, MapPinIcon, DownloadIcon, 
     ShoppingBagIcon,
     ShareIcon,
@@ -115,6 +116,12 @@ export interface OrderConfirmationProps extends React.HTMLAttributes<HTMLDivElem
   hideTrackOrder?: boolean;
   hideContactSupport?: boolean;
 
+  /**
+   * If true, shows skeleton loading state
+   * @default false
+   */
+  loading?: boolean;
+
   className?: string;
   style?: React.CSSProperties;
 }
@@ -192,6 +199,7 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
       hideContinueShopping = false,
       hideTrackOrder = false,
       hideContactSupport = false,
+      loading = false,
       className = '',
       style,
       ...props
@@ -233,6 +241,11 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
   const handleViewDetails = useCallback(() => onViewDetails?.(orderId), [onViewDetails, orderId]);
   const handleContactSupport = useCallback(() => onContactSupport?.(orderId), [onContactSupport, orderId]);
   const handleShareOrder = useCallback(() => onShareOrder?.(orderId), [onShareOrder, orderId]);
+
+  // Render skeleton loading state
+  if (loading) {
+    return <SkeletonTheme theme="order-confirmation" />;
+  }
 
   return (
     <div className={`orderconfirmation ${className}`} style={style} ref={ref} {...props}>

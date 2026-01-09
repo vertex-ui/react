@@ -13,4 +13,6 @@ export { default as HeaderWidget } from './renderers/HeaderWidget';
 export { default as CarouselWidget } from './renderers/CarouselWidget';
 export { default as TestimonialWidget } from './renderers/TestimonialWidget';
 export { default as GridCarouselWidget } from './renderers/GridCarouselWidget';
+export { default as ErrorPageWidget } from './renderers/ErrorPageWidget';
+export { default as EmptyStateWidget } from './renderers/EmptyStateWidget';
 export type { GridCarouselWidgetProps } from './renderers/GridCarouselWidget';

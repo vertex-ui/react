@@ -6,6 +6,8 @@ export type WidgetType =
   | 'info'
   | 'product'
   | 'order'
+  | 'order-confirmation'
+  | 'order-details'
   | 'list'
   | 'text'
   | 'header'
@@ -14,7 +16,9 @@ export type WidgetType =
   | 'testimonial'
   | 'gridCarousel'
   | 'navbar'
-  | 'contentBlock';
+  | 'contentBlock'
+  | 'errorPage'
+  | 'emptyState';
 
 /**
  * WidgetTheme - all available theme options
@@ -34,7 +38,10 @@ export type WidgetTheme =
   | 'editorial'
   | 'ecommerce'
   | 'creative'
-  | 'luxury';
+  | 'luxury'
+  | 'playful'
+  | 'technical'
+  | 'elegant';
 
 export type GridConfig = {
   mobile?: number;
@@ -163,10 +170,21 @@ export interface ProductWidgetData extends BaseWidgetData {
   price: number | string;
   originalPrice?: number | string;
   category?: string;
+  categoryHref?: string;
+  categoryUrl?: string;
   rating?: number;
   reviews?: number;
   inStock?: boolean;
   tags?: string[];
+  imageAlt?: string;
+  weight?: number;
+  units?: string;
+  discount?: string;
+  initialQuantity?: number;
+  featured?: boolean;
+  featuredText?: string;
+  href?: string;
+  url?: string;
 }
 
 /**
@@ -178,6 +196,21 @@ export interface ProductWidgetSettings extends BaseWidgetSettings {
   showTags?: boolean;
   imagePosition?: 'top' | 'left' | 'right';
   cardStyle?: 'elevated' | 'outlined' | 'flat';
+  showWishlist?: boolean;
+  isWishlisted?: boolean;
+  cartIcon?: React.ReactNode;
+  wishlistIcon?: React.ReactNode;
+  wishlistFilledIcon?: React.ReactNode;
+  quickViewIcon?: React.ReactNode;
+  linkComponent?: React.ComponentType<any>;
+  onAddToCart?: (id?: string, quantity?: number) => void | Promise<void>;
+  onIncrementCart?: (id?: string, quantity?: number) => void | Promise<void>;
+  onDecrementCart?: (id?: string, quantity?: number) => void | Promise<void>;
+  onWishlist?: () => void;
+  onQuickView?: () => void;
+  onClick?: () => void;
+  onCategoryClick?: () => void;
+  loading?: boolean;
 }
 
 // ========================================================================
@@ -188,40 +221,40 @@ export interface ProductWidgetSettings extends BaseWidgetSettings {
  * Order Widget Data - Order information
  */
 export interface OrderWidgetData extends BaseWidgetData {
-  id: string;
-  total: number | string;
-  status: string;
-  date?: string | Date;
-  customer?: {
-    name?: string;
-    email?: string;
-    phone?: string;
-  };
-  items?: Array<{
-    name: string;
-    quantity?: number;
-    price?: number | string;
-    image?: string;
-  }>;
-  shippingAddress?: {
-    street: string;
-    city: string;
-    state: string;
-    zipCode: string;
-    country?: string;
-  };
-  subtotal?: number | string;
-  tax?: number | string;
-  shipping?: number | string;
-  discount?: number | string;
-  currency?: string;
-  trackingNumber?: string;
-  actions?: Array<{
-    label: React.ReactNode;
-    onClick?: () => void;
-    href?: string;
-    variant?: 'primary' | 'secondary' | 'ghost' | 'outlined';
-  }>;
+    id: string;
+    total: number | string;
+    status: string;
+    date?: string | Date;
+    customer?: {
+      name?: string;
+      email?: string;
+      phone?: string;
+    };
+    items?: Array<{
+      name: string;
+      quantity?: number;
+      price?: number | string;
+      image?: string;
+    }>;
+    shippingAddress?: {
+      street: string;
+      city: string;
+      state: string;
+      zipCode: string;
+      country?: string;
+    };
+    subtotal?: number | string;
+    tax?: number | string;
+    shipping?: number | string;
+    discount?: number | string;
+    currency?: string;
+    trackingNumber?: string;
+    actions?: Array<{
+      label: React.ReactNode;
+      onClick?: () => void;
+      href?: string;
+      variant?: 'primary' | 'secondary' | 'ghost' | 'outlined';
+    }>;
 }
 
 /**
@@ -233,6 +266,180 @@ export interface OrderWidgetSettings extends BaseWidgetSettings {
   showAddress?: boolean;
   showBreakdown?: boolean;
   compact?: boolean;
+  /**
+   * If true, shows skeleton loading state
+   * @default false
+   */
+  loading?: boolean;
+}
+
+// ========================================================================
+// ORDER CONFIRMATION WIDGET - Data and Settings
+// ========================================================================
+
+/**
+ * Order Confirmation Widget Data - Complete order confirmation information
+ */
+export interface OrderConfirmationWidgetData {
+  orderId: string;
+  orderNumber?: string;
+  orderDate?: string;
+  status?: 'pending' | 'processing' | 'confirmed' | 'delivered' | 'cancelled';
+  statusText?: string;
+  
+  headerText?: string;
+  headerSubtitle?: string;
+  
+  customerEmail?: string;
+  customerPhone?: string;
+  
+  shippingAddress: {
+    name: string;
+    addressLine1: string;
+    addressLine2?: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    phone?: string;
+  };
+  billingAddress?: {
+    name: string;
+    addressLine1: string;
+    addressLine2?: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    phone?: string;
+  };
+  
+  items: Array<{
+    id: string;
+    name: string;
+    image?: string;
+    quantity: number;
+    price: number;
+    variant?: string;
+  }>;
+  
+  subtotal: number;
+  shippingCost?: number;
+  tax?: number;
+  discount?: number;
+  total: number;
+  currency?: string;
+  
+  paymentMethod?: string;
+  transactionId?: string;
+  
+  estimatedDelivery?: string;
+  trackingNumber?: string;
+  
+  actions?: {
+    onDownloadInvoice?: (orderId: string) => void;
+    onContinueShopping?: () => void;
+    onTrackOrder?: (orderId: string) => void;
+    onViewDetails?: (orderId: string) => void;
+    onContactSupport?: (orderId: string) => void;
+    onShareOrder?: (orderId: string) => void;
+  };
+}
+
+/**
+ * Order Confirmation Widget Settings - Display configuration
+ */
+export interface OrderConfirmationWidgetSettings extends BaseWidgetSettings {
+  showActions?: boolean;
+  hideDownloadInvoice?: boolean;
+  hideContinueShopping?: boolean;
+  hideTrackOrder?: boolean;
+  hideContactSupport?: boolean;
+  loading?: boolean;
+}
+
+// ========================================================================
+// ORDER DETAILS WIDGET - Data and Settings
+// ========================================================================
+
+/**
+ * Order Details Widget Data - Complete order details information
+ */
+export interface OrderDetailsWidgetData {
+  orderId: string;
+  orderNumber?: string;
+  orderDate: string;
+  status: 'pending' | 'processing' | 'confirmed' | 'shipped' | 'delivered' | 'cancelled' | 'returned';
+  statusText?: string;
+  
+  customerName?: string;
+  customerEmail?: string;
+  customerPhone?: string;
+  
+  shippingAddress: {
+    name: string;
+    addressLine1: string;
+    addressLine2?: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    phone?: string;
+  };
+  billingAddress?: {
+    name: string;
+    addressLine1: string;
+    addressLine2?: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    phone?: string;
+  };
+  
+  items: Array<{
+    id: string;
+    name: string;
+    image?: string;
+    quantity: number;
+    price: number;
+    variant?: string;
+  }>;
+  
+  subtotal: number;
+  shippingCost?: number;
+  tax?: number;
+  discount?: number;
+  total: number;
+  currency?: string;
+  couponCode?: string;
+  
+  paymentMethod?: string;
+  paymentStatus?: 'pending' | 'paid' | 'failed' | 'refunded';
+  transactionId?: string;
+  
+  estimatedDelivery?: string;
+  deliveredDate?: string;
+  trackingNumber?: string;
+  trackingUrl?: string;
+  carrier?: string;
+  
+  actions?: {
+    onDownloadInvoice?: (orderId: string) => void;
+    onTrackOrder?: (orderId: string) => void;
+    onCancelOrder?: (orderId: string) => void;
+    onReturnOrder?: (orderId: string) => void;
+    onReorder?: (orderId: string) => void;
+    onContactSupport?: (orderId: string) => void;
+    onWriteReview?: (orderId: string) => void;
+  };
+}
+
+/**
+ * Order Details Widget Settings - Display configuration
+ */
+export interface OrderDetailsWidgetSettings extends BaseWidgetSettings {
+  showActions?: boolean;
+  allowCancel?: boolean;
+  allowReturn?: boolean;
+  allowReorder?: boolean;
+  loading?: boolean;
 }
 
 // ========================================================================
@@ -733,6 +940,91 @@ export interface ContentBlockWidgetData extends Omit<BaseWidgetData, 'metadata'>
   };
 }
 
+// Content Block Widget Settings
+export interface ContentBlockWidgetSettings extends Omit<BaseWidgetSettings, 'variant'> {
+  // Layout-specific variant (overrides base variant)
+  variant?: 'minimal' | 'card' | 'elevated' | 'outlined' | 'bordered';
+  
+  // Layout
+  layout?: 
+    | 'media-left'           // Media 40%, Content 60%
+    | 'media-right'          // Content 60%, Media 40%
+    | 'split-equal'          // 50/50 split
+    | 'media-top'            // Media above content
+    | 'media-bottom'         // Content above media
+    | 'media-background'     // Full background with overlay
+    | 'centered'             // All centered
+    | 'centered-media-top'   // Centered with media on top
+    | 'grid-2col'            // 2 column grid
+    | 'grid-3col'            // 3 column grid
+    | 'sidebar-left'         // Narrow sidebar (30%) left
+    | 'sidebar-right';       // Narrow sidebar (30%) right
+  
+  // Size & Spacing
+  mediaWidth?: '20%' | '30%' | '40%' | '50%' | '60%' | '70%' | 'auto';
+  contentWidth?: 'narrow' | 'medium' | 'wide' | 'full';
+  gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+  padding?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+  
+  // Media Dimensions (override data.media properties)
+  imageWidth?: string;        // CSS value like '100%', '400px', 'auto'
+  imageHeight?: string;       // CSS value like 'auto', '300px', '100%'
+  imageMaxWidth?: string;     // Max width constraint
+  imageMaxHeight?: string;    // Max height constraint
+  iconSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';  // Override icon size
+  customIconSize?: string;    // Custom icon size (e.g., '5rem', '80px')
+  
+  // Alignment
+  contentAlign?: 'left' | 'center' | 'right' | 'justify';
+  verticalAlign?: 'start' | 'center' | 'end' | 'stretch';
+  
+  rounded?: boolean | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  shadow?: boolean | 'sm' | 'md' | 'lg' | 'xl' | 'inner';
+  border?: boolean | 'all' | 'left' | 'right' | 'top' | 'bottom';
+  
+  // Background
+  background?: {
+    color?: string;
+    gradient?: string;
+    opacity?: number;
+  };
+
+  // Overlay (for media-background layout)
+  overlay?: {
+    enabled: boolean;
+    color?: string;
+    opacity?: number;
+    blur?: number;
+    gradient?: 'top' | 'bottom' | 'center' | 'none';
+  };
+
+  // Grid Configuration (for grid layouts)
+  grid?: {
+    columns?: number;
+    gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+    minItemWidth?: string;
+  };
+
+  // Responsive Behavior
+  responsive?: {
+    stackOnMobile?: boolean;
+    stackOnTablet?: boolean;
+    reverseOnMobile?: boolean;
+    hideMediaOnMobile?: boolean;
+  };
+
+  // Interactions
+  hover?: {
+    enabled?: boolean;
+    effect?: 'lift' | 'glow' | 'scale' | 'none';
+    mediaZoom?: boolean;
+  };
+
+  // Animation
+  animate?: boolean;
+  animationType?: 'fade' | 'slide-up' | 'slide-left' | 'slide-right' | 'zoom' | 'none';
+}
+
 // ========================================================================
 // GRID WIDGET - Data and Settings
 // ========================================================================
@@ -753,6 +1045,244 @@ export interface GridWidgetSettings {
 }
 
 // ========================================================================
+// ERROR PAGE WIDGET - Data and Settings
+// ========================================================================
+
+/**
+ * Error Page Widget Data - Error page information
+ */
+export interface ErrorPageWidgetData {
+  /**
+   * Error code (e.g., '404', '500', '403', '401', '503', 'search')
+   * @default '404'
+   */
+  errorCode?: string;
+  
+  /**
+   * Main error title
+   * @example 'Page Not Found'
+   */
+  title?: string;
+  
+  /**
+   * Error message description
+   * @example "Oops! The page you're looking for doesn't exist."
+   */
+  message?: string;
+  
+  /**
+   * Helpful suggestion or next steps
+   * @example 'Try checking the URL or return to the homepage.'
+   */
+  suggestion?: string;
+  
+  /**
+   * Call-to-action buttons/links
+   * @example
+   * actions: [
+   *   { variant: 'primary', label: 'Go Home', href: '/', icon: 'home' },
+   *   { variant: 'outline', label: 'Go Back', onClick: () => history.back(), icon: 'back' }
+   * ]
+   */
+  actions?: Array<{
+    variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'success' | 'warning';
+    label: string;
+    href?: string;
+    onClick?: () => void;
+    icon?: 'home' | 'back' | 'refresh';
+    external?: boolean;
+  }>;
+  
+  /**
+   * @deprecated Use actions array instead
+   */
+  primaryAction?: {
+    label: string;
+    href?: string;
+    onClick?: () => void;
+    icon?: 'home' | 'back' | 'refresh';
+  };
+  
+  /**
+   * @deprecated Use actions array instead
+   */
+  secondaryAction?: {
+    label: string;
+    href?: string;
+    onClick?: () => void;
+    icon?: 'home' | 'back' | 'refresh';
+  };
+  
+  /**
+   * Custom icon component to display
+   */
+  customIcon?: React.ReactNode;
+  
+  /**
+   * Additional information or help text
+   */
+  additionalInfo?: string;
+}
+
+/**
+ * Error Page Widget Settings - Display configuration
+ */
+export interface ErrorPageWidgetSettings extends BaseWidgetSettings {
+  /**
+   * Theme for the error page
+   * - minimal: Clean, simple design
+   * - modern: Gradient backgrounds, bold typography
+   * - professional: Formal, business-appropriate
+   * - playful: Fun, energetic design
+   * - technical: Terminal/code-like appearance
+   * - elegant: Sophisticated, refined design
+   * @default 'modern'
+   */
+  theme?: 'minimal' | 'modern' | 'professional' | 'playful' | 'technical' | 'elegant';
+  
+  /**
+   * Show illustration/icon
+   * @default true
+   */
+  showIllustration?: boolean;
+  
+  /**
+   * Center the content
+   * @default true
+   */
+  centered?: boolean;
+  
+  /**
+   * Take full viewport height
+   * @default true
+   */
+  fullHeight?: boolean;
+  
+  /**
+   * Custom background color or gradient
+   * Overrides theme default background
+   * @example 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+   * @example '#f5f5f5'
+   */
+  backgroundColor?: string;
+}
+
+// ========================================================================
+// EMPTY STATE WIDGET
+// ========================================================================
+
+/**
+ * Empty State Types - Different contexts for empty states
+ */
+export type EmptyStateType = 
+  | 'general'
+  | 'search'
+  | 'data'
+  | 'notification'
+  | 'cart'
+  | 'file';
+
+/**
+ * EmptyStateWidgetData - Data for empty state widget
+ * 
+ * @example
+ * const emptyCartData: EmptyStateWidgetData = {
+ *   type: 'cart',
+ *   title: 'Your Cart is Empty',
+ *   message: 'Add items to your cart to get started',
+ *   actions: [
+ *     { label: 'Browse Products', href: '/products', icon: 'search', variant: 'primary' },
+ *     { label: 'View Wishlist', href: '/wishlist', variant: 'outline' }
+ *   ]
+ * };
+ */
+export interface EmptyStateWidgetData {
+  /**
+   * Type of empty state (affects default icon and messaging)
+   * @default 'general'
+   */
+  type?: EmptyStateType;
+
+  /**
+   * Main title
+   * If not provided, uses default based on type
+   */
+  title?: string;
+
+  /**
+   * Description message
+   * If not provided, uses default based on type
+   */
+  message?: string;
+
+  /**
+   * Custom icon to display
+   * If not provided, uses default icon based on type
+   */
+  customIcon?: React.ReactNode;
+
+  /**
+   * Action buttons
+   */
+  actions?: Array<{
+    label: string;
+    href?: string;
+    onClick?: () => void;
+    icon?: 'add' | 'plus' | 'refresh' | 'search';
+    variant?: 'primary' | 'outline' | 'ghost';
+    external?: boolean;
+  }>;
+
+  /**
+   * Additional information text (shown below actions)
+   */
+  additionalInfo?: string;
+}
+
+/**
+ * EmptyStateWidgetSettings - Settings for empty state widget
+ */
+export interface EmptyStateWidgetSettings extends BaseWidgetSettings {
+  /**
+   * Visual theme
+   * @default 'modern'
+   */
+  theme?: 'minimal' | 'modern' | 'professional' | 'playful' | 'technical' | 'elegant';
+
+  /**
+   * Color variant
+   * @default 'primary'
+   */
+  variant?: 'primary' | 'danger' | 'warning' | 'info';
+
+  /**
+   * Whether to show illustration/icon
+   * @default true
+   */
+  showIllustration?: boolean;
+
+  /**
+   * Whether to center content
+   * @default true
+   */
+  centered?: boolean;
+
+  /**
+   * Compact mode (smaller spacing and icons)
+   * @default false
+   */
+  compact?: boolean;
+
+  /**
+   * Custom background color or gradient
+   * Overrides theme default background
+   * @example 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+   * @example '#f5f5f5'
+   */
+  backgroundColor?: string;
+}
+
+// ========================================================================
 // UNION TYPES
 // ========================================================================
 
@@ -761,6 +1291,8 @@ export type WidgetData =
   | InfoWidgetData
   | ProductWidgetData
   | OrderWidgetData
+  | OrderConfirmationWidgetData
+  | OrderDetailsWidgetData
   | ListWidgetData
   | TextWidgetData
   | HeaderWidgetData
@@ -770,13 +1302,17 @@ export type WidgetData =
   | GridCarouselWidgetData
   | NavbarWidgetData
   | ContentBlockWidgetData
-  | GridWidgetData;
+  | GridWidgetData
+  | ErrorPageWidgetData
+  | EmptyStateWidgetData;
 
 export type WidgetSettings =
   | MetricWidgetSettings
   | InfoWidgetSettings
   | ProductWidgetSettings
   | OrderWidgetSettings
+  | OrderConfirmationWidgetSettings
+  | OrderDetailsWidgetSettings
   | ListWidgetSettings
   | TextWidgetSettings
   | HeaderWidgetSettings
@@ -786,6 +1322,9 @@ export type WidgetSettings =
   | GridCarouselWidgetSettings
   | NavbarWidgetSettings
   | GridWidgetSettings
+  | ContentBlockWidgetSettings
+  | ErrorPageWidgetSettings
+  | EmptyStateWidgetSettings
   | BaseWidgetSettings;
 
 // ========================================================================

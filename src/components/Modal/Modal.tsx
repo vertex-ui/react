@@ -1,3 +1,5 @@
+"use client";
+
 import { CloseIcon } from '../../icons/IconComponents';
 import React, { useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';

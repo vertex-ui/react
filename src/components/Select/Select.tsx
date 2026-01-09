@@ -1,3 +1,5 @@
+"use client";
+
 import React, { SelectHTMLAttributes } from 'react';
 import { useId } from '../../hooks';
 import { Size, useThemeContext } from '../../theme';
@@ -110,6 +112,13 @@ export interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement
    * @default false
    */
   loading?: boolean;
+  /**
+   * The default value for uncontrolled usage
+   * Sets the initially selected option by its value
+   * @example
+   * defaultValue="us" // Selects the option with value 'us'
+   */
+  defaultValue?: string;
 }
 
 /**
@@ -159,6 +168,16 @@ export interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement
  * ```
  *
  * @example
+ * With default value
+ * ```tsx
+ * <Select
+ *   label="Country"
+ *   options={countryOptions}
+ *   defaultValue="us"
+ * />
+ * ```
+ *
+ * @example
  * Customize loading spinner via CSS
  * ```css
  * .vtx-select-icon-spinner {
@@ -193,6 +212,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       onSelectChange,
       onChange,
       loading = false,
+      defaultValue,
       ...props
     },
     ref
@@ -322,6 +342,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             aria-invalid={hasError}
             aria-describedby={describedBy || undefined}
             onChange={handleChange}
+            defaultValue={defaultValue}
             {...props}
           >
             {placeholder && (

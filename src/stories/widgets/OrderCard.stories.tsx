@@ -33,6 +33,21 @@ export const Delivered: Story = {
   },
 };
 
+export const Loading: Story = {
+  args: {
+    config: {
+      type: 'order',
+      data: {
+        id: '0000',
+        status: 'pending',
+        items: [],
+        total: 0,
+      },
+      settings: { loading: true },
+    },
+  },
+};
+
 export const OrdersList: Story = {
   render: () => (
     <Flex direction="column" gap={16} style={{ maxWidth: '700px', margin: '0 auto' }}>

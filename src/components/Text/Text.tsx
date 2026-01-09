@@ -174,26 +174,43 @@ export interface TextProps extends Omit<React.HTMLAttributes<HTMLElement>, 'colo
 }
 
 /**
- * Get default HTML element based on variant
+ * Pre-computed base class names for each variant (performance optimization)
  */
-const getDefaultElement = (variant: TextVariant): TextAs => {
-  const elementMap: Record<TextVariant, TextAs> = {
-    h1: 'h1',
-    h2: 'h2',
-    h3: 'h3',
-    h4: 'h4',
-    h5: 'h5',
-    h6: 'h6',
-    body1: 'p',
-    body2: 'p',
-    subtitle1: 'p',
-    subtitle2: 'p',
-    caption: 'span',
-    overline: 'span',
-    button: 'span',
-    label: 'label',
-  };
-  return elementMap[variant];
+const CLASS_VARIANTS: Record<TextVariant, string> = {
+  h1: 'vtx-text vtx-text--h1',
+  h2: 'vtx-text vtx-text--h2',
+  h3: 'vtx-text vtx-text--h3',
+  h4: 'vtx-text vtx-text--h4',
+  h5: 'vtx-text vtx-text--h5',
+  h6: 'vtx-text vtx-text--h6',
+  body1: 'vtx-text vtx-text--body1',
+  body2: 'vtx-text vtx-text--body2',
+  subtitle1: 'vtx-text vtx-text--subtitle1',
+  subtitle2: 'vtx-text vtx-text--subtitle2',
+  caption: 'vtx-text vtx-text--caption',
+  overline: 'vtx-text vtx-text--overline',
+  button: 'vtx-text vtx-text--button',
+  label: 'vtx-text vtx-text--label',
+};
+
+/**
+ * Default HTML element mapping for each variant
+ */
+const ELEMENT_MAP: Record<TextVariant, TextAs> = {
+  h1: 'h1',
+  h2: 'h2',
+  h3: 'h3',
+  h4: 'h4',
+  h5: 'h5',
+  h6: 'h6',
+  body1: 'p',
+  body2: 'p',
+  subtitle1: 'p',
+  subtitle2: 'p',
+  caption: 'span',
+  overline: 'span',
+  button: 'span',
+  label: 'label',
 };
 
 /**
@@ -201,51 +218,8 @@ const getDefaultElement = (variant: TextVariant): TextAs => {
  *
  * A comprehensive text component that provides consistent typography across your application
  * with full theming support and extensive customization options.
- *
- * @example
- * Basic usage with variants
- * ```tsx
- * <Text variant="h1">Heading 1</Text>
- * <Text variant="body1">Regular body text</Text>
- * <Text variant="caption" color="neutral.500">Small caption text</Text>
- * ```
- *
- * @example
- * Custom styling
- * ```tsx
- * <Text
- *   variant="body1"
- *   weight="bold"
- *   align="center"
- *   color="primary.600"
- * >
- *   Centered bold text
- * </Text>
- * ```
- *
- * @example
- * Truncation and line clamping
- * ```tsx
- * <Text truncate>This text will be truncated with ellipsis...</Text>
- * <Text lineClamp={3}>This text will show only 3 lines before truncating...</Text>
- * ```
- *
- * @example
- * Gradient text
- * ```tsx
- * <Text variant="h2" gradient={['#667eea', '#764ba2']}>
- *   Gradient Heading
- * </Text>
- * ```
- *
- * @example
- * Semantic HTML control
- * ```tsx
- * <Text variant="h1" as="h2">Visually h1, semantically h2</Text>
- * <Text variant="body1" as="label" htmlFor="input">Label with body style</Text>
- * ```
  */
-const Text = React.forwardRef<HTMLElement, TextProps>(
+const TextComponent = React.forwardRef<HTMLElement, TextProps>(
   (
     {
       variant = 'body1',
@@ -277,74 +251,60 @@ const Text = React.forwardRef<HTMLElement, TextProps>(
     ref
   ) => {
     // Determine the HTML element to render
-    const Component = as || getDefaultElement(variant);
+    const Component = as || ELEMENT_MAP[variant] || 'p';
 
-    // Build class names
-    const classNames = [
-      'vtx-text',
-      `vtx-text--${variant}`,
-      align && `vtx-text--align-${align}`,
-      weight && typeof weight === 'string' && `vtx-text--weight-${weight}`,
-      color && color !== 'inherit' && `vtx-text--color-${color}`,
-      transform && `vtx-text--transform-${transform}`,
-      decoration && `vtx-text--decoration-${decoration}`,
-      truncate && 'vtx-text--truncate',
-      lineClamp && 'vtx-text--line-clamp',
-      breakWord && 'vtx-text--break-word',
-      italic && 'vtx-text--italic',
-      underline && 'vtx-text--underline',
-      strikethrough && 'vtx-text--strikethrough',
-      gradient && 'vtx-text--gradient',
-      noSelect && 'vtx-text--no-select',
-      noMargin && 'vtx-text--no-margin',
-      noPadding && 'vtx-text--no-padding',
-      className,
-    ]
-      .filter(Boolean)
-      .join(' ');
+    // Build class names - optimized with pre-computed base
+    const classNames = React.useMemo(() => {
+      const classes = [CLASS_VARIANTS[variant]];
+      
+      if (align) classes.push(`vtx-text--align-${align}`);
+      if (weight && typeof weight === 'string') classes.push(`vtx-text--weight-${weight}`);
+      if (color && color !== 'inherit') classes.push(`vtx-text--color-${color}`);
+      if (transform) classes.push(`vtx-text--transform-${transform}`);
+      if (decoration) classes.push(`vtx-text--decoration-${decoration}`);
+      if (truncate) classes.push('vtx-text--truncate');
+      if (lineClamp) classes.push('vtx-text--line-clamp');
+      if (breakWord) classes.push('vtx-text--break-word');
+      if (italic) classes.push('vtx-text--italic');
+      if (underline) classes.push('vtx-text--underline');
+      if (strikethrough) classes.push('vtx-text--strikethrough');
+      if (gradient) classes.push('vtx-text--gradient');
+      if (noSelect) classes.push('vtx-text--no-select');
+      if (noMargin) classes.push('vtx-text--no-margin');
+      if (noPadding) classes.push('vtx-text--no-padding');
+      if (className) classes.push(className);
+      
+      return classes.join(' ');
+    }, [variant, align, weight, color, transform, decoration, truncate, lineClamp, breakWord, italic, underline, strikethrough, gradient, noSelect, noMargin, noPadding, className]);
 
-    // Build inline styles
-    const inlineStyles: CSSProperties = {
-      ...style,
-    };
+    // Build inline styles - optimized with conditional object creation
+    const inlineStyles = React.useMemo(() => {
+      // Only create style object if we have custom styles
+      if (!textColor && !(weight && typeof weight === 'number') && !lineClamp && 
+          !gradient && !size && !lineHeight && !letterSpacing && !style) {
+        return undefined;
+      }
 
-    // Handle textColor override (direct CSS color)
-    if (textColor) {
-      inlineStyles.color = textColor;
-    }
+      const s: CSSProperties = style ? { ...style } : {};
 
-    // Handle numeric weight
-    if (weight && typeof weight === 'number') {
-      inlineStyles.fontWeight = weight;
-    }
+      if (textColor) s.color = textColor;
+      if (weight && typeof weight === 'number') s.fontWeight = weight;
+      if (lineClamp) s.WebkitLineClamp = lineClamp;
 
-    // Handle line clamp
-    if (lineClamp) {
-      inlineStyles.WebkitLineClamp = lineClamp;
-    }
+      if (gradient && gradient.length > 0) {
+        s.backgroundImage = gradient.length === 1
+          ? gradient[0]
+          : `linear-gradient(135deg, ${gradient.join(', ')})`;
+      }
 
-    // Handle gradient
-    if (gradient && gradient.length > 0) {
-      const gradientValue =
-        gradient.length === 1 ? gradient[0] : `linear-gradient(135deg, ${gradient.join(', ')})`;
-      inlineStyles.backgroundImage = gradientValue;
-    }
+      if (size) s.fontSize = typeof size === 'number' ? `${size}px` : size;
+      if (lineHeight) s.lineHeight = typeof lineHeight === 'number' ? `${lineHeight}` : lineHeight;
+      if (letterSpacing) {
+        s.letterSpacing = typeof letterSpacing === 'number' ? `${letterSpacing}px` : letterSpacing;
+      }
 
-    // Handle custom size
-    if (size) {
-      inlineStyles.fontSize = typeof size === 'number' ? `${size}px` : size;
-    }
-
-    // Handle custom line height
-    if (lineHeight) {
-      inlineStyles.lineHeight = typeof lineHeight === 'number' ? `${lineHeight}` : lineHeight;
-    }
-
-    // Handle custom letter spacing
-    if (letterSpacing) {
-      inlineStyles.letterSpacing =
-        typeof letterSpacing === 'number' ? `${letterSpacing}px` : letterSpacing;
-    }
+      return s;
+    }, [style, textColor, weight, lineClamp, gradient, size, lineHeight, letterSpacing]);
 
     return React.createElement(
       Component,
@@ -359,7 +319,11 @@ const Text = React.forwardRef<HTMLElement, TextProps>(
   }
 );
 
-Text.displayName = 'Text';
+TextComponent.displayName = 'Text';
+
+// Using React.memo for high-frequency typography component
+const Text = React.memo(TextComponent);
 
 export default Text as React.FC<TextProps & React.RefAttributes<HTMLElement>>;
 export { Text };
+

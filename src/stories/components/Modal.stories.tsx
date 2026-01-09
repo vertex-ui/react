@@ -1,3 +1,5 @@
+"use client";
+
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { Modal } from '../../components/Modal';

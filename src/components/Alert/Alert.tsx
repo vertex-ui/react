@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import { useThemeContext, Size } from '../../theme';
 import './Alert.css';

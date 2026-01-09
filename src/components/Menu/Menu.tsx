@@ -1,3 +1,5 @@
+"use client";
+
 import { ChevronDownIcon, ChevronUpIcon, MenuIcon, CloseIcon } from '../../icons/IconComponents';
 import React, { useState, useRef, useEffect } from 'react';
 import { Flex } from '../Flex';

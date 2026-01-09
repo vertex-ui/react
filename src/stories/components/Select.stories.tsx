@@ -78,6 +78,15 @@ export const WithSuccess: Story = {
   },
 };
 
+export const WithDefaultValue: Story = {
+  args: {
+    label: 'Country',
+    options: countryOptions,
+    defaultValue: 'uk',
+    helperText: 'United Kingdom is pre-selected',
+  },
+};
+
 export const Disabled: Story = {
   args: {
     label: 'Disabled Select',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ContentBlockWidgetData, WidgetTheme } from '../types';
+import { ContentBlockWidgetData, ContentBlockWidgetSettings, WidgetTheme } from '../types';
 import { Card } from '../../Card';
 import { Text } from '../../Text';
 import { Button } from '../../Button';
@@ -33,77 +33,6 @@ export type ContentBlockLayout =
   | 'sidebar-left'         // Narrow sidebar (30%) left
   | 'sidebar-right';       // Narrow sidebar (30%) right
 
-export interface ContentBlockWidgetSettings {
-  // Layout
-  layout?: ContentBlockLayout;
-  
-  // Size & Spacing
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  mediaWidth?: '20%' | '30%' | '40%' | '50%' | '60%' | '70%' | 'auto';
-  contentWidth?: 'narrow' | 'medium' | 'wide' | 'full';
-  gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-  padding?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-  
-  // Alignment
-  contentAlign?: 'left' | 'center' | 'right' | 'justify';
-  verticalAlign?: 'start' | 'center' | 'end' | 'stretch';
-  
-  // Visual Style
-  variant?: 
-    | 'minimal'        // Clean, no borders/shadows
-    | 'card'           // Contained in card
-    | 'bordered'       // With border
-    | 'elevated'       // With shadow elevation
-    | 'outlined'       // Outlined style
-    | 'flat';          // Flat design
-  
-  rounded?: boolean | 'sm' | 'md' | 'lg' | 'xl' | 'full';
-  shadow?: boolean | 'sm' | 'md' | 'lg' | 'xl' | 'inner';
-  border?: boolean | 'all' | 'left' | 'right' | 'top' | 'bottom';
-  
-  // Background
-  background?: {
-    color?: string;
-    gradient?: string;
-    opacity?: number;
-  };
-
-  // Overlay (for media-background layout)
-  overlay?: {
-    enabled: boolean;
-    color?: string;
-    opacity?: number;
-    blur?: number;
-    gradient?: 'top' | 'bottom' | 'center' | 'none';
-  };
-
-  // Grid Configuration (for grid layouts)
-  grid?: {
-    columns?: number;
-    gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-    minItemWidth?: string;
-  };
-
-  // Responsive Behavior
-  responsive?: {
-    stackOnMobile?: boolean;
-    stackOnTablet?: boolean;
-    reverseOnMobile?: boolean;
-    hideMediaOnMobile?: boolean;
-  };
-
-  // Interactions
-  hover?: {
-    enabled?: boolean;
-    effect?: 'lift' | 'glow' | 'scale' | 'none';
-    mediaZoom?: boolean;
-  };
-
-  // Animation
-  animate?: boolean;
-  animationType?: 'fade' | 'slide-up' | 'slide-left' | 'slide-right' | 'zoom' | 'none';
-}
-
 export interface ContentBlockWidgetProps {
   data: ContentBlockWidgetData;
   settings?: ContentBlockWidgetSettings;
@@ -121,14 +50,6 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
 }) => {
   // Get size from theme context if available
   let themeDefaultSize = 'md';
-  try {
-    const { useThemeContext } = require('../../../theme/ThemeProvider');
-    const { theme: themeContext } = useThemeContext();
-    themeDefaultSize = themeContext.defaultSize;
-  } catch {
-    // Theme context not available, use default
-  }
-
   // Extract settings with defaults
   const layout = settings.layout ?? 'media-left';
   const variant = settings.variant ?? 'minimal';
@@ -145,69 +66,71 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
   const responsive = settings.responsive ?? { stackOnMobile: true };
   const overlay = settings.overlay ?? { enabled: false };
 
-  // Gap mapping
+  // Enterprise-standard spacing scale (8px base system)
+  // More compact, modern spacing following Material Design / Tailwind principles
   const gapMap = {
     none: '0',
-    xs: '0.5rem',
-    sm: '1rem',
-    md: '1.5rem',
-    lg: '2rem',
-    xl: '3rem',
-    '2xl': '4rem',
+    xs: '0.25rem',   // 4px - minimal spacing
+    sm: '0.5rem',    // 8px - compact spacing
+    md: '0.75rem',   // 12px - default spacing
+    lg: '1rem',      // 16px - comfortable spacing
+    xl: '1.5rem',    // 24px - generous spacing
+    '2xl': '2rem',   // 32px - section spacing
   };
 
-  // Padding mapping
+  // Same scale for consistency
   const paddingMap = {
     none: '0',
-    xs: '0.5rem',
-    sm: '1rem',
-    md: '1.5rem',
-    lg: '2rem',
-    xl: '3rem',
-    '2xl': '4rem',
+    xs: '0.25rem',   // 4px
+    sm: '0.5rem',    // 8px
+    md: '0.75rem',   // 12px
+    lg: '1rem',      // 16px
+    xl: '1.5rem',    // 24px
+    '2xl': '2rem',   // 32px
   };
 
-  // Size mapping for typography and component scaling
+  // Modern typography scale with proper hierarchy and multipliers
+  // Using modular scale (1.25 ratio) for better visual harmony
   const sizeMap = {
     xs: {
-      eyebrow: '0.7rem',
-      heading: '1.25rem',
-      subheading: '1rem',
-      body: '0.875rem',
-      caption: '0.75rem',
-      scale: 0.8,
+      eyebrow: '0.625rem',    // 10px
+      heading: '1.125rem',    // 18px (1.8x)
+      subheading: '0.875rem', // 14px (1.4x)
+      body: '0.75rem',        // 12px (base)
+      caption: '0.625rem',    // 10px (0.83x)
+      scale: 0.75,
     },
     sm: {
-      eyebrow: '0.75rem',
-      heading: '1.5rem',
-      subheading: '1.125rem',
-      body: '0.95rem',
-      caption: '0.8rem',
-      scale: 0.9,
+      eyebrow: '0.688rem',    // 11px
+      heading: '1.313rem',    // 21px (1.5x)
+      subheading: '1rem',     // 16px (1.14x)
+      body: '0.875rem',       // 14px (base)
+      caption: '0.75rem',     // 12px (0.86x)
+      scale: 0.875,
     },
     md: {
-      eyebrow: '0.8rem',
-      heading: '2rem',
-      subheading: '1.5rem',
-      body: '1rem',
-      caption: '0.875rem',
+      eyebrow: '0.75rem',     // 12px
+      heading: '1.5rem',      // 24px (1.5x)
+      subheading: '1.125rem', // 18px (1.13x)
+      body: '1rem',           // 16px (base - standard web)
+      caption: '0.875rem',    // 14px (0.88x)
       scale: 1,
     },
     lg: {
-      eyebrow: '0.85rem',
-      heading: '2.5rem',
-      subheading: '1.75rem',
-      body: '1.1rem',
-      caption: '0.95rem',
-      scale: 1.1,
+      eyebrow: '0.813rem',    // 13px
+      heading: '1.75rem',     // 28px (1.56x)
+      subheading: '1.25rem',  // 20px (1.11x)
+      body: '1.125rem',       // 18px (base)
+      caption: '0.938rem',    // 15px (0.83x)
+      scale: 1.125,
     },
     xl: {
-      eyebrow: '0.9rem',
-      heading: '3rem',
-      subheading: '2rem',
-      body: '1.25rem',
-      caption: '1rem',
-      scale: 1.2,
+      eyebrow: '0.875rem',    // 14px
+      heading: '2rem',        // 32px (1.6x)
+      subheading: '1.375rem', // 22px (1.1x)
+      body: '1.25rem',        // 20px (base)
+      caption: '1rem',        // 16px (0.8x)
+      scale: 1.25,
     },
   };
 
@@ -238,8 +161,10 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
     } = data.media;
 
     const mediaStyles: React.CSSProperties = {
-      width: '100%',
-      height: aspectRatio === 'auto' ? 'auto' : undefined,
+      width: settings.imageWidth || '100%',
+      height: settings.imageHeight || (aspectRatio === 'auto' ? 'auto' : undefined),
+      maxWidth: settings.imageMaxWidth,
+      maxHeight: settings.imageMaxHeight,
       aspectRatio: aspectRatio && aspectRatio !== 'auto' ? aspectRatio.replace(':', '/') : undefined,
       objectFit: objectFit as any,
       borderRadius: mediaRounded ? (typeof mediaRounded === 'boolean' ? '0.5rem' : `var(--border-radius-${mediaRounded})`) : undefined,
@@ -251,6 +176,9 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
     const mediaContainerStyles: React.CSSProperties = {
       overflow: zoom ? 'hidden' : 'visible',
       borderRadius: mediaRounded ? (typeof mediaRounded === 'boolean' ? '0.5rem' : `var(--border-radius-${mediaRounded})`) : undefined,
+      display: contentAlign === 'center' ? 'flex' : undefined,
+      justifyContent: contentAlign === 'center' ? 'center' : contentAlign === 'right' ? 'flex-end' : undefined,
+      alignItems: contentAlign === 'center' ? 'center' : undefined,
     };
 
     const mediaHoverClass = zoom ? 'vtx-content-block__media--zoom' : '';
@@ -289,14 +217,27 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
 
       case 'icon':
         if (icon) {
-          const iconSizeMap = { sm: '2rem', md: '3rem', lg: '4rem', xl: '6rem' };
+          // Extended icon size map with xs and 2xl
+          const iconSizeMap = { 
+            xs: '1.5rem',   // 24px
+            sm: '2rem',     // 32px
+            md: '3rem',     // 48px
+            lg: '4rem',     // 64px
+            xl: '6rem',     // 96px
+            '2xl': '8rem'   // 128px
+          };
+          
+          // Use settings override if available, otherwise use data.media iconSize
+          const effectiveIconSize = settings.iconSize || iconSize;
+          const finalIconSize = settings.customIconSize || iconSizeMap[effectiveIconSize];
+          
           return (
             <div
               className="vtx-content-block__icon"
               style={{
-                fontSize: iconSizeMap[iconSize],
-                width: iconSizeMap[iconSize],
-                height: iconSizeMap[iconSize],
+                fontSize: finalIconSize,
+                width: finalIconSize,
+                height: finalIconSize,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -364,7 +305,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
           <Text
             variant={content.eyebrowVariant || 'overline'}
             className="vtx-content-block__eyebrow"
-            style={{ color: colors.eyebrow, marginBottom: gapMap[gap] || gapMap.sm, display: 'block', textTransform: 'uppercase', letterSpacing: '0.05em', fontSize: sizeMap[sizeKey].eyebrow }}
+            style={{ color: colors.eyebrow, marginBottom: gapMap.xs, display: 'block', textTransform: 'uppercase', letterSpacing: '0.05em', fontSize: sizeMap[sizeKey].eyebrow }}
           >
             {content.eyebrow}
           </Text>
@@ -372,7 +313,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
 
         {/* Tags */}
         {data.tags && data.tags.length > 0 && (
-          <Flex gap="xs" wrap="wrap" style={{ marginBottom: gapMap[gap] || gapMap.md }}>
+          <Flex gap="xs" wrap="wrap" style={{ marginBottom: gapMap.sm }}>
             {data.tags.map((tag, index) => {
               // Map WidgetVariant to Badge variant (danger->error, filter secondary->primary)
               const badgeVariant = tag.variant === 'danger' ? 'error' : tag.variant === 'secondary' ? 'primary' : tag.variant || 'primary';
@@ -398,7 +339,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
           <Text
             variant={content.headingVariant || 'h2'}
             className="vtx-content-block__heading"
-            style={{ color: colors.heading, marginBottom: content.subheading || content.body ? gapMap[gap] || gapMap.md : '0', fontWeight: 'bold', fontSize: sizeMap[sizeKey].heading }}
+            style={{ color: colors.heading, marginBottom: content.subheading || content.body ? gapMap.sm : '0', fontWeight: 'bold', fontSize: sizeMap[sizeKey].heading }}
           >
             {content.heading}
           </Text>
@@ -409,7 +350,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
           <Text
             variant={content.subheadingVariant || 'h4'}
             className="vtx-content-block__subheading"
-            style={{ color: colors.subheading, marginBottom: content.body ? gapMap[gap] || gapMap.md : '0', fontSize: sizeMap[sizeKey].subheading }}
+            style={{ color: colors.subheading, marginBottom: content.body ? gapMap.md : '0', fontSize: sizeMap[sizeKey].subheading }}
           >
             {content.subheading}
           </Text>
@@ -609,7 +550,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
 
         {/* Actions */}
         {data.actions && data.actions.length > 0 && (
-          <Flex gap="md" style={{ marginTop: gapMap[gap] || gapMap.lg }} wrap="wrap" justify={contentAlign === 'center' ? 'center' : contentAlign === 'right' ? 'end' : 'start'}>
+          <Flex  columnGap={"10px"} className='mt-2' justify={contentAlign === 'center' ? 'center' : contentAlign === 'right' ? 'end' : 'start'}>
             {data.actions.map((action, index) => (
               action.type === 'link' ? (
                 <Link
@@ -617,9 +558,9 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
                   href={action.href}
                   variant={action.variant as any}
                 >
-                  {action.iconPosition === 'left' && action.icon && <span style={{ marginRight: '0.5rem' }}>{action.icon}</span>}
+                  {action.iconPosition === 'left' && action.icon && <span style={{ marginRight: '0.25rem' }}>{action.icon}</span>}
                   {action.label}
-                  {action.iconPosition === 'right' && action.icon && <span style={{ marginLeft: '0.5rem' }}>{action.icon}</span>}
+                  {action.iconPosition === 'right' && action.icon && <span style={{ marginLeft: '0.25rem' }}>{action.icon}</span>}
                 </Link>
               ) : (
                 <Button
@@ -630,9 +571,9 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
                   href={action.href}
                   style={{ width: action.fullWidth ? '100%' : 'auto' }}
                 >
-                  {action.iconPosition === 'left' && action.icon && <span style={{ marginRight: '0.5rem' }}>{action.icon}</span>}
+                  {action.iconPosition === 'left' && action.icon && <span style={{ marginRight: '0.25rem' }}>{action.icon}</span>}
                   {action.label}
-                  {action.iconPosition === 'right' && action.icon && <span style={{ marginLeft: '0.5rem' }}>{action.icon}</span>}
+                  {action.iconPosition === 'right' && action.icon && <span style={{ marginLeft: '0.25rem' }}>{action.icon}</span>}
                 </Button>
               )
             ))}
@@ -650,7 +591,10 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
         gap: gapMap[gap],
         alignItems: verticalAlign,
       } as React.CSSProperties,
-      media: {} as React.CSSProperties,
+      media: {
+        display: contentAlign === 'center' ? 'flex' : undefined,
+        justifyContent: contentAlign === 'center' ? 'center' : contentAlign === 'right' ? 'flex-end' : undefined,
+      } as React.CSSProperties,
       content: {} as React.CSSProperties,
     };
 

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Input } from '../Input';
 import { Calendar } from './Calendar';

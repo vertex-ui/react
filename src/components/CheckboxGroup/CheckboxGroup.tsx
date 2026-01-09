@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import { Checkbox } from '../Checkbox/Checkbox';
 import { useThemeContext } from '../../theme/ThemeProvider';

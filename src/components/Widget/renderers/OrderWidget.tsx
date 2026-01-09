@@ -46,7 +46,7 @@ const OrderWidget: React.FC<OrderWidgetProps> = ({
     id: `item-${index}`,
     name: item.name,
     quantity: item.quantity,
-    image: undefined, // OrderWidget doesn't have image data
+    image: item.image,
   }));
 
   // Handle track order action
@@ -80,6 +80,7 @@ const OrderWidget: React.FC<OrderWidgetProps> = ({
       onTrackOrder={handleTrackOrder}
       onViewDetails={handleViewDetails}
       trackButtonText={data.actions?.[0]?.label as string || 'Track Order'}
+      loading={settings?.loading}
       className={settings?.className}
       style={settings?.style}
     />
