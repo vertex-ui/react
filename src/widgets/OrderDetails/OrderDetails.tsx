@@ -474,6 +474,7 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
                         src={item.image}
                         alt={item.name}
                         className="orderdetails-item-image"
+                        loading="lazy"
                       />
                     </div>
                   )}

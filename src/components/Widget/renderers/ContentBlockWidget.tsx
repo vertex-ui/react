@@ -45,6 +45,12 @@ export interface ContentBlockWidgetProps {
   theme?: WidgetTheme;
   className?: string;
   style?: React.CSSProperties;
+  /**
+   * If true, the media in this block (image/avatar) will be eager loaded with high priority.
+   * Useful when the content block is the LCP element (e.g. Hero section).
+   * @default false
+   */
+  priority?: boolean;
 }
 
 const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
@@ -53,6 +59,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
   theme = 'modern',
   className = '',
   style,
+  priority = false,
 }) => {
   // Get size from theme context if available
   let themeDefaultSize = 'md';
@@ -199,6 +206,8 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
                 alt={alt}
                 className={`vtx-content-block__media ${mediaHoverClass}`}
                 style={mediaStyles}
+                loading={priority ? "eager" : "lazy"}
+                fetchPriority={priority ? "high" : "auto"}
               />
             </div>
           );
@@ -216,6 +225,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
               size={avatarSize}
               shape="circle"
               className="vtx-content-block__avatar"
+              priority={priority}
             />
           );
         }
