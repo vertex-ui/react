@@ -107,7 +107,7 @@ const ProductCardBase = React.forwardRef<HTMLDivElement, ProductCardProps>(
   onClick,
   onCategoryClick,
   loading = false,
-  priority = false,
+  // priority = false, // unused
   className = '',
   style,
   ...props
@@ -434,7 +434,7 @@ const ProductCardWide = React.forwardRef<HTMLDivElement, ProductCardWideProps>(
     onClick,
     onCategoryClick,
     loading = false,
-    priority = false,
+    // priority = false, // unused
     className = '',
     style,
   } = props;
@@ -683,7 +683,7 @@ const ProductCardMinimal = React.forwardRef<HTMLDivElement, ProductCardProps>(
     onWishlist,
     onClick,
     loading = false,
-    priority = false,
+    // priority = false, // unused
     className = '',
     style,
   } = props;
