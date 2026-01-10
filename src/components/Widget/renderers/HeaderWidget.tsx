@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import { HeaderWidgetData, HeaderWidgetSettings, WidgetTheme, WidgetVariant } from '../types';
 import { Card } from '../../Card';
@@ -12,7 +13,7 @@ import { Breadcrumb } from '../../Breadcrumb';
 interface HeaderWidgetProps {
   data: HeaderWidgetData;
   settings?: HeaderWidgetSettings;
-  
+
   // Deprecated: Use settings instead
   /** @deprecated Use settings.theme */
   theme?: WidgetTheme;
@@ -42,7 +43,7 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
   const size = settings?.size || legacySize || 'md';
   const className = settings?.className || legacyClassName || '';
   const style = settings?.style || legacyStyle;
-  
+
   const showBreadcrumbs = settings?.showBreadcrumbs !== false; // Default true
   const showAvatar = settings?.showAvatar !== false; // Default true
   const bgColor = settings?.backgroundColor;
@@ -60,7 +61,7 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
 
   const renderBreadcrumbs = () => {
     if (!data.breadcrumbs || data.breadcrumbs.length === 0 || !showBreadcrumbs) return null;
-    
+
     return (
       <Breadcrumb
         items={data.breadcrumbs.map(crumb => ({
@@ -75,7 +76,7 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
 
   const renderAvatar = () => {
     if (!data.avatar || !showAvatar) return null;
-    
+
     return (
       <Avatar
         src={typeof data.avatar === 'string' ? data.avatar : data.avatar.src}
@@ -87,7 +88,7 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
 
   const renderActions = () => {
     if (!data.actions || data.actions.length === 0) return null;
-    
+
     return (
       <Flex gap="sm">
         {data.actions.map((action, index) => (
@@ -118,7 +119,7 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
 
   const renderBadges = () => {
     if (!data.badges || data.badges.length === 0) return null;
-    
+
     return (
       <Flex gap="xs">
         {data.badges.map((badge, index) => (
@@ -140,7 +141,7 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
         return (
           <Flex direction="column" gap="sm">
             {renderBreadcrumbs()}
-            
+
             <Flex align="center" justify="between" gap="md">
               <Flex align="center" gap="sm">
                 {renderAvatar()}
@@ -155,19 +156,19 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
                   )}
                 </Flex>
               </Flex>
-              
+
               {renderActions()}
             </Flex>
-            
+
             {renderBadges()}
           </Flex>
         );
-        
+
       case 'modern':
         return (
           <Flex direction="column" gap="lg">
             {renderBreadcrumbs()}
-            
+
             <Flex align="start" justify="between" gap="lg">
               <Flex direction="column" gap="md">
                 <Flex align="center" gap="md">
@@ -188,9 +189,9 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
                     )}
                   </Flex>
                 </Flex>
-                
+
                 {renderBadges()}
-                
+
                 {data.metadata && (
                   <Flex gap="lg">
                     {Object.entries(data.metadata).map(([key, value]) => (
@@ -206,17 +207,17 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
                   </Flex>
                 )}
               </Flex>
-              
+
               {renderActions()}
             </Flex>
           </Flex>
         );
-        
+
       case 'compact':
         return (
           <Flex direction="column" gap="xs">
             {renderBreadcrumbs()}
-            
+
             <Flex align="center" justify="between" gap="md">
               <Flex align="center" gap="sm">
                 {renderAvatar()}
@@ -231,7 +232,7 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
                   )}
                 </Flex>
               </Flex>
-              
+
               <Flex align="center" gap="xs">
                 {renderBadges()}
                 {data.actions && data.actions.length > 0 && (
@@ -248,7 +249,7 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
             </Flex>
           </Flex>
         );
-        
+
       default:
         return (
           <Flex direction="column" gap="md">

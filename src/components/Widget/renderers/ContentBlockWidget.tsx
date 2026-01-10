@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import { ContentBlockWidgetData, ContentBlockWidgetSettings, WidgetTheme } from '../types';
 import { Card } from '../../Card';
@@ -13,27 +14,27 @@ import {
   DashIcon
 } from '../../../icons/IconComponents';
 
-export type ContentBlockLayout = 
+export type ContentBlockLayout =
   // Horizontal Layouts
   | 'media-left'           // Media 40%, Content 60%
   | 'media-right'          // Content 60%, Media 40%
   | 'split-equal'          // 50/50 split
-  
+
   // Vertical Layouts
   | 'media-top'            // Media above content
   | 'media-bottom'         // Content above media
-  
+
   // Overlapping Layouts
   | 'media-background'     // Full background with overlay
-  
+
   // Centered Layouts
   | 'centered'             // All centered
   | 'centered-media-top'   // Centered with media on top
-  
+
   // Grid/Multi-column
   | 'grid-2col'            // 2 column grid
   | 'grid-3col'            // 3 column grid
-  
+
   // Asymmetric Layouts
   | 'sidebar-left'         // Narrow sidebar (30%) left
   | 'sidebar-right';       // Narrow sidebar (30%) right
@@ -142,7 +143,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
   // Check icon component (for checkmark lists)
   const CheckIcon = () => (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M16.6667 5L7.50004 14.1667L3.33337 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M16.6667 5L7.50004 14.1667L3.33337 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 
@@ -223,7 +224,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
       case 'icon':
         if (icon) {
           // Extended icon size map with xs and 2xl
-          const iconSizeMap = { 
+          const iconSizeMap = {
             xs: '1.5rem',   // 24px
             sm: '2rem',     // 32px
             md: '3rem',     // 48px
@@ -231,11 +232,11 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
             xl: '6rem',     // 96px
             '2xl': '8rem'   // 128px
           };
-          
+
           // Use settings override if available, otherwise use data.media iconSize
           const effectiveIconSize = settings.iconSize || iconSize;
           const finalIconSize = settings.customIconSize || iconSizeMap[effectiveIconSize];
-          
+
           return (
             <div
               className="vtx-content-block__icon"
@@ -435,7 +436,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
               {data.product.stock && (
                 <Badge variant={
                   data.product.stock === 'in-stock' || (typeof data.product.stock === 'number' && data.product.stock > 0) ? 'success' :
-                  data.product.stock === 'limited' ? 'warning' : 'error'
+                    data.product.stock === 'limited' ? 'warning' : 'error'
                 }>
                   {typeof data.product.stock === 'number' ? `${data.product.stock} in stock` : data.product.stock}
                 </Badge>
@@ -470,8 +471,8 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
 
         {/* Quote */}
         {data.quote && (
-          <div className="vtx-content-block__quote" style={{ 
-            margin: `${gapMap[gap] || gapMap.lg} 0`, 
+          <div className="vtx-content-block__quote" style={{
+            margin: `${gapMap[gap] || gapMap.lg} 0`,
             padding: `1rem ${gapMap.lg}`,
             borderLeft: '4px solid var(--color-primary)',
             backgroundColor: 'var(--color-background-subtle)',
@@ -558,7 +559,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
 
         {/* Actions */}
         {data.actions && data.actions.length > 0 && (
-          <Flex  columnGap={"10px"} className='mt-2' justify={contentAlign === 'center' ? 'center' : contentAlign === 'right' ? 'end' : 'start'}>
+          <Flex columnGap={"10px"} className='mt-2' justify={contentAlign === 'center' ? 'center' : contentAlign === 'right' ? 'end' : 'start'}>
             {data.actions.map((action, index) => (
               action.type === 'link' ? (
                 <Link
@@ -735,11 +736,11 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
     borderRadius: rounded ? (typeof rounded === 'boolean' ? '0.5rem' : `var(--border-radius-${rounded})`) : undefined,
     boxShadow: shadow ? (typeof shadow === 'boolean' ? '0 4px 6px rgba(0, 0, 0, 0.1)' : `var(--shadow-${shadow})`) : undefined,
     padding: variant !== 'minimal' ? paddingMap[padding] : undefined,
-    border: settings.border ? (typeof settings.border === 'boolean' || settings.border === 'all' ? '1px solid var(--color-border)' : 
+    border: settings.border ? (typeof settings.border === 'boolean' || settings.border === 'all' ? '1px solid var(--color-border)' :
       settings.border === 'left' ? 'none' :
-      settings.border === 'right' ? 'none' :
-      settings.border === 'top' ? 'none' :
-      settings.border === 'bottom' ? 'none' : undefined) : undefined,
+        settings.border === 'right' ? 'none' :
+          settings.border === 'top' ? 'none' :
+            settings.border === 'bottom' ? 'none' : undefined) : undefined,
     borderLeft: settings.border === 'left' ? '4px solid var(--color-primary)' : undefined,
     borderRight: settings.border === 'right' ? '4px solid var(--color-primary)' : undefined,
     borderTop: settings.border === 'top' ? '4px solid var(--color-primary)' : undefined,
@@ -834,7 +835,8 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
       </div>
 
       {/* Inline CSS for hover effects */}
-      <style dangerouslySetInnerHTML={{__html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .vtx-content-block--hover-lift:hover {
           transform: translateY(-4px);
           box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);

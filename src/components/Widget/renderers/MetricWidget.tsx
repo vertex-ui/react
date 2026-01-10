@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import { MetricWidgetData, MetricWidgetSettings, WidgetTheme, WidgetVariant } from '../types';
 import { Card } from '../../Card';
@@ -9,7 +10,7 @@ import { TrendingUpIcon, MinusIcon } from '../../../icons/IconComponents';
 interface MetricWidgetProps {
   data: MetricWidgetData;
   settings?: MetricWidgetSettings;
-  
+
   // Deprecated: Use settings instead
   /** @deprecated Use settings.theme */
   theme?: WidgetTheme;
@@ -39,7 +40,7 @@ const MetricWidget: React.FC<MetricWidgetProps> = ({
   const size = settings?.size || legacySize || 'md';
   const className = settings?.className || legacyClassName || '';
   const style = settings?.style || legacyStyle;
-  
+
   const showTrend = settings?.showTrend !== false; // Default true
   const mapVariantToBadge = (v?: WidgetVariant) => {
     if (v === 'error') return 'error';
@@ -49,14 +50,14 @@ const MetricWidget: React.FC<MetricWidgetProps> = ({
 
   const renderTrend = () => {
     if (!data.trend || !showTrend) return null;
-    
+
     const { direction, value, label } = data.trend;
     const isPositive = direction === 'up';
     const isNegative = direction === 'down';
-    
+
     const trendVariant = isPositive ? 'success' : isNegative ? 'error' : 'neutral';
     const TrendIcon = isPositive ? TrendingUpIcon : isNegative ? TrendingUpIcon : MinusIcon;
-    
+
     return (
       <Flex align="center" gap="xs">
         <TrendIcon size={12} />
@@ -83,7 +84,7 @@ const MetricWidget: React.FC<MetricWidgetProps> = ({
             {renderTrend()}
           </Flex>
         );
-        
+
       case 'modern':
         return (
           <Flex direction="column" gap="sm">
@@ -116,7 +117,7 @@ const MetricWidget: React.FC<MetricWidgetProps> = ({
             )}
           </Flex>
         );
-        
+
       case 'compact':
         return (
           <Flex align="center" gap="md">
@@ -138,7 +139,7 @@ const MetricWidget: React.FC<MetricWidgetProps> = ({
             </Flex>
           </Flex>
         );
-        
+
       default:
         return (
           <Flex direction="column" gap="sm">
