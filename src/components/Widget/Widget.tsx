@@ -22,6 +22,9 @@ import {
   ContentBlockWidgetData,
   ErrorPageWidgetData,
   EmptyStateWidgetData,
+  PricingTableWidgetData,
+  FAQWidgetData,
+  ContactFormWidgetData,
 } from './types';
 import IntelligentGrid from './IntelligentGrid';
 import './Widget.css';
@@ -40,6 +43,9 @@ import GridCarouselWidget from './renderers/GridCarouselWidget';
 import ContentBlockWidget from './renderers/ContentBlockWidget';
 import ErrorPageWidget from './renderers/ErrorPageWidget';
 import EmptyStateWidget from './renderers/EmptyStateWidget';
+import PricingTableWidget from './renderers/PricingTableWidget';
+import FAQWidget from './renderers/FAQWidget';
+import ContactFormWidget from './renderers/ContactFormWidget';
 
 export interface WidgetProps {
   config: WidgetConfig;
@@ -101,6 +107,12 @@ const Widget: React.FC<WidgetProps> = ({
         return <ErrorPageWidget data={data as ErrorPageWidgetData} settings={widgetSettings as any} className={className} style={style} />;
       case 'emptyState':
         return <EmptyStateWidget data={data as EmptyStateWidgetData} settings={widgetSettings as any} className={className} style={style} />;
+      case 'pricing-table':
+        return <PricingTableWidget data={data as PricingTableWidgetData} settings={widgetSettings as any} />;
+      case 'faq':
+        return <FAQWidget data={data as FAQWidgetData} settings={widgetSettings as any} />;
+      case 'contact-form':
+        return <ContactFormWidget data={data as ContactFormWidgetData} settings={widgetSettings as any} />;
       default:
         console.warn(`Unknown widget type: ${type}`);
         return null;

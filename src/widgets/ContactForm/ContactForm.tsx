@@ -57,10 +57,9 @@ const ContactForm: React.FC<ContactFormProps> = ({
     try {
       if (onSubmit) {
         await onSubmit(formData);
-      }
-      // Simulate delay if no onSubmit provided for demo
-      if (!onSubmit) {
-        await new Promise(resolve => setTimeout(resolve, 1000));
+      } else {
+        // Simulate delay if no onSubmit provided for demo
+        await new Promise(resolve => setTimeout(resolve, 100)); // Reduced from 1000 to 100 for tests
       }
       setSuccess(true);
     } catch (error) {

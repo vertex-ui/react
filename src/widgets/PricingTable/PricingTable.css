@@ -9,6 +9,20 @@
   grid-template-columns: repeat(1, 1fr);
 }
 
+/* Use container queries for layout responsiveness */
+@container (min-width: 640px) {
+  .vtx-pricing-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@container (min-width: 1024px) {
+  .vtx-pricing-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Fallback for when container queries are not supported or for non-contained usage */
 @media (min-width: 640px) {
   .vtx-pricing-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -26,18 +40,27 @@
 }
 
 .vtx-pricing-grid--2-cols {
+  @container (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
   @media (min-width: 640px) {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 .vtx-pricing-grid--3-cols {
+  @container (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
   @media (min-width: 1024px) {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
 .vtx-pricing-grid--4-cols {
+  @container (min-width: 1280px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
   @media (min-width: 1280px) {
     grid-template-columns: repeat(4, 1fr);
   }
