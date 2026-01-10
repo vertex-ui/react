@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { CSSProperties } from 'react';
-import './Text.css';
+import './Typography.css';
 
-export type TextVariant =
+export type TypographyVariant =
   | 'h1'
   | 'h2'
   | 'h3'
@@ -18,10 +18,10 @@ export type TextVariant =
   | 'button'
   | 'label';
 
-export type TextAlign = 'left' | 'center' | 'right' | 'justify';
-export type TextTransform = 'none' | 'uppercase' | 'lowercase' | 'capitalize';
-export type TextDecoration = 'none' | 'underline' | 'line-through' | 'overline';
-export type TextWeight =
+export type TypographyAlign = 'left' | 'center' | 'right' | 'justify';
+export type TypographyTransform = 'none' | 'uppercase' | 'lowercase' | 'capitalize';
+export type TypographyDecoration = 'none' | 'underline' | 'line-through' | 'overline';
+export type TypographyWeight =
   | 'thin'
   | 'extralight'
   | 'light'
@@ -31,7 +31,7 @@ export type TextWeight =
   | 'bold'
   | 'extrabold'
   | 'black';
-export type TextAs =
+export type TypographyAs =
   | 'h1'
   | 'h2'
   | 'h3'
@@ -46,23 +46,23 @@ export type TextAs =
   | 'em'
   | 'small';
 
-export interface TextProps extends Omit<React.HTMLAttributes<HTMLElement>, 'color'> {
+export interface TypographyProps extends Omit<React.HTMLAttributes<HTMLElement>, 'color'> {
   /**
    * Typography variant that applies preset styles
    * @default 'body1'
    */
-  variant?: TextVariant;
+  variant?: TypographyVariant;
 
   /**
    * HTML element to render as
    * Automatically inferred from variant if not specified
    */
-  as?: TextAs;
+  as?: TypographyAs;
 
   /**
-   * Text alignment
+   * Typography alignment
    */
-  align?: TextAlign;
+  align?: TypographyAlign;
 
   /**
    * Semantic text color - applies predefined theme colors via CSS classes
@@ -80,17 +80,17 @@ export interface TextProps extends Omit<React.HTMLAttributes<HTMLElement>, 'colo
   /**
    * Font weight override
    */
-  weight?: TextWeight | number;
+  weight?: TypographyWeight | number;
 
   /**
-   * Text transform
+   * Typography transform
    */
-  transform?: TextTransform;
+  transform?: TypographyTransform;
 
   /**
-   * Text decoration
+   * Typography decoration
    */
-  decoration?: TextDecoration;
+  decoration?: TypographyDecoration;
 
   /**
    * Enable text truncation with ellipsis
@@ -181,27 +181,27 @@ export interface TextProps extends Omit<React.HTMLAttributes<HTMLElement>, 'colo
 /**
  * Pre-computed base class names for each variant (performance optimization)
  */
-const CLASS_VARIANTS: Record<TextVariant, string> = {
-  h1: 'vtx-text vtx-text--h1',
-  h2: 'vtx-text vtx-text--h2',
-  h3: 'vtx-text vtx-text--h3',
-  h4: 'vtx-text vtx-text--h4',
-  h5: 'vtx-text vtx-text--h5',
-  h6: 'vtx-text vtx-text--h6',
-  body1: 'vtx-text vtx-text--body1',
-  body2: 'vtx-text vtx-text--body2',
-  subtitle1: 'vtx-text vtx-text--subtitle1',
-  subtitle2: 'vtx-text vtx-text--subtitle2',
-  caption: 'vtx-text vtx-text--caption',
-  overline: 'vtx-text vtx-text--overline',
-  button: 'vtx-text vtx-text--button',
-  label: 'vtx-text vtx-text--label',
+const CLASS_VARIANTS: Record<TypographyVariant, string> = {
+  h1: 'vtx-typography vtx-typography--h1',
+  h2: 'vtx-typography vtx-typography--h2',
+  h3: 'vtx-typography vtx-typography--h3',
+  h4: 'vtx-typography vtx-typography--h4',
+  h5: 'vtx-typography vtx-typography--h5',
+  h6: 'vtx-typography vtx-typography--h6',
+  body1: 'vtx-typography vtx-typography--body1',
+  body2: 'vtx-typography vtx-typography--body2',
+  subtitle1: 'vtx-typography vtx-typography--subtitle1',
+  subtitle2: 'vtx-typography vtx-typography--subtitle2',
+  caption: 'vtx-typography vtx-typography--caption',
+  overline: 'vtx-typography vtx-typography--overline',
+  button: 'vtx-typography vtx-typography--button',
+  label: 'vtx-typography vtx-typography--label',
 };
 
 /**
  * Default HTML element mapping for each variant
  */
-const ELEMENT_MAP: Record<TextVariant, TextAs> = {
+const ELEMENT_MAP: Record<TypographyVariant, TypographyAs> = {
   h1: 'h1',
   h2: 'h2',
   h3: 'h3',
@@ -219,12 +219,12 @@ const ELEMENT_MAP: Record<TextVariant, TextAs> = {
 };
 
 /**
- * Text component - Versatile typography component with theme integration
+ * Typography component - Versatile typography component with theme integration
  *
  * A comprehensive text component that provides consistent typography across your application
  * with full theming support and extensive customization options.
  */
-const TextComponent = React.forwardRef<HTMLElement, TextProps>(
+const TypographyComponent = React.forwardRef<HTMLElement, TypographyProps>(
   (
     {
       variant = 'body1',
@@ -262,21 +262,21 @@ const TextComponent = React.forwardRef<HTMLElement, TextProps>(
     const classNames = React.useMemo(() => {
       const classes = [CLASS_VARIANTS[variant]];
 
-      if (align) classes.push(`vtx-text--align-${align}`);
-      if (weight && typeof weight === 'string') classes.push(`vtx-text--weight-${weight}`);
-      if (color && color !== 'inherit') classes.push(`vtx-text--color-${color}`);
-      if (transform) classes.push(`vtx-text--transform-${transform}`);
-      if (decoration) classes.push(`vtx-text--decoration-${decoration}`);
-      if (truncate) classes.push('vtx-text--truncate');
-      if (lineClamp) classes.push('vtx-text--line-clamp');
-      if (breakWord) classes.push('vtx-text--break-word');
-      if (italic) classes.push('vtx-text--italic');
-      if (underline) classes.push('vtx-text--underline');
-      if (strikethrough) classes.push('vtx-text--strikethrough');
-      if (gradient) classes.push('vtx-text--gradient');
-      if (noSelect) classes.push('vtx-text--no-select');
-      if (noMargin) classes.push('vtx-text--no-margin');
-      if (noPadding) classes.push('vtx-text--no-padding');
+      if (align) classes.push(`vtx-typography--align-${align}`);
+      if (weight && typeof weight === 'string') classes.push(`vtx-typography--weight-${weight}`);
+      if (color && color !== 'inherit') classes.push(`vtx-typography--color-${color}`);
+      if (transform) classes.push(`vtx-typography--transform-${transform}`);
+      if (decoration) classes.push(`vtx-typography--decoration-${decoration}`);
+      if (truncate) classes.push('vtx-typography--truncate');
+      if (lineClamp) classes.push('vtx-typography--line-clamp');
+      if (breakWord) classes.push('vtx-typography--break-word');
+      if (italic) classes.push('vtx-typography--italic');
+      if (underline) classes.push('vtx-typography--underline');
+      if (strikethrough) classes.push('vtx-typography--strikethrough');
+      if (gradient) classes.push('vtx-typography--gradient');
+      if (noSelect) classes.push('vtx-typography--no-select');
+      if (noMargin) classes.push('vtx-typography--no-margin');
+      if (noPadding) classes.push('vtx-typography--no-padding');
       if (className) classes.push(className);
 
       return classes.join(' ');
@@ -324,11 +324,10 @@ const TextComponent = React.forwardRef<HTMLElement, TextProps>(
   }
 );
 
-TextComponent.displayName = 'Text';
+TypographyComponent.displayName = 'Typography';
 
 // Using React.memo for high-frequency typography component
-const Text = React.memo(TextComponent);
+const Typography = React.memo(TypographyComponent);
 
-export default Text as React.FC<TextProps & React.RefAttributes<HTMLElement>>;
-export { Text };
-
+export default Typography as React.FC<TypographyProps & React.RefAttributes<HTMLElement>>;
+export { Typography };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '../../Button';
-import { Text } from '../../Text';
+import { Typography } from '../../Typography';
 import { Link } from '../../Link';
 import { Flex } from '../../Flex';
 import {
@@ -159,7 +159,7 @@ const EmptyStateWidget: React.FC<EmptyStateWidgetProps> = ({
 
       <Flex direction="column" className="vtx-empty-state__content" gap={0}>
         {/* Title */}
-        <Text
+        <Typography
           as="h2"
           variant={compact ? 'h4' : 'h3'}
           textColor={getTextColor()}
@@ -167,17 +167,17 @@ const EmptyStateWidget: React.FC<EmptyStateWidgetProps> = ({
           className="mb-4"
         >
           {displayTitle}
-        </Text>
+        </Typography>
 
         {/* Message */}
-        <Text
+        <Typography
           as="p"
           variant={compact ? 'body2' : 'body1'}
           textColor={getMessageColor()}
           className="mb-6"
         >
           {displayMessage}
-        </Text>
+        </Typography>
 
         {/* Actions */}
         {actions && actions.length > 0 && (
@@ -227,14 +227,14 @@ const EmptyStateWidget: React.FC<EmptyStateWidgetProps> = ({
         {/* Additional Info */}
         {additionalInfo && (
           <div className="vtx-empty-state__info mt-8">
-            <Text
+            <Typography
               as="p"
               variant="body2"
               textColor={getInfoTextColor()}
               noMargin
             >
               {additionalInfo}
-            </Text>
+            </Typography>
           </div>
         )}
       </Flex>

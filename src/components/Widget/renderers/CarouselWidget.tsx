@@ -2,7 +2,7 @@
 
 import React, { useCallback, useState } from 'react';
 import { Button } from '../../Button';
-import { Text } from '../../Text';
+import { Typography } from '../../Typography';
 import { useTheme } from '../../../hooks/useTheme';
 import { ChevronLeftIcon, ChevronRightIcon } from '../../../icons/IconComponents';
 import type { CarouselWidgetData, CarouselWidgetSettings } from '../types';
@@ -317,7 +317,7 @@ const CarouselWidget: React.FC<CarouselWidgetProps> = ({
             <div style={{ width: '100%' }}>
               {slide.caption.heading && (
                 <div style={{ marginBottom: 'clamp(12px, 2vw, 16px)' }}>
-                  <Text
+                  <Typography
                     variant="h2"
                     as="h2"
                     textColor="#fff"
@@ -329,13 +329,13 @@ const CarouselWidget: React.FC<CarouselWidgetProps> = ({
                     }}
                   >
                     {slide.caption.heading}
-                  </Text>
+                  </Typography>
                 </div>
               )}
 
               {slide.caption.subheading && (
                 <div style={{ marginBottom: 'clamp(12px, 2vw, 16px)' }}>
-                  <Text
+                  <Typography
                     variant="h4"
                     as="h3"
                     textColor="#fff"
@@ -348,13 +348,13 @@ const CarouselWidget: React.FC<CarouselWidgetProps> = ({
                     }}
                   >
                     {slide.caption.subheading}
-                  </Text>
+                  </Typography>
                 </div>
               )}
 
               {slide.caption.description && (
                 <div style={{ marginBottom: 'clamp(20px, 2.5vw, 24px)' }}>
-                  <Text
+                  <Typography
                     variant="body1"
                     textColor="#fff"
                     size="clamp(14px, 2vw, 18px)"
@@ -365,7 +365,7 @@ const CarouselWidget: React.FC<CarouselWidgetProps> = ({
                     }}
                   >
                     {slide.caption.description}
-                  </Text>
+                  </Typography>
                 </div>
               )}
 

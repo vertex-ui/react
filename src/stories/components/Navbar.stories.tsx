@@ -1,6 +1,6 @@
 import { Navbar, NavigationItem } from '../../components/Navbar/Navbar';
 import { Button } from '../../components/Button';
-import { Text } from '../../components/Text';
+import { Typography } from '../../components/Typography';
 import { Flex } from '../../components/Flex';
 import { ThemeProvider } from '../../theme/ThemeProvider';
 import {
@@ -112,8 +112,8 @@ export const EcommerceStore = () => {
         <FiPhone />
       </div>
       <Flex direction="column" style={{ lineHeight: 1.2 }}>
-        <Text variant="caption" color="secondary" weight="medium">Customer Support</Text>
-        <Text variant="body2" weight="semibold">+1 (800) 555-0123</Text>
+        <Typography variant="caption" color="secondary" weight="medium">Customer Support</Typography>
+        <Typography variant="body2" weight="semibold">+1 (800) 555-0123</Typography>
       </Flex>
     </Flex>
   );
@@ -136,7 +136,7 @@ export const EcommerceStore = () => {
         left: (
           <Flex align="center" gap={8}>
             <MdOutlineLocalShipping />
-            <Text size="sm">Free shipping on all orders over $75</Text>
+            <Typography size="sm">Free shipping on all orders over $75</Typography>
           </Flex>
         ),
         right: [
@@ -262,9 +262,9 @@ export const DigitalNews = () => (
       { label: "Travel", href: "/travel" },
     ]}
     contentNodes={[
-      <Text key="date" variant="body2" weight="bold" style={{ marginRight: '1rem' }}>
+      <Typography key="date" variant="body2" weight="bold" style={{ marginRight: '1rem' }}>
         {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
-      </Text>
+      </Typography>
     ]}
     actions={
       <Flex align="center" gap={8}>
@@ -300,7 +300,7 @@ export const DarkModeSaaS = () => (
         sticky
       />
       <Flex direction="column" align="center" style={{ padding: '2rem' }}>
-        <Text variant="h1" align="center">Secure your infrastructure</Text>
+        <Typography variant="h1" align="center">Secure your infrastructure</Typography>
       </Flex>
     </div>
   </ThemeProvider>

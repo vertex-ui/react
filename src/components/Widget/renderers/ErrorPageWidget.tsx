@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '../../Button';
-import { Text } from '../../Text';
+import { Typography } from '../../Typography';
 import { Link } from '../../Link';
 import { Flex } from '../../Flex';
 import {
@@ -206,18 +206,18 @@ const ErrorPageWidget: React.FC<ErrorPageWidgetProps> = ({
       )}
 
       {/* Error Code */}
-      <Text
+      <Typography
         as="div"
         className="vtx-error-page__code mb-6"
         textColor={getCodeColor()}
         aria-label={`Error code ${errorCode}`}
       >
         {errorCode}
-      </Text>
+      </Typography>
 
       <Flex direction="column" className="vtx-error-page__content" gap={0}>
         {/* Title */}
-        <Text
+        <Typography
           as="h1"
           variant="h2"
           textColor={getTextColor()}
@@ -225,28 +225,28 @@ const ErrorPageWidget: React.FC<ErrorPageWidgetProps> = ({
           className="mb-5"
         >
           {displayTitle}
-        </Text>
+        </Typography>
 
         {/* Message */}
-        <Text
+        <Typography
           as="p"
           variant="body1"
           textColor={getTextColor()}
           className="mb-4"
         >
           {displayMessage}
-        </Text>
+        </Typography>
 
         {/* Suggestion */}
         {displaySuggestion && (
-          <Text
+          <Typography
             as="p"
             variant="body2"
             textColor={getSuggestionColor()}
             className="mb-4"
           >
             {displaySuggestion}
-          </Text>
+          </Typography>
         )}
 
         {/* Actions */}
@@ -296,14 +296,14 @@ const ErrorPageWidget: React.FC<ErrorPageWidgetProps> = ({
         {/* Additional Info */}
         {additionalInfo && (
           <div className="vtx-error-page__info mt-10">
-            <Text
+            <Typography
               as="p"
               variant="body2"
               textColor={getInfoTextColor()}
               noMargin
             >
               {additionalInfo}
-            </Text>
+            </Typography>
           </div>
         )}
       </Flex>

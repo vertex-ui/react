@@ -1,7 +1,7 @@
 import React from 'react';
 import { HeaderWidgetData, HeaderWidgetSettings, WidgetTheme, WidgetVariant } from '../types';
 import { Card } from '../../Card';
-import { Text } from '../../Text';
+import { Typography } from '../../Typography';
 import { Button } from '../../Button';
 import { Flex } from '../../Flex';
 import { Avatar } from '../../Avatar';
@@ -145,13 +145,13 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
               <Flex align="center" gap="sm">
                 {renderAvatar()}
                 <Flex direction="column">
-                  <Text variant={getTitleVariant()} className="font-bold">
+                  <Typography variant={getTitleVariant()} className="font-bold">
                     {data.title}
-                  </Text>
+                  </Typography>
                   {data.subtitle && (
-                    <Text variant={getSubtitleVariant()} className="text-neutral-600">
+                    <Typography variant={getSubtitleVariant()} className="text-neutral-600">
                       {data.subtitle}
-                    </Text>
+                    </Typography>
                   )}
                 </Flex>
               </Flex>
@@ -173,18 +173,18 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
                 <Flex align="center" gap="md">
                   {renderAvatar()}
                   <Flex direction="column" gap="xs">
-                    <Text variant={getTitleVariant()} className="font-bold">
+                    <Typography variant={getTitleVariant()} className="font-bold">
                       {data.title}
-                    </Text>
+                    </Typography>
                     {data.subtitle && (
-                      <Text variant={getSubtitleVariant()} className="text-neutral-700">
+                      <Typography variant={getSubtitleVariant()} className="text-neutral-700">
                         {data.subtitle}
-                      </Text>
+                      </Typography>
                     )}
                     {data.description && (
-                      <Text variant="body2" className="text-neutral-600">
+                      <Typography variant="body2" className="text-neutral-600">
                         {data.description}
-                      </Text>
+                      </Typography>
                     )}
                   </Flex>
                 </Flex>
@@ -195,12 +195,12 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
                   <Flex gap="lg">
                     {Object.entries(data.metadata).map(([key, value]) => (
                       <Flex key={key} direction="column" gap="xs">
-                        <Text variant="caption" className="text-neutral-500 uppercase font-medium">
+                        <Typography variant="caption" className="text-neutral-500 uppercase font-medium">
                           {key}
-                        </Text>
-                        <Text variant="body2" className="font-medium">
+                        </Typography>
+                        <Typography variant="body2" className="font-medium">
                           {String(value)}
-                        </Text>
+                        </Typography>
                       </Flex>
                     ))}
                   </Flex>
@@ -221,13 +221,13 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
               <Flex align="center" gap="sm">
                 {renderAvatar()}
                 <Flex direction="column">
-                  <Text variant={getTitleVariant()} className="font-semibold">
+                  <Typography variant={getTitleVariant()} className="font-semibold">
                     {data.title}
-                  </Text>
+                  </Typography>
                   {data.subtitle && (
-                    <Text variant="caption" className="text-neutral-500">
+                    <Typography variant="caption" className="text-neutral-500">
                       {data.subtitle}
-                    </Text>
+                    </Typography>
                   )}
                 </Flex>
               </Flex>
@@ -252,13 +252,13 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
       default:
         return (
           <Flex direction="column" gap="md">
-            <Text variant={getTitleVariant()} className="font-bold">
+            <Typography variant={getTitleVariant()} className="font-bold">
               {data.title}
-            </Text>
+            </Typography>
             {data.subtitle && (
-              <Text variant={getSubtitleVariant()} className="text-neutral-600">
+              <Typography variant={getSubtitleVariant()} className="text-neutral-600">
                 {data.subtitle}
-              </Text>
+              </Typography>
             )}
             {renderBadges()}
             {renderActions()}

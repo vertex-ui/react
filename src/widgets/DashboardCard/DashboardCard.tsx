@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import { withParsedClasses } from '../../hoc/withParsedClasses';
 import { Card } from '../../components/Card';
 import { Flex } from '../../components/Flex';
-import { Text } from '../../components/Text';
+import { Typography } from '../../components/Typography';
 import { Badge } from '../../components/Badge';
 import { ArrowUpIcon, ArrowDownIcon } from '../../icons/IconComponents';
 
@@ -119,8 +119,8 @@ const TrendIndicator: React.FC<{ trend: TrendData; size?: 'sm' | 'md' }> = ({ tr
       <span className="dashboard-card__trend-icon" aria-label={isPositive ? 'Up' : 'Down'}>
         {isPositive ? <ArrowUpIcon size={14} /> : <ArrowDownIcon size={14} />}
       </span>
-      <Text variant="caption" className="dashboard-card__trend-value">{Math.abs(trend.value)}%</Text>
-      {trend.label && <Text variant="caption" className="dashboard-card__trend-label">{trend.label}</Text>}
+      <Typography variant="caption" className="dashboard-card__trend-value">{Math.abs(trend.value)}%</Typography>
+      {trend.label && <Typography variant="caption" className="dashboard-card__trend-label">{trend.label}</Typography>}
     </Flex>
   );
 };
@@ -173,12 +173,12 @@ const StatCard: React.FC<StatCardProps> = ({ data, settings = {}, className = ''
     >
       {loading ? (
         <Flex align="center" justify="center" style={{ minHeight: 120 }}>
-          <Text variant="body2">Loading...</Text>
+          <Typography variant="body2">Loading...</Typography>
         </Flex>
       ) : (
         <Flex direction="column" gap={2}>
           <Flex align="center" justify="between" wrap="nowrap" gap={2}>
-            <Text
+            <Typography
               variant="overline"
               weight="semibold"
               className="dashboard-card__label"
@@ -186,22 +186,22 @@ const StatCard: React.FC<StatCardProps> = ({ data, settings = {}, className = ''
               color={theme}
             >
               {data.label}
-            </Text>
+            </Typography>
             {showIcon && data.icon && <IconWrapper icon={data.icon} theme={theme} size={size} />}
           </Flex>
 
           <Flex direction="column" gap={0.5}>
-            <Text
+            <Typography
               variant={valueSize === 'lg' ? 'h2' : valueSize === 'md' ? 'h3' : 'h4'}
               weight="bold"
               className="dashboard-card__value"
             >
               {data.value}
-            </Text>
+            </Typography>
             {data.subtitle && (
-              <Text variant="caption" className="dashboard-card__subtitle" color={theme}>
+              <Typography variant="caption" className="dashboard-card__subtitle" color={theme}>
                 {data.subtitle}
-              </Text>
+              </Typography>
             )}
           </Flex>
 
@@ -239,23 +239,23 @@ const ProgressCard: React.FC<ProgressCardProps> = ({ data, settings = {}, classN
     >
       {loading ? (
         <Flex align="center" justify="center" style={{ minHeight: 120 }}>
-          <Text variant="body2">Loading...</Text>
+          <Typography variant="body2">Loading...</Typography>
         </Flex>
       ) : (
         <Flex direction="column" gap={2}>
           <Flex align="center" justify="between" gap={2}>
             <Flex direction="column" gap={0.5} style={{ flex: 1 }}>
-              <Text
+              <Typography
                 variant="overline"
                 weight="semibold"
                 className="dashboard-card__label"
               >
                 {data.label}
-              </Text>
+              </Typography>
               {data.subtitle && (
-                <Text variant="caption" className="dashboard-card__subtitle" color={theme}>
+                <Typography variant="caption" className="dashboard-card__subtitle" color={theme}>
                   {data.subtitle}
-                </Text>
+                </Typography>
               )}
             </Flex>
             {data.icon && <IconWrapper icon={data.icon} theme={theme} size={size} />}
@@ -266,22 +266,22 @@ const ProgressCard: React.FC<ProgressCardProps> = ({ data, settings = {}, classN
 
             <Flex align="center" justify="between" gap={2}>
               {showValues && (
-                <Text
+                <Typography
                   variant="body2"
                   weight="medium"
                   className="dashboard-card__progress-values"
                 >
                   {data.current}{data.unit && ` ${data.unit}`} / {data.target}{data.unit && ` ${data.unit}`}
-                </Text>
+                </Typography>
               )}
               {showPercentage && (
-                <Text
+                <Typography
                   variant="h3"
                   weight="bold"
                   className={`dashboard-card__percentage dashboard-card__percentage--${theme}`}
                 >
                   {Math.round(percentage)}%
-                </Text>
+                </Typography>
               )}
             </Flex>
 
@@ -318,17 +318,17 @@ const ComparisonCard: React.FC<ComparisonCardProps> = ({ data, settings = {}, cl
     >
       {loading ? (
         <Flex align="center" justify="center" style={{ minHeight: 120 }}>
-          <Text variant="body2">Loading...</Text>
+          <Typography variant="body2">Loading...</Typography>
         </Flex>
       ) : (
         <Flex direction="column" gap={2}>
-          <Text
+          <Typography
             variant="overline"
             weight="semibold"
             className="dashboard-card__label"
           >
             {data.label}
-          </Text>
+          </Typography>
 
           <Flex
             direction={layout === 'vertical' ? 'column' : 'row'}
@@ -342,7 +342,7 @@ const ComparisonCard: React.FC<ComparisonCardProps> = ({ data, settings = {}, cl
                 <Flex direction="column" gap={1} style={{ flex: 1, minWidth: 0 }}>
                   <Flex align="center" gap={1}>
                     {item.icon && <IconWrapper icon={item.icon} theme={theme} size={size} />}
-                    <Text
+                    <Typography
                       variant="caption"
                       weight="medium"
                       className="dashboard-card__comparison-label"
@@ -350,11 +350,11 @@ const ComparisonCard: React.FC<ComparisonCardProps> = ({ data, settings = {}, cl
                       color={theme}
                     >
                       {item.label}
-                    </Text>
+                    </Typography>
                   </Flex>
-                  <Text variant="h3" weight="bold" className="dashboard-card__value">
+                  <Typography variant="h3" weight="bold" className="dashboard-card__value">
                     {item.value}
-                  </Text>
+                  </Typography>
                   {showTrends && item.trend && (
                     <Flex>
                       <TrendIndicator trend={item.trend} size="sm" />

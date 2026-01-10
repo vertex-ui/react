@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Flex } from '../Flex';
 import { Link } from '../Link';
 import { Badge } from '../Badge';
-import { Text } from '../Text';
+import { Typography } from '../Typography';
 import { ChevronDownIcon } from '../../icons/IconComponents';
 import { NavigationItem } from './types';
 
@@ -50,9 +50,9 @@ export const NavItem: React.FC<NavItemProps> = ({ item, mobile = false, onItemCl
   const content = (
     <Flex align="center" gap={8}>
       {item.icon}
-      <Text variant="body2" as="span" weight="medium" color="inherit">
+      <Typography variant="body2" as="span" weight="medium" color="inherit">
         {item.label}
-      </Text>
+      </Typography>
       {item.badge && (
         <Badge variant={item.badgeVariant || 'primary'} size="sm">
           {item.badge}
@@ -96,9 +96,9 @@ export const NavItem: React.FC<NavItemProps> = ({ item, mobile = false, onItemCl
                   className="vtx-navbar__mobile-megamenu-column"
                 >
                   {column.title && (
-                    <Text variant="overline" className="vtx-navbar__mobile-megamenu-title">
+                    <Typography variant="overline" className="vtx-navbar__mobile-megamenu-title">
                       {column.title}
-                    </Text>
+                    </Typography>
                   )}
                   {column.items.map((child, index) => (
                     <NavItem key={index} item={child} mobile onItemClick={onItemClick} />
@@ -144,14 +144,14 @@ export const NavItem: React.FC<NavItemProps> = ({ item, mobile = false, onItemCl
                 className="vtx-navbar__megamenu-column"
               >
                 {column.title && (
-                  <Text
+                  <Typography
                     variant="caption"
                     weight="bold"
                     transform="uppercase"
                     className="vtx-navbar__megamenu-title"
                   >
                     {column.title}
-                  </Text>
+                  </Typography>
                 )}
                 <Flex direction="column" gap={4}>
                   {column.items.map((child, index) => (
