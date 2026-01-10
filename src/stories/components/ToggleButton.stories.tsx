@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { userEvent, within, expect } from '@storybook/test';
 import { useState } from 'react';
 import { ToggleButton } from '../../components/ToggleButton';
 import { FiSun, FiMoon, FiWifi, FiWifiOff } from 'react-icons/fi';
@@ -39,6 +40,7 @@ export const Checked: Story = {
   args: {
     label: 'Checked toggle',
     checked: true,
+    onChange: () => {},
   },
 };
 
@@ -54,6 +56,7 @@ export const DisabledChecked: Story = {
     label: 'Disabled checked toggle',
     disabled: true,
     checked: true,
+    onChange: () => {},
   },
 };
 
@@ -115,17 +118,28 @@ export const WithIcons: Story = {
 };
 
 export const Interactive: Story = {
-  render: () => {
+  args: {
+    label: 'Interactive Toggle',
+  },
+  render: (args) => {
     const [checked, setChecked] = useState(false);
     return (
       <ToggleButton
+        {...args}
         checked={checked}
         onChange={(e) => setChecked(e.target.checked)}
-        label={checked ? 'WiFi On' : 'WiFi Off'}
-        icon={<FiWifiOff />}
-        checkedIcon={<FiWifi />}
-        variant={checked ? 'success' : 'secondary'}
       />
     );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const label = canvas.getByText('Interactive Toggle');
+    const checkbox = canvas.getByRole('switch');
+
+    await expect(checkbox).not.toBeChecked();
+    await userEvent.click(label);
+    await expect(checkbox).toBeChecked();
+    await userEvent.click(label);
+    await expect(checkbox).not.toBeChecked();
   },
 };

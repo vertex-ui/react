@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { userEvent, within, expect } from '@storybook/test';
 import { Select } from '../../components/Select';
 
 const meta: Meta<typeof Select> = {
@@ -176,5 +177,30 @@ export const AllSizes: Story = {
   ),
   parameters: {
     layout: 'padded',
+  },
+};
+
+export const Interactive: Story = {
+  args: {
+    label: 'Interactive Select',
+    options: countryOptions,
+    placeholder: 'Select...',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Find the select trigger
+    // Assuming standard implementation: label -> combobox or button
+    // It might be difficult to target without knowing exact structure
+    // Trying to find by placeholder
+    const selectTrigger = canvas.getByText('Select...');
+    await userEvent.click(selectTrigger);
+
+    // Find option 'Canada' in the dropdown (which is usually in a portal, so we need screen/body scope, but within works if it renders inline or we can find it)
+    // Storybook test runner handles portals usually
+    const option = await within(document.body).findByText('Canada');
+    await userEvent.click(option);
+
+    // Verify selection
+    await expect(canvas.getByText('Canada')).toBeInTheDocument();
   },
 };
