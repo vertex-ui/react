@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '../../icons/IconComponents';
 import { Flex } from '../Flex';
-import { Text } from '../Text';
+import { Typography } from '../Typography';
 import { MenuItem, MenuItemProps } from './Menu';
 import './ActionMenu.css';
 
@@ -206,9 +206,9 @@ const ActionMenu = React.forwardRef<HTMLDivElement, ActionMenuProps>(
       return (
         <Flex align="center" gap={8}>
           {triggerIcon && <span className="vtx-action-menu-trigger-icon">{triggerIcon}</span>}
-          <Text variant="body2" noMargin>
+          <Typography variant="body2" noMargin>
             {triggerLabel}
-          </Text>
+          </Typography>
           <ChevronIcon isOpen={isOpen} />
         </Flex>
       );

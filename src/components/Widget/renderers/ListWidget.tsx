@@ -2,7 +2,7 @@
 import React from 'react';
 import { ListWidgetData, ListWidgetSettings, WidgetTheme, WidgetVariant } from '../types';
 import { Card } from '../../Card';
-import { Text } from '../../Text';
+import { Typography } from '../../../components/Typography';
 import { Button } from '../../Button';
 import { Flex } from '../../Flex';
 import { Avatar } from '../../Avatar';
@@ -82,9 +82,9 @@ const ListWidget: React.FC<ListWidgetProps> = ({
     return (
       <Flex direction="column" gap="sm">
         {data.title && (
-          <Text variant="h6" className="font-semibold mb-2">
+          <Typography variant="h6" className="font-semibold mb-2">
             {data.title}
-          </Text>
+          </Typography>
         )}
 
         {itemsToShow.map((item, index) => (
@@ -95,18 +95,18 @@ const ListWidget: React.FC<ListWidgetProps> = ({
               <Flex direction="column" gap="xs" style={{ flex: 1 }}>
                 <Flex justify="between" align="start">
                   <Flex direction="column" gap="xs">
-                    <Text variant={size === 'lg' ? 'body1' : 'body2'} className="font-medium">
+                    <Typography variant={size === 'lg' ? 'body1' : 'body2'} className="font-medium">
                       {item.title}
-                    </Text>
+                    </Typography>
                     {item.subtitle && (
-                      <Text variant="caption" className="text-neutral-600">
+                      <Typography variant="caption" className="text-neutral-600">
                         {item.subtitle}
-                      </Text>
+                      </Typography>
                     )}
                     {item.description && (
-                      <Text variant="caption" className="text-neutral-500">
+                      <Typography variant="caption" className="text-neutral-500">
                         {item.description}
-                      </Text>
+                      </Typography>
                     )}
                   </Flex>
 
@@ -126,9 +126,9 @@ const ListWidget: React.FC<ListWidgetProps> = ({
                 {item.metadata && Object.keys(item.metadata).length > 0 && (
                   <Flex gap="md">
                     {Object.entries(item.metadata).map(([key, value]) => (
-                      <Text key={key} variant="caption" className="text-neutral-500">
+                      <Typography key={key} variant="caption" className="text-neutral-500">
                         <span className="font-medium">{key}:</span> {String(value)}
-                      </Text>
+                      </Typography>
                     ))}
                   </Flex>
                 )}
@@ -142,9 +142,9 @@ const ListWidget: React.FC<ListWidgetProps> = ({
         ))}
 
         {maxItems && data.items.length > maxItems && (
-          <Text variant="caption" className="text-neutral-500 text-center mt-2">
+          <Typography variant="caption" className="text-neutral-500 text-center mt-2">
             +{data.items.length - maxItems} more items
-          </Text>
+          </Typography>
         )}
       </Flex>
     );

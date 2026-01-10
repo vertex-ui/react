@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Flex } from '../Flex';
-import { Text } from '../Text';
+import { Typography } from '../Typography';
 import { Avatar } from '../Avatar';
 import { Badge } from '../Badge';
 import { Menu } from '../Menu';
@@ -132,9 +132,9 @@ const NotificationPanel = React.forwardRef<
     <div ref={ref} className="vtx-header-notifications-panel">
       <div className="vtx-header-notifications-header">
         <Flex justify="between" align="center">
-          <Text variant="subtitle2" noMargin>
+          <Typography variant="subtitle2" noMargin>
             Notifications
-          </Text>
+          </Typography>
           {unreadCount > 0 && onMarkAllAsRead && (
             <button
               className="vtx-header-notifications-mark-read"
@@ -152,9 +152,9 @@ const NotificationPanel = React.forwardRef<
         {notifications.length === 0 ? (
           <div className="vtx-header-notifications-empty">
             <BellIcon />
-            <Text variant="body2" textColor="var(--color-neutral-500)" noMargin>
+            <Typography variant="body2" textColor="var(--color-neutral-500)" noMargin>
               No notifications
-            </Text>
+            </Typography>
           </div>
         ) : (
           notifications.map((notification) => (
@@ -170,21 +170,21 @@ const NotificationPanel = React.forwardRef<
                 <div className="vtx-header-notification-icon">{notification.icon}</div>
               )}
               <div className="vtx-header-notification-content">
-                <Text
+                <Typography
                   variant="body2"
                   noMargin
                   style={{ fontWeight: notification.read ? 400 : 600 }}
                 >
                   {notification.title}
-                </Text>
+                </Typography>
                 {notification.description && (
-                  <Text variant="caption" textColor="var(--color-neutral-600)" noMargin>
+                  <Typography variant="caption" textColor="var(--color-neutral-600)" noMargin>
                     {notification.description}
-                  </Text>
+                  </Typography>
                 )}
-                <Text variant="caption" textColor="var(--color-neutral-500)" noMargin style={{ marginTop: '4px' }}>
+                <Typography variant="caption" textColor="var(--color-neutral-500)" noMargin style={{ marginTop: '4px' }}>
                   {notification.time}
-                </Text>
+                </Typography>
               </div>
               {!notification.read && <div className="vtx-header-notification-dot" />}
             </div>
@@ -300,9 +300,9 @@ const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
 
           {/* Title */}
           {title && (
-            <Text variant="h6" noMargin className="vtx-header-title">
+            <Typography variant="h6" noMargin className="vtx-header-title">
               {title}
-            </Text>
+            </Typography>
           )}
         </Flex>
 
@@ -368,13 +368,13 @@ const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
                   </span>
                 )}
                 <div className="vtx-header-user-info">
-                  <Text variant="body2" noMargin style={{ fontWeight: 600 }}>
+                  <Typography variant="body2" noMargin style={{ fontWeight: 600 }}>
                     {userName}
-                  </Text>
+                  </Typography>
                   {userSubtitle && (
-                    <Text variant="caption" textColor="var(--color-neutral-600)" noMargin>
+                    <Typography variant="caption" textColor="var(--color-neutral-600)" noMargin>
                       {userSubtitle}
-                    </Text>
+                    </Typography>
                   )}
                 </div>
                 <ChevronDownIcon />

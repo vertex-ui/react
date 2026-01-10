@@ -2,7 +2,7 @@
 import React from 'react';
 import { ContentBlockWidgetData, ContentBlockWidgetSettings, WidgetTheme } from '../types';
 import { Card } from '../../Card';
-import { Text } from '../../Text';
+import { Typography } from '../../../components/Typography';
 import { Button } from '../../Button';
 import { Flex } from '../../Flex';
 import { Link } from '../../Link';
@@ -45,6 +45,12 @@ export interface ContentBlockWidgetProps {
   theme?: WidgetTheme;
   className?: string;
   style?: React.CSSProperties;
+  /**
+   * If true, the media in this block (image/avatar) will be eager loaded with high priority.
+   * Useful when the content block is the LCP element (e.g. Hero section).
+   * @default false
+   */
+  priority?: boolean;
 }
 
 const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
@@ -53,6 +59,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
   theme = 'modern',
   className = '',
   style,
+  priority = false,
 }) => {
   // Get size from theme context if available
   let themeDefaultSize = 'md';
@@ -199,6 +206,8 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
                 alt={alt}
                 className={`vtx-content-block__media ${mediaHoverClass}`}
                 style={mediaStyles}
+                loading={priority ? "eager" : "lazy"}
+                fetchPriority={priority ? "high" : "auto"}
               />
             </div>
           );
@@ -216,6 +225,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
               size={avatarSize}
               shape="circle"
               className="vtx-content-block__avatar"
+              priority={priority}
             />
           );
         }
@@ -268,9 +278,9 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
                     style={mediaStyles}
                   />
                   {item.caption && (
-                    <Text variant="caption" className="vtx-content-block__gallery-caption" style={{ marginTop: '0.5rem' }}>
+                    <Typography variant="caption" className="vtx-content-block__gallery-caption" style={{ marginTop: '0.5rem' }}>
                       {item.caption}
-                    </Text>
+                    </Typography>
                   )}
                 </div>
               ))}
@@ -308,13 +318,13 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
       <div className="vtx-content-block__content" style={{ textAlign: contentAlign }}>
         {/* Eyebrow */}
         {content.eyebrow && (
-          <Text
+          <Typography
             variant={content.eyebrowVariant || 'overline'}
             className="vtx-content-block__eyebrow"
             style={{ color: colors.eyebrow, marginBottom: gapMap.xs, display: 'block', textTransform: 'uppercase', letterSpacing: '0.05em', fontSize: sizeMap[sizeKey].eyebrow }}
           >
             {content.eyebrow}
-          </Text>
+          </Typography>
         )}
 
         {/* Tags */}
@@ -342,35 +352,35 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
 
         {/* Heading */}
         {content.heading && (
-          <Text
+          <Typography
             variant={content.headingVariant || 'h2'}
             className="vtx-content-block__heading"
             style={{ color: colors.heading, marginBottom: content.subheading || content.body ? gapMap.sm : '0', fontWeight: 'bold', fontSize: sizeMap[sizeKey].heading }}
           >
             {content.heading}
-          </Text>
+          </Typography>
         )}
 
         {/* Subheading */}
         {content.subheading && (
-          <Text
+          <Typography
             variant={content.subheadingVariant || 'h4'}
             className="vtx-content-block__subheading"
             style={{ color: colors.subheading, marginBottom: content.body ? gapMap.md : '0', fontSize: sizeMap[sizeKey].subheading }}
           >
             {content.subheading}
-          </Text>
+          </Typography>
         )}
 
         {/* Body */}
         {content.body && (
-          <Text
+          <Typography
             variant={content.bodyVariant || 'body1'}
             className="vtx-content-block__body"
             style={{ color: colors.body, marginBottom: content.list || data.product || data.stats ? gapMap[gap] || gapMap.md : '0', lineHeight: '1.6', fontSize: sizeMap[sizeKey].body }}
           >
             {content.body}
-          </Text>
+          </Typography>
         )}
 
         {/* List */}
@@ -395,7 +405,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
                 {content.listType === 'bullet' && (
                   <span style={{ marginRight: '0.5rem', flexShrink: 0 }}><BulletIcon size={8} /></span>
                 )}
-                <Text variant="body1" style={{ flex: 1, fontSize: sizeMap[sizeKey].body }}>{item.text}</Text>
+                <Typography variant="body1" style={{ flex: 1, fontSize: sizeMap[sizeKey].body }}>{item.text}</Typography>
               </li>
             ))}
           </ul>
@@ -407,13 +417,13 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
             <Flex gap="sm" align="center" wrap="wrap">
               {data.product.price && (
                 <Flex gap="xs" align="center">
-                  <Text variant="h3" style={{ fontWeight: 'bold', color: 'var(--color-primary)', fontSize: `calc(${sizeMap[sizeKey].heading} * 0.8)` }}>
+                  <Typography variant="h3" style={{ fontWeight: 'bold', color: 'var(--color-primary)', fontSize: `calc(${sizeMap[sizeKey].heading} * 0.8)` }}>
                     {data.product.currency || '$'}{data.product.price}
-                  </Text>
+                  </Typography>
                   {data.product.comparePrice && (
-                    <Text variant="body1" style={{ textDecoration: 'line-through', color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].body }}>
+                    <Typography variant="body1" style={{ textDecoration: 'line-through', color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].body }}>
                       {data.product.currency || '$'}{data.product.comparePrice}
-                    </Text>
+                    </Typography>
                   )}
                   {data.product.discount && (
                     <Badge variant="error">{data.product.discount}</Badge>
@@ -425,11 +435,11 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
             <Flex gap="sm" align="center" style={{ marginTop: gapMap.sm }} wrap="wrap">
               {data.product.rating && (
                 <Flex gap="xs" align="center">
-                  <Text variant="body1" style={{ fontSize: sizeMap[sizeKey].body }}><StarFullIcon size={12} color="orange" /> {data.product.rating}</Text>
+                  <Typography variant="body1" style={{ fontSize: sizeMap[sizeKey].body }}><StarFullIcon size={12} color="orange" /> {data.product.rating}</Typography>
                   {data.product.reviewCount && (
-                    <Text variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].caption }}>
+                    <Typography variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].caption }}>
                       ({data.product.reviewCount} reviews)
-                    </Text>
+                    </Typography>
                   )}
                 </Flex>
               )}
@@ -442,9 +452,9 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
                 </Badge>
               )}
               {data.product.sku && (
-                <Text variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].caption }}>
+                <Typography variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].caption }}>
                   SKU: {data.product.sku}
-                </Text>
+                </Typography>
               )}
             </Flex>
           </div>
@@ -457,12 +467,12 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
               {data.stats.map((stat, index) => (
                 <div key={index} className="vtx-content-block__stat-item">
                   {stat.icon && <div style={{ marginBottom: gapMap.sm, fontSize: `calc(1.5rem * ${sizeMap[sizeKey].scale})` }}>{stat.icon}</div>}
-                  <Text variant="h3" style={{ fontWeight: 'bold', marginBottom: gapMap.xs, fontSize: `calc(${sizeMap[sizeKey].heading} * 0.85)` }}>
+                  <Typography variant="h3" style={{ fontWeight: 'bold', marginBottom: gapMap.xs, fontSize: `calc(${sizeMap[sizeKey].heading} * 0.85)` }}>
                     {stat.value}
-                  </Text>
-                  <Text variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].body }}>
+                  </Typography>
+                  <Typography variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].body }}>
                     {stat.label}
-                  </Text>
+                  </Typography>
                 </div>
               ))}
             </Flex>
@@ -478,13 +488,13 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
             backgroundColor: 'var(--color-background-subtle)',
             borderRadius: '0.25rem'
           }}>
-            <Text variant="body1" style={{ fontStyle: 'italic', marginBottom: data.quote.author ? gapMap.sm : '0', fontSize: sizeMap[sizeKey].body }}>
+            <Typography variant="body1" style={{ fontStyle: 'italic', marginBottom: data.quote.author ? gapMap.sm : '0', fontSize: sizeMap[sizeKey].body }}>
               "{data.quote.text}"
-            </Text>
+            </Typography>
             {data.quote.author && (
-              <Text variant="body2" style={{ color: 'var(--color-text-muted)', fontWeight: 'bold', fontSize: sizeMap[sizeKey].caption }}>
+              <Typography variant="body2" style={{ color: 'var(--color-text-muted)', fontWeight: 'bold', fontSize: sizeMap[sizeKey].caption }}>
                 <DashIcon /> {data.quote.author}
-              </Text>
+              </Typography>
             )}
           </div>
         )}
@@ -496,9 +506,9 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
               {data.metadata.map((meta, index) => (
                 <Flex key={index} gap="sm" align="center">
                   {meta.icon && <span style={{ color: 'var(--color-text-muted)' }}>{meta.icon}</span>}
-                  <Text variant="body2" style={{ fontSize: sizeMap[sizeKey].caption }}>
+                  <Typography variant="body2" style={{ fontSize: sizeMap[sizeKey].caption }}>
                     <strong>{meta.label}:</strong> {meta.value}
-                  </Text>
+                  </Typography>
                 </Flex>
               ))}
             </Flex>
@@ -513,13 +523,13 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
                 <Avatar src={data.author.avatar} alt={data.author.name} size={size === 'xs' ? 'sm' : size === 'sm' ? 'md' : 'lg'} />
               )}
               <div>
-                <Text variant="body1" style={{ fontWeight: 'bold', marginBottom: gapMap.xs, fontSize: sizeMap[sizeKey].subheading }}>
+                <Typography variant="body1" style={{ fontWeight: 'bold', marginBottom: gapMap.xs, fontSize: sizeMap[sizeKey].subheading }}>
                   {data.author.name}
-                </Text>
+                </Typography>
                 {data.author.role && (
-                  <Text variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].caption }}>
+                  <Typography variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].caption }}>
                     {data.author.role}{data.author.company && ` at ${data.author.company}`}
-                  </Text>
+                  </Typography>
                 )}
                 {data.author.social && data.author.social.length > 0 && (
                   <Flex gap="sm" style={{ marginTop: gapMap.sm }}>
@@ -537,24 +547,24 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
 
         {/* Caption */}
         {content.caption && (
-          <Text
+          <Typography
             variant="caption"
             className="vtx-content-block__caption"
             style={{ color: colors.caption || 'var(--color-text-muted)', marginTop: gapMap[gap] || gapMap.md, display: 'block', fontSize: sizeMap[sizeKey].caption }}
           >
             {content.caption}
-          </Text>
+          </Typography>
         )}
 
         {/* Footnote */}
         {content.footnote && (
-          <Text
+          <Typography
             variant="caption"
             className="vtx-content-block__footnote"
             style={{ color: 'var(--color-text-muted)', marginTop: gapMap.sm, fontSize: sizeMap[sizeKey].caption, display: 'block' }}
           >
             {content.footnote}
-          </Text>
+          </Typography>
         )}
 
         {/* Actions */}

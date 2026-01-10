@@ -3,7 +3,7 @@ import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './OrderCard.css';
 import { Card } from '../../components/Card';
 import { Flex } from '../../components/Flex';
-import { Text } from '../../components/Text';
+import { Typography } from '../../components/Typography';
 import { Button } from '../../components/Button';
 import { Badge } from '../../components/Badge';
 import { SkeletonTheme } from '../../components/Skeleton';
@@ -164,9 +164,9 @@ const OrderCard = React.forwardRef<HTMLDivElement, OrderCardProps>(
         <Flex direction="column" gap={0}>
           {/* Header - Order Number & Status */}
           <Flex align="center" justify="between" wrap="wrap" gap={8} className="ordercard-header">
-            <Text variant="body1" weight="semibold" noMargin>
+            <Typography variant="body1" weight="semibold" noMargin>
               {orderNumber || `Order #${orderId}`}
-            </Text>
+            </Typography>
             <Badge variant={getStatusVariant()}>{getStatusText()}</Badge>
           </Flex>
 
@@ -179,13 +179,14 @@ const OrderCard = React.forwardRef<HTMLDivElement, OrderCardProps>(
                   src={firstItem.image}
                   alt={firstItem.name}
                   className="ordercard-image"
+                  loading="lazy"
                 />
               </div>
             )}
 
             {/* Product Details */}
             <Flex direction="column" gap={2} style={{ flex: 1, minWidth: 0 }}>
-              <Text
+              <Typography
                 variant="body2"
                 weight="medium"
                 noMargin
@@ -198,12 +199,12 @@ const OrderCard = React.forwardRef<HTMLDivElement, OrderCardProps>(
                     {firstItem.quantity}
                   </>
                 )}
-              </Text>
+              </Typography>
 
               {remainingCount > 0 && (
-                <Text variant="caption" noMargin className="ordercard-more-items">
+                <Typography variant="caption" noMargin className="ordercard-more-items">
                   + {remainingCount} more {remainingCount === 1 ? 'item' : 'items'}
-                </Text>
+                </Typography>
               )}
             </Flex>
           </Flex>
@@ -219,13 +220,13 @@ const OrderCard = React.forwardRef<HTMLDivElement, OrderCardProps>(
           >
             <Flex direction="column" gap={2} style={{ flex: '1 1 auto', minWidth: '140px' }}>
               {deliveryDate && (
-                <Text variant="caption" noMargin className="ordercard-delivery">
+                <Typography variant="caption" noMargin className="ordercard-delivery">
                   {deliveryLabel}: {deliveryDate}
-                </Text>
+                </Typography>
               )}
-              <Text variant="body1" weight="bold" noMargin className="ordercard-price">
+              <Typography variant="body1" weight="bold" noMargin className="ordercard-price">
                 {currency}{totalAmount.toLocaleString()}
-              </Text>
+              </Typography>
             </Flex>
 
             {onTrackOrder && (

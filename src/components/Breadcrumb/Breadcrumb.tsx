@@ -4,7 +4,7 @@ import React from 'react';
 import { useThemeContext } from '../../theme/ThemeProvider';
 import { ChevronRightIcon } from '../../icons/IconComponents';
 import Link from '../Link/Link';
-import Text from '../Text/Text';
+import Typography from '../Typography/Typography';
 import './Breadcrumb.css';
 
 export interface BreadcrumbItem {
@@ -212,7 +212,7 @@ const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
       const content = (
         <>
           {item.icon && <span className="vtx-breadcrumb-item-icon">{item.icon}</span>}
-          {item.label && <Text as="span" variant="body2" className="vtx-breadcrumb-item-label">{item.label}</Text>}
+          {item.label && <Typography as="span" variant="body2" className="vtx-breadcrumb-item-label">{item.label}</Typography>}
         </>
       );
 
