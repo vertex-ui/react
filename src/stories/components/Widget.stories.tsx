@@ -327,7 +327,7 @@ export const SingleProduct: Story = {
       settings: {
         showWishlist: true,
         isWishlisted: false,
-        onAddToCart: (id, qty) => alert(`Added ${qty} item(s) to cart`),
+        onAddToCart: (id, qty) => alert(`Added ${qty} item(s) to cart - ${id}`),
         onIncrementCart: (id, qty) => console.log('Incremented:', id, qty),
         onDecrementCart: (id, qty) => console.log('Decremented:', id, qty),
         onWishlist: () => alert('Added to wishlist!'),

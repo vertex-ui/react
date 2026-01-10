@@ -1,5 +1,5 @@
 import React from 'react';
-import { Accordion, AccordionItem } from '../../components/Accordion';
+import { Accordion } from '../../components/Accordion';
 import './FAQ.css';
 
 export interface FAQItem {
@@ -37,25 +37,28 @@ const FAQ: React.FC<FAQProps> = ({
     return items.length > 0 && 'items' in items[0];
   };
 
-  const renderAccordion = (faqItems: FAQItem[]) => (
-    <Accordion
-      allowMultiple={allowMultiple}
-      variant={variant === 'boxed' ? 'default' : 'minimal'} // Map widget variant to accordion variant
-      className={`vtx-faq-accordion ${variant === 'boxed' ? '' : 'accordion--divider'}`}
-    >
-      {faqItems.map((item, idx) => (
-        <AccordionItem
-          key={item.id || idx}
-          id={item.id || `faq-${idx}`}
-          header={item.question}
-        >
-          <div className="vtx-faq-answer">
-            {item.answer}
-          </div>
-        </AccordionItem>
-      ))}
-    </Accordion>
-  );
+  const getAccordionVariant = (v: string): 'default' | 'bordered' | 'separated' | 'flush' => {
+    if (v === 'boxed') return 'default';
+    if (v === 'minimal') return 'flush';
+    return 'default';
+  };
+
+  const renderAccordionSafe = (faqItems: FAQItem[]) => {
+    const accordionItems = faqItems.map((item, idx) => ({
+      id: item.id || `faq-${idx}`,
+      header: item.question,
+      children: <div className="vtx-faq-answer">{item.answer}</div>
+    }));
+
+    return (
+      <Accordion
+        items={accordionItems}
+        allowMultiple={allowMultiple}
+        variant={getAccordionVariant(variant)}
+        className={`vtx-faq-accordion ${variant === 'boxed' ? '' : 'accordion--divider'}`}
+      />
+    );
+  };
 
   return (
     <div className={`vtx-faq-wrapper ${className}`} style={style}>
@@ -66,11 +69,11 @@ const FAQ: React.FC<FAQProps> = ({
         items.map((cat, idx) => (
           <div key={idx} className="vtx-faq-category">
             {cat.title && <h3 className="vtx-faq-category-title">{cat.title}</h3>}
-            {renderAccordion(cat.items)}
+            {renderAccordionSafe(cat.items)}
           </div>
         ))
       ) : (
-        renderAccordion(items as FAQItem[])
+        renderAccordionSafe(items as FAQItem[])
       )}
     </div>
   );

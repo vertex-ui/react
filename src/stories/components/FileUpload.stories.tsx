@@ -4,9 +4,6 @@ import { FileUpload } from '../../components/FileUpload';
 const meta: Meta<typeof FileUpload> = {
   title: 'Components/FileUpload',
   component: FileUpload,
-  parameters: {
-    layout: 'centered',
-  },
   tags: ['autodocs'],
   argTypes: {
     onUpload: { action: 'uploaded' },
@@ -15,52 +12,27 @@ const meta: Meta<typeof FileUpload> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof FileUpload>;
 
 export const Default: Story = {
   args: {
-    label: 'Upload Documents',
-    placeholder: 'Click to upload or drag and drop',
-  },
-};
-
-export const WithHelperText: Story = {
-  args: {
-    label: 'Upload Report',
-    helperText: 'PDF, DOCX up to 5MB',
-    placeholder: 'Select a file',
+    label: 'Upload File',
+    helperText: 'Max file size: 5MB',
   },
 };
 
 export const WithError: Story = {
   args: {
-    label: 'Upload Avatar',
-    error: 'File size exceeds limit',
-    placeholder: 'Select an image',
+    label: 'Upload File',
+    error: 'File too large',
   },
 };
 
 export const Multiple: Story = {
   args: {
-    label: 'Upload Gallery',
-    multiple: true,
+    label: 'Upload Images',
     helperText: 'Select multiple images',
     accept: 'image/*',
-  },
-};
-
-export const AcceptImages: Story = {
-  args: {
-    label: 'Profile Picture',
-    accept: 'image/*',
-    helperText: 'Only image files are allowed',
-  },
-};
-
-export const Disabled: Story = {
-  args: {
-    label: 'Read Only',
-    disabled: true,
-    helperText: 'Uploads are currently disabled',
+    multiple: true,
   },
 };
