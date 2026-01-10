@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Box from './Box';
-import Text from '../Text/Text';
+import Typography from '../Typography/Typography';
 import Button from '../Button/Button';
 
 const meta: Meta<typeof Box> = {
@@ -64,13 +64,13 @@ export const Spacing: Story = {
   render: () => (
     <Box display="flex" flexDirection="column" gap={3}>
       <Box p={4} bg="#e3f2fd" borderRadius={8}>
-        <Text>Box with padding: 4</Text>
+        <Typography>Box with padding: 4</Typography>
       </Box>
       <Box px={4} py={2} bg="#f3e5f5" borderRadius={8}>
-        <Text>Box with px: 4, py: 2</Text>
+        <Typography>Box with px: 4, py: 2</Typography>
       </Box>
       <Box m={2} p={3} bg="#e8f5e9" border="2px solid #4caf50" borderRadius={8}>
-        <Text>Box with margin and padding</Text>
+        <Typography>Box with margin and padding</Typography>
       </Box>
     </Box>
   ),
@@ -89,7 +89,7 @@ export const FlexLayout: Story = {
       </Box>
 
       <Box display="flex" justifyContent="center" alignItems="center" p={3} bg="#fce4ec" borderRadius={8} h={100}>
-        <Text>Centered Content</Text>
+        <Typography>Centered Content</Typography>
       </Box>
 
       <Box display="flex" gap={2} flexWrap="wrap" p={3} bg="#e0f2f1" borderRadius={8}>
@@ -112,20 +112,20 @@ export const GridLayout: Story = {
       <Box display="grid" gridTemplateColumns="repeat(3, 1fr)" gap={3}>
         {[1, 2, 3, 4, 5, 6].map((i) => (
           <Box key={i} p={4} bg="#e1f5fe" borderRadius={8} textAlign="center">
-            <Text>Grid Item {i}</Text>
+            <Typography>Grid Item {i}</Typography>
           </Box>
         ))}
       </Box>
 
       <Box display="grid" gridTemplateColumns="1fr 2fr 1fr" gap={2}>
         <Box p={3} bg="#f3e5f5" borderRadius={8}>
-          <Text>Sidebar</Text>
+          <Typography>Sidebar</Typography>
         </Box>
         <Box p={3} bg="#e8eaf6" borderRadius={8}>
-          <Text>Main Content (2x width)</Text>
+          <Typography>Main Content (2x width)</Typography>
         </Box>
         <Box p={3} bg="#f3e5f5" borderRadius={8}>
-          <Text>Sidebar</Text>
+          <Typography>Sidebar</Typography>
         </Box>
       </Box>
     </Box>
@@ -139,16 +139,16 @@ export const Shadows: Story = {
   render: () => (
     <Box display="flex" gap={4} flexWrap="wrap">
       <Box p={4} bg="white" shadow="sm" borderRadius={8}>
-        <Text>Shadow SM</Text>
+        <Typography>Shadow SM</Typography>
       </Box>
       <Box p={4} bg="white" shadow="md" borderRadius={8}>
-        <Text>Shadow MD</Text>
+        <Typography>Shadow MD</Typography>
       </Box>
       <Box p={4} bg="white" shadow="lg" borderRadius={8}>
-        <Text>Shadow LG</Text>
+        <Typography>Shadow LG</Typography>
       </Box>
       <Box p={4} bg="white" shadow="xl" borderRadius={8}>
-        <Text>Shadow XL</Text>
+        <Typography>Shadow XL</Typography>
       </Box>
     </Box>
   ),
@@ -163,13 +163,13 @@ export const Card: Story = {
       <Box h={200} bg="linear-gradient(135deg, #667eea 0%, #764ba2 100%)" />
       <Box p={4}>
         <Box className="mb-2">
-          <Text variant="h4">Card Title</Text>
+          <Typography variant="h4">Card Title</Typography>
         </Box>
         <Box className="mb-3">
-          <Text variant="body2" textColor="#666">
+          <Typography variant="body2" textColor="#666">
             This is a card component built entirely with the Box component. It demonstrates the
             flexibility and power of the Box component.
-          </Text>
+          </Typography>
         </Box>
         <Box display="flex" gap={2}>
           <Button size="sm">Learn More</Button>
@@ -190,12 +190,12 @@ export const Container: Story = {
     <Box maxW={1200} mx="auto" px={4}>
       <Box p={6} bg="#f5f5f5" borderRadius={8}>
         <Box className="mb-3">
-          <Text variant="h3">Responsive Container</Text>
+          <Typography variant="h3">Responsive Container</Typography>
         </Box>
-        <Text>
+        <Typography>
           This Box acts as a container with max-width of 1200px and centered using mx="auto". It
           also has horizontal padding for smaller screens.
-        </Text>
+        </Typography>
       </Box>
     </Box>
   ),
@@ -208,7 +208,7 @@ export const WrappingComponents: Story = {
   render: () => (
     <Box display="flex" flexDirection="column" gap={4} p={4} bg="#fafafa" borderRadius={8}>
       <Box display="flex" justifyContent="space-between" alignItems="center" pb={3} borderBottom="1px solid #e0e0e0">
-        <Text variant="h4">Component Wrapper</Text>
+        <Typography variant="h4">Component Wrapper</Typography>
         <Box display="flex" gap={2}>
           <Button size="sm" variant="outline">
             Cancel
@@ -220,27 +220,27 @@ export const WrappingComponents: Story = {
       <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(200px, 1fr))" gap={3}>
         <Box p={3} bg="white" borderRadius={8} shadow="sm">
           <Box className="mb-1">
-            <Text weight="semibold">Feature 1</Text>
+            <Typography weight="semibold">Feature 1</Typography>
           </Box>
-          <Text variant="body2" textColor="#666">
+          <Typography variant="body2" textColor="#666">
             Description of feature 1
-          </Text>
+          </Typography>
         </Box>
         <Box p={3} bg="white" borderRadius={8} shadow="sm">
           <Box className="mb-1">
-            <Text weight="semibold">Feature 2</Text>
+            <Typography weight="semibold">Feature 2</Typography>
           </Box>
-          <Text variant="body2" textColor="#666">
+          <Typography variant="body2" textColor="#666">
             Description of feature 2
-          </Text>
+          </Typography>
         </Box>
         <Box p={3} bg="white" borderRadius={8} shadow="sm">
           <Box className="mb-1">
-            <Text weight="semibold">Feature 3</Text>
+            <Typography weight="semibold">Feature 3</Typography>
           </Box>
-          <Text variant="body2" textColor="#666">
+          <Typography variant="body2" textColor="#666">
             Description of feature 3
-          </Text>
+          </Typography>
         </Box>
       </Box>
     </Box>
@@ -254,30 +254,30 @@ export const SemanticHTML: Story = {
   render: () => (
     <Box as="article" maxW={800} mx="auto" p={4}>
       <Box as="header" className="mb-4">
-        <Text variant="h2">Article Title</Text>
-        <Text variant="body2" textColor="#666">
+        <Typography variant="h2">Article Title</Typography>
+        <Typography variant="body2" textColor="#666">
           Published on January 8, 2026
-        </Text>
+        </Typography>
       </Box>
 
       <Box as="section" className="mb-4">
         <Box className="mb-2">
-          <Text variant="h4">Section 1</Text>
+          <Typography variant="h4">Section 1</Typography>
         </Box>
-        <Text>This is the content of section 1.</Text>
+        <Typography>This is the content of section 1.</Typography>
       </Box>
 
       <Box as="section" className="mb-4">
         <Box className="mb-2">
-          <Text variant="h4">Section 2</Text>
+          <Typography variant="h4">Section 2</Typography>
         </Box>
-        <Text>This is the content of section 2.</Text>
+        <Typography>This is the content of section 2.</Typography>
       </Box>
 
       <Box as="footer" pt={4} borderTop="1px solid #e0e0e0">
-        <Text variant="body2" textColor="#666">
+        <Typography variant="body2" textColor="#666">
           Article footer content
-        </Text>
+        </Typography>
       </Box>
     </Box>
   ),
@@ -290,10 +290,10 @@ export const Positioning: Story = {
   render: () => (
     <Box position="relative" h={300} bg="#f0f0f0" borderRadius={8} overflow="hidden">
       <Box position="absolute" top={10} left={10} p={2} bg="white" shadow="md" borderRadius={4}>
-        <Text>Top Left</Text>
+        <Typography>Top Left</Typography>
       </Box>
       <Box position="absolute" top={10} right={10} p={2} bg="white" shadow="md" borderRadius={4}>
-        <Text>Top Right</Text>
+        <Typography>Top Right</Typography>
       </Box>
       <Box
         position="absolute"
@@ -305,13 +305,13 @@ export const Positioning: Story = {
         borderRadius={8}
         style={{ transform: 'translate(-50%, -50%)' }}
       >
-        <Text weight="semibold">Centered</Text>
+        <Typography weight="semibold">Centered</Typography>
       </Box>
       <Box position="absolute" bottom={10} left={10} p={2} bg="white" shadow="md" borderRadius={4}>
-        <Text>Bottom Left</Text>
+        <Typography>Bottom Left</Typography>
       </Box>
       <Box position="absolute" bottom={10} right={10} p={2} bg="white" shadow="md" borderRadius={4}>
-        <Text>Bottom Right</Text>
+        <Typography>Bottom Right</Typography>
       </Box>
     </Box>
   ),

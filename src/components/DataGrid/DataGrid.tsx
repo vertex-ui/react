@@ -3,7 +3,7 @@
 import React, { useState, useMemo, useCallback, TableHTMLAttributes, useRef, useEffect } from 'react';
 import { Size, useThemeContext } from '../../theme';
 import { Checkbox } from '../Checkbox';
-import { Text } from '../Text';
+import { Typography } from '../Typography';
 import { Input } from '../Input';
 import { Button } from '../Button';
 import {
@@ -525,7 +525,7 @@ const FilterPanel: React.FC<{
     <div className="vertex-datagrid-filter-panel-overlay">
       <div ref={panelRef} className="vertex-datagrid-filter-panel">
         <div className="vertex-datagrid-filter-panel-header">
-          <Text weight="semibold" size="sm">Filters</Text>
+          <Typography weight="semibold" size="sm">Filters</Typography>
           <button className="vertex-datagrid-filter-close" onClick={onClose}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <line x1="18" y1="6" x2="6" y2="18" />
@@ -540,7 +540,7 @@ const FilterPanel: React.FC<{
               <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z" />
               </svg>
-              <Text size="sm" color="secondary">No filters applied</Text>
+              <Typography size="sm" color="secondary">No filters applied</Typography>
               <Button variant="outline" size="sm" onClick={() => addFilter()}>
                 Add filter
               </Button>
@@ -997,7 +997,7 @@ const DataGridBase = ({
                       {loadingContent || (
                         <>
                           <div className="vertex-datagrid-spinner" />
-                          <Text size="sm" color="secondary">Loading...</Text>
+                          <Typography size="sm" color="secondary">Loading...</Typography>
                         </>
                       )}
                     </div>
@@ -1024,7 +1024,7 @@ const DataGridBase = ({
                         <line x1="3" y1="9" x2="21" y2="9" />
                         <line x1="9" y1="21" x2="9" y2="9" />
                       </svg>
-                      <Text size="sm" color="secondary">{emptyStateTitle}</Text>
+                      <Typography size="sm" color="secondary">{emptyStateTitle}</Typography>
                     </div>
                   )}
                 </td>
@@ -1094,14 +1094,14 @@ const DataGridBase = ({
           </div>
           
           <div className="vertex-datagrid-footer-center">
-            <Text size="sm" color="secondary">
+            <Typography size="sm" color="secondary">
               {sortedRows.length === 0 ? '0 rows' : `${page * pageSize + 1}–${Math.min((page + 1) * pageSize, sortedRows.length)} of ${sortedRows.length}`}
-            </Text>
+            </Typography>
           </div>
 
           <div className="vertex-datagrid-footer-right">
             <label className="vertex-datagrid-pagesize-label">
-              <Text size="sm" color="secondary">Rows per page:</Text>
+              <Typography size="sm" color="secondary">Rows per page:</Typography>
               <select
                 value={pageSize}
                 onChange={(e) => {
@@ -1139,9 +1139,9 @@ const DataGridBase = ({
                   <path d="M15 18l-6-6 6-6"/>
                 </svg>
               </button>
-              <Text size="sm" color="secondary">
+              <Typography size="sm" color="secondary">
                 Page {page + 1} of {totalPages || 1}
-              </Text>
+              </Typography>
               <button
                 className="vertex-datagrid-pagination-btn"
                 onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}

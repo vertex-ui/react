@@ -1,7 +1,8 @@
+"use client";
 import React from 'react';
 import { ContentBlockWidgetData, ContentBlockWidgetSettings, WidgetTheme } from '../types';
 import { Card } from '../../Card';
-import { Text } from '../../Text';
+import { Typography } from '../../../components/Typography';
 import { Button } from '../../Button';
 import { Flex } from '../../Flex';
 import { Link } from '../../Link';
@@ -13,27 +14,27 @@ import {
   DashIcon
 } from '../../../icons/IconComponents';
 
-export type ContentBlockLayout = 
+export type ContentBlockLayout =
   // Horizontal Layouts
   | 'media-left'           // Media 40%, Content 60%
   | 'media-right'          // Content 60%, Media 40%
   | 'split-equal'          // 50/50 split
-  
+
   // Vertical Layouts
   | 'media-top'            // Media above content
   | 'media-bottom'         // Content above media
-  
+
   // Overlapping Layouts
   | 'media-background'     // Full background with overlay
-  
+
   // Centered Layouts
   | 'centered'             // All centered
   | 'centered-media-top'   // Centered with media on top
-  
+
   // Grid/Multi-column
   | 'grid-2col'            // 2 column grid
   | 'grid-3col'            // 3 column grid
-  
+
   // Asymmetric Layouts
   | 'sidebar-left'         // Narrow sidebar (30%) left
   | 'sidebar-right';       // Narrow sidebar (30%) right
@@ -44,6 +45,12 @@ export interface ContentBlockWidgetProps {
   theme?: WidgetTheme;
   className?: string;
   style?: React.CSSProperties;
+  /**
+   * If true, the media in this block (image/avatar) will be eager loaded with high priority.
+   * Useful when the content block is the LCP element (e.g. Hero section).
+   * @default false
+   */
+  priority?: boolean;
 }
 
 const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
@@ -52,6 +59,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
   theme = 'modern',
   className = '',
   style,
+  priority = false,
 }) => {
   // Get size from theme context if available
   let themeDefaultSize = 'md';
@@ -142,7 +150,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
   // Check icon component (for checkmark lists)
   const CheckIcon = () => (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M16.6667 5L7.50004 14.1667L3.33337 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M16.6667 5L7.50004 14.1667L3.33337 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 
@@ -198,6 +206,8 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
                 alt={alt}
                 className={`vtx-content-block__media ${mediaHoverClass}`}
                 style={mediaStyles}
+                loading={priority ? "eager" : "lazy"}
+                fetchPriority={priority ? "high" : "auto"}
               />
             </div>
           );
@@ -215,6 +225,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
               size={avatarSize}
               shape="circle"
               className="vtx-content-block__avatar"
+              priority={priority}
             />
           );
         }
@@ -223,7 +234,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
       case 'icon':
         if (icon) {
           // Extended icon size map with xs and 2xl
-          const iconSizeMap = { 
+          const iconSizeMap = {
             xs: '1.5rem',   // 24px
             sm: '2rem',     // 32px
             md: '3rem',     // 48px
@@ -231,11 +242,11 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
             xl: '6rem',     // 96px
             '2xl': '8rem'   // 128px
           };
-          
+
           // Use settings override if available, otherwise use data.media iconSize
           const effectiveIconSize = settings.iconSize || iconSize;
           const finalIconSize = settings.customIconSize || iconSizeMap[effectiveIconSize];
-          
+
           return (
             <div
               className="vtx-content-block__icon"
@@ -267,9 +278,9 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
                     style={mediaStyles}
                   />
                   {item.caption && (
-                    <Text variant="caption" className="vtx-content-block__gallery-caption" style={{ marginTop: '0.5rem' }}>
+                    <Typography variant="caption" className="vtx-content-block__gallery-caption" style={{ marginTop: '0.5rem' }}>
                       {item.caption}
-                    </Text>
+                    </Typography>
                   )}
                 </div>
               ))}
@@ -307,13 +318,13 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
       <div className="vtx-content-block__content" style={{ textAlign: contentAlign }}>
         {/* Eyebrow */}
         {content.eyebrow && (
-          <Text
+          <Typography
             variant={content.eyebrowVariant || 'overline'}
             className="vtx-content-block__eyebrow"
             style={{ color: colors.eyebrow, marginBottom: gapMap.xs, display: 'block', textTransform: 'uppercase', letterSpacing: '0.05em', fontSize: sizeMap[sizeKey].eyebrow }}
           >
             {content.eyebrow}
-          </Text>
+          </Typography>
         )}
 
         {/* Tags */}
@@ -341,35 +352,35 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
 
         {/* Heading */}
         {content.heading && (
-          <Text
+          <Typography
             variant={content.headingVariant || 'h2'}
             className="vtx-content-block__heading"
             style={{ color: colors.heading, marginBottom: content.subheading || content.body ? gapMap.sm : '0', fontWeight: 'bold', fontSize: sizeMap[sizeKey].heading }}
           >
             {content.heading}
-          </Text>
+          </Typography>
         )}
 
         {/* Subheading */}
         {content.subheading && (
-          <Text
+          <Typography
             variant={content.subheadingVariant || 'h4'}
             className="vtx-content-block__subheading"
             style={{ color: colors.subheading, marginBottom: content.body ? gapMap.md : '0', fontSize: sizeMap[sizeKey].subheading }}
           >
             {content.subheading}
-          </Text>
+          </Typography>
         )}
 
         {/* Body */}
         {content.body && (
-          <Text
+          <Typography
             variant={content.bodyVariant || 'body1'}
             className="vtx-content-block__body"
             style={{ color: colors.body, marginBottom: content.list || data.product || data.stats ? gapMap[gap] || gapMap.md : '0', lineHeight: '1.6', fontSize: sizeMap[sizeKey].body }}
           >
             {content.body}
-          </Text>
+          </Typography>
         )}
 
         {/* List */}
@@ -394,7 +405,7 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
                 {content.listType === 'bullet' && (
                   <span style={{ marginRight: '0.5rem', flexShrink: 0 }}><BulletIcon size={8} /></span>
                 )}
-                <Text variant="body1" style={{ flex: 1, fontSize: sizeMap[sizeKey].body }}>{item.text}</Text>
+                <Typography variant="body1" style={{ flex: 1, fontSize: sizeMap[sizeKey].body }}>{item.text}</Typography>
               </li>
             ))}
           </ul>
@@ -406,13 +417,13 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
             <Flex gap="sm" align="center" wrap="wrap">
               {data.product.price && (
                 <Flex gap="xs" align="center">
-                  <Text variant="h3" style={{ fontWeight: 'bold', color: 'var(--color-primary)', fontSize: `calc(${sizeMap[sizeKey].heading} * 0.8)` }}>
+                  <Typography variant="h3" style={{ fontWeight: 'bold', color: 'var(--color-primary)', fontSize: `calc(${sizeMap[sizeKey].heading} * 0.8)` }}>
                     {data.product.currency || '$'}{data.product.price}
-                  </Text>
+                  </Typography>
                   {data.product.comparePrice && (
-                    <Text variant="body1" style={{ textDecoration: 'line-through', color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].body }}>
+                    <Typography variant="body1" style={{ textDecoration: 'line-through', color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].body }}>
                       {data.product.currency || '$'}{data.product.comparePrice}
-                    </Text>
+                    </Typography>
                   )}
                   {data.product.discount && (
                     <Badge variant="error">{data.product.discount}</Badge>
@@ -424,26 +435,26 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
             <Flex gap="sm" align="center" style={{ marginTop: gapMap.sm }} wrap="wrap">
               {data.product.rating && (
                 <Flex gap="xs" align="center">
-                  <Text variant="body1" style={{ fontSize: sizeMap[sizeKey].body }}><StarFullIcon size={12} color="orange" /> {data.product.rating}</Text>
+                  <Typography variant="body1" style={{ fontSize: sizeMap[sizeKey].body }}><StarFullIcon size={12} color="orange" /> {data.product.rating}</Typography>
                   {data.product.reviewCount && (
-                    <Text variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].caption }}>
+                    <Typography variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].caption }}>
                       ({data.product.reviewCount} reviews)
-                    </Text>
+                    </Typography>
                   )}
                 </Flex>
               )}
               {data.product.stock && (
                 <Badge variant={
                   data.product.stock === 'in-stock' || (typeof data.product.stock === 'number' && data.product.stock > 0) ? 'success' :
-                  data.product.stock === 'limited' ? 'warning' : 'error'
+                    data.product.stock === 'limited' ? 'warning' : 'error'
                 }>
                   {typeof data.product.stock === 'number' ? `${data.product.stock} in stock` : data.product.stock}
                 </Badge>
               )}
               {data.product.sku && (
-                <Text variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].caption }}>
+                <Typography variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].caption }}>
                   SKU: {data.product.sku}
-                </Text>
+                </Typography>
               )}
             </Flex>
           </div>
@@ -456,12 +467,12 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
               {data.stats.map((stat, index) => (
                 <div key={index} className="vtx-content-block__stat-item">
                   {stat.icon && <div style={{ marginBottom: gapMap.sm, fontSize: `calc(1.5rem * ${sizeMap[sizeKey].scale})` }}>{stat.icon}</div>}
-                  <Text variant="h3" style={{ fontWeight: 'bold', marginBottom: gapMap.xs, fontSize: `calc(${sizeMap[sizeKey].heading} * 0.85)` }}>
+                  <Typography variant="h3" style={{ fontWeight: 'bold', marginBottom: gapMap.xs, fontSize: `calc(${sizeMap[sizeKey].heading} * 0.85)` }}>
                     {stat.value}
-                  </Text>
-                  <Text variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].body }}>
+                  </Typography>
+                  <Typography variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].body }}>
                     {stat.label}
-                  </Text>
+                  </Typography>
                 </div>
               ))}
             </Flex>
@@ -470,20 +481,20 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
 
         {/* Quote */}
         {data.quote && (
-          <div className="vtx-content-block__quote" style={{ 
-            margin: `${gapMap[gap] || gapMap.lg} 0`, 
+          <div className="vtx-content-block__quote" style={{
+            margin: `${gapMap[gap] || gapMap.lg} 0`,
             padding: `1rem ${gapMap.lg}`,
             borderLeft: '4px solid var(--color-primary)',
             backgroundColor: 'var(--color-background-subtle)',
             borderRadius: '0.25rem'
           }}>
-            <Text variant="body1" style={{ fontStyle: 'italic', marginBottom: data.quote.author ? gapMap.sm : '0', fontSize: sizeMap[sizeKey].body }}>
+            <Typography variant="body1" style={{ fontStyle: 'italic', marginBottom: data.quote.author ? gapMap.sm : '0', fontSize: sizeMap[sizeKey].body }}>
               "{data.quote.text}"
-            </Text>
+            </Typography>
             {data.quote.author && (
-              <Text variant="body2" style={{ color: 'var(--color-text-muted)', fontWeight: 'bold', fontSize: sizeMap[sizeKey].caption }}>
+              <Typography variant="body2" style={{ color: 'var(--color-text-muted)', fontWeight: 'bold', fontSize: sizeMap[sizeKey].caption }}>
                 <DashIcon /> {data.quote.author}
-              </Text>
+              </Typography>
             )}
           </div>
         )}
@@ -495,9 +506,9 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
               {data.metadata.map((meta, index) => (
                 <Flex key={index} gap="sm" align="center">
                   {meta.icon && <span style={{ color: 'var(--color-text-muted)' }}>{meta.icon}</span>}
-                  <Text variant="body2" style={{ fontSize: sizeMap[sizeKey].caption }}>
+                  <Typography variant="body2" style={{ fontSize: sizeMap[sizeKey].caption }}>
                     <strong>{meta.label}:</strong> {meta.value}
-                  </Text>
+                  </Typography>
                 </Flex>
               ))}
             </Flex>
@@ -512,13 +523,13 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
                 <Avatar src={data.author.avatar} alt={data.author.name} size={size === 'xs' ? 'sm' : size === 'sm' ? 'md' : 'lg'} />
               )}
               <div>
-                <Text variant="body1" style={{ fontWeight: 'bold', marginBottom: gapMap.xs, fontSize: sizeMap[sizeKey].subheading }}>
+                <Typography variant="body1" style={{ fontWeight: 'bold', marginBottom: gapMap.xs, fontSize: sizeMap[sizeKey].subheading }}>
                   {data.author.name}
-                </Text>
+                </Typography>
                 {data.author.role && (
-                  <Text variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].caption }}>
+                  <Typography variant="body2" style={{ color: 'var(--color-text-muted)', fontSize: sizeMap[sizeKey].caption }}>
                     {data.author.role}{data.author.company && ` at ${data.author.company}`}
-                  </Text>
+                  </Typography>
                 )}
                 {data.author.social && data.author.social.length > 0 && (
                   <Flex gap="sm" style={{ marginTop: gapMap.sm }}>
@@ -536,29 +547,29 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
 
         {/* Caption */}
         {content.caption && (
-          <Text
+          <Typography
             variant="caption"
             className="vtx-content-block__caption"
             style={{ color: colors.caption || 'var(--color-text-muted)', marginTop: gapMap[gap] || gapMap.md, display: 'block', fontSize: sizeMap[sizeKey].caption }}
           >
             {content.caption}
-          </Text>
+          </Typography>
         )}
 
         {/* Footnote */}
         {content.footnote && (
-          <Text
+          <Typography
             variant="caption"
             className="vtx-content-block__footnote"
             style={{ color: 'var(--color-text-muted)', marginTop: gapMap.sm, fontSize: sizeMap[sizeKey].caption, display: 'block' }}
           >
             {content.footnote}
-          </Text>
+          </Typography>
         )}
 
         {/* Actions */}
         {data.actions && data.actions.length > 0 && (
-          <Flex  columnGap={"10px"} className='mt-2' justify={contentAlign === 'center' ? 'center' : contentAlign === 'right' ? 'end' : 'start'}>
+          <Flex columnGap={"10px"} className='mt-2' justify={contentAlign === 'center' ? 'center' : contentAlign === 'right' ? 'end' : 'start'}>
             {data.actions.map((action, index) => (
               action.type === 'link' ? (
                 <Link
@@ -735,11 +746,11 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
     borderRadius: rounded ? (typeof rounded === 'boolean' ? '0.5rem' : `var(--border-radius-${rounded})`) : undefined,
     boxShadow: shadow ? (typeof shadow === 'boolean' ? '0 4px 6px rgba(0, 0, 0, 0.1)' : `var(--shadow-${shadow})`) : undefined,
     padding: variant !== 'minimal' ? paddingMap[padding] : undefined,
-    border: settings.border ? (typeof settings.border === 'boolean' || settings.border === 'all' ? '1px solid var(--color-border)' : 
+    border: settings.border ? (typeof settings.border === 'boolean' || settings.border === 'all' ? '1px solid var(--color-border)' :
       settings.border === 'left' ? 'none' :
-      settings.border === 'right' ? 'none' :
-      settings.border === 'top' ? 'none' :
-      settings.border === 'bottom' ? 'none' : undefined) : undefined,
+        settings.border === 'right' ? 'none' :
+          settings.border === 'top' ? 'none' :
+            settings.border === 'bottom' ? 'none' : undefined) : undefined,
     borderLeft: settings.border === 'left' ? '4px solid var(--color-primary)' : undefined,
     borderRight: settings.border === 'right' ? '4px solid var(--color-primary)' : undefined,
     borderTop: settings.border === 'top' ? '4px solid var(--color-primary)' : undefined,
@@ -834,7 +845,8 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = ({
       </div>
 
       {/* Inline CSS for hover effects */}
-      <style dangerouslySetInnerHTML={{__html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .vtx-content-block--hover-lift:hover {
           transform: translateY(-4px);
           box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);

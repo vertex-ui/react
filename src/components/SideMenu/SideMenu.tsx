@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Flex } from '../Flex';
-import { Text } from '../Text';
+import { Typography } from '../Typography';
 import './SideMenu.css';
 
 export interface SideMenuItemProps {
@@ -160,7 +160,7 @@ export const SideMenuItem = React.forwardRef<
           {icon && <span className="vtx-sidemenu-item-icon">{icon}</span>}
           {!collapsed && (
             <>
-              <Text
+              <Typography
                 variant="body2"
                 noMargin
                 style={{
@@ -171,7 +171,7 @@ export const SideMenuItem = React.forwardRef<
                 }}
               >
                 {label}
-              </Text>
+              </Typography>
               {badge && <span className="vtx-sidemenu-item-badge">{badge}</span>}
               {hasSubmenu && <ChevronIcon isOpen={isSubmenuOpen} />}
             </>

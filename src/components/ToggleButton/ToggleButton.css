@@ -1,0 +1,226 @@
+/* ToggleButton Base Styles */
+.vtx-toggle-button {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--vtx-spacing-1);
+}
+
+/* Label Container */
+.vtx-toggle-button-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vtx-spacing-2);
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+/* Wrapper for input and visual switch */
+.vtx-toggle-button-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Hidden input */
+.vtx-toggle-button-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+}
+
+/* Visual switch track */
+.vtx-toggle-button-track {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: var(--vtx-toggle-width, 40px);
+  height: var(--vtx-toggle-height, 24px);
+  border-radius: 9999px;
+  background-color: var(--vtx-color-neutral-300);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+}
+
+/* Visual switch knob (thumb) */
+.vtx-toggle-button-thumb {
+  position: absolute;
+  left: 2px;
+  width: var(--vtx-toggle-thumb-size, 20px);
+  height: var(--vtx-toggle-thumb-size, 20px);
+  background-color: white;
+  border-radius: 50%;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Icon inside thumb */
+.vtx-toggle-button-icon {
+  width: 70%;
+  height: 70%;
+  color: var(--vtx-color-neutral-500);
+  opacity: 1;
+  transition: all 0.2s;
+}
+
+/* Checked state */
+.vtx-toggle-button-input:checked + .vtx-toggle-button-track {
+  background-color: var(--vtx-toggle-color, var(--vtx-color-primary-600));
+}
+
+.vtx-toggle-button-input:checked + .vtx-toggle-button-track .vtx-toggle-button-thumb {
+  transform: translateX(calc(var(--vtx-toggle-width) - var(--vtx-toggle-thumb-size) - 4px));
+}
+
+.vtx-toggle-button-input:checked + .vtx-toggle-button-track .vtx-toggle-button-icon {
+  color: var(--vtx-toggle-color, var(--vtx-color-primary-600));
+}
+
+/* Hover state */
+.vtx-toggle-button-label:hover .vtx-toggle-button-track {
+  background-color: var(--vtx-color-neutral-400);
+}
+
+.vtx-toggle-button-label:hover .vtx-toggle-button-input:checked + .vtx-toggle-button-track {
+  background-color: var(--vtx-toggle-hover-color, var(--vtx-color-primary-700));
+}
+
+/* Focus state */
+.vtx-toggle-button-input:focus-visible + .vtx-toggle-button-track {
+  outline: 2px solid var(--vtx-toggle-color, var(--vtx-color-primary-600));
+  outline-offset: 2px;
+}
+
+/* Disabled state */
+.vtx-toggle-button--disabled .vtx-toggle-button-label {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.vtx-toggle-button--disabled .vtx-toggle-button-track {
+  background-color: var(--vtx-color-neutral-200);
+}
+
+.vtx-toggle-button--disabled .vtx-toggle-button-input:checked + .vtx-toggle-button-track {
+  background-color: var(--vtx-color-neutral-300);
+}
+
+/* Error state */
+.vtx-toggle-button--error .vtx-toggle-button-track {
+  outline: 1px solid var(--vtx-color-error-600);
+}
+
+.vtx-toggle-button--error .vtx-toggle-button-input:checked + .vtx-toggle-button-track {
+  background-color: var(--vtx-color-error-600);
+  outline: none;
+}
+
+/* Label text */
+.vtx-toggle-button-label-text {
+  font-family: var(--vtx-font-family-sans);
+  font-size: var(--vtx-font-size-base);
+  line-height: var(--vtx-line-height-normal);
+  color: var(--vtx-color-neutral-900);
+}
+
+.vtx-toggle-button--disabled .vtx-toggle-button-label-text {
+  color: var(--vtx-color-neutral-500);
+}
+
+/* Helper text */
+.vtx-toggle-button-helper-text {
+  font-family: var(--vtx-font-family-sans);
+  font-size: var(--vtx-font-size-sm);
+  line-height: var(--vtx-line-height-normal);
+  color: var(--vtx-color-neutral-600);
+  margin-left: calc(var(--vtx-toggle-width, 40px) + var(--vtx-spacing-2));
+}
+
+.vtx-toggle-button--error .vtx-toggle-button-helper-text {
+  color: var(--vtx-color-error-600);
+}
+
+/* Size variants */
+.vtx-toggle-button--sm {
+  --vtx-toggle-width: 32px;
+  --vtx-toggle-height: 20px;
+  --vtx-toggle-thumb-size: 16px;
+}
+
+.vtx-toggle-button--sm .vtx-toggle-button-label-text {
+  font-size: var(--vtx-font-size-sm);
+}
+
+.vtx-toggle-button--sm .vtx-toggle-button-helper-text {
+  font-size: var(--vtx-font-size-xs);
+}
+
+.vtx-toggle-button--md {
+  --vtx-toggle-width: 40px;
+  --vtx-toggle-height: 24px;
+  --vtx-toggle-thumb-size: 20px;
+}
+
+.vtx-toggle-button--lg {
+  --vtx-toggle-width: 48px;
+  --vtx-toggle-height: 28px;
+  --vtx-toggle-thumb-size: 24px;
+}
+
+.vtx-toggle-button--lg .vtx-toggle-button-label-text {
+  font-size: var(--vtx-font-size-lg);
+}
+
+/* Variants */
+.vtx-toggle-button--primary {
+  --vtx-toggle-color: var(--vtx-color-primary-600);
+  --vtx-toggle-hover-color: var(--vtx-color-primary-700);
+}
+
+.vtx-toggle-button--secondary {
+  --vtx-toggle-color: var(--vtx-color-secondary-600, var(--vtx-color-neutral-600));
+  --vtx-toggle-hover-color: var(--vtx-color-secondary-700, var(--vtx-color-neutral-700));
+}
+
+.vtx-toggle-button--success {
+  --vtx-toggle-color: var(--vtx-color-success-600, #16a34a);
+  --vtx-toggle-hover-color: var(--vtx-color-success-700, #15803d);
+}
+
+.vtx-toggle-button--error {
+  --vtx-toggle-color: var(--vtx-color-error-600, #dc2626);
+  --vtx-toggle-hover-color: var(--vtx-color-error-700, #b91c1c);
+}
+
+.vtx-toggle-button--warning {
+  --vtx-toggle-color: var(--vtx-color-warning-600, #d97706);
+  --vtx-toggle-hover-color: var(--vtx-color-warning-700, #b45309);
+}
+
+.vtx-toggle-button--info {
+  --vtx-toggle-color: var(--vtx-color-info-600, #2563eb);
+  --vtx-toggle-hover-color: var(--vtx-color-info-700, #1d4ed8);
+}
+
+/* Label Placement */
+.vtx-toggle-button-label--start {
+  flex-direction: row-reverse;
+}
+
+.vtx-toggle-button-label--top {
+  flex-direction: column-reverse;
+  align-items: flex-start;
+}
+
+.vtx-toggle-button-label--bottom {
+  flex-direction: column;
+  align-items: flex-start;
+}

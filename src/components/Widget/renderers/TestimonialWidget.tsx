@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback } from 'react';
 import { Avatar } from '../../Avatar';
-import { Text } from '../../Text';
+import { Typography } from '../../../components/Typography';
 import { Flex } from '../../Flex';
 import { useTheme } from '../../../hooks/useTheme';
 import { ChevronLeftIcon, ChevronRightIcon } from '../../../icons/IconComponents';
@@ -59,9 +59,9 @@ const TestimonialWidget: React.FC<TestimonialWidgetProps> = ({
   if (!testimonials || testimonials.length === 0) {
     return (
       <Flex justify="center" align="center" style={{ padding: '48px 24px' }}>
-        <Text variant="body1" textColor={tokens?.colors?.neutral?.[500] || '#666'}>
+        <Typography variant="body1" textColor={tokens?.colors?.neutral?.[500] || '#666'}>
           No testimonials available
-        </Text>
+        </Typography>
       </Flex>
     );
   }
@@ -195,7 +195,7 @@ const TestimonialWidget: React.FC<TestimonialWidgetProps> = ({
       )}
 
       {/* Author Name */}
-      <Text
+      <Typography
         variant="h4"
         weight="bold"
         textColor={textColor}
@@ -203,22 +203,22 @@ const TestimonialWidget: React.FC<TestimonialWidgetProps> = ({
         style={{ fontSize: '20px', margin: 0, lineHeight: 1.3 }}
       >
         {currentTestimonial.author.name}
-      </Text>
+      </Typography>
 
       {/* Role & Company */}
       <Flex direction="column" align="center" gap="2px">
         {currentTestimonial.author.role && (
-          <Text
+          <Typography
             variant="body2"
             textColor={secondaryTextColor}
             align="center"
             style={{ fontSize: '14px', lineHeight: 1.4 }}
           >
             {currentTestimonial.author.role}
-          </Text>
+          </Typography>
         )}
         {currentTestimonial.author.company && (
-          <Text
+          <Typography
             variant="body2"
             weight="medium"
             textColor={secondaryTextColor}
@@ -226,20 +226,20 @@ const TestimonialWidget: React.FC<TestimonialWidgetProps> = ({
             style={{ fontSize: '14px', lineHeight: 1.4 }}
           >
             {currentTestimonial.author.company}
-          </Text>
+          </Typography>
         )}
       </Flex>
 
       {/* Date */}
       {currentTestimonial.date && (
-        <Text
+        <Typography
           variant="caption"
           textColor={secondaryTextColor}
           align="center"
           style={{ fontSize: '13px', opacity: 0.7 }}
         >
           {currentTestimonial.date}
-        </Text>
+        </Typography>
       )}
     </Flex>
   );
@@ -280,7 +280,7 @@ const TestimonialWidget: React.FC<TestimonialWidgetProps> = ({
 
         {/* Testimonial Content */}
         {currentTestimonial.content && (
-          <Text
+          <Typography
             variant="body1"
             textColor={textColor}
             align="center"
@@ -292,7 +292,7 @@ const TestimonialWidget: React.FC<TestimonialWidgetProps> = ({
             }}
           >
             {currentTestimonial.content}
-          </Text>
+          </Typography>
         )}
 
         {/* Rating */}

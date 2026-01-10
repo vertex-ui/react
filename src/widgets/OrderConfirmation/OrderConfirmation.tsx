@@ -3,7 +3,7 @@ import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './OrderConfirmation.css';
 import { Card } from '../../components/Card';
 import { Flex } from '../../components/Flex';
-import { Text } from '../../components/Text';
+import { Typography } from '../../components/Typography';
 import { Divider } from '../../components/Divider';
 import { Badge } from '../../components/Badge';
 import { Button } from '../../components/Button';
@@ -252,12 +252,12 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
             <span className="orderconfirmation-success-icon">
               <CheckCircleIcon size={32} />
             </span>
-            <Text variant="h4" weight="bold" align="center" noMargin>
+            <Typography variant="h4" weight="bold" align="center" noMargin>
               {headerText}
-            </Text>
-            <Text variant="body1" align="center" noMargin className="orderconfirmation-subtitle">
+            </Typography>
+            <Typography variant="body1" align="center" noMargin className="orderconfirmation-subtitle">
               {headerSubtitle}
-            </Text>
+            </Typography>
             <Badge 
               variant="success" 
               style={{ padding: '8px 20px', borderRadius: '20px', fontWeight: 600, marginTop: '8px' }}
@@ -287,9 +287,9 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
 
         {/* Order Items */}
         <Card variant="outlined" className="orderconfirmation-items-card">
-          <Text variant="h6" weight="semibold" style={{ marginBottom: '12px' }}>
+          <Typography variant="h6" weight="semibold" style={{ marginBottom: '12px' }}>
             Order Items ({items.length})
-          </Text>
+          </Typography>
 
           <Flex direction="column" gap={0}>
             {items.map((item, index) => (
@@ -310,46 +310,46 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
 
         {/* Price Summary */}
         <Card variant="outlined" className="orderconfirmation-summary-card">
-          <Text variant="h6" weight="semibold" style={{ marginBottom: '12px' }}>
+          <Typography variant="h6" weight="semibold" style={{ marginBottom: '12px' }}>
             Payment Summary
-          </Text>
+          </Typography>
 
           <Flex direction="column" gap={8}>
             <Flex justify="between" align="center">
-              <Text variant="body2" noMargin>Subtotal</Text>
-              <Text variant="body2" noMargin>{currency}{subtotal.toLocaleString()}</Text>
+              <Typography variant="body2" noMargin>Subtotal</Typography>
+              <Typography variant="body2" noMargin>{currency}{subtotal.toLocaleString()}</Typography>
             </Flex>
 
             {shippingCost > 0 && (
               <Flex justify="between" align="center">
-                <Text variant="body2" noMargin>Shipping</Text>
-                <Text variant="body2" noMargin>{currency}{shippingCost.toLocaleString()}</Text>
+                <Typography variant="body2" noMargin>Shipping</Typography>
+                <Typography variant="body2" noMargin>{currency}{shippingCost.toLocaleString()}</Typography>
               </Flex>
             )}
 
             {tax > 0 && (
               <Flex justify="between" align="center">
-                <Text variant="body2" noMargin>Tax</Text>
-                <Text variant="body2" noMargin>{currency}{tax.toLocaleString()}</Text>
+                <Typography variant="body2" noMargin>Tax</Typography>
+                <Typography variant="body2" noMargin>{currency}{tax.toLocaleString()}</Typography>
               </Flex>
             )}
 
             {discount > 0 && (
               <Flex justify="between" align="center">
-                <Text variant="body2" noMargin className="orderconfirmation-discount">Discount</Text>
-                <Text variant="body2" noMargin className="orderconfirmation-discount">
+                <Typography variant="body2" noMargin className="orderconfirmation-discount">Discount</Typography>
+                <Typography variant="body2" noMargin className="orderconfirmation-discount">
                   -{currency}{discount.toLocaleString()}
-                </Text>
+                </Typography>
               </Flex>
             )}
 
             <Divider style={{ margin: '8px 0' }} />
 
             <Flex justify="between" align="center">
-              <Text variant="body1" weight="bold" noMargin>Total</Text>
-              <Text variant="body1" weight="bold" noMargin className="orderconfirmation-total">
+              <Typography variant="body1" weight="bold" noMargin>Total</Typography>
+              <Typography variant="body1" weight="bold" noMargin className="orderconfirmation-total">
                 {currency}{total.toLocaleString()}
-              </Text>
+              </Typography>
             </Flex>
           </Flex>
 
@@ -360,10 +360,10 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
               <Flex direction="column" gap={8}>
                 {paymentDetailsItems.map((item, index) => (
                   <Flex key={index} justify="between" align="center">
-                    <Text variant="body2" noMargin>{item.label}</Text>
-                    <Text variant="body2" noMargin className={item.valueClass}>
+                    <Typography variant="body2" noMargin>{item.label}</Typography>
+                    <Typography variant="body2" noMargin className={item.valueClass}>
                       {item.value}
-                    </Text>
+                    </Typography>
                   </Flex>
                 ))}
               </Flex>
@@ -377,9 +377,9 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
             <Flex direction="column" gap={12}>
               <Flex align="center" gap={8}>
                 <MapPinIcon size={20} />
-                <Text variant="h6" weight="semibold" noMargin>
+                <Typography variant="h6" weight="semibold" noMargin>
                   Shipping Address
-                </Text>
+                </Typography>
               </Flex>
               <Divider />
               {formatAddress(shippingAddress)}
@@ -392,9 +392,9 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
               <Flex direction="column" gap={12}>
                 <Flex align="center" gap={8}>
                   <CreditCardIcon size={20} />
-                  <Text variant="h6" weight="semibold" noMargin>
+                  <Typography variant="h6" weight="semibold" noMargin>
                     Billing Address
-                  </Text>
+                  </Typography>
                 </Flex>
                 <Divider />
                 {formatAddress(billingAddress)}
@@ -407,9 +407,9 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
         {showActions && (
           <Card variant="outlined" className="orderconfirmation-actions-card">
             <Flex direction="column" gap={16}>
-              <Text variant="h6" weight="semibold" noMargin>
+              <Typography variant="h6" weight="semibold" noMargin>
                 What's Next?
-              </Text>
+              </Typography>
               <Divider />
               
               {/* Primary Actions */}
@@ -503,25 +503,25 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
           <Flex direction="column" gap={12} align="center">
             <Flex align="center" gap={8}>
               <MessageIcon size={20} />
-              <Text variant="h6" weight="semibold" noMargin>
+              <Typography variant="h6" weight="semibold" noMargin>
                 Need Help?
-              </Text>
+              </Typography>
             </Flex>
-            <Text variant="body2" align="center" noMargin style={{ color: 'var(--vtx-color-text-secondary)' }}>
+            <Typography variant="body2" align="center" noMargin style={{ color: 'var(--vtx-color-text-secondary)' }}>
               Our support team is available 24/7 to assist you with your order
-            </Text>
+            </Typography>
             <Flex direction="row" gap={16} wrap="wrap" justify="center" style={{ marginTop: '4px' }}>
               <Flex align="center" gap={6}>
                 <MessageIcon size={16} />
-                <Text variant="body2" weight="medium" noMargin>
+                <Typography variant="body2" weight="medium" noMargin>
                   support@example.com
-                </Text>
+                </Typography>
               </Flex>
               <Flex align="center" gap={6}>
                 <PhoneIcon size={16} />
-                <Text variant="body2" weight="medium" noMargin>
+                <Typography variant="body2" weight="medium" noMargin>
                   1-800-123-4567
-                </Text>
+                </Typography>
               </Flex>
             </Flex>
           </Flex>

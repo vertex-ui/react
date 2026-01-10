@@ -105,8 +105,8 @@ export type { SideMenuItemProps, SideMenuProps } from './components/SideMenu';
 export { SideMenuItem } from './components/SideMenu';
 export { Table } from './components/Table';
 export type { TableColumn, TableProps } from './components/Table';
-export { Text } from './components/Text';
-export type { TextProps } from './components/Text';
+export { Typography } from './components/Typography';
+export type { TypographyProps } from './components/Typography';
 export { Timeline } from './components/Timeline';
 export type { TimelineProps, TimelineStep } from './components/Timeline';
 

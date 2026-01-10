@@ -1,7 +1,8 @@
+"use client";
 import React from 'react';
 import { MetricWidgetData, MetricWidgetSettings, WidgetTheme, WidgetVariant } from '../types';
 import { Card } from '../../Card';
-import { Text } from '../../Text';
+import { Typography } from '../../../components/Typography';
 import { Badge } from '../../Badge';
 import { Flex } from '../../Flex';
 import { TrendingUpIcon, MinusIcon } from '../../../icons/IconComponents';
@@ -9,7 +10,7 @@ import { TrendingUpIcon, MinusIcon } from '../../../icons/IconComponents';
 interface MetricWidgetProps {
   data: MetricWidgetData;
   settings?: MetricWidgetSettings;
-  
+
   // Deprecated: Use settings instead
   /** @deprecated Use settings.theme */
   theme?: WidgetTheme;
@@ -39,7 +40,7 @@ const MetricWidget: React.FC<MetricWidgetProps> = ({
   const size = settings?.size || legacySize || 'md';
   const className = settings?.className || legacyClassName || '';
   const style = settings?.style || legacyStyle;
-  
+
   const showTrend = settings?.showTrend !== false; // Default true
   const mapVariantToBadge = (v?: WidgetVariant) => {
     if (v === 'error') return 'error';
@@ -49,20 +50,20 @@ const MetricWidget: React.FC<MetricWidgetProps> = ({
 
   const renderTrend = () => {
     if (!data.trend || !showTrend) return null;
-    
+
     const { direction, value, label } = data.trend;
     const isPositive = direction === 'up';
     const isNegative = direction === 'down';
-    
+
     const trendVariant = isPositive ? 'success' : isNegative ? 'error' : 'neutral';
     const TrendIcon = isPositive ? TrendingUpIcon : isNegative ? TrendingUpIcon : MinusIcon;
-    
+
     return (
       <Flex align="center" gap="xs">
         <TrendIcon size={12} />
-        <Text variant="caption" className={`text-${trendVariant}`}>
+        <Typography variant="caption" className={`text-${trendVariant}`}>
           {Math.abs(value)}%{label && ` ${label}`}
-        </Text>
+        </Typography>
       </Flex>
     );
   };
@@ -72,31 +73,31 @@ const MetricWidget: React.FC<MetricWidgetProps> = ({
       case 'minimal':
         return (
           <Flex direction="column" align="center" gap="xs">
-            <Text variant={size === 'lg' ? 'h2' : size === 'sm' ? 'h5' : 'h3'} className="font-bold">
+            <Typography variant={size === 'lg' ? 'h2' : size === 'sm' ? 'h5' : 'h3'} className="font-bold">
               {data.value}
-            </Text>
+            </Typography>
             {data.label && (
-              <Text variant="caption" className="text-neutral-500">
+              <Typography variant="caption" className="text-neutral-500">
                 {data.label}
-              </Text>
+              </Typography>
             )}
             {renderTrend()}
           </Flex>
         );
-        
+
       case 'modern':
         return (
           <Flex direction="column" gap="sm">
             <Flex justify="between" align="start">
               <div>
                 {data.label && (
-                  <Text variant="caption" className="text-neutral-500 mb-1">
+                  <Typography variant="caption" className="text-neutral-500 mb-1">
                     {data.label}
-                  </Text>
+                  </Typography>
                 )}
-                <Text variant={size === 'lg' ? 'h2' : size === 'sm' ? 'h5' : 'h3'} className="font-bold">
+                <Typography variant={size === 'lg' ? 'h2' : size === 'sm' ? 'h5' : 'h3'} className="font-bold">
                   {data.value}
-                </Text>
+                </Typography>
               </div>
               {data.icon && (
                 <div className={`metric-icon metric-icon--${variant} metric-icon--${size}`}>
@@ -116,7 +117,7 @@ const MetricWidget: React.FC<MetricWidgetProps> = ({
             )}
           </Flex>
         );
-        
+
       case 'compact':
         return (
           <Flex align="center" gap="md">
@@ -126,29 +127,29 @@ const MetricWidget: React.FC<MetricWidgetProps> = ({
               </div>
             )}
             <Flex direction="column" gap="xs">
-              <Text variant={size === 'lg' ? 'h3' : size === 'sm' ? 'h6' : 'h4'} className="font-bold">
+              <Typography variant={size === 'lg' ? 'h3' : size === 'sm' ? 'h6' : 'h4'} className="font-bold">
                 {data.value}
-              </Text>
+              </Typography>
               {data.label && (
-                <Text variant="caption" className="text-neutral-500">
+                <Typography variant="caption" className="text-neutral-500">
                   {data.label}
-                </Text>
+                </Typography>
               )}
               {renderTrend()}
             </Flex>
           </Flex>
         );
-        
+
       default:
         return (
           <Flex direction="column" gap="sm">
-            <Text variant={size === 'lg' ? 'h2' : size === 'sm' ? 'h5' : 'h3'} className="font-bold">
+            <Typography variant={size === 'lg' ? 'h2' : size === 'sm' ? 'h5' : 'h3'} className="font-bold">
               {data.value}
-            </Text>
+            </Typography>
             {data.label && (
-              <Text variant="caption" className="text-neutral-500">
+              <Typography variant="caption" className="text-neutral-500">
                 {data.label}
-              </Text>
+              </Typography>
             )}
             {renderTrend()}
           </Flex>

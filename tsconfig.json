@@ -6,6 +6,19 @@
     "jsx": "react-jsx",
 
     "moduleResolution": "bundler",
+    "ignoreDeprecations": "5.0",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@utils/*": ["src/utils/*"],
+      "@theme/*": ["src/theme/*"],
+      "@icons/*": ["src/icons/*"],
+      "@widgets/*": ["src/widgets/*"],
+      "@hoc/*": ["src/hoc/*"],
+      "@stories/*": ["src/stories/*"]
+    },
 
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,

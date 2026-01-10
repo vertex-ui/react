@@ -4,7 +4,7 @@ import './InfoCard.css';
 import { Card } from '../../components/Card';
 import { Grid } from '../../components/Grid';
 import { Flex } from '../../components/Flex';
-import { Text } from '../../components/Text';
+import { Typography } from '../../components/Typography';
 
 export interface InfoCardBaseProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -66,8 +66,8 @@ const InfoCardBase = React.forwardRef<HTMLDivElement, InfoCardBaseProps>(
         </Grid>
         {/* TEXT */}
         <Grid item xs>
-          <Text variant="caption">{text}</Text>
-          {subText && <Text variant="subtitle2">{subText}</Text>}
+          <Typography variant="caption">{text}</Typography>
+          {subText && <Typography variant="subtitle2">{subText}</Typography>}
         </Grid>
       </Grid>
     </Card>
@@ -115,8 +115,8 @@ const InfoCardMetric = React.forwardRef<HTMLDivElement, InfoCardMetricProps>(
   ) => (
     <Card variant="outlined" className={className} style={style} ref={ref as any} {...props}>
       <Flex direction="column" align="center" justify="center" style={{ minHeight: 80 }}>
-        <Text variant="h4">{value}</Text>
-        {label && <Text variant="caption">{label}</Text>}
+        <Typography variant="h4">{value}</Typography>
+        {label && <Typography variant="caption">{label}</Typography>}
       </Flex>
     </Card>
   )

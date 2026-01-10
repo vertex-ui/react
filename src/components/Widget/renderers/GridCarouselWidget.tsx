@@ -13,11 +13,11 @@ export interface GridCarouselWidgetProps {
 
 /**
  * GridCarouselWidget - Theme-based grid carousel
- *
+ * 
  * Supports two themes:
  * - 'product': Displays array of product widgets
  * - 'base': Displays array of custom React nodes
- *
+ * 
  * Features:
  * - Responsive grid with customizable items per view
  * - Auto-play with configurable delay

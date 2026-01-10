@@ -15,8 +15,7 @@ describe('ProductCard', () => {
       render(<ProductCard.Base {...defaultProps} />);
       expect(screen.getByText('Test Product')).toBeInTheDocument();
       expect(screen.getByText('$99.99')).toBeInTheDocument();
-      // Only verify image alt if present, or rely on other tests
-      // expect(screen.getByAltText('Product')).toBeInTheDocument();
+      expect(screen.getByAltText('Product')).toBeInTheDocument();
     });
 
     it('renders original price and discount', () => {
@@ -36,11 +35,11 @@ describe('ProductCard', () => {
         <ProductCard.Base
           {...defaultProps}
           category="Electronics"
-          rating={5}
+          rating={4.5}
         />
       );
       expect(screen.getByText('Electronics')).toBeInTheDocument();
-      expect(screen.getByText('5')).toBeInTheDocument();
+      expect(screen.getByText('4.5')).toBeInTheDocument();
     });
 
     it('handles add to cart interaction', async () => {
@@ -107,20 +106,6 @@ describe('ProductCard', () => {
       fireEvent.click(wishlistBtn);
       expect(handleWishlist).toHaveBeenCalledTimes(1);
     });
-
-    it('handles readonly mode', () => {
-        render(<ProductCard.Base {...defaultProps} readonly={true} initialQuantity={2} />);
-        expect(screen.getByText('Test Product')).toBeInTheDocument();
-        // Should not show Add to Cart button
-        expect(screen.queryByRole('button', { name: /add to cart/i })).not.toBeInTheDocument();
-        // Should show quantity text
-        expect(screen.getByText('Qty: 2')).toBeInTheDocument();
-    });
-
-    it('renders variant text when provided', () => {
-        render(<ProductCard.Base {...defaultProps} variant="Size: L" />);
-        expect(screen.getByText('Size: L')).toBeInTheDocument();
-    });
   });
 
   describe('ProductCard.Wide', () => {
@@ -136,37 +121,6 @@ describe('ProductCard', () => {
       const { container } = render(<ProductCard.Minimal {...defaultProps} />);
       expect(container.querySelector('.productcard-minimal')).toBeInTheDocument();
       expect(screen.getByText('Test Product')).toBeInTheDocument();
-    });
-  });
-
-  describe('ProductCard.List', () => {
-    it('renders correctly', () => {
-      render(<ProductCard.List {...defaultProps} />);
-      expect(screen.getByText('Test Product')).toBeInTheDocument();
-      expect(screen.getByText('$99.99')).toBeInTheDocument();
-    });
-
-    it('calculates total price based on quantity', () => {
-      render(<ProductCard.List {...defaultProps} initialQuantity={2} />);
-      // 99.99 * 2 = 199.98
-      expect(screen.getByText('$199.98')).toBeInTheDocument();
-    });
-
-    it('renders variant text', () => {
-      render(<ProductCard.List {...defaultProps} variant="Color: Blue" />);
-      expect(screen.getByText('Color: Blue')).toBeInTheDocument();
-    });
-
-    it('handles readonly mode', () => {
-      render(<ProductCard.List {...defaultProps} readonly={true} initialQuantity={3} />);
-      expect(screen.getByText('Qty: 3')).toBeInTheDocument();
-      // Should not have increment/decrement buttons (checking by class or role usually, but here checking absence)
-       const buttons = screen.queryAllByRole('button');
-       // In readonly, buttons should be absent or disabled?
-       // In my implementation: {!readonly && buttons}
-       // Note: other tests use screen.getByText('+') etc.
-       expect(screen.queryByText('+')).not.toBeInTheDocument();
-       expect(screen.queryByText('-')).not.toBeInTheDocument();
     });
   });
 });

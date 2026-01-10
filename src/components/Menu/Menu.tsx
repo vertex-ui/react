@@ -3,7 +3,7 @@
 import { ChevronDownIcon, ChevronUpIcon, MenuIcon, CloseIcon } from '../../icons/IconComponents';
 import React, { useState, useRef, useEffect } from 'react';
 import { Flex } from '../Flex';
-import { Text } from '../Text';
+import { Typography } from '../Typography';
 import './Menu.css';
 
 export interface MenuItemProps {
@@ -166,18 +166,18 @@ export const MenuItem = React.forwardRef<HTMLDivElement, MenuItemProps>(
         >
           <Flex align="center" gap={8} style={{ flex: 1 }}>
             {icon && <span className="vtx-menu-item-icon">{icon}</span>}
-            <Text variant="body2" noMargin style={{ flex: 1 }}>
+            <Typography variant="body2" noMargin style={{ flex: 1 }}>
               {label}
-            </Text>
+            </Typography>
             {shortcut && (
-              <Text
+              <Typography
                 variant="caption"
                 textColor="var(--color-neutral-500)"
                 noMargin
                 className="vtx-menu-item-shortcut"
               >
                 {shortcut}
-              </Text>
+              </Typography>
             )}
             {displayRightIcon && (
               <span className="vtx-menu-item-right-icon">{displayRightIcon}</span>

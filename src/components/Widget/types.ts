@@ -1,4 +1,6 @@
 import React from 'react';
+import { PricingTier } from '../../widgets/PricingTable';
+import { FAQItem, FAQCategory } from '../../widgets/FAQ';
 
 // Widget Configuration Types
 export type WidgetType = 
@@ -19,6 +21,9 @@ export type WidgetType =
   | 'contentBlock'
   | 'errorPage'
   | 'emptyState'
+  | 'pricing-table'
+  | 'faq'
+  | 'contact-form'
   | 'stat'
   | 'progress'
   | 'comparison';
@@ -780,7 +785,7 @@ export interface NavbarWidgetSettings extends BaseWidgetSettings {
 
 /**
  * Grid Carousel Widget Data - Theme-based carousel items
- *
+ * 
  * @theme 'product' - Displays array of product widgets
  * @theme 'base' - Displays array of custom React nodes (children)
  */
@@ -791,12 +796,12 @@ export interface GridCarouselWidgetData {
    * - 'base': Display custom React nodes from items array
    */
   theme: 'product' | 'base';
-
+  
   /**
    * Product data array (used when theme='product')
    */
   products?: ProductWidgetData[];
-
+  
   /**
    * Custom React nodes array (used when theme='base')
    */
@@ -815,52 +820,52 @@ export interface GridCarouselWidgetSettings extends BaseWidgetSettings {
     tablet?: number;
     desktop?: number;
   };
-
+  
   /**
    * Gap between grid items (px or CSS value)
    */
   gap?: number | string;
-
+  
   /**
    * Enable automatic sliding
    */
   autoplay?: boolean;
-
+  
   /**
    * Delay between auto-slides in milliseconds
    */
   autoplayDelay?: number;
-
+  
   /**
    * Show navigation arrows
    */
   showNavigation?: boolean;
-
+  
   /**
    * Show pagination dots
    */
   showPagination?: boolean;
-
+  
   /**
    * Scroll behavior: 'page' scrolls by full page, 'item' scrolls by one item
    */
   scrollBehavior?: 'page' | 'item';
-
+  
   /**
    * Apply border radius to container
    */
   borderRadius?: boolean;
-
+  
   /**
    * Hide navigation on mobile devices
    */
   hideNavigationOnMobile?: boolean;
-
+  
   /**
    * Container background color
    */
   backgroundColor?: string;
-
+  
   /**
    * Product widget settings (used when theme='product')
    */
@@ -1353,6 +1358,57 @@ export interface EmptyStateWidgetSettings extends BaseWidgetSettings {
 }
 
 // ========================================================================
+// PRICING TABLE WIDGET
+// ========================================================================
+
+export interface PricingTableWidgetData {
+  tiers: PricingTier[];
+}
+
+export interface PricingTableWidgetSettings extends BaseWidgetSettings {
+  columns?: 2 | 3 | 4;
+}
+
+// ========================================================================
+// FAQ WIDGET
+// ========================================================================
+
+export interface FAQWidgetData {
+  title?: string;
+  subtitle?: string;
+  items: FAQItem[] | FAQCategory[];
+}
+
+export interface FAQWidgetSettings extends BaseWidgetSettings {
+  allowMultiple?: boolean;
+}
+
+// ========================================================================
+// CONTACT FORM WIDGET
+// ========================================================================
+
+export interface ContactFormWidgetData {
+  title?: string;
+  description?: string;
+  submitLabel?: string;
+  successMessage?: string;
+  fields?: {
+    nameLabel?: string;
+    emailLabel?: string;
+    phoneLabel?: string;
+    messageLabel?: string;
+    showPhone?: boolean;
+    showCompany?: boolean;
+    companyLabel?: string;
+  };
+  onSubmit?: (data: Record<string, any>) => Promise<void> | void;
+}
+
+export interface ContactFormWidgetSettings extends BaseWidgetSettings {
+  card?: boolean;
+}
+
+// ========================================================================
 // UNION TYPES
 // ========================================================================
 
@@ -1375,6 +1431,9 @@ export type WidgetData =
   | GridWidgetData
   | ErrorPageWidgetData
   | EmptyStateWidgetData
+  | PricingTableWidgetData
+  | FAQWidgetData
+  | ContactFormWidgetData
   | StatCardData
   | ProgressCardData
   | ComparisonCardData;
@@ -1398,6 +1457,9 @@ export type WidgetSettings =
   | ContentBlockWidgetSettings
   | ErrorPageWidgetSettings
   | EmptyStateWidgetSettings
+  | PricingTableWidgetSettings
+  | FAQWidgetSettings
+  | ContactFormWidgetSettings
   | StatCardSettings
   | ProgressCardSettings
   | ComparisonCardSettings

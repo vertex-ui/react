@@ -3,7 +3,7 @@ import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './OrderDetails.css';
 import { Card } from '../../components/Card';
 import { Flex } from '../../components/Flex';
-import { Text } from '../../components/Text';
+import { Typography } from '../../components/Typography';
 import { Button } from '../../components/Button';
 import { Badge } from '../../components/Badge';
 import { Divider } from '../../components/Divider';
@@ -302,12 +302,12 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
       <Flex direction="column" gap={24}>
         {/* Simple Header matching the image */}
         <Flex direction="column" gap={8}>
-          <Text variant="h3" weight="bold" noMargin>
+          <Typography variant="h3" weight="bold" noMargin>
             Order Details
-          </Text>
-          <Text variant="body1" noMargin style={{ color: 'var(--vtx-color-text-secondary)' }}>
+          </Typography>
+          <Typography variant="body1" noMargin style={{ color: 'var(--vtx-color-text-secondary)' }}>
             Placed on {orderDate}
-          </Text>
+          </Typography>
         </Flex>
 
         {/* Order Status Timeline using Timeline component */}
@@ -328,21 +328,21 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
           {/* Order Number Card */}
           <Card variant="outlined" style={{ flex: '1 1 200px', minWidth: '200px' }}>
             <Flex direction="column" gap={8}>
-              <Text variant="caption" noMargin style={{ color: 'var(--vtx-color-text-secondary)', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: 600 }}>
+              <Typography variant="caption" noMargin style={{ color: 'var(--vtx-color-text-secondary)', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: 600 }}>
                 Order Number
-              </Text>
-              <Text variant="h6" weight="bold" noMargin>
+              </Typography>
+              <Typography variant="h6" weight="bold" noMargin>
                 {orderNumber || `#${orderId}`}
-              </Text>
+              </Typography>
             </Flex>
           </Card>
 
           {/* Status Card */}
           <Card variant="outlined" style={{ flex: '1 1 200px', minWidth: '200px' }}>
             <Flex direction="column" gap={8}>
-              <Text variant="caption" noMargin style={{ color: 'var(--vtx-color-text-secondary)', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: 600 }}>
+              <Typography variant="caption" noMargin style={{ color: 'var(--vtx-color-text-secondary)', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: 600 }}>
                 Status
-              </Text>
+              </Typography>
               <Badge variant={getStatusVariant()} style={{ alignSelf: 'flex-start', padding: '4px 12px' }}>
                 {getStatusText()}
               </Badge>
@@ -353,12 +353,12 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
           {(deliveredDate || estimatedDelivery) && (
             <Card variant="outlined" style={{ flex: '1 1 200px', minWidth: '200px' }}>
               <Flex direction="column" gap={8}>
-                <Text variant="caption" noMargin style={{ color: 'var(--vtx-color-text-secondary)', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: 600 }}>
+                <Typography variant="caption" noMargin style={{ color: 'var(--vtx-color-text-secondary)', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: 600 }}>
                   {deliveredDate ? 'Delivered On' : 'Estimated Delivery'}
-                </Text>
-                <Text variant="h6" weight="bold" noMargin style={{ color: deliveredDate ? 'var(--vtx-color-success-600)' : 'inherit' }}>
+                </Typography>
+                <Typography variant="h6" weight="bold" noMargin style={{ color: deliveredDate ? 'var(--vtx-color-success-600)' : 'inherit' }}>
                   {deliveredDate || estimatedDelivery}
-                </Text>
+                </Typography>
               </Flex>
             </Card>
           )}
@@ -367,9 +367,9 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
           {paymentStatus && (
             <Card variant="outlined" style={{ flex: '1 1 200px', minWidth: '200px' }}>
               <Flex direction="column" gap={8}>
-                <Text variant="caption" noMargin style={{ color: 'var(--vtx-color-text-secondary)', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: 600 }}>
+                <Typography variant="caption" noMargin style={{ color: 'var(--vtx-color-text-secondary)', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: 600 }}>
                   Payment
-                </Text>
+                </Typography>
                 <Badge variant={getPaymentStatusVariant()} style={{ alignSelf: 'flex-start', padding: '4px 12px' }}>
                   {paymentStatus.charAt(0).toUpperCase() + paymentStatus.slice(1)}
                 </Badge>
@@ -412,17 +412,17 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
             <Flex direction="column" gap={12}>
               <Flex align="center" gap={8}>
                 <TruckIcon size={20} />
-                <Text variant="h6" weight="semibold" noMargin>
+                <Typography variant="h6" weight="semibold" noMargin>
                   Shipping Information
-                </Text>
+                </Typography>
               </Flex>
               <Divider />
               <Flex direction="column" gap={12}>
                 {trackingNumber && (
                   <Flex direction="column" gap={4}>
-                    <Text variant="caption" noMargin style={{ color: 'var(--vtx-color-text-secondary)', fontSize: '0.75rem' }}>
+                    <Typography variant="caption" noMargin style={{ color: 'var(--vtx-color-text-secondary)', fontSize: '0.75rem' }}>
                       Tracking Number
-                    </Text>
+                    </Typography>
                     {trackingUrl ? (
                       <a 
                         href={trackingUrl} 
@@ -437,20 +437,20 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
                         {trackingNumber}
                       </a>
                     ) : (
-                      <Text variant="body2" weight="semibold" noMargin>
+                      <Typography variant="body2" weight="semibold" noMargin>
                         {trackingNumber}
-                      </Text>
+                      </Typography>
                     )}
                   </Flex>
                 )}
                 {carrier && (
                   <Flex direction="column" gap={4}>
-                    <Text variant="caption" noMargin style={{ color: 'var(--vtx-color-text-secondary)', fontSize: '0.75rem' }}>
+                    <Typography variant="caption" noMargin style={{ color: 'var(--vtx-color-text-secondary)', fontSize: '0.75rem' }}>
                       Carrier
-                    </Text>
-                    <Text variant="body2" weight="medium" noMargin>
+                    </Typography>
+                    <Typography variant="body2" weight="medium" noMargin>
                       {carrier}
-                    </Text>
+                    </Typography>
                   </Flex>
                 )}
               </Flex>
@@ -460,9 +460,9 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
 
         {/* Order Items */}
         <Card variant="outlined" className="orderdetails-items-card">
-          <Text variant="h6" weight="semibold" style={{ marginBottom: '12px' }}>
+          <Typography variant="h6" weight="semibold" style={{ marginBottom: '12px' }}>
             Items ({items.length})
-          </Text>
+          </Typography>
 
           <Flex direction="column" gap={0}>
             {items.map((item, index) => (
@@ -483,55 +483,55 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
 
         {/* Price Summary */}
         <Card variant="outlined" className="orderdetails-summary-card">
-          <Text variant="h6" weight="semibold" style={{ marginBottom: '12px' }}>
+          <Typography variant="h6" weight="semibold" style={{ marginBottom: '12px' }}>
             Order Summary
-          </Text>
+          </Typography>
 
           <Flex direction="column" gap={8}>
             <Flex justify="between" align="center">
-              <Text variant="body2" noMargin>Subtotal</Text>
-              <Text variant="body2" noMargin>{currency}{subtotal.toLocaleString()}</Text>
+              <Typography variant="body2" noMargin>Subtotal</Typography>
+              <Typography variant="body2" noMargin>{currency}{subtotal.toLocaleString()}</Typography>
             </Flex>
 
             {shippingCost > 0 && (
               <Flex justify="between" align="center">
-                <Text variant="body2" noMargin>Shipping</Text>
-                <Text variant="body2" noMargin>{currency}{shippingCost.toLocaleString()}</Text>
+                <Typography variant="body2" noMargin>Shipping</Typography>
+                <Typography variant="body2" noMargin>{currency}{shippingCost.toLocaleString()}</Typography>
               </Flex>
             )}
 
             {tax > 0 && (
               <Flex justify="between" align="center">
-                <Text variant="body2" noMargin>Tax</Text>
-                <Text variant="body2" noMargin>{currency}{tax.toLocaleString()}</Text>
+                <Typography variant="body2" noMargin>Tax</Typography>
+                <Typography variant="body2" noMargin>{currency}{tax.toLocaleString()}</Typography>
               </Flex>
             )}
 
             {couponCode && (
               <Flex justify="between" align="center">
-                <Text variant="body2" noMargin className="orderdetails-coupon">Coupon Applied</Text>
-                <Text variant="body2" noMargin className="orderdetails-coupon">
+                <Typography variant="body2" noMargin className="orderdetails-coupon">Coupon Applied</Typography>
+                <Typography variant="body2" noMargin className="orderdetails-coupon">
                   {couponCode}
-                </Text>
+                </Typography>
               </Flex>
             )}
 
             {discount > 0 && (
               <Flex justify="between" align="center">
-                <Text variant="body2" noMargin className="orderdetails-discount">Discount</Text>
-                <Text variant="body2" noMargin className="orderdetails-discount">
+                <Typography variant="body2" noMargin className="orderdetails-discount">Discount</Typography>
+                <Typography variant="body2" noMargin className="orderdetails-discount">
                   -{currency}{discount.toLocaleString()}
-                </Text>
+                </Typography>
               </Flex>
             )}
 
             <Divider style={{ margin: '8px 0' }} />
 
             <Flex justify="between" align="center">
-              <Text variant="body1" weight="bold" noMargin>Total</Text>
-              <Text variant="body1" weight="bold" noMargin className="orderdetails-total">
+              <Typography variant="body1" weight="bold" noMargin>Total</Typography>
+              <Typography variant="body1" weight="bold" noMargin className="orderdetails-total">
                 {currency}{total.toLocaleString()}
-              </Text>
+              </Typography>
             </Flex>
           </Flex>
 
@@ -542,10 +542,10 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
               <Flex direction="column" gap={8}>
                 {paymentDetailsItems.map((item, index) => (
                   <Flex key={index} justify="between" align="center">
-                    <Text variant="body2" noMargin>{item.label}</Text>
-                    <Text variant="body2" noMargin className={item.valueClass}>
+                    <Typography variant="body2" noMargin>{item.label}</Typography>
+                    <Typography variant="body2" noMargin className={item.valueClass}>
                       {item.value}
-                    </Text>
+                    </Typography>
                   </Flex>
                 ))}
               </Flex>
@@ -570,9 +570,9 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
             <Flex direction="column" gap={12}>
               <Flex align="center" gap={8}>
                 <MapPinIcon size={20} />
-                <Text variant="h6" weight="semibold" noMargin>
+                <Typography variant="h6" weight="semibold" noMargin>
                   Shipping Address
-                </Text>
+                </Typography>
               </Flex>
               <Divider />
               {formatAddress(shippingAddress)}
@@ -585,9 +585,9 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
               <Flex direction="column" gap={12}>
                 <Flex align="center" gap={8}>
                   <CreditCardIcon size={20} />
-                  <Text variant="h6" weight="semibold" noMargin>
+                  <Typography variant="h6" weight="semibold" noMargin>
                     Billing Address
-                  </Text>
+                  </Typography>
                 </Flex>
                 <Divider />
                 {formatAddress(billingAddress)}
@@ -600,9 +600,9 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
         {showActions && (
           <Card variant="outlined" className="orderdetails-actions-card">
             <Flex direction="column" gap={16}>
-              <Text variant="h6" weight="semibold" noMargin>
+              <Typography variant="h6" weight="semibold" noMargin>
                 Order Actions
-              </Text>
+              </Typography>
               
               <Divider />
 
@@ -682,25 +682,25 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
           <Flex direction="column" gap={12} align="center">
             <Flex align="center" gap={8}>
               <MessageIcon size={20} />
-              <Text variant="h6" weight="semibold" noMargin>
+              <Typography variant="h6" weight="semibold" noMargin>
                 Need Help?
-              </Text>
+              </Typography>
             </Flex>
-            <Text variant="body2" align="center" noMargin style={{ color: 'var(--vtx-color-text-secondary)' }}>
+            <Typography variant="body2" align="center" noMargin style={{ color: 'var(--vtx-color-text-secondary)' }}>
               Our support team is available 24/7 to assist you with your order
-            </Text>
+            </Typography>
             <Flex direction="row" gap={16} wrap="wrap" justify="center" style={{ marginTop: '4px' }}>
               <Flex align="center" gap={6}>
                 <MessageIcon size={16} />
-                <Text variant="body2" weight="medium" noMargin>
+                <Typography variant="body2" weight="medium" noMargin>
                   support@example.com
-                </Text>
+                </Typography>
               </Flex>
               <Flex align="center" gap={6}>
                 <PhoneIcon size={16} />
-                <Text variant="body2" weight="medium" noMargin>
+                <Typography variant="body2" weight="medium" noMargin>
                   1-800-123-4567
-                </Text>
+                </Typography>
               </Flex>
             </Flex>
           </Flex>

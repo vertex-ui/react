@@ -6,7 +6,7 @@ import { createPortal } from 'react-dom';
 import { useFocusTrap, useEscapeKey, useBodyScrollLock } from '../../hooks';
 import { Flex } from '../Flex';
 import { Button } from '../Button';
-import { Text } from '../Text';
+import { Typography } from '../Typography';
 import { useThemeContext } from '../../theme/ThemeProvider';
 import './Modal.css';
 
@@ -312,13 +312,13 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
       <Flex className="vtx-modal-header" justify="between" align="center" gap={8}>
         {title && (
           <Flex direction="column" gap={4} className="vtx-modal-header-content">
-            <Text as="h2" variant="h6" weight="semibold" id="vtx-modal-title" noMargin>
+            <Typography as="h2" variant="h6" weight="semibold" id="vtx-modal-title" noMargin>
               {title}
-            </Text>
+            </Typography>
             {description && (
-              <Text variant="body2" textColor="var(--color-neutral-600)" id="vtx-modal-description" noMargin>
+              <Typography variant="body2" textColor="var(--color-neutral-600)" id="vtx-modal-description" noMargin>
                 {description}
-              </Text>
+              </Typography>
             )}
           </Flex>
         )}
