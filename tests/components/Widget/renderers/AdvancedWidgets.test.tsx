@@ -140,20 +140,25 @@ describe('Advanced Widget Renderers', () => {
       <div key="3">Item 3</div>
     ];
 
+    const baseData = {
+      theme: 'base' as const,
+      items: items
+    };
+
     it('renders grid items', () => {
-      render(<GridCarouselWidget items={items} />);
+      render(<GridCarouselWidget data={baseData} />);
       expect(screen.getByText('Item 1')).toBeInTheDocument();
       expect(screen.getByText('Item 2')).toBeInTheDocument();
       expect(screen.getByText('Item 3')).toBeInTheDocument();
     });
 
     it('renders empty state', () => {
-      render(<GridCarouselWidget items={[]} />);
+      render(<GridCarouselWidget data={{ theme: 'base', items: [] }} />);
       expect(screen.getByText('No items to display')).toBeInTheDocument();
     });
 
     it('renders navigation controls', () => {
-      render(<GridCarouselWidget items={items} showNavigation={true} />);
+      render(<GridCarouselWidget data={baseData} settings={{ showNavigation: true }} />);
       expect(screen.getByLabelText('Next')).toBeInTheDocument();
       expect(screen.getByLabelText('Previous')).toBeInTheDocument();
     });
