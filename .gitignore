@@ -6,9 +6,6 @@ node_modules
 # Testing
 coverage
 test-results/
-playwright-report/
-playwright/.auth/
-tests/playwright/test-results/
 
 # Production
 dist
