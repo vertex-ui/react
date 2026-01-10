@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import { OrderWidgetData, OrderWidgetSettings } from '../types';
 import { OrderCard } from '../../../widgets/OrderCard';
@@ -25,10 +26,10 @@ const OrderWidget: React.FC<OrderWidgetProps> = ({
   const formatDate = (date?: string | Date) => {
     if (!date) return undefined;
     const d = typeof date === 'string' ? new Date(date) : date;
-    return d.toLocaleDateString('en-US', { 
-      month: 'short', 
-      day: 'numeric', 
-      year: 'numeric' 
+    return d.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
     });
   };
 
@@ -50,21 +51,21 @@ const OrderWidget: React.FC<OrderWidgetProps> = ({
   }));
 
   // Handle track order action
-  const handleTrackOrder = data.actions?.[0]?.onClick || data.actions?.[0]?.href 
+  const handleTrackOrder = data.actions?.[0]?.onClick || data.actions?.[0]?.href
     ? () => {
-        if (data.actions?.[0]?.onClick) {
-          data.actions[0].onClick();
-        }
+      if (data.actions?.[0]?.onClick) {
+        data.actions[0].onClick();
       }
+    }
     : undefined;
 
   // Handle view details action
   const handleViewDetails = data.actions?.[1]?.onClick || data.actions?.[1]?.href
     ? () => {
-        if (data.actions?.[1]?.onClick) {
-          data.actions[1].onClick();
-        }
+      if (data.actions?.[1]?.onClick) {
+        data.actions[1].onClick();
       }
+    }
     : undefined;
 
   return (

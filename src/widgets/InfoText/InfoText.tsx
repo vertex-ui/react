@@ -2,7 +2,7 @@ import React from 'react';
 import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './InfoText.css';
 import { Flex } from '../../components/Flex';
-import { Text } from '../../components/Text';
+import { Typography } from '../../components/Typography';
 
 export interface InfoTextBaseProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -79,13 +79,13 @@ const InfoTextBase = React.forwardRef<HTMLDivElement, InfoTextBaseProps>(
       </Flex>
       {/* TEXT */}
       <Flex direction="column" gap={4}>
-        <Text variant="body1" weight="medium" noMargin>
+        <Typography variant="body1" weight="medium" noMargin>
           {heading}
-        </Text>
+        </Typography>
         {subText && (
-          <Text variant="caption" textColor="var(--text-secondary)" noMargin>
+          <Typography variant="caption" textColor="var(--text-secondary)" noMargin>
             {subText}
-          </Text>
+          </Typography>
         )}
       </Flex>
     </Flex>
@@ -176,16 +176,16 @@ const InfoTextStat = React.forwardRef<HTMLDivElement, InfoTextStatProps>(
       )}
       {/* TEXT */}
       <Flex direction="column" gap={4}>
-        <Text variant="h5" weight="bold" noMargin>
+        <Typography variant="h5" weight="bold" noMargin>
           {value}
-        </Text>
-        <Text variant="body2" weight="medium" noMargin>
+        </Typography>
+        <Typography variant="body2" weight="medium" noMargin>
           {label}
-        </Text>
+        </Typography>
         {subText && (
-          <Text variant="caption" textColor="var(--text-secondary)" noMargin>
+          <Typography variant="caption" textColor="var(--text-secondary)" noMargin>
             {subText}
-          </Text>
+          </Typography>
         )}
       </Flex>
     </Flex>
@@ -275,14 +275,14 @@ const InfoTextFeature = React.forwardRef<HTMLDivElement, InfoTextFeatureProps>(
       {/* TEXT */}
       <Flex direction="column" gap={6} style={{ flex: 1 }}>
         <Flex align="center" gap={8}>
-          <Text variant="h6" weight="semibold" noMargin>
+          <Typography variant="h6" weight="semibold" noMargin>
             {title}
-          </Text>
+          </Typography>
           {badge && <span className="infotext-badge">{badge}</span>}
         </Flex>
-        <Text variant="body2" textColor="var(--text-secondary)" noMargin>
+        <Typography variant="body2" textColor="var(--text-secondary)" noMargin>
           {description}
-        </Text>
+        </Typography>
       </Flex>
     </Flex>
   )
@@ -355,7 +355,7 @@ const InfoTextCompact = React.forwardRef<HTMLDivElement, InfoTextCompactProps>(
         <span className="infotext-icon-small-plain">{icon}</span>
       )}
       {/* TEXT */}
-      <Text variant="body2" noMargin>{text}</Text>
+      <Typography variant="body2" noMargin>{text}</Typography>
     </Flex>
   )
 );
@@ -436,13 +436,13 @@ const InfoTextVertical = React.forwardRef<HTMLDivElement, InfoTextVerticalProps>
       </Flex>
       {/* TEXT */}
       <Flex direction="column" gap={4} align="center">
-        <Text variant="body1" weight="medium" align="center" noMargin>
+        <Typography variant="body1" weight="medium" align="center" noMargin>
           {heading}
-        </Text>
+        </Typography>
         {subText && (
-          <Text variant="caption" textColor="var(--text-secondary)" align="center" noMargin>
+          <Typography variant="caption" textColor="var(--text-secondary)" align="center" noMargin>
             {subText}
-          </Text>
+          </Typography>
         )}
       </Flex>
     </Flex>
@@ -466,4 +466,3 @@ export const InfoText = {
 };
 
 export default InfoText;
-

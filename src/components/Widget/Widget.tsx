@@ -46,6 +46,7 @@ import EmptyStateWidget from './renderers/EmptyStateWidget';
 import PricingTableWidget from './renderers/PricingTableWidget';
 import FAQWidget from './renderers/FAQWidget';
 import ContactFormWidget from './renderers/ContactFormWidget';
+import { DashboardCard } from '../../widgets/DashboardCard';
 
 export interface WidgetProps {
   config: WidgetConfig;
@@ -100,7 +101,7 @@ const Widget: React.FC<WidgetProps> = ({
       case 'testimonial':
         return <TestimonialWidget data={data as TestimonialWidgetData} className={className} style={style} />;
       case 'gridCarousel':
-        return <GridCarouselWidget {...(data as GridCarouselWidgetData)} className={className} style={style} />;
+        return <GridCarouselWidget data={data as GridCarouselWidgetData} settings={widgetSettings as any} />;
       case 'contentBlock':
         return <ContentBlockWidget data={data as ContentBlockWidgetData} settings={widgetSettings as any} />;
       case 'errorPage':
@@ -113,6 +114,10 @@ const Widget: React.FC<WidgetProps> = ({
         return <FAQWidget data={data as FAQWidgetData} settings={widgetSettings as any} />;
       case 'contact-form':
         return <ContactFormWidget data={data as ContactFormWidgetData} settings={widgetSettings as any} />;
+      case 'stat':
+      case 'progress':
+      case 'comparison':
+        return <DashboardCard type={type} data={data as any} settings={widgetSettings as any} className={className} style={style} />;
       default:
         console.warn(`Unknown widget type: ${type}`);
         return null;

@@ -182,7 +182,7 @@ Short and long aliases are available for all spacing props:
 
 // Vertical centered layout
 <Box display="flex" flexDirection="column" alignItems="center" gap={3}>
-  <Text>Centered vertically</Text>
+  <Typography>Centered vertically</Typography>
   <Button>Click me</Button>
 </Box>
 
@@ -227,10 +227,10 @@ Short and long aliases are available for all spacing props:
 >
   <Box h={200} bg="linear-gradient(135deg, #667eea 0%, #764ba2 100%)" />
   <Box p={4}>
-    <Text variant="h4" mb={2}>Card Title</Text>
-    <Text variant="body2" color="#666" mb={3}>
+    <Typography variant="h4" mb={2}>Card Title</Typography>
+    <Typography variant="body2" color="#666" mb={3}>
       Card description goes here.
-    </Text>
+    </Typography>
     <Button>Learn More</Button>
   </Box>
 </Box>
@@ -241,11 +241,11 @@ Short and long aliases are available for all spacing props:
 ```tsx
 <Box maxW={1200} mx="auto" px={4}>
   <Box p={6} bg="#f5f5f5" borderRadius={8}>
-    <Text variant="h3">Responsive Container</Text>
-    <Text>
+    <Typography variant="h3">Responsive Container</Typography>
+    <Typography>
       This container has a max width and is centered with auto margins.
       It also has horizontal padding for mobile screens.
-    </Text>
+    </Typography>
   </Box>
 </Box>
 ```
@@ -255,16 +255,16 @@ Short and long aliases are available for all spacing props:
 ```tsx
 <Box as="article" maxW={800} mx="auto">
   <Box as="header" mb={4}>
-    <Text variant="h2">Article Title</Text>
+    <Typography variant="h2">Article Title</Typography>
   </Box>
   
   <Box as="section" mb={4}>
-    <Text variant="h4">Section 1</Text>
-    <Text>Content...</Text>
+    <Typography variant="h4">Section 1</Typography>
+    <Typography>Content...</Typography>
   </Box>
   
   <Box as="footer" pt={4} borderTop="1px solid #e0e0e0">
-    <Text variant="body2">Footer content</Text>
+    <Typography variant="body2">Footer content</Typography>
   </Box>
 </Box>
 ```
@@ -358,14 +358,14 @@ Short and long aliases are available for all spacing props:
 // ✅ Good - semantic HTML
 <Box as="section" py={8}>
   <Box as="header">
-    <Text variant="h2">Section Title</Text>
+    <Typography variant="h2">Section Title</Typography>
   </Box>
 </Box>
 
 // ❌ Avoid - non-semantic
 <Box py={8}>
   <Box>
-    <Text variant="h2">Section Title</Text>
+    <Typography variant="h2">Section Title</Typography>
   </Box>
 </Box>
 ```
@@ -418,7 +418,7 @@ interface CustomCardProps extends BoxProps {
 const CustomCard: React.FC<CustomCardProps> = ({ title, children, ...boxProps }) => {
   return (
     <Box p={4} bg="white" shadow="md" borderRadius={8} {...boxProps}>
-      <Text variant="h4" mb={2}>{title}</Text>
+      <Typography variant="h4" mb={2}>{title}</Typography>
       {children}
     </Box>
   );

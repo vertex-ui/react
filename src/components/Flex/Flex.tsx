@@ -1,5 +1,5 @@
 import React from 'react';
-import './Flex.css';
+import { Box } from '../Box';
 
 export interface FlexProps {
   /** Child elements */
@@ -22,7 +22,7 @@ export interface FlexProps {
   columnGap?: number | string;
   /** Whether the container is inline-flex */
   inline?: boolean;
-  /** Whether the container takes full width (default: true) */
+  /** Whether the container takes full width (default: false) */
   fullWidth?: boolean;
   /** Flex grow value */
   grow?: number;
@@ -87,57 +87,54 @@ const Flex = React.forwardRef<HTMLDivElement, FlexProps & React.HTMLAttributes<H
     },
     ref
   ) => {
-    const Element = as as 'div';
 
-    // Build className
-    const classes = [
-      'vtx-flex',
-      inline && 'vtx-flex--inline',
-      fullWidth && 'vtx-flex--full-width',
-      direction !== 'row' && `vtx-flex--${direction}`,
-      wrap !== 'nowrap' && `vtx-flex--${wrap}`,
-      justify !== 'start' && `vtx-flex--justify-${justify}`,
-      align !== 'stretch' && `vtx-flex--align-${align}`,
-      alignContent && `vtx-flex--align-content-${alignContent}`,
-      className,
-    ]
-      .filter(Boolean)
-      .join(' ');
-
-    // Build style with CSS variables
-    const customStyle: React.CSSProperties = {
-      ...style,
+    // Map simplified props to CSS values
+    const mapJustify = (val?: string) => {
+      if (val === 'start') return 'flex-start';
+      if (val === 'end') return 'flex-end';
+      if (val === 'between') return 'space-between';
+      if (val === 'around') return 'space-around';
+      if (val === 'evenly') return 'space-evenly';
+      return val as any;
     };
 
-    // Handle gap
-    if (gap !== undefined) {
-      (customStyle as Record<string, string | number>)['--vtx-flex-gap'] =
-        typeof gap === 'number' ? `${gap}px` : gap;
-    }
-    if (rowGap !== undefined) {
-      (customStyle as Record<string, string | number>)['--vtx-flex-row-gap'] =
-        typeof rowGap === 'number' ? `${rowGap}px` : rowGap;
-    }
-    if (columnGap !== undefined) {
-      (customStyle as Record<string, string | number>)['--vtx-flex-column-gap'] =
-        typeof columnGap === 'number' ? `${columnGap}px` : columnGap;
-    }
+    const mapAlign = (val?: string) => {
+      if (val === 'start') return 'flex-start';
+      if (val === 'end') return 'flex-end';
+      return val as any;
+    };
 
-    // Handle flex properties
-    if (grow !== undefined) {
-      customStyle.flexGrow = grow;
-    }
-    if (shrink !== undefined) {
-      customStyle.flexShrink = shrink;
-    }
-    if (basis !== undefined) {
-      customStyle.flexBasis = typeof basis === 'number' ? `${basis}px` : basis;
+    const mapAlignContent = (val?: string) => {
+      if (val === 'start') return 'flex-start';
+      if (val === 'end') return 'flex-end';
+      if (val === 'between') return 'space-between';
+      if (val === 'around') return 'space-around';
+      return val as any;
     }
 
     return (
-      <Element ref={ref} className={classes} style={customStyle} {...rest}>
+      <Box
+        ref={ref}
+        as={as as any}
+        display={inline ? 'inline-flex' : 'flex'}
+        flexDirection={direction}
+        flexWrap={wrap}
+        justifyContent={mapJustify(justify)}
+        alignItems={mapAlign(align)}
+        alignContent={mapAlignContent(alignContent)}
+        gap={gap}
+        rowGap={rowGap}
+        columnGap={columnGap}
+        flexGrow={grow}
+        flexShrink={shrink}
+        flexBasis={basis}
+        width={fullWidth ? '100%' : undefined}
+        className={`vtx-flex ${className}`.trim()}
+        style={style}
+        {...rest}
+      >
         {children}
-      </Element>
+      </Box>
     );
   }
 );

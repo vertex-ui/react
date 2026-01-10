@@ -4,6 +4,7 @@
 import React, { useState } from "react";
 import { HTMLAttributes, ImgHTMLAttributes } from "react";
 import { useThemeContext } from '../../theme/ThemeProvider';
+import { UserIcon } from '../../icons/IconComponents';
 import './Avatar.css';
 /**
  * Avatar component - Displays user profile image, initials, or fallback
@@ -61,6 +62,12 @@ export interface AvatarProps extends Omit<HTMLAttributes<HTMLDivElement>, 'child
   imgProps?: Omit<ImgHTMLAttributes<HTMLImageElement>, 'src' | 'alt' | 'className' | 'onError' | 'onLoad'>;
   statusIndicator?: React.ReactNode;
   statusPosition?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+  /**
+   * If true, the avatar image will be eager loaded with high priority.
+   * Useful when the avatar is the LCP element.
+   * @default false
+   */
+  priority?: boolean;
 }
 
 const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
@@ -77,6 +84,7 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
       statusIndicator,
       statusPosition = 'bottom-right',
       className = '',
+      priority = false,
       ...props
     },
     ref
@@ -122,12 +130,13 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
             className="vtx-avatar-image"
             onError={handleImageError}
             onLoad={handleImageLoad}
-            loading="lazy"
+            loading={priority ? "eager" : "lazy"}
+            fetchPriority={priority ? "high" : "auto"}
             {...imgProps}
           />
         ) : (
           <span className="vtx-avatar-fallback" aria-hidden="true">
-            {displayFallback}
+            {fallback === '?' ? <UserIcon /> : displayFallback}
           </span>
         )}
         {statusIndicator && (

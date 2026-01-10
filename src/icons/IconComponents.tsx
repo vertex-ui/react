@@ -51,8 +51,15 @@ import {
     FiCalendar,
     FiBriefcase,
     FiDollarSign,
-    FiActivity
+    FiActivity,
+    FiDisc
 } from 'react-icons/fi';
+import {
+    FaRupeeSign,
+    FaStar,
+    FaStarHalfAlt,
+    FaRegStar
+} from 'react-icons/fa';
 
 export const SpinnerIcon = (props: { size?: number }) => (
     <svg
@@ -150,6 +157,16 @@ export const ChevronsRightIcon = FiChevronsRight;
 export const BuildingIcon = FiBriefcase;
 export const DollarSignIcon = FiDollarSign;
 export const ActivityIcon = FiActivity;
+
+// New Icons
+export const RupeeIcon = FaRupeeSign;
+export const StarFullIcon = FaStar;
+export const StarHalfIcon = FaStarHalfAlt;
+export const StarEmptyIcon = FaRegStar;
+export const BulletIcon = FiDisc;
+export const DashIcon = FiMinus;
+export const XIcon = FiX;
+
 
 // Error Page Icons
 export const NotFoundIcon = (props: { size?: number; color?: string }) => (

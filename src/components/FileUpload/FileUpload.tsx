@@ -1,7 +1,8 @@
+"use client";
 import React, { useRef, useState, useEffect } from 'react';
 import { useId } from '../../hooks';
 import { Flex } from '../Flex';
-import { Text } from '../Text';
+import { Typography } from '../Typography';
 import { Button } from '../Button';
 import {
   FiUploadCloud,
@@ -282,10 +283,10 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   return (
     <Flex direction="column" gap={8} className={`vtx-fileupload-wrapper ${className}`}>
       {label && (
-        <label htmlFor={id} className="vtx-fileupload-label vtx-text vtx-text--label">
+        <Typography as="label" htmlFor={id} variant="label" className="vtx-fileupload-label">
           {label}
           {required && <span className="vtx-fileupload-label__required"> *</span>}
-        </label>
+        </Typography>
       )}
 
       <div
@@ -316,7 +317,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
 
         <Flex direction="column" align="center" gap={12} className="vtx-fileupload-content">
           <FiUploadCloud className="vtx-fileupload-icon" />
-          <Text variant="body2" align="center" className="vtx-fileupload-text">
+          <Typography variant="body2" align="center" className="vtx-fileupload-text">
             <Button
               variant="ghost"
               size="sm"
@@ -330,15 +331,15 @@ export const FileUpload: React.FC<FileUploadProps> = ({
               Click to upload
             </Button>
             {' '}or drag and drop
-          </Text>
+          </Typography>
           {helperText && !error && (
-            <Text variant="caption" color="secondary" className="vtx-fileupload-helper">{helperText}</Text>
+            <Typography variant="caption" color="secondary" className="vtx-fileupload-helper">{helperText}</Typography>
           )}
           {error && (
-            <Text variant="caption" color="error" className="vtx-fileupload-error">
+            <Typography variant="caption" color="error" className="vtx-fileupload-error">
               <FiAlertCircle style={{ marginRight: 4, verticalAlign: 'text-bottom' }} />
               {error}
-            </Text>
+            </Typography>
           )}
         </Flex>
       </div>
@@ -349,22 +350,22 @@ export const FileUpload: React.FC<FileUploadProps> = ({
             <Flex key={item.id} align="center" className="vtx-fileupload-item">
               <div className="vtx-fileupload-item__preview">
                 {item.previewUrl ? (
-                  <img src={item.previewUrl} alt={item.file.name} />
+                  <img src={item.previewUrl} alt={item.file.name} loading="lazy" />
                 ) : (
                   getFileIcon(item.file)
                 )}
               </div>
 
               <Flex direction="column" gap={2} className="vtx-fileupload-item__info">
-                <Text variant="body2" weight="medium" className="vtx-fileupload-item__name" title={item.file.name}>
+                <Typography variant="body2" weight="medium" className="vtx-fileupload-item__name" title={item.file.name}>
                   {item.file.name}
-                </Text>
+                </Typography>
                 <Flex gap={8} className="vtx-fileupload-item__meta">
-                  <Text variant="caption" color="secondary">{formatFileSize(item.file.size)}</Text>
+                  <Typography variant="caption" color="secondary">{formatFileSize(item.file.size)}</Typography>
                   {item.status === 'error' && (
-                    <Text variant="caption" color="error" className="vtx-fileupload-item__error-text">
-                       • {item.error}
-                    </Text>
+                    <Typography variant="caption" color="error" className="vtx-fileupload-item__error-text">
+                      • {item.error}
+                    </Typography>
                   )}
                 </Flex>
               </Flex>

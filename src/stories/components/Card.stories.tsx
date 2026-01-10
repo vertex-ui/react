@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Card } from '../../components/Card';
-import { Text } from '../../components/Text';
+import { Typography } from '../../components/Typography';
 
 const meta: Meta<typeof Card> = {
   title: 'Components/Card',
@@ -25,7 +25,7 @@ export const Default: Story = {
     children: (
       <div>
         <h3 style={{ margin: '0 0 8px 0' }}>Card Title</h3>
-        <Text>This is a basic card with some content inside it.</Text>
+        <Typography>This is a basic card with some content inside it.</Typography>
       </div>
     ),
   },
@@ -37,7 +37,7 @@ export const Elevated: Story = {
     children: (
       <div>
         <h3 style={{ margin: '0 0 8px 0' }}>Elevated Card</h3>
-        <Text>This card has an elevated appearance with shadow.</Text>
+        <Typography>This card has an elevated appearance with shadow.</Typography>
       </div>
     ),
   },
@@ -49,7 +49,7 @@ export const Outlined: Story = {
     children: (
       <div>
         <h3 style={{ margin: '0 0 8px 0' }}>Outlined Card</h3>
-        <Text>This card has a border outline.</Text>
+        <Typography>This card has a border outline.</Typography>
       </div>
     ),
   },

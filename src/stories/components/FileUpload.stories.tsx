@@ -16,15 +16,21 @@ type Story = StoryObj<typeof FileUpload>;
 
 export const Default: Story = {
   args: {
-    label: 'Upload File',
-    helperText: 'Max file size: 5MB',
+    label: 'Upload Documents',
+  },
+};
+
+export const WithHelperText: Story = {
+  args: {
+    label: 'Upload Report',
+    helperText: 'PDF, DOCX up to 5MB',
   },
 };
 
 export const WithError: Story = {
   args: {
-    label: 'Upload File',
-    error: 'File too large',
+    label: 'Upload Avatar',
+    error: 'File size exceeds limit',
   },
 };
 

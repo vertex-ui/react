@@ -1,16 +1,17 @@
+"use client";
 import React from 'react';
 import { TextWidgetData, TextWidgetSettings, WidgetTheme, WidgetVariant } from '../types';
 import { InfoText } from '../../../widgets/InfoText';
 import { Card } from '../../Card';
 import { Flex } from '../../Flex';
-import { Text } from '../../Text';
+import { Typography } from '../../../components/Typography';
 import { Button } from '../../Button';
 import { Link } from '../../Link';
 
 interface TextWidgetProps {
   data: TextWidgetData;
   settings?: TextWidgetSettings;
-  
+
   // Deprecated: Use settings instead
   /** @deprecated Use settings.theme */
   theme?: WidgetTheme;
@@ -40,7 +41,7 @@ const TextWidget: React.FC<TextWidgetProps> = ({
   const size = settings?.size || legacySize || 'md';
   const className = settings?.className || legacyClassName || '';
   const style = settings?.style || legacyStyle;
-  
+
   const textVariant = settings?.variant || 'body';
   const alignment = settings?.alignment || 'left';
   const titleColor = settings?.titleColor;
@@ -56,7 +57,7 @@ const TextWidget: React.FC<TextWidgetProps> = ({
         case 'caption': return 'body2';
       }
     }
-    
+
     if (size === 'sm') {
       switch (type) {
         case 'title': return textVariant === 'h1' ? 'h3' : textVariant === 'h2' ? 'h4' : textVariant === 'h3' ? 'h5' : 'h6';
@@ -64,7 +65,7 @@ const TextWidget: React.FC<TextWidgetProps> = ({
         case 'caption': return 'caption';
       }
     }
-    
+
     // Default 'md' size
     switch (type) {
       case 'title': return textVariant === 'h1' ? 'h2' : textVariant === 'h2' ? 'h3' : textVariant === 'h3' ? 'h4' : 'h5';
@@ -91,35 +92,35 @@ const TextWidget: React.FC<TextWidgetProps> = ({
     return (
       <Flex direction="column" gap="md">
         {data.title && (
-          <Text 
+          <Typography
             variant={getTextVariant('title')} 
             className="font-bold"
             style={{ color: titleColor }}
           >
             {data.title}
-          </Text>
+          </Typography>
         )}
-        
+
         {data.content && (
-          <Text 
+          <Typography
             variant={getTextVariant('content')} 
             className="text-neutral-700 leading-relaxed"
             style={{ color: contentColor }}
           >
             {data.content}
-          </Text>
+          </Typography>
         )}
-        
+
         {data.caption && (
-          <Text 
+          <Typography
             variant={getTextVariant('caption')} 
             className="text-neutral-500"
             style={{ color: captionColor }}
           >
             {data.caption}
-          </Text>
+          </Typography>
         )}
-        
+
         {data.actions && data.actions.length > 0 && (
           <Flex gap="sm">
             {data.actions.map((action, index) => (

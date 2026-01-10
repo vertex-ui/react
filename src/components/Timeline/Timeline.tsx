@@ -1,6 +1,6 @@
 import React from 'react';
 import './Timeline.css';
-import { Text } from '../Text';
+import { Typography } from '../Typography';
 
 export interface TimelineStep {
   /** Label for the step */
@@ -141,18 +141,18 @@ const Timeline: React.FC<TimelineProps> = ({
 
             {/* Step Content */}
             <div className="timeline-step-content">
-              <Text
+              <Typography
                 variant="body2"
                 weight={status === 'active' ? 'semibold' : 'medium'}
                 noMargin
                 className="timeline-step-label"
               >
                 {step.label}
-              </Text>
+              </Typography>
               {step.description && (
-                <Text variant="caption" noMargin className="timeline-step-description">
+                <Typography variant="caption" noMargin className="timeline-step-description">
                   {step.description}
-                </Text>
+                </Typography>
               )}
             </div>
           </div>

@@ -21,21 +21,21 @@ const sampleProduct = {
 };
 
 export const Basic = () => (
-  <Widget 
-    config={{ 
-      type: 'product', 
+  <Widget
+    config={{
+      type: 'product',
       data: { ...sampleProduct },
-    }} 
+    }}
   />
 );
 
 export const Loading = () => (
-  <Widget 
-    config={{ 
-      type: 'product', 
-      data: { ...sampleProduct }, 
-      settings: { loading: true } 
-    }} 
+  <Widget
+    config={{
+      type: 'product',
+      data: { ...sampleProduct },
+      settings: { loading: true }
+    }}
   />
 );
 
@@ -46,8 +46,8 @@ export const WithWishlist = () => {
     <Widget
       config={{
         type: 'product',
-        data: { 
-          ...sampleProduct, 
+        data: {
+          ...sampleProduct,
           id: 'wish-1',
         },
         settings: {
@@ -68,10 +68,10 @@ export const WithWishlist = () => {
 
 export const FeaturedProduct = () => (
   <Widget
-    config={{ 
-      type: 'product', 
-      data: { 
-        ...sampleProduct, 
+    config={{
+      type: 'product',
+      data: {
+        ...sampleProduct,
         originalPrice: 249.99,
         discount: '-20%',
         featured: true,
@@ -81,7 +81,7 @@ export const FeaturedProduct = () => (
         categoryHref: '/category/electronics',
       },
       settings: {
-        onAddToCart: (id, qty) => alert(`Added ${qty} item(s) to cart - ${id}`),
+        onAddToCart: (_id, qty) => alert(`Added ${qty} item(s) to cart`),
         onIncrementCart: (id, qty) => console.log('Incremented:', id, qty),
         onDecrementCart: (id, qty) => console.log('Decremented:', id, qty),
         onCategoryClick: () => console.log('Category clicked'),
@@ -92,9 +92,9 @@ export const FeaturedProduct = () => (
 
 export const FeaturedGrid = () => {
   const featuredProducts = [
-    { 
-      ...sampleProduct, 
-      id: '1', 
+    {
+      ...sampleProduct,
+      id: '1',
       name: 'Premium Wireless Headphones',
       price: 299.99,
       originalPrice: 399.99,
@@ -104,9 +104,9 @@ export const FeaturedGrid = () => {
       categoryHref: '/category/electronics',
       href: '/products/headphones',
     },
-    { 
-      ...sampleProduct, 
-      id: '2', 
+    {
+      ...sampleProduct,
+      id: '2',
       name: 'Ultra HD 4K Monitor',
       price: 599.99,
       originalPrice: 799.99,
@@ -118,9 +118,9 @@ export const FeaturedGrid = () => {
       href: '/products/monitor',
       image: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400',
     },
-    { 
-      ...sampleProduct, 
-      id: '3', 
+    {
+      ...sampleProduct,
+      id: '3',
       name: 'Mechanical Gaming Keyboard',
       price: 149.99,
       originalPrice: 199.99,
@@ -161,7 +161,7 @@ export const WithQuickView = () => (
   <Widget
     config={{
       type: 'product',
-      data: { 
+      data: {
         ...sampleProduct,
         weight: 250,
         units: 'g',
@@ -186,7 +186,7 @@ export const FullyInteractive = () => {
     <Widget
       config={{
         type: 'product',
-        data: { 
+        data: {
           ...sampleProduct,
           originalPrice: 249.99,
           discount: '-20%',
@@ -262,7 +262,7 @@ export const Interactive = () => {
   ]);
 
   const toggleWishlist = (id: string) => {
-    setProducts(prev => 
+    setProducts(prev =>
       prev.map(p => p.id === id ? { ...p, isWishlisted: !p.isWishlisted } : p)
     );
   };

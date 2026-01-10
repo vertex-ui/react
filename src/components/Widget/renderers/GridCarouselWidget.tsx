@@ -1,67 +1,79 @@
 "use client";
 
 import React, { useCallback, useState, useEffect } from 'react';
+import { GridCarouselWidgetData, GridCarouselWidgetSettings } from '../types';
 import { useTheme } from '../../../hooks/useTheme';
 import { ChevronLeftIcon, ChevronRightIcon } from '../../../icons/IconComponents';
+import ProductWidget from './ProductWidget';
 
 export interface GridCarouselWidgetProps {
-  items: React.ReactNode[];
-  className?: string;
-  style?: React.CSSProperties;
-  borderRadius?: boolean;
-  autoplay?: boolean;
-  autoplayDelay?: number;
-  /**
-   * Number of items to show per view at different breakpoints
-   */
-  itemsPerView?: {
-    mobile?: number;
-    tablet?: number;
-    desktop?: number;
-  };
-  /**
-   * Gap between grid items
-   */
-  gap?: number | string;
-  /**
-   * Show navigation arrows
-   */
-  showNavigation?: boolean;
-  /**
-   * Show pagination dots
-   */
-  showPagination?: boolean;
-  /**
-   * Scroll behavior: 'page' scrolls by full page, 'item' scrolls by one item
-   */
-  scrollBehavior?: 'page' | 'item';
+  data: GridCarouselWidgetData;
+  settings?: GridCarouselWidgetSettings;
 }
 
+/**
+ * GridCarouselWidget - Theme-based grid carousel
+ * 
+ * Supports two themes:
+ * - 'product': Displays array of product widgets
+ * - 'base': Displays array of custom React nodes
+ * 
+ * Features:
+ * - Responsive grid with customizable items per view
+ * - Auto-play with configurable delay
+ * - Navigation arrows and pagination dots
+ * - Smooth transitions and interactions
+ * - Theme-based rendering with proper data/settings separation
+ */
 const GridCarouselWidget: React.FC<GridCarouselWidgetProps> = ({
-  items = [],
-  className = '',
-  style,
-  borderRadius = true,
-  autoplay = false,
-  autoplayDelay = 3000,
-  itemsPerView = {
-    mobile: 1,
-    tablet: 2,
-    desktop: 3,
-  },
-  gap = '20px',
-  showNavigation = true,
-  showPagination = true,
-  scrollBehavior = 'page',
+  data,
+  settings = {},
 }) => {
   const { tokens } = useTheme();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [currentItemsPerView, setCurrentItemsPerView] = useState(itemsPerView.desktop || 3);
+  const [currentItemsPerView, setCurrentItemsPerView] = useState(
+    settings.itemsPerView?.desktop || 3
+  );
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Extract settings with defaults
+  const {
+    itemsPerView = {
+      mobile: 1,
+      tablet: 2,
+      desktop: 3,
+    },
+    gap = '20px',
+    autoplay = false,
+    autoplayDelay = 3000,
+    showNavigation = true,
+    showPagination = true,
+    scrollBehavior = 'page',
+    borderRadius = true,
+    hideNavigationOnMobile = false,
+    backgroundColor,
+    productSettings = {},
+    className = '',
+    style,
+  } = settings;
+
+  // Get items based on theme
+  const items = React.useMemo(() => {
+    if (data.theme === 'product' && data.products) {
+      return data.products;
+    }
+    if (data.theme === 'base' && data.items) {
+      return data.items;
+    }
+    return [];
+  }, [data]);
 
   // Responsive breakpoints
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
+      setIsMobile(width < 768);
+
       if (width < 768) {
         setCurrentItemsPerView(itemsPerView.mobile || 1);
       } else if (width < 1024) {
@@ -124,12 +136,36 @@ const GridCarouselWidget: React.FC<GridCarouselWidgetProps> = ({
     return Math.floor(currentIndex / currentItemsPerView);
   };
 
+  // Render item based on theme
+  const renderItem = useCallback(
+    (item: any, index: number) => {
+      if (data.theme === 'product') {
+        return (
+          <ProductWidget
+            key={item.id || index}
+            data={item}
+            settings={productSettings}
+          />
+        );
+      }
+
+      // Base theme - render React node as-is
+      return (
+        <div key={index} style={{ height: '100%' }}>
+          {item}
+        </div>
+      );
+    },
+    [data.theme, productSettings]
+  );
+
+  // Styles
   const containerStyles: React.CSSProperties = {
     position: 'relative',
     width: '100%',
     overflow: 'hidden',
     padding: `clamp(20px, 4vw, 40px)`,
-    backgroundColor: tokens.colors.neutral[50],
+    backgroundColor: backgroundColor || tokens.colors.neutral[50],
     borderRadius: borderRadius ? tokens.borderRadius.lg : '0',
     boxShadow: tokens.shadows.sm,
     ...style,
@@ -155,8 +191,8 @@ const GridCarouselWidget: React.FC<GridCarouselWidgetProps> = ({
     backgroundColor: '#ffffff',
     border: `1px solid ${tokens.colors.neutral[300]}`,
     borderRadius: tokens.borderRadius.full,
-    width: '40px',
-    height: '40px',
+    width: '44px',
+    height: '44px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -183,6 +219,7 @@ const GridCarouselWidget: React.FC<GridCarouselWidgetProps> = ({
     opacity: isActive ? 1 : 0.5,
   });
 
+  // Empty state
   if (items.length === 0) {
     return (
       <div style={containerStyles}>
@@ -195,11 +232,12 @@ const GridCarouselWidget: React.FC<GridCarouselWidgetProps> = ({
 
   const canGoPrevious = currentIndex > 0;
   const canGoNext = currentIndex < maxIndex;
+  const shouldShowNavigation = showNavigation && (!hideNavigationOnMobile || !isMobile);
 
   return (
     <div className={className} style={containerStyles}>
       {/* Navigation Buttons */}
-      {showNavigation && (
+      {shouldShowNavigation && (
         <>
           <button
             onClick={handlePrevious}
@@ -222,7 +260,7 @@ const GridCarouselWidget: React.FC<GridCarouselWidgetProps> = ({
             }}
             aria-label="Previous"
           >
-            <ChevronLeftIcon style={{ width: '20px', height: '20px', color: tokens.colors.neutral[900] }} />
+            <ChevronLeftIcon style={{ width: '24px', height: '24px', color: tokens.colors.neutral[900] }} />
           </button>
 
           <button
@@ -246,7 +284,7 @@ const GridCarouselWidget: React.FC<GridCarouselWidgetProps> = ({
             }}
             aria-label="Next"
           >
-            <ChevronRightIcon style={{ width: '20px', height: '20px', color: tokens.colors.neutral[900] }} />
+            <ChevronRightIcon style={{ width: '24px', height: '24px', color: tokens.colors.neutral[900] }} />
           </button>
         </>
       )}
@@ -255,7 +293,7 @@ const GridCarouselWidget: React.FC<GridCarouselWidgetProps> = ({
       <div style={trackStyles}>
         {items.map((item, index) => (
           <div key={index} style={itemStyles}>
-            {item}
+            {renderItem(item, index)}
           </div>
         ))}
       </div>
@@ -292,5 +330,7 @@ const GridCarouselWidget: React.FC<GridCarouselWidgetProps> = ({
     </div>
   );
 };
+
+GridCarouselWidget.displayName = 'GridCarouselWidget';
 
 export default GridCarouselWidget;

@@ -154,6 +154,8 @@ const NavbarMobile: React.FC<NavbarMobileProps> = ({
                     alt={logoAlt}
                     className="vtx-navbar__logo-image"
                     onClick={onLogoClick}
+                    loading="eager"
+                    fetchPriority="high"
                   />
                 ) : brandText ? (
                   <span className="vtx-navbar__brand-text" onClick={onLogoClick}>
@@ -192,6 +194,8 @@ const NavbarMobile: React.FC<NavbarMobileProps> = ({
                     alt={logoAlt}
                     className="vtx-navbar__logo-image"
                     onClick={onLogoClick}
+                    loading="eager"
+                    fetchPriority="high"
                   />
                 ) : brandText ? (
                   <span className="vtx-navbar__brand-text" onClick={onLogoClick}>

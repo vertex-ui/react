@@ -23,7 +23,10 @@ export type WidgetType =
   | 'emptyState'
   | 'pricing-table'
   | 'faq'
-  | 'contact-form';
+  | 'contact-form'
+  | 'stat'
+  | 'progress'
+  | 'comparison';
 
 /**
  * WidgetTheme - all available theme options
@@ -636,6 +639,11 @@ export interface CarouselWidgetSettings extends BaseWidgetSettings {
 
 // Image Widget Data
 import type { ButtonProps } from '../Button/Button';
+import {
+  StatCardData, StatCardSettings,
+  ProgressCardData, ProgressCardSettings,
+  ComparisonCardData, ComparisonCardSettings
+} from '../../widgets/DashboardCard';
 
 /**
  * Image Widget Data - Image content
@@ -776,30 +784,92 @@ export interface NavbarWidgetSettings extends BaseWidgetSettings {
 // ========================================================================
 
 /**
- * Grid Carousel Widget Data - Carousel items
+ * Grid Carousel Widget Data - Theme-based carousel items
+ * 
+ * @theme 'product' - Displays array of product widgets
+ * @theme 'base' - Displays array of custom React nodes (children)
  */
 export interface GridCarouselWidgetData {
-  items: React.ReactNode[];
+  /**
+   * Theme determines the type of items displayed
+   * - 'product': Display product widgets from products array
+   * - 'base': Display custom React nodes from items array
+   */
+  theme: 'product' | 'base';
+  
+  /**
+   * Product data array (used when theme='product')
+   */
+  products?: ProductWidgetData[];
+  
+  /**
+   * Custom React nodes array (used when theme='base')
+   */
+  items?: React.ReactNode[];
 }
 
 /**
- * Grid Carousel Widget Settings - Carousel configuration
+ * Grid Carousel Widget Settings - Carousel configuration and appearance
  */
-export interface GridCarouselWidgetSettings {
+export interface GridCarouselWidgetSettings extends BaseWidgetSettings {
+  /**
+   * Number of items to show per view at different breakpoints
+   */
   itemsPerView?: {
     mobile?: number;
     tablet?: number;
     desktop?: number;
   };
+  
+  /**
+   * Gap between grid items (px or CSS value)
+   */
   gap?: number | string;
+  
+  /**
+   * Enable automatic sliding
+   */
   autoplay?: boolean;
+  
+  /**
+   * Delay between auto-slides in milliseconds
+   */
   autoplayDelay?: number;
+  
+  /**
+   * Show navigation arrows
+   */
   showNavigation?: boolean;
+  
+  /**
+   * Show pagination dots
+   */
   showPagination?: boolean;
+  
+  /**
+   * Scroll behavior: 'page' scrolls by full page, 'item' scrolls by one item
+   */
   scrollBehavior?: 'page' | 'item';
+  
+  /**
+   * Apply border radius to container
+   */
   borderRadius?: boolean;
-  className?: string;
-  style?: React.CSSProperties;
+  
+  /**
+   * Hide navigation on mobile devices
+   */
+  hideNavigationOnMobile?: boolean;
+  
+  /**
+   * Container background color
+   */
+  backgroundColor?: string;
+  
+  /**
+   * Product widget settings (used when theme='product')
+   */
+  productSettings?: Omit<ProductWidgetSettings, 'className' | 'style'>;
 }
 
 // Content Block Widget Data
@@ -1363,7 +1433,10 @@ export type WidgetData =
   | EmptyStateWidgetData
   | PricingTableWidgetData
   | FAQWidgetData
-  | ContactFormWidgetData;
+  | ContactFormWidgetData
+  | StatCardData
+  | ProgressCardData
+  | ComparisonCardData;
 
 export type WidgetSettings =
   | MetricWidgetSettings
@@ -1387,6 +1460,9 @@ export type WidgetSettings =
   | PricingTableWidgetSettings
   | FAQWidgetSettings
   | ContactFormWidgetSettings
+  | StatCardSettings
+  | ProgressCardSettings
+  | ComparisonCardSettings
   | BaseWidgetSettings;
 
 // ========================================================================
