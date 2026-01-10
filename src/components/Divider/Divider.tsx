@@ -75,9 +75,12 @@ const Divider = React.forwardRef<HTMLHRElement | HTMLDivElement, DividerProps>(
         : 'var(--vtx-divider-color, var(--vtx-color-neutral-200))';
 
     const commonStyles: React.CSSProperties = {
-      margin: 0,
+      marginTop: '0px',
+      marginBottom: '0px',
+      marginLeft: '0px',
+      marginRight: '0px',
       flexShrink: 0,
-      borderWidth: 0,
+      borderWidth: '0px',
       borderStyle: 'solid',
       borderColor: borderColor,
     };
@@ -94,7 +97,7 @@ const Divider = React.forwardRef<HTMLHRElement | HTMLDivElement, DividerProps>(
       ...commonStyles,
       height: 'auto',
       alignSelf: 'stretch',
-      borderBottomWidth: 0,
+      borderBottomWidth: '0px',
       borderRightWidth: '1px',
     };
 

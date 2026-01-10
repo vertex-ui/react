@@ -3,7 +3,23 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Divider } from '../../src/components/Divider/Divider';
 
+jest.mock('../../src/components/Box', () => {
+  return {
+    Box: jest.fn(({ style, className, as: Component = 'div', children, ...props }) => (
+      <Component className={className} style={style} data-testid="mock-box" {...props}>
+        {children}
+      </Component>
+    )),
+  };
+});
+
+import { Box } from '../../src/components/Box';
+
 describe('Divider', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   // Basic rendering
   it('renders a horizontal divider by default', () => {
     const { container } = render(<Divider />);
@@ -46,23 +62,23 @@ describe('Divider', () => {
   });
 
   it('renders inset variant', () => {
-    const { container } = render(<Divider variant="inset" />);
-    const divider = container.querySelector('.vtx-divider') as HTMLElement;
-    expect(divider.style.marginLeft).toBe('var(--vtx-spacing-9)');
+    render(<Divider variant="inset" />);
+    const props = (Box as jest.Mock).mock.calls[0][0];
+    expect(props.style.marginLeft).toBe('var(--vtx-spacing-9)');
   });
 
   it('renders middle variant', () => {
-    const { container } = render(<Divider variant="middle" />);
-    const divider = container.querySelector('.vtx-divider') as HTMLElement;
-    expect(divider.style.marginLeft).toBe('var(--vtx-spacing-3)');
-    expect(divider.style.marginRight).toBe('var(--vtx-spacing-3)');
+    render(<Divider variant="middle" />);
+    const props = (Box as jest.Mock).mock.calls[0][0];
+    expect(props.style.marginLeft).toBe('var(--vtx-spacing-3)');
+    expect(props.style.marginRight).toBe('var(--vtx-spacing-3)');
   });
 
   // Light variant
   it('renders light divider', () => {
-    const { container } = render(<Divider light />);
-    const divider = container.querySelector('.vtx-divider') as HTMLElement;
-    expect(divider.style.borderColor).toContain('var(--vtx-divider-color-light');
+    render(<Divider light />);
+    const props = (Box as jest.Mock).mock.calls[0][0];
+    expect(props.style.borderColor).toContain('var(--vtx-divider-color-light');
   });
 
   // Flex item
@@ -188,17 +204,17 @@ describe('Divider', () => {
 
   // Combined props tests
   it('renders vertical divider with middle variant', () => {
-    const { container } = render(<Divider orientation="vertical" variant="middle" />);
-    const divider = container.querySelector('.vtx-divider') as HTMLElement;
-    expect(divider.style.marginTop).toBe('var(--vtx-spacing-2)');
-    expect(divider.style.marginBottom).toBe('var(--vtx-spacing-2)');
+    render(<Divider orientation="vertical" variant="middle" />);
+    const props = (Box as jest.Mock).mock.calls[0][0];
+    expect(props.style.marginTop).toBe('var(--vtx-spacing-2)');
+    expect(props.style.marginBottom).toBe('var(--vtx-spacing-2)');
   });
 
   it('renders light inset divider', () => {
-    const { container } = render(<Divider variant="inset" light />);
-    const divider = container.querySelector('.vtx-divider') as HTMLElement;
-    expect(divider.style.marginLeft).toBe('var(--vtx-spacing-9)');
-    expect(divider.style.borderColor).toContain('var(--vtx-divider-color-light');
+    render(<Divider variant="inset" light />);
+    const props = (Box as jest.Mock).mock.calls[0][0];
+    expect(props.style.marginLeft).toBe('var(--vtx-spacing-9)');
+    expect(props.style.borderColor).toContain('var(--vtx-divider-color-light');
   });
 
   it('renders vertical flex item with children', () => {

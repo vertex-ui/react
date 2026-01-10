@@ -80,6 +80,8 @@ const propertyMap: Record<string, string> = {
   ls: "letter-spacing",
   // Gap
   gap: "gap",
+  // Border Radius
+  rounded: "border-radius",
 };
 
 // Caches are now declared at the top of the file
