@@ -294,8 +294,8 @@ const ProductCardBase = React.forwardRef<HTMLDivElement, ProductCardProps>(
               </a>
             )
           ) : (
-            <Text 
-              variant="body1" 
+            <Text
+              variant="body1"
               noMargin
               onClick={onClick}
               style={{ cursor: onClick ? 'pointer' : 'default' }}
