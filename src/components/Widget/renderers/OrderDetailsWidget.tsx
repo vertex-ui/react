@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import { OrderDetailsWidgetData, OrderDetailsWidgetSettings, WidgetTheme, WidgetVariant } from '../types';
 import { OrderDetails } from '../../../widgets/OrderDetails';
@@ -5,7 +6,7 @@ import { OrderDetails } from '../../../widgets/OrderDetails';
 interface OrderDetailsWidgetProps {
   data: OrderDetailsWidgetData;
   settings?: OrderDetailsWidgetSettings;
-  
+
   // Deprecated: Use settings instead
   /** @deprecated Use settings.theme */
   theme?: WidgetTheme;
@@ -27,7 +28,7 @@ const OrderDetailsWidget: React.FC<OrderDetailsWidgetProps> = ({
   // Merge settings with legacy props for backward compatibility
   const className = settings?.className || legacyClassName || '';
   const style = settings?.style || legacyStyle;
-  
+
   return (
     <OrderDetails
       orderId={data.orderId}

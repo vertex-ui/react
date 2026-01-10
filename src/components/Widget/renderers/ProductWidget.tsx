@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import { ProductWidgetData, ProductWidgetSettings } from '../types';
 import { ProductCard } from '../../../widgets/ProductCard';
@@ -66,36 +67,36 @@ const ProductWidget: React.FC<ProductWidgetProps> = ({ data, settings = {} }) =>
       imageAlt={imageAlt}
       category={category}
       categoryHref={categoryHref || categoryUrl}
-      
+
       // Pricing
       price={Number(price)}
       originalPrice={originalPrice ? Number(originalPrice) : undefined}
       discount={discount}
-      
+
       // Product Details
       weight={weight}
       units={units}
       rating={rating}
       featured={featured}
       featuredText={featuredText}
-      
+
       // Cart State
       initialQuantity={initialQuantity}
-      
+
       // Navigation
       href={href || url || '/'}
       linkComponent={linkComponent}
-      
+
       // Wishlist
       showWishlist={showWishlist !== undefined ? showWishlist : true}
       isWishlisted={isWishlisted}
-      
+
       // Icons
       cartIcon={cartIcon}
       wishlistIcon={wishlistIcon}
       wishlistFilledIcon={wishlistFilledIcon}
       quickViewIcon={quickViewIcon}
-      
+
       // Event Handlers
       onAddToCart={onAddToCart}
       onIncrementCart={onIncrementCart}
@@ -104,7 +105,7 @@ const ProductWidget: React.FC<ProductWidgetProps> = ({ data, settings = {} }) =>
       onQuickView={onQuickView}
       onClick={onClick}
       onCategoryClick={onCategoryClick}
-      
+
       // UI State
       loading={loading}
       className={className}

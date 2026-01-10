@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import { Button } from '../../Button';
 import { Typography } from '../../../components/Typography';
@@ -191,7 +192,7 @@ const EmptyStateWidget: React.FC<EmptyStateWidgetProps> = ({
               const icon = getIcon(action.icon);
               const buttonVariant = getButtonVariant(action.variant) as any;
               const buttonSize = compact ? 'md' : 'lg';
-              
+
               const buttonContent = (
                 <Button
                   variant={buttonVariant}

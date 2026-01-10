@@ -1,5 +1,5 @@
 import React from 'react';
-import './Divider.css';
+import { Box } from '../Box';
 
 export interface DividerProps extends React.HTMLAttributes<HTMLHRElement | HTMLDivElement> {
   /**
@@ -46,74 +46,6 @@ export interface DividerProps extends React.HTMLAttributes<HTMLHRElement | HTMLD
 
 /**
  * Divider component - A thin line that groups content in lists and layouts
- *
- * The Divider component provides a thin, unobtrusive line for grouping elements
- * to reinforce visual hierarchy. It supports horizontal and vertical orientations,
- * multiple variants, and can wrap content like text or chips.
- *
- * ## CSS Customization
- *
- * You can customize the divider appearance using CSS custom properties:
- *
- * ```css
- * .custom-divider {
- *   --vtx-divider-color: #e91e63;
- *   --vtx-divider-color-light: #fce4ec;
- *   --vtx-divider-text-color: #c2185b;
- *   --vtx-divider-text-color-light: #f48fb1;
- *   --vtx-divider-text-size: 14px;
- *   --vtx-divider-text-weight: 600;
- * }
- * ```
- *
- * Or set them globally on :root:
- *
- * ```css
- * :root {
- *   --vtx-divider-color: #1976d2;
- *   --vtx-divider-text-color: #0d47a1;
- * }
- * ```
- *
- * @example
- * Basic horizontal divider
- * ```tsx
- * <Divider />
- * ```
- *
- * @example
- * Vertical divider in flex container
- * ```tsx
- * <Box display="flex" alignItems="center">
- *   <Chip label="Item 1" />
- *   <Divider orientation="vertical" flexItem />
- *   <Chip label="Item 2" />
- * </Box>
- * ```
- *
- * @example
- * With text content
- * ```tsx
- * <div>
- *   <p>Content above</p>
- *   <Divider>OR</Divider>
- *   <p>Content below</p>
- * </div>
- * ```
- *
- * @example
- * With chip and custom alignment
- * ```tsx
- * <Divider textAlign="left">
- *   <Chip label="Section" size="small" />
- * </Divider>
- * ```
- *
- * @example
- * Custom colored divider
- * ```tsx
- * <Divider className="custom-divider">Custom</Divider>
- * ```
  */
 const Divider = React.forwardRef<HTMLHRElement | HTMLDivElement, DividerProps>(
   (
@@ -137,19 +69,85 @@ const Divider = React.forwardRef<HTMLHRElement | HTMLDivElement, DividerProps>(
     // Determine the role
     const dividerRole = role || (Component !== 'hr' ? 'separator' : undefined);
 
-    // Build class names
-    const classNames = [
-      'vtx-divider',
-      `vtx-divider--${orientation}`,
-      `vtx-divider--${variant}`,
-      light && 'vtx-divider--light',
-      flexItem && 'vtx-divider--flex-item',
-      children && 'vtx-divider--with-children',
-      children && `vtx-divider--text-${textAlign}`,
-      className,
-    ]
-      .filter(Boolean)
-      .join(' ');
+    // Common styles
+    const borderColor = light
+        ? 'var(--vtx-divider-color-light, var(--vtx-color-neutral-100))'
+        : 'var(--vtx-divider-color, var(--vtx-color-neutral-200))';
+
+    const commonStyles: React.CSSProperties = {
+      margin: 0,
+      flexShrink: 0,
+      borderWidth: 0,
+      borderStyle: 'solid',
+      borderColor: borderColor,
+    };
+
+    // Horizontal styles
+    const horizontalStyles: React.CSSProperties = {
+      ...commonStyles,
+      width: '100%',
+      borderBottomWidth: '1px',
+    };
+
+    // Vertical styles
+    const verticalStyles: React.CSSProperties = {
+      ...commonStyles,
+      height: 'auto',
+      alignSelf: 'stretch',
+      borderBottomWidth: 0,
+      borderRightWidth: '1px',
+    };
+
+    // Variant styles
+    let variantStyles: React.CSSProperties = {};
+    if (orientation === 'horizontal') {
+        if (variant === 'inset') {
+            variantStyles.marginLeft = 'var(--vtx-spacing-9)';
+        } else if (variant === 'middle') {
+            variantStyles.marginLeft = 'var(--vtx-spacing-3)';
+            variantStyles.marginRight = 'var(--vtx-spacing-3)';
+        }
+
+        if (flexItem) {
+            variantStyles.height = '1px';
+            variantStyles.alignSelf = 'auto';
+        }
+    } else {
+        if (variant === 'inset') {
+            variantStyles.marginTop = 'var(--vtx-spacing-2)';
+        } else if (variant === 'middle') {
+            variantStyles.marginTop = 'var(--vtx-spacing-2)';
+            variantStyles.marginBottom = 'var(--vtx-spacing-2)';
+        }
+    }
+
+    // With children styles (overrides some previous styles)
+    const withChildrenStyles: React.CSSProperties = {};
+    if (children) {
+        if (orientation === 'horizontal') {
+             withChildrenStyles.display = 'flex';
+             withChildrenStyles.whiteSpace = 'nowrap';
+             withChildrenStyles.textAlign = 'center';
+             withChildrenStyles.border = 0;
+             withChildrenStyles.fontFamily = 'var(--vtx-font-family-sans)';
+             withChildrenStyles.fontSize = 'var(--vtx-divider-text-size, var(--vtx-font-size-sm))';
+             withChildrenStyles.color = light ? 'var(--vtx-divider-text-color-light, var(--vtx-color-neutral-500))' : 'var(--vtx-divider-text-color, var(--vtx-color-neutral-600))';
+             withChildrenStyles.fontWeight = 'var(--vtx-divider-text-weight, var(--vtx-font-weight-medium))';
+             withChildrenStyles.alignItems = 'center';
+        } else {
+             withChildrenStyles.display = 'flex';
+             withChildrenStyles.flexDirection = 'column';
+             withChildrenStyles.border = 0;
+             withChildrenStyles.alignItems = 'center';
+        }
+    }
+
+    const finalStyle = {
+        ...(orientation === 'horizontal' ? horizontalStyles : verticalStyles),
+        ...variantStyles,
+        ...withChildrenStyles,
+        ...props.style
+    };
 
     // Additional props for vertical orientation
     const additionalProps =
@@ -157,16 +155,64 @@ const Divider = React.forwardRef<HTMLHRElement | HTMLDivElement, DividerProps>(
         ? { 'aria-orientation': 'vertical' as const }
         : {};
 
+    // Render children with lines
+    const renderChildren = () => {
+        if (!children) return null;
+
+        if (orientation === 'horizontal') {
+            const beforeWidth = textAlign === 'left' ? '5%' : textAlign === 'right' ? '100%' : '100%';
+            const afterWidth = textAlign === 'right' ? '5%' : textAlign === 'left' ? '100%' : '100%';
+
+            return (
+                <>
+                    <Box
+                        as="span"
+                        width={beforeWidth}
+                        borderTop={`thin solid ${borderColor}`}
+                    />
+                    <span className="vtx-divider-wrapper" style={{ paddingLeft: 'var(--vtx-spacing-3)', paddingRight: 'var(--vtx-spacing-3)' }}>
+                        {children}
+                    </span>
+                    <Box
+                        as="span"
+                        width={afterWidth}
+                        borderTop={`thin solid ${borderColor}`}
+                    />
+                </>
+            );
+        } else {
+             return (
+                <>
+                    <Box
+                        as="span"
+                        height="100%"
+                        borderLeft={`thin solid ${borderColor}`}
+                    />
+                    <span className="vtx-divider-wrapper" style={{ paddingTop: 'var(--vtx-spacing-2)', paddingBottom: 'var(--vtx-spacing-2)' }}>
+                        {children}
+                    </span>
+                    <Box
+                        as="span"
+                        height="100%"
+                        borderLeft={`thin solid ${borderColor}`}
+                    />
+                </>
+            );
+        }
+    };
+
     return (
-      <Component
+      <Box
+        as={Component as any}
         ref={ref as any}
-        className={classNames}
+        className={`vtx-divider ${className}`.trim()} // Keep class for tests looking for it
         role={dividerRole}
+        style={finalStyle}
         {...additionalProps}
         {...props}
       >
-        {children && <span className="vtx-divider-wrapper">{children}</span>}
-      </Component>
+        {renderChildren()}
+      </Box>
     );
   }
 );

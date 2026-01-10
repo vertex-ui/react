@@ -1,3 +1,4 @@
+"use client";
 import React, { useRef, useState, useEffect } from 'react';
 import { useId } from '../../hooks';
 import { Flex } from '../Flex';
@@ -349,7 +350,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
             <Flex key={item.id} align="center" className="vtx-fileupload-item">
               <div className="vtx-fileupload-item__preview">
                 {item.previewUrl ? (
-                  <img src={item.previewUrl} alt={item.file.name} />
+                  <img src={item.previewUrl} alt={item.file.name} loading="lazy" />
                 ) : (
                   getFileIcon(item.file)
                 )}

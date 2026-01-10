@@ -39,25 +39,25 @@ describe('Flex', () => {
       const { container } = render(<Flex>Content</Flex>);
       const flex = container.firstChild as HTMLElement;
       expect(flex).toHaveClass('vtx-flex');
-      expect(flex).not.toHaveClass('vtx-flex--column');
+      expect(flex.style.flexDirection).toBe('row');
     });
 
     it('renders column direction', () => {
       const { container } = render(<Flex direction="column">Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex).toHaveClass('vtx-flex--column');
+      expect(flex.style.flexDirection).toBe('column');
     });
 
     it('renders row-reverse direction', () => {
       const { container } = render(<Flex direction="row-reverse">Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex).toHaveClass('vtx-flex--row-reverse');
+      expect(flex.style.flexDirection).toBe('row-reverse');
     });
 
     it('renders column-reverse direction', () => {
       const { container } = render(<Flex direction="column-reverse">Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex).toHaveClass('vtx-flex--column-reverse');
+      expect(flex.style.flexDirection).toBe('column-reverse');
     });
   });
 
@@ -65,19 +65,19 @@ describe('Flex', () => {
     it('renders nowrap by default', () => {
       const { container } = render(<Flex>Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex).not.toHaveClass('vtx-flex--wrap');
+      expect(flex.style.flexWrap).toBe('nowrap');
     });
 
     it('renders wrap', () => {
       const { container } = render(<Flex wrap="wrap">Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex).toHaveClass('vtx-flex--wrap');
+      expect(flex.style.flexWrap).toBe('wrap');
     });
 
     it('renders wrap-reverse', () => {
       const { container } = render(<Flex wrap="wrap-reverse">Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex).toHaveClass('vtx-flex--wrap-reverse');
+      expect(flex.style.flexWrap).toBe('wrap-reverse');
     });
   });
 
@@ -85,31 +85,31 @@ describe('Flex', () => {
     it('renders justify start by default', () => {
       const { container } = render(<Flex>Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex).not.toHaveClass('vtx-flex--justify-start');
+      expect(flex.style.justifyContent).toBe('flex-start');
     });
 
     it('renders justify center', () => {
       const { container } = render(<Flex justify="center">Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex).toHaveClass('vtx-flex--justify-center');
+      expect(flex.style.justifyContent).toBe('center');
     });
 
     it('renders justify between', () => {
       const { container } = render(<Flex justify="between">Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex).toHaveClass('vtx-flex--justify-between');
+      expect(flex.style.justifyContent).toBe('space-between');
     });
 
     it('renders justify around', () => {
       const { container } = render(<Flex justify="around">Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex).toHaveClass('vtx-flex--justify-around');
+      expect(flex.style.justifyContent).toBe('space-around');
     });
 
     it('renders justify evenly', () => {
       const { container } = render(<Flex justify="evenly">Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex).toHaveClass('vtx-flex--justify-evenly');
+      expect(flex.style.justifyContent).toBe('space-evenly');
     });
   });
 
@@ -117,31 +117,31 @@ describe('Flex', () => {
     it('renders align stretch by default', () => {
       const { container } = render(<Flex>Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex).not.toHaveClass('vtx-flex--align-stretch');
+      expect(flex.style.alignItems).toBe('stretch');
     });
 
     it('renders align center', () => {
       const { container } = render(<Flex align="center">Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex).toHaveClass('vtx-flex--align-center');
+      expect(flex.style.alignItems).toBe('center');
     });
 
     it('renders align start', () => {
       const { container } = render(<Flex align="start">Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex).toHaveClass('vtx-flex--align-start');
+      expect(flex.style.alignItems).toBe('flex-start');
     });
 
     it('renders align end', () => {
       const { container } = render(<Flex align="end">Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex).toHaveClass('vtx-flex--align-end');
+      expect(flex.style.alignItems).toBe('flex-end');
     });
 
     it('renders align baseline', () => {
       const { container } = render(<Flex align="baseline">Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex).toHaveClass('vtx-flex--align-baseline');
+      expect(flex.style.alignItems).toBe('baseline');
     });
   });
 
@@ -149,13 +149,13 @@ describe('Flex', () => {
     it('renders align content center', () => {
       const { container } = render(<Flex alignContent="center">Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex).toHaveClass('vtx-flex--align-content-center');
+      expect(flex.style.alignContent).toBe('center');
     });
 
     it('renders align content between', () => {
       const { container } = render(<Flex alignContent="between">Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex).toHaveClass('vtx-flex--align-content-between');
+      expect(flex.style.alignContent).toBe('space-between');
     });
   });
 
@@ -163,25 +163,25 @@ describe('Flex', () => {
     it('applies gap as number', () => {
       const { container } = render(<Flex gap={16}>Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex.style.getPropertyValue('--vtx-flex-gap')).toBe('16px');
+      expect(flex.style.gap).toBe('16px');
     });
 
     it('applies gap as string', () => {
       const { container } = render(<Flex gap="2rem">Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex.style.getPropertyValue('--vtx-flex-gap')).toBe('2rem');
+      expect(flex.style.gap).toBe('2rem');
     });
 
     it('applies rowGap', () => {
       const { container } = render(<Flex rowGap={8}>Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex.style.getPropertyValue('--vtx-flex-row-gap')).toBe('8px');
+      expect(flex.style.rowGap).toBe('8px');
     });
 
     it('applies columnGap', () => {
       const { container } = render(<Flex columnGap={12}>Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex.style.getPropertyValue('--vtx-flex-column-gap')).toBe('12px');
+      expect(flex.style.columnGap).toBe('12px');
     });
 
     it('applies both rowGap and columnGap', () => {
@@ -191,8 +191,8 @@ describe('Flex', () => {
         </Flex>
       );
       const flex = container.firstChild as HTMLElement;
-      expect(flex.style.getPropertyValue('--vtx-flex-row-gap')).toBe('8px');
-      expect(flex.style.getPropertyValue('--vtx-flex-column-gap')).toBe('16px');
+      expect(flex.style.rowGap).toBe('8px');
+      expect(flex.style.columnGap).toBe('16px');
     });
   });
 
@@ -200,13 +200,16 @@ describe('Flex', () => {
     it('renders as display flex by default', () => {
       const { container } = render(<Flex>Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex).not.toHaveClass('vtx-flex--inline');
+      // Box adds vtx-box--display-flex class or display:flex inline style
+      // Since default display is not set in props, Box might not add inline style?
+      // Wait, Flex sets display={inline ? 'inline-flex' : 'flex'}.
+      expect(flex.classList.contains('vtx-box--display-flex')).toBe(true);
     });
 
     it('renders as inline-flex when inline is true', () => {
       const { container } = render(<Flex inline>Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex).toHaveClass('vtx-flex--inline');
+      expect(flex.classList.contains('vtx-box--display-inline-flex')).toBe(true);
     });
   });
 
@@ -291,7 +294,7 @@ describe('Flex', () => {
       );
       const flex = container.firstChild as HTMLElement;
       expect(flex.style.backgroundColor).toBe('blue');
-      expect(flex.style.getPropertyValue('--vtx-flex-gap')).toBe('16px');
+      expect(flex.style.gap).toBe('16px');
     });
   });
 

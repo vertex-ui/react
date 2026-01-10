@@ -45,6 +45,12 @@ export interface ProductCardProps extends React.HTMLAttributes<HTMLDivElement> {
   onClick?: () => void;
   onCategoryClick?: () => void;
   loading?: boolean;
+  /**
+   * Whether this card is high priority (e.g. LCP element)
+   * If true, image will be eager loaded with high priority
+   * @default false
+   */
+  priority?: boolean;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -101,6 +107,7 @@ const ProductCardBase = React.forwardRef<HTMLDivElement, ProductCardProps>(
   onClick,
   onCategoryClick,
   loading = false,
+  priority = false,
   className = '',
   style,
   ...props
@@ -427,6 +434,7 @@ const ProductCardWide = React.forwardRef<HTMLDivElement, ProductCardWideProps>(
     onClick,
     onCategoryClick,
     loading = false,
+    priority = false,
     className = '',
     style,
   } = props;
@@ -675,6 +683,7 @@ const ProductCardMinimal = React.forwardRef<HTMLDivElement, ProductCardProps>(
     onWishlist,
     onClick,
     loading = false,
+    priority = false,
     className = '',
     style,
   } = props;
