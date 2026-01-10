@@ -3,7 +3,7 @@ import { TextWidgetData, TextWidgetSettings, WidgetTheme, WidgetVariant } from '
 import { InfoText } from '../../../widgets/InfoText';
 import { Card } from '../../Card';
 import { Flex } from '../../Flex';
-import { Text } from '../../Text';
+import { Typography } from '../../../components/Typography';
 import { Button } from '../../Button';
 import { Link } from '../../Link';
 
@@ -91,33 +91,33 @@ const TextWidget: React.FC<TextWidgetProps> = ({
     return (
       <Flex direction="column" gap="md">
         {data.title && (
-          <Text 
+          <Typography
             variant={getTextVariant('title')} 
             className="font-bold"
             style={{ color: titleColor }}
           >
             {data.title}
-          </Text>
+          </Typography>
         )}
         
         {data.content && (
-          <Text 
+          <Typography
             variant={getTextVariant('content')} 
             className="text-neutral-700 leading-relaxed"
             style={{ color: contentColor }}
           >
             {data.content}
-          </Text>
+          </Typography>
         )}
         
         {data.caption && (
-          <Text 
+          <Typography
             variant={getTextVariant('caption')} 
             className="text-neutral-500"
             style={{ color: captionColor }}
           >
             {data.caption}
-          </Text>
+          </Typography>
         )}
         
         {data.actions && data.actions.length > 0 && (
