@@ -4,6 +4,7 @@
 import React, { useState } from "react";
 import { HTMLAttributes, ImgHTMLAttributes } from "react";
 import { useThemeContext } from '../../theme/ThemeProvider';
+import { UserIcon } from '../../icons/IconComponents';
 import './Avatar.css';
 /**
  * Avatar component - Displays user profile image, initials, or fallback
@@ -127,7 +128,7 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
           />
         ) : (
           <span className="vtx-avatar-fallback" aria-hidden="true">
-            {displayFallback}
+            {fallback === '?' ? <UserIcon /> : displayFallback}
           </span>
         )}
         {statusIndicator && (

@@ -247,7 +247,7 @@ export const ServiceFeatureHighlight: Story = {
           type: 'icon',
           icon: (
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
-              <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="var(--color-primary)"/>
+              <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="var(--color-primary)" />
             </svg>
           ),
           iconSize: 'xl',
@@ -356,7 +356,7 @@ export const ServiceAboutUs: Story = {
         variant: 'minimal',
         gap: 'xl',
         padding: 'xl',
-        mediaWidth: '45%',
+        mediaWidth: '50%',
       },
     } as WidgetConfig,
   },
@@ -371,9 +371,9 @@ export const ServiceProcessStep: Story = {
         media: {
           type: 'icon',
           icon: (
-            <div style={{ 
-              width: '100%', 
-              height: '100%', 
+            <div style={{
+              width: '100%',
+              height: '100%',
               background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
               borderRadius: '50%',
               display: 'flex',
@@ -469,7 +469,7 @@ export const SaaSPricingCard: Story = {
           type: 'icon',
           icon: (
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
-              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="var(--color-warning)" stroke="var(--color-warning)" strokeWidth="2"/>
+              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="var(--color-warning)" stroke="var(--color-warning)" strokeWidth="2" />
             </svg>
           ),
           iconSize: 'lg',
@@ -541,7 +541,7 @@ export const SaaSCustomerTestimonial: Story = {
         variant: 'card',
         gap: 'lg',
         padding: 'xl',
-        mediaWidth: '25%',
+        mediaWidth: '30%',
       },
     } as WidgetConfig,
   },

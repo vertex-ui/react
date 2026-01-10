@@ -171,6 +171,11 @@ export interface TextProps extends Omit<React.HTMLAttributes<HTMLElement>, 'colo
    * Children content to render
    */
   children?: React.ReactNode;
+
+  /**
+   * For usage when rendered as a label
+   */
+  htmlFor?: string;
 }
 
 /**
@@ -256,7 +261,7 @@ const TextComponent = React.forwardRef<HTMLElement, TextProps>(
     // Build class names - optimized with pre-computed base
     const classNames = React.useMemo(() => {
       const classes = [CLASS_VARIANTS[variant]];
-      
+
       if (align) classes.push(`vtx-text--align-${align}`);
       if (weight && typeof weight === 'string') classes.push(`vtx-text--weight-${weight}`);
       if (color && color !== 'inherit') classes.push(`vtx-text--color-${color}`);
@@ -273,15 +278,15 @@ const TextComponent = React.forwardRef<HTMLElement, TextProps>(
       if (noMargin) classes.push('vtx-text--no-margin');
       if (noPadding) classes.push('vtx-text--no-padding');
       if (className) classes.push(className);
-      
+
       return classes.join(' ');
     }, [variant, align, weight, color, transform, decoration, truncate, lineClamp, breakWord, italic, underline, strikethrough, gradient, noSelect, noMargin, noPadding, className]);
 
     // Build inline styles - optimized with conditional object creation
     const inlineStyles = React.useMemo(() => {
       // Only create style object if we have custom styles
-      if (!textColor && !(weight && typeof weight === 'number') && !lineClamp && 
-          !gradient && !size && !lineHeight && !letterSpacing && !style) {
+      if (!textColor && !(weight && typeof weight === 'number') && !lineClamp &&
+        !gradient && !size && !lineHeight && !letterSpacing && !style) {
         return undefined;
       }
 
