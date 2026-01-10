@@ -5,6 +5,10 @@ node_modules
 
 # Testing
 coverage
+test-results/
+playwright-report/
+playwright/.auth/
+tests/playwright/test-results/
 
 # Production
 dist
@@ -43,3 +47,8 @@ storybook-static
 *.temp
 
 *storybook.log
+package-lock.json
+yarn.locktests/playwright/ui.spec.ts-snapshots/
+tests/playwright/ui.spec.ts-snapshots/
+playwright-report/
+test-results

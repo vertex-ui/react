@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import { InfoWidgetData, InfoWidgetSettings, WidgetTheme, WidgetVariant } from '../types';
 import { InfoCard } from '../../../widgets/InfoCard';
@@ -6,7 +7,7 @@ import { InfoText } from '../../../widgets/InfoText';
 interface InfoWidgetProps {
   data: InfoWidgetData;
   settings?: InfoWidgetSettings;
-  
+
   // Deprecated: Use settings instead
   /** @deprecated Use settings.theme */
   theme?: WidgetTheme;
@@ -34,7 +35,7 @@ const InfoWidget: React.FC<InfoWidgetProps> = ({
   const variant = settings?.variant || legacyVariant || 'primary';
   const className = settings?.className || legacyClassName || '';
   const style = settings?.style || legacyStyle;
-  
+
   // Map WidgetVariant to InfoCard/InfoText variant
   const mapVariant = (v?: WidgetVariant): 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' => {
     if (v === 'error') return 'danger';

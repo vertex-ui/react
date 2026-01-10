@@ -204,20 +204,203 @@ export const ThemeComparison: Story = {
   },
 };
 
-// Simple Metric Widget
-export const SimpleMetric: Story = {
+// Product Widget Examples
+const sampleProductConfigs: WidgetConfig[] = [
+  {
+    type: 'product',
+    data: {
+      id: 'prod-1',
+      name: 'Premium Wireless Headphones',
+      price: 299.99,
+      originalPrice: 399.99,
+      category: 'Electronics',
+      categoryHref: '/category/electronics',
+      rating: 4.5,
+      image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop',
+      discount: '-25%',
+      featured: true,
+      featuredText: 'Best Seller',
+      weight: 250,
+      units: 'g',
+      initialQuantity: 0,
+      href: '/products/wireless-headphones',
+    },
+    settings: {
+      showWishlist: true,
+      isWishlisted: false,
+      onAddToCart: (id, qty) => console.log('Added to cart:', id, qty),
+      onIncrementCart: (id, qty) => console.log('Incremented:', id, qty),
+      onDecrementCart: (id, qty) => console.log('Decremented:', id, qty),
+      onWishlist: () => console.log('Wishlist toggled'),
+      onQuickView: () => console.log('Quick view clicked'),
+      onCategoryClick: () => console.log('Category clicked: Electronics'),
+    },
+  },
+  {
+    type: 'product',
+    data: {
+      id: 'prod-2',
+      name: 'Organic Coffee Beans',
+      price: 24.99,
+      originalPrice: 29.99,
+      category: 'Food & Beverage',
+      categoryHref: '/category/food',
+      rating: 4.8,
+      image: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400&h=300&fit=crop',
+      discount: '-17%',
+      weight: 500,
+      units: 'g',
+      initialQuantity: 2,
+      href: '/products/coffee-beans',
+    },
+    settings: {
+      showWishlist: true,
+      isWishlisted: true,
+      onAddToCart: (id, qty) => console.log('Added to cart:', id, qty),
+      onIncrementCart: (id, qty) => console.log('Incremented:', id, qty),
+      onDecrementCart: (id, qty) => console.log('Decremented:', id, qty),
+      onWishlist: () => console.log('Wishlist toggled'),
+      onCategoryClick: () => console.log('Category clicked: Food & Beverage'),
+    },
+  },
+  {
+    type: 'product',
+    data: {
+      id: 'prod-3',
+      name: 'Yoga Mat Pro',
+      price: 49.99,
+      category: 'Fitness',
+      categoryHref: '/category/fitness',
+      rating: 4.6,
+      image: 'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=400&h=300&fit=crop',
+      featured: true,
+      featuredText: 'New Arrival',
+      weight: 1.2,
+      units: 'kg',
+      initialQuantity: 0,
+      href: '/products/yoga-mat',
+    },
+    settings: {
+      showWishlist: false,
+      onAddToCart: (id, qty) => console.log('Added to cart:', id, qty),
+      onIncrementCart: (id, qty) => console.log('Incremented:', id, qty),
+      onDecrementCart: (id, qty) => console.log('Decremented:', id, qty),
+      onCategoryClick: () => console.log('Category clicked: Fitness'),
+    },
+  },
+];
+
+export const ProductWidgets: Story = {
   args: {
     config: {
-      type: 'metric',
+      type: 'grid',
       data: {
-        value: '1,234',
-        label: 'Total Sales',
-        trend: { direction: 'up', value: 12 },
+        widgets: sampleProductConfigs,
       },
       settings: {
-        theme: 'modern',
-        variant: 'primary',
-        showTrend: true,
+        gap: 'lg',
+        grid: { mobile: 1, tablet: 2, desktop: 3 },
+      },
+    },
+  },
+};
+
+export const SingleProduct: Story = {
+  args: {
+    config: {
+      type: 'product',
+      data: {
+        id: 'prod-single',
+        name: 'Smart Watch Series 5',
+        price: 399.99,
+        originalPrice: 499.99,
+        category: 'Wearables',
+        rating: 4.7,
+        image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop',
+        discount: '-20%',
+        featured: true,
+        featuredText: 'Limited Edition',
+        weight: 45,
+        units: 'g',
+        initialQuantity: 0,
+      },
+      settings: {
+        showWishlist: true,
+        isWishlisted: false,
+        onAddToCart: (_id, qty) => alert(`Added ${qty} item(s) to cart`),
+        onIncrementCart: (id, qty) => console.log('Incremented:', id, qty),
+        onDecrementCart: (id, qty) => console.log('Decremented:', id, qty),
+        onWishlist: () => alert('Added to wishlist!'),
+        onQuickView: () => alert('Opening quick view...'),
+        onClick: () => alert('Viewing product details...'),
+      },
+    },
+  },
+};
+
+export const ProductWithLoading: Story = {
+  args: {
+    config: {
+      type: 'product',
+      data: {
+        id: 'prod-loading',
+        name: 'Loading Product',
+        price: 99.99,
+        image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=300&fit=crop',
+        category: 'Fashion',
+        rating: 4.3,
+      },
+      settings: {
+        loading: true,
+        showWishlist: true,
+      },
+    },
+  },
+};
+
+export const ProductWithAllFeatures: Story = {
+  args: {
+    config: {
+      type: 'product',
+      data: {
+        id: 'prod-full',
+        name: 'Premium Laptop Backpack',
+        price: 89.99,
+        originalPrice: 129.99,
+        category: 'Accessories',
+        rating: 4.9,
+        image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=300&fit=crop',
+        imageAlt: 'Premium laptop backpack with multiple compartments',
+        discount: '-31%',
+        featured: true,
+        featuredText: 'Editor\'s Choice',
+        weight: 800,
+        units: 'g',
+        initialQuantity: 1,
+      },
+      settings: {
+        showWishlist: true,
+        isWishlisted: true,
+        cartIcon: '🛒',
+        wishlistIcon: '🤍',
+        wishlistFilledIcon: '❤️',
+        quickViewIcon: '👁️',
+        onAddToCart: async (id, qty) => {
+          console.log('Adding to cart...', id, qty);
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          console.log('Added successfully!');
+        },
+        onIncrementCart: async (id, qty) => {
+          console.log('Incrementing...', id, qty);
+          await new Promise(resolve => setTimeout(resolve, 500));
+        },
+        onDecrementCart: async (id, qty) => {
+          console.log('Decrementing...', id, qty);
+          await new Promise(resolve => setTimeout(resolve, 500));
+        },
+        onWishlist: () => console.log('Wishlist toggled'),
+        onQuickView: () => console.log('Quick view opened'),
+        onClick: () => console.log('Product page opened'),
       },
     },
   },

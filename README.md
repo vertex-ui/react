@@ -48,7 +48,7 @@
 
 ## Overview
 
-**@vtx-ui/react** is a comprehensive UI component library built with React and TypeScript, designed for enterprise applications that demand reliability, accessibility, and seamless customization. With **35+ production-ready components** and **10+ specialized widgets**, our library provides everything you need to build modern, scalable web applications.
+**@vtx-ui/react** is a comprehensive UI component library built with React and TypeScript, designed for enterprise applications that demand reliability, accessibility, and seamless customization. With **45+ production-ready components** and **8 specialized widgets**, our library provides everything you need to build modern, scalable web applications.
 
 ## Why Choose @vtx-ui/react?
 
@@ -178,9 +178,9 @@ function MyComponent() {
 
 ## Components Library
 
-Our comprehensive component library includes **35+ production-ready components** organized into logical categories:
+Our comprehensive component library includes **45+ production-ready components** organized into logical categories:
 
-### 📝 Form Controls (13 components)
+### 📝 Form Controls (16 components)
 
 Build powerful forms with our complete set of form controls:
 
@@ -199,8 +199,11 @@ Build powerful forms with our complete set of form controls:
 | **DateRangePicker** | Date range selector | Presets, custom ranges, timezone support |
 | **Autocomplete** | Auto-complete text input | Async search, custom rendering, keyboard nav |
 | **FormControl** | Form field wrapper | Consistent spacing, labels, error handling |
+| **FileUpload** | File upload input | Drag & drop, validation, custom preview |
+| **Rating** | Rating input | Star selection, custom icons, half-stars |
+| **Calendar** | Calendar view | Month view, custom date cells |
 
-### 🎯 Interactive Components (8 components)
+### 🎯 Interactive Components (9 components)
 
 Engage users with rich interactive elements:
 
@@ -214,6 +217,7 @@ Engage users with rich interactive elements:
 | **Menu** | Dropdown menu | Nested menus, keyboard nav, icons |
 | **ActionMenu** | Context menu actions | Quick actions, separators, disabled items |
 | **SideMenu** | Navigation sidebar | Collapsible, nested items, active states |
+| **Tabs** | Tabbed interface | Panels, lists, orientations, variants |
 
 ### 📊 Data Display (10 components)
 
@@ -230,9 +234,9 @@ Present information clearly and effectively:
 | **Avatar** | User profile image | Fallback initials, sizes, groups, status indicators |
 | **Divider** | Visual separator | Horizontal/vertical, with text, custom spacing |
 | **Text** | Typography component | Semantic variants, truncation, colors, weights |
-| **Image** | Optimized image | Lazy loading, placeholder, error handling |
+| **Skeleton** | Loading placeholder | Shapes, animations, theming |
 
-### 📐 Layout Components (6 components)
+### 📐 Layout Components (7 components)
 
 Structure your application with flexible layout primitives:
 
@@ -241,7 +245,8 @@ Structure your application with flexible layout primitives:
 | **Flex** | Flexbox layout | Gap, alignment, wrapping, responsive props |
 | **Grid** | CSS Grid layout | Columns, gaps, responsive, auto-fit |
 | **Container** | Content container | Max-width, padding, centering, breakpoints |
-| **Header** | Page header | Sticky, actions, breadcrumbs, navigation |
+| **Box** | Layout primitive | Spacing, positioning, colors, styling |
+| **Navbar** | Navigation bar | Responsive, mobile drawer, logo, menu |
 | **AdminHeader** | Admin panel header | User menu, notifications, search, branding |
 | **Breadcrumb** | Navigation breadcrumbs | Custom separators, links, current page |
 
@@ -259,7 +264,7 @@ Advanced components for specific use cases:
 
 ## Widgets Library
 
-Pre-built, domain-specific widgets for rapid application development. **10 specialized widgets** ready to use:
+Pre-built, domain-specific widgets for rapid application development. **8 specialized widgets** ready to use:
 
 ### 🛍️ E-Commerce Widgets (4 widgets)
 
@@ -270,20 +275,13 @@ Pre-built, domain-specific widgets for rapid application development. **10 speci
 | **OrderConfirmation** | Order success view | Post-purchase confirmation page |
 | **OrderDetails** | Detailed order view | Order management, customer support |
 
-### 📈 Analytics & Metrics (3 widgets)
+### 📈 Analytics & Information (4 widgets)
 
 | Widget | Description | Use Case |
 |--------|-------------|----------|
-| **MetricCard** | KPI display card | Dashboards, analytics, reporting |
+| **DashboardCard** | Advanced metric card | Stats, progress bars, trend comparisons |
 | **InfoCard** | Information display | Feature highlights, statistics |
 | **InfoListCard** | List-based info card | Multi-item information display |
-
-### 🧭 Navigation Widgets (3 widgets)
-
-| Widget | Description | Use Case |
-|--------|-------------|----------|
-| **Navbar** | Navigation bar | Site navigation, responsive menu |
-| **Header** | Page header widget | Consistent page headers |
 | **InfoText** | Informational text block | Help text, descriptions, onboarding |
 
 ### Widget Benefits
@@ -297,14 +295,14 @@ Pre-built, domain-specific widgets for rapid application development. **10 speci
 ### Using Widgets
 
 ```tsx
-import { ProductCard, MetricCard, Navbar } from '@vtx-ui/react';
+import { ProductCard, DashboardCard, Navbar } from '@vtx-ui/react';
 
 function Dashboard() {
   return (
     <>
       <Navbar items={navItems} logo={<Logo />} />
       
-      <MetricCard
+      <DashboardCard
         title="Revenue"
         value="$45,231"
         change={12.5}

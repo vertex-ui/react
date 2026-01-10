@@ -40,6 +40,7 @@ import GridCarouselWidget from './renderers/GridCarouselWidget';
 import ContentBlockWidget from './renderers/ContentBlockWidget';
 import ErrorPageWidget from './renderers/ErrorPageWidget';
 import EmptyStateWidget from './renderers/EmptyStateWidget';
+import { DashboardCard } from '../../widgets/DashboardCard';
 
 export interface WidgetProps {
   config: WidgetConfig;
@@ -94,13 +95,17 @@ const Widget: React.FC<WidgetProps> = ({
       case 'testimonial':
         return <TestimonialWidget data={data as TestimonialWidgetData} className={className} style={style} />;
       case 'gridCarousel':
-        return <GridCarouselWidget {...(data as GridCarouselWidgetData)} className={className} style={style} />;
+        return <GridCarouselWidget data={data as GridCarouselWidgetData} settings={widgetSettings as any} />;
       case 'contentBlock':
         return <ContentBlockWidget data={data as ContentBlockWidgetData} settings={widgetSettings as any} />;
       case 'errorPage':
         return <ErrorPageWidget data={data as ErrorPageWidgetData} settings={widgetSettings as any} className={className} style={style} />;
       case 'emptyState':
         return <EmptyStateWidget data={data as EmptyStateWidgetData} settings={widgetSettings as any} className={className} style={style} />;
+      case 'stat':
+      case 'progress':
+      case 'comparison':
+        return <DashboardCard type={type} data={data as any} settings={widgetSettings as any} className={className} style={style} />;
       default:
         console.warn(`Unknown widget type: ${type}`);
         return null;
@@ -119,7 +124,7 @@ const Widget: React.FC<WidgetProps> = ({
       // Support both 'spacing' (correct) and 'gap' (legacy) properties
       spacing: gridConfig.spacing || gridSettings.gap || gridSettings.spacing || 'md',
     };
-
+    
     return (
       <IntelligentGrid
         data={gridData.widgets}
@@ -150,7 +155,7 @@ const Widget: React.FC<WidgetProps> = ({
       // Support both 'spacing' (correct) and 'gap' (legacy) properties
       spacing: gridConfig.spacing || gridSettings.gap || gridSettings.spacing || 'md',
     };
-
+    
     return (
       <IntelligentGrid
         data={config.data}

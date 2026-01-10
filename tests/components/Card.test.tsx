@@ -10,13 +10,6 @@ describe('Card', () => {
       expect(screen.getByText('Test content')).toBeInTheDocument();
     });
 
-    it('debug what is rendered', () => {
-      const { container } = render(<Card>Test content</Card>);
-      console.log('HTML:', container.innerHTML);
-      console.log('FirstChild:', container.firstChild);
-      console.log('FirstChild className:', (container.firstChild as HTMLElement)?.className);
-      console.log('FirstChild tagName:', (container.firstChild as HTMLElement)?.tagName);
-    });
 
     it('renders with custom className', () => {
       const { container } = render(<Card className="custom-class">Content</Card>);

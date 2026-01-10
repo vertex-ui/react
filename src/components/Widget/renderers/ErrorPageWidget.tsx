@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import { Button } from '../../Button';
 import { Text } from '../../Text';
@@ -260,7 +261,7 @@ const ErrorPageWidget: React.FC<ErrorPageWidgetProps> = ({
             {allActions.map((action, index) => {
               const icon = getIcon(action.icon);
               const buttonVariant = getButtonVariant(action.variant) as any;
-              
+
               const buttonContent = (
                 <Button
                   variant={buttonVariant}

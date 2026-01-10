@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import { ListWidgetData, ListWidgetSettings, WidgetTheme, WidgetVariant } from '../types';
 import { Card } from '../../Card';
@@ -10,7 +11,7 @@ import { Badge } from '../../Badge';
 interface ListWidgetProps {
   data: ListWidgetData;
   settings?: ListWidgetSettings;
-  
+
   // Deprecated: Use settings instead
   /** @deprecated Use settings.theme */
   theme?: WidgetTheme;
@@ -40,12 +41,12 @@ const ListWidget: React.FC<ListWidgetProps> = ({
   const size = settings?.size || legacySize || 'md';
   const className = settings?.className || legacyClassName || '';
   const style = settings?.style || legacyStyle;
-  
+
   const showDividers = settings?.showDividers !== false; // Default true
   const maxItems = settings?.maxItems;
   const renderAvatar = (item: any) => {
     if (!item.avatar) return null;
-    
+
     return (
       <Avatar
         src={typeof item.avatar === 'string' ? item.avatar : item.avatar.src}
@@ -57,7 +58,7 @@ const ListWidget: React.FC<ListWidgetProps> = ({
 
   const renderActions = (item: any) => {
     if (!item.actions || item.actions.length === 0) return null;
-    
+
     return (
       <Flex gap="xs">
         {item.actions.slice(0, 2).map((action: any, index: number) => (
@@ -77,7 +78,7 @@ const ListWidget: React.FC<ListWidgetProps> = ({
 
   const renderContent = () => {
     const itemsToShow = maxItems ? data.items.slice(0, maxItems) : data.items;
-    
+
     return (
       <Flex direction="column" gap="sm">
         {data.title && (
@@ -85,12 +86,12 @@ const ListWidget: React.FC<ListWidgetProps> = ({
             {data.title}
           </Text>
         )}
-        
+
         {itemsToShow.map((item, index) => (
           <div key={item.id || index}>
             <Flex align="start" gap="md" className="py-2">
               {renderAvatar(item)}
-              
+
               <Flex direction="column" gap="xs" style={{ flex: 1 }}>
                 <Flex justify="between" align="start">
                   <Flex direction="column" gap="xs">
@@ -108,11 +109,11 @@ const ListWidget: React.FC<ListWidgetProps> = ({
                       </Text>
                     )}
                   </Flex>
-                  
+
                   <Flex align="center" gap="sm">
                     {item.badge && (
-                      <Badge 
-                        variant={item.badge.variant === 'error' ? 'error' : item.badge.variant as any || 'neutral'} 
+                      <Badge
+                        variant={item.badge.variant === 'error' ? 'error' : item.badge.variant as any || 'neutral'}
                         size="sm"
                       >
                         {item.badge.text}
@@ -121,7 +122,7 @@ const ListWidget: React.FC<ListWidgetProps> = ({
                     {renderActions(item)}
                   </Flex>
                 </Flex>
-                
+
                 {item.metadata && Object.keys(item.metadata).length > 0 && (
                   <Flex gap="md">
                     {Object.entries(item.metadata).map(([key, value]) => (
@@ -133,13 +134,13 @@ const ListWidget: React.FC<ListWidgetProps> = ({
                 )}
               </Flex>
             </Flex>
-            
+
             {showDividers && index < itemsToShow.length - 1 && (
               <div className="border-b border-neutral-200 my-2" />
             )}
           </div>
         ))}
-        
+
         {maxItems && data.items.length > maxItems && (
           <Text variant="caption" className="text-neutral-500 text-center mt-2">
             +{data.items.length - maxItems} more items

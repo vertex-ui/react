@@ -1,6 +1,6 @@
-import React, { useRef, useState, useCallback, useEffect } from 'react';
+"use client";
+import React, { useRef, useState, useEffect } from 'react';
 import { useId } from '../../hooks';
-import { useThemeContext } from '../../theme';
 import { Flex } from '../Flex';
 import { Text } from '../Text';
 import { Button } from '../Button';
@@ -101,7 +101,6 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   className = '',
   initialFiles = []
 }) => {
-  const { theme } = useThemeContext();
   const inputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [files, setFiles] = useState<FileItem[]>(initialFiles);
@@ -365,7 +364,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
                   <Text variant="caption" color="secondary">{formatFileSize(item.file.size)}</Text>
                   {item.status === 'error' && (
                     <Text variant="caption" color="error" className="vtx-fileupload-item__error-text">
-                       • {item.error}
+                      • {item.error}
                     </Text>
                   )}
                 </Flex>
