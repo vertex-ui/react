@@ -301,6 +301,7 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
                         src={item.image}
                         alt={item.name}
                         className="orderconfirmation-item-image"
+                        loading="lazy"
                       />
                     </div>
                   )}

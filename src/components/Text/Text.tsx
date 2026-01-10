@@ -171,6 +171,11 @@ export interface TextProps extends Omit<React.HTMLAttributes<HTMLElement>, 'colo
    * Children content to render
    */
   children?: React.ReactNode;
+
+  /**
+   * For usage when rendered as a label
+   */
+  htmlFor?: string;
 }
 
 /**
@@ -281,7 +286,7 @@ const TextComponent = React.forwardRef<HTMLElement, TextProps>(
     const inlineStyles = React.useMemo(() => {
       // Only create style object if we have custom styles
       if (!textColor && !(weight && typeof weight === 'number') && !lineClamp &&
-          !gradient && !size && !lineHeight && !letterSpacing && !style) {
+        !gradient && !size && !lineHeight && !letterSpacing && !style) {
         return undefined;
       }
 

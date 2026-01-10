@@ -56,6 +56,11 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
+    "test:playwright": "playwright test",
+    "test:playwright:ui": "playwright test --ui",
+    "test:playwright:debug": "playwright test --debug",
+    "test:playwright:update": "playwright test --update-snapshots",
+    "test:playwright:report": "playwright show-report",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "lint": "eslint . --ext .ts,.tsx",
@@ -96,6 +101,10 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "storybook": "^10.1.10",
+<<<<<<< HEAD
+=======
+    "ts-jest": "^29.4.6",
+>>>>>>> origin/main
     "typescript": "^5.5.0",
     "vitest": "^4.0.16"
   },

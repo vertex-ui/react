@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VTX UI Test Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      padding: 40px;
+      background: #f5f5f5;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      margin-bottom: 32px;
+      color: #333;
+    }
+
+    .section {
+      margin-bottom: 48px;
+    }
+
+    .section h2 {
+      margin-bottom: 16px;
+      color: #666;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    /* Button Styles */
+    .vtx-button {
+      padding: 10px 20px;
+      border-radius: 6px;
+      border: none;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .vtx-button-primary {
+      background: #0066ff;
+      color: white;
+    }
+
+    .vtx-button-primary:hover {
+      background: #0052cc;
+    }
+
+    .vtx-button-secondary {
+      background: #f0f0f0;
+      color: #333;
+    }
+
+    .vtx-button-secondary:hover {
+      background: #e0e0e0;
+    }
+
+    .vtx-button-danger {
+      background: #dc3545;
+      color: white;
+    }
+
+    .vtx-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Input Styles */
+    .vtx-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: border-color 0.2s ease;
+    }
+
+    .vtx-input:focus {
+      outline: none;
+      border-color: #0066ff;
+    }
+
+    .vtx-input.error {
+      border-color: #dc3545;
+    }
+
+    .error-message {
+      color: #dc3545;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    /* Card Styles */
+    .vtx-card {
+      padding: 24px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      background: white;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .vtx-card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .vtx-card h3 {
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    .vtx-card p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* Modal Styles */
+    .vtx-modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .vtx-modal-overlay.active {
+      display: flex;
+    }
+
+    .vtx-modal {
+      background: white;
+      border-radius: 8px;
+      padding: 32px;
+      max-width: 500px;
+      width: 90%;
+      position: relative;
+    }
+
+    .vtx-modal h3 {
+      margin-bottom: 16px;
+      color: #333;
+    }
+
+    .vtx-modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #666;
+    }
+
+    /* Alert Styles */
+    .vtx-alert {
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .vtx-alert-success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .vtx-alert-warning {
+      background: #fff3cd;
+      color: #856404;
+      border: 1px solid #ffeaa7;
+    }
+
+    .vtx-alert-error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .vtx-alert-info {
+      background: #d1ecf1;
+      color: #0c5460;
+      border: 1px solid #bee5eb;
+    }
+
+    /* Product Card Styles */
+    .vtx-product-card {
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      background: white;
+    }
+
+    .vtx-product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    .vtx-product-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 48px;
+    }
+
+    .vtx-product-content {
+      padding: 16px;
+    }
+
+    .vtx-product-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    .vtx-product-description {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 12px;
+    }
+
+    .vtx-product-price {
+      font-size: 24px;
+      font-weight: 700;
+      color: #0066ff;
+      margin-bottom: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>VTX UI Component Test Page</h1>
+
+    <!-- Button Section -->
+    <div class="section" id="buttons">
+      <h2>Buttons</h2>
+      <div class="demo-grid">
+        <button class="vtx-button vtx-button-primary">Primary Button</button>
+        <button class="vtx-button vtx-button-secondary">Secondary Button</button>
+        <button class="vtx-button vtx-button-danger">Danger Button</button>
+        <button class="vtx-button vtx-button-primary" disabled>Disabled Button</button>
+      </div>
+    </div>
+
+    <!-- Input Section -->
+    <div class="section" id="inputs">
+      <h2>Input Fields</h2>
+      <div class="demo-grid">
+        <div>
+          <input type="text" class="vtx-input" placeholder="Enter text..." />
+        </div>
+        <div>
+          <input type="text" class="vtx-input" value="Pre-filled input" />
+        </div>
+        <div>
+          <input type="text" class="vtx-input error" placeholder="Error state" />
+          <div class="error-message">This field is required</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card Section -->
+    <div class="section" id="cards">
+      <h2>Cards</h2>
+      <div class="demo-grid">
+        <div class="vtx-card">
+          <h3>Card Title</h3>
+          <p>This is a sample card component with some descriptive text content.</p>
+        </div>
+        <div class="vtx-card">
+          <h3>Another Card</h3>
+          <p>Cards can contain various types of content and adapt to different sizes.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alert Section -->
+    <div class="section" id="alerts">
+      <h2>Alerts</h2>
+      <div class="vtx-alert vtx-alert-success">
+        ✓ Success! Your changes have been saved.
+      </div>
+      <div class="vtx-alert vtx-alert-warning">
+        ⚠ Warning: Please review your input before submitting.
+      </div>
+      <div class="vtx-alert vtx-alert-error">
+        ✕ Error: Something went wrong. Please try again.
+      </div>
+      <div class="vtx-alert vtx-alert-info">
+        ℹ Info: This is an informational message.
+      </div>
+    </div>
+
+    <!-- Product Card Section -->
+    <div class="section" id="product-cards">
+      <h2>Product Cards</h2>
+      <div class="demo-grid">
+        <div class="vtx-product-card">
+          <div class="vtx-product-image">📦</div>
+          <div class="vtx-product-content">
+            <div class="vtx-product-title">Premium Product</div>
+            <div class="vtx-product-description">
+              High-quality product with excellent features and customer satisfaction.
+            </div>
+            <div class="vtx-product-price">$299.99</div>
+            <button class="vtx-button vtx-button-primary" style="width: 100%;">Add to Cart</button>
+          </div>
+        </div>
+        <div class="vtx-product-card">
+          <div class="vtx-product-image">🎁</div>
+          <div class="vtx-product-content">
+            <div class="vtx-product-title">Special Offer</div>
+            <div class="vtx-product-description">
+              Limited time offer on this amazing product. Get it while supplies last!
+            </div>
+            <div class="vtx-product-price">$149.99</div>
+            <button class="vtx-button vtx-button-primary" style="width: 100%;">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Trigger -->
+    <div class="section" id="modal-section">
+      <h2>Modal</h2>
+      <button class="vtx-button vtx-button-primary" id="open-modal">Open Modal</button>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="vtx-modal-overlay" id="modal-overlay">
+    <div class="vtx-modal" role="dialog" aria-modal="true">
+      <button class="vtx-modal-close" id="close-modal">&times;</button>
+      <h3>Modal Title</h3>
+      <p>This is a modal dialog. It overlays the main content and requires user interaction.</p>
+      <div style="margin-top: 24px; display: flex; gap: 12px;">
+        <button class="vtx-button vtx-button-primary">Confirm</button>
+        <button class="vtx-button vtx-button-secondary" id="cancel-modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Modal functionality
+    const openModalBtn = document.getElementById('open-modal');
+    const closeModalBtn = document.getElementById('close-modal');
+    const cancelModalBtn = document.getElementById('cancel-modal');
+    const modalOverlay = document.getElementById('modal-overlay');
+
+    openModalBtn.addEventListener('click', () => {
+      modalOverlay.classList.add('active');
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+      modalOverlay.classList.remove('active');
+    });
+
+    cancelModalBtn.addEventListener('click', () => {
+      modalOverlay.classList.remove('active');
+    });
+
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) {
+        modalOverlay.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+</html>
