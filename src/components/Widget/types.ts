@@ -1,4 +1,6 @@
 import React from 'react';
+import { PricingTier } from '../../widgets/PricingTable';
+import { FAQItem, FAQCategory } from '../../widgets/FAQ';
 
 // Widget Configuration Types
 export type WidgetType = 
@@ -19,6 +21,9 @@ export type WidgetType =
   | 'contentBlock'
   | 'errorPage'
   | 'emptyState'
+  | 'pricing-table'
+  | 'faq'
+  | 'contact-form'
   | 'stat'
   | 'progress'
   | 'comparison';
@@ -1353,6 +1358,57 @@ export interface EmptyStateWidgetSettings extends BaseWidgetSettings {
 }
 
 // ========================================================================
+// PRICING TABLE WIDGET
+// ========================================================================
+
+export interface PricingTableWidgetData {
+  tiers: PricingTier[];
+}
+
+export interface PricingTableWidgetSettings extends BaseWidgetSettings {
+  columns?: 2 | 3 | 4;
+}
+
+// ========================================================================
+// FAQ WIDGET
+// ========================================================================
+
+export interface FAQWidgetData {
+  title?: string;
+  subtitle?: string;
+  items: FAQItem[] | FAQCategory[];
+}
+
+export interface FAQWidgetSettings extends BaseWidgetSettings {
+  allowMultiple?: boolean;
+}
+
+// ========================================================================
+// CONTACT FORM WIDGET
+// ========================================================================
+
+export interface ContactFormWidgetData {
+  title?: string;
+  description?: string;
+  submitLabel?: string;
+  successMessage?: string;
+  fields?: {
+    nameLabel?: string;
+    emailLabel?: string;
+    phoneLabel?: string;
+    messageLabel?: string;
+    showPhone?: boolean;
+    showCompany?: boolean;
+    companyLabel?: string;
+  };
+  onSubmit?: (data: Record<string, any>) => Promise<void> | void;
+}
+
+export interface ContactFormWidgetSettings extends BaseWidgetSettings {
+  card?: boolean;
+}
+
+// ========================================================================
 // UNION TYPES
 // ========================================================================
 
@@ -1375,6 +1431,9 @@ export type WidgetData =
   | GridWidgetData
   | ErrorPageWidgetData
   | EmptyStateWidgetData
+  | PricingTableWidgetData
+  | FAQWidgetData
+  | ContactFormWidgetData
   | StatCardData
   | ProgressCardData
   | ComparisonCardData;
@@ -1398,6 +1457,9 @@ export type WidgetSettings =
   | ContentBlockWidgetSettings
   | ErrorPageWidgetSettings
   | EmptyStateWidgetSettings
+  | PricingTableWidgetSettings
+  | FAQWidgetSettings
+  | ContactFormWidgetSettings
   | StatCardSettings
   | ProgressCardSettings
   | ComparisonCardSettings
