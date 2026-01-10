@@ -1,7 +1,7 @@
 import React from 'react';
 import { ContentBlockWidgetData, ContentBlockWidgetSettings, WidgetTheme } from '../types';
 import { Card } from '../../Card';
-import { Typography } from '../../Typography';
+import { Typography } from '../../../components/Typography';
 import { Button } from '../../Button';
 import { Flex } from '../../Flex';
 import { Link } from '../../Link';

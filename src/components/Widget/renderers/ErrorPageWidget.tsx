@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '../../Button';
-import { Typography } from '../../Typography';
+import { Typography } from '../../../components/Typography';
 import { Link } from '../../Link';
 import { Flex } from '../../Flex';
 import {

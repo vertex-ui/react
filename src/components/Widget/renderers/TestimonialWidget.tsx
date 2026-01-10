@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback } from 'react';
 import { Avatar } from '../../Avatar';
-import { Typography } from '../../Typography';
+import { Typography } from '../../../components/Typography';
 import { Flex } from '../../Flex';
 import { useTheme } from '../../../hooks/useTheme';
 import { ChevronLeftIcon, ChevronRightIcon } from '../../../icons/IconComponents';

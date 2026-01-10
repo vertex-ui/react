@@ -1,7 +1,7 @@
 import React from 'react';
 import { MetricWidgetData, MetricWidgetSettings, WidgetTheme, WidgetVariant } from '../types';
 import { Card } from '../../Card';
-import { Typography } from '../../Typography';
+import { Typography } from '../../../components/Typography';
 import { Badge } from '../../Badge';
 import { Flex } from '../../Flex';
 import { TrendingUpIcon, MinusIcon } from '../../../icons/IconComponents';
