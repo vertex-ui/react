@@ -11,6 +11,7 @@ import Timeline from '../../components/Timeline/Timeline';
 import InfoListCard from '../InfoListCard/InfoListCard';
 import { InfoListItem } from '../InfoListCard/InfoListCard';
 import { SkeletonTheme } from '../../components/Skeleton';
+import { ProductCard } from '../ProductCard/ProductCard';
 import { MapPinIcon, DownloadIcon, 
     CreditCardIcon,
     MessageIcon,
@@ -463,51 +464,19 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
             Items ({items.length})
           </Typography>
 
-          <Flex direction="column" gap={12}>
+          <Flex direction="column" gap={0}>
             {items.map((item, index) => (
-              <div key={item.id}>
-                <Flex direction="row" gap={12} className="orderdetails-item">
-                  {/* Product Image */}
-                  {item.image && (
-                    <div className="orderdetails-item-image-wrapper">
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="orderdetails-item-image"
-                        loading="lazy"
-                      />
-                    </div>
-                  )}
-
-                  {/* Product Details */}
-                  <Flex direction="column" gap={4} style={{ flex: 1, minWidth: 0 }}>
-                    <Typography variant="body2" weight="medium" noMargin className="orderdetails-item-name">
-                      {item.name}
-                    </Typography>
-                    {item.variant && (
-                      <Typography variant="caption" noMargin className="orderdetails-item-variant">
-                        {item.variant}
-                      </Typography>
-                    )}
-                    <Typography variant="caption" noMargin>
-                      Qty: {item.quantity}
-                    </Typography>
-                  </Flex>
-
-                  {/* Price */}
-                  <Flex direction="column" align="end" gap={2}>
-                    <Typography variant="body2" weight="semibold" noMargin>
-                      {currency}{(item.price * item.quantity).toLocaleString()}
-                    </Typography>
-                    <Typography variant="caption" noMargin className="orderdetails-item-unit-price">
-                      {currency}{item.price.toLocaleString()} each
-                    </Typography>
-                  </Flex>
-                </Flex>
-
-                {/* Divider between items */}
-                {index < items.length - 1 && <Divider style={{ margin: '12px 0' }} />}
-              </div>
+              <ProductCard.List
+                key={item.id}
+                image={item.image || ''}
+                name={item.name}
+                price={item.price}
+                initialQuantity={item.quantity}
+                variant={item.variant}
+                readonly={true}
+                currency={currency}
+                style={{ borderBottom: index < items.length - 1 ? '1px solid var(--vtx-color-neutral-200, #e0e0e0)' : 'none', padding: '12px 0' }}
+              />
             ))}
           </Flex>
         </Card>

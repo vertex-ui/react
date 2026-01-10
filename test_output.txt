@@ -1,0 +1,347 @@
+  console.error
+    An update to ProductCardBase inside a test was not wrapped in act(...).
+
+    When testing, code that causes React state updates should be wrapped into act(...):
+
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      162 |     try {
+      163 |       await onDecrementCart(id, quantity);
+    > 164 |       setQuantity(quantity - 1);
+          |       ^
+      165 |     } catch (error) {
+      166 |       console.error('Decrement error:', error);
+      167 |     } finally {
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at handleDecrement (src/widgets/ProductCard/ProductCard.tsx:164:7)
+
+  console.error
+    An update to ProductCardBase inside a test was not wrapped in act(...).
+
+    When testing, code that causes React state updates should be wrapped into act(...):
+
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      166 |       console.error('Decrement error:', error);
+      167 |     } finally {
+    > 168 |       setIsLoading(false);
+          |       ^
+      169 |     }
+      170 |   };
+      171 |
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at handleDecrement (src/widgets/ProductCard/ProductCard.tsx:168:7)
+
+FAIL tests/widgets/ProductCard.test.tsx
+  ProductCard
+    ProductCard.Base
+      ✓ renders basic product info (90 ms)
+      ✓ renders original price and discount (16 ms)
+      ✕ renders category and rating (32 ms)
+      ✓ handles add to cart interaction (37 ms)
+      ✓ handles increment/decrement (82 ms)
+      ✓ handles wishlist toggle (87 ms)
+      ✓ handles readonly mode (9 ms)
+      ✓ renders variant text when provided (11 ms)
+    ProductCard.Wide
+      ✓ renders in wide layout (15 ms)
+    ProductCard.Minimal
+      ✓ renders minimal version (10 ms)
+    ProductCard.List
+      ✓ renders correctly (9 ms)
+      ✓ calculates total price based on quantity (10 ms)
+      ✓ renders variant text (10 ms)
+      ✓ handles readonly mode (10 ms)
+
+  ● ProductCard › ProductCard.Base › renders category and rating
+
+    TestingLibraryElementError: Unable to find an element with the text: 4.5. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+    Ignored nodes: comments, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"vtx-card vtx-card--outlined vtx-card--md vtx-card--no-padding productcard "[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"vtx-card-content"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"vtx-flex vtx-flex--column"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"productcard-image-wrapper"[39m
+                [36m>[39m
+                  [36m<div[39m
+                    [33mstyle[39m=[32m"cursor: default;"[39m
+                  [36m>[39m
+                    [36m<img[39m
+                      [33malt[39m=[32m"Product"[39m
+                      [33mclass[39m=[32m"productcard-image"[39m
+                      [33msrc[39m=[32m"product.jpg"[39m
+                    [36m/>[39m
+                  [36m</div>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"productcard-badges"[39m
+                  [36m/>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"vtx-flex vtx-flex--column p-3"[39m
+                  [33mstyle[39m=[32m"--vtx-flex-gap: 5px;"[39m
+                [36m>[39m
+                  [36m<div[39m
+                    [33mstyle[39m=[32m"display: inline-flex; align-self: flex-start;"[39m
+                  [36m>[39m
+                    [36m<div[39m
+                      [33maria-disabled[39m=[32m"false"[39m
+                      [33maria-label[39m=[32m"Electronics"[39m
+                      [33mclass[39m=[32m"vtx-chip vtx-chip--md vtx-chip--outlined vtx-chip--default productcard-category"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"vtx-chip__label"[39m
+                      [36m>[39m
+                        [0mElectronics[0m
+                      [36m</span>[39m
+                    [36m</div>[39m
+                  [36m</div>[39m
+                  [36m<p[39m
+                    [33mclass[39m=[32m"vtx-text vtx-text--body1 vtx-text--no-margin"[39m
+                    [33mstyle[39m=[32m"cursor: default;"[39m
+                  [36m>[39m
+                    [0mTest Product[0m
+                  [36m</p>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"vtx-rating vtx-rating--sm vtx-rating--warning"[39m
+                  [36m>[39m
+                    [36m<div[39m
+                      [33mclass[39m=[32m"vtx-rating-stars"[39m
+                    [36m>[39m
+                      [36m<div[39m
+                        [33mclass[39m=[32m"vtx-rating-star-wrapper "[39m
+                      [36m>[39m
+                        [36m<div[39m
+                          [33mclass[39m=[32m"vtx-rating-star-full"[39m
+                        [36m/>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"vtx-rating-star vtx-rating-star--filled"[39m
+                        [36m>[39m
+                          [36m<svg[39m
+                            [33mfill[39m=[32m"currentColor"[39m
+                            [33mheight[39m=[32m"1em"[39m
+                            [33mstroke[39m=[32m"currentColor"[39m
+                            [33mstroke-width[39m=[32m"0"[39m
+                            [33mviewBox[39m=[32m"0 0 576 512"[39m
+                            [33mwidth[39m=[32m"1em"[39m
+                            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+                          [36m>[39m
+                            [36m<path[39m
+                              [33md[39m=[32m"M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"[39m
+                            [36m/>[39m
+                          [36m</svg>[39m
+                        [36m</span>[39m
+                      [36m</div>[39m
+                      [36m<div[39m
+                        [33mclass[39m=[32m"vtx-rating-star-wrapper "[39m
+                      [36m>[39m
+                        [36m<div[39m
+                          [33mclass[39m=[32m"vtx-rating-star-full"[39m
+                        [36m/>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"vtx-rating-star vtx-rating-star--filled"[39m
+                        [36m>[39m
+                          [36m<svg[39m
+                            [33mfill[39m=[32m"currentColor"[39m
+                            [33mheight[39m=[32m"1em"[39m
+                            [33mstroke[39m=[32m"currentColor"[39m
+                            [33mstroke-width[39m=[32m"0"[39m
+                            [33mviewBox[39m=[32m"0 0 576 512"[39m
+                            [33mwidth[39m=[32m"1em"[39m
+                            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+                          [36m>[39m
+                            [36m<path[39m
+                              [33md[39m=[32m"M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"[39m
+                            [36m/>[39m
+                          [36m</svg>[39m
+                        [36m</span>[39m
+                      [36m</div>[39m
+                      [36m<div[39m
+                        [33mclass[39m=[32m"vtx-rating-star-wrapper "[39m
+                      [36m>[39m
+                        [36m<div[39m
+                          [33mclass[39m=[32m"vtx-rating-star-full"[39m
+                        [36m/>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"vtx-rating-star vtx-rating-star--filled"[39m
+                        [36m>[39m
+                          [36m<svg[39m
+                            [33mfill[39m=[32m"currentColor"[39m
+                            [33mheight[39m=[32m"1em"[39m
+                            [33mstroke[39m=[32m"currentColor"[39m
+                            [33mstroke-width[39m=[32m"0"[39m
+                            [33mviewBox[39m=[32m"0 0 576 512"[39m
+                            [33mwidth[39m=[32m"1em"[39m
+                            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+                          [36m>[39m
+                            [36m<path[39m
+                              [33md[39m=[32m"M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"[39m
+                            [36m/>[39m
+                          [36m</svg>[39m
+                        [36m</span>[39m
+                      [36m</div>[39m
+                      [36m<div[39m
+                        [33mclass[39m=[32m"vtx-rating-star-wrapper "[39m
+                      [36m>[39m
+                        [36m<div[39m
+                          [33mclass[39m=[32m"vtx-rating-star-full"[39m
+                        [36m/>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"vtx-rating-star vtx-rating-star--filled"[39m
+                        [36m>[39m
+                          [36m<svg[39m
+                            [33mfill[39m=[32m"currentColor"[39m
+                            [33mheight[39m=[32m"1em"[39m
+                            [33mstroke[39m=[32m"currentColor"[39m
+                            [33mstroke-width[39m=[32m"0"[39m
+                            [33mviewBox[39m=[32m"0 0 576 512"[39m
+                            [33mwidth[39m=[32m"1em"[39m
+                            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+                          [36m>[39m
+                            [36m<path[39m
+                              [33md[39m=[32m"M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"[39m
+                            [36m/>[39m
+                          [36m</svg>[39m
+                        [36m</span>[39m
+                      [36m</div>[39m
+                      [36m<div[39m
+                        [33mclass[39m=[32m"vtx-rating-star-wrapper "[39m
+                      [36m>[39m
+                        [36m<div[39m
+                          [33mclass[39m=[32m"vtx-rating-star-full"[39m
+                        [36m/>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"vtx-rating-star vtx-rating-star--empty"[39m
+                        [36m>[39m
+                          [36m<svg[39m
+                            [33mfill[39m=[32m"currentColor"[39m
+                            [33mheight[39m=[32m"1em"[39m
+                            [33mstroke[39m=[32m"currentColor"[39m
+                            [33mstroke-width[39m=[32m"0"[39m
+                            [33mviewBox[39m=[32m"0 0 576 512"[39m
+                            [33mwidth[39m=[32m"1em"[39m
+                            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+                          [36m>[39m
+                            [36m<path[39m
+                              [33md[39m=[32m"M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z"[39m
+                            [36m/>[39m
+                          [36m</svg>[39m
+                        [36m</span>[39m
+                      [36m</div>[39m
+                    [36m</div>[39m
+                    [36m<span[39m
+                      [33mclass[39m=[32m"vtx-rating-value"[39m
+                    [36m>[39m
+                      [0m5[0m
+                    [36m</span>[39m
+                  [36m</div>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"vtx-flex vtx-flex--align-center"[39m
+                    [33mstyle[39m=[32m"--vtx-flex-gap: 8px;"[39m
+                  [36m>[39m
+                    [36m<h5[39m
+                      [33mclass[39m=[32m"vtx-text vtx-text--h5 vtx-text--no-margin productcard-price"[39m
+                    [36m>[39m
+                      [0m$[0m
+                      [0m99.99[0m
+                    [36m</h5>[39m
+                  [36m</div>[39m
+                  [36m<button[39m
+                    [33maria-busy[39m=[32m"false"[39m
+                    [33maria-disabled[39m=[32m"false"[39m
+                    [33mclass[39m=[32m"vtx-button vtx-button--primary vtx-button--md vtx-button--full-width vtx-button--light-text"[39m
+                    [33mtype[39m=[32m"button"[39m
+                  [36m>[39m
+                    [36m<span[39m
+                      [33mclass[39m=[32m"vtx-button__icon-left"[39m
+                    [36m>[39m
+                      [36m<svg[39m
+                        [33mfill[39m=[32m"none"[39m
+                        [33mheight[39m=[32m"1em"[39m
+                        [33mstroke[39m=[32m"currentColor"[39m
+                        [33mstroke-linecap[39m=[32m"round"[39m
+                        [33mstroke-linejoin[39m=[32m"round"[39m
+                        [33mstroke-width[39m=[32m"2"[39m
+                        [33mviewBox[39m=[32m"0 0 24 24"[39m
+                        [33mwidth[39m=[32m"1em"[39m
+                        [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+                      [36m>[39m
+                        [36m<circle[39m
+                          [33mcx[39m=[32m"9"[39m
+                          [33mcy[39m=[32m"21"[39m
+                          [33mr[39m=[32m"1"[39m
+                        [36m/>[39m
+                        [36m<circle[39m
+                          [33mcx[39m=[32m"20"[39m
+                          [33mcy[39m=[32m"21"[39m
+                          [33mr[39m=[32m"1"[39m
+                        [36m/>[39m
+                        [36m<path[39m
+                          [33md[39m=[32m"M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"[39m
+                        [36m/>[39m
+                      [36m</svg>[39m
+                    [36m</span>[39m
+                    [36m<span[39m
+                      [33mclass[39m=[32m"vtx-button__content"[39m
+                    [36m>[39m
+                      [0mAdd to cart[0m
+                    [36m</span>[39m
+                  [36m</button>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</body>[39m
+
+      41 |       );
+      42 |       expect(screen.getByText('Electronics')).toBeInTheDocument();
+    > 43 |       expect(screen.getByText('4.5')).toBeInTheDocument();
+         |                     ^
+      44 |     });
+      45 |
+      46 |     it('handles add to cart interaction', async () => {
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+      at node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+      at Object.<anonymous> (tests/widgets/ProductCard.test.tsx:43:21)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 13 passed, 14 total
+Snapshots:   0 total
+Time:        1.888 s, estimated 2 s
+Ran all test suites matching tests/widgets/ProductCard.test.tsx.

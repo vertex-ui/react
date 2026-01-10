@@ -257,4 +257,3 @@ export default OrderCardWithParsedClasses as React.FC<
   OrderCardProps & React.RefAttributes<HTMLDivElement>
 >;
 export { OrderCardWithParsedClasses as OrderCard };
-
