@@ -474,7 +474,7 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
                 initialQuantity={item.quantity}
                 variant={item.variant}
                 readonly={true}
-                currency={currency}
+                currency={typeof currency === 'string' ? currency : undefined}
                 style={{ borderBottom: index < items.length - 1 ? '1px solid var(--vtx-color-neutral-200, #e0e0e0)' : 'none', padding: '12px 0' }}
               />
             ))}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useId, useRef, useImperativeHandle, useEffect } from 'react';
+import React, { useId, useRef, useImperativeHandle } from 'react';
 import { useThemeContext } from '../../theme/ThemeProvider';
 import './ToggleButton.css';
 
