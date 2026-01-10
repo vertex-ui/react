@@ -1,4 +1,4 @@
-# Text Component
+# Typography Component
 
 A versatile typography component for rendering text with consistent styling, semantic variants, and utilities for alignment, color, and truncation.
 

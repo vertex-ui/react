@@ -1,4 +1,4 @@
-/* ===== Text Component Base Styles ===== */
+/* ===== Typography Component Base Styles ===== */
 .vtx-typography {
   margin: 0;
   padding: 0;
@@ -36,95 +36,95 @@
 
 .vtx-typography--h4 {
   font-size: clamp(1.25rem, 2.5vw + 0.5rem, 1.875rem);
-  font-weight: var(--vtx-text-h4-font-weight, 600);
-  line-height: var(--vtx-text-h4-line-height, 1.35);
-  letter-spacing: var(--vtx-text-h4-letter-spacing, 0);
+  font-weight: var(--vtx-typography-h4-font-weight, 600);
+  line-height: var(--vtx-typography-h4-line-height, 1.35);
+  letter-spacing: var(--vtx-typography-h4-letter-spacing, 0);
   margin-bottom: clamp(0.75rem, 1.5vw + 0.25rem, 1rem);
 }
 
 .vtx-typography--h5 {
   font-size: clamp(1.125rem, 2vw + 0.25rem, 1.5rem);
-  font-weight: var(--vtx-text-h5-font-weight, 600);
-  line-height: var(--vtx-text-h5-line-height, 1.4);
-  letter-spacing: var(--vtx-text-h5-letter-spacing, 0);
+  font-weight: var(--vtx-typography-h5-font-weight, 600);
+  line-height: var(--vtx-typography-h5-line-height, 1.4);
+  letter-spacing: var(--vtx-typography-h5-letter-spacing, 0);
   margin-bottom: clamp(0.625rem, 1.25vw + 0.25rem, 0.75rem);
 }
 
 .vtx-typography--h6 {
   font-size: clamp(1rem, 1.5vw + 0.25rem, 1.25rem);
-  font-weight: var(--vtx-text-h6-font-weight, 600);
-  line-height: var(--vtx-text-h6-line-height, 1.5);
-  letter-spacing: var(--vtx-text-h6-letter-spacing, 0);
+  font-weight: var(--vtx-typography-h6-font-weight, 600);
+  line-height: var(--vtx-typography-h6-line-height, 1.5);
+  letter-spacing: var(--vtx-typography-h6-letter-spacing, 0);
   margin-bottom: clamp(0.625rem, 1.25vw + 0.25rem, 0.75rem);
 }
 
-/* ===== Body Text with Responsive Sizing ===== */
+/* ===== Body Typography with Responsive Sizing ===== */
 .vtx-typography--body1 {
   font-size: clamp(0.9375rem, 1vw + 0.125rem, 1rem);
-  font-weight: var(--vtx-text-body1-font-weight, 400);
-  line-height: var(--vtx-text-body1-line-height, 1.6);
-  letter-spacing: var(--vtx-text-body1-letter-spacing, 0);
+  font-weight: var(--vtx-typography-body1-font-weight, 400);
+  line-height: var(--vtx-typography-body1-line-height, 1.6);
+  letter-spacing: var(--vtx-typography-body1-letter-spacing, 0);
   margin-bottom: clamp(0.625rem, 1vw + 0.25rem, 0.75rem);
 }
 
 .vtx-typography--body2 {
   font-size: clamp(0.8125rem, 0.85vw + 0.125rem, 0.875rem);
-  font-weight: var(--vtx-text-body2-font-weight, 400);
-  line-height: var(--vtx-text-body2-line-height, 1.6);
-  letter-spacing: var(--vtx-text-body2-letter-spacing, 0.01em);
+  font-weight: var(--vtx-typography-body2-font-weight, 400);
+  line-height: var(--vtx-typography-body2-line-height, 1.6);
+  letter-spacing: var(--vtx-typography-body2-letter-spacing, 0.01em);
   margin-bottom: clamp(0.625rem, 1vw + 0.25rem, 0.75rem);
 }
 
 /* ===== Subtitles with Responsive Sizing ===== */
 .vtx-typography--subtitle1 {
   font-size: clamp(1rem, 1.25vw + 0.125rem, 1.125rem);
-  font-weight: var(--vtx-text-subtitle1-font-weight, 500);
-  line-height: var(--vtx-text-subtitle1-line-height, 1.5);
-  letter-spacing: var(--vtx-text-subtitle1-letter-spacing, 0.0075em);
+  font-weight: var(--vtx-typography-subtitle1-font-weight, 500);
+  line-height: var(--vtx-typography-subtitle1-line-height, 1.5);
+  letter-spacing: var(--vtx-typography-subtitle1-letter-spacing, 0.0075em);
   margin-bottom: clamp(0.5rem, 0.75vw + 0.125rem, 0.625rem);
 }
 
 .vtx-typography--subtitle2 {
   font-size: clamp(0.9375rem, 1vw + 0.0625rem, 1rem);
-  font-weight: var(--vtx-text-subtitle2-font-weight, 500);
-  line-height: var(--vtx-text-subtitle2-line-height, 1.5);
-  letter-spacing: var(--vtx-text-subtitle2-letter-spacing, 0.01em);
+  font-weight: var(--vtx-typography-subtitle2-font-weight, 500);
+  line-height: var(--vtx-typography-subtitle2-line-height, 1.5);
+  letter-spacing: var(--vtx-typography-subtitle2-letter-spacing, 0.01em);
   margin-bottom: clamp(0.5rem, 0.75vw + 0.125rem, 0.625rem);
 }
 
 /* ===== Caption with Responsive Sizing ===== */
 .vtx-typography--caption {
   font-size: clamp(0.6875rem, 0.75vw + 0.0625rem, 0.75rem);
-  font-weight: var(--vtx-text-caption-font-weight, 400);
-  line-height: var(--vtx-text-caption-line-height, 1.5);
-  letter-spacing: var(--vtx-text-caption-letter-spacing, 0.025em);
+  font-weight: var(--vtx-typography-caption-font-weight, 400);
+  line-height: var(--vtx-typography-caption-line-height, 1.5);
+  letter-spacing: var(--vtx-typography-caption-letter-spacing, 0.025em);
   color: var(--vtx-color-neutral-600);
 }
 
 /* ===== Overline with Responsive Sizing ===== */
 .vtx-typography--overline {
   font-size: clamp(0.6875rem, 0.75vw + 0.0625rem, 0.75rem);
-  font-weight: var(--vtx-text-overline-font-weight, 600);
-  line-height: var(--vtx-text-overline-line-height, 1.5);
-  letter-spacing: var(--vtx-text-overline-letter-spacing, 0.1em);
+  font-weight: var(--vtx-typography-overline-font-weight, 600);
+  line-height: var(--vtx-typography-overline-line-height, 1.5);
+  letter-spacing: var(--vtx-typography-overline-letter-spacing, 0.1em);
   text-transform: uppercase;
   color: var(--vtx-color-neutral-600);
 }
 
-/* ===== Button Text with Responsive Sizing ===== */
+/* ===== Button Typography with Responsive Sizing ===== */
 .vtx-typography--button {
   font-size: clamp(0.8125rem, 0.85vw + 0.125rem, 0.875rem);
-  font-weight: var(--vtx-text-button-font-weight, 600);
-  line-height: var(--vtx-text-button-line-height, 1.5);
-  letter-spacing: var(--vtx-text-button-letter-spacing, 0.025em);
+  font-weight: var(--vtx-typography-button-font-weight, 600);
+  line-height: var(--vtx-typography-button-line-height, 1.5);
+  letter-spacing: var(--vtx-typography-button-letter-spacing, 0.025em);
 }
 
 /* ===== Label with Responsive Sizing ===== */
 .vtx-typography--label {
   font-size: clamp(0.8125rem, 0.85vw + 0.125rem, 0.875rem);
-  font-weight: var(--vtx-text-label-font-weight, 500);
-  line-height: var(--vtx-text-label-line-height, 1.5);
-  letter-spacing: var(--vtx-text-label-letter-spacing, 0.0075em);
+  font-weight: var(--vtx-typography-label-font-weight, 500);
+  line-height: var(--vtx-typography-label-line-height, 1.5);
+  letter-spacing: var(--vtx-typography-label-letter-spacing, 0.0075em);
   display: inline-block;
   margin-bottom: clamp(0.375rem, 0.5vw + 0.125rem, 0.5rem);
 }
@@ -163,7 +163,7 @@
   }
 }
 
-/* ===== Text Alignment ===== */
+/* ===== Typography Alignment ===== */
 .vtx-typography--align-left {
   text-align: left;
 }
@@ -246,7 +246,7 @@
   font-weight: var(--vtx-font-weight-black, 900);
 }
 
-/* ===== Text Transform ===== */
+/* ===== Typography Transform ===== */
 .vtx-typography--transform-none {
   text-transform: none;
 }
@@ -263,7 +263,7 @@
   text-transform: capitalize;
 }
 
-/* ===== Text Decoration ===== */
+/* ===== Typography Decoration ===== */
 .vtx-typography--decoration-none {
   text-decoration: none;
 }
@@ -280,7 +280,7 @@
   text-decoration: overline;
 }
 
-/* ===== Text Utilities ===== */
+/* ===== Typography Utilities ===== */
 /* Truncation */
 .vtx-typography--truncate {
   overflow: hidden;
@@ -317,7 +317,7 @@
   text-decoration: line-through;
 }
 
-/* Gradient Text */
+/* Gradient Typography */
 .vtx-typography--gradient {
   background-clip: text;
   -webkit-background-clip: text;
