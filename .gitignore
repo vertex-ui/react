@@ -46,7 +46,4 @@ storybook-static
 *storybook.log
 package-lock.json
 yarn.lock
-tests/playwright/ui.spec.ts-snapshots/
-tests/playwright/ui.spec.ts-snapshots/
-playwright-report/
 test-results
