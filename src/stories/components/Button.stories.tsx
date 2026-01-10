@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { userEvent, within, expect } from '@storybook/test';
 import { Button } from '../../components/Button';
 
 const meta: Meta<typeof Button> = {
@@ -57,4 +58,23 @@ export const AllVariants: Story = {
       <Button variant="warning">Warning</Button>
     </div>
   ),
+};
+
+export const Interactive: Story = {
+  args: {
+    variant: 'primary',
+    children: 'Click me',
+    onClick: () => console.log('Button clicked'),
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button', { name: /click me/i });
+
+    // Simulate click
+    await userEvent.click(button);
+
+    // Check if the button is still there and visible
+    await expect(button).toBeInTheDocument();
+    await expect(button).toBeVisible();
+  },
 };
