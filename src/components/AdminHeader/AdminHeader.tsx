@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Text } from '../Text';
+import { Typography } from '../Typography';
 import { Avatar } from '../Avatar';
 import { Badge } from '../Badge';
 import {
@@ -337,9 +337,9 @@ const NotificationsPanel: React.FC<{
       {/* Header */}
       <div className="vtx-admin-header-notifications-header">
         <div className="vtx-admin-header-notifications-header-title">
-          <Text variant="subtitle2" noMargin style={{ fontWeight: 600 }}>
+          <Typography variant="subtitle2" noMargin style={{ fontWeight: 600 }}>
             Notifications
-          </Text>
+          </Typography>
           {unreadCount > 0 && (
             <Badge variant="primary" size="sm" style={{ marginLeft: '8px' }}>
               {unreadCount}
@@ -373,9 +373,9 @@ const NotificationsPanel: React.FC<{
         {notifications.length === 0 ? (
           <div className="vtx-admin-header-notifications-empty">
             <div style={{ fontSize: '48px', opacity: 0.3 }}><BellIcon /></div>
-            <Text variant="body2" noMargin style={{ marginTop: '12px', color: 'var(--vtx-color-neutral-500)' }}>
+            <Typography variant="body2" noMargin style={{ marginTop: '12px', color: 'var(--vtx-color-neutral-500)' }}>
               No notifications
-            </Text>
+            </Typography>
           </div>
         ) : (
           <>
@@ -404,17 +404,17 @@ const NotificationsPanel: React.FC<{
 
                   {/* Content */}
                   <div className="vtx-admin-header-notification-content">
-                    <Text variant="body2" noMargin style={{ fontWeight: notification.read ? 400 : 600 }}>
+                    <Typography variant="body2" noMargin style={{ fontWeight: notification.read ? 400 : 600 }}>
                       {notification.title}
-                    </Text>
+                    </Typography>
                     {notification.description && (
-                      <Text variant="caption" noMargin style={{ color: 'var(--vtx-color-neutral-600)', marginTop: '2px' }}>
+                      <Typography variant="caption" noMargin style={{ color: 'var(--vtx-color-neutral-600)', marginTop: '2px' }}>
                         {notification.description}
-                      </Text>
+                      </Typography>
                     )}
-                    <Text variant="caption" noMargin style={{ color: 'var(--vtx-color-neutral-500)', marginTop: '4px' }}>
+                    <Typography variant="caption" noMargin style={{ color: 'var(--vtx-color-neutral-500)', marginTop: '4px' }}>
                       {notification.time}
-                    </Text>
+                    </Typography>
                   </div>
 
                   {/* Unread indicator */}
@@ -658,13 +658,13 @@ const AdminHeader = React.forwardRef<HTMLElement, AdminHeaderProps>(
                 {logo && <div className="vtx-admin-header-logo">{logo}</div>}
                 {title && (
                   <div className="vtx-admin-header-brand-text">
-                    <Text variant="h6" noMargin className="vtx-admin-header-title">
+                    <Typography variant="h6" noMargin className="vtx-admin-header-title">
                       {title}
-                    </Text>
+                    </Typography>
                     {subtitle && (
-                      <Text variant="caption" noMargin className="vtx-admin-header-subtitle">
+                      <Typography variant="caption" noMargin className="vtx-admin-header-subtitle">
                         {subtitle}
-                      </Text>
+                      </Typography>
                     )}
                   </div>
                 )}
@@ -793,13 +793,13 @@ const AdminHeader = React.forwardRef<HTMLElement, AdminHeaderProps>(
                     </div>
                   )}
                   <div className="vtx-admin-header-user-info">
-                    <Text variant="body2" noMargin className="vtx-admin-header-user-name">
+                    <Typography variant="body2" noMargin className="vtx-admin-header-user-name">
                       {userName}
-                    </Text>
+                    </Typography>
                     {userRole && (
-                      <Text variant="caption" noMargin className="vtx-admin-header-user-role">
+                      <Typography variant="caption" noMargin className="vtx-admin-header-user-role">
                         {userRole}
-                      </Text>
+                      </Typography>
                     )}
                   </div>
                   {userMenuItems.length > 0 && (

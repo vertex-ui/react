@@ -4,7 +4,7 @@ import React, { useState, useMemo, TableHTMLAttributes, useCallback } from 'reac
 import { useThemeContext, Size } from '../../theme';
 import { Checkbox } from '../Checkbox';
 import { Flex } from '../Flex';
-import { Text } from '../Text';
+import { Typography } from '../Typography';
 import { Input } from '../Input';
 import {
   ArrowUpIcon,
@@ -658,9 +658,9 @@ function Table<T = unknown>({
           'title' in toolbar ? (
             <Flex justify="between" align="center" style={{ width: '100%' }}>
               {toolbar.title && (
-                <Text variant="h6" noMargin>
+                <Typography variant="h6" noMargin>
                   {toolbar.title}
-                </Text>
+                </Typography>
               )}
               {toolbar.actions && <div className="vtx-table-toolbar-actions">{toolbar.actions}</div>}
             </Flex>
@@ -672,9 +672,9 @@ function Table<T = unknown>({
       {selectable && currentSelectedRows.length > 0 && (
         <div className="vtx-table-selection-toolbar">
           <Flex align="center" gap={16}>
-            <Text variant="body2" noMargin>
+            <Typography variant="body2" noMargin>
               {currentSelectedRows.length} selected
-            </Text>
+            </Typography>
           </Flex>
         </div>
       )}
@@ -792,7 +792,7 @@ function Table<T = unknown>({
                       {loadingContent || (
                         <>
                           <div className="vtx-table-spinner" />
-                          <Text size="sm">Loading...</Text>
+                          <Typography size="sm">Loading...</Typography>
                         </>
                       )}
                     </div>
@@ -931,9 +931,9 @@ function Table<T = unknown>({
         <div className="vtx-table-pagination">
           <Flex align="center" justify="between" style={{ width: '100%' }}>
             <Flex align="center" gap={8}>
-              <Text variant="body2" textColor="var(--color-neutral-600)" noMargin>
+              <Typography variant="body2" textColor="var(--color-neutral-600)" noMargin>
                 Rows per page:
-              </Text>
+              </Typography>
               <select
                 className="vtx-table-pagination-select"
                 value={currentRowsPerPage}
@@ -948,12 +948,12 @@ function Table<T = unknown>({
               </select>
             </Flex>
             <Flex align="center" gap={16}>
-              <Text variant="body2" textColor="var(--color-neutral-600)" noMargin>
+              <Typography variant="body2" textColor="var(--color-neutral-600)" noMargin>
                   {currentPage * currentRowsPerPage + 1}
                   <DashIcon style={{ margin: '0 4px', verticalAlign: 'middle' }} />
                 {Math.min((currentPage + 1) * currentRowsPerPage, filteredData.length)} of{' '}
                 {filteredData.length}
-              </Text>
+              </Typography>
               <Flex align="center" gap={4}>
                 <button
                   className="vtx-table-pagination-button"

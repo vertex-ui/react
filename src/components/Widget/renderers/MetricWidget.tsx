@@ -2,7 +2,7 @@
 import React from 'react';
 import { MetricWidgetData, MetricWidgetSettings, WidgetTheme, WidgetVariant } from '../types';
 import { Card } from '../../Card';
-import { Text } from '../../Text';
+import { Typography } from '../../../components/Typography';
 import { Badge } from '../../Badge';
 import { Flex } from '../../Flex';
 import { TrendingUpIcon, MinusIcon } from '../../../icons/IconComponents';
@@ -61,9 +61,9 @@ const MetricWidget: React.FC<MetricWidgetProps> = ({
     return (
       <Flex align="center" gap="xs">
         <TrendIcon size={12} />
-        <Text variant="caption" className={`text-${trendVariant}`}>
+        <Typography variant="caption" className={`text-${trendVariant}`}>
           {Math.abs(value)}%{label && ` ${label}`}
-        </Text>
+        </Typography>
       </Flex>
     );
   };
@@ -73,13 +73,13 @@ const MetricWidget: React.FC<MetricWidgetProps> = ({
       case 'minimal':
         return (
           <Flex direction="column" align="center" gap="xs">
-            <Text variant={size === 'lg' ? 'h2' : size === 'sm' ? 'h5' : 'h3'} className="font-bold">
+            <Typography variant={size === 'lg' ? 'h2' : size === 'sm' ? 'h5' : 'h3'} className="font-bold">
               {data.value}
-            </Text>
+            </Typography>
             {data.label && (
-              <Text variant="caption" className="text-neutral-500">
+              <Typography variant="caption" className="text-neutral-500">
                 {data.label}
-              </Text>
+              </Typography>
             )}
             {renderTrend()}
           </Flex>
@@ -91,13 +91,13 @@ const MetricWidget: React.FC<MetricWidgetProps> = ({
             <Flex justify="between" align="start">
               <div>
                 {data.label && (
-                  <Text variant="caption" className="text-neutral-500 mb-1">
+                  <Typography variant="caption" className="text-neutral-500 mb-1">
                     {data.label}
-                  </Text>
+                  </Typography>
                 )}
-                <Text variant={size === 'lg' ? 'h2' : size === 'sm' ? 'h5' : 'h3'} className="font-bold">
+                <Typography variant={size === 'lg' ? 'h2' : size === 'sm' ? 'h5' : 'h3'} className="font-bold">
                   {data.value}
-                </Text>
+                </Typography>
               </div>
               {data.icon && (
                 <div className={`metric-icon metric-icon--${variant} metric-icon--${size}`}>
@@ -127,13 +127,13 @@ const MetricWidget: React.FC<MetricWidgetProps> = ({
               </div>
             )}
             <Flex direction="column" gap="xs">
-              <Text variant={size === 'lg' ? 'h3' : size === 'sm' ? 'h6' : 'h4'} className="font-bold">
+              <Typography variant={size === 'lg' ? 'h3' : size === 'sm' ? 'h6' : 'h4'} className="font-bold">
                 {data.value}
-              </Text>
+              </Typography>
               {data.label && (
-                <Text variant="caption" className="text-neutral-500">
+                <Typography variant="caption" className="text-neutral-500">
                   {data.label}
-                </Text>
+                </Typography>
               )}
               {renderTrend()}
             </Flex>
@@ -143,13 +143,13 @@ const MetricWidget: React.FC<MetricWidgetProps> = ({
       default:
         return (
           <Flex direction="column" gap="sm">
-            <Text variant={size === 'lg' ? 'h2' : size === 'sm' ? 'h5' : 'h3'} className="font-bold">
+            <Typography variant={size === 'lg' ? 'h2' : size === 'sm' ? 'h5' : 'h3'} className="font-bold">
               {data.value}
-            </Text>
+            </Typography>
             {data.label && (
-              <Text variant="caption" className="text-neutral-500">
+              <Typography variant="caption" className="text-neutral-500">
                 {data.label}
-              </Text>
+              </Typography>
             )}
             {renderTrend()}
           </Flex>

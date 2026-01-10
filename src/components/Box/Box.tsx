@@ -508,8 +508,8 @@ const toCSSValue = (value: string | number | undefined): string | undefined => {
  *   shadow="md"
  *   maxW={400}
  * >
- *   <Text variant="h3">Card Title</Text>
- *   <Text>Card content</Text>
+ *   <Typography variant="h3">Card Title</Typography>
+ *   <Typography>Card content</Typography>
  * </Box>
  * ```
  *
@@ -518,7 +518,7 @@ const toCSSValue = (value: string | number | undefined): string | undefined => {
  * ```tsx
  * <Box as="section" py={8}>
  *   <Box as="header" mb={4}>
- *     <Text variant="h2">Section Title</Text>
+ *     <Typography variant="h2">Section Title</Typography>
  *   </Box>
  *   <Box as="article">
  *     Content here

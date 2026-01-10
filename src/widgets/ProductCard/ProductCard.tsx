@@ -5,7 +5,7 @@ import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './ProductCard.css';
 import { Card } from '../../components/Card';
 import { Flex } from '../../components/Flex';
-import { Text } from '../../components/Text';
+import { Typography } from '../../components/Typography';
 import { Button } from '../../components/Button';
 import { Chip } from '../../components/Chip';
 import { Rating } from '../../components/Rating';
@@ -282,37 +282,37 @@ const ProductCardBase = React.forwardRef<HTMLDivElement, ProductCardProps>(
           {href ? (
             LinkComponent ? (
               <LinkComponent href={href} style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Text variant="body1" noMargin style={{ cursor: 'pointer' }}>
+                <Typography variant="body1" noMargin style={{ cursor: 'pointer' }}>
                   {name}
-                </Text>
+                </Typography>
               </LinkComponent>
             ) : (
               <a href={href} style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Text variant="body1" noMargin style={{ cursor: 'pointer' }}>
+                <Typography variant="body1" noMargin style={{ cursor: 'pointer' }}>
                   {name}
-                </Text>
+                </Typography>
               </a>
             )
           ) : (
-            <Text
-              variant="body1"
+            <Typography
+              variant="body1" 
               noMargin
               onClick={onClick}
               style={{ cursor: onClick ? 'pointer' : 'default' }}
             >
               {name}
-            </Text>
+            </Typography>
           )}
 
           {/* WEIGHT */}
           {(weight !== undefined || units) && (
-            <Text variant="body1" noMargin className="productcard-weight">
+            <Typography variant="body1" noMargin className="productcard-weight">
               {weight !== undefined && units
                 ? `${weight} ${units}`
                 : weight !== undefined
                   ? weight
                   : '-'}
-            </Text>
+            </Typography>
           )}
 
           {/* RATING */}
@@ -322,13 +322,13 @@ const ProductCardBase = React.forwardRef<HTMLDivElement, ProductCardProps>(
 
           {/* PRICE */}
           <Flex align="center" gap={8}>
-            <Text variant="h5" noMargin className="productcard-price">
+            <Typography variant="h5" noMargin className="productcard-price">
               ${Number(price).toFixed(2)}
-            </Text>
+            </Typography>
             {originalPrice && originalPrice > price && (
-              <Text variant="body2" noMargin className="productcard-original-price">
+              <Typography variant="body2" noMargin className="productcard-original-price">
                 ${Number(originalPrice).toFixed(2)}
-              </Text>
+              </Typography>
             )}
           </Flex>
 
@@ -356,9 +356,9 @@ const ProductCardBase = React.forwardRef<HTMLDivElement, ProductCardProps>(
               <Button variant="secondary" onClick={handleDecrement}>
                 -
               </Button>
-              <Text noMargin className="productcard-quantity-value">
+              <Typography noMargin className="productcard-quantity-value">
                 {quantity}
-              </Text>
+              </Typography>
               <Button variant="secondary" onClick={handleIncrement}>
                 +
               </Button>
@@ -564,27 +564,27 @@ const ProductCardWide = React.forwardRef<HTMLDivElement, ProductCardWideProps>(
             {href ? (
               LinkComponent ? (
                 <LinkComponent href={href} style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <Text variant="h5" weight="bold" noMargin style={{ cursor: 'pointer', wordBreak: 'break-word' }}>
+                  <Typography variant="h5" weight="bold" noMargin style={{ cursor: 'pointer', wordBreak: 'break-word' }}>
                     {name}
-                  </Text>
+                  </Typography>
                 </LinkComponent>
               ) : (
                 <a href={href} style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <Text variant="h5" weight="bold" noMargin style={{ cursor: 'pointer', wordBreak: 'break-word' }}>
+                  <Typography variant="h5" weight="bold" noMargin style={{ cursor: 'pointer', wordBreak: 'break-word' }}>
                     {name}
-                  </Text>
+                  </Typography>
                 </a>
               )
             ) : (
-              <Text variant="h5" weight="bold" noMargin onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default', wordBreak: 'break-word' }}>
+              <Typography variant="h5" weight="bold" noMargin onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default', wordBreak: 'break-word' }}>
                 {name}
-              </Text>
+              </Typography>
             )}
 
             {(weight !== undefined || units) && (
-              <Text variant="body2" noMargin className="productcard-weight">
+              <Typography variant="body2" noMargin className="productcard-weight">
                 {weight !== undefined && units ? `${weight} ${units}` : weight !== undefined ? weight : '-'}
-              </Text>
+              </Typography>
             )}
           </Flex>
 
@@ -593,13 +593,13 @@ const ProductCardWide = React.forwardRef<HTMLDivElement, ProductCardWideProps>(
           )}
 
           <Flex align="center" gap={8} wrap="wrap" style={{ marginTop: 'auto' }}>
-            <Text variant="h4" weight="bold" noMargin className="productcard-price">
+            <Typography variant="h4" weight="bold" noMargin className="productcard-price">
               ${Number(price).toFixed(2)}
-            </Text>
+            </Typography>
             {originalPrice && originalPrice > price && (
-              <Text variant="body1" noMargin className="productcard-original-price">
+              <Typography variant="body1" noMargin className="productcard-original-price">
                 ${Number(originalPrice).toFixed(2)}
-              </Text>
+              </Typography>
             )}
           </Flex>
 
@@ -618,9 +618,9 @@ const ProductCardWide = React.forwardRef<HTMLDivElement, ProductCardWideProps>(
                   <Button variant="secondary" onClick={handleDecrement}>
                     -
                   </Button>
-                  <Text noMargin className="productcard-quantity-value">
+                  <Typography noMargin className="productcard-quantity-value">
                     {quantity}
-                  </Text>
+                  </Typography>
                   <Button variant="primary" onClick={handleIncrement}>
                     +
                   </Button>
@@ -783,31 +783,31 @@ const ProductCardMinimal = React.forwardRef<HTMLDivElement, ProductCardProps>(
         {href ? (
           LinkComponent ? (
             <LinkComponent href={href} style={{ textDecoration: 'none', color: 'inherit' }}>
-              <Text variant="body1" weight="medium" noMargin style={{ cursor: 'pointer' }}>
+              <Typography variant="body1" weight="medium" noMargin style={{ cursor: 'pointer' }}>
                 {name}
-              </Text>
+              </Typography>
             </LinkComponent>
           ) : (
             <a href={href} style={{ textDecoration: 'none', color: 'inherit' }}>
-              <Text variant="body1" weight="medium" noMargin style={{ cursor: 'pointer' }}>
+              <Typography variant="body1" weight="medium" noMargin style={{ cursor: 'pointer' }}>
                 {name}
-              </Text>
+              </Typography>
             </a>
           )
         ) : (
-          <Text variant="body1" weight="medium" noMargin onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default' }}>
+          <Typography variant="body1" weight="medium" noMargin onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default' }}>
             {name}
-          </Text>
+          </Typography>
         )}
 
         <Flex align="center" gap={8}>
-          <Text variant="h6" weight="bold" noMargin className="productcard-price">
+          <Typography variant="h6" weight="bold" noMargin className="productcard-price">
             ${Number(price).toFixed(2)}
-          </Text>
+          </Typography>
           {originalPrice && originalPrice > price && (
-            <Text variant="caption" noMargin className="productcard-original-price">
+            <Typography variant="caption" noMargin className="productcard-original-price">
               ${Number(originalPrice).toFixed(2)}
-            </Text>
+            </Typography>
           )}
         </Flex>
 
@@ -828,9 +828,9 @@ const ProductCardMinimal = React.forwardRef<HTMLDivElement, ProductCardProps>(
             <Button variant="secondary" size="sm" onClick={handleDecrement}>
               -
             </Button>
-            <Text variant="body2" noMargin weight="medium">
+            <Typography variant="body2" noMargin weight="medium">
               {quantity}
-            </Text>
+            </Typography>
             <Button variant="primary" size="sm" onClick={handleIncrement}>
               +
             </Button>

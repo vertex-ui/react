@@ -2,7 +2,7 @@ import React from 'react';
 import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './InfoListCard.css';
 import { Card } from '../../components/Card';
-import { Text } from '../../components/Text';
+import { Typography } from '../../components/Typography';
 import { Divider } from '../../components/Divider';
 
 export interface InfoListItem {
@@ -86,14 +86,14 @@ const InfoListCard = React.forwardRef<HTMLDivElement, InfoListCardProps>(
       >
         {heading && (
           <>
-            <Text
+            <Typography
               variant="h6"
               weight="semibold"
               noMargin
               className="info-list-card-heading"
             >
               {heading}
-            </Text>
+            </Typography>
             <Divider style={{ margin: '12px 0 16px 0' }} />
           </>
         )}
@@ -104,18 +104,18 @@ const InfoListCard = React.forwardRef<HTMLDivElement, InfoListCardProps>(
               <div className="info-list-card-item">
                 <div className={`info-list-card-label ${item.labelClass || ''}`}>
                   {typeof item.label === 'string' ? (
-                    <Text variant="body2" noMargin>
+                    <Typography variant="body2" noMargin>
                       {item.label}
-                    </Text>
+                    </Typography>
                   ) : (
                     item.label
                   )}
                 </div>
                 <div className={`info-list-card-value ${item.valueClass || ''}`}>
                   {typeof item.value === 'string' || typeof item.value === 'number' ? (
-                    <Text variant="body2" weight="medium" noMargin>
+                    <Typography variant="body2" weight="medium" noMargin>
                       {item.value}
-                    </Text>
+                    </Typography>
                   ) : (
                     item.value
                   )}

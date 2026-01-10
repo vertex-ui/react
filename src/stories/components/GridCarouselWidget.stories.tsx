@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Widget } from '../../components/Widget';
 import { GridCarouselWidgetData, ProductWidgetData } from '../../components/Widget/types';
 import { Box } from '../../components/Box';
-import { Text } from '../../components/Text';
+import { Typography } from '../../components/Typography';
 import { Card } from '../../components/Card';
 
 const meta: Meta<typeof Widget> = {
@@ -234,62 +234,62 @@ export const ProductThemeSingleScroll: Story = {
 const customCards = [
   <Card key="card-1" variant="elevated" style={{ height: '100%', padding: '24px' }}>
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      <Text variant="h3" textColor="primary" noMargin>
+      <Typography variant="h3" textColor="primary" noMargin>
         Feature One
-      </Text>
-      <Text variant="body1" textColor="secondary">
+      </Typography>
+      <Typography variant="body1" textColor="secondary">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
-      </Text>
+      </Typography>
     </div>
   </Card>,
   <Card key="card-2" variant="elevated" style={{ height: '100%', padding: '24px' }}>
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      <Text variant="h3" textColor="success" noMargin>
+      <Typography variant="h3" textColor="success" noMargin>
         Feature Two
-      </Text>
-      <Text variant="body1" textColor="secondary">
+      </Typography>
+      <Typography variant="body1" textColor="secondary">
         Ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
-      </Text>
+      </Typography>
     </div>
   </Card>,
   <Card key="card-3" variant="elevated" style={{ height: '100%', padding: '24px' }}>
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      <Text variant="h3" textColor="warning" noMargin>
+      <Typography variant="h3" textColor="warning" noMargin>
         Feature Three
-      </Text>
-      <Text variant="body1" textColor="secondary">
+      </Typography>
+      <Typography variant="body1" textColor="secondary">
         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.
-      </Text>
+      </Typography>
     </div>
   </Card>,
   <Card key="card-4" variant="elevated" style={{ height: '100%', padding: '24px' }}>
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      <Text variant="h3" textColor="info" noMargin>
+      <Typography variant="h3" textColor="info" noMargin>
         Feature Four
-      </Text>
-      <Text variant="body1" textColor="secondary">
+      </Typography>
+      <Typography variant="body1" textColor="secondary">
         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.
-      </Text>
+      </Typography>
     </div>
   </Card>,
   <Card key="card-5" variant="elevated" style={{ height: '100%', padding: '24px' }}>
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      <Text variant="h3" textColor="danger" noMargin>
+      <Typography variant="h3" textColor="danger" noMargin>
         Feature Five
-      </Text>
-      <Text variant="body1" textColor="secondary">
+      </Typography>
+      <Typography variant="body1" textColor="secondary">
         Mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error.
-      </Text>
+      </Typography>
     </div>
   </Card>,
   <Card key="card-6" variant="elevated" style={{ height: '100%', padding: '24px' }}>
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      <Text variant="h3" textColor="secondary" noMargin>
+      <Typography variant="h3" textColor="secondary" noMargin>
         Feature Six
-      </Text>
-      <Text variant="body1" textColor="secondary">
+      </Typography>
+      <Typography variant="body1" textColor="secondary">
         Sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa.
-      </Text>
+      </Typography>
     </div>
   </Card>,
 ];
@@ -345,9 +345,9 @@ const imageCards = [
         background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
       }}
     >
-      <Text variant="h4" textColor="#fff" noMargin>
+      <Typography variant="h4" textColor="#fff" noMargin>
         Mountain Peaks
-      </Text>
+      </Typography>
     </Box>
   </Box>,
   <Box key="img-2" style={{ height: '300px', position: 'relative', borderRadius: '8px', overflow: 'hidden' }}>
@@ -366,9 +366,9 @@ const imageCards = [
         background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
       }}
     >
-      <Text variant="h4" textColor="#fff" noMargin>
+      <Typography variant="h4" textColor="#fff" noMargin>
         Beach Paradise
-      </Text>
+      </Typography>
     </Box>
   </Box>,
   <Box key="img-3" style={{ height: '300px', position: 'relative', borderRadius: '8px', overflow: 'hidden' }}>
@@ -387,9 +387,9 @@ const imageCards = [
         background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
       }}
     >
-      <Text variant="h4" textColor="#fff" noMargin>
+      <Typography variant="h4" textColor="#fff" noMargin>
         Deep Forest
-      </Text>
+      </Typography>
     </Box>
   </Box>,
   <Box key="img-4" style={{ height: '300px', position: 'relative', borderRadius: '8px', overflow: 'hidden' }}>
@@ -408,9 +408,9 @@ const imageCards = [
         background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
       }}
     >
-      <Text variant="h4" textColor="#fff" noMargin>
+      <Typography variant="h4" textColor="#fff" noMargin>
         Desert Dunes
-      </Text>
+      </Typography>
     </Box>
   </Box>,
 ];

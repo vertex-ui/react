@@ -6,7 +6,7 @@ import { Autocomplete } from '../Autocomplete';
 import { Badge } from '../Badge';
 import { Avatar } from '../Avatar';
 import { Button } from '../Button';
-import { Text } from '../Text';
+import { Typography } from '../Typography';
 import { BellIcon, ShoppingCartIcon, ChevronDownIcon } from '../../icons/IconComponents';
 import { NavItem } from './NavItem';
 import { NavbarBaseProps } from './types';
@@ -50,7 +50,7 @@ export const useNavbarSections = (props: NavbarBaseProps) => {
           fetchPriority="high"
         />
       ) : (
-        <Text 
+        <Typography
           variant="h5" 
           as="span" 
           className="vtx-navbar__brand-text" 
@@ -59,7 +59,7 @@ export const useNavbarSections = (props: NavbarBaseProps) => {
           style={{ cursor: onLogoClick ? 'pointer' : 'default' }}
         >
           {brandText}
-        </Text>
+        </Typography>
       )}
     </Flex>
   );
@@ -125,7 +125,7 @@ export const useNavbarSections = (props: NavbarBaseProps) => {
     <Button variant="ghost" className="vtx-navbar__user-button">
       <Flex align="center" gap={8}>
         <Avatar src={user.avatar} alt={user.name} size="sm" />
-        {user.name && <Text variant="body2" weight="medium">{user.name}</Text>}
+        {user.name && <Typography variant="body2" weight="medium">{user.name}</Typography>}
         <ChevronDownIcon size={16} />
       </Flex>
     </Button>

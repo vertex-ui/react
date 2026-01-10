@@ -13,7 +13,7 @@ import {
   InboxIcon,
   DocumentIcon,
 } from '../../icons/IconComponents';
-import { Text } from '../../components/Text';
+import { Typography } from '../../components/Typography';
 import { Avatar } from '../../components/Avatar';
 import { Flex } from '../../components/Flex';
 
@@ -135,9 +135,9 @@ const Logo = ({ collapsed }: { collapsed?: boolean }) => (
       V
     </div>
     {!collapsed && (
-      <Text variant="h6" weight="bold" noMargin>
+      <Typography variant="h6" weight="bold" noMargin>
         Vertex UI
-      </Text>
+      </Typography>
     )}
   </Flex>
 );
@@ -148,12 +148,12 @@ const UserProfile = ({ collapsed }: { collapsed?: boolean }) => (
     <Avatar src="https://i.pravatar.cc/150?img=3" alt="John Doe" size="md" />
     {!collapsed && (
       <div style={{ flex: 1, minWidth: 0 }}>
-        <Text variant="body2" weight="semibold" noMargin>
+        <Typography variant="body2" weight="semibold" noMargin>
           John Doe
-        </Text>
-        <Text variant="caption" textColor="#6b7280" noMargin>
+        </Typography>
+        <Typography variant="caption" textColor="#6b7280" noMargin>
           john@example.com
-        </Text>
+        </Typography>
       </div>
     )}
   </Flex>
@@ -173,12 +173,12 @@ const InteractiveSideMenu = (props: SideMenuProps) => {
         footer={<UserProfile collapsed={collapsed} />}
       />
       <div style={{ flex: 1, padding: 32 }}>
-        <Text variant="h4" weight="bold">
+        <Typography variant="h4" weight="bold">
           Main Content Area
-        </Text>
-        <Text variant="body1" textColor="#6b7280">
+        </Typography>
+        <Typography variant="body1" textColor="#6b7280">
           Sidebar navigation with collapsible state and nested menus.
-        </Text>
+        </Typography>
       </div>
     </div>
   );
@@ -227,12 +227,12 @@ export const SimpleMenu: Story = {
     <div style={{ display: 'flex', height: '100vh', background: '#f3f4f6' }}>
       <SideMenu {...args} items={sampleMenuItems} />
       <div style={{ flex: 1, padding: 32 }}>
-        <Text variant="h4" weight="bold">
+        <Typography variant="h4" weight="bold">
           Clean Layout
-        </Text>
-        <Text variant="body1" textColor="#6b7280">
+        </Typography>
+        <Typography variant="body1" textColor="#6b7280">
           Sidebar without header or footer for minimal layouts.
-        </Text>
+        </Typography>
       </div>
     </div>
   ),
@@ -259,12 +259,12 @@ export const NestedMenus: Story = {
           header={<Logo collapsed={collapsed} />}
         />
         <div style={{ flex: 1, padding: 32 }}>
-          <Text variant="h4" weight="bold">
+          <Typography variant="h4" weight="bold">
             Nested Navigation
-          </Text>
-          <Text variant="body1" textColor="#6b7280">
+          </Typography>
+          <Typography variant="body1" textColor="#6b7280">
             Click on items with submenus to expand them. Nested menus automatically hide when sidebar is collapsed.
-          </Text>
+          </Typography>
         </div>
       </div>
     );

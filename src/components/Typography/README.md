@@ -1,4 +1,4 @@
-# Text Component
+# Typography Component
 
 A versatile typography component for rendering text with consistent styling, semantic variants, and utilities for alignment, color, and truncation.
 
@@ -14,7 +14,7 @@ A versatile typography component for rendering text with consistent styling, sem
 ## Installation
 
 ```tsx
-import { Text } from '@vtx-ui/react';
+import { Typography } from '@vtx-ui/react';
 ```
 
 ## Basic Usage
@@ -22,7 +22,7 @@ import { Text } from '@vtx-ui/react';
 Renders body text in a `<p>` tag by default.
 
 ```tsx
-<Text>Standard body text.</Text>
+<Typography>Standard body text.</Typography>
 ```
 
 ## Variants
@@ -30,9 +30,9 @@ Renders body text in a `<p>` tag by default.
 Apply preset styles for headings and other types.
 
 ```tsx
-<Text variant="h1">Heading 1</Text>
-<Text variant="subtitle1">Subtitle</Text>
-<Text variant="caption">Caption text</Text>
+<Typography variant="h1">Heading 1</Typography>
+<Typography variant="subtitle1">Subtitle</Typography>
+<Typography variant="caption">Caption text</Typography>
 ```
 
 ## Polymorphic Rendering
@@ -40,13 +40,13 @@ Apply preset styles for headings and other types.
 Change the semantic HTML element while keeping the visual style (or vice versa).
 
 ```tsx
-<Text variant="h1" as="h2">
+<Typography variant="h1" as="h2">
   Visually H1, Semantically H2
-</Text>
+</Typography>
 
-<Text as="label" htmlFor="email">
+<Typography as="label" htmlFor="email">
   Email Label
-</Text>
+</Typography>
 ```
 
 ## Colors
@@ -54,11 +54,11 @@ Change the semantic HTML element while keeping the visual style (or vice versa).
 Use semantic theme colors or custom values.
 
 ```tsx
-<Text color="primary">Primary Color</Text>
-<Text color="error">Error Message</Text>
+<Typography color="primary">Primary Color</Typography>
+<Typography color="error">Error Message</Typography>
 
 // Custom override
-<Text textColor="#ff5722">Custom Hex Color</Text>
+<Typography textColor="#ff5722">Custom Hex Color</Typography>
 ```
 
 ## Truncation
@@ -67,14 +67,14 @@ Truncate text with an ellipsis.
 
 ```tsx
 // Single line
-<Text truncate>
+<Typography truncate>
   Very long text that will be cut off...
-</Text>
+</Typography>
 
 // Multi-line (e.g., 3 lines)
-<Text lineClamp={3}>
+<Typography lineClamp={3}>
   Long content block that spans multiple lines...
-</Text>
+</Typography>
 ```
 
 ## Gradient Text
@@ -82,12 +82,12 @@ Truncate text with an ellipsis.
 Apply a gradient background to text.
 
 ```tsx
-<Text
+<Typography
   variant="h1"
   gradient={['#ff9966', '#ff5e62']}
 >
   Gradient Headline
-</Text>
+</Typography>
 ```
 
 ## Formatting
@@ -95,11 +95,11 @@ Apply a gradient background to text.
 Apply common text transformations.
 
 ```tsx
-<Text weight="bold">Bold</Text>
-<Text italic>Italic</Text>
-<Text underline>Underlined</Text>
-<Text transform="uppercase">Uppercase</Text>
-<Text align="center">Centered</Text>
+<Typography weight="bold">Bold</Typography>
+<Typography italic>Italic</Typography>
+<Typography underline>Underlined</Typography>
+<Typography transform="uppercase">Uppercase</Typography>
+<Typography align="center">Centered</Typography>
 ```
 
 ## API Reference
