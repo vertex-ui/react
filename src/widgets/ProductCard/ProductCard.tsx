@@ -844,14 +844,96 @@ const ProductCardMinimal = React.forwardRef<HTMLDivElement, ProductCardProps>(
 
 ProductCardMinimal.displayName = 'ProductCardMinimal';
 
+// ==================== List Variant (Order List Layout) ====================
+
+export interface ProductCardListProps extends Omit<ProductCardProps, 'onAddToCart' | 'onIncrementCart' | 'onDecrementCart'> {
+  variant?: string;
+  readonly?: boolean;
+  currency?: string;
+}
+
+/**
+ * ProductCard.List - Compact list item for orders
+ * 
+ * Read-only horizontal layout for displaying order items with quantity
+ * 
+ * @example
+ * ```tsx
+ * <ProductCard.List
+ *   name="Product"
+ *   image="/product.jpg"
+ *   price={29.99}
+ *   initialQuantity={2}
+ *   readonly={true}
+ * />
+ * ```
+ */
+const ProductCardList = React.forwardRef<HTMLDivElement, ProductCardListProps>(
+  (props, ref) => {
+    const {
+      image,
+      imageAlt = 'Product',
+      name,
+      price,
+      initialQuantity = 1,
+      variant,
+      readonly = true,
+      currency = '$',
+      className = '',
+      style,
+      ...rest
+    } = props;
+
+    return (
+      <div className={`productcard-list ${className}`} style={style} ref={ref} {...rest}>
+        <Flex direction="row" align="center" gap={12}>
+          {/* IMAGE */}
+          <div className="productcard-list-image-wrapper">
+            <img src={image} alt={imageAlt} className="productcard-list-image" />
+          </div>
+
+          {/* CONTENT */}
+          <Flex direction="column" gap={4} style={{ flex: 1, minWidth: 0 }}>
+            <Typography variant="body1" weight="medium" noMargin style={{ wordBreak: 'break-word' }}>
+              {name}
+            </Typography>
+            {variant && (
+              <Typography variant="caption" noMargin className="productcard-list-variant">
+                {variant}
+              </Typography>
+            )}
+            <Flex align="center" gap={8}>
+              <Typography variant="body2" noMargin className="productcard-list-quantity">
+                Qty: {initialQuantity}
+              </Typography>
+              <Typography variant="body2" weight="semibold" noMargin className="productcard-price">
+                {currency}{Number(price).toFixed(2)}
+              </Typography>
+            </Flex>
+          </Flex>
+
+          {/* TOTAL PRICE */}
+          <Typography variant="body1" weight="bold" noMargin className="productcard-list-total">
+            {currency}{(Number(price) * initialQuantity).toFixed(2)}
+          </Typography>
+        </Flex>
+      </div>
+    );
+  }
+);
+
+ProductCardList.displayName = 'ProductCardList';
+
 const ProductCardBaseWithParsedClasses = withParsedClasses(ProductCardBase);
 const ProductCardWideWithParsedClasses = withParsedClasses(ProductCardWide);
 const ProductCardMinimalWithParsedClasses = withParsedClasses(ProductCardMinimal);
+const ProductCardListWithParsedClasses = withParsedClasses(ProductCardList);
 
 export const ProductCard = {
   Base: ProductCardBaseWithParsedClasses as React.FC<ProductCardProps & React.RefAttributes<HTMLDivElement>>,
   Wide: ProductCardWideWithParsedClasses as React.FC<ProductCardWideProps & React.RefAttributes<HTMLDivElement>>,
   Minimal: ProductCardMinimalWithParsedClasses as React.FC<ProductCardProps & React.RefAttributes<HTMLDivElement>>,
+  List: ProductCardListWithParsedClasses as React.FC<ProductCardListProps & React.RefAttributes<HTMLDivElement>>,
 };
 
 export default ProductCard;
