@@ -1,9 +1,9 @@
-import React from 'react';
 import { PricingTier } from '../../widgets/PricingTable';
 import { FAQItem, FAQCategory } from '../../widgets/FAQ';
+import { ProductCoreData } from '../../widgets/ProductCard';
 
 // Widget Configuration Types
-export type WidgetType = 
+export type WidgetType =
   | 'metric'
   | 'info'
   | 'product'
@@ -49,7 +49,8 @@ export type WidgetTheme =
   | 'luxury'
   | 'playful'
   | 'technical'
-  | 'elegant';
+  | 'elegant'
+  | 'list';
 
 export type GridConfig = {
   mobile?: number;
@@ -60,13 +61,13 @@ export type GridConfig = {
   align?: 'start' | 'center' | 'end' | 'stretch';
 };
 
-export type WidgetVariant = 
-  | 'primary' 
-  | 'secondary' 
-  | 'success' 
+export type WidgetVariant =
+  | 'primary'
+  | 'secondary'
+  | 'success'
   | 'danger'
-  | 'error' 
-  | 'warning' 
+  | 'error'
+  | 'warning'
   | 'info'
   | 'neutral';
 
@@ -188,11 +189,15 @@ export interface ProductWidgetData extends BaseWidgetData {
   weight?: number;
   units?: string;
   discount?: string;
+  quantity?: number;
   initialQuantity?: number;
   featured?: boolean;
   featuredText?: string;
   href?: string;
+
   url?: string;
+  currency?: string;
+  readonly?: boolean;
 }
 
 /**
@@ -210,15 +215,28 @@ export interface ProductWidgetSettings extends BaseWidgetSettings {
   wishlistIcon?: React.ReactNode;
   wishlistFilledIcon?: React.ReactNode;
   quickViewIcon?: React.ReactNode;
+  addToCartButtonVariant?: string;
+  incrementButtonVariant?: string;
+  decrementButtonVariant?: string;
+  quickViewButtonVariant?: string;
   linkComponent?: React.ComponentType<any>;
-  onAddToCart?: (id?: string, quantity?: number) => void | Promise<void>;
-  onIncrementCart?: (id?: string, quantity?: number) => void | Promise<void>;
-  onDecrementCart?: (id?: string, quantity?: number) => void | Promise<void>;
+  imageComponent?: React.ElementType;
+  fallbackImage?: string;
+  priority?: boolean;
+  onAddToCart?: (data: ProductCoreData, quantity: number) => void | Promise<void>;
+  onIncrementCart?: (data: ProductCoreData, quantity: number) => void | Promise<void>;
+  onDecrementCart?: (data: ProductCoreData, quantity: number) => void | Promise<void>;
   onWishlist?: () => void;
   onQuickView?: () => void;
   onClick?: () => void;
   onCategoryClick?: () => void;
   loading?: boolean;
+  actionLoading?: boolean;
+  featuredBadgeVariant?: 'filled' | 'outlined' | 'light';
+  featuredBadgeColor?: 'default' | 'primary' | 'success' | 'error' | 'warning' | 'info';
+  discountBadgeVariant?: 'filled' | 'outlined' | 'light';
+  discountBadgeColor?: 'default' | 'primary' | 'success' | 'error' | 'warning' | 'info';
+  wishlistButtonColor?: 'default' | 'primary' | 'success' | 'error' | 'warning' | 'info';
 }
 
 // ========================================================================
@@ -229,40 +247,40 @@ export interface ProductWidgetSettings extends BaseWidgetSettings {
  * Order Widget Data - Order information
  */
 export interface OrderWidgetData extends BaseWidgetData {
-    id: string;
-    total: number | string;
-    status: string;
-    date?: string | Date;
-    customer?: {
-      name?: string;
-      email?: string;
-      phone?: string;
-    };
-    items?: Array<{
-      name: string;
-      quantity?: number;
-      price?: number | string;
-      image?: string;
-    }>;
-    shippingAddress?: {
-      street: string;
-      city: string;
-      state: string;
-      zipCode: string;
-      country?: string;
-    };
-    subtotal?: number | string;
-    tax?: number | string;
-    shipping?: number | string;
-    discount?: number | string;
-    currency?: string;
-    trackingNumber?: string;
-    actions?: Array<{
-      label: React.ReactNode;
-      onClick?: () => void;
-      href?: string;
-      variant?: 'primary' | 'secondary' | 'ghost' | 'outlined';
-    }>;
+  id: string;
+  total: number | string;
+  status: string;
+  date?: string | Date;
+  customer?: {
+    name?: string;
+    email?: string;
+    phone?: string;
+  };
+  items?: Array<{
+    name: string;
+    quantity?: number;
+    price?: number | string;
+    image?: string;
+  }>;
+  shippingAddress?: {
+    street: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    country?: string;
+  };
+  subtotal?: number | string;
+  tax?: number | string;
+  shipping?: number | string;
+  discount?: number | string;
+  currency?: string;
+  trackingNumber?: string;
+  actions?: Array<{
+    label: React.ReactNode;
+    onClick?: () => void;
+    href?: string;
+    variant?: 'primary' | 'secondary' | 'ghost' | 'outlined';
+  }>;
 }
 
 /**
@@ -294,13 +312,13 @@ export interface OrderConfirmationWidgetData {
   orderDate?: string;
   status?: 'pending' | 'processing' | 'confirmed' | 'delivered' | 'cancelled';
   statusText?: string;
-  
+
   headerText?: string;
   headerSubtitle?: string;
-  
+
   customerEmail?: string;
   customerPhone?: string;
-  
+
   shippingAddress: {
     name: string;
     addressLine1: string;
@@ -319,7 +337,7 @@ export interface OrderConfirmationWidgetData {
     zipCode: string;
     phone?: string;
   };
-  
+
   items: Array<{
     id: string;
     name: string;
@@ -328,20 +346,20 @@ export interface OrderConfirmationWidgetData {
     price: number;
     variant?: string;
   }>;
-  
+
   subtotal: number;
   shippingCost?: number;
   tax?: number;
   discount?: number;
   total: number;
   currency?: string;
-  
+
   paymentMethod?: string;
   transactionId?: string;
-  
+
   estimatedDelivery?: string;
   trackingNumber?: string;
-  
+
   actions?: {
     onDownloadInvoice?: (orderId: string) => void;
     onContinueShopping?: () => void;
@@ -377,11 +395,11 @@ export interface OrderDetailsWidgetData {
   orderDate: string;
   status: 'pending' | 'processing' | 'confirmed' | 'shipped' | 'delivered' | 'cancelled' | 'returned';
   statusText?: string;
-  
+
   customerName?: string;
   customerEmail?: string;
   customerPhone?: string;
-  
+
   shippingAddress: {
     name: string;
     addressLine1: string;
@@ -400,7 +418,7 @@ export interface OrderDetailsWidgetData {
     zipCode: string;
     phone?: string;
   };
-  
+
   items: Array<{
     id: string;
     name: string;
@@ -409,7 +427,7 @@ export interface OrderDetailsWidgetData {
     price: number;
     variant?: string;
   }>;
-  
+
   subtotal: number;
   shippingCost?: number;
   tax?: number;
@@ -417,17 +435,17 @@ export interface OrderDetailsWidgetData {
   total: number;
   currency?: string;
   couponCode?: string;
-  
+
   paymentMethod?: string;
   paymentStatus?: 'pending' | 'paid' | 'failed' | 'refunded';
   transactionId?: string;
-  
+
   estimatedDelivery?: string;
   deliveredDate?: string;
   trackingNumber?: string;
   trackingUrl?: string;
   carrier?: string;
-  
+
   actions?: {
     onDownloadInvoice?: (orderId: string) => void;
     onTrackOrder?: (orderId: string) => void;
@@ -796,12 +814,12 @@ export interface GridCarouselWidgetData {
    * - 'base': Display custom React nodes from items array
    */
   theme: 'product' | 'base';
-  
+
   /**
    * Product data array (used when theme='product')
    */
   products?: ProductWidgetData[];
-  
+
   /**
    * Custom React nodes array (used when theme='base')
    */
@@ -820,52 +838,52 @@ export interface GridCarouselWidgetSettings extends BaseWidgetSettings {
     tablet?: number;
     desktop?: number;
   };
-  
+
   /**
    * Gap between grid items (px or CSS value)
    */
   gap?: number | string;
-  
+
   /**
    * Enable automatic sliding
    */
   autoplay?: boolean;
-  
+
   /**
    * Delay between auto-slides in milliseconds
    */
   autoplayDelay?: number;
-  
+
   /**
    * Show navigation arrows
    */
   showNavigation?: boolean;
-  
+
   /**
    * Show pagination dots
    */
   showPagination?: boolean;
-  
+
   /**
    * Scroll behavior: 'page' scrolls by full page, 'item' scrolls by one item
    */
   scrollBehavior?: 'page' | 'item';
-  
+
   /**
    * Apply border radius to container
    */
   borderRadius?: boolean;
-  
+
   /**
    * Hide navigation on mobile devices
    */
   hideNavigationOnMobile?: boolean;
-  
+
   /**
    * Container background color
    */
   backgroundColor?: string;
-  
+
   /**
    * Product widget settings (used when theme='product')
    */
@@ -877,26 +895,26 @@ export interface ContentBlockWidgetData extends Omit<BaseWidgetData, 'metadata'>
   // Media Configuration (Multi-type support)
   media?: {
     type?: 'image' | 'avatar' | 'icon' | 'video' | 'gallery' | 'logo' | 'illustration';
-    
+
     // Single media
     src?: string;
     alt?: string;
-    
+
     // Multiple media (for gallery layouts)
     items?: Array<{
       src: string;
       alt: string;
       caption?: React.ReactNode;
     }>;
-    
+
     // Icon/Logo
     icon?: React.ReactNode;
     iconSize?: 'sm' | 'md' | 'lg' | 'xl';
-    
+
     // Video
     videoUrl?: string;
     poster?: string;
-    
+
     // Styling
     aspectRatio?: '1:1' | '4:3' | '16:9' | '3:2' | '21:9' | 'auto';
     objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
@@ -915,13 +933,13 @@ export interface ContentBlockWidgetData extends Omit<BaseWidgetData, 'metadata'>
     body?: React.ReactNode;
     caption?: React.ReactNode;       // Small text below body
     footnote?: React.ReactNode;      // Even smaller, at bottom
-    
+
     // Typography variants
     eyebrowVariant?: 'overline' | 'caption' | 'body2';
     headingVariant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
     subheadingVariant?: 'h3' | 'h4' | 'h5' | 'h6' | 'subtitle1' | 'subtitle2';
     bodyVariant?: 'body1' | 'body2';
-    
+
     // Lists (for features, specs, benefits)
     list?: Array<{
       text: React.ReactNode;
@@ -1019,28 +1037,28 @@ export interface ContentBlockWidgetData extends Omit<BaseWidgetData, 'metadata'>
 export interface ContentBlockWidgetSettings extends Omit<BaseWidgetSettings, 'variant'> {
   // Layout-specific variant (overrides base variant)
   variant?: 'minimal' | 'card' | 'elevated' | 'outlined' | 'bordered';
-  
+
   // Layout
-  layout?: 
-    | 'media-left'           // Media 40%, Content 60%
-    | 'media-right'          // Content 60%, Media 40%
-    | 'split-equal'          // 50/50 split
-    | 'media-top'            // Media above content
-    | 'media-bottom'         // Content above media
-    | 'media-background'     // Full background with overlay
-    | 'centered'             // All centered
-    | 'centered-media-top'   // Centered with media on top
-    | 'grid-2col'            // 2 column grid
-    | 'grid-3col'            // 3 column grid
-    | 'sidebar-left'         // Narrow sidebar (30%) left
-    | 'sidebar-right';       // Narrow sidebar (30%) right
-  
+  layout?:
+  | 'media-left'           // Media 40%, Content 60%
+  | 'media-right'          // Content 60%, Media 40%
+  | 'split-equal'          // 50/50 split
+  | 'media-top'            // Media above content
+  | 'media-bottom'         // Content above media
+  | 'media-background'     // Full background with overlay
+  | 'centered'             // All centered
+  | 'centered-media-top'   // Centered with media on top
+  | 'grid-2col'            // 2 column grid
+  | 'grid-3col'            // 3 column grid
+  | 'sidebar-left'         // Narrow sidebar (30%) left
+  | 'sidebar-right';       // Narrow sidebar (30%) right
+
   // Size & Spacing
   mediaWidth?: '20%' | '30%' | '40%' | '50%' | '60%' | '70%' | 'auto';
   contentWidth?: 'narrow' | 'medium' | 'wide' | 'full';
   gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
   padding?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-  
+
   // Media Dimensions (override data.media properties)
   imageWidth?: string;        // CSS value like '100%', '400px', 'auto'
   imageHeight?: string;       // CSS value like 'auto', '300px', '100%'
@@ -1048,15 +1066,15 @@ export interface ContentBlockWidgetSettings extends Omit<BaseWidgetSettings, 'va
   imageMaxHeight?: string;    // Max height constraint
   iconSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';  // Override icon size
   customIconSize?: string;    // Custom icon size (e.g., '5rem', '80px')
-  
+
   // Alignment
   contentAlign?: 'left' | 'center' | 'right' | 'justify';
   verticalAlign?: 'start' | 'center' | 'end' | 'stretch';
-  
+
   rounded?: boolean | 'sm' | 'md' | 'lg' | 'xl' | 'full';
   shadow?: boolean | 'sm' | 'md' | 'lg' | 'xl' | 'inner';
   border?: boolean | 'all' | 'left' | 'right' | 'top' | 'bottom';
-  
+
   // Background
   background?: {
     color?: string;
@@ -1132,25 +1150,25 @@ export interface ErrorPageWidgetData {
    * @default '404'
    */
   errorCode?: string;
-  
+
   /**
    * Main error title
    * @example 'Page Not Found'
    */
   title?: string;
-  
+
   /**
    * Error message description
    * @example "Oops! The page you're looking for doesn't exist."
    */
   message?: string;
-  
+
   /**
    * Helpful suggestion or next steps
    * @example 'Try checking the URL or return to the homepage.'
    */
   suggestion?: string;
-  
+
   /**
    * Call-to-action buttons/links
    * @example
@@ -1167,7 +1185,7 @@ export interface ErrorPageWidgetData {
     icon?: 'home' | 'back' | 'refresh';
     external?: boolean;
   }>;
-  
+
   /**
    * @deprecated Use actions array instead
    */
@@ -1177,7 +1195,7 @@ export interface ErrorPageWidgetData {
     onClick?: () => void;
     icon?: 'home' | 'back' | 'refresh';
   };
-  
+
   /**
    * @deprecated Use actions array instead
    */
@@ -1187,12 +1205,12 @@ export interface ErrorPageWidgetData {
     onClick?: () => void;
     icon?: 'home' | 'back' | 'refresh';
   };
-  
+
   /**
    * Custom icon component to display
    */
   customIcon?: React.ReactNode;
-  
+
   /**
    * Additional information or help text
    */
@@ -1214,25 +1232,25 @@ export interface ErrorPageWidgetSettings extends BaseWidgetSettings {
    * @default 'modern'
    */
   theme?: 'minimal' | 'modern' | 'professional' | 'playful' | 'technical' | 'elegant';
-  
+
   /**
    * Show illustration/icon
    * @default true
    */
   showIllustration?: boolean;
-  
+
   /**
    * Center the content
    * @default true
    */
   centered?: boolean;
-  
+
   /**
    * Take full viewport height
    * @default true
    */
   fullHeight?: boolean;
-  
+
   /**
    * Custom background color or gradient
    * Overrides theme default background
@@ -1249,7 +1267,7 @@ export interface ErrorPageWidgetSettings extends BaseWidgetSettings {
 /**
  * Empty State Types - Different contexts for empty states
  */
-export type EmptyStateType = 
+export type EmptyStateType =
   | 'general'
   | 'search'
   | 'data'
@@ -1412,7 +1430,7 @@ export interface ContactFormWidgetSettings extends BaseWidgetSettings {
 // UNION TYPES
 // ========================================================================
 
-export type WidgetData = 
+export type WidgetData =
   | MetricWidgetData
   | InfoWidgetData
   | ProductWidgetData
@@ -1494,7 +1512,7 @@ export interface WidgetConfig {
   type: WidgetType | 'grid';
   data: WidgetData;
   settings?: WidgetSettings;
-  
+
   // Deprecated: Use settings instead
   /** @deprecated Use settings.theme */
   theme?: WidgetTheme;

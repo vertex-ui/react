@@ -147,8 +147,8 @@ export const ProductTheme: Story = {
         borderRadius: true,
         productSettings: {
           showWishlist: true,
-          onAddToCart: (id?: string, quantity?: number) => {
-            console.log(`Added product ${id} to cart with quantity ${quantity}`);
+          onAddToCart: (data?: any, quantity?: number) => {
+            console.log(`Added product ${data?.id} to cart with quantity ${quantity}`);
           },
           onWishlist: () => {
             console.log('Added to wishlist');

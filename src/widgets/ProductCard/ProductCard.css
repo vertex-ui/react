@@ -45,7 +45,7 @@
   .productcard {
     max-width: 100%;
   }
-  
+
   .productcard-image-wrapper {
     height: 180px;
   }
@@ -104,6 +104,61 @@
 .productcard-wishlist-btn--active:not(:disabled):hover {
   background: var(--vtx-color-error-700, #b91c1c);
   transform: scale(1.1);
+}
+
+/* Wishlist Button Color Variants */
+.productcard-wishlist-btn--primary.productcard-wishlist-btn--active {
+  background: var(--vtx-color-primary-600, #2563eb);
+  color: var(--vtx-color-neutral-50, #ffffff);
+}
+
+.productcard-wishlist-btn--primary.productcard-wishlist-btn--active:not(:disabled):hover {
+  background: var(--vtx-color-primary-700, #1d4ed8);
+}
+
+.productcard-wishlist-btn--success.productcard-wishlist-btn--active {
+  background: var(--vtx-color-success-600, #16a34a);
+  color: var(--vtx-color-neutral-50, #ffffff);
+}
+
+.productcard-wishlist-btn--success.productcard-wishlist-btn--active:not(:disabled):hover {
+  background: var(--vtx-color-success-700, #15803d);
+}
+
+.productcard-wishlist-btn--error.productcard-wishlist-btn--active {
+  background: var(--vtx-color-error-600, #dc2626);
+  color: var(--vtx-color-neutral-50, #ffffff);
+}
+
+.productcard-wishlist-btn--error.productcard-wishlist-btn--active:not(:disabled):hover {
+  background: var(--vtx-color-error-700, #b91c1c);
+}
+
+.productcard-wishlist-btn--warning.productcard-wishlist-btn--active {
+  background: var(--vtx-color-warning-600, #d97706);
+  color: var(--vtx-color-neutral-50, #ffffff);
+}
+
+.productcard-wishlist-btn--warning.productcard-wishlist-btn--active:not(:disabled):hover {
+  background: var(--vtx-color-warning-700, #b45309);
+}
+
+.productcard-wishlist-btn--info.productcard-wishlist-btn--active {
+  background: var(--vtx-color-info-600, #2563eb);
+  color: var(--vtx-color-neutral-50, #ffffff);
+}
+
+.productcard-wishlist-btn--info.productcard-wishlist-btn--active:not(:disabled):hover {
+  background: var(--vtx-color-info-700, #1d4ed8);
+}
+
+.productcard-wishlist-btn--default.productcard-wishlist-btn--active {
+  background: var(--vtx-color-neutral-600, #525252);
+  color: var(--vtx-color-neutral-50, #ffffff);
+}
+
+.productcard-wishlist-btn--default.productcard-wishlist-btn--active:not(:disabled):hover {
+  background: var(--vtx-color-neutral-700, #404040);
 }
 
 /* Hover Overlay for Quick View */
@@ -192,8 +247,8 @@
 }
 
 .productcard-quantity-readonly {
-    height: 44px;
-    padding-left: 4px;
+  height: 44px;
+  padding-left: 4px;
 }
 
 /* ==================== Compact ProductCard ==================== */
@@ -301,8 +356,8 @@
 }
 
 .productcard-quantity-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* ==================== Featured ProductCard ==================== */
@@ -512,49 +567,49 @@
   .productcard {
     max-width: 100%;
   }
-  
+
   .productcard-featured {
     flex-direction: column !important;
   }
-  
+
   .productcard-image-featured-wrapper {
     width: 100%;
     max-width: 100%;
     height: 250px;
   }
-  
+
   .productcard-wide {
     max-width: 100%;
   }
-  
-  .productcard-wide > div {
+
+  .productcard-wide>div {
     flex-direction: column !important;
   }
-  
+
   .productcard-wide-image-wrapper {
     width: 100%;
     height: 220px;
     min-height: 220px;
   }
-  
+
   .productcard-wide .productcard-rating {
     font-size: 16px;
     letter-spacing: 1.5px;
   }
-  
+
   .productcard-wide .productcard-quantity-selector {
     min-width: 100%;
     max-width: 100%;
   }
-  
+
   .productcard-wide .productcard-price {
     font-size: 22px;
   }
-  
+
   .productcard-minimal {
     max-width: 100%;
   }
-  
+
   .productcard-minimal-image-wrapper {
     height: 220px;
   }
@@ -565,29 +620,29 @@
   .productcard-image-wrapper {
     height: 180px;
   }
-  
+
   .productcard-wide-image-wrapper {
     height: 200px;
     min-height: 200px;
   }
-  
+
   .productcard-image-featured-wrapper {
     height: 200px;
   }
-  
+
   .productcard-minimal-image-wrapper {
     height: 200px;
   }
-  
+
   .productcard-image-list-wrapper {
     width: 80px;
     height: 80px;
   }
-  
+
   .productcard-rating {
     font-size: 15px;
   }
-  
+
   .productcard-wide .productcard-rating {
     font-size: 15px;
   }
@@ -598,20 +653,20 @@
   .productcard-image-wrapper {
     height: 160px;
   }
-  
+
   .productcard-wide-image-wrapper {
     height: 180px;
     min-height: 180px;
   }
-  
+
   .productcard-image-featured-wrapper {
     height: 180px;
   }
-  
+
   .productcard-minimal-image-wrapper {
     height: 180px;
   }
-  
+
   .productcard-rating {
     font-size: 14px;
   }
@@ -666,7 +721,7 @@
     width: 50px;
     height: 50px;
   }
-  
+
   .productcard-list-total {
     font-size: 0.875rem;
   }

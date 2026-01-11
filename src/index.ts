@@ -58,7 +58,7 @@ export type { TabsProps, TabListProps, TabProps, TabPanelsProps, TabPanelProps, 
 
 // --- Widget System ---
 export { Widget } from './components/Widget';
-export type { 
+export type {
   WidgetProps,
   WidgetConfig,
   WidgetTheme,
@@ -109,6 +109,8 @@ export { Typography } from './components/Typography';
 export type { TypographyProps } from './components/Typography';
 export { Timeline } from './components/Timeline';
 export type { TimelineProps, TimelineStep } from './components/Timeline';
+export { Image } from './components/Image';
+export type { ImageProps } from './components/Image';
 
 // --- Layout ---
 export { Box } from './components/Box';
@@ -177,18 +179,18 @@ export type {
 
 // --- Navigation Bar ---
 export { Navbar } from './components/Navbar';
-export type { 
+export type {
   NavigationItem,
   MegaMenuColumn,
-  TopBarConfig, 
-  NavbarDesktopProps, 
-  NavbarMobileProps, 
-  NavbarResponsiveProps 
+  TopBarConfig,
+  NavbarDesktopProps,
+  NavbarMobileProps,
+  NavbarResponsiveProps
 } from './components/Navbar';
 
 // Backward compatibility - Header alias for Navbar
 export { Navbar as Header } from './components/Navbar';
-export type { 
+export type {
   NavbarDesktopProps as HeaderDesktopProps,
   NavbarMobileProps as HeaderMobileProps,
   NavbarResponsiveProps as HeaderResponsiveProps
