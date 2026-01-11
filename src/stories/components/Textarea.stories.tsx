@@ -1,6 +1,7 @@
 "use client";
 
 import type { Meta, StoryObj } from '@storybook/react';
+import { userEvent, within, expect } from '@storybook/test';
 import { Textarea } from '../../components/Textarea';
 import { useState } from 'react';
 
@@ -256,5 +257,19 @@ export const CompleteExample: Story = {
         maxRows={12}
       />
     );
+  },
+};
+
+export const Interactive: Story = {
+  args: {
+    label: 'Interactive Textarea',
+    placeholder: 'Type something...',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const textarea = canvas.getByPlaceholderText('Type something...');
+
+    await userEvent.type(textarea, 'Hello World');
+    await expect(textarea).toHaveValue('Hello World');
   },
 };

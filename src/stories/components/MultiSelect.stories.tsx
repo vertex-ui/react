@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { userEvent, within, expect } from '@storybook/test';
 import { MultiSelect } from '../../components/MultiSelect';
 
 const meta: Meta<typeof MultiSelect> = {
@@ -184,5 +185,29 @@ export const AllSizes: Story = {
   ),
   parameters: {
     layout: 'padded',
+  },
+};
+
+export const Interactive: Story = {
+  args: {
+    label: 'Interactive MultiSelect',
+    options: skillOptions,
+    placeholder: 'Select...',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const selectTrigger = canvas.getByText('Select...');
+    await userEvent.click(selectTrigger);
+
+    const option1 = await within(document.body).findByText('JavaScript');
+    await userEvent.click(option1);
+
+    const chips = await canvas.findAllByText('JavaScript');
+    const chip = chips.find(el => el.classList.contains('vtx-chip__label'));
+    if (chip) {
+        await expect(chip).toBeInTheDocument();
+    } else {
+        await expect(chips[0]).toBeVisible();
+    }
   },
 };

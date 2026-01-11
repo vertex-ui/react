@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { userEvent, within, expect } from '@storybook/test';
 import { Breadcrumb } from '../../components/Breadcrumb';
 import {
   HomeIcon,
@@ -230,4 +231,20 @@ export const MultipleExamples: Story = {
       </div>
     </div>
   ),
+};
+
+export const Interactive: Story = {
+  args: {
+    items: [
+      { label: 'Interactive', href: '#' },
+      { label: 'Breadcrumb', href: '#' },
+      { label: 'Test', active: true },
+    ],
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const link = canvas.getByText('Breadcrumb');
+    await expect(link).toBeInTheDocument();
+    await userEvent.click(link);
+  },
 };

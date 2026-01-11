@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { userEvent, within, expect } from '@storybook/test';
 import ActionMenu from '../../components/Menu/ActionMenu';
 import {
     DownloadIcon,
@@ -309,5 +310,22 @@ export const WithActiveState: Story = {
         onClick: () => alert('Pending selected'),
       },
     ],
+  },
+};
+
+export const Interactive: Story = {
+  args: {
+    triggerLabel: 'Interactive Actions',
+    items: basicItems,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByText('Interactive Actions');
+    await userEvent.click(trigger);
+
+    const item = await within(document.body).findByText('Edit');
+
+    await expect(item).toBeInTheDocument();
+    await userEvent.click(item);
   },
 };

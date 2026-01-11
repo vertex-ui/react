@@ -1,6 +1,7 @@
 "use client";
 
 import type { Meta, StoryObj } from '@storybook/react';
+import { userEvent, within, expect } from '@storybook/test';
 import { useState } from 'react';
 import { Menu } from '../../components/Menu';
 import { Button } from '../../components/Button';
@@ -216,5 +217,21 @@ export const LongMenu: Story = {
         <Button>Long Menu</Button>
       </Menu>
     );
+  },
+};
+
+export const Interactive: Story = {
+  render: () => (
+    <Menu items={basicMenuItems}>
+      <Button>Interactive Menu</Button>
+    </Menu>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = await canvas.findByLabelText('Toggle menu');
+    await userEvent.click(trigger);
+
+    const profileItem = await within(document.body).findByText('Profile');
+    await expect(profileItem).toBeVisible();
   },
 };
