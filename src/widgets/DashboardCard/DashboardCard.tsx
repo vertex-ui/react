@@ -1,3 +1,4 @@
+"use client";
 import React, { forwardRef } from 'react';
 import { withParsedClasses } from '../../hoc/withParsedClasses';
 import { Card } from '../../components/Card';
