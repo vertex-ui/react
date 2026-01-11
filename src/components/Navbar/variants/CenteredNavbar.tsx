@@ -1,9 +1,8 @@
 import React from 'react';
-import { Flex } from '../../Flex';
-import { Container } from '../../Container';
 import { NavbarBaseProps } from '../types';
 import { useNavbarSections } from '../useNavbarSections';
 import { TopBar } from '../TopBar';
+import { Container } from '../../Container';
 
 export const CenteredNavbar: React.FC<NavbarBaseProps> = (props) => {
   const {
@@ -37,32 +36,33 @@ export const CenteredNavbar: React.FC<NavbarBaseProps> = (props) => {
   const style: React.CSSProperties = { ...propStyle };
   if (backgroundColor) style.backgroundColor = backgroundColor;
 
-  const content = (
-    <Flex align="center" justify="center" gap={32} className="vtx-navbar__content">
-      {logoSection}
-      {navigationSection}
-      <Flex align="center" gap={24} style={{ marginLeft: 'auto' }}>
-        {searchSection}
-        {iconsSection}
-        {userSection}
-        {actionsSection}
-      </Flex>
-    </Flex>
-  );
-
   return (
     <>
       {topBar && <TopBar config={topBar} containerized={containerized} />}
       <nav className={navbarClass} style={style}>
         {containerized ? (
-          <Container>
-            <div style={{ padding: '1rem 0', minHeight: '5rem' }}>
-              {content}
+          <Container style={{ height: '100%' }}>
+            <div className="vtx-navbar__content">
+              {logoSection}
+              {navigationSection}
+              <div className="vtx-navbar__right">
+                {searchSection}
+                {iconsSection}
+                {userSection}
+                {actionsSection}
+              </div>
             </div>
           </Container>
         ) : (
-          <div style={{ padding: '1rem 1.5rem', minHeight: '5rem' }}>
-            {content}
+          <div className="vtx-navbar__content" style={{ padding: '0 1.5rem' }}>
+            {logoSection}
+            {navigationSection}
+            <div className="vtx-navbar__right">
+              {searchSection}
+              {iconsSection}
+              {userSection}
+              {actionsSection}
+            </div>
           </div>
         )}
       </nav>

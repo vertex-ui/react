@@ -79,18 +79,30 @@
    * SPACING TOKENS
    * ============================================ */
   --vtx-spacing-0: 0;
-  --vtx-spacing-1: 0.25rem; /* 4px */
-  --vtx-spacing-2: 0.5rem; /* 8px */
-  --vtx-spacing-3: 0.75rem; /* 12px */
-  --vtx-spacing-4: 1rem; /* 16px */
-  --vtx-spacing-5: 1.25rem; /* 20px */
-  --vtx-spacing-6: 1.5rem; /* 24px */
-  --vtx-spacing-8: 2rem; /* 32px */
-  --vtx-spacing-10: 2.5rem; /* 40px */
-  --vtx-spacing-12: 3rem; /* 48px */
-  --vtx-spacing-16: 4rem; /* 64px */
-  --vtx-spacing-20: 5rem; /* 80px */
-  --vtx-spacing-24: 6rem; /* 96px */
+  --vtx-spacing-1: 0.25rem;
+  /* 4px */
+  --vtx-spacing-2: 0.5rem;
+  /* 8px */
+  --vtx-spacing-3: 0.75rem;
+  /* 12px */
+  --vtx-spacing-4: 1rem;
+  /* 16px */
+  --vtx-spacing-5: 1.25rem;
+  /* 20px */
+  --vtx-spacing-6: 1.5rem;
+  /* 24px */
+  --vtx-spacing-8: 2rem;
+  /* 32px */
+  --vtx-spacing-10: 2.5rem;
+  /* 40px */
+  --vtx-spacing-12: 3rem;
+  /* 48px */
+  --vtx-spacing-16: 4rem;
+  /* 64px */
+  --vtx-spacing-20: 5rem;
+  /* 80px */
+  --vtx-spacing-24: 6rem;
+  /* 96px */
 
   /* ============================================
    * TYPOGRAPHY TOKENS
@@ -103,14 +115,22 @@
     ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
 
   /* Font Sizes */
-  --vtx-font-size-xs: 0.75rem; /* 12px */
-  --vtx-font-size-sm: 0.875rem; /* 14px */
-  --vtx-font-size-base: 1rem; /* 16px */
-  --vtx-font-size-lg: 1.125rem; /* 18px */
-  --vtx-font-size-xl: 1.25rem; /* 20px */
-  --vtx-font-size-2xl: 1.5rem; /* 24px */
-  --vtx-font-size-3xl: 1.875rem; /* 30px */
-  --vtx-font-size-4xl: 2.25rem; /* 36px */
+  --vtx-font-size-xs: 0.75rem;
+  /* 12px */
+  --vtx-font-size-sm: 0.875rem;
+  /* 14px */
+  --vtx-font-size-base: 1rem;
+  /* 16px */
+  --vtx-font-size-lg: 1.125rem;
+  /* 18px */
+  --vtx-font-size-xl: 1.25rem;
+  /* 20px */
+  --vtx-font-size-2xl: 1.5rem;
+  /* 24px */
+  --vtx-font-size-3xl: 1.875rem;
+  /* 30px */
+  --vtx-font-size-4xl: 2.25rem;
+  /* 36px */
 
   /* Font Weights */
   --vtx-font-weight-normal: 400;
@@ -128,75 +148,89 @@
    * ============================================ */
 
   /* Heading Variants */
-  --vtx-text-h1-font-size: 3.75rem; /* 60px */
+  --vtx-text-h1-font-size: 3.75rem;
+  /* 60px */
   --vtx-text-h1-font-weight: 700;
   --vtx-text-h1-line-height: 1.2;
   --vtx-text-h1-letter-spacing: -0.025em;
 
-  --vtx-text-h2-font-size: 3rem; /* 48px */
+  --vtx-text-h2-font-size: 3rem;
+  /* 48px */
   --vtx-text-h2-font-weight: 700;
   --vtx-text-h2-line-height: 1.25;
   --vtx-text-h2-letter-spacing: -0.025em;
 
-  --vtx-text-h3-font-size: 2.25rem; /* 36px */
+  --vtx-text-h3-font-size: 2.25rem;
+  /* 36px */
   --vtx-text-h3-font-weight: 600;
   --vtx-text-h3-line-height: 1.3;
   --vtx-text-h3-letter-spacing: -0.025em;
 
-  --vtx-text-h4-font-size: 1.875rem; /* 30px */
+  --vtx-text-h4-font-size: 1.875rem;
+  /* 30px */
   --vtx-text-h4-font-weight: 600;
   --vtx-text-h4-line-height: 1.35;
   --vtx-text-h4-letter-spacing: 0;
 
-  --vtx-text-h5-font-size: 1.5rem; /* 24px */
+  --vtx-text-h5-font-size: 1.5rem;
+  /* 24px */
   --vtx-text-h5-font-weight: 600;
   --vtx-text-h5-line-height: 1.4;
   --vtx-text-h5-letter-spacing: 0;
 
-  --vtx-text-h6-font-size: 1.25rem; /* 20px */
+  --vtx-text-h6-font-size: 1.25rem;
+  /* 20px */
   --vtx-text-h6-font-weight: 600;
   --vtx-text-h6-line-height: 1.5;
   --vtx-text-h6-letter-spacing: 0;
 
   /* Body Text Variants */
-  --vtx-text-body1-font-size: 1rem; /* 16px - DEFAULT WEBSITE FONT SIZE */
+  --vtx-text-body1-font-size: 1rem;
+  /* 16px - DEFAULT WEBSITE FONT SIZE */
   --vtx-text-body1-font-weight: 400;
   --vtx-text-body1-line-height: 1.5;
   --vtx-text-body1-letter-spacing: 0;
 
-  --vtx-text-body2-font-size: 0.875rem; /* 14px */
+  --vtx-text-body2-font-size: 0.875rem;
+  /* 14px */
   --vtx-text-body2-font-weight: 400;
   --vtx-text-body2-line-height: 1.5;
   --vtx-text-body2-letter-spacing: 0;
 
   /* Subtitle Variants */
-  --vtx-text-subtitle1-font-size: 1.125rem; /* 18px */
+  --vtx-text-subtitle1-font-size: 1.125rem;
+  /* 18px */
   --vtx-text-subtitle1-font-weight: 500;
   --vtx-text-subtitle1-line-height: 1.5;
   --vtx-text-subtitle1-letter-spacing: 0;
 
-  --vtx-text-subtitle2-font-size: 1rem; /* 16px */
+  --vtx-text-subtitle2-font-size: 1rem;
+  /* 16px */
   --vtx-text-subtitle2-font-weight: 500;
   --vtx-text-subtitle2-line-height: 1.5;
   --vtx-text-subtitle2-letter-spacing: 0;
 
   /* Utility Text Variants */
-  --vtx-text-caption-font-size: 0.75rem; /* 12px */
+  --vtx-text-caption-font-size: 0.75rem;
+  /* 12px */
   --vtx-text-caption-font-weight: 400;
   --vtx-text-caption-line-height: 1.5;
   --vtx-text-caption-letter-spacing: 0.025em;
 
-  --vtx-text-overline-font-size: 0.75rem; /* 12px */
+  --vtx-text-overline-font-size: 0.75rem;
+  /* 12px */
   --vtx-text-overline-font-weight: 600;
   --vtx-text-overline-line-height: 1.5;
   --vtx-text-overline-letter-spacing: 0.1em;
 
-  --vtx-text-button-font-size: 0.875rem; /* 14px */
+  --vtx-text-button-font-size: 0.875rem;
+  /* 14px */
   --vtx-text-button-font-weight: 600;
   --vtx-text-button-line-height: 1.5;
   --vtx-text-button-letter-spacing: 0.025em;
 
-  --vtx-text-label-font-size: 0.875rem; /* 14px */
+  --vtx-text-label-font-size: 0.875rem;
+  /* 14px */
   --vtx-text-label-font-weight: 500;
   --vtx-text-label-line-height: 1.5;
   --vtx-text-label-letter-spacing: 0;
@@ -205,12 +239,18 @@
    * BORDER RADIUS TOKENS
    * ============================================ */
   --vtx-radius-none: 0;
-  --vtx-radius-sm: 0.125rem; /* 2px */
-  --vtx-radius-base: 0.25rem; /* 4px */
-  --vtx-radius-md: 0.375rem; /* 6px */
-  --vtx-radius-lg: 0.5rem; /* 8px */
-  --vtx-radius-xl: 0.75rem; /* 12px */
-  --vtx-radius-2xl: 1rem; /* 16px */
+  --vtx-radius-sm: 0.125rem;
+  /* 2px */
+  --vtx-radius-base: 0.25rem;
+  /* 4px */
+  --vtx-radius-md: 0.375rem;
+  /* 6px */
+  --vtx-radius-lg: 0.5rem;
+  /* 8px */
+  --vtx-radius-xl: 0.75rem;
+  /* 12px */
+  --vtx-radius-2xl: 1rem;
+  /* 16px */
   --vtx-radius-full: 9999px;
 
   /* ============================================
@@ -309,15 +349,19 @@
 
 /* Set root font size for rem calculations */
 html {
-  font-size: 16px; /* 1rem = 16px base */
+  font-size: 16px;
+  /* 1rem = 16px base */
 }
 
 /* Set base font styles for entire website */
 body {
   font-family: var(--vtx-font-family-sans);
-  font-size: var(--vtx-font-size-base); /* 1rem = 16px */
-  line-height: var(--vtx-line-height-normal); /* 1.5 */
-  font-weight: var(--vtx-font-weight-normal); /* 400 */
+  font-size: var(--vtx-font-size-base);
+  /* 1rem = 16px */
+  line-height: var(--vtx-line-height-normal);
+  /* 1.5 */
+  font-weight: var(--vtx-font-weight-normal);
+  /* 400 */
   color: var(--vtx-color-neutral-900);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -371,4 +415,21 @@ textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
+}
+
+/* ============================================
+ * UTILITY CLASSES
+ * ============================================ */
+
+/* Cursor utilities */
+.vtx-cursor-pointer {
+  cursor: pointer;
+}
+
+.vtx-cursor-default {
+  cursor: default;
+}
+
+.vtx-cursor-not-allowed {
+  cursor: not-allowed;
 }

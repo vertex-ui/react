@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React from 'react';
 import { withParsedClasses } from '../../hoc/withParsedClasses';
 import './ProductCard.css';
 import { Card } from '../../components/Card';
@@ -10,10 +10,26 @@ import { Button } from '../../components/Button';
 import { Chip } from '../../components/Chip';
 import { Rating } from '../../components/Rating';
 import { SkeletonTheme } from '../../components/Skeleton';
+import { Image } from '../../components/Image';
 import { FiHeart, FiEye, FiShoppingCart } from 'react-icons/fi';
 import { AiFillHeart } from 'react-icons/ai';
 
-export interface ProductCardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ProductCoreData {
+  id?: string;
+  name: React.ReactNode;
+  image: string;
+  price: number;
+  originalPrice?: number;
+  discount?: string;
+  category?: string;
+  weight?: number;
+  units?: string;
+}
+
+export type ProductCardButtonVariant = 'primary' | 'secondary' | 'success' | 'warning' | 'outline' | 'ghost' | 'danger';
+
+export interface ProductCardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onClick'> {
+  // ... existing props ...
   id?: string;
   image: string;
   imageAlt?: string;
@@ -26,7 +42,6 @@ export interface ProductCardProps extends React.HTMLAttributes<HTMLDivElement> {
   originalPrice?: number;
   discount?: string;
   rating?: number;
-  initialQuantity?: number;
   featured?: boolean;
   featuredText?: string;
   showWishlist?: boolean;
@@ -37,22 +52,46 @@ export interface ProductCardProps extends React.HTMLAttributes<HTMLDivElement> {
   quickViewIcon?: React.ReactNode;
   href?: string;
   linkComponent?: React.ComponentType<any>;
-  onAddToCart?: (id?: string, quantity?: number) => void | Promise<void>;
-  onIncrementCart?: (id?: string, quantity?: number) => void | Promise<void>;
-  onDecrementCart?: (id?: string, quantity?: number) => void | Promise<void>;
+  onAddToCart?: (data: ProductCoreData, quantity: number) => void | Promise<void>;
+  onIncrementCart?: (data: ProductCoreData, quantity: number) => void | Promise<void>;
+  onDecrementCart?: (data: ProductCoreData, quantity: number) => void | Promise<void>;
   onWishlist?: () => void;
   onQuickView?: () => void;
   onClick?: () => void;
   onCategoryClick?: () => void;
   loading?: boolean;
   /**
-   * Whether this card is high priority (e.g. LCP element)
-   * If true, image will be eager loaded with high priority
+   * Action loading state (e.g. adding to cart)
+   */
+  actionLoading?: boolean;
+  /**
+   * Current quantity
+   */
+  quantity?: number;
+  /**
+   * Custom image component (e.g. Next.js Image)
+   */
+  imageComponent?: React.ElementType;
+  /**
+   * Fallback image to show while loading or on error
+   */
+  fallbackImage?: string;
+  /**
+   * Whether to prioritize loading the image (eager load)
    * @default false
    */
   priority?: boolean;
   className?: string;
   style?: React.CSSProperties;
+  addToCartButtonVariant?: ProductCardButtonVariant;
+  incrementButtonVariant?: ProductCardButtonVariant;
+  decrementButtonVariant?: ProductCardButtonVariant;
+  quickViewButtonVariant?: ProductCardButtonVariant;
+  featuredBadgeVariant?: 'filled' | 'outlined' | 'light';
+  featuredBadgeColor?: 'default' | 'primary' | 'success' | 'error' | 'warning' | 'info';
+  discountBadgeVariant?: 'filled' | 'outlined' | 'light';
+  discountBadgeColor?: 'default' | 'primary' | 'success' | 'error' | 'warning' | 'info';
+  wishlistButtonColor?: 'default' | 'primary' | 'success' | 'error' | 'warning' | 'info';
 }
 
 /**
@@ -77,297 +116,305 @@ const ProductCardBase = React.forwardRef<HTMLDivElement, ProductCardProps>(
   (
     {
       id,
-  image,
-  imageAlt = 'Product',
-  category,
-  categoryHref,
-  name,
-  weight,
-  units,
-  price,
-  originalPrice,
-  discount,
-  rating,
-  initialQuantity = 0,
-  featured = false,
-  featuredText = 'Featured',
-  showWishlist = false,
-  isWishlisted = false,
-  cartIcon,
-  wishlistIcon,
-  wishlistFilledIcon,
-  quickViewIcon,
-  href,
-  linkComponent: LinkComponent,
-  onAddToCart,
-  onIncrementCart,
-  onDecrementCart,
-  onWishlist,
-  onQuickView,
-  onClick,
-  onCategoryClick,
-  loading = false,
-  // priority = false, // unused
-  className = '',
-  style,
-  ...props
+      image,
+      imageAlt = 'Product',
+      category,
+      categoryHref,
+      name,
+      weight,
+      units,
+      price,
+      originalPrice,
+      discount,
+      rating,
+      featured = false,
+      featuredText = 'Featured',
+      showWishlist = false,
+      isWishlisted = false,
+      cartIcon,
+      wishlistIcon,
+      wishlistFilledIcon,
+      quickViewIcon,
+      href,
+      linkComponent: LinkComponent,
+      onAddToCart,
+      onIncrementCart,
+      onDecrementCart,
+      onWishlist,
+      onQuickView,
+      onClick,
+      onCategoryClick,
+      loading = false,
+      actionLoading = false,
+      quantity = 0,
+      imageComponent,
+      fallbackImage,
+
+      priority = false,
+      className = '',
+      style,
+      ...props
     },
     ref
   ) => {
-  const [quantity, setQuantity] = useState(initialQuantity);
-  const [isLoading, setIsLoading] = useState(false);
+    const showLoading = actionLoading || loading;
 
-  const handleAddToCart = async () => {
-    if (!onAddToCart) return;
-    
-    setIsLoading(true);
-    try {
-      await onAddToCart(id, 1);
-      setQuantity(1);
-    } catch (error) {
-      console.error('Add to cart error:', error);
-    } finally {
-      setIsLoading(false);
+    // Core data for callbacks
+    const coreData: ProductCoreData = {
+      id,
+      name,
+      image,
+      price,
+      originalPrice,
+      discount,
+      category,
+      weight,
+      units
+    };
+
+    // Render skeleton loading state
+    if (loading && !actionLoading) {
+      return <SkeletonTheme theme="product" />;
     }
-  };
 
-  const handleIncrement = async () => {
-    if (!onIncrementCart) return;
-    
-    setIsLoading(true);
-    try {
-      await onIncrementCart(id, quantity);
-      setQuantity(quantity + 1);
-    } catch (error) {
-      console.error('Increment error:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    return (
+      <Card
+        variant="outlined"
+        className={`productcard ${className}`}
+        style={{ ...style }}
+        noPadding
+        ref={ref as any}
+        {...props}
+      >
+        <Flex direction="column">
+          {/* IMAGE */}
+          <div className="productcard-image-wrapper">
+            {href ? (
+              LinkComponent ? (
+                <LinkComponent href={href} className="productcard-image-link">
+                  <Image
+                    component={imageComponent}
+                    src={image}
+                    alt={imageAlt}
 
-  const handleDecrement = async () => {
-    if (!onDecrementCart || quantity <= 0) return;
-    
-    setIsLoading(true);
-    try {
-      await onDecrementCart(id, quantity);
-      setQuantity(quantity - 1);
-    } catch (error) {
-      console.error('Decrement error:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const showLoading = isLoading || loading;
-
-  // Render skeleton loading state
-  if (loading && !isLoading) {
-    return <SkeletonTheme theme="product" />;
-  }
-
-  return (
-    <Card 
-      variant="outlined" 
-      className={`productcard ${className}`} 
-      style={{ ...style }}
-      noPadding
-      ref={ref as any}
-      {...props}
-    >
-      <Flex direction="column">
-        {/* IMAGE */}
-        <div className="productcard-image-wrapper">
-          {href ? (
-            LinkComponent ? (
-              <LinkComponent href={href} className="productcard-image-link">
-                <img src={image} alt={imageAlt} className="productcard-image" />
-              </LinkComponent>
-            ) : (
-              <a href={href} className="productcard-image-link">
-                <img src={image} alt={imageAlt} className="productcard-image" />
-              </a>
-            )
-          ) : (
-            <div onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default' }}>
-              <img src={image} alt={imageAlt} className="productcard-image" />
-            </div>
-          )}
-          
-          {/* BADGES */}
-          <div className="productcard-badges">
-            {featured && (
-              <span className="productcard-featured-badge">{featuredText}</span>
-            )}
-            {discount && (
-              <span className="productcard-discount-badge">{discount}</span>
-            )}
-          </div>
-
-          {/* WISHLIST BUTTON */}
-          {showWishlist && (
-            <button
-              className={`productcard-wishlist-btn ${isWishlisted ? 'productcard-wishlist-btn--active' : ''}`}
-              onClick={(e) => {
-                e.stopPropagation();
-                onWishlist?.();
-              }}
-              disabled={!onWishlist}
-              aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
-              style={{
-                cursor: onWishlist ? 'pointer' : 'default',
-                opacity: onWishlist ? 1 : 0.6,
-              }}
-            >
-              {isWishlisted 
-                ? (wishlistFilledIcon || <AiFillHeart />)
-                : (wishlistIcon || <FiHeart />)
-              }
-            </button>
-          )}
-          
-          {/* QUICK VIEW OVERLAY */}
-          {onQuickView && (
-            <div className="productcard-hover-overlay">
-              <Button
-                variant="secondary"
-                size="sm"
-                leftIcon={quickViewIcon || <FiEye />}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onQuickView();
-                }}
-              >
-                Quick View
-              </Button>
-            </div>
-          )}
-        </div>
-
-        {/* CONTENT */}
-        <Flex direction="column" gap={5} className='p-3'>
-          {/* CATEGORY */}
-          {category && (
-            <div style={{ display: 'inline-flex', alignSelf: 'flex-start' }}>
-              {categoryHref ? (
-                LinkComponent ? (
-                  <LinkComponent href={categoryHref} style={{ textDecoration: 'none', cursor: 'pointer' }}>
-                    <Chip
-                      label={category}
-                      variant="outlined"
-                      className="productcard-category"
-                    />
-                  </LinkComponent>
-                ) : (
-                  <a href={categoryHref} style={{ textDecoration: 'none', cursor: 'pointer' }}>
-                    <Chip
-                      label={category}
-                      variant="outlined"
-                      className="productcard-category"
-                    />
-                  </a>
-                )
+                    fallback={fallbackImage}
+                    priority={priority}
+                    imageProps={{ className: 'productcard-image' }}
+                    className="productcard-image-container"
+                  />
+                </LinkComponent>
               ) : (
+                <a href={href} className="productcard-image-link">
+                  <Image
+                    component={imageComponent}
+                    src={image}
+                    alt={imageAlt}
+                    fallback={fallbackImage}
+                    priority={priority}
+                    imageProps={{ className: 'productcard-image' }}
+                    className="productcard-image-container"
+                  />
+                </a>
+              )
+            ) : (
+              <div onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default', height: '100%' }}>
+                <Image
+                  component={imageComponent}
+                  src={image}
+                  alt={imageAlt}
+                  fallback={fallbackImage}
+                  priority={priority}
+                  imageProps={{ className: 'productcard-image' }}
+                  className="productcard-image-container"
+                />
+              </div>
+            )}
+
+            {/* BADGES */}
+            <div className="productcard-badges">
+              {featured && (
                 <Chip
-                  label={category}
-                  variant="outlined"
-                  className="productcard-category"
-                  onClick={onCategoryClick}
+                  label={featuredText || 'Featured'}
+                  variant={props.featuredBadgeVariant || 'filled'}
+                  color={props.featuredBadgeColor || 'success'}
+                  size="sm"
+                  className="productcard-featured-badge"
+                />
+              )}
+              {discount && (
+                <Chip
+                  label={discount}
+                  variant={props.discountBadgeVariant || 'filled'}
+                  color={props.discountBadgeColor || 'error'}
+                  size="sm"
+                  className="productcard-discount-badge"
                 />
               )}
             </div>
-          )}
 
-          {/* NAME */}
-          {href ? (
-            LinkComponent ? (
-              <LinkComponent href={href} style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Typography variant="body1" noMargin style={{ cursor: 'pointer' }}>
-                  {name}
-                </Typography>
-              </LinkComponent>
+            {/* WISHLIST BUTTON */}
+            {showWishlist && (
+              <button
+                className={`productcard-wishlist-btn ${isWishlisted ? 'productcard-wishlist-btn--active' : ''} ${onWishlist ? 'vtx-cursor-pointer' : 'vtx-cursor-default'} productcard-wishlist-btn--${props.wishlistButtonColor || 'error'}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onWishlist?.();
+                }}
+                disabled={!onWishlist}
+                aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
+                style={{
+                  opacity: onWishlist ? 1 : 0.6,
+                }}
+              >
+                {isWishlisted
+                  ? (wishlistFilledIcon || <AiFillHeart />)
+                  : (wishlistIcon || <FiHeart />)
+                }
+              </button>
+            )}
+
+            {/* QUICK VIEW OVERLAY */}
+            {onQuickView && (
+              <div className="productcard-hover-overlay">
+                <Button
+                  variant={props.quickViewButtonVariant || 'secondary'}
+                  size="sm"
+                  leftIcon={quickViewIcon || <FiEye />}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onQuickView();
+                  }}
+                >
+                  Quick View
+                </Button>
+              </div>
+            )}
+          </div>
+
+          {/* CONTENT */}
+          <Flex direction="column" gap={5} className='p-3'>
+            {/* CATEGORY */}
+            {category && (
+              <div style={{ display: 'inline-flex', alignSelf: 'flex-start' }}>
+                {categoryHref ? (
+                  LinkComponent ? (
+                    <LinkComponent href={categoryHref} style={{ textDecoration: 'none', cursor: 'pointer' }}>
+                      <Chip
+                        label={category}
+                        variant="outlined"
+                        className="productcard-category"
+                      />
+                    </LinkComponent>
+                  ) : (
+                    <a href={categoryHref} style={{ textDecoration: 'none', cursor: 'pointer' }}>
+                      <Chip
+                        label={category}
+                        variant="outlined"
+                        className="productcard-category"
+                      />
+                    </a>
+                  )
+                ) : (
+                  <Chip
+                    label={category}
+                    variant="outlined"
+                    className="productcard-category"
+                    onClick={onCategoryClick}
+                  />
+                )}
+              </div>
+            )}
+
+            {/* NAME */}
+            {href ? (
+              LinkComponent ? (
+                <LinkComponent href={href} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <Typography variant="body1" noMargin style={{ cursor: 'pointer' }}>
+                    {name}
+                  </Typography>
+                </LinkComponent>
+              ) : (
+                <a href={href} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <Typography variant="body1" noMargin style={{ cursor: 'pointer' }}>
+                    {name}
+                  </Typography>
+                </a>
+              )
             ) : (
-              <a href={href} style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Typography variant="body1" noMargin style={{ cursor: 'pointer' }}>
-                  {name}
-                </Typography>
-              </a>
-            )
-          ) : (
-            <Typography
-              variant="body1" 
-              noMargin
-              onClick={onClick}
-              style={{ cursor: onClick ? 'pointer' : 'default' }}
-            >
-              {name}
-            </Typography>
-          )}
-
-          {/* WEIGHT */}
-          {(weight !== undefined || units) && (
-            <Typography variant="body1" noMargin className="productcard-weight">
-              {weight !== undefined && units
-                ? `${weight} ${units}`
-                : weight !== undefined
-                  ? weight
-                  : '-'}
-            </Typography>
-          )}
-
-          {/* RATING */}
-          {rating !== undefined && (
-            <Rating value={rating} size="sm" showValue />
-          )}
-
-          {/* PRICE */}
-          <Flex align="center" gap={8}>
-            <Typography variant="h5" noMargin className="productcard-price">
-              ${Number(price).toFixed(2)}
-            </Typography>
-            {originalPrice && originalPrice > price && (
-              <Typography variant="body2" noMargin className="productcard-original-price">
-                ${Number(originalPrice).toFixed(2)}
+              <Typography
+                variant="body1"
+                noMargin
+                onClick={onClick}
+                style={{ cursor: onClick ? 'pointer' : 'default' }}
+              >
+                {name}
               </Typography>
             )}
-          </Flex>
 
-          {/* CART ACTION */}
-          {showLoading ? (
-            <Button fullWidth loading variant="primary">
-              Loading
-            </Button>
-          ) : quantity === 0 ? (
-            <Button
-              fullWidth
-              variant="primary"
-              leftIcon={cartIcon || <FiShoppingCart />}
-              onClick={handleAddToCart}
-            >
-              Add to cart
-            </Button>
-          ) : (
-            <Flex
-              align="center"
-              direction="row"
-              justify="between"
-              className="productcard-quantity-selector"
-            >
-              <Button variant="secondary" onClick={handleDecrement}>
-                -
-              </Button>
-              <Typography noMargin className="productcard-quantity-value">
-                {quantity}
+            {/* WEIGHT */}
+            {(weight !== undefined || units) && (
+              <Typography variant="body1" noMargin className="productcard-weight">
+                {weight !== undefined && units
+                  ? `${weight} ${units}`
+                  : weight !== undefined
+                    ? weight
+                    : '-'}
               </Typography>
-              <Button variant="secondary" onClick={handleIncrement}>
-                +
-              </Button>
+            )}
+
+            {/* RATING */}
+            {rating !== undefined && (
+              <Rating value={rating} size="sm" showValue />
+            )}
+
+            {/* PRICE */}
+            <Flex align="center" gap={8}>
+              <Typography variant="h5" noMargin className="productcard-price">
+                ${Number(price).toFixed(2)}
+              </Typography>
+              {originalPrice && originalPrice > price && (
+                <Typography variant="body2" noMargin className="productcard-original-price">
+                  ${Number(originalPrice).toFixed(2)}
+                </Typography>
+              )}
             </Flex>
-          )}
+
+            {/* CART ACTION */}
+            {showLoading ? (
+              <Button fullWidth loading variant={props.addToCartButtonVariant || 'primary'}>
+                Loading
+              </Button>
+            ) : quantity === 0 ? (
+              <Button
+                fullWidth
+                variant={props.addToCartButtonVariant || 'primary'}
+                leftIcon={cartIcon || <FiShoppingCart />}
+                onClick={() => onAddToCart?.(coreData, 1)}
+              >
+                Add to cart
+              </Button>
+            ) : (
+              <Flex
+                align="center"
+                direction="row"
+                justify="between"
+                className="productcard-quantity-selector"
+              >
+                <Button variant={props.decrementButtonVariant || 'secondary'} onClick={() => onDecrementCart?.(coreData, quantity)}>
+                  -
+                </Button>
+                <Typography noMargin className="productcard-quantity-value">
+                  {quantity}
+                </Typography>
+                <Button variant={props.incrementButtonVariant || 'secondary'} onClick={() => onIncrementCart?.(coreData, quantity)}>
+                  +
+                </Button>
+              </Flex>
+            )}
+          </Flex>
         </Flex>
-      </Flex>
-    </Card>
-  );
+      </Card>
+    );
   }
 );
 
@@ -402,241 +449,241 @@ const ProductCardWide = React.forwardRef<HTMLDivElement, ProductCardWideProps>(
     },
     ref
   ) => {
-  const {
-    id,
-    image,
-    imageAlt = 'Product',
-    category,
-    categoryHref,
-    name,
-    weight,
-    units,
-    price,
-    originalPrice,
-    discount,
-    rating,
-    initialQuantity = 0,
-    featured = false,
-    featuredText = 'Featured',
-    showWishlist = false,
-    isWishlisted = false,
-    cartIcon,
-    wishlistIcon,
-    wishlistFilledIcon,
-    quickViewIcon,
-    href,
-    linkComponent: LinkComponent,
-    onAddToCart,
-    onIncrementCart,
-    onDecrementCart,
-    onWishlist,
-    onQuickView,
-    onClick,
-    onCategoryClick,
-    loading = false,
-    // priority = false, // unused
-    className = '',
-    style,
-  } = props;
+    const {
+      id,
+      image,
+      imageAlt = 'Product',
+      category,
+      categoryHref,
+      name,
+      weight,
+      units,
+      price,
+      originalPrice,
+      discount,
+      rating,
+      featured = false,
+      featuredText = 'Featured',
+      showWishlist = false,
+      isWishlisted = false,
+      cartIcon,
+      wishlistIcon,
+      wishlistFilledIcon,
+      quickViewIcon,
+      href,
+      linkComponent: LinkComponent,
+      onAddToCart,
+      onIncrementCart,
+      onDecrementCart,
+      onWishlist,
+      onQuickView,
+      onClick,
+      onCategoryClick,
+      loading = false,
+      actionLoading = false,
+      quantity = 0,
+      imageComponent,
+      fallbackImage,
 
-  const [quantity, setQuantity] = useState(initialQuantity);
-  const [isLoading, setIsLoading] = useState(false);
+      priority = false,
+      className = '',
+      style,
+    } = props;
 
-  const handleAddToCart = async () => {
-    if (!onAddToCart) return;
-    setIsLoading(true);
-    try {
-      await onAddToCart(id, 1);
-      setQuantity(1);
-    } catch (error) {
-      console.error('Add to cart error:', error);
-    } finally {
-      setIsLoading(false);
+    const showLoading = actionLoading || loading;
+
+    // Core data for callbacks
+    const coreData: ProductCoreData = {
+      id,
+      name,
+      image,
+      price,
+      originalPrice,
+      discount,
+      category,
+      weight,
+      units
+    };
+
+    // Render skeleton loading state
+    if (loading && !actionLoading) {
+      return <SkeletonTheme theme="product" />;
     }
-  };
 
-  const handleIncrement = async () => {
-    if (!onIncrementCart) return;
-    setIsLoading(true);
-    try {
-      await onIncrementCart(id, quantity);
-      setQuantity(quantity + 1);
-    } catch (error) {
-      console.error('Increment error:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleDecrement = async () => {
-    if (!onDecrementCart || quantity <= 0) return;
-    setIsLoading(true);
-    try {
-      await onDecrementCart(id, quantity);
-      setQuantity(quantity - 1);
-    } catch (error) {
-      console.error('Decrement error:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const showLoading = isLoading || loading;
-
-  // Render skeleton loading state
-  if (loading && !isLoading) {
-    return <SkeletonTheme theme="product" />;
-  }
-
-  return (
-    <Card
-      variant="outlined"
-      className={`productcard-wide ${className}`}
-      style={{ padding: 0, ...style }}
-      ref={ref as any}
-    >
-      <Flex direction={imagePosition === 'left' ? 'row' : 'row-reverse'}>
-        {/* IMAGE */}
-        <div className="productcard-wide-image-wrapper">
-          {href ? (
-            LinkComponent ? (
-              <LinkComponent href={href} className="productcard-image-link">
-                <img src={image} alt={imageAlt} className="productcard-wide-image" />
-              </LinkComponent>
-            ) : (
-              <a href={href} className="productcard-image-link">
-                <img src={image} alt={imageAlt} className="productcard-wide-image" />
-              </a>
-            )
-          ) : (
-            <div onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default' }}>
-              <img src={image} alt={imageAlt} className="productcard-wide-image" />
-            </div>
-          )}
-
-          {/* BADGES */}
-          <div className="productcard-badges">
-            {featured && <span className="productcard-featured-badge">{featuredText}</span>}
-            {discount && <span className="productcard-discount-badge">{discount}</span>}
-          </div>
-
-          {/* WISHLIST BUTTON */}
-          {showWishlist && (
-            <button
-              className={`productcard-wishlist-btn ${isWishlisted ? 'productcard-wishlist-btn--active' : ''}`}
-              onClick={(e) => {
-                e.stopPropagation();
-                onWishlist?.();
-              }}
-              disabled={!onWishlist}
-              aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
-              style={{
-                cursor: onWishlist ? 'pointer' : 'default',
-                opacity: onWishlist ? 1 : 0.6,
-              }}
-            >
-              {isWishlisted ? (wishlistFilledIcon || <AiFillHeart />) : (wishlistIcon || <FiHeart />)}
-            </button>
-          )}
-        </div>
-
-        {/* CONTENT */}
-        <Flex direction="column" gap={12} style={{ padding: '16px 20px', flex: 1, minWidth: 0 }}>
-          {category && (
-            <div style={{ display: 'inline-flex', alignSelf: 'flex-start' }}>
-              {categoryHref ? (
-                LinkComponent ? (
-                  <LinkComponent href={categoryHref} style={{ textDecoration: 'none', cursor: 'pointer' }}>
-                    <Chip label={category} variant="outlined" className="productcard-category" />
-                  </LinkComponent>
-                ) : (
-                  <a href={categoryHref} style={{ textDecoration: 'none', cursor: 'pointer' }}>
-                    <Chip label={category} variant="outlined" className="productcard-category" />
-                  </a>
-                )
-              ) : (
-                <Chip label={category} variant="outlined" className="productcard-category" onClick={onCategoryClick} />
-              )}
-            </div>
-          )}
-
-          <Flex direction="column" gap={6}>
+    return (
+      <Card
+        variant="outlined"
+        className={`productcard-wide ${className}`}
+        style={{ padding: 0, ...style }}
+        ref={ref as any}
+      >
+        <Flex direction={imagePosition === 'left' ? 'row' : 'row-reverse'}>
+          {/* IMAGE */}
+          <div className="productcard-wide-image-wrapper">
             {href ? (
               LinkComponent ? (
-                <LinkComponent href={href} style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <Typography variant="h5" weight="bold" noMargin style={{ cursor: 'pointer', wordBreak: 'break-word' }}>
-                    {name}
-                  </Typography>
+                <LinkComponent href={href} className="productcard-image-link">
+                  <Image
+                    component={imageComponent}
+                    src={image}
+                    alt={imageAlt}
+
+                    fallback={fallbackImage}
+                    priority={priority}
+                    imageProps={{ className: 'productcard-wide-image' }}
+                    className="productcard-wide-image-container"
+                  />
                 </LinkComponent>
               ) : (
-                <a href={href} style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <Typography variant="h5" weight="bold" noMargin style={{ cursor: 'pointer', wordBreak: 'break-word' }}>
-                    {name}
-                  </Typography>
+                <a href={href} className="productcard-image-link">
+                  <Image
+                    component={imageComponent}
+                    src={image}
+                    alt={imageAlt}
+                    fallback={fallbackImage}
+                    priority={priority}
+                    imageProps={{ className: 'productcard-wide-image' }}
+                    className="productcard-wide-image-container"
+                  />
                 </a>
               )
             ) : (
-              <Typography variant="h5" weight="bold" noMargin onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default', wordBreak: 'break-word' }}>
-                {name}
-              </Typography>
+              <div onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default', height: '100%' }}>
+                <Image
+                  component={imageComponent}
+                  src={image}
+                  alt={imageAlt}
+                  fallback={fallbackImage}
+                  priority={priority}
+                  imageProps={{ className: 'productcard-wide-image' }}
+                  className="productcard-wide-image-container"
+                />
+              </div>
             )}
 
-            {(weight !== undefined || units) && (
-              <Typography variant="body2" noMargin className="productcard-weight">
-                {weight !== undefined && units ? `${weight} ${units}` : weight !== undefined ? weight : '-'}
-              </Typography>
-            )}
-          </Flex>
-
-          {rating !== undefined && (
-            <Rating value={rating} size="sm" showValue />
-          )}
-
-          <Flex align="center" gap={8} wrap="wrap" style={{ marginTop: 'auto' }}>
-            <Typography variant="h4" weight="bold" noMargin className="productcard-price">
-              ${Number(price).toFixed(2)}
-            </Typography>
-            {originalPrice && originalPrice > price && (
-              <Typography variant="body1" noMargin className="productcard-original-price">
-                ${Number(originalPrice).toFixed(2)}
-              </Typography>
-            )}
-          </Flex>
-
-          <Flex gap={12} align="center" direction="row" wrap="wrap">
-            <div style={{ flex: '1 1 auto', minWidth: '140px' }}>
-              {showLoading ? (
-                <Button fullWidth loading variant="primary">
-                  Loading
-                </Button>
-              ) : quantity === 0 ? (
-                <Button fullWidth variant="primary" leftIcon={cartIcon || <FiShoppingCart />} onClick={handleAddToCart}>
-                  Add to cart
-                </Button>
-              ) : (
-                <Flex align="center" direction="row" justify="between" className="productcard-quantity-selector">
-                  <Button variant="secondary" onClick={handleDecrement}>
-                    -
-                  </Button>
-                  <Typography noMargin className="productcard-quantity-value">
-                    {quantity}
-                  </Typography>
-                  <Button variant="primary" onClick={handleIncrement}>
-                    +
-                  </Button>
-                </Flex>
-              )}
+            {/* BADGES */}
+            <div className="productcard-badges">
+              {featured && <span className="productcard-featured-badge">{featuredText}</span>}
+              {discount && <span className="productcard-discount-badge">{discount}</span>}
             </div>
-            {onQuickView && (
-              <Button variant="outline" size="md" leftIcon={quickViewIcon || <FiEye />} onClick={onQuickView}>
-                View
-              </Button>
+
+            {/* WISHLIST BUTTON */}
+            {showWishlist && (
+              <button
+                className={`productcard-wishlist-btn ${isWishlisted ? 'productcard-wishlist-btn--active' : ''}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onWishlist?.();
+                }}
+                disabled={!onWishlist}
+                aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
+                style={{
+                  cursor: onWishlist ? 'pointer' : 'default',
+                  opacity: onWishlist ? 1 : 0.6,
+                }}
+              >
+                {isWishlisted ? (wishlistFilledIcon || <AiFillHeart />) : (wishlistIcon || <FiHeart />)}
+              </button>
             )}
+          </div>
+
+          {/* CONTENT */}
+          <Flex direction="column" gap={12} style={{ padding: '16px 20px', flex: 1, minWidth: 0 }}>
+            {category && (
+              <div style={{ display: 'inline-flex', alignSelf: 'flex-start' }}>
+                {categoryHref ? (
+                  LinkComponent ? (
+                    <LinkComponent href={categoryHref} style={{ textDecoration: 'none', cursor: 'pointer' }}>
+                      <Chip label={category} variant="outlined" className="productcard-category" />
+                    </LinkComponent>
+                  ) : (
+                    <a href={categoryHref} style={{ textDecoration: 'none', cursor: 'pointer' }}>
+                      <Chip label={category} variant="outlined" className="productcard-category" />
+                    </a>
+                  )
+                ) : (
+                  <Chip label={category} variant="outlined" className="productcard-category" onClick={onCategoryClick} />
+                )}
+              </div>
+            )}
+
+            <Flex direction="column" gap={6}>
+              {href ? (
+                LinkComponent ? (
+                  <LinkComponent href={href} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Typography variant="h5" weight="bold" noMargin style={{ cursor: 'pointer', wordBreak: 'break-word' }}>
+                      {name}
+                    </Typography>
+                  </LinkComponent>
+                ) : (
+                  <a href={href} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Typography variant="h5" weight="bold" noMargin style={{ cursor: 'pointer', wordBreak: 'break-word' }}>
+                      {name}
+                    </Typography>
+                  </a>
+                )
+              ) : (
+                <Typography variant="h5" weight="bold" noMargin onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default', wordBreak: 'break-word' }}>
+                  {name}
+                </Typography>
+              )}
+
+              {(weight !== undefined || units) && (
+                <Typography variant="body2" noMargin className="productcard-weight">
+                  {weight !== undefined && units ? `${weight} ${units}` : weight !== undefined ? weight : '-'}
+                </Typography>
+              )}
+            </Flex>
+
+            {rating !== undefined && (
+              <Rating value={rating} size="sm" showValue />
+            )}
+
+            <Flex align="center" gap={8} wrap="wrap" style={{ marginTop: 'auto' }}>
+              <Typography variant="h4" weight="bold" noMargin className="productcard-price">
+                ${Number(price).toFixed(2)}
+              </Typography>
+              {originalPrice && originalPrice > price && (
+                <Typography variant="body1" noMargin className="productcard-original-price">
+                  ${Number(originalPrice).toFixed(2)}
+                </Typography>
+              )}
+            </Flex>
+
+            <Flex gap={12} align="center" direction="row" wrap="wrap">
+              <div style={{ flex: '1 1 auto', minWidth: '140px' }}>
+                {showLoading ? (
+                  <Button fullWidth loading variant={props.addToCartButtonVariant || 'primary'}>
+                    Loading
+                  </Button>
+                ) : quantity === 0 ? (
+                  <Button fullWidth variant={props.addToCartButtonVariant || 'primary'} leftIcon={cartIcon || <FiShoppingCart />} onClick={() => onAddToCart?.(coreData, 1)}>
+                    Add to cart
+                  </Button>
+                ) : (
+                  <Flex align="center" direction="row" justify="between" className="productcard-quantity-selector">
+                    <Button variant={props.decrementButtonVariant || 'secondary'} onClick={() => onDecrementCart?.(coreData, quantity)}>
+                      -
+                    </Button>
+                    <Typography noMargin className="productcard-quantity-value">
+                      {quantity}
+                    </Typography>
+                    <Button variant={props.incrementButtonVariant || 'secondary'} onClick={() => onIncrementCart?.(coreData, quantity)}>
+                      +
+                    </Button>
+                  </Flex>
+                )}
+              </div>
+              {onQuickView && (
+                <Button variant="outline" size="md" leftIcon={quickViewIcon || <FiEye />} onClick={onQuickView}>
+                  View
+                </Button>
+              )}
+            </Flex>
           </Flex>
         </Flex>
-      </Flex>
-    </Card>
-  );
+      </Card>
+    );
   }
 );
 
@@ -660,185 +707,185 @@ ProductCardWide.displayName = 'ProductCardWide';
  */
 const ProductCardMinimal = React.forwardRef<HTMLDivElement, ProductCardProps>(
   (props, ref) => {
-  const {
-    id,
-    image,
-    imageAlt = 'Product',
-    name,
-    price,
-    originalPrice,
-    discount,
-    rating,
-    initialQuantity = 0,
-    showWishlist = false,
-    isWishlisted = false,
-    cartIcon,
-    wishlistIcon,
-    wishlistFilledIcon,
-    href,
-    linkComponent: LinkComponent,
-    onAddToCart,
-    onIncrementCart,
-    onDecrementCart,
-    onWishlist,
-    onClick,
-    loading = false,
-    // priority = false, // unused
-    className = '',
-    style,
-  } = props;
+    const {
+      id,
+      image,
+      imageAlt = 'Product',
+      name,
+      price,
+      originalPrice,
+      discount,
+      rating,
+      showWishlist = false,
+      isWishlisted = false,
+      cartIcon,
+      wishlistIcon,
+      wishlistFilledIcon,
+      href,
+      linkComponent: LinkComponent,
+      onAddToCart,
+      onIncrementCart,
+      onDecrementCart,
+      onWishlist,
+      onClick,
+      loading = false,
+      actionLoading = false,
+      quantity = 0,
+      imageComponent,
+      fallbackImage,
 
-  const [quantity, setQuantity] = useState(initialQuantity);
-  const [isLoading, setIsLoading] = useState(false);
+      priority = false,
+      className = '',
+      style,
+    } = props;
 
-  const handleAddToCart = async () => {
-    if (!onAddToCart) return;
-    setIsLoading(true);
-    try {
-      await onAddToCart(id, 1);
-      setQuantity(1);
-    } catch (error) {
-      console.error('Add to cart error:', error);
-    } finally {
-      setIsLoading(false);
+    const showLoading = actionLoading || loading;
+
+    // Core data for callbacks
+    const coreData: ProductCoreData = {
+      id,
+      name,
+      image,
+      price,
+      originalPrice,
+      discount,
+      category: undefined,
+      weight: undefined,
+      units: undefined
+    };
+
+    // Render skeleton loading state
+    if (loading && !actionLoading) {
+      return <SkeletonTheme theme="product" />;
     }
-  };
 
-  const handleIncrement = async () => {
-    if (!onIncrementCart) return;
-    setIsLoading(true);
-    try {
-      await onIncrementCart(id, quantity);
-      setQuantity(quantity + 1);
-    } catch (error) {
-      console.error('Increment error:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    return (
+      <div className={`productcard-minimal ${className}`} style={style} ref={ref}>
+        {/* IMAGE */}
+        <div className="productcard-minimal-image-wrapper">
+          {href ? (
+            LinkComponent ? (
+              <LinkComponent href={href} className="productcard-image-link">
+                <Image
+                  component={imageComponent}
+                  src={image}
+                  alt={imageAlt}
 
-  const handleDecrement = async () => {
-    if (!onDecrementCart || quantity <= 0) return;
-    setIsLoading(true);
-    try {
-      await onDecrementCart(id, quantity);
-      setQuantity(quantity - 1);
-    } catch (error) {
-      console.error('Decrement error:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const showLoading = isLoading || loading;
-
-  // Render skeleton loading state
-  if (loading && !isLoading) {
-    return <SkeletonTheme theme="product" />;
-  }
-
-  return (
-    <div className={`productcard-minimal ${className}`} style={style} ref={ref}>
-      {/* IMAGE */}
-      <div className="productcard-minimal-image-wrapper">
-        {href ? (
-          LinkComponent ? (
-            <LinkComponent href={href} className="productcard-image-link">
-              <img src={image} alt={imageAlt} className="productcard-minimal-image" />
-            </LinkComponent>
+                  fallback={fallbackImage}
+                  priority={priority}
+                  imageProps={{ className: 'productcard-minimal-image' }}
+                  className="productcard-minimal-image-container"
+                />
+              </LinkComponent>
+            ) : (
+              <a href={href} className="productcard-image-link">
+                <Image
+                  component={imageComponent}
+                  src={image}
+                  alt={imageAlt}
+                  fallback={fallbackImage}
+                  priority={priority}
+                  imageProps={{ className: 'productcard-minimal-image' }}
+                  className="productcard-minimal-image-container"
+                />
+              </a>
+            )
           ) : (
-            <a href={href} className="productcard-image-link">
-              <img src={image} alt={imageAlt} className="productcard-minimal-image" />
-            </a>
-          )
-        ) : (
-          <div onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default' }}>
-            <img src={image} alt={imageAlt} className="productcard-minimal-image" />
-          </div>
-        )}
+            <div onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default', height: '100%' }}>
+              <Image
+                component={imageComponent}
+                src={image}
+                alt={imageAlt}
+                fallback={fallbackImage}
+                priority={priority}
+                imageProps={{ className: 'productcard-minimal-image' }}
+                className="productcard-minimal-image-container"
+              />
+            </div>
+          )}
 
-        {discount && <span className="productcard-minimal-discount">{discount}</span>}
+          {discount && <span className="productcard-minimal-discount">{discount}</span>}
 
-        {showWishlist && (
-          <button
-            className={`productcard-minimal-wishlist ${isWishlisted ? 'productcard-minimal-wishlist--active' : ''}`}
-            onClick={(e) => {
-              e.stopPropagation();
-              onWishlist?.();
-            }}
-            disabled={!onWishlist}
-            aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
-            style={{
-              cursor: onWishlist ? 'pointer' : 'default',
-              opacity: onWishlist ? 1 : 0.6,
-            }}
-          >
-            {isWishlisted ? (wishlistFilledIcon || <AiFillHeart />) : (wishlistIcon || <FiHeart />)}
-          </button>
-        )}
-      </div>
+          {showWishlist && (
+            <button
+              className={`productcard-minimal-wishlist ${isWishlisted ? 'productcard-minimal-wishlist--active' : ''}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                onWishlist?.();
+              }}
+              disabled={!onWishlist}
+              aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
+              style={{
+                cursor: onWishlist ? 'pointer' : 'default',
+                opacity: onWishlist ? 1 : 0.6,
+              }}
+            >
+              {isWishlisted ? (wishlistFilledIcon || <AiFillHeart />) : (wishlistIcon || <FiHeart />)}
+            </button>
+          )}
+        </div>
 
-      {/* CONTENT */}
-      <Flex direction="column" gap={8} style={{ padding: '12px 0' }}>
-        {href ? (
-          LinkComponent ? (
-            <LinkComponent href={href} style={{ textDecoration: 'none', color: 'inherit' }}>
-              <Typography variant="body1" weight="medium" noMargin style={{ cursor: 'pointer' }}>
-                {name}
-              </Typography>
-            </LinkComponent>
+        {/* CONTENT */}
+        <Flex direction="column" gap={8} style={{ padding: '12px 0' }}>
+          {href ? (
+            LinkComponent ? (
+              <LinkComponent href={href} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Typography variant="body1" weight="medium" noMargin style={{ cursor: 'pointer' }}>
+                  {name}
+                </Typography>
+              </LinkComponent>
+            ) : (
+              <a href={href} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Typography variant="body1" weight="medium" noMargin style={{ cursor: 'pointer' }}>
+                  {name}
+                </Typography>
+              </a>
+            )
           ) : (
-            <a href={href} style={{ textDecoration: 'none', color: 'inherit' }}>
-              <Typography variant="body1" weight="medium" noMargin style={{ cursor: 'pointer' }}>
-                {name}
-              </Typography>
-            </a>
-          )
-        ) : (
-          <Typography variant="body1" weight="medium" noMargin onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default' }}>
-            {name}
-          </Typography>
-        )}
-
-        <Flex align="center" gap={8}>
-          <Typography variant="h6" weight="bold" noMargin className="productcard-price">
-            ${Number(price).toFixed(2)}
-          </Typography>
-          {originalPrice && originalPrice > price && (
-            <Typography variant="caption" noMargin className="productcard-original-price">
-              ${Number(originalPrice).toFixed(2)}
+            <Typography variant="body1" weight="medium" noMargin onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default' }}>
+              {name}
             </Typography>
           )}
-        </Flex>
 
-        {rating !== undefined && (
-          <Rating value={rating} size="sm" />
-        )}
-
-        {showLoading ? (
-          <Button loading variant="primary" size="sm">
-            Loading
-          </Button>
-        ) : quantity === 0 ? (
-          <Button variant="primary" size="sm" leftIcon={cartIcon || <FiShoppingCart />} onClick={handleAddToCart} fullWidth>
-            Add
-          </Button>
-        ) : (
-          <Flex align="center" justify="between" className="productcard-quantity-selector-minimal">
-            <Button variant="secondary" size="sm" onClick={handleDecrement}>
-              -
-            </Button>
-            <Typography variant="body2" noMargin weight="medium">
-              {quantity}
+          <Flex align="center" gap={8}>
+            <Typography variant="h6" weight="bold" noMargin className="productcard-price">
+              ${Number(price).toFixed(2)}
             </Typography>
-            <Button variant="primary" size="sm" onClick={handleIncrement}>
-              +
-            </Button>
+            {originalPrice && originalPrice > price && (
+              <Typography variant="caption" noMargin className="productcard-original-price">
+                ${Number(originalPrice).toFixed(2)}
+              </Typography>
+            )}
           </Flex>
-        )}
-      </Flex>
-    </div>
-  );
+
+          {rating !== undefined && (
+            <Rating value={rating} size="sm" />
+          )}
+
+          {showLoading ? (
+            <Button loading variant={props.addToCartButtonVariant || 'primary'} size="sm">
+              Loading
+            </Button>
+          ) : quantity === 0 ? (
+            <Button variant={props.addToCartButtonVariant || 'primary'} size="sm" leftIcon={cartIcon || <FiShoppingCart />} onClick={() => onAddToCart?.(coreData, 1)} fullWidth>
+              Add
+            </Button>
+          ) : (
+            <Flex align="center" justify="between" className="productcard-quantity-selector-minimal">
+              <Button variant={props.decrementButtonVariant || 'secondary'} size="sm" onClick={() => onDecrementCart?.(coreData, quantity)}>
+                -
+              </Button>
+              <Typography variant="body2" noMargin weight="medium">
+                {quantity}
+              </Typography>
+              <Button variant={props.incrementButtonVariant || 'primary'} size="sm" onClick={() => onIncrementCart?.(coreData, quantity)}>
+                +
+              </Button>
+            </Flex>
+          )}
+        </Flex>
+      </div>
+    );
   }
 );
 
@@ -850,6 +897,7 @@ export interface ProductCardListProps extends Omit<ProductCardProps, 'onAddToCar
   variant?: string;
   readonly?: boolean;
   currency?: string;
+  quantity?: number;
 }
 
 /**
@@ -875,10 +923,13 @@ const ProductCardList = React.forwardRef<HTMLDivElement, ProductCardListProps>(
       imageAlt = 'Product',
       name,
       price,
-      initialQuantity = 1,
+      quantity = 1,
       variant,
       readonly = true,
       currency = '$',
+      imageComponent,
+      fallbackImage,
+      priority = false,
       className = '',
       style,
       ...rest
@@ -889,7 +940,15 @@ const ProductCardList = React.forwardRef<HTMLDivElement, ProductCardListProps>(
         <Flex direction="row" align="center" gap={12}>
           {/* IMAGE */}
           <div className="productcard-list-image-wrapper">
-            <img src={image} alt={imageAlt} className="productcard-list-image" />
+            <Image
+              component={imageComponent}
+              src={image}
+              alt={imageAlt}
+              fallback={fallbackImage}
+              priority={priority}
+              imageProps={{ className: 'productcard-list-image' }}
+              className="productcard-list-image-container"
+            />
           </div>
 
           {/* CONTENT */}
@@ -904,7 +963,7 @@ const ProductCardList = React.forwardRef<HTMLDivElement, ProductCardListProps>(
             )}
             <Flex align="center" gap={8}>
               <Typography variant="body2" noMargin className="productcard-list-quantity">
-                Qty: {initialQuantity}
+                Qty: {quantity}
               </Typography>
               <Typography variant="body2" weight="semibold" noMargin className="productcard-price">
                 {currency}{Number(price).toFixed(2)}
@@ -914,7 +973,7 @@ const ProductCardList = React.forwardRef<HTMLDivElement, ProductCardListProps>(
 
           {/* TOTAL PRICE */}
           <Typography variant="body1" weight="bold" noMargin className="productcard-list-total">
-            {currency}{(Number(price) * initialQuantity).toFixed(2)}
+            {currency}{(Number(price) * quantity).toFixed(2)}
           </Typography>
         </Flex>
       </div>

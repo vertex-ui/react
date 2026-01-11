@@ -51,10 +51,10 @@ export const useNavbarSections = (props: NavbarBaseProps) => {
         />
       ) : (
         <Typography
-          variant="h5" 
-          as="span" 
-          className="vtx-navbar__brand-text" 
-          onClick={onLogoClick} 
+          variant="h5"
+          as="span"
+          className="vtx-navbar__brand-text"
+          onClick={onLogoClick}
           weight="bold"
           style={{ cursor: onLogoClick ? 'pointer' : 'default' }}
         >
@@ -65,7 +65,7 @@ export const useNavbarSections = (props: NavbarBaseProps) => {
   );
 
   const navigationSection = navigationItems.length > 0 && (
-    <Flex as="nav" align="center" gap={4} className="vtx-navbar__nav">
+    <Flex as="nav" align="center" className="vtx-navbar__nav">
       {navigationItems.map((item, index) => (
         <NavItem key={index} item={item} />
       ))}
@@ -99,9 +99,9 @@ export const useNavbarSections = (props: NavbarBaseProps) => {
   );
 
   const iconsSection = (notificationCount !== undefined || cartCount !== undefined) && (
-    <Flex align="center" gap={12}>
+    <Flex align="center" className="vtx-navbar__icons">
       {notificationCount !== undefined && (
-        <Button variant="ghost" iconOnly onClick={onNotificationClick}>
+        <Button variant="ghost" iconOnly onClick={onNotificationClick} className="vtx-navbar__icon-button">
           <Badge
             content={notificationCount > 0 ? String(notificationCount) : ''}
             variant="error"
@@ -112,7 +112,7 @@ export const useNavbarSections = (props: NavbarBaseProps) => {
         </Button>
       )}
       {cartCount !== undefined && (
-        <Button variant="ghost" iconOnly onClick={onCartClick}>
+        <Button variant="ghost" iconOnly onClick={onCartClick} className="vtx-navbar__icon-button">
           <Badge content={cartCount > 0 ? String(cartCount) : ''} variant="error" size="sm">
             <ShoppingCartIcon size={20} />
           </Badge>
@@ -123,7 +123,7 @@ export const useNavbarSections = (props: NavbarBaseProps) => {
 
   const userSection = user && (
     <Button variant="ghost" className="vtx-navbar__user-button">
-      <Flex align="center" gap={8}>
+      <Flex align="center" gap="0.5rem">
         <Avatar src={user.avatar} alt={user.name} size="sm" />
         {user.name && <Typography variant="body2" weight="medium">{user.name}</Typography>}
         <ChevronDownIcon size={16} />

@@ -1,0 +1,42 @@
+.vtx-image-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    /* Or block depending on usage, usually needs to fit container */
+    width: 100%;
+    height: 100%;
+}
+
+.vtx-image-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 1;
+}
+
+.vtx-image-main {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease-in-out;
+    position: relative;
+    z-index: 2;
+}
+
+.vtx-image-main--loading {
+    opacity: 0;
+}
+
+.vtx-image-main--loaded {
+    opacity: 1;
+}
+
+.vtx-image-placeholder--hidden {
+    opacity: 0;
+    pointer-events: none;
+}

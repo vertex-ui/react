@@ -40,40 +40,47 @@ describe('ProductCard', () => {
       );
       expect(screen.getByText('Electronics')).toBeInTheDocument();
       // Rating component rounds values if allowHalf is false (default), so 4.5 -> 5
-      // Or if it renders just '5', we should look for that.
-      // But let's check if the element contains the value.
       expect(screen.getByText('5')).toBeInTheDocument();
     });
 
     it('handles add to cart interaction', async () => {
-      const handleAddToCart = jest.fn().mockResolvedValue(undefined);
-      render(
+      const handleAddToCart = jest.fn();
+      const { rerender } = render(
         <ProductCard.Base
           {...defaultProps}
           onAddToCart={handleAddToCart}
-          cartIcon={<span>Cart</span>}
+          quantity={0}
         />
       );
 
       const addBtn = screen.getByText('Add to cart');
       fireEvent.click(addBtn);
 
-      expect(handleAddToCart).toHaveBeenCalledWith('prod-1', 1);
+      expect(handleAddToCart).toHaveBeenCalledWith(
+        expect.objectContaining({ id: 'prod-1' }),
+        1
+      );
 
-      // Should show loading then quantity selector
-      await waitFor(() => {
-        expect(screen.getByText('1')).toBeInTheDocument();
-      });
+      // Simulate parent updating state
+      rerender(
+        <ProductCard.Base
+          {...defaultProps}
+          onAddToCart={handleAddToCart}
+          quantity={1}
+        />
+      );
+
+      expect(screen.getByText('1')).toBeInTheDocument();
     });
 
     it('handles increment/decrement', async () => {
-      const handleIncrement = jest.fn().mockResolvedValue(undefined);
-      const handleDecrement = jest.fn().mockResolvedValue(undefined);
+      const handleIncrement = jest.fn();
+      const handleDecrement = jest.fn();
 
-      render(
+      const { rerender } = render(
         <ProductCard.Base
           {...defaultProps}
-          initialQuantity={1}
+          quantity={1}
           onIncrementCart={handleIncrement}
           onDecrementCart={handleDecrement}
         />
@@ -81,17 +88,27 @@ describe('ProductCard', () => {
 
       const plusBtn = screen.getByText('+');
       fireEvent.click(plusBtn);
-      expect(handleIncrement).toHaveBeenCalledWith('prod-1', 1);
+      expect(handleIncrement).toHaveBeenCalledWith(
+        expect.objectContaining({ id: 'prod-1' }),
+        1
+      );
 
-      // Wait for loading to finish and buttons to reappear
-      await waitFor(() => {
-        expect(screen.getByText('-')).toBeInTheDocument();
-      });
+      // Simulate increment
+      rerender(
+        <ProductCard.Base
+          {...defaultProps}
+          quantity={2}
+          onIncrementCart={handleIncrement}
+          onDecrementCart={handleDecrement}
+        />
+      );
 
       const minusBtn = screen.getByText('-');
       fireEvent.click(minusBtn);
-      // It was incremented to 2, so decrement is called with 2
-      expect(handleDecrement).toHaveBeenCalledWith('prod-1', 2);
+      expect(handleDecrement).toHaveBeenCalledWith(
+        expect.objectContaining({ id: 'prod-1' }),
+        2
+      );
     });
 
     it('handles wishlist toggle', () => {

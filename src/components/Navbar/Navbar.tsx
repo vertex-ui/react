@@ -163,7 +163,7 @@ const NavbarMobile: React.FC<NavbarMobileProps> = ({
                   </span>
                 ) : null}
               </div>
-              <div className="vtx-navbar__mobile-icons">
+              <div className="vtx-navbar__icons">
                 {notificationCount !== undefined && (
                   <Button variant="ghost" iconOnly onClick={onNotificationClick} className="vtx-navbar__icon-button">
                     <Badge content={notificationCount > 0 ? String(notificationCount) : ''} variant="error" size="sm">
@@ -188,40 +188,40 @@ const NavbarMobile: React.FC<NavbarMobileProps> = ({
           <Flex justify="between" align="center" className="vtx-navbar__mobile-header">
             {/* ... same content without Container ... */}
             <div className="vtx-navbar__logo">
-                {logo ? (
-                  <img
-                    src={logo}
-                    alt={logoAlt}
-                    className="vtx-navbar__logo-image"
-                    onClick={onLogoClick}
-                    loading="eager"
-                    fetchPriority="high"
-                  />
-                ) : brandText ? (
-                  <span className="vtx-navbar__brand-text" onClick={onLogoClick}>
-                    {brandText}
-                  </span>
-                ) : null}
-              </div>
-              <div className="vtx-navbar__mobile-icons">
-                {notificationCount !== undefined && (
-                  <Button variant="ghost" iconOnly onClick={onNotificationClick} className="vtx-navbar__icon-button">
-                    <Badge content={notificationCount > 0 ? String(notificationCount) : ''} variant="error" size="sm">
-                      <BellIcon size={20} />
-                    </Badge>
-                  </Button>
-                )}
-                {cartCount !== undefined && (
-                  <Button variant="ghost" iconOnly onClick={onCartClick} className="vtx-navbar__icon-button">
-                    <Badge content={cartCount > 0 ? String(cartCount) : ''} variant="error" size="sm">
-                      <ShoppingCartIcon size={20} />
-                    </Badge>
-                  </Button>
-                )}
-                <Button variant="ghost" iconOnly onClick={handleToggle} className="vtx-navbar__menu-button">
-                  {isOpen ? <CloseIcon size={24} /> : <MenuIcon size={24} />}
+              {logo ? (
+                <img
+                  src={logo}
+                  alt={logoAlt}
+                  className="vtx-navbar__logo-image"
+                  onClick={onLogoClick}
+                  loading="eager"
+                  fetchPriority="high"
+                />
+              ) : brandText ? (
+                <span className="vtx-navbar__brand-text" onClick={onLogoClick}>
+                  {brandText}
+                </span>
+              ) : null}
+            </div>
+            <div className="vtx-navbar__icons">
+              {notificationCount !== undefined && (
+                <Button variant="ghost" iconOnly onClick={onNotificationClick} className="vtx-navbar__icon-button">
+                  <Badge content={notificationCount > 0 ? String(notificationCount) : ''} variant="error" size="sm">
+                    <BellIcon size={20} />
+                  </Badge>
                 </Button>
-              </div>
+              )}
+              {cartCount !== undefined && (
+                <Button variant="ghost" iconOnly onClick={onCartClick} className="vtx-navbar__icon-button">
+                  <Badge content={cartCount > 0 ? String(cartCount) : ''} variant="error" size="sm">
+                    <ShoppingCartIcon size={20} />
+                  </Badge>
+                </Button>
+              )}
+              <Button variant="ghost" iconOnly onClick={handleToggle} className="vtx-navbar__menu-button">
+                {isOpen ? <CloseIcon size={24} /> : <MenuIcon size={24} />}
+              </Button>
+            </div>
           </Flex>
         )}
       </div>

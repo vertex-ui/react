@@ -1,8 +1,7 @@
 import React from 'react';
-import { Flex } from '../../Flex';
-import { Container } from '../../Container';
 import { NavbarBaseProps } from '../types';
 import { useNavbarSections } from '../useNavbarSections';
+import { Container } from '../../Container';
 
 export const TwoRowNavbar: React.FC<NavbarBaseProps> = (props) => {
   const {
@@ -37,41 +36,63 @@ export const TwoRowNavbar: React.FC<NavbarBaseProps> = (props) => {
   if (backgroundColor) style.backgroundColor = backgroundColor;
 
   const topRow = (
-    <Flex align="center" justify="between" gap={32} style={{ padding: '0.75rem 0', minHeight: '4.5rem', borderBottom: '1px solid var(--vtx-border-color, #e2e8f0)' }}>
-      {logoSection}
-      <div style={{ flex: 1, maxWidth: '600px', marginLeft: '2rem', marginRight: '2rem' }}>
-        {searchSection}
-      </div>
-      <Flex align="center" gap={24}>
-        {contentNodes && contentNodes.map((node, index) => (
-          <React.Fragment key={index}>{node}</React.Fragment>
-        ))}
-        {userSection}
-        {iconsSection}
-        {actionsSection}
-      </Flex>
-    </Flex>
+    <div className="vtx-navbar__row-top">
+      {containerized ? (
+        <Container style={{ height: '100%' }}>
+          <div className="vtx-navbar__content">
+            {logoSection}
+            <div style={{ flex: 1, maxWidth: '640px', margin: '0 2rem' }}>
+              {searchSection}
+            </div>
+            <div className="vtx-navbar__right">
+              {contentNodes && contentNodes.map((node, index) => (
+                <React.Fragment key={index}>{node}</React.Fragment>
+              ))}
+              {iconsSection}
+              {userSection}
+              {actionsSection}
+            </div>
+          </div>
+        </Container>
+      ) : (
+        <div className="vtx-navbar__content" style={{ padding: '0 1.5rem' }}>
+          {logoSection}
+          <div style={{ flex: 1, maxWidth: '640px', margin: '0 2rem' }}>
+            {searchSection}
+          </div>
+          <div className="vtx-navbar__right">
+            {contentNodes && contentNodes.map((node, index) => (
+              <React.Fragment key={index}>{node}</React.Fragment>
+            ))}
+            {iconsSection}
+            {userSection}
+            {actionsSection}
+          </div>
+        </div>
+      )}
+    </div>
   );
 
   const bottomRow = (
-    <Flex align="center" justify="center" style={{ padding: '1rem 0', minHeight: '4rem' }}>
-      {navigationSection}
-    </Flex>
+    <div className="vtx-navbar__row-bottom">
+      {containerized ? (
+        <Container>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            {navigationSection}
+          </div>
+        </Container>
+      ) : (
+        <div style={{ padding: '0 1.5rem', display: 'flex', justifyContent: 'center' }}>
+          {navigationSection}
+        </div>
+      )}
+    </div>
   );
 
   return (
     <nav className={navbarClass} style={style}>
-      {containerized ? (
-        <Container>
-          {topRow}
-          {bottomRow}
-        </Container>
-      ) : (
-        <div style={{ padding: '0 1.5rem' }}>
-          {topRow}
-          {bottomRow}
-        </div>
-      )}
+      {topRow}
+      {bottomRow}
     </nav>
   );
 };

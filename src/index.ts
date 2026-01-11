@@ -51,6 +51,8 @@ export { Modal } from './components/Modal';
 export type { ModalProps } from './components/Modal';
 export { Toast, toast, ToastContainer, useToast } from './components/Toast';
 export type { ToastContainerProps, ToastOptions, ToastProps, ToastVariant, ToastPosition, ToastInstance } from './components/Toast/types';
+export { ToggleButton } from './components/ToggleButton';
+export type { ToggleButtonProps } from './components/ToggleButton';
 export { Tooltip } from './components/Tooltip';
 export type { TooltipProps } from './components/Tooltip';
 export { Tabs, TabList, Tab, TabPanels, TabPanel } from './components/Tabs';
@@ -58,7 +60,7 @@ export type { TabsProps, TabListProps, TabProps, TabPanelsProps, TabPanelProps, 
 
 // --- Widget System ---
 export { Widget } from './components/Widget';
-export type { 
+export type {
   WidgetProps,
   WidgetConfig,
   WidgetTheme,
@@ -109,6 +111,8 @@ export { Typography } from './components/Typography';
 export type { TypographyProps } from './components/Typography';
 export { Timeline } from './components/Timeline';
 export type { TimelineProps, TimelineStep } from './components/Timeline';
+export { Image } from './components/Image';
+export type { ImageProps } from './components/Image';
 
 // --- Layout ---
 export { Box } from './components/Box';
@@ -150,13 +154,19 @@ export type {
 export { ProductCard } from './widgets/ProductCard';
 export type { ProductCardProps, ProductCardWideProps } from './widgets/ProductCard';
 export { OrderCard } from './widgets/OrderCard';
-export type { OrderItem } from './widgets/OrderCard';
+export type { OrderCardProps, OrderItem } from './widgets/OrderCard';
 export { InfoListCard } from './widgets/InfoListCard';
 export type { InfoListCardProps, InfoListItem } from './widgets/InfoListCard';
 export { OrderConfirmation } from './widgets/OrderConfirmation';
 export type { OrderConfirmationProps, OrderConfirmationItem, OrderConfirmationAddress } from './widgets/OrderConfirmation';
 export { OrderDetails } from './widgets/OrderDetails';
 export type { OrderDetailsProps, OrderDetailsItem, OrderDetailsAddress } from './widgets/OrderDetails';
+export { ContactForm } from './widgets/ContactForm';
+export type { ContactFormProps } from './widgets/ContactForm';
+export { FAQ } from './widgets/FAQ';
+export type { FAQProps, FAQItem, FAQCategory } from './widgets/FAQ';
+export { PricingTable } from './widgets/PricingTable';
+export type { PricingTableProps, PricingTier } from './widgets/PricingTable';
 
 // --- DashboardCard ---
 export { DashboardCard } from './widgets/DashboardCard';
@@ -177,17 +187,18 @@ export type {
 
 // --- Navigation Bar ---
 export { Navbar } from './components/Navbar';
-export type { 
+export type {
   NavigationItem,
   MegaMenuColumn,
-  TopBarConfig, 
-  NavbarDesktopProps, 
-  NavbarMobileProps, 
-  NavbarResponsiveProps 
+  TopBarConfig,
+  NavbarDesktopProps,
+  NavbarMobileProps,
+  NavbarResponsiveProps
 } from './components/Navbar';
 
 // Backward compatibility - Header alias for Navbar
 export { Navbar as Header } from './components/Navbar';
+export type { HeaderProps } from './components/Header';
 export type { 
   NavbarDesktopProps as HeaderDesktopProps,
   NavbarMobileProps as HeaderMobileProps,

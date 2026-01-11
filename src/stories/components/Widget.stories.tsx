@@ -228,9 +228,9 @@ const sampleProductConfigs: WidgetConfig[] = [
     settings: {
       showWishlist: true,
       isWishlisted: false,
-      onAddToCart: (id, qty) => console.log('Added to cart:', id, qty),
-      onIncrementCart: (id, qty) => console.log('Incremented:', id, qty),
-      onDecrementCart: (id, qty) => console.log('Decremented:', id, qty),
+      onAddToCart: (data, qty) => console.log('Added to cart:', data, qty),
+      onIncrementCart: (data, qty) => console.log('Incremented:', data, qty),
+      onDecrementCart: (data, qty) => console.log('Decremented:', data, qty),
       onWishlist: () => console.log('Wishlist toggled'),
       onQuickView: () => console.log('Quick view clicked'),
       onCategoryClick: () => console.log('Category clicked: Electronics'),
@@ -256,9 +256,9 @@ const sampleProductConfigs: WidgetConfig[] = [
     settings: {
       showWishlist: true,
       isWishlisted: true,
-      onAddToCart: (id, qty) => console.log('Added to cart:', id, qty),
-      onIncrementCart: (id, qty) => console.log('Incremented:', id, qty),
-      onDecrementCart: (id, qty) => console.log('Decremented:', id, qty),
+      onAddToCart: (data, qty) => console.log('Added to cart:', data, qty),
+      onIncrementCart: (data, qty) => console.log('Incremented:', data, qty),
+      onDecrementCart: (data, qty) => console.log('Decremented:', data, qty),
       onWishlist: () => console.log('Wishlist toggled'),
       onCategoryClick: () => console.log('Category clicked: Food & Beverage'),
     },
@@ -282,9 +282,9 @@ const sampleProductConfigs: WidgetConfig[] = [
     },
     settings: {
       showWishlist: false,
-      onAddToCart: (id, qty) => console.log('Added to cart:', id, qty),
-      onIncrementCart: (id, qty) => console.log('Incremented:', id, qty),
-      onDecrementCart: (id, qty) => console.log('Decremented:', id, qty),
+      onAddToCart: (data, qty) => console.log('Added to cart:', data, qty),
+      onIncrementCart: (data, qty) => console.log('Incremented:', data, qty),
+      onDecrementCart: (data, qty) => console.log('Decremented:', data, qty),
       onCategoryClick: () => console.log('Category clicked: Fitness'),
     },
   },
@@ -327,12 +327,112 @@ export const SingleProduct: Story = {
       settings: {
         showWishlist: true,
         isWishlisted: false,
-        onAddToCart: (_id, qty) => alert(`Added ${qty} item(s) to cart`),
-        onIncrementCart: (id, qty) => console.log('Incremented:', id, qty),
-        onDecrementCart: (id, qty) => console.log('Decremented:', id, qty),
+        onAddToCart: (_data, qty) => alert(`Added ${qty} item(s) to cart`),
+        onIncrementCart: (data, qty) => console.log('Incremented:', data, qty),
+        onDecrementCart: (data, qty) => console.log('Decremented:', data, qty),
         onWishlist: () => alert('Added to wishlist!'),
         onQuickView: () => alert('Opening quick view...'),
         onClick: () => alert('Viewing product details...'),
+      },
+    },
+  },
+};
+
+export const ProductVariants: Story = {
+  render: () => {
+    const commonData = {
+      id: 'prod-variant',
+      name: 'Designer Sunglasses',
+      price: 159.99,
+      originalPrice: 199.99,
+      category: 'Accessories',
+      rating: 4.8,
+      image: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=400&h=300&fit=crop',
+      featured: true,
+      weight: 150,
+      units: 'g',
+      initialQuantity: 0,
+    };
+
+    const commonSettings = {
+      showWishlist: true,
+      onAddToCart: (data: any, qty: number) => console.log('Added:', data.name, qty),
+    };
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
+        <div>
+          <h3 style={{ marginBottom: '1rem', fontSize: '1.25rem', fontWeight: 600 }}>Minimal Variant</h3>
+          <div style={{ maxWidth: '300px' }}>
+            <Widget
+              config={{
+                type: 'product',
+                data: commonData,
+                settings: { ...commonSettings, theme: 'minimal' },
+              }}
+            />
+          </div>
+        </div>
+
+        <div>
+          <h3 style={{ marginBottom: '1rem', fontSize: '1.25rem', fontWeight: 600 }}>List Variant</h3>
+          <Widget
+            config={{
+              type: 'product',
+              data: commonData,
+              settings: { ...commonSettings, theme: 'list' },
+            }}
+          />
+        </div>
+
+        <div>
+          <h3 style={{ marginBottom: '1rem', fontSize: '1.25rem', fontWeight: 600 }}>Wide Variant (Image Left)</h3>
+          <Widget
+            config={{
+              type: 'product',
+              data: commonData,
+              settings: { ...commonSettings, imagePosition: 'left' },
+            }}
+          />
+        </div>
+
+        <div>
+          <h3 style={{ marginBottom: '1rem', fontSize: '1.25rem', fontWeight: 600 }}>Wide Variant (Image Right)</h3>
+          <Widget
+            config={{
+              type: 'product',
+              data: commonData,
+              settings: { ...commonSettings, imagePosition: 'right' },
+            }}
+          />
+        </div>
+      </div>
+    );
+  },
+};
+
+export const ProductWithCustomImage: Story = {
+  args: {
+    config: {
+      type: 'product',
+      data: {
+        id: 'prod-custom-img',
+        name: 'Custom Image Component',
+        price: 129.99,
+        image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop',
+        category: 'Shoes',
+        rating: 4.9,
+      },
+      settings: {
+        priority: true, // Eager loading
+        imageComponent: (props: any) => (
+          <div style={{ border: '2px solid red', position: 'relative', width: '100%', height: '100%' }}>
+            <span style={{ position: 'absolute', top: 5, left: 5, background: 'red', color: 'white', padding: '2px 5px', fontSize: '10px', zIndex: 1 }}>
+              Custom Img
+            </span>
+            <img {...props} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+        ),
       },
     },
   },
@@ -385,17 +485,17 @@ export const ProductWithAllFeatures: Story = {
         wishlistIcon: '🤍',
         wishlistFilledIcon: '❤️',
         quickViewIcon: '👁️',
-        onAddToCart: async (id, qty) => {
-          console.log('Adding to cart...', id, qty);
+        onAddToCart: async (data, qty) => {
+          console.log('Adding to cart...', data, qty);
           await new Promise(resolve => setTimeout(resolve, 1000));
           console.log('Added successfully!');
         },
-        onIncrementCart: async (id, qty) => {
-          console.log('Incrementing...', id, qty);
+        onIncrementCart: async (data, qty) => {
+          console.log('Incrementing...', data, qty);
           await new Promise(resolve => setTimeout(resolve, 500));
         },
-        onDecrementCart: async (id, qty) => {
-          console.log('Decrementing...', id, qty);
+        onDecrementCart: async (data, qty) => {
+          console.log('Decrementing...', data, qty);
           await new Promise(resolve => setTimeout(resolve, 500));
         },
         onWishlist: () => console.log('Wishlist toggled'),

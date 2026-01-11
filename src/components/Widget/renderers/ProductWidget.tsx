@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import { ProductWidgetData, ProductWidgetSettings } from '../types';
-import { ProductCard } from '../../../widgets/ProductCard';
+import { ProductCard, ProductCardButtonVariant } from '../../../widgets/ProductCard';
 
 interface ProductWidgetProps {
   data: ProductWidgetData;
@@ -30,22 +30,35 @@ const ProductWidget: React.FC<ProductWidgetProps> = ({ data, settings = {} }) =>
     weight,
     units,
     discount,
+    quantity,
     initialQuantity,
     featured,
     featuredText,
     href,
+
     url,
+    currency,
+    readonly,
   } = data;
 
   // Extract settings/handlers
   const {
+    theme = 'modern',
+    imagePosition,
     showWishlist,
     isWishlisted,
     cartIcon,
     wishlistIcon,
     wishlistFilledIcon,
     quickViewIcon,
+    addToCartButtonVariant,
+    incrementButtonVariant,
+    decrementButtonVariant,
+    quickViewButtonVariant,
     linkComponent,
+    imageComponent,
+    fallbackImage,
+    priority,
     onAddToCart,
     onIncrementCart,
     onDecrementCart,
@@ -54,64 +67,100 @@ const ProductWidget: React.FC<ProductWidgetProps> = ({ data, settings = {} }) =>
     onClick,
     onCategoryClick,
     loading,
+    actionLoading,
+    featuredBadgeVariant,
+    featuredBadgeColor,
+    discountBadgeVariant,
+    discountBadgeColor,
+    wishlistButtonColor,
     className,
     style,
   } = settings;
 
-  return (
-    <ProductCard.Base
-      // Identity & Content
-      id={id}
-      name={name}
-      image={image || ''}
-      imageAlt={imageAlt}
-      category={category}
-      categoryHref={categoryHref || categoryUrl}
+  // Common props shared across all variants
+  const commonProps = {
+    // Identity & Content
+    id,
+    name,
+    image: image || '',
+    imageAlt,
+    category,
+    categoryHref: categoryHref || categoryUrl,
+    currency,
+    readonly,
 
-      // Pricing
-      price={Number(price)}
-      originalPrice={originalPrice ? Number(originalPrice) : undefined}
-      discount={discount}
+    // Pricing
+    price: Number(price),
+    originalPrice: originalPrice ? Number(originalPrice) : undefined,
+    discount,
 
-      // Product Details
-      weight={weight}
-      units={units}
-      rating={rating}
-      featured={featured}
-      featuredText={featuredText}
+    // Product Details
+    weight,
+    units,
+    rating,
+    featured,
+    featuredText,
 
-      // Cart State
-      initialQuantity={initialQuantity}
+    // Cart State
+    quantity: quantity ?? initialQuantity,
+    priority,
+    imageComponent,
+    fallbackImage,
 
-      // Navigation
-      href={href || url || '/'}
-      linkComponent={linkComponent}
+    // Navigation
+    href: href || url || '/',
+    linkComponent,
 
-      // Wishlist
-      showWishlist={showWishlist !== undefined ? showWishlist : true}
-      isWishlisted={isWishlisted}
+    // Wishlist
+    showWishlist: showWishlist !== undefined ? showWishlist : true,
+    isWishlisted,
 
-      // Icons
-      cartIcon={cartIcon}
-      wishlistIcon={wishlistIcon}
-      wishlistFilledIcon={wishlistFilledIcon}
-      quickViewIcon={quickViewIcon}
+    // Icons
+    cartIcon,
+    wishlistIcon,
+    wishlistFilledIcon,
+    quickViewIcon,
+    addToCartButtonVariant: addToCartButtonVariant as ProductCardButtonVariant,
+    incrementButtonVariant: incrementButtonVariant as ProductCardButtonVariant,
+    decrementButtonVariant: decrementButtonVariant as ProductCardButtonVariant,
+    quickViewButtonVariant: quickViewButtonVariant as ProductCardButtonVariant,
 
-      // Event Handlers
-      onAddToCart={onAddToCart}
-      onIncrementCart={onIncrementCart}
-      onDecrementCart={onDecrementCart}
-      onWishlist={onWishlist}
-      onQuickView={onQuickView}
-      onClick={onClick}
-      onCategoryClick={onCategoryClick}
+    // Event Handlers
+    onAddToCart,
+    onIncrementCart,
+    onDecrementCart,
+    onWishlist,
+    onQuickView,
+    onClick,
+    onCategoryClick,
 
-      // UI State
-      loading={loading}
-      className={className}
-      style={style}
-    />
-  );
+    // UI State
+    loading,
+    actionLoading,
+    featuredBadgeVariant,
+    featuredBadgeColor,
+    discountBadgeVariant,
+    discountBadgeColor,
+    wishlistButtonColor,
+    className,
+    style,
+  };
+
+  // Determine which variant to render based on theme/settings
+  if (theme === 'minimal') {
+    return <ProductCard.Minimal {...commonProps} />;
+  }
+
+  if (theme === 'inline' || theme === 'list') {
+    return <ProductCard.List {...commonProps} />;
+  }
+
+  if (imagePosition === 'left' || imagePosition === 'right') {
+    return <ProductCard.Wide imagePosition={imagePosition} {...commonProps} />;
+  }
+
+  // Default to Base variant
+  return <ProductCard.Base {...commonProps} />;
 };
 
 ProductWidget.displayName = 'ProductWidget';
