@@ -29,6 +29,10 @@ export interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
      */
     priority?: boolean;
     /**
+     * Hint to the browser to prioritize the fetch of the image
+     */
+    fetchPriority?: "high" | "low" | "auto";
+    /**
      * Additional CSS class name for the wrapper
      */
     className?: string;
@@ -76,6 +80,7 @@ const Image = React.forwardRef<HTMLDivElement, ImageProps>(
             fallback,
             component: Component = 'img',
             priority = false,
+            fetchPriority,
             className = '',
             style,
             imageProps = {},
@@ -129,6 +134,7 @@ const Image = React.forwardRef<HTMLDivElement, ImageProps>(
                         src={fallback}
                         alt={alt ? `${alt} placeholder` : 'Placeholder'}
                         className={`vtx-image-placeholder ${loaded && !error ? 'vtx-image-placeholder--hidden' : ''}`}
+                        loading="lazy"
                     />
                 )}
 
@@ -141,6 +147,7 @@ const Image = React.forwardRef<HTMLDivElement, ImageProps>(
                         onLoad={handleLoad}
                         onError={handleError}
                         loading={priority ? "eager" : "lazy"}
+                        fetchPriority={fetchPriority}
                         {...imageProps}
                     />
                 )}
