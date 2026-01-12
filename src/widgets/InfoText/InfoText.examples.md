@@ -1,112 +1,95 @@
-# InfoText Examples
+# InfoText Widget Examples
 
 ## Basic Usage
 
-Display simple text with an icon.
+Render text content.
 
 ```tsx
-import { InfoText } from 'src/widgets/InfoText';
-import { FaInfoCircle } from 'react-icons/fa';
+import { Widget } from 'src/components/Widget';
 
 const BasicExample = () => (
-  <InfoText.Base
-    icon={<FaInfoCircle />}
-    heading="Information"
-    subText="This is a basic info text block."
+  <Widget
+    config={{
+      type: 'text',
+      data: {
+        content: 'Welcome to the dashboard',
+        caption: 'Overview of your activity'
+      }
+    }}
   />
 );
 ```
 
 ## Customization Examples
 
-### Metric Display
+### Heading Variant
 
-Show a key metric with a label.
-
-```tsx
-import { InfoText } from 'src/widgets/InfoText';
-import { FaChartLine } from 'react-icons/fa';
-
-const MetricExample = () => (
-  <InfoText.Stat
-    icon={<FaChartLine />}
-    iconVariant="success"
-    value="+24%"
-    label="Growth Rate"
-    subText="Compared to last month"
-  />
-);
-```
-
-### Feature Block
-
-Describe a feature with an optional badge.
+Display as a section header.
 
 ```tsx
-import { InfoText } from 'src/widgets/InfoText';
-import { FaShieldAlt } from 'react-icons/fa';
-import { Badge } from 'src/components/Badge';
+import { Widget } from 'src/components/Widget';
 
-const FeatureExample = () => (
-  <InfoText.Feature
-    icon={<FaShieldAlt />}
-    title="Enterprise Security"
-    description="Bank-grade encryption for all your data."
-    badge={<Badge variant="primary">New</Badge>}
+const HeadingExample = () => (
+  <Widget
+    config={{
+      type: 'text',
+      data: {
+        content: 'Performance Metrics'
+      },
+      settings: {
+        variant: 'h2',
+        alignment: 'center',
+        contentColor: 'primary'
+      }
+    }}
   />
 );
 ```
 
 ## Enterprise Scenarios
 
-### Vertical Layout for Landing Pages
+### Call to Action
 
-Use the vertical layout to highlight key benefits.
+Text with action buttons.
 
 ```tsx
-import { InfoText } from 'src/widgets/InfoText';
-import { Grid } from 'src/components/Grid';
-import { FaRocket, FaLock, FaGlobe } from 'react-icons/fa';
+import { Widget } from 'src/components/Widget';
 
-const BenefitsSection = () => (
-  <Grid container spacing={4}>
-    <Grid item xs={12} md={4}>
-      <InfoText.Vertical
-        icon={<FaRocket />}
-        heading="Fast Performance"
-        subText="Optimized for speed."
-      />
-    </Grid>
-    <Grid item xs={12} md={4}>
-      <InfoText.Vertical
-        icon={<FaLock />}
-        heading="Secure"
-        subText="Data protection first."
-      />
-    </Grid>
-    <Grid item xs={12} md={4}>
-      <InfoText.Vertical
-        icon={<FaGlobe />}
-        heading="Global Reach"
-        subText="Available worldwide."
-      />
-    </Grid>
-  </Grid>
+const CtaSection = () => (
+  <Widget
+    config={{
+      type: 'text',
+      data: {
+        content: 'Ready to get started?',
+        caption: 'Join thousands of enterprise users.',
+        actions: [
+          { label: 'Sign Up', href: '/register', variant: 'primary' },
+          { label: 'Learn More', href: '/about', variant: 'outline' }
+        ]
+      },
+      settings: {
+        alignment: 'center',
+        backgroundColor: '#f9fafb'
+      }
+    }}
+  />
 );
 ```
 
 ## Accessibility Example
 
-Ensure icons are treated as decorative if they don't add unique information.
+Renders semantic HTML tags based on variant.
 
 ```tsx
-import { InfoText } from 'src/widgets/InfoText';
-import { FaCheck } from 'react-icons/fa';
+import { Widget } from 'src/components/Widget';
 
 const A11yExample = () => (
-  <InfoText.Compact
-    icon={<FaCheck aria-hidden="true" />}
-    text="Verified User"
+  <Widget
+    config={{
+      type: 'text',
+      data: { content: 'Main Title' },
+      settings: { variant: 'h1' }
+    }}
   />
 );
 ```

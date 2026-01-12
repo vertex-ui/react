@@ -1,99 +1,104 @@
-# ProductCard Examples
+# Product Widget Examples
 
 ## Basic Usage
 
-Display a product with `ProductCard.Base`.
+Render a product card.
 
 ```tsx
-import { ProductCard } from 'src/widgets/ProductCard';
+import { Widget } from 'src/components/Widget';
 
 const BasicExample = () => (
-  <ProductCard.Base
-    id="p1"
-    name="Wireless Mouse"
-    image="/mouse.jpg"
-    price={25.99}
-    onAddToCart={(data, qty) => console.log(data, qty)}
+  <Widget
+    config={{
+      type: 'product',
+      data: {
+        name: 'Wireless Headphones',
+        price: 199.99,
+        image: '/headphones.jpg'
+      }
+    }}
   />
 );
 ```
 
 ## Customization Examples
 
-### Wide Variant
+### Full Feature Card
 
-Display product in a horizontal layout.
-
-```tsx
-import { ProductCard } from 'src/widgets/ProductCard';
-
-const WideExample = () => (
-  <ProductCard.Wide
-    id="p2"
-    name="Mechanical Keyboard"
-    image="/keyboard.jpg"
-    price={150.00}
-    imagePosition="left"
-    description="Tactile switches for typing."
-  />
-);
-```
-
-### Minimal Variant
-
-Compact card for tight spaces.
+With ratings, discount, and cart actions.
 
 ```tsx
-import { ProductCard } from 'src/widgets/ProductCard';
+import { Widget } from 'src/components/Widget';
 
-const MinimalExample = () => (
-  <ProductCard.Minimal
-    id="p3"
-    name="USB Cable"
-    image="/cable.jpg"
-    price={5.99}
+const FullProduct = () => (
+  <Widget
+    config={{
+      type: 'product',
+      data: {
+        id: 'p1',
+        name: 'Smart Watch',
+        price: 299,
+        originalPrice: 350,
+        discount: '-15%',
+        rating: 4.5,
+        image: '/watch.jpg',
+        inStock: true
+      },
+      settings: {
+        showRating: true,
+        showWishlist: true,
+        onAddToCart: (item, qty) => console.log('Added', item, qty)
+      }
+    }}
   />
 );
 ```
 
 ## Enterprise Scenarios
 
-### E-commerce Listing with Wishlist
+### Product Grid
 
-Integrate wishlist functionality.
+Multiple products in a grid layout.
 
 ```tsx
-import { ProductCard } from 'src/widgets/ProductCard';
+import { Widget } from 'src/components/Widget';
 
-const ProductListing = ({ product, userWishlist }) => {
-  const isWishlisted = userWishlist.includes(product.id);
-
-  return (
-    <ProductCard.Base
-      {...product}
-      showWishlist
-      isWishlisted={isWishlisted}
-      onWishlist={(p) => toggleWishlist(p.id)}
-    />
-  );
-};
+const ProductCatalog = ({ products }) => (
+  <Widget
+    config={{
+      type: 'grid',
+      data: {
+        widgets: products.map(p => ({
+          type: 'product',
+          data: p
+        }))
+      },
+      settings: {
+        grid: { desktop: 4, tablet: 2, mobile: 1, spacing: 'md' }
+      }
+    }}
+  />
+);
 ```
 
 ## Accessibility Example
 
-Ensure interactive elements have labels.
+Ensures images have alt text and buttons are labeled.
 
 ```tsx
-import { ProductCard } from 'src/widgets/ProductCard';
+import { Widget } from 'src/components/Widget';
 
 const A11yExample = () => (
-  <ProductCard.Base
-    name="Accessible Product"
-    image="/img.jpg"
-    imageAlt="Detailed view of product"
-    price={10}
-    cartIcon={<span aria-hidden="true">🛒</span>}
-    // Button internal text provides context
+  <Widget
+    config={{
+      type: 'product',
+      data: {
+        name: 'Keyboard',
+        price: 100,
+        image: '/kb.jpg',
+        imageAlt: 'Mechanical keyboard with RGB lighting'
+      }
+    }}
   />
 );
 ```

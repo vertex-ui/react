@@ -1,93 +1,107 @@
-# InfoCard Examples
+# InfoCard Widget Examples
 
 ## Basic Usage
 
-Display simple information using `InfoCard.Base`.
+Render an information card.
 
 ```tsx
-import { InfoCard } from 'src/widgets/InfoCard';
-import { FaUser } from 'react-icons/fa';
+import { Widget } from 'src/components/Widget';
+import { UserIcon } from 'src/icons';
 
 const BasicExample = () => (
-  <InfoCard.Base
-    icon={<FaUser />}
-    text="Account Status"
-    subText="Active"
+  <Widget
+    config={{
+      type: 'info',
+      data: {
+        text: '125 Users',
+        subText: 'Active today',
+        icon: <UserIcon />
+      }
+    }}
   />
 );
 ```
 
 ## Customization Examples
 
-### Metric Card
+### Styled Variant
 
-Display key performance indicators.
-
-```tsx
-import { InfoCard } from 'src/widgets/InfoCard';
-
-const MetricExample = () => (
-  <InfoCard.Metric
-    value="98.5%"
-    label="Uptime"
-    style={{ borderColor: 'green' }}
-  />
-);
-```
-
-### Colored Variants
-
-Use different icon variants to convey meaning.
+Customize visual appearance.
 
 ```tsx
-import { InfoCard } from 'src/widgets/InfoCard';
-import { FaExclamationTriangle } from 'react-icons/fa';
+import { Widget } from 'src/components/Widget';
+import { WarningIcon } from 'src/icons';
 
 const WarningExample = () => (
-  <InfoCard.Base
-    icon={<FaExclamationTriangle />}
-    iconVariant="warning"
-    text="Storage Warning"
-    subText="80% full"
+  <Widget
+    config={{
+      type: 'info',
+      data: {
+        text: 'System Warning',
+        subText: 'High CPU usage',
+        icon: <WarningIcon />
+      },
+      settings: {
+        iconVariant: 'warning',
+        layout: 'horizontal',
+        alignment: 'left'
+      }
+    }}
   />
 );
 ```
 
 ## Enterprise Scenarios
 
-### Dashboard Grid
+### Status Grid
 
-Combine multiple InfoCards in a responsive grid.
+Monitor system status.
 
 ```tsx
-import { InfoCard } from 'src/widgets/InfoCard';
-import { Grid } from 'src/components/Grid';
+import { Widget } from 'src/components/Widget';
 
-const DashboardGrid = () => (
-  <Grid container spacing={2}>
-    <Grid item xs={12} md={3}>
-      <InfoCard.Metric value="1.2M" label="Revenue" />
-    </Grid>
-    <Grid item xs={12} md={3}>
-      <InfoCard.Metric value="450" label="New Users" />
-    </Grid>
-  </Grid>
+const SystemStatus = () => (
+  <Widget
+    config={{
+      type: 'grid',
+      data: {
+        widgets: [
+          {
+            type: 'info',
+            data: { text: 'API Status', subText: 'Operational', icon: <CheckIcon /> },
+            settings: { iconVariant: 'success' }
+          },
+          {
+            type: 'info',
+            data: { text: 'Database', subText: 'Maintenance', icon: <InfoIcon /> },
+            settings: { iconVariant: 'info' }
+          }
+        ]
+      },
+      settings: {
+        grid: { columns: 2 }
+      }
+    }}
+  />
 );
 ```
 
 ## Accessibility Example
 
-Ensure icons are decorative or have labels if they convey unique info not present in text.
+Icons are decorative unless specified otherwise.
 
 ```tsx
-import { InfoCard } from 'src/widgets/InfoCard';
-import { FaCheck } from 'react-icons/fa';
+import { Widget } from 'src/components/Widget';
 
 const A11yExample = () => (
-  <InfoCard.Base
-    icon={<FaCheck aria-hidden="true" />}
-    text="System Healthy"
-    role="status"
+  <Widget
+    config={{
+      type: 'info',
+      data: {
+        text: 'Notifications',
+        icon: <BellIcon aria-hidden="true" />
+      }
+    }}
   />
 );
 ```

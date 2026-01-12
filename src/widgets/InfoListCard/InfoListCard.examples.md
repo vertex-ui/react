@@ -1,108 +1,99 @@
-# InfoListCard Examples
+# List Widget Examples
 
 ## Basic Usage
 
-Display a list of information with a heading.
+Render a simple list.
 
 ```tsx
-import { InfoListCard } from 'src/widgets/InfoListCard';
+import { Widget } from 'src/components/Widget';
 
 const BasicExample = () => (
-  <InfoListCard
-    heading="User Details"
-    items={[
-      { label: "Name", value: "John Doe" },
-      { label: "Email", value: "john@example.com" }
-    ]}
+  <Widget
+    config={{
+      type: 'list',
+      data: {
+        items: [
+          { title: 'Item 1', subtitle: 'Description 1' },
+          { title: 'Item 2', subtitle: 'Description 2' }
+        ]
+      }
+    }}
   />
 );
 ```
 
 ## Customization Examples
 
-### Compact Mode with Dividers
+### With Avatars and Actions
 
-Use a compact layout with dividers for denser data.
-
-```tsx
-import { InfoListCard } from 'src/widgets/InfoListCard';
-
-const CompactExample = () => (
-  <InfoListCard
-    compact
-    showDividers
-    heading="System Specs"
-    items={[
-      { label: "CPU", value: "8 Core" },
-      { label: "RAM", value: "16 GB" },
-      { label: "OS", value: "Linux" }
-    ]}
-  />
-);
-```
-
-### Custom Styling
-
-Style values and labels individually.
+Rich list items.
 
 ```tsx
-import { InfoListCard } from 'src/widgets/InfoListCard';
+import { Widget } from 'src/components/Widget';
 
-const StyledExample = () => (
-  <InfoListCard
-    items={[
-      {
-        label: "Status",
-        value: "Active",
-        valueClass: "text-success-500 font-bold"
+const UserList = () => (
+  <Widget
+    config={{
+      type: 'list',
+      data: {
+        items: [
+          {
+            title: 'Jane Doe',
+            subtitle: 'Admin',
+            avatar: { src: '/jane.jpg', alt: 'Jane' },
+            actions: [{ label: 'Edit', onClick: () => {} }]
+          }
+        ]
       },
-      {
-        label: "Risk Level",
-        value: "High",
-        valueClass: "text-error-500"
+      settings: {
+        showDividers: true,
+        layout: 'comfortable'
       }
-    ]}
+    }}
   />
 );
 ```
 
 ## Enterprise Scenarios
 
-### Order Summary
+### Paginated Data
 
-Display financial details with custom formatting.
+List with pagination controls.
 
 ```tsx
-import { InfoListCard } from 'src/widgets/InfoListCard';
+import { Widget } from 'src/components/Widget';
 
-const OrderSummary = ({ order }) => (
-  <InfoListCard
-    heading={`Order #${order.id}`}
-    variant="elevated"
-    items={[
-      { label: "Subtotal", value: `$${order.subtotal}` },
-      { label: "Tax", value: `$${order.tax}` },
-      { label: "Total", value: `$${order.total}`, valueClass: "text-xl font-bold" }
-    ]}
+const PaginatedList = ({ items }) => (
+  <Widget
+    config={{
+      type: 'list',
+      data: {
+        items: items // Array of many items
+      },
+      settings: {
+        itemsPerPage: 5,
+        showPagination: true
+      }
+    }}
   />
 );
 ```
 
 ## Accessibility Example
 
-The component uses semantic HTML but you should ensure labels are descriptive.
+Renders as a semantic list.
 
 ```tsx
-import { InfoListCard } from 'src/widgets/InfoListCard';
+import { Widget } from 'src/components/Widget';
 
 const A11yExample = () => (
-  <section aria-label="Account Information">
-    <InfoListCard
-      heading="Profile"
-      items={[
-        { label: "Username", value: "jdoe" }
-      ]}
-    />
-  </section>
+  <Widget
+    config={{
+      type: 'list',
+      data: {
+        items: [{ title: 'Accessible Item' }]
+      }
+    }}
+  />
 );
 ```

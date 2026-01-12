@@ -1,18 +1,20 @@
-# DashboardCard Examples
+# DashboardCard Widget Examples
 
 ## Basic Usage
 
-Display a simple statistic using the `stat` type.
+Render a statistic card.
 
 ```tsx
-import { DashboardCard } from 'src/widgets/DashboardCard';
+import { Widget } from 'src/components/Widget';
 
-const BasicStat = () => (
-  <DashboardCard
-    type="stat"
-    data={{
-      label: "Total Users",
-      value: "1,234"
+const BasicExample = () => (
+  <Widget
+    config={{
+      type: 'stat',
+      data: {
+        label: 'Total Revenue',
+        value: '$50,000'
+      }
     }}
   />
 );
@@ -22,24 +24,27 @@ const BasicStat = () => (
 
 ### Progress Card
 
-Display progress towards a target.
+Show progress towards a goal.
 
 ```tsx
-import { DashboardCard } from 'src/widgets/DashboardCard';
+import { Widget } from 'src/components/Widget';
 
 const ProgressExample = () => (
-  <DashboardCard
-    type="progress"
-    data={{
-      label: "Monthly Goal",
-      current: 75000,
-      target: 100000,
-      unit: "$"
-    }}
-    settings={{
-      theme: "success",
-      progressType: "bar",
-      showPercentage: true
+  <Widget
+    config={{
+      type: 'progress',
+      data: {
+        label: 'Monthly Goal',
+        current: 75,
+        target: 100,
+        unit: '%'
+      },
+      settings: {
+        variant: 'filled',
+        theme: 'success',
+        progressType: 'bar',
+        showPercentage: true
+      }
     }}
   />
 );
@@ -47,23 +52,25 @@ const ProgressExample = () => (
 
 ### Comparison Card
 
-Compare multiple values side-by-side.
+Compare values side-by-side.
 
 ```tsx
-import { DashboardCard } from 'src/widgets/DashboardCard';
+import { Widget } from 'src/components/Widget';
 
 const ComparisonExample = () => (
-  <DashboardCard
-    type="comparison"
-    data={{
-      label: "Device Usage",
-      items: [
-        { label: "Mobile", value: "60%" },
-        { label: "Desktop", value: "40%" }
-      ]
-    }}
-    settings={{
-      layout: "horizontal"
+  <Widget
+    config={{
+      type: 'comparison',
+      data: {
+        label: 'Device Traffic',
+        items: [
+          { label: 'Mobile', value: '60%' },
+          { label: 'Desktop', value: '40%' }
+        ]
+      },
+      settings: {
+        layout: 'horizontal'
+      }
     }}
   />
 );
@@ -71,53 +78,61 @@ const ComparisonExample = () => (
 
 ## Enterprise Scenarios
 
-### Data Driven Dashboard
+### Dashboard Grid
 
-Map API data to multiple cards.
+Combine multiple cards in a grid layout.
 
 ```tsx
-import { DashboardCard } from 'src/widgets/DashboardCard';
+import { Widget } from 'src/components/Widget';
 
-const DashboardExample = ({ metrics }) => (
-  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
-    {metrics.map((metric) => (
-      <DashboardCard
-        key={metric.id}
-        type="stat"
-        data={{
-          label: metric.name,
-          value: metric.value,
-          trend: {
-            value: metric.growth,
-            isPositive: metric.growth > 0
+const Dashboard = () => (
+  <Widget
+    config={{
+      type: 'grid',
+      data: {
+        widgets: [
+          {
+            type: 'stat',
+            data: { label: 'Users', value: '1.2k', trend: { value: 12, direction: 'up' } }
+          },
+          {
+            type: 'stat',
+            data: { label: 'Sales', value: '$34k', trend: { value: 5, direction: 'down' } }
+          },
+          {
+            type: 'progress',
+            data: { label: 'Storage', current: 80, target: 100, unit: 'GB' }
           }
-        }}
-        settings={{
-          theme: metric.growth > 0 ? 'success' : 'error'
-        }}
-      />
-    ))}
-  </div>
+        ]
+      },
+      settings: {
+        grid: {
+          desktop: 3,
+          tablet: 2,
+          mobile: 1,
+          spacing: 'md'
+        }
+      }
+    }}
+  />
 );
 ```
 
 ## Accessibility Example
 
-Ensure trend indicators have appropriate labels. The component handles basic ARIA labels for trends.
+Semantic labeling for trends.
 
 ```tsx
-import { DashboardCard } from 'src/widgets/DashboardCard';
+import { Widget } from 'src/components/Widget';
 
 const A11yExample = () => (
-  <DashboardCard
-    type="stat"
-    data={{
-      label: "Revenue",
-      value: "$50K",
-      trend: {
-        value: 12,
-        isPositive: true,
-        label: "Increase from last month"
+  <Widget
+    config={{
+      type: 'stat',
+      data: {
+        label: 'Active Sessions',
+        value: 45,
+        trend: { value: 10, direction: 'up', label: '10% increase from last hour' }
       }
     }}
   />

@@ -1,99 +1,102 @@
-# OrderConfirmation Examples
+# OrderConfirmation Widget Examples
 
 ## Basic Usage
 
-Display a confirmation message after a purchase.
+Render order confirmation.
 
 ```tsx
-import { OrderConfirmation } from 'src/widgets/OrderConfirmation';
+import { Widget } from 'src/components/Widget';
 
 const BasicExample = () => (
-  <OrderConfirmation
-    orderId="998877"
-    shippingAddress={{
-      name: "Jane Doe",
-      addressLine1: "123 Main St",
-      city: "New York",
-      state: "NY",
-      zipCode: "10001"
+  <Widget
+    config={{
+      type: 'order-confirmation',
+      data: {
+        orderId: '5555',
+        status: 'confirmed',
+        total: 120,
+        subtotal: 100,
+        items: [],
+        shippingAddress: { name: 'User', addressLine1: 'Street', city: 'City', state: 'ST', zipCode: '00000' }
+      }
     }}
-    items={[
-      { id: "1", name: "Laptop", price: 1200, quantity: 1 }
-    ]}
-    subtotal={1200}
-    total={1200}
   />
 );
 ```
 
 ## Customization Examples
 
-### Full Details with Actions
+### Post-Purchase Actions
 
-Show billing address, taxes, and secondary actions.
+Offer next steps.
 
 ```tsx
-import { OrderConfirmation } from 'src/widgets/OrderConfirmation';
+import { Widget } from 'src/components/Widget';
 
-const FullExample = () => (
-  <OrderConfirmation
-    orderId="554433"
-    status="confirmed"
-    customerEmail="jane@example.com"
-    shippingAddress={shippingAddr}
-    billingAddress={billingAddr}
-    items={items}
-    subtotal={100}
-    tax={10}
-    shippingCost={5}
-    total={115}
-    onTrackOrder={(id) => console.log(id)}
-    onDownloadInvoice={(id) => console.log(id)}
+const ConfirmationPage = () => (
+  <Widget
+    config={{
+      type: 'order-confirmation',
+      data: {
+        orderId: '9999',
+        status: 'confirmed',
+        headerText: 'Thank You!',
+        total: 300,
+        subtotal: 280,
+        shippingAddress: address,
+        items: items,
+        actions: {
+          onContinueShopping: () => navigate('/shop'),
+          onDownloadInvoice: (id) => download(id)
+        }
+      },
+      settings: {
+        showActions: true
+      }
+    }}
   />
 );
 ```
 
 ## Enterprise Scenarios
 
-### Post-Purchase Flow
+### Rich Confirmation
 
-Integrate into a checkout success page.
+Detailed summary with tracking.
 
 ```tsx
-import { OrderConfirmation } from 'src/widgets/OrderConfirmation';
-import { useNavigate } from 'react-router-dom';
+import { Widget } from 'src/components/Widget';
 
-const CheckoutSuccess = ({ order }) => {
-  const navigate = useNavigate();
-
-  return (
-    <OrderConfirmation
-      {...order}
-      onContinueShopping={() => navigate('/shop')}
-      onContactSupport={() => navigate('/support')}
-      headerText="Purchase Successful!"
-      headerSubtitle="We have received your order."
-    />
-  );
-};
+const RichConfirmation = ({ order }) => (
+  <Widget
+    config={{
+      type: 'order-confirmation',
+      data: {
+        ...order,
+        trackingNumber: 'TRK123456',
+        estimatedDelivery: 'Dec 25, 2023'
+      },
+      settings: {
+        hideContactSupport: false
+      }
+    }}
+  />
+);
 ```
 
 ## Accessibility Example
 
-The component uses semantic headings and lists.
+Uses semantic success messaging.
 
 ```tsx
-import { OrderConfirmation } from 'src/widgets/OrderConfirmation';
+import { Widget } from 'src/components/Widget';
 
 const A11yExample = () => (
-  <main aria-live="polite">
-    <OrderConfirmation
-      orderId="112233"
-      shippingAddress={address}
-      items={items}
-      subtotal={50}
-      total={50}
-    />
-  </main>
+  <Widget
+    config={{
+      type: 'order-confirmation',
+      data: orderData
+    }}
+  />
 );
 ```

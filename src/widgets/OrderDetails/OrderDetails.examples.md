@@ -1,28 +1,26 @@
-# OrderDetails Examples
+# OrderDetails Widget Examples
 
 ## Basic Usage
 
-Display details of an order.
+Render full order details.
 
 ```tsx
-import { OrderDetails } from 'src/widgets/OrderDetails';
+import { Widget } from 'src/components/Widget';
 
 const BasicExample = () => (
-  <OrderDetails
-    orderId="12345"
-    orderDate="2023-10-25"
-    status="delivered"
-    items={[
-      { id: "1", name: "Keyboard", price: 100, quantity: 1 }
-    ]}
-    subtotal={100}
-    total={100}
-    shippingAddress={{
-      name: "John Doe",
-      addressLine1: "123 Tech Park",
-      city: "San Francisco",
-      state: "CA",
-      zipCode: "94105"
+  <Widget
+    config={{
+      type: 'order-details',
+      data: {
+        orderId: '1001',
+        orderDate: '2023-01-01',
+        status: 'delivered',
+        total: 100,
+        subtotal: 90,
+        tax: 10,
+        items: [],
+        shippingAddress: { name: 'User', addressLine1: 'Street', city: 'City', state: 'ST', zipCode: '00000' }
+      }
     }}
   />
 );
@@ -30,67 +28,75 @@ const BasicExample = () => (
 
 ## Customization Examples
 
-### Interactive Management
+### With Actions
 
-Enable order cancellation and returns.
+Enable order management.
 
 ```tsx
-import { OrderDetails } from 'src/widgets/OrderDetails';
+import { Widget } from 'src/components/Widget';
 
-const ManagementExample = () => (
-  <OrderDetails
-    orderId="67890"
-    orderDate="2023-10-26"
-    status="pending"
-    allowCancel={true}
-    onCancelOrder={(id) => confirmCancel(id)}
-    items={items}
-    shippingAddress={address}
-    subtotal={50}
-    total={50}
+const ManageOrder = () => (
+  <Widget
+    config={{
+      type: 'order-details',
+      data: {
+        orderId: '2002',
+        orderDate: '2023-05-20',
+        status: 'pending',
+        total: 500,
+        subtotal: 450,
+        tax: 50,
+        items: [{ id: '1', name: 'Laptop', price: 450, quantity: 1 }],
+        shippingAddress: addressData,
+        actions: {
+          onCancelOrder: (id) => console.log('Cancel', id),
+          onTrackOrder: (id) => console.log('Track', id)
+        }
+      },
+      settings: {
+        showActions: true,
+        allowCancel: true
+      }
+    }}
   />
 );
 ```
 
 ## Enterprise Scenarios
 
-### Admin Order View
+### Order View Page
 
-Use in an admin panel to view customer orders.
+Complete order view layout.
 
 ```tsx
-import { OrderDetails } from 'src/widgets/OrderDetails';
+import { Widget } from 'src/components/Widget';
 
-const AdminOrderView = ({ orderData }) => (
-  <OrderDetails
-    {...orderData}
-    showActions={false}
-    customerEmail={orderData.user.email}
-    paymentStatus={orderData.payment.status}
-    transactionId={orderData.payment.txId}
+const OrderPage = ({ order }) => (
+  <Widget
+    config={{
+      type: 'order-details',
+      data: order,
+      settings: {
+        loading: false
+      }
+    }}
   />
 );
 ```
 
 ## Accessibility Example
 
-The component uses semantic landmarks and accessible buttons.
+Accessible headings and structure.
 
 ```tsx
-import { OrderDetails } from 'src/widgets/OrderDetails';
+import { Widget } from 'src/components/Widget';
 
 const A11yExample = () => (
-  <article aria-labelledby="order-heading">
-    <h1 id="order-heading" className="sr-only">Order #123 Details</h1>
-    <OrderDetails
-      orderId="123"
-      orderDate="2023-10-27"
-      status="shipped"
-      shippingAddress={address}
-      items={items}
-      subtotal={20}
-      total={20}
-    />
-  </article>
+  <Widget
+    config={{
+      type: 'order-details',
+      data: mockOrderData
+    }}
+  />
 );
 ```

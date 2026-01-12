@@ -1,97 +1,111 @@
-# FAQ Examples
+# FAQ Widget Examples
 
 ## Basic Usage
 
-A simple list of questions and answers.
+Render a list of FAQs.
 
 ```tsx
-import { FAQ } from 'src/widgets/FAQ';
+import { Widget } from 'src/components/Widget';
 
 const BasicExample = () => (
-  <FAQ
-    title="Common Questions"
-    items={[
-      { question: "What is this?", answer: "This is a FAQ widget." },
-      { question: "Is it free?", answer: "Yes, for open source." }
-    ]}
+  <Widget
+    config={{
+      type: 'faq',
+      data: {
+        title: 'Common Questions',
+        items: [
+          { question: 'What is this?', answer: 'It is a widget.' },
+          { question: 'Is it free?', answer: 'Yes.' }
+        ]
+      }
+    }}
   />
 );
 ```
 
 ## Customization Examples
 
-### Categorized FAQ
+### Categorized and Boxed
 
-Group questions into categories.
+Group questions into categories with a boxed style.
 
 ```tsx
-import { FAQ } from 'src/widgets/FAQ';
+import { Widget } from 'src/components/Widget';
 
 const CategorizedExample = () => (
-  <FAQ
-    title="Help Center"
-    items={[
-      {
-        title: "Billing",
+  <Widget
+    config={{
+      type: 'faq',
+      data: {
+        title: 'Help Center',
         items: [
-          { question: "How to pay?", answer: "Credit card or PayPal." }
+          {
+            title: 'Billing',
+            items: [
+              { question: 'How do I pay?', answer: 'Credit card.' }
+            ]
+          },
+          {
+            title: 'Account',
+            items: [
+              { question: 'Can I delete my account?', answer: 'Yes, in settings.' }
+            ]
+          }
         ]
       },
-      {
-        title: "Technical",
-        items: [
-          { question: "API Access?", answer: "Available on Enterprise plan." }
-        ]
+      settings: {
+        variant: 'secondary', // May map to specific styles in renderer
+        allowMultiple: true
       }
-    ]}
-    variant="boxed"
+    }}
   />
 );
 ```
 
 ## Enterprise Scenarios
 
-### Dynamic Content Loading
+### Dynamic Data Loading
 
-Load FAQ items from a CMS or API.
+Load FAQs from an external source.
 
 ```tsx
-import { FAQ } from 'src/widgets/FAQ';
-import { useQuery } from 'react-query'; // Example data fetcher
+import { Widget } from 'src/components/Widget';
 
-const DynamicFAQ = () => {
-  const { data, isLoading } = useQuery('faqs', fetchFAQs);
-
-  if (isLoading) return <div>Loading...</div>;
-
-  return (
-    <FAQ
-      title="Dynamic Knowledge Base"
-      items={data}
-      allowMultiple={true}
-    />
-  );
-};
+const DynamicFAQ = ({ faqData }) => (
+  <Widget
+    config={{
+      type: 'faq',
+      data: {
+        title: 'Knowledge Base',
+        subtitle: 'Find answers to your questions',
+        items: faqData
+      },
+      settings: {
+        theme: 'modern'
+      }
+    }}
+  />
+);
 ```
 
 ## Accessibility Example
 
-The FAQ uses the Accordion component which manages ARIA states for expanding/collapsing sections.
+The widget uses the Accordion component which manages ARIA states.
 
 ```tsx
-import { FAQ } from 'src/widgets/FAQ';
+import { Widget } from 'src/components/Widget';
 
 const A11yExample = () => (
-  <main>
-    <FAQ
-      title="Accessibility Info"
-      items={[
-        {
-          question: "Keyboard Support",
-          answer: "Use Tab to focus and Enter/Space to toggle items."
-        }
-      ]}
-    />
-  </main>
+  <Widget
+    config={{
+      type: 'faq',
+      data: {
+        title: 'Accessibility FAQs',
+        items: [
+          { question: 'Keyboard Navigation', answer: 'Use Tab and Enter keys.' }
+        ]
+      }
+    }}
+  />
 );
 ```

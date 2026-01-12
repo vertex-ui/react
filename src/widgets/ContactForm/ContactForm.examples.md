@@ -1,39 +1,60 @@
-# ContactForm Examples
+# ContactForm Widget Examples
 
 ## Basic Usage
 
-The `ContactForm` widget provides a simple interface for user inquiries.
+Render a contact form using the `Widget` component.
 
 ```tsx
-import { ContactForm } from 'src/widgets/ContactForm';
+import { Widget } from 'src/components/Widget';
 
 const BasicExample = () => (
-  <ContactForm
-    title="Contact Us"
-    description="We'd love to hear from you."
+  <Widget
+    config={{
+      type: 'contact-form',
+      data: {
+        title: 'Contact Us',
+        description: 'We would love to hear from you.',
+        submitLabel: 'Send Message',
+        fields: {
+          nameLabel: 'Full Name',
+          emailLabel: 'Email Address',
+          messageLabel: 'Your Message'
+        },
+        onSubmit: async (data) => {
+          console.log('Form submitted:', data);
+        }
+      }
+    }}
   />
 );
 ```
 
 ## Customization Examples
 
-### Card Variant with Custom Fields
+### Card Variant with Extra Fields
 
-You can wrap the form in a card and customize field labels.
+Wrap the form in a card and show additional fields.
 
 ```tsx
-import { ContactForm } from 'src/widgets/ContactForm';
+import { Widget } from 'src/components/Widget';
 
 const CustomExample = () => (
-  <ContactForm
-    variant="card"
-    title="Sales Inquiry"
-    submitLabel="Request Quote"
-    fields={{
-      nameLabel: "Full Name",
-      messageLabel: "Project Details",
-      showCompany: true,
-      showPhone: true
+  <Widget
+    config={{
+      type: 'contact-form',
+      data: {
+        title: 'Sales Inquiry',
+        fields: {
+          showCompany: true,
+          showPhone: true,
+          companyLabel: 'Organization',
+          phoneLabel: 'Contact Number'
+        }
+      },
+      settings: {
+        card: true,
+        variant: 'primary'
+      }
     }}
   />
 );
@@ -43,66 +64,63 @@ const CustomExample = () => (
 
 ### API Integration
 
-Handle form submissions by integrating with your backend API.
+Handle submission with backend integration.
 
 ```tsx
-import { ContactForm } from 'src/widgets/ContactForm';
+import { Widget } from 'src/components/Widget';
 
 const EnterpriseExample = () => {
   const handleSubmit = async (data) => {
     try {
-      await fetch('/api/contact', {
+      const response = await fetch('/api/leads', {
         method: 'POST',
-        body: JSON.stringify(data),
+        body: JSON.stringify(data)
       });
-    } catch (error) {
-      console.error('Submission error', error);
-      throw error; // Component handles error state if needed
+      if (!response.ok) throw new Error('Submission failed');
+    } catch (err) {
+      console.error(err);
+      throw err; // Widget handles error state
     }
   };
 
   return (
-    <ContactForm
-      title="Support Ticket"
-      onSubmit={handleSubmit}
-      successMessage="Ticket created successfully. ID: #12345"
+    <Widget
+      config={{
+        type: 'contact-form',
+        data: {
+          title: 'Request Demo',
+          successMessage: 'Thanks! A representative will contact you shortly.',
+          onSubmit: handleSubmit
+        },
+        settings: {
+          theme: 'professional',
+          card: true
+        }
+      }}
     />
   );
 };
 ```
 
-### Custom Styling
-
-Apply enterprise branding using custom CSS classes or inline styles.
-
-```tsx
-import { ContactForm } from 'src/widgets/ContactForm';
-
-const StyledExample = () => (
-  <ContactForm
-    style={{ maxWidth: '600px', margin: '0 auto' }}
-    className="enterprise-contact-form"
-    fields={{
-      emailLabel: "Work Email"
-    }}
-  />
-);
-```
-
 ## Accessibility Example
 
-The component uses semantic HTML and standard inputs. Ensure your environment supports keyboard navigation.
+The widget manages form labels and ARIA attributes automatically.
 
 ```tsx
-import { ContactForm } from 'src/widgets/ContactForm';
+import { Widget } from 'src/components/Widget';
 
 const A11yExample = () => (
-  <section aria-labelledby="contact-heading">
-    <h2 id="contact-heading" className="sr-only">Contact Form</h2>
-    <ContactForm
-      title="Accessible Form"
-      fields={{
-        nameLabel: "Name (Required)",
+  <section aria-label="Support Form">
+    <Widget
+      config={{
+        type: 'contact-form',
+        data: {
+          title: 'Support',
+          fields: {
+            nameLabel: 'Name (Required)',
+            emailLabel: 'Email (Required)'
+          }
+        }
       }}
     />
   </section>

@@ -1,31 +1,38 @@
-# PricingTable Examples
+# PricingTable Widget Examples
 
 ## Basic Usage
 
-Display a set of pricing tiers.
+Render pricing tiers.
 
 ```tsx
-import PricingTable from 'src/widgets/PricingTable';
+import { Widget } from 'src/components/Widget';
 
 const BasicExample = () => (
-  <PricingTable
-    tiers={[
-      {
-        id: 'basic',
-        name: 'Basic',
-        price: '10',
-        features: [{ text: '1 User', included: true }],
-        buttonText: 'Buy Now'
-      },
-      {
-        id: 'pro',
-        name: 'Pro',
-        price: '20',
-        features: [{ text: '5 Users', included: true }],
-        buttonText: 'Buy Now',
-        popular: true
+  <Widget
+    config={{
+      type: 'pricing-table',
+      data: {
+        tiers: [
+          {
+            id: 'basic',
+            name: 'Basic',
+            price: 10,
+            currency: '$',
+            features: [{ text: '1 User', included: true }],
+            buttonText: 'Sign Up'
+          },
+          {
+            id: 'pro',
+            name: 'Pro',
+            price: 29,
+            currency: '$',
+            features: [{ text: 'Unlimited Users', included: true }],
+            buttonText: 'Go Pro',
+            popular: true
+          }
+        ]
       }
-    ]}
+    }}
   />
 );
 ```
@@ -34,59 +41,80 @@ const BasicExample = () => (
 
 ### 4 Columns Layout
 
-Display more options with a wider grid.
+Display more options.
 
 ```tsx
-import PricingTable from 'src/widgets/PricingTable';
+import { Widget } from 'src/components/Widget';
 
-const WideExample = () => (
-  <PricingTable
-    columns={4}
-    tiers={tiersData}
+const WideLayout = () => (
+  <Widget
+    config={{
+      type: 'pricing-table',
+      data: {
+        tiers: fourTiersArray
+      },
+      settings: {
+        columns: 4
+      }
+    }}
   />
 );
 ```
 
 ## Enterprise Scenarios
 
-### Dynamic Feature Lists
+### Custom Actions
 
-Load features from a configuration object.
+Handle plan selection.
 
 ```tsx
-import PricingTable from 'src/widgets/PricingTable';
+import { Widget } from 'src/components/Widget';
 
-const EnterprisePricing = () => {
-  const tiers = [
-    {
-      id: 'enterprise',
-      name: 'Enterprise',
-      price: 'Custom',
-      description: 'For large organizations',
-      features: [
-        { text: 'SSO', included: true },
-        { text: 'SLA', included: true },
-        { text: 'Dedicated Support', included: true }
-      ],
-      buttonText: 'Contact Sales',
-      onButtonClick: () => window.location.href = '/contact'
-    }
-  ];
+const PricingPage = () => {
+  const handleSelect = (tierId) => {
+    console.log('Selected plan:', tierId);
+  };
 
-  return <PricingTable tiers={tiers} columns={1} />;
+  return (
+    <Widget
+      config={{
+        type: 'pricing-table',
+        data: {
+          tiers: [
+            {
+              id: 'enterprise',
+              name: 'Enterprise',
+              price: 'Contact Us',
+              features: [{ text: 'SSO', included: true }],
+              buttonText: 'Contact Sales',
+              onButtonClick: () => handleSelect('enterprise')
+            }
+          ]
+        },
+        settings: {
+          theme: 'professional'
+        }
+      }}
+    />
+  );
 };
 ```
 
 ## Accessibility Example
 
-Ensure pricing cards are navigable. The component uses standard buttons.
+Ensure buttons have accessible names.
 
 ```tsx
-import PricingTable from 'src/widgets/PricingTable';
+import { Widget } from 'src/components/Widget';
 
 const A11yExample = () => (
-  <section aria-label="Subscription Plans">
-    <PricingTable tiers={tiers} />
-  </section>
+  <Widget
+    config={{
+      type: 'pricing-table',
+      data: {
+        tiers: tiers
+      }
+    }}
+  />
 );
 ```

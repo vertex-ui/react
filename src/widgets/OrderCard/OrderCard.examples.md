@@ -1,92 +1,106 @@
-# OrderCard Examples
+# Order Widget Examples
 
 ## Basic Usage
 
-Display an order summary.
+Render an order summary.
 
 ```tsx
-import { OrderCard } from 'src/widgets/OrderCard';
+import { Widget } from 'src/components/Widget';
 
 const BasicExample = () => (
-  <OrderCard
-    orderId="1001"
-    status="delivered"
-    totalAmount={150.00}
-    items={[
-      { name: "Wireless Headphones", price: 150.00, quantity: 1 }
-    ]}
+  <Widget
+    config={{
+      type: 'order',
+      data: {
+        id: '12345',
+        status: 'Delivered',
+        total: '$150.00',
+        items: [
+          { name: 'Item 1', quantity: 2, price: '$50' }
+        ]
+      }
+    }}
   />
 );
 ```
 
 ## Customization Examples
 
-### With Product Image and Tracking
+### Detailed Order View
 
-Add visual context and actions.
+With customer and shipping info.
 
 ```tsx
-import { OrderCard } from 'src/widgets/OrderCard';
+import { Widget } from 'src/components/Widget';
 
-const TrackableExample = () => (
-  <OrderCard
-    orderId="1002"
-    status="shipped"
-    deliveryDate="Oct 20, 2023"
-    totalAmount={299.99}
-    items={[
-      {
-        name: "Smart Watch",
-        image: "https://example.com/watch.jpg",
-        quantity: 1
+const DetailedOrder = () => (
+  <Widget
+    config={{
+      type: 'order',
+      data: {
+        id: '9988',
+        status: 'Processing',
+        total: 250,
+        currency: '$',
+        customer: { name: 'John Doe', email: 'john@example.com' },
+        shippingAddress: { street: '123 Main St', city: 'City', state: 'ST', zipCode: '12345' },
+        items: [{ name: 'Product A', quantity: 1, price: 250 }]
+      },
+      settings: {
+        showCustomer: true,
+        showAddress: true,
+        showItems: true
       }
-    ]}
-    onTrackOrder={(id) => alert(`Tracking ${id}`)}
+    }}
   />
 );
 ```
 
 ## Enterprise Scenarios
 
-### Order History List
+### Order History
 
-Render a list of past orders.
+List of order widgets.
 
 ```tsx
-import { OrderCard } from 'src/widgets/OrderCard';
+import { Widget } from 'src/components/Widget';
 
 const OrderHistory = ({ orders }) => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-    {orders.map(order => (
-      <OrderCard
-        key={order.id}
-        orderId={order.id}
-        orderNumber={order.orderNumber}
-        status={order.status}
-        items={order.items}
-        totalAmount={order.total}
-        onViewDetails={(id) => window.location.href = `/orders/${id}`}
-      />
-    ))}
-  </div>
+  <Widget
+    config={{
+      type: 'grid',
+      data: {
+        widgets: orders.map(order => ({
+          type: 'order',
+          data: order,
+          settings: { compact: true }
+        }))
+      },
+      settings: {
+        grid: { columns: 1, spacing: 'sm' }
+      }
+    }}
+  />
 );
 ```
 
 ## Accessibility Example
 
-The card is interactive if `onClick` handlers are provided. Ensure keyboard users can access actions.
+Order details are structured logically.
 
 ```tsx
-import { OrderCard } from 'src/widgets/OrderCard';
+import { Widget } from 'src/components/Widget';
 
 const A11yExample = () => (
-  <OrderCard
-    orderId="1003"
-    status="processing"
-    totalAmount={50.00}
-    items={[{ name: "Book", quantity: 2 }]}
-    trackButtonText="Track Shipment"
-    aria-label="Order #1003 details"
+  <Widget
+    config={{
+      type: 'order',
+      data: {
+        id: '1001',
+        total: 50,
+        status: 'Pending'
+      }
+    }}
   />
 );
 ```
