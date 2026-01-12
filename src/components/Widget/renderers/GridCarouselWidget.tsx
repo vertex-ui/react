@@ -140,11 +140,17 @@ const GridCarouselWidget: React.FC<GridCarouselWidgetProps> = ({
   const renderItem = useCallback(
     (item: any, index: number) => {
       if (data.theme === 'product') {
+        // Calculate visibility for eager loading priority
+        const isVisible = index < currentItemsPerView;
+
         return (
           <ProductWidget
             key={item.id || index}
             data={item}
-            settings={productSettings}
+            settings={{
+              ...productSettings,
+              priority: isVisible
+            }}
           />
         );
       }

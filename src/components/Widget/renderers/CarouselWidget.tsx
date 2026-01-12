@@ -306,6 +306,7 @@ const CarouselWidget: React.FC<CarouselWidgetProps> = ({
             alt={slide.image.alt}
             style={imageStyles}
             loading={slide.image.priority || index === 0 ? 'eager' : 'lazy'}
+            fetchPriority={slide.image.priority || index === 0 ? 'high' : 'auto'}
             {...imageProps}
           />
         </div>
