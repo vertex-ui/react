@@ -198,6 +198,7 @@ export interface ProductWidgetData extends BaseWidgetData {
   url?: string;
   currency?: string;
   readonly?: boolean;
+  isWishlisted?: boolean;
 }
 
 /**
@@ -210,7 +211,6 @@ export interface ProductWidgetSettings extends BaseWidgetSettings {
   imagePosition?: 'top' | 'left' | 'right';
   cardStyle?: 'elevated' | 'outlined' | 'flat';
   showWishlist?: boolean;
-  isWishlisted?: boolean;
   cartIcon?: React.ReactNode;
   wishlistIcon?: React.ReactNode;
   wishlistFilledIcon?: React.ReactNode;

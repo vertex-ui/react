@@ -1,10 +1,10 @@
 import React from 'react';
-import { NavbarBaseProps } from '../types';
+import { NavbarDesktopProps } from '../types';
 import { useNavbarSections } from '../useNavbarSections';
 import { TopBar } from '../TopBar';
 import { Container } from '../../Container';
 
-export const SingleRowNavbar: React.FC<NavbarBaseProps> = (props) => {
+export const SingleRowNavbar: React.FC<NavbarDesktopProps> = (props) => {
   const {
     sticky = false,
     shadow = true,
@@ -13,6 +13,7 @@ export const SingleRowNavbar: React.FC<NavbarBaseProps> = (props) => {
     topBar,
     containerized = true,
     style: propStyle,
+    singleRowVariant = 'standard',
   } = props;
 
   const {
@@ -26,9 +27,6 @@ export const SingleRowNavbar: React.FC<NavbarBaseProps> = (props) => {
 
   const navbarClass = [
     'vtx-navbar',
-    'vtx-navbar--desktop',
-    'vtx-navbar--single-row',
-    sticky && 'vtx-navbar--sticky',
     shadow && 'vtx-navbar--shadow',
     className,
   ].filter(Boolean).join(' ');
@@ -36,41 +34,88 @@ export const SingleRowNavbar: React.FC<NavbarBaseProps> = (props) => {
   const style: React.CSSProperties = { ...propStyle };
   if (backgroundColor) style.backgroundColor = backgroundColor;
 
-  // We group logo and nav to keep them on the left
-  const leftSide = (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      {logoSection}
-      {navigationSection}
-    </div>
-  );
+  // Flexible Content Rendering
+  const renderContent = () => {
+    // 1. Balanced: Logo | Nav | Actions
+    if (singleRowVariant === 'balanced') {
+      return (
+        <>
+          <div className="vtx-navbar__left">
+            {logoSection}
+          </div>
+          <div className="vtx-navbar__center">
+            {navigationSection}
+          </div>
+          <div className="vtx-navbar__right">
+            {searchSection}
+            {iconsSection}
+            {userSection}
+            {actionsSection}
+          </div>
+        </>
+      );
+    }
 
-  const rightSide = (
-    <div className="vtx-navbar__right">
-      {searchSection}
-      {iconsSection}
-      {userSection}
-      {actionsSection}
-    </div>
-  );
+    // 2. Search Centered: Logo+Nav | Search | Actions
+    if (singleRowVariant === 'search-centered') {
+      return (
+        <>
+          <div className="vtx-navbar__left">
+            {logoSection}
+            <div className="vtx-navbar__nav" style={{ marginLeft: '24px' }}>
+              {navigationSection}
+            </div>
+          </div>
+          <div className="vtx-navbar__center" style={{ width: '100%', justifyContent: 'center' }}>
+            {searchSection}
+          </div>
+          <div className="vtx-navbar__right">
+            {iconsSection}
+            {userSection}
+            {actionsSection}
+          </div>
+        </>
+      );
+    }
+
+    // 3. Standard (Default): Logo + Nav | ... | Actions
+    return (
+      <>
+        <div className="vtx-navbar__left">
+          {logoSection}
+          <div className="vtx-navbar__nav" style={{ marginLeft: '24px' }}>
+            {navigationSection}
+          </div>
+        </div>
+        <div className="vtx-navbar__center">
+          {/* Empty center for spacing */}
+        </div>
+        <div className="vtx-navbar__right">
+          {searchSection}
+          {iconsSection}
+          {userSection}
+          {actionsSection}
+        </div>
+      </>
+    );
+  };
 
   return (
-    <>
+    <div className={`vtx-navbar-wrapper ${sticky ? 'vtx-navbar-wrapper--sticky' : ''}`}>
       {topBar && <TopBar config={topBar} containerized={containerized} />}
       <nav className={navbarClass} style={style}>
         {containerized ? (
           <Container style={{ height: '100%' }}>
             <div className="vtx-navbar__content">
-              {leftSide}
-              {rightSide}
+              {renderContent()}
             </div>
           </Container>
         ) : (
-          <div className="vtx-navbar__content" style={{ padding: '0 1.5rem' }}>
-            {leftSide}
-            {rightSide}
+          <div className="vtx-navbar__content">
+            {renderContent()}
           </div>
         )}
       </nav>
-    </>
+    </div>
   );
 };

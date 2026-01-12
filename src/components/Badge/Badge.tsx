@@ -10,7 +10,7 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
    * Visual variant of the badge
    * @default 'neutral'
    */
-  variant?: 'neutral' | 'primary' | 'success' | 'warning' | 'error' | 'info';
+  variant?: 'neutral' | 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info';
   /**
    * Size of the badge
    * @default theme.defaultSize
@@ -22,6 +22,11 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
    */
   pill?: boolean;
   /**
+   * If true, applies larger border radius for rounded appearance
+   * @default false
+   */
+  rounded?: boolean;
+  /**
    * If true, displays a dot indicator before the content
    * Useful for status indicators
    * @default false
@@ -32,6 +37,17 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
    * @default false
    */
   outline?: boolean;
+  /**
+   * If false, uses solid variant color as background with contrasting text
+   * If true, uses light variant color with darker text
+   * @default true
+   */
+  lightMode?: boolean;
+  /**
+   * If true/false, applies dark or light text color class
+   * Overrides automatic contrast color selection
+   */
+  darkText?: boolean;
   /**
    * Maximum content length before truncation
    * Useful for limiting badge text length
@@ -87,8 +103,11 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
       variant = 'neutral',
       size,
       pill = false,
+      rounded = false,
       dot = false,
       outline = false,
+      lightMode = false,
+      darkText = false,
       maxLength,
       icon,
       children,
@@ -100,15 +119,37 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
   ) => {
     const { theme } = useThemeContext();
     const badgeSize = size || theme.defaultSize;
-    
+
+    // Determine text color based on theme's color contrast configuration
+    const getTextColorClass = () => {
+      // Skip contrast logic if outline mode or lightMode is true
+      if (outline || lightMode) return null;
+
+      if (darkText === true) return 'vtx-badge--dark-text';
+      if (darkText === false) return 'vtx-badge--light-text';
+
+      // Use theme's colorContrast configuration
+      const contrast = theme.colorContrast[variant as keyof typeof theme.colorContrast];
+      if (contrast === 'light') {
+        return 'vtx-badge--dark-text'; // Light background needs dark text
+      } else if (contrast === 'dark') {
+        return 'vtx-badge--light-text'; // Dark background needs light text
+      }
+
+      return null;
+    };
+
     const classNames = [
       'vtx-badge',
       `vtx-badge--${variant}`,
       `vtx-badge--${badgeSize}`,
       pill && 'vtx-badge--pill',
+      rounded && 'vtx-badge--rounded',
       dot && 'vtx-badge--with-dot',
       outline && 'vtx-badge--outline',
+      !lightMode && !outline && 'vtx-badge--solid',
       onRemove && 'vtx-badge--removable',
+      getTextColorClass(),
       className,
     ]
       .filter(Boolean)

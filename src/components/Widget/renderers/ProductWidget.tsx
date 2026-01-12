@@ -39,6 +39,7 @@ const ProductWidget: React.FC<ProductWidgetProps> = ({ data, settings = {} }) =>
     url,
     currency,
     readonly,
+    isWishlisted,
   } = data;
 
   // Extract settings/handlers
@@ -46,7 +47,6 @@ const ProductWidget: React.FC<ProductWidgetProps> = ({ data, settings = {} }) =>
     theme = 'modern',
     imagePosition,
     showWishlist,
-    isWishlisted,
     cartIcon,
     wishlistIcon,
     wishlistFilledIcon,

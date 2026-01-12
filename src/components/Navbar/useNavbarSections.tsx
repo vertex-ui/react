@@ -33,6 +33,10 @@ export const useNavbarSections = (props: NavbarBaseProps) => {
     onCartClick,
     actions,
     user,
+    uppercaseNavItems = false,
+    linkComponent,
+    hoverColor,
+    searchFullWidth = true,
   } = props;
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -67,7 +71,7 @@ export const useNavbarSections = (props: NavbarBaseProps) => {
   const navigationSection = navigationItems.length > 0 && (
     <Flex as="nav" align="center" className="vtx-navbar__nav">
       {navigationItems.map((item, index) => (
-        <NavItem key={index} item={item} />
+        <NavItem key={index} item={item} uppercase={uppercaseNavItems} linkComponent={linkComponent} defaultHoverColor={hoverColor} />
       ))}
     </Flex>
   );
@@ -93,8 +97,9 @@ export const useNavbarSections = (props: NavbarBaseProps) => {
       }}
       showSearchIcon
       clearable
-      size="sm"
-      className="vtx-navbar__search-input"
+      size="md"
+      className={`vtx-navbar__search-input ${searchFullWidth ? 'vtx-navbar__search-input--full' : ''}`}
+      fullWidth={searchFullWidth}
     />
   );
 

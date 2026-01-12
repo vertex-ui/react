@@ -60,6 +60,11 @@ export interface LinkProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>,
    */
   download?: boolean | string;
 
+  /**
+   * Hover color variant or custom color string
+   */
+  hoverColor?: 'primary' | 'secondary' | 'neutral' | 'inherit' | string;
+
   children?: React.ReactNode;
 }
 
@@ -120,6 +125,7 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       noUnderline = true,
       disabled = false,
       color = 'inherit',
+      hoverColor,
       leftIcon,
       rightIcon,
       external = false,
@@ -127,6 +133,7 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       className = '',
       target,
       rel,
+      style,
       ...props
     },
     ref
@@ -153,16 +160,25 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       ? null
       : (component || themeContext?.theme.linkComponent);
 
+    const isStandardHoverColor = hoverColor && ['primary', 'secondary', 'neutral', 'inherit'].includes(hoverColor);
+    const isCustomHoverColor = hoverColor && !isStandardHoverColor;
+
     const classNames = [
       'vtx-link',
       `vtx-link--${variant}`,
       `vtx-link--${color}`,
+      isStandardHoverColor && `vtx-link--hover-${hoverColor}`,
+      isCustomHoverColor && 'vtx-link--hover-custom',
       noUnderline && 'vtx-link--no-underline',
       disabled && 'vtx-link--disabled',
       className,
     ]
       .filter(Boolean)
       .join(' ');
+
+    const combinedStyle = isCustomHoverColor
+      ? { ...style, '--vtx-link-hover-color': hoverColor } as React.CSSProperties
+      : style;
 
     const content = (
       <>
@@ -172,7 +188,6 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       </>
     );
 
-    // If custom component should be used (React Router, Next.js, etc.)
     if (effectiveComponent) {
       const Component = effectiveComponent;
 
@@ -181,6 +196,7 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
           ref={ref}
           className={classNames}
           aria-disabled={disabled}
+          style={combinedStyle}
           {...componentProps}
           {...props}
         >
@@ -203,6 +219,7 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
         aria-disabled={disabled}
         onClick={disabled ? (e) => e.preventDefault() : props.onClick}
         download={download}
+        style={combinedStyle}
         {...props}
       >
         {content}

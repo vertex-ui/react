@@ -49,10 +49,10 @@ export const WithWishlist = () => {
         data: {
           ...sampleProduct,
           id: 'wish-1',
+          isWishlisted: isWishlisted,
         },
         settings: {
           showWishlist: true,
-          isWishlisted: isWishlisted,
           onWishlist: () => {
             setIsWishlisted(!isWishlisted);
             console.log('Wishlist toggled:', !isWishlisted);
@@ -195,10 +195,10 @@ export const FullyInteractive = () => {
           weight: 250,
           units: 'g',
           initialQuantity: 0,
+          isWishlisted: isWishlisted,
         },
         settings: {
           showWishlist: true,
-          isWishlisted: isWishlisted,
           onAddToCart: async (id, qty) => {
             console.log('Adding to cart...', id, qty);
             await new Promise(resolve => setTimeout(resolve, 500));
@@ -277,7 +277,6 @@ export const Interactive = () => {
               data: product,
               settings: {
                 showWishlist: true,
-                isWishlisted: product.isWishlisted,
                 onWishlist: () => toggleWishlist(product.id),
                 onQuickView: () => alert(`Quick view: ${product.name}`),
                 onAddToCart: (id, qty) => console.log('Added:', id, qty),

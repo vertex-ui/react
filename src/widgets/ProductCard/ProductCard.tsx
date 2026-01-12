@@ -55,10 +55,10 @@ export interface ProductCardProps extends Omit<React.HTMLAttributes<HTMLDivEleme
   onAddToCart?: (data: ProductCoreData, quantity: number) => void | Promise<void>;
   onIncrementCart?: (data: ProductCoreData, quantity: number) => void | Promise<void>;
   onDecrementCart?: (data: ProductCoreData, quantity: number) => void | Promise<void>;
-  onWishlist?: () => void;
-  onQuickView?: () => void;
-  onClick?: () => void;
-  onCategoryClick?: () => void;
+  onWishlist?: (data: ProductCoreData) => void;
+  onQuickView?: (data: ProductCoreData) => void;
+  onClick?: (data: ProductCoreData) => void;
+  onCategoryClick?: (data: ProductCoreData) => void;
   loading?: boolean;
   /**
    * Action loading state (e.g. adding to cart)
@@ -217,7 +217,7 @@ const ProductCardBase = React.forwardRef<HTMLDivElement, ProductCardProps>(
                 </a>
               )
             ) : (
-              <div onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default', height: '100%' }}>
+              <div onClick={onClick ? (() => onClick(coreData)) : undefined} style={{ cursor: onClick ? 'pointer' : 'default', height: '100%' }}>
                 <Image
                   component={imageComponent}
                   src={image}
@@ -258,7 +258,7 @@ const ProductCardBase = React.forwardRef<HTMLDivElement, ProductCardProps>(
                 className={`productcard-wishlist-btn ${isWishlisted ? 'productcard-wishlist-btn--active' : ''} ${onWishlist ? 'vtx-cursor-pointer' : 'vtx-cursor-default'} productcard-wishlist-btn--${props.wishlistButtonColor || 'error'}`}
                 onClick={(e) => {
                   e.stopPropagation();
-                  onWishlist?.();
+                  onWishlist?.(coreData);
                 }}
                 disabled={!onWishlist}
                 aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
@@ -282,7 +282,7 @@ const ProductCardBase = React.forwardRef<HTMLDivElement, ProductCardProps>(
                   leftIcon={quickViewIcon || <FiEye />}
                   onClick={(e) => {
                     e.stopPropagation();
-                    onQuickView();
+                    onQuickView(coreData);
                   }}
                 >
                   Quick View
@@ -319,7 +319,7 @@ const ProductCardBase = React.forwardRef<HTMLDivElement, ProductCardProps>(
                     label={category}
                     variant="outlined"
                     className="productcard-category"
-                    onClick={onCategoryClick}
+                    onClick={onCategoryClick ? (() => onCategoryClick(coreData)) : undefined}
                   />
                 )}
               </div>
@@ -344,7 +344,7 @@ const ProductCardBase = React.forwardRef<HTMLDivElement, ProductCardProps>(
               <Typography
                 variant="body1"
                 noMargin
-                onClick={onClick}
+                onClick={onClick ? (() => onClick(coreData)) : undefined}
                 style={{ cursor: onClick ? 'pointer' : 'default' }}
               >
                 {name}
@@ -548,7 +548,7 @@ const ProductCardWide = React.forwardRef<HTMLDivElement, ProductCardWideProps>(
                 </a>
               )
             ) : (
-              <div onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default', height: '100%' }}>
+              <div onClick={onClick ? () => onClick(coreData) : undefined} style={{ cursor: onClick ? 'pointer' : 'default', height: '100%' }}>
                 <Image
                   component={imageComponent}
                   src={image}
@@ -573,7 +573,7 @@ const ProductCardWide = React.forwardRef<HTMLDivElement, ProductCardWideProps>(
                 className={`productcard-wishlist-btn ${isWishlisted ? 'productcard-wishlist-btn--active' : ''}`}
                 onClick={(e) => {
                   e.stopPropagation();
-                  onWishlist?.();
+                  onWishlist?.(coreData);
                 }}
                 disabled={!onWishlist}
                 aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
@@ -602,7 +602,7 @@ const ProductCardWide = React.forwardRef<HTMLDivElement, ProductCardWideProps>(
                     </a>
                   )
                 ) : (
-                  <Chip label={category} variant="outlined" className="productcard-category" onClick={onCategoryClick} />
+                  <Chip label={category} variant="outlined" className="productcard-category" onClick={onCategoryClick ? () => onCategoryClick(coreData) : undefined} />
                 )}
               </div>
             )}
@@ -623,7 +623,7 @@ const ProductCardWide = React.forwardRef<HTMLDivElement, ProductCardWideProps>(
                   </a>
                 )
               ) : (
-                <Typography variant="h5" weight="bold" noMargin onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default', wordBreak: 'break-word' }}>
+                <Typography variant="h5" weight="bold" noMargin onClick={onClick ? () => onClick(coreData) : undefined} style={{ cursor: onClick ? 'pointer' : 'default', wordBreak: 'break-word' }}>
                   {name}
                 </Typography>
               )}
@@ -675,7 +675,7 @@ const ProductCardWide = React.forwardRef<HTMLDivElement, ProductCardWideProps>(
                 )}
               </div>
               {onQuickView && (
-                <Button variant="outline" size="md" leftIcon={quickViewIcon || <FiEye />} onClick={onQuickView}>
+                <Button variant="outline" size="md" leftIcon={quickViewIcon || <FiEye />} onClick={() => onQuickView(coreData)}>
                   View
                 </Button>
               )}
@@ -791,7 +791,7 @@ const ProductCardMinimal = React.forwardRef<HTMLDivElement, ProductCardProps>(
               </a>
             )
           ) : (
-            <div onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default', height: '100%' }}>
+            <div onClick={onClick ? () => onClick(coreData) : undefined} style={{ cursor: onClick ? 'pointer' : 'default', height: '100%' }}>
               <Image
                 component={imageComponent}
                 src={image}
@@ -811,7 +811,7 @@ const ProductCardMinimal = React.forwardRef<HTMLDivElement, ProductCardProps>(
               className={`productcard-minimal-wishlist ${isWishlisted ? 'productcard-minimal-wishlist--active' : ''}`}
               onClick={(e) => {
                 e.stopPropagation();
-                onWishlist?.();
+                onWishlist?.(coreData);
               }}
               disabled={!onWishlist}
               aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
@@ -842,7 +842,7 @@ const ProductCardMinimal = React.forwardRef<HTMLDivElement, ProductCardProps>(
               </a>
             )
           ) : (
-            <Typography variant="body1" weight="medium" noMargin onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default' }}>
+            <Typography variant="body1" weight="medium" noMargin onClick={onClick ? () => onClick(coreData) : undefined} style={{ cursor: onClick ? 'pointer' : 'default' }}>
               {name}
             </Typography>
           )}
@@ -911,7 +911,7 @@ export interface ProductCardListProps extends Omit<ProductCardProps, 'onAddToCar
  *   name="Product"
  *   image="/product.jpg"
  *   price={29.99}
- *   initialQuantity={2}
+ *   quantity={2}
  *   readonly={true}
  * />
  * ```
@@ -919,6 +919,7 @@ export interface ProductCardListProps extends Omit<ProductCardProps, 'onAddToCar
 const ProductCardList = React.forwardRef<HTMLDivElement, ProductCardListProps>(
   (props, ref) => {
     const {
+      id,
       image,
       imageAlt = 'Product',
       name,
@@ -932,11 +933,25 @@ const ProductCardList = React.forwardRef<HTMLDivElement, ProductCardListProps>(
       priority = false,
       className = '',
       style,
+      onClick,
       ...rest
     } = props;
 
+    const coreData: ProductCoreData = {
+      id,
+      name,
+      image,
+      price,
+    };
+
     return (
-      <div className={`productcard-list ${className}`} style={style} ref={ref} {...rest}>
+      <div
+        className={`productcard-list ${className}`}
+        style={{ ...style, cursor: onClick ? 'pointer' : undefined }}
+        ref={ref}
+        onClick={onClick ? () => onClick(coreData) : undefined}
+        {...rest}
+      >
         <Flex direction="row" align="center" gap={12}>
           {/* IMAGE */}
           <div className="productcard-list-image-wrapper">

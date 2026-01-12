@@ -1,307 +1,437 @@
-import { Navbar, NavigationItem } from '../../components/Navbar/Navbar';
+
 import { Button } from '../../components/Button';
-import { Typography } from '../../components/Typography';
-import { Flex } from '../../components/Flex';
-import { ThemeProvider } from '../../theme/ThemeProvider';
+import { Navbar } from '../../components/Navbar/Navbar';
 import {
-  FiUser,
-  FiHeart,
-  FiPhone,
-} from 'react-icons/fi';
-import { MdOutlineLocalShipping, MdLanguage } from 'react-icons/md';
+    HeartIcon,
+    ShoppingCartIcon,
+} from '../../icons/IconComponents';
 
 export default {
-  title: 'Components/Navbar',
-  component: Navbar,
-  parameters: {
-    layout: 'fullscreen',
-  },
+    title: 'Components/Navbar',
+    component: Navbar,
+    parameters: {
+        layout: 'fullscreen',
+    },
 };
 
-// --- MOCK DATA GENERATORS ---
+// =============================================================================
+// SHARED DATA
+// =============================================================================
 
-// Define a loose type for our mock data structure
-interface MockItem {
-  item: string;
-  link: string;
-  active?: boolean;
-  children?: MockItem[];
-  megaMenu?: any;
-  badge?: string;
-  badgeVariant?: 'neutral' | 'primary' | 'success' | 'warning' | 'error' | 'info';
-}
-
-const mapMockToNav = (items: MockItem[]): NavigationItem[] => {
-  return items.map(i => ({
-    label: i.item,
-    href: i.link,
-    active: i.active,
-    children: i.children ? mapMockToNav(i.children) : undefined,
-    megaMenu: i.megaMenu,
-    badge: i.badge,
-    badgeVariant: i.badgeVariant
-  }));
-};
-
-const ecommerceData: MockItem[] = [
-  { item: "New Arrivals", link: "/new", active: true },
-  {
-    item: "Women",
-    link: "/women",
-    megaMenu: [
-      {
-        title: "Clothing",
-        items: [
-          { label: "Dresses", href: "/dresses" },
-          { label: "Tops & Blouses", href: "/tops" },
-          { label: "Jeans", href: "/jeans" },
-          { label: "Coats & Jackets", href: "/coats" },
-        ]
-      },
-      {
-        title: "Shoes & Accessories",
-        items: [
-          { label: "Sneakers", href: "/sneakers", active: true },
-          { label: "Boots", href: "/boots" },
-          { label: "Handbags", href: "/bags" },
-          { label: "Jewelry", href: "/jewelry" },
-        ]
-      },
-      {
-        title: "Collections",
-        items: [
-          { label: "Summer 2024", href: "/summer" },
-          { label: "Workwear", href: "/work" },
-          { label: "Party Edit", href: "/party" },
-        ]
-      }
-    ]
-  },
-  { item: "Men", link: "/men" },
-  { item: "Sports", link: "/sports" },
-  { item: "Sale", link: "/sale", badge: "Final", badgeVariant: "error" },
+const basicNavItems = [
+    { label: 'Home', href: '#' },
+    { label: 'Products', href: '#' },
+    { label: 'About', href: '#' },
+    { label: 'Contact', href: '#' },
 ];
 
-const startupData: MockItem[] = [
-  { item: "Products", link: "/products" },
-  { item: "Solutions", link: "/solutions" },
-  { item: "Resources", link: "/resources" },
-  { item: "Pricing", link: "/pricing" },
-];
 
-const agencyData: MockItem[] = [
-  { item: "Work", link: "/work" },
-  { item: "Expertise", link: "/expertise" },
-  { item: "About", link: "/about" },
-  { item: "Contact", link: "/contact" },
-];
 
-// --- STORIES ---
-
-/**
- * 1. E-COMMERCE STORE
- * Uses a Two-Row layout.
- * Top row: Logo, Search, Account/Cart icons.
- * Bottom row: Main Category Navigation.
- * Includes a TopBar for announcements.
- */
-export const EcommerceStore = () => {
-  const contactInfoNode = (
-    <Flex align="center" gap={12}>
-      <div style={{ fontSize: '1.5rem', color: 'var(--vtx-color-primary-500)' }}>
-        <FiPhone />
-      </div>
-      <Flex direction="column" style={{ lineHeight: 1.2 }}>
-        <Typography variant="caption" color="secondary" weight="medium">Customer Support</Typography>
-        <Typography variant="body2" weight="semibold">+1 (800) 555-0123</Typography>
-      </Flex>
-    </Flex>
-  );
-
-  return (
-    <Navbar
-      variant="two-row"
-      logo="https://via.placeholder.com/140x40?text=LUXE+STORE"
-      brandText="Luxe Store"
-      navigationItems={mapMockToNav(ecommerceData)}
-      search={{ placeholder: "Search for products, brands and more..." }}
-      contentNodes={[contactInfoNode]}
-      actions={
-        <Flex align="center" gap={8}>
-          <Button variant="ghost" size="sm" iconOnly><FiHeart size={20} /></Button>
-          <Button variant="ghost" size="sm" iconOnly><FiUser size={20} /></Button>
-        </Flex>
-      }
-      topBar={{
-        left: (
-          <Flex align="center" gap={8}>
-            <MdOutlineLocalShipping />
-            <Typography size="sm">Free shipping on all orders over $75</Typography>
-          </Flex>
-        ),
-        right: [
-          { label: "Track Order", href: "/track" },
-          { label: "Find a Store", href: "/stores" },
-        ],
-        backgroundColor: "#1a202c",
-        textColor: "#ffffff"
-      }}
-      sticky
-    />
-  );
-};
-
-/**
- * 2. TECH STARTUP (SaaS)
- * Uses a Single-Row layout.
- * Clean, modern look with focus on "Get Started" CTA.
- */
-export const TechStartup = () => {
-  return (
-    <Navbar
-      variant="single-row"
-      logo="https://via.placeholder.com/120x40?text=NEXUS"
-      brandText="Nexus AI"
-      navigationItems={mapMockToNav(startupData)}
-      actions={
-        <Flex align="center" gap={12}>
-          <Button variant="ghost" size="sm">Log In</Button>
-          <Button variant="primary" size="sm">Start Free Trial</Button>
-        </Flex>
-      }
-      sticky
-      shadow
-    />
-  );
-};
-
-/**
- * 3. CREATIVE AGENCY
- * Uses a Centered layout.
- * Minimalist, focus on typography and whitespace.
- */
-export const CreativeAgency = () => (
-  <Navbar
-    variant="centered"
-    logo="https://via.placeholder.com/100x40?text=BOLD"
-    brandText="BOLD"
-    navigationItems={mapMockToNav(agencyData)}
-    actions={
-      <Button variant="outline" size="sm" style={{ borderRadius: '999px' }}>
-        Start a Project
-      </Button>
-    }
-    shadow={false}
-    style={{ borderBottom: '1px solid transparent' }}
-  />
-);
-
-/**
- * 4. ENTERPRISE / CORPORATE
- * Informative, structured, trustworthy.
- * Uses a secondary top bar for investor/career links.
- */
-export const EnterpriseCorp = () => (
-  <Navbar
-    variant="single-row"
-    logo="https://via.placeholder.com/160x45?text=GLOBAL+CORP"
-    brandText="Global Corp"
-    navigationItems={[
-      {
-        label: "Industries",
-        href: "/industries",
+const megaMenuNavItems = [
+    { label: 'Home', href: '#' },
+    {
+        label: 'Products',
+        href: '#',
         megaMenu: [
-          {
-            title: "Sectors",
-            items: [
-              { label: "Financial Services", href: "/finance" },
-              { label: "Healthcare & Life Sciences", href: "/health" },
-              { label: "Manufacturing", href: "/manufacturing" },
-              { label: "Public Sector", href: "/public" },
-            ]
-          }
+            {
+                title: 'Featured',
+                items: [],
+                featured: true,
+                span: 1,
+                image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=300&q=80',
+                cta: { label: 'Shop Sale', href: '#', variant: 'primary' as const }
+            },
+            {
+                title: 'Electronics',
+                items: [
+                    { label: 'Laptops', href: '#', description: 'Powerful machines for work' },
+                    { label: 'Smartphones', href: '#', description: 'Latest models' },
+                    { label: 'Headphones', href: '#' },
+                    { label: 'Cameras', href: '#' },
+                ]
+            },
+            {
+                title: 'Clothing',
+                items: [
+                    { label: 'Men', href: '#' },
+                    { label: 'Women', href: '#' },
+                    { label: 'Kids', href: '#' },
+                    { label: 'Accessories', href: '#' },
+                ]
+            }
         ]
-      },
-      { label: "Services", href: "/services" },
-      { label: "Insights", href: "/insights" },
-      { label: "About Us", href: "/about" },
-    ]}
-    search={{ placeholder: "Search Global Corp..." }}
-    topBar={{
-      right: [
-        { label: "Investors", href: "/investors" },
-        { label: "Newsroom", href: "/news" },
-        { label: "Careers", href: "/careers" },
-        { label: "Global (EN)", href: "/lang", icon: <MdLanguage /> },
-      ],
-      backgroundColor: "#f7fafc", // Light gray
-      textColor: "#4a5568"
-    }}
-    actions={<Button variant="primary">Contact Sales</Button>}
-  />
-);
+    },
+    { label: 'About', href: '#' },
+    { label: 'Contact', href: '#' },
+];
 
-/**
- * 5. NEWS / MEDIA PUBLICATION
- * High density, multiple levels of navigation.
- * Uses Two-Row mostly to fit categories.
- */
-export const DigitalNews = () => (
-  <Navbar
-    variant="two-row"
-    logo="https://via.placeholder.com/180x50?text=THE+DAILY"
-    brandText="The Daily View"
-    navigationItems={[
-      { label: "World", href: "/world", active: true },
-      { label: "Business", href: "/business" },
-      { label: "Tech", href: "/tech" },
-      { label: "Science", href: "/science" },
-      { label: "Health", href: "/health" },
-      { label: "Sports", href: "/sports" },
-      { label: "Entertainment", href: "/entertainment" },
-      { label: "Travel", href: "/travel" },
-    ]}
-    contentNodes={[
-      <Typography key="date" variant="body2" weight="bold" style={{ marginRight: '1rem' }}>
-        {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
-      </Typography>
-    ]}
-    actions={
-      <Flex align="center" gap={8}>
-        <Button variant="outline" size="sm">Subscribe</Button>
-        <Button variant="ghost" size="sm">Log In</Button>
-      </Flex>
-    }
-  />
-);
+// =============================================================================
+// 1. LAYOUT VARIANTS
+// =============================================================================
 
-/**
- * 6. DARK MODE (SAAS)
- * Demonstrates theme adaptability.
- */
-export const DarkModeSaaS = () => (
-  <ThemeProvider initialMode="dark">
-    <div style={{ minHeight: '50vh', background: 'var(--vtx-bg-primary)' }}>
-      <Navbar
-        variant="single-row"
-        logo="https://via.placeholder.com/120x40?text=CYBER+SEC&bg=000&color=fff"
-        brandText="CyberSec"
-        navigationItems={[
-          { label: "Platform", href: "/platform" },
-          { label: "Solutions", href: "/solutions" },
-          { label: "Pricing", href: "/pricing" },
-        ]}
-        actions={
-          <Flex align="center" gap={10}>
-            <Button variant="ghost" size="sm">Sign In</Button>
-            <Button variant="primary" size="sm" color="success">Get Demo</Button>
-          </Flex>
-        }
-        sticky
-      />
-      <Flex direction="column" align="center" style={{ padding: '2rem' }}>
-        <Typography variant="h1" align="center">Secure your infrastructure</Typography>
-      </Flex>
+export const LayoutSingleRow = () => (
+    <div style={{ minHeight: '100vh', background: '#f8fafc' }}>
+        <Navbar
+            variant="single-row"
+            logo="https://via.placeholder.com/120x40/2563eb/ffffff?text=Brand"
+            navigationItems={basicNavItems}
+            actions={
+                <div style={{ display: 'flex', gap: 12 }}>
+                    <Button variant="ghost" size="sm">Sign In</Button>
+                    <Button variant="primary" size="sm">Sign Up</Button>
+                </div>
+            }
+        />
+        <div style={{ padding: '60px 40px', textAlign: 'center' }}>
+            <h1 style={{ fontSize: '32px', marginBottom: '16px' }}>Single Row Layout</h1>
+            <p style={{ color: '#64748b' }}>Standard layout with logo, navigation, and actions in one row.</p>
+        </div>
     </div>
-  </ThemeProvider>
+);
+
+export const LayoutTwoRow = () => (
+    <div style={{ minHeight: '100vh', background: '#ffffff' }}>
+        <Navbar
+            variant="two-row"
+            logo="https://via.placeholder.com/150x40/059669/ffffff?text=Enterprise"
+            search={{ placeholder: 'Search products...' }}
+            navigationItems={megaMenuNavItems}
+            topBar={{
+                left: [{ label: 'Call us: +1 555 123 4567', href: '#' }],
+                right: [{ label: 'Track Order', href: '#' }, { label: 'Support', href: '#' }],
+                backgroundColor: '#f1f5f9'
+            }}
+            actions={
+                <Button variant="primary">
+                    <ShoppingCartIcon size={18} style={{ marginRight: 8 }} />
+                    Cart (3)
+                </Button>
+            }
+        />
+        <div style={{ padding: '60px 40px', textAlign: 'center' }}>
+            <h1 style={{ fontSize: '32px', marginBottom: '16px' }}>Two Row Layout</h1>
+            <p style={{ color: '#64748b' }}>Ideal for e-commerce. Includes TopBar, Search/Logo/Actions row, and Navigation row.</p>
+        </div>
+    </div>
+);
+
+export const LayoutCentered = () => (
+    <div style={{ minHeight: '100vh', background: '#f8fafc' }}>
+        <Navbar
+            variant="centered"
+            logo="https://via.placeholder.com/120x40/f59e0b/ffffff?text=Centered"
+            navigationItems={basicNavItems}
+            actions={
+                <div style={{ display: 'flex', gap: 12 }}>
+                    <Button variant="ghost" size="sm">Login</Button>
+                    <Button variant="secondary" size="sm">Join</Button>
+                </div>
+            }
+        />
+        <div style={{ padding: '60px 40px', textAlign: 'center' }}>
+            <h1 style={{ fontSize: '32px', marginBottom: '16px' }}>Centered Layout</h1>
+            <p style={{ color: '#64748b' }}>Navigation centered, Logo left, Actions right.</p>
+        </div>
+    </div>
+);
+
+export const LayoutTransparent = () => (
+    <div style={{ minHeight: '100vh', position: 'relative' }}>
+        <div style={{
+            position: 'absolute', inset: 0, zIndex: -1,
+            background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)'
+        }} />
+        <Navbar
+            variant="transparent"
+            transparent
+            logo="https://via.placeholder.com/120x40/ffffff/ffffff?text=Brand"
+            navigationItems={[
+                { label: 'Home', href: '#', hoverColor: '#60a5fa' },
+                { label: 'Features', href: '#', hoverColor: '#60a5fa' },
+                { label: 'Pricing', href: '#', hoverColor: '#60a5fa' },
+            ]}
+            topBar={{
+                right: [{ label: 'Login', href: '#' }],
+                backgroundColor: 'transparent',
+                textColor: 'light'
+            }}
+            hoverColor="primary"
+            actions={
+                <Button variant="primary" style={{ background: 'white', color: '#0f172a' }}>Get Started</Button>
+            }
+        />
+        <div style={{ padding: '120px 40px', textAlign: 'center', color: 'white' }}>
+            <h1 style={{ fontSize: '48px', marginBottom: '24px', fontWeight: 800 }}>Transparent Navbar</h1>
+            <p style={{ fontSize: '20px', opacity: 0.9 }}>Perfect for overlaying on hero sections or dark backgrounds.</p>
+        </div>
+    </div>
+);
+
+// =============================================================================
+// 2. TOPBAR CONFIGURATIONS
+// =============================================================================
+
+export const TopBarVariants = () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '40px', padding: '20px', background: '#f1f5f9' }}>
+
+        {/* Primary TopBar */}
+        <div>
+            <h3 style={{ marginBottom: '10px', color: '#475569' }}>Primary Color Background</h3>
+            <Navbar
+                variant="single-row"
+                logo="https://via.placeholder.com/120x32?text=Primary"
+                navigationItems={[]}
+                topBar={{
+                    left: 'Welcome to our store',
+                    right: [{ label: 'Sign In', href: '#' }],
+                    backgroundColor: 'primary', // Use theme primary
+                }}
+            />
+        </div>
+
+        {/* Secondary TopBar */}
+        <div>
+            <h3 style={{ marginBottom: '10px', color: '#475569' }}>Secondary Color Background</h3>
+            <Navbar
+                variant="single-row"
+                logo="https://via.placeholder.com/120x32?text=Secondary"
+                navigationItems={[]}
+                topBar={{
+                    left: 'Special Offer: 50% Off',
+                    right: [{ label: 'Shop Now', href: '#' }],
+                    backgroundColor: 'secondary', // Use theme secondary
+                    textColor: 'light'
+                }}
+            />
+        </div>
+
+        {/* Dark TopBar with Custom Text */}
+        <div>
+            <h3 style={{ marginBottom: '10px', color: '#475569' }}>Dark Background + Custom Text Color</h3>
+            <Navbar
+                variant="single-row"
+                logo="https://via.placeholder.com/120x32?text=Dark"
+                navigationItems={[]}
+                topBar={{
+                    left: 'Premium Membership',
+                    right: [{ label: 'Upgrade', href: '#' }],
+                    backgroundColor: 'dark',
+                    textColor: '#4ade80' // Custom green text
+                }}
+            />
+        </div>
+
+        {/* Fully Custom Colors */}
+        <div>
+            <h3 style={{ marginBottom: '10px', color: '#475569' }}>Custom Hex Background</h3>
+            <Navbar
+                variant="single-row"
+                logo="https://via.placeholder.com/120x32?text=Custom"
+                navigationItems={[]}
+                topBar={{
+                    left: 'Summer Vibes',
+                    right: [{ label: 'Explore', href: '#' }],
+                    backgroundColor: '#f43f5e', // Rose-500
+                    textColor: '#ffffff'
+                }}
+            />
+        </div>
+    </div>
+);
+
+// =============================================================================
+// 3. HOVER COLORS & STYLING
+// =============================================================================
+
+export const HoverColorOptions = () => (
+    <div style={{ minHeight: '100vh', background: '#ffffff' }}>
+        <Navbar
+            variant="single-row"
+            logo="https://via.placeholder.com/120x40/7c3aed/ffffff?text=Colors"
+            hoverColor="primary" // Default for all items
+            navigationItems={[
+                { label: 'Global Primary', href: '#' },
+                { label: 'Override Pink', href: '#', hoverColor: '#ec4899' },
+                { label: 'Override Green', href: '#', hoverColor: '#10b981' },
+                { label: 'Override Inherit', href: '#', hoverColor: 'inherit' },
+            ]}
+            topBar={{
+                left: [
+                    { label: 'Top Bar Inherit', href: '#', hoverColor: 'inherit' },
+                    { label: 'Top Bar Custom', href: '#', hoverColor: '#f59e0b' }
+                ],
+                backgroundColor: '#1e293b',
+                textColor: '#ffffff',
+            }}
+        />
+        <div style={{ padding: '60px 40px', textAlign: 'center' }}>
+            <h1 style={{ fontSize: '32px', marginBottom: '16px' }}>Hover Colors System</h1>
+            <ul style={{ textAlign: 'left', maxWidth: '600px', margin: '0 auto', color: '#64748b', lineHeight: 2 }}>
+                <li>✅ Set global <code>hoverColor="primary"</code> on Navbar</li>
+                <li>✅ Override on individual items with hex codes <code>hoverColor="#ec4899"</code></li>
+                <li>✅ Works on TopBar items too</li>
+            </ul>
+        </div>
+    </div>
+);
+
+// =============================================================================
+// 4. SEARCH & RESPONSIVE BEHAVIOR
+// =============================================================================
+
+export const FlexibleSearch = () => (
+    <div style={{ minHeight: '100vh', background: '#f8fafc' }}>
+        <div style={{ padding: '20px', borderBottom: '1px solid #e2e8f0' }}>
+            <h3 style={{ marginBottom: '10px' }}>Full Width Search (Default)</h3>
+            <Navbar
+                variant="single-row"
+                logo="https://via.placeholder.com/120x32?text=Full"
+                search={{ placeholder: 'I expand to fill space...' }}
+                searchFullWidth={true}
+                navigationItems={[{ label: 'Link', href: '#' }]}
+            />
+        </div>
+
+        <div style={{ padding: '20px' }}>
+            <h3 style={{ marginBottom: '10px' }}>Compact Search (`searchFullWidth=false`)</h3>
+            <Navbar
+                variant="single-row"
+                logo="https://via.placeholder.com/120x32?text=Compact"
+                search={{ placeholder: 'Fixed width...' }}
+                searchFullWidth={false}
+                navigationItems={[{ label: 'Link', href: '#' }]}
+            />
+        </div>
+    </div>
+);
+
+export const ResponsiveBehavior = () => (
+    <div style={{ minHeight: '100vh', background: '#ffffff' }}>
+        <Navbar
+            variant="two-row"
+            // Custom Breakpoint: Switches to mobile view at 1280px instead of 1024px
+            mobileBreakpoint={1280}
+            logo="https://via.placeholder.com/150x40/2563eb/ffffff?text=Responsive"
+            search={{ placeholder: 'Resize browser to test...' }}
+            navigationItems={megaMenuNavItems}
+            actions={<Button variant="primary">Action</Button>}
+            topBar={{
+                left: 'Custom Breakpoint Example',
+                backgroundColor: 'secondary',
+                textColor: 'light'
+            }}
+        />
+        <div style={{ padding: '60px 40px', textAlign: 'center' }}>
+            <h1 style={{ fontSize: '32px', marginBottom: '16px' }}>Responsive Breakpoint</h1>
+            <p style={{ color: '#64748b', fontSize: '18px' }}>
+                This navbar switches to mobile mode at <strong>1280px</strong> width.
+            </p>
+            <p style={{ color: '#94a3b8' }}>
+                Resize your browser window to see the transition.
+            </p>
+        </div>
+    </div>
+);
+
+// =============================================================================
+// 5. ENTERPRISE E-COMMERCE EXAMPLE
+// =============================================================================
+
+export const EnterpriseProDesign = () => (
+    <div style={{ minHeight: '100vh', background: '#f8fafc' }}>
+        <Navbar
+            variant="two-row"
+            sticky
+            // Configuration
+            hoverColor="primary"
+            searchFullWidth={true}
+            uppercaseNavItems={true}
+            fullWidthSubMenu={true}
+            showNavSeparators={true}
+            secondRowPrimaryBackground={true}
+
+            // Content
+            logo="https://via.placeholder.com/150x40/ffffff/2563eb?text=Enterprise"
+
+            // Top Bar
+            topBar={{
+                left: [
+                    { label: 'USD', href: '#', icon: <span style={{ marginRight: 4 }}>🇺🇸</span> },
+                    { label: 'English', href: '#' },
+                ],
+                right: [
+                    { label: 'Store Locator', href: '#' },
+                    { label: 'Track Order', href: '#' },
+                    { label: 'Help', href: '#' },
+                ],
+                backgroundColor: 'dark',
+            }}
+
+            // Search & Actions
+            search={{
+                placeholder: 'What are you looking for?',
+                onSearch: (q) => console.log(q)
+            }}
+            actions={
+                <div style={{ display: 'flex', gap: 12 }}>
+                    <Button variant="ghost" iconOnly>
+                        <HeartIcon size={20} />
+                    </Button>
+                    <Button variant="primary">
+                        <ShoppingCartIcon size={20} style={{ marginRight: 8 }} />
+                        Cart (2)
+                    </Button>
+                </div>
+            }
+
+            // User
+            user={{
+                name: 'John Doe',
+                avatar: 'https://i.pravatar.cc/150?img=11',
+                menuItems: [
+                    { label: 'Profile', href: '#' },
+                    { label: 'Orders', href: '#' },
+                    { label: 'Logout', href: '#' }
+                ]
+            }}
+
+            // Navigation
+            navigationItems={[
+                { label: 'New Arrivals', href: '#new', active: true },
+                {
+                    label: 'Electronics',
+                    href: '#elec',
+                    megaMenu: [
+                        {
+                            title: 'Categories',
+                            items: [{ label: 'Phone', href: '#' }, { label: 'Laptop', href: '#' }],
+                            span: 1
+                        },
+                        {
+                            title: 'Featured',
+                            items: [],
+                            featured: true,
+                            span: 2,
+                            image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=400&q=80',
+                            description: 'New M2 Macbooks are here.',
+                            cta: { label: 'Buy Now', href: '#', hoverColor: '#2563eb' }
+                        }
+                    ]
+                },
+                { label: 'Fashion', href: '#fashion' },
+                { label: 'Home & Living', href: '#home', badge: 'Sale', badgeVariant: 'error' },
+                { label: 'Sports', href: '#sports' },
+            ]}
+        />
+
+        {/* Mock Hero Content */}
+        <div style={{ height: '400px', background: '#e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <h2 style={{ fontSize: '24px', color: '#64748b' }}>Hero Banner Area</h2>
+        </div>
+        <div style={{ padding: '40px', maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
+            {[1, 2, 3].map(i => (
+                <div key={i} style={{ height: '200px', background: 'white', borderRadius: '8px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }} />
+            ))}
+        </div>
+    </div>
 );

@@ -37,6 +37,11 @@
   color: var(--vtx-color-primary-800);
 }
 
+.vtx-badge--secondary {
+  background-color: var(--vtx-color-secondary-100);
+  color: var(--vtx-color-secondary-800);
+}
+
 .vtx-badge--success {
   background-color: var(--vtx-color-success-50);
   color: var(--vtx-color-success-700);
@@ -62,6 +67,11 @@
   border-radius: var(--vtx-radius-full);
 }
 
+/* Rounded shape */
+.vtx-badge--rounded {
+  border-radius: var(--vtx-radius-lg);
+}
+
 /* Dot indicator */
 .vtx-badge-dot {
   width: 6px;
@@ -78,6 +88,10 @@
   background-color: var(--vtx-color-primary-600);
 }
 
+.vtx-badge--secondary .vtx-badge-dot {
+  background-color: var(--vtx-color-secondary-600);
+}
+
 .vtx-badge--success .vtx-badge-dot {
   background-color: var(--vtx-color-success-600);
 }
@@ -92,4 +106,42 @@
 
 .vtx-badge--info .vtx-badge-dot {
   background-color: var(--vtx-color-info-600);
+}
+
+/* Solid mode (lightMode=false) - uses full variant color with contrast text */
+.vtx-badge--solid.vtx-badge--neutral {
+  background-color: var(--vtx-color-neutral-600);
+}
+
+.vtx-badge--solid.vtx-badge--primary {
+  background-color: var(--vtx-color-primary-600);
+}
+
+.vtx-badge--solid.vtx-badge--secondary {
+  background-color: var(--vtx-color-secondary-600);
+}
+
+.vtx-badge--solid.vtx-badge--success {
+  background-color: var(--vtx-color-success-600);
+}
+
+.vtx-badge--solid.vtx-badge--warning {
+  background-color: var(--vtx-color-warning-600);
+}
+
+.vtx-badge--solid.vtx-badge--error {
+  background-color: var(--vtx-color-error-600);
+}
+
+.vtx-badge--solid.vtx-badge--info {
+  background-color: var(--vtx-color-info-600);
+}
+
+/* Text contrast classes */
+.vtx-badge--dark-text {
+  color: var(--vtx-color-neutral-900) !important;
+}
+
+.vtx-badge--light-text {
+  color: var(--vtx-color-neutral-50) !important;
 }

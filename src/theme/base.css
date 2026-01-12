@@ -433,3 +433,64 @@ textarea {
 .vtx-cursor-not-allowed {
   cursor: not-allowed;
 }
+
+.vtx-no-text-decoration {
+  text-decoration: none;
+}
+
+/* ============================================
+ * DISPLAY UTILITIES
+ * ============================================ */
+
+/* Breakpoints:
+ * Mobile: < 768px
+ * Tablet: 768px - 1024px
+ * Desktop: > 1024px
+ */
+
+/* --- HIDE UTILITIES --- */
+
+/* Hide on Mobile (< 768px) */
+@media (max-width: 767.98px) {
+  .mobile-hide {
+    display: none !important;
+  }
+}
+
+/* Hide on Tablet (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .tablet-hide {
+    display: none !important;
+  }
+}
+
+/* Hide on Desktop (> 1024px) */
+@media (min-width: 1024.02px) {
+  .desktop-hide {
+    display: none !important;
+  }
+}
+
+/* --- SHOW UTILITIES --- */
+
+/* Show on Mobile Only (Hide on Tablet & Desktop) */
+@media (min-width: 768px) {
+  .mobile-show {
+    display: none !important;
+  }
+}
+
+/* Show on Tablet Only (Hide on Mobile & Desktop) */
+@media (max-width: 767.98px),
+(min-width: 1024.02px) {
+  .tablet-show {
+    display: none !important;
+  }
+}
+
+/* Show on Desktop Only (Hide on Mobile & Tablet) */
+@media (max-width: 1024px) {
+  .desktop-show {
+    display: none !important;
+  }
+}

@@ -20,20 +20,17 @@ export const TopBar: React.FC<TopBarProps> = ({
       return (
         <Flex align="center" gap={24}>
           {items.map((item, index) => {
-            if (item.component) {
-              const Component = item.component;
-              return <Component key={index} {...(item.componentProps || {})} />;
-            }
             return (
-              <Link 
-                key={index} 
-                href={item.href} 
+              <Link
+                key={index}
+                href={item.href}
                 onClick={item.onClick}
-                className="vtx-navbar__topbar-link"
                 variant="small"
                 color="inherit"
                 noUnderline
+                hoverColor={item.hoverColor}
                 leftIcon={item.icon}
+                component={item.component}
               >
                 {item.label}
               </Link>
@@ -45,9 +42,29 @@ export const TopBar: React.FC<TopBarProps> = ({
     return items;
   };
 
+  const {
+    backgroundColor,
+    textColor,
+  } = config;
+
+  const isStandardBg = backgroundColor && ['primary', 'secondary', 'dark'].includes(backgroundColor);
+  const isCustomBg = backgroundColor && !isStandardBg;
+
+  const isStandardText = textColor && ['light', 'dark'].includes(textColor);
+  const isCustomText = textColor && !isStandardText;
+
+  // Determine standard class names
+  const classes = [
+    'vtx-navbar__topbar',
+    isStandardBg && `vtx-navbar__topbar--${backgroundColor}`,
+    isStandardText && `vtx-navbar__topbar--text-${textColor}`,
+    // Auto-light text for primary/secondary/dark backgrounds if not specified
+    !textColor && (backgroundColor === 'primary' || backgroundColor === 'secondary' || backgroundColor === 'dark') && 'vtx-navbar__topbar--text-light',
+  ].filter(Boolean).join(' ');
+
   const style: React.CSSProperties = {};
-  if (config.backgroundColor) style.backgroundColor = config.backgroundColor;
-  if (config.textColor) style.color = config.textColor;
+  if (isCustomBg) style.backgroundColor = backgroundColor;
+  if (isCustomText) style.color = textColor;
 
   const content = (
     <Flex justify="between" align="center">
@@ -57,7 +74,7 @@ export const TopBar: React.FC<TopBarProps> = ({
   );
 
   return (
-    <div className="vtx-navbar__topbar" style={style}>
+    <div className={classes} style={style}>
       {containerized ? <Container>{content}</Container> : <div style={{ padding: '0 1.5rem' }}>{content}</div>}
     </div>
   );

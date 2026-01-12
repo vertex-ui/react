@@ -72,6 +72,10 @@
   color: inherit;
 }
 
+.vtx-link--inherit:hover {
+  color: inherit;
+}
+
 /* Text variants (sizes) */
 .vtx-link--h1 {
   font-size: var(--vtx-font-size-4xl);
@@ -169,6 +173,40 @@
 
 [data-theme='dark'] .vtx-link--neutral:hover {
   color: var(--vtx-color-neutral-100);
+}
+
+/* Hover color variants */
+.vtx-link--hover-primary:hover {
+  color: var(--vtx-color-primary-600);
+}
+
+[data-theme='dark'] .vtx-link--hover-primary:hover {
+  color: var(--vtx-color-primary-400);
+}
+
+.vtx-link--hover-secondary:hover {
+  color: var(--vtx-color-secondary-600);
+}
+
+[data-theme='dark'] .vtx-link--hover-secondary:hover {
+  color: var(--vtx-color-secondary-400);
+}
+
+.vtx-link--hover-neutral:hover {
+  color: var(--vtx-color-neutral-700);
+}
+
+[data-theme='dark'] .vtx-link--hover-neutral:hover {
+  color: var(--vtx-color-neutral-300);
+}
+
+.vtx-link--hover-inherit:hover {
+  color: inherit;
+}
+
+/* Custom hover color */
+.vtx-link--hover-custom:hover {
+  color: var(--vtx-link-hover-color);
 }
 
 /* Reduced motion */
