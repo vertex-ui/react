@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { userEvent, within, expect } from '@storybook/test';
 import { RadioGroup } from '../../components/RadioGroup';
 
 const meta: Meta<typeof RadioGroup> = {
@@ -139,5 +140,28 @@ export const LongOptions: Story = {
         label: 'Enterprise Plan - $49.99/month with unlimited access and priority support' 
       },
     ],
+  },
+};
+
+export const Interactive: Story = {
+  args: {
+    label: 'Interactive Radio Group',
+    name: 'interactive-group',
+    options: sizeOptions,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const radioMedium = canvas.getByText('Medium');
+    const radioMediumInput = canvas.getByRole('radio', { name: 'Medium' });
+
+    await expect(radioMediumInput).not.toBeChecked();
+    await userEvent.click(radioMedium);
+    await expect(radioMediumInput).toBeChecked();
+
+    const radioLarge = canvas.getByText('Large');
+    const radioLargeInput = canvas.getByRole('radio', { name: 'Large' });
+    await userEvent.click(radioLarge);
+    await expect(radioLargeInput).toBeChecked();
+    await expect(radioMediumInput).not.toBeChecked();
   },
 };

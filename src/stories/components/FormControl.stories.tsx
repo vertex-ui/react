@@ -405,9 +405,8 @@ export const CompleteExample: Story = {
           <Checkbox
             checked={formState.publish}
             onChange={(e) => setFormState({ ...formState, publish: e.target.checked })}
-          >
-            Publish immediately
-          </Checkbox>
+            label="Publish immediately"
+          />
         </FormControl>
 
         <div style={{ display: 'flex', gap: '12px', marginTop: '8px' }}>

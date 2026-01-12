@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { userEvent, within, expect } from '@storybook/test';
 import { Input } from '../../components/Input';
 
 const meta: Meta<typeof Input> = {
@@ -48,5 +49,19 @@ export const Disabled: Story = {
     placeholder: 'This input is disabled',
     disabled: true,
     defaultValue: 'Disabled value',
+  },
+};
+
+export const Interactive: Story = {
+  args: {
+    label: 'Interactive Input',
+    placeholder: 'Type something...',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByPlaceholderText('Type something...');
+
+    await userEvent.type(input, 'Hello World');
+    await expect(input).toHaveValue('Hello World');
   },
 };

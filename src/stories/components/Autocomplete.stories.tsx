@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { userEvent, within, expect } from '@storybook/test';
 import { Autocomplete } from '../../components/Autocomplete';
 import { UserIcon, BuildingIcon, MapPinIcon } from '../../icons/IconComponents';
 
@@ -235,5 +236,27 @@ export const WithHelperText: Story = {
     placeholder: 'Type to search...',
     options: basicOptions,
     helperText: 'Start typing to see suggestions',
+  },
+};
+
+export const Interactive: Story = {
+  args: {
+    label: 'Interactive Autocomplete',
+    placeholder: 'Search fruit...',
+    options: basicOptions,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByPlaceholderText('Search fruit...');
+
+    // Type to search
+    await userEvent.type(input, 'Ban');
+
+    // Find option in portal
+    const option = await within(document.body).findByText('Banana');
+    await userEvent.click(option);
+
+    // Verify value
+    await expect(input).toHaveValue('Banana');
   },
 };

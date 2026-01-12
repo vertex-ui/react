@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { userEvent, within, expect } from '@storybook/test';
 import { Radio } from '../../components/Radio';
 
 const meta: Meta<typeof Radio> = {
@@ -37,6 +38,7 @@ export const Checked: Story = {
     name: 'checked',
     value: 'checked',
     checked: true,
+    onChange: () => {},
   },
 };
 
@@ -56,6 +58,7 @@ export const DisabledChecked: Story = {
     value: 'disabled-checked',
     disabled: true,
     checked: true,
+    onChange: () => {},
   },
 };
 
@@ -103,6 +106,7 @@ export const Success: Story = {
     name: 'success',
     value: 'success',
     checked: true,
+    onChange: () => {},
   },
 };
 
@@ -113,6 +117,7 @@ export const Warning: Story = {
     name: 'warning',
     value: 'warning',
     checked: true,
+    onChange: () => {},
   },
 };
 
@@ -124,4 +129,21 @@ export const AllSizes: Story = {
       <Radio size="lg" label="Large radio" name="sizes" value="large" />
     </div>
   ),
+};
+
+export const Interactive: Story = {
+  args: {
+    label: 'Interactive Radio',
+    name: 'interactive',
+    value: 'interactive',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const label = canvas.getByText('Interactive Radio');
+    const radio = canvas.getByRole('radio');
+
+    await expect(radio).not.toBeChecked();
+    await userEvent.click(label);
+    await expect(radio).toBeChecked();
+  },
 };
