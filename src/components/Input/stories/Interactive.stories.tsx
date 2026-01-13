@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { userEvent, within, expect } from '@storybook/test';
 import { Input } from '..';
 
 const meta: Meta<typeof Input> = {
@@ -23,6 +24,12 @@ export const Default: Story = {
   args: {
     placeholder: 'Enter text...',
   },
-};
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByPlaceholderText('Enter text...');
+    await expect(input).toBeInTheDocument();
 
-
+    await userEvent.type(input, 'Hello World');
+    await expect(input).toHaveValue('Hello World');
+  },
+};

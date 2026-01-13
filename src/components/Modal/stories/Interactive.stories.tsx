@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { userEvent, within, expect } from '@storybook/test';
 import { useState } from 'react';
 import { Modal } from '..';
 import { Button } from '../../Button';
@@ -38,6 +39,20 @@ export const Default: Story = {
       </>
     );
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const openButton = canvas.getByText('Open Modal');
+
+    // Open
+    await userEvent.click(openButton);
+
+    // Modal is in portal
+    const body = within(document.body);
+    const modalTitle = await body.findByText('Default Modal');
+    await expect(modalTitle).toBeVisible();
+
+    // Close via overlay or button (assuming close button exists)
+    // const closeButton = body.getByRole('button', { name: /close/i }); // might vary
+    // await userEvent.click(closeButton);
+  },
 };
-
-

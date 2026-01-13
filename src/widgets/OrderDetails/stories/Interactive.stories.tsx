@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { within, expect } from '@storybook/test';
 import { Widget } from '../../../components/Widget';
 import type { OrderDetailsWidgetData, OrderDetailsWidgetSettings } from '../../../components/Widget/types';
 
@@ -24,6 +25,12 @@ type Story = StoryObj<typeof meta>;
  * customer info, addresses, payment details, and all action buttons.
  */
 export const Complete: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('ORD987654321')).toBeInTheDocument();
+    await expect(canvas.getByText('Sarah Johnson')).toBeInTheDocument();
+    await expect(canvas.getByText('shipped')).toBeInTheDocument();
+  },
   args: {
     config: {
       type: 'order-details',
@@ -131,6 +138,11 @@ export const Complete: Story = {
  * Order in processing state - recently placed, being prepared.
  */
 export const Processing: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('ORD123456789')).toBeInTheDocument();
+    await expect(canvas.getByText('processing')).toBeInTheDocument();
+  },
   args: {
     config: {
       type: 'order-details',

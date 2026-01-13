@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { within, expect } from '@storybook/test';
 import { Image } from '..';
 
 const meta: Meta<typeof Image> = {
@@ -25,5 +26,10 @@ export const Default: Story = {
         alt: 'Colorful Gradient',
         style: { width: 300, height: 200, borderRadius: 8 },
     },
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        const img = canvas.getByRole('img');
+        await expect(img).toBeInTheDocument();
+        await expect(img).toHaveAttribute('alt', 'Colorful Gradient');
+    },
 };
-

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { userEvent, within, expect } from '@storybook/test';
 import { Autocomplete } from '..';
 import { UserIcon, BuildingIcon, MapPinIcon } from '../../../icons/IconComponents';
 
@@ -93,6 +94,20 @@ export const Default: Story = {
     placeholder: 'Type to search...',
     options: basicOptions,
     label: 'Search',
+    onChange: () => {}, // dummy
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByPlaceholderText('Type to search...');
+
+    await userEvent.type(input, 'App');
+
+    const body = within(document.body);
+    const option = await body.findByText('Apple');
+    await expect(option).toBeVisible();
+
+    await userEvent.click(option);
+    await expect(input).toHaveValue('Apple');
   },
 };
 
@@ -119,4 +134,3 @@ export const Advanced: Story = {
     label: 'Location',
   },
 };
-
