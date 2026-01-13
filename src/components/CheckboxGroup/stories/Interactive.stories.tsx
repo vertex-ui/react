@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { userEvent, within, expect } from '@storybook/test';
 import { CheckboxGroup } from '..';
 
 const meta: Meta<typeof CheckboxGroup> = {
@@ -34,7 +35,21 @@ export const Default: Story = {
   args: {
     label: 'Select your favorite fruits',
     options: fruitOptions,
+    onChange: () => {}, // dummy
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const apple = canvas.getByLabelText('Apple');
+    const banana = canvas.getByLabelText('Banana');
+
+    await expect(apple).toBeInTheDocument();
+    await expect(apple).not.toBeChecked();
+
+    await userEvent.click(apple);
+    await expect(apple).toBeChecked();
+
+    await userEvent.click(banana);
+    await expect(banana).toBeChecked();
+    await expect(apple).toBeChecked(); // Both should be checked
   },
 };
-
-

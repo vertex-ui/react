@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { within, expect } from '@storybook/test';
 import { Chip } from '..';
 
 const meta: Meta<typeof Chip> = {
@@ -31,12 +32,20 @@ export const Default: Story = {
   args: {
     label: 'Chip',
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Chip')).toBeInTheDocument();
+  },
 };
 
 export const Interactive: Story = {
   args: {
     label: 'Primary',
     color: 'primary',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Primary')).toBeInTheDocument();
   },
 };
 
@@ -48,5 +57,9 @@ export const AllVariants: Story = {
       <Chip label="Light" variant="light" color="primary" />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Filled')).toBeInTheDocument();
+    await expect(canvas.getByText('Outlined')).toBeInTheDocument();
+  },
 };
-

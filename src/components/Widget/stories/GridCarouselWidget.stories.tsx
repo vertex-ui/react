@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { within, expect } from '@storybook/test';
 import { Widget } from '..';
 import { GridCarouselWidgetData, ProductWidgetData } from '../types';
 import { Box } from '../../Box';
@@ -156,6 +157,11 @@ export const ProductTheme: Story = {
         },
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Wireless Headphones')).toBeInTheDocument();
+    await expect(canvas.getByText('$299.99')).toBeInTheDocument();
   },
 };
 

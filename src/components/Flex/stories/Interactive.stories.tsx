@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
+import { within, expect } from '@storybook/test';
 import { Flex } from '..';
 
 const meta: Meta<typeof Flex> = {
@@ -52,6 +53,10 @@ export const Default: Story = {
       <BoxItem>Item 3</BoxItem>
     </Flex>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Item 1')).toBeInTheDocument();
+    await expect(canvas.getByText('Item 2')).toBeInTheDocument();
+    await expect(canvas.getByText('Item 3')).toBeInTheDocument();
+  },
 };
-
-
