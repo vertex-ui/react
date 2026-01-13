@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { within, expect } from '@storybook/test';
 import { Widget } from '../../../components/Widget';
 import {
   UserIcon,
@@ -46,6 +47,11 @@ export const StatCardBasic: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Total Users')).toBeInTheDocument();
+    await expect(canvas.getByText('12,543')).toBeInTheDocument();
+  },
 };
 
 export const StatCardWithTrend: Story = {
@@ -70,6 +76,13 @@ export const StatCardWithTrend: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Revenue')).toBeInTheDocument();
+    await expect(canvas.getByText('$45,231')).toBeInTheDocument();
+    await expect(canvas.getByText(/12.5/)).toBeInTheDocument();
+    await expect(canvas.getByText(/vs last month/)).toBeInTheDocument();
+  },
 };
 
 export const StatCardNegativeTrend: Story = {
@@ -92,6 +105,12 @@ export const StatCardNegativeTrend: Story = {
         showTrend: true,
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Bounce Rate')).toBeInTheDocument();
+    await expect(canvas.getByText('42.8%')).toBeInTheDocument();
+    await expect(canvas.getByText(/-8.3/)).toBeInTheDocument();
   },
 };
 
@@ -116,6 +135,12 @@ export const ProgressCardBasic: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Monthly Sales Goal')).toBeInTheDocument();
+    await expect(canvas.getByText(/75000/)).toBeInTheDocument();
+    await expect(canvas.getByText(/75%/)).toBeInTheDocument();
+  },
 };
 
 export const ProgressCardOnTrack: Story = {
@@ -137,6 +162,11 @@ export const ProgressCardOnTrack: Story = {
         status: 'on-track',
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Q1 Target Achievement')).toBeInTheDocument();
+    await expect(canvas.getByText('15 days remaining')).toBeInTheDocument();
   },
 };
 
@@ -193,6 +223,13 @@ export const ComparisonCardHorizontal: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Traffic Sources')).toBeInTheDocument();
+    await expect(canvas.getByText('Desktop')).toBeInTheDocument();
+    await expect(canvas.getByText('12.5K')).toBeInTheDocument();
+    await expect(canvas.getByText('Mobile')).toBeInTheDocument();
+  },
 };
 
 export const ComparisonCardVertical: Story = {
@@ -220,5 +257,11 @@ export const ComparisonCardVertical: Story = {
         showTrends: true,
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('User Engagement')).toBeInTheDocument();
+    await expect(canvas.getByText('New Users')).toBeInTheDocument();
+    await expect(canvas.getByText('Returning Users')).toBeInTheDocument();
   },
 };
