@@ -27,6 +27,42 @@ describe('Badge', () => {
     expect(badge).toHaveClass('vtx-badge--outline');
   });
 
+  it('renders pill style', () => {
+    const { container } = render(<Badge pill>Pill</Badge>);
+    const badge = container.querySelector('.vtx-badge');
+    expect(badge).toHaveClass('vtx-badge--pill');
+  });
+
+  it('renders rounded style', () => {
+    const { container } = render(<Badge rounded>Rounded</Badge>);
+    const badge = container.querySelector('.vtx-badge');
+    expect(badge).toHaveClass('vtx-badge--rounded');
+  });
+
+  it('renders solid style by default', () => {
+    const { container } = render(<Badge>Solid</Badge>);
+    const badge = container.querySelector('.vtx-badge');
+    expect(badge).toHaveClass('vtx-badge--solid');
+  });
+
+  it('does not apply solid class when lightMode is true', () => {
+    const { container } = render(<Badge lightMode>Light</Badge>);
+    const badge = container.querySelector('.vtx-badge');
+    expect(badge).not.toHaveClass('vtx-badge--solid');
+  });
+
+  it('applies dark text class', () => {
+    const { container } = render(<Badge darkText={true}>Dark Text</Badge>);
+    const badge = container.querySelector('.vtx-badge');
+    expect(badge).toHaveClass('vtx-badge--dark-text');
+  });
+
+  it('applies light text class', () => {
+    const { container } = render(<Badge darkText={false}>Light Text</Badge>);
+    const badge = container.querySelector('.vtx-badge');
+    expect(badge).toHaveClass('vtx-badge--light-text');
+  });
+
   it('truncates long content', () => {
     render(<Badge maxLength={5}>Very Long Text</Badge>);
     expect(screen.getByText('Very ...')).toBeInTheDocument();

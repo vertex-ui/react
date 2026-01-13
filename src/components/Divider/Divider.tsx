@@ -76,7 +76,10 @@ const Divider = React.forwardRef<HTMLHRElement | HTMLDivElement, DividerProps>(
         : 'var(--vtx-divider-color, var(--vtx-color-neutral-200))';
 
     const commonStyles: React.CSSProperties = {
-      // Removed margin: 0 to allow variants to control margin without conflict
+      marginTop: 0,
+      marginBottom: 0,
+      marginLeft: 0,
+      marginRight: 0,
       flexShrink: 0,
       borderWidth: 0,
       borderStyle: 'solid',

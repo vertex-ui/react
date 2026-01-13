@@ -27,6 +27,12 @@ describe('Checkbox', () => {
       expect(wrapper).toHaveClass('custom-class');
     });
 
+    it('applies custom input className', () => {
+      const { container } = render(<Checkbox inputClassName="custom-input-class" />);
+      const input = container.querySelector('input');
+      expect(input).toHaveClass('custom-input-class');
+    });
+
     it('renders all three sizes', () => {
       const { container: small } = render(<Checkbox size="small" />);
       const { container: medium } = render(<Checkbox size="medium" />);
@@ -46,7 +52,7 @@ describe('Checkbox', () => {
     });
 
     it('renders checked when checked prop is true', () => {
-      render(<Checkbox checked />);
+      render(<Checkbox checked readOnly />);
       const checkbox = screen.getByRole('checkbox') as HTMLInputElement;
       expect(checkbox.checked).toBe(true);
     });

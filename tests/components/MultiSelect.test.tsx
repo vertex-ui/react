@@ -324,6 +324,26 @@ describe('MultiSelect', () => {
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
   });
 
+  it('selects option with keyboard', () => {
+    const handleChange = jest.fn();
+    render(<MultiSelect options={mockOptions} onChange={handleChange} />);
+
+    const container = screen.getByRole('button');
+    fireEvent.click(container);
+
+    // Find option 1
+    const option1 = screen.getByText('Option 1').closest('.vtx-multiselect-option');
+    expect(option1).toBeInTheDocument();
+
+    // Select with Enter
+    fireEvent.keyDown(option1!, { key: 'Enter' });
+    expect(handleChange).toHaveBeenCalledWith(['1'], [mockOptions[0]]);
+
+    // Deselect with Space
+    fireEvent.keyDown(option1!, { key: ' ' });
+    expect(handleChange).toHaveBeenCalledWith([], []);
+  });
+
   it('shows empty state when no options match search', () => {
     render(<MultiSelect options={mockOptions} searchable />);
 

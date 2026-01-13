@@ -62,7 +62,7 @@ describe('parseClass', () => {
     expect(styleTag?.textContent).toContain('height:');
     expect(styleTag?.textContent).toContain('font-size:');
     expect(styleTag?.textContent).toContain('gap:');
-    // expect(styleTag?.textContent).toContain('border-radius:');
+    expect(styleTag?.textContent).toContain('border-radius:');
   });
 
   it('initializes global observer', () => {
