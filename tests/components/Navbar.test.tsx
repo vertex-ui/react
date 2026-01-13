@@ -9,14 +9,31 @@ describe('Navbar', () => {
   });
 
   it('renders logo', () => {
-    // Navbar expects logo as string src or URL? Or ReactNode?
-    // Based on previous test failure which showed <img src="[object Object]">, it seems it expects a string URL if it renders an img tag.
-    // Let's pass a string.
-    render(<Navbar logo="logo.png" />);
-    const img = screen.getByAltText('Logo');
+    // Navbar base props says logo?: string.
+    render(<Navbar logo="logo.png" logoAlt="Brand" />);
+    const img = screen.getByAltText('Brand');
     expect(img).toBeInTheDocument();
     expect(img).toHaveAttribute('src', 'logo.png');
   });
 
-  // Skipped nav items test as prop name is uncertain without reading code.
+  it('renders navigation items', () => {
+    const items = [
+      { label: 'Home', href: '/' },
+      { label: 'About', href: '/about' }
+    ];
+    // Prop name is `navigationItems` based on types.ts
+    render(<Navbar navigationItems={items} />);
+    expect(screen.getByText('Home')).toBeInTheDocument();
+    expect(screen.getByText('About')).toBeInTheDocument();
+  });
+
+  it('handles item click', () => {
+    const onItemClick = jest.fn();
+    const items = [
+      { label: 'Contact', onClick: onItemClick }
+    ];
+    render(<Navbar navigationItems={items} />);
+    fireEvent.click(screen.getByText('Contact'));
+    expect(onItemClick).toHaveBeenCalled();
+  });
 });
