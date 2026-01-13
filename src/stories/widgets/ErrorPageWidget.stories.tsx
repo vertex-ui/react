@@ -635,7 +635,7 @@ export const AllThemesComparison: Story = {
           }}
         />
       </div>
-      
+
       <div>
         <h3 style={{ marginBottom: '20px', textAlign: 'center' }}>Professional Theme</h3>
         <Widget
@@ -649,7 +649,7 @@ export const AllThemesComparison: Story = {
           }}
         />
       </div>
-      
+
       <div>
         <h3 style={{ marginBottom: '20px', textAlign: 'center' }}>Playful Theme</h3>
         <Widget
@@ -665,7 +665,7 @@ export const AllThemesComparison: Story = {
           }}
         />
       </div>
-      
+
       <div style={{ background: '#000', padding: '20px' }}>
         <h3 style={{ marginBottom: '20px', textAlign: 'center', color: '#fff' }}>Technical Theme</h3>
         <Widget
@@ -681,7 +681,7 @@ export const AllThemesComparison: Story = {
           }}
         />
       </div>
-      
+
       <div>
         <h3 style={{ marginBottom: '20px', textAlign: 'center' }}>Elegant Theme</h3>
         <Widget
@@ -695,7 +695,7 @@ export const AllThemesComparison: Story = {
           }}
         />
       </div>
-      
+
       <div>
         <h3 style={{ marginBottom: '20px', textAlign: 'center' }}>Minimal Theme</h3>
         <Widget

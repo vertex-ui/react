@@ -20,6 +20,11 @@ export interface NavigationItem {
   tag?: string;
   tagVariant?: 'new' | 'hot' | 'sale' | 'beta';
   hoverColor?: string;
+  /**
+   * Color variant for active state styling.
+   * Supports theme color tokens or custom CSS color values.
+   */
+  activeColor?: 'primary' | 'secondary' | 'neutral' | 'success' | 'warning' | 'error' | 'info' | string;
 }
 
 export interface MegaMenuColumn {
@@ -80,6 +85,25 @@ export interface NavbarBaseProps {
    * Can be 'primary', 'secondary', 'neutral', 'inherit' or any valid CSS color string.
    */
   hoverColor?: string;
+  /**
+   * Default active color for all navigation items.
+   * Individual items can override this with their activeColor prop.
+   */
+  activeColor?: 'primary' | 'secondary' | 'neutral' | 'success' | 'warning' | 'error' | 'info' | string;
+  /**
+   * Controls the visual style of active navigation items.
+   * - 'underline': Shows bottom border (default)
+   * - 'background': Shows background highlight
+   * - 'none': No special styling (only color/weight change)
+   */
+  activeIndicatorStyle?: 'underline' | 'background' | 'none';
+  /**
+   * Controls when the active indicator appears.
+   * - 'always': Shows for active items only
+   * - 'hover': Shows on hover and for active items
+   * - 'never': Never shows underline/background
+   */
+  activeIndicatorBehavior?: 'always' | 'hover' | 'never';
   user?: {
     name?: string;
     email?: string;

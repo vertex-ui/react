@@ -10,6 +10,16 @@
   --nav-text-main: #0f172a;
   --nav-text-muted: #64748b;
   --nav-primary: #2563eb;
+  
+  /* Active indicator colors - support for all theme variants */
+  --nav-active-primary: var(--vtx-color-primary-600, #2563eb);
+  --nav-active-secondary: var(--vtx-color-secondary-600, #7c3aed);
+  --nav-active-neutral: var(--vtx-color-neutral-600, #525252);
+  --nav-active-success: var(--vtx-color-success-600, #16a34a);
+  --nav-active-warning: var(--vtx-color-warning-600, #d97706);
+  --nav-active-error: var(--vtx-color-error-600, #dc2626);
+  --nav-active-info: var(--vtx-color-info-600, #2563eb);
+  --nav-active-current: var(--nav-active-primary); /* Default to primary */
 
   /* Spacing */
   --nav-padding-x: 2rem;
@@ -347,20 +357,78 @@
   color: var(--nav-text-main);
 }
 
-.vtx-navbar__nav-item:hover::after,
-.vtx-navbar__nav-item-wrapper:hover .vtx-navbar__nav-item::after {
+/* Default hover underline behavior (can be overridden) */
+.vtx-navbar__nav-item:not(.vtx-navbar__nav-item--indicator-never):hover::after,
+.vtx-navbar__nav-item-wrapper:hover .vtx-navbar__nav-item:not(.vtx-navbar__nav-item--indicator-never)::after {
   width: 100%;
 }
 
-/* Active State - Full underline */
+/* Active State - Base styling */
 .vtx-navbar__nav-item--active {
-  color: var(--nav-primary);
+  color: var(--nav-active-current);
   font-weight: 600;
 }
 
-.vtx-navbar__nav-item--active::after {
+/* Active Indicator Styles */
+
+/* Underline style (default) */
+.vtx-navbar__nav-item--active-underline::after {
   width: 100%;
-  background: var(--nav-primary);
+  background: var(--nav-active-current);
+}
+
+/* Background style */
+.vtx-navbar__nav-item--active-background {
+  background: var(--nav-active-current);
+  color: white;
+  border-radius: 6px;
+}
+
+/* Hover behavior variants */
+.vtx-navbar__nav-item--indicator-hover:hover::after,
+.vtx-navbar__nav-item-wrapper:hover .vtx-navbar__nav-item--indicator-hover::after {
+  width: 100%;
+  background: var(--nav-active-current);
+}
+
+.vtx-navbar__nav-item--indicator-hover.vtx-navbar__nav-item--active-background:hover {
+  background: var(--nav-active-current);
+  opacity: 0.9;
+}
+
+/* Color variant modifiers */
+.vtx-navbar__nav-item--active-primary {
+  --nav-active-current: var(--nav-active-primary);
+}
+
+.vtx-navbar__nav-item--active-secondary {
+  --nav-active-current: var(--nav-active-secondary);
+}
+
+.vtx-navbar__nav-item--active-neutral {
+  --nav-active-current: var(--nav-active-neutral);
+}
+
+.vtx-navbar__nav-item--active-success {
+  --nav-active-current: var(--nav-active-success);
+}
+
+.vtx-navbar__nav-item--active-warning {
+  --nav-active-current: var(--nav-active-warning);
+}
+
+.vtx-navbar__nav-item--active-error {
+  --nav-active-current: var(--nav-active-error);
+}
+
+.vtx-navbar__nav-item--active-info {
+  --nav-active-current: var(--nav-active-info);
+}
+
+/* Custom color support */
+.vtx-navbar__nav-item--active-custom {
+  /* Color will be set via inline style --nav-active-current */
+  color: var(--nav-active-current);
 }
 
 /* Chevron Icon */

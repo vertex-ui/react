@@ -46,6 +46,9 @@ export const NavbarMobile: React.FC<NavbarMobileProps> = ({
     onOpenChange,
     linkComponent,
     hoverColor,
+    activeColor = 'primary',
+    activeIndicatorStyle = 'underline',
+    activeIndicatorBehavior = 'always',
 }) => {
     const [internalIsOpen, setInternalIsOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
@@ -168,7 +171,17 @@ export const NavbarMobile: React.FC<NavbarMobileProps> = ({
                     {navigationItems.length > 0 && (
                         <nav className="vtx-navbar__drawer-nav">
                             {navigationItems.map((item, index) => (
-                                <NavItem key={index} item={item} mobile onItemClick={handleClose} linkComponent={linkComponent} defaultHoverColor={hoverColor} />
+                                <NavItem 
+                                    key={index} 
+                                    item={item} 
+                                    mobile 
+                                    onItemClick={handleClose} 
+                                    linkComponent={linkComponent} 
+                                    defaultHoverColor={hoverColor}
+                                    defaultActiveColor={activeColor}
+                                    activeIndicatorStyle={activeIndicatorStyle}
+                                    activeIndicatorBehavior={activeIndicatorBehavior}
+                                />
                             ))}
                         </nav>
                     )}
@@ -185,7 +198,17 @@ export const NavbarMobile: React.FC<NavbarMobileProps> = ({
                             {user.menuItems && user.menuItems.length > 0 && (
                                 <div className="vtx-navbar__drawer-user-menu">
                                     {user.menuItems.map((item, index) => (
-                                        <NavItem key={index} item={item} mobile onItemClick={handleClose} linkComponent={linkComponent} defaultHoverColor={hoverColor} />
+                                        <NavItem 
+                                            key={index} 
+                                            item={item} 
+                                            mobile 
+                                            onItemClick={handleClose} 
+                                            linkComponent={linkComponent} 
+                                            defaultHoverColor={hoverColor}
+                                            defaultActiveColor={activeColor}
+                                            activeIndicatorStyle={activeIndicatorStyle}
+                                            activeIndicatorBehavior={activeIndicatorBehavior}
+                                        />
                                     ))}
                                 </div>
                             )}

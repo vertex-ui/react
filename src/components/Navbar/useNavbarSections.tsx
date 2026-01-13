@@ -37,6 +37,9 @@ export const useNavbarSections = (props: NavbarBaseProps) => {
     linkComponent,
     hoverColor,
     searchFullWidth = true,
+    activeColor = 'primary',
+    activeIndicatorStyle = 'underline',
+    activeIndicatorBehavior = 'always',
   } = props;
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -71,7 +74,16 @@ export const useNavbarSections = (props: NavbarBaseProps) => {
   const navigationSection = navigationItems.length > 0 && (
     <Flex as="nav" align="center" className="vtx-navbar__nav">
       {navigationItems.map((item, index) => (
-        <NavItem key={index} item={item} uppercase={uppercaseNavItems} linkComponent={linkComponent} defaultHoverColor={hoverColor} />
+        <NavItem 
+          key={index} 
+          item={item} 
+          uppercase={uppercaseNavItems} 
+          linkComponent={linkComponent} 
+          defaultHoverColor={hoverColor}
+          defaultActiveColor={activeColor}
+          activeIndicatorStyle={activeIndicatorStyle}
+          activeIndicatorBehavior={activeIndicatorBehavior}
+        />
       ))}
     </Flex>
   );
