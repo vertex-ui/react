@@ -1,6 +1,7 @@
-import type { Meta } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
+import { within, expect } from '@storybook/test';
 import { FormControl } from '..';
-
+import { Input } from '../../Input';
 
 const meta: Meta<typeof FormControl> = {
   title: 'Components/FormControl',
@@ -26,56 +27,21 @@ const meta: Meta<typeof FormControl> = {
 };
 
 export default meta;
-
+type Story = StoryObj<typeof meta>;
 
 /**
  * Basic form control with input
  */
-
-/**
- * Form control with textarea
- */
-
-/**
- * Form control with select
- */
-
-/**
- * Form control with rich text editor
- */
-
-/**
- * Required field with error
- */
-
-/**
- * Field with success message
- */
-
-/**
- * Disabled form control
- */
-
-/**
- * Different spacing options
- */
-
-/**
- * Horizontal label layout
- */
-
-/**
- * Size variants
- */
-
-/**
- * Contact form with mixed inputs
- */
-
-/**
- * Form with validation states
- */
-
-/**
- * Complex form with all features
- */
+export const Basic: Story = {
+  args: {
+    label: 'Email Address',
+    helperText: 'We will never share your email.',
+    children: <Input placeholder="Enter email" />,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Email Address')).toBeInTheDocument();
+    await expect(canvas.getByText('We will never share your email.')).toBeInTheDocument();
+    await expect(canvas.getByPlaceholderText('Enter email')).toBeInTheDocument();
+  },
+};

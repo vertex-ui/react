@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { within, expect } from '@storybook/test';
 import { EmptyStateWidget } from '..';
 
 const meta = {
@@ -30,6 +31,10 @@ export const General: Story = {
       theme: 'modern',
       variant: 'primary',
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Get Started')).toBeInTheDocument();
   },
 };
 

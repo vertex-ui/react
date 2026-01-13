@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { within, expect } from '@storybook/test';
 import { Container } from '..';
 import { Card } from '../../Card';
 import { Typography } from '../../Typography';
@@ -37,5 +38,8 @@ export const Default: Story = {
   args: {
     children: <DemoContent />,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Container Demo')).toBeInTheDocument();
+  },
 };
-

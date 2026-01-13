@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { userEvent, within, expect } from '@storybook/test';
 import { SideMenu, SideMenuProps } from '../SideMenu';
 import { useState } from 'react';
 import {
@@ -191,25 +192,19 @@ export const Default: Story = {
     items: sampleMenuItems,
     collapsed: false,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Verify menu items present
+    await expect(canvas.getByText('Dashboard')).toBeInTheDocument();
+    await expect(canvas.getByText('Analytics')).toBeInTheDocument();
+
+    // Test expand nested menu (Analytics)
+    // Assuming clicking the parent menu expands it
+    // Note: SideMenu implementation might require finding specific trigger
+    const analytics = canvas.getByText('Analytics');
+    await userEvent.click(analytics);
+
+    // Check if submenu items appear
+    await expect(await canvas.findByText('Overview')).toBeVisible();
+  },
 };
-
-/**
- * Collapsed sidebar state
- */
-
-/**
- * With custom width
- */
-
-/**
- * Simple menu without header/footer
- */
-
-/**
- * With nested menus
- */
-
-/**
- * With badges
- */
-

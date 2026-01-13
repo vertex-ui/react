@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { userEvent, within, expect } from '@storybook/test';
 import { Tooltip } from '..';
 import { Button } from '../../Button';
 
@@ -26,6 +27,17 @@ export const Default: Story = {
     content: 'This is a tooltip',
     children: <Button>Hover me</Button>,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button', { name: 'Hover me' });
+    await expect(button).toBeInTheDocument();
+
+    // Hover to show tooltip
+    await userEvent.hover(button);
+
+    // Tooltip often renders in a portal
+    const body = within(document.body);
+    const tooltip = await body.findByText('This is a tooltip');
+    await expect(tooltip).toBeVisible();
+  },
 };
-
-
