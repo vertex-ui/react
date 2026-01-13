@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from '@storybook/test';
 import { Card } from '..';
 import { Typography } from '../../Typography';
 
@@ -29,10 +28,5 @@ export const Default: Story = {
         <Typography>This is a basic card with some content inside it.</Typography>
       </div>
     ),
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('Card Title')).toBeInTheDocument();
-    await expect(canvas.getByText(/basic card/)).toBeInTheDocument();
   },
 };

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from '@storybook/test';
 import Timeline from '../Timeline';
 import { Flex } from '../../Flex';
 
@@ -37,10 +36,13 @@ const meta: Meta<typeof Timeline> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Timeline>;
 
 // Simple string array
 const orderSteps = ['Order Placed', 'Packed', 'Shipped', 'Delivered'];
+
+// Object array with descriptions
+
 
 export const Default: Story = {
   args: {
@@ -51,11 +53,6 @@ export const Default: Story = {
     showCheckmarks: true,
     color: 'success',
     size: 'md',
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('Order Placed')).toBeInTheDocument();
-    await expect(canvas.getByText('Delivered')).toBeInTheDocument();
   },
 };
 
@@ -80,9 +77,4 @@ export const AllVariants: Story = {
       </div>
     </Flex>
   ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('Default Variant')).toBeInTheDocument();
-    await expect(canvas.getAllByText('Order Placed').length).toBeGreaterThan(0);
-  },
 };

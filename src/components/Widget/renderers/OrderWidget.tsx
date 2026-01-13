@@ -8,7 +8,7 @@ interface OrderWidgetProps {
   settings?: OrderWidgetSettings;
 }
 
-const OrderWidget: React.FC<OrderWidgetProps> = ({
+export const OrderWidget: React.FC<OrderWidgetProps> = ({
   data,
   settings,
 }) => {

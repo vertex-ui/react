@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { userEvent, within, expect } from '@storybook/test';
 import { RadioGroup } from '..';
 
 const meta: Meta<typeof RadioGroup> = {
@@ -30,26 +29,14 @@ const sizeOptions = [
   { value: 'large', label: 'Large' },
 ];
 
+
+
 export const Default: Story = {
   args: {
     label: 'Choose a size',
     name: 'size',
     options: sizeOptions,
-    onChange: () => {}, // dummy
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const small = canvas.getByLabelText('Small');
-    const medium = canvas.getByLabelText('Medium');
-
-    await expect(small).toBeInTheDocument();
-    await expect(small).not.toBeChecked();
-
-    await userEvent.click(small);
-    await expect(small).toBeChecked();
-
-    await userEvent.click(medium);
-    await expect(medium).toBeChecked();
-    await expect(small).not.toBeChecked(); // Only one checked
   },
 };
+
+

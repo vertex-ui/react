@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '../test-utils';
-import TestimonialWidget from '../../src/components/Widget/renderers/TestimonialWidget';
+import { TestimonialWidget } from '../../src/components/Widget/renderers/TestimonialWidget';
 
 describe('TestimonialWidget', () => {
   const defaultData = {

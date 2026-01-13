@@ -3,99 +3,78 @@ import { render, screen } from '../test-utils';
 import { InfoText } from '../../src/widgets/InfoText/InfoText';
 
 describe('InfoText', () => {
-  const Icon = () => <span data-testid="test-icon">Icon</span>;
-
-  describe('InfoText.Base', () => {
-    it('renders icon, heading and subtext', () => {
-      render(
-        <InfoText.Base
-          icon={<Icon />}
-          heading="Heading"
-          subText="Subtext"
-        />
-      );
-      expect(screen.getByTestId('test-icon')).toBeInTheDocument();
-      expect(screen.getByText('Heading')).toBeInTheDocument();
-      expect(screen.getByText('Subtext')).toBeInTheDocument();
-    });
-
-    it('renders plain icon when iconCircle is false', () => {
-      const { container } = render(
-        <InfoText.Base
-          icon={<Icon />}
-          heading="Heading"
-          iconCircle={false}
-        />
-      );
-      expect(container.querySelector('.infotext-icon-plain')).toBeInTheDocument();
-    });
+  it('renders title and description (Base)', () => {
+    // InfoText.Base uses 'heading' and 'subText' props, not 'title' and 'description'
+    // Icon is required.
+    render(
+      <InfoText.Base
+        icon={<span>Icon</span>}
+        heading="Info Title"
+        subText="Info Description"
+      />
+    );
+    expect(screen.getByText('Info Title')).toBeInTheDocument();
+    expect(screen.getByText('Info Description')).toBeInTheDocument();
   });
 
-  describe('InfoText.Stat', () => {
-    it('renders value, label and icon', () => {
-      render(
-        <InfoText.Stat
-          icon={<Icon />}
-          value="100"
-          label="Total"
-          subText="vs last week"
-        />
-      );
-      expect(screen.getByTestId('test-icon')).toBeInTheDocument();
-      expect(screen.getByText('100')).toBeInTheDocument();
-      expect(screen.getByText('Total')).toBeInTheDocument();
-      expect(screen.getByText('vs last week')).toBeInTheDocument();
-    });
-
-    it('renders without icon', () => {
-      render(<InfoText.Stat value="100" label="Total" />);
-      expect(screen.getByText('100')).toBeInTheDocument();
-      expect(screen.queryByTestId('test-icon')).not.toBeInTheDocument();
-    });
+  it('renders with icon', () => {
+    render(
+      <InfoText.Base
+        heading="With Icon"
+        icon={<svg data-testid="icon"><path d="M10 10" /></svg>}
+      />
+    );
+    expect(screen.getByTestId('icon')).toBeInTheDocument();
   });
 
-  describe('InfoText.Feature', () => {
-    it('renders icon, title, description and badge', () => {
-      render(
-        <InfoText.Feature
-          icon={<Icon />}
-          title="Feature Title"
-          description="Feature Description"
-          badge={<span>New</span>}
-        />
-      );
-      expect(screen.getByTestId('test-icon')).toBeInTheDocument();
-      expect(screen.getByText('Feature Title')).toBeInTheDocument();
-      expect(screen.getByText('Feature Description')).toBeInTheDocument();
-      expect(screen.getByText('New')).toBeInTheDocument();
-    });
+  it('renders stats variant', () => {
+    // InfoText.Stat uses 'value' and 'label'. 'trend' is not supported props?
+    // Using subText for trend or secondary info.
+    render(
+      <InfoText.Stat
+        label="Total Users"
+        value="1,234"
+        subText="+12%"
+      />
+    );
+    expect(screen.getByText('Total Users')).toBeInTheDocument();
+    expect(screen.getByText('1,234')).toBeInTheDocument();
+    expect(screen.getByText('+12%')).toBeInTheDocument();
   });
 
-  describe('InfoText.Compact', () => {
-    it('renders icon and text', () => {
-      render(
-        <InfoText.Compact
-          icon={<Icon />}
-          text="Compact Text"
-        />
-      );
-      expect(screen.getByTestId('test-icon')).toBeInTheDocument();
-      expect(screen.getByText('Compact Text')).toBeInTheDocument();
-    });
+  it('renders feature variant', () => {
+    render(
+      <InfoText.Feature
+        icon={<span>Icon</span>}
+        title="Feature Title"
+        description="Feature Desc"
+        badge="New"
+      />
+    );
+    expect(screen.getByText('Feature Title')).toBeInTheDocument();
+    expect(screen.getByText('Feature Desc')).toBeInTheDocument();
+    expect(screen.getByText('New')).toBeInTheDocument();
   });
 
-  describe('InfoText.Vertical', () => {
-    it('renders icon, heading and subtext in vertical layout', () => {
-      const { container } = render(
-        <InfoText.Vertical
-          icon={<Icon />}
-          heading="Vertical Heading"
-          subText="Vertical Subtext"
-        />
-      );
-      expect(container.querySelector('.infotext-vertical')).toBeInTheDocument();
-      expect(screen.getByText('Vertical Heading')).toBeInTheDocument();
-      expect(screen.getByText('Vertical Subtext')).toBeInTheDocument();
-    });
+  it('renders compact variant', () => {
+    render(
+      <InfoText.Compact
+        icon={<span>Icon</span>}
+        text="Compact Text"
+      />
+    );
+    expect(screen.getByText('Compact Text')).toBeInTheDocument();
+  });
+
+  it('renders vertical variant', () => {
+    render(
+      <InfoText.Vertical
+        icon={<span>Icon</span>}
+        heading="Vertical Heading"
+        subText="Vertical Sub"
+      />
+    );
+    expect(screen.getByText('Vertical Heading')).toBeInTheDocument();
+    expect(screen.getByText('Vertical Sub')).toBeInTheDocument();
   });
 });

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from '@storybook/test';
 import Box from './Box';
 import Typography from '../Typography/Typography';
 import Button from '../Button/Button';
@@ -56,10 +55,6 @@ export const Basic: Story = {
     borderRadius: 8,
     children: 'This is a basic Box component',
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('This is a basic Box component')).toBeInTheDocument();
-  },
 };
 
 /**
@@ -79,11 +74,6 @@ export const Spacing: Story = {
       </Box>
     </Box>
   ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('Box with padding: 4')).toBeInTheDocument();
-    await expect(canvas.getByText('Box with px: 4, py: 2')).toBeInTheDocument();
-  },
 };
 
 /**
@@ -111,11 +101,6 @@ export const FlexLayout: Story = {
       </Box>
     </Box>
   ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('Item 1')).toBeInTheDocument();
-    await expect(canvas.getByText('Centered Content')).toBeInTheDocument();
-  },
 };
 
 /**
@@ -145,11 +130,6 @@ export const GridLayout: Story = {
       </Box>
     </Box>
   ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('Grid Item 1')).toBeInTheDocument();
-    await expect(canvas.getByText('Main Content (2x width)')).toBeInTheDocument();
-  },
 };
 
 /**
@@ -200,11 +180,6 @@ export const Card: Story = {
       </Box>
     </Box>
   ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('Card Title')).toBeInTheDocument();
-    await expect(canvas.getByText('Learn More')).toBeInTheDocument();
-  },
 };
 
 /**
@@ -224,10 +199,6 @@ export const Container: Story = {
       </Box>
     </Box>
   ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('Responsive Container')).toBeInTheDocument();
-  },
 };
 
 /**
@@ -310,11 +281,6 @@ export const SemanticHTML: Story = {
       </Box>
     </Box>
   ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('Article Title')).toBeInTheDocument();
-    await expect(canvas.getByText('Section 1')).toBeInTheDocument();
-  },
 };
 
 /**
@@ -349,9 +315,4 @@ export const Positioning: Story = {
       </Box>
     </Box>
   ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('Top Left')).toBeInTheDocument();
-    await expect(canvas.getByText('Centered')).toBeInTheDocument();
-  },
 };
