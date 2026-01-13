@@ -17,9 +17,9 @@ describe('Breadcrumb', () => {
 
   it('renders items', () => {
     render(<Breadcrumb items={items} />);
-    expect(screen.getByText('Home')).toBeInTheDocument();
-    expect(screen.getByText('Products')).toBeInTheDocument();
-    expect(screen.getByText('Details')).toBeInTheDocument();
+    expect(screen.getByText(/Home/i)).toBeInTheDocument();
+    expect(screen.getByText(/Products/i)).toBeInTheDocument();
+    expect(screen.getByText(/Details/i)).toBeInTheDocument();
   });
 
   it('renders separators', () => {

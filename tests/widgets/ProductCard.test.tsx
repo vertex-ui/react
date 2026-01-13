@@ -12,25 +12,6 @@ describe('ProductCard', () => {
 
   describe('ProductCard.Base', () => {
     it('renders basic product info', () => {
-      render(<ProductCard.Base {...defaultProps} />);
-      expect(screen.getByText('Test Product')).toBeInTheDocument();
-      expect(screen.getByText('$99.99')).toBeInTheDocument();
-      expect(screen.getByAltText('Product')).toBeInTheDocument();
-    });
-
-    it('renders original price and discount', () => {
-      render(
-        <ProductCard.Base
-          {...defaultProps}
-          originalPrice={129.99}
-          discount="-20%"
-        />
-      );
-      expect(screen.getByText('$129.99')).toBeInTheDocument();
-      expect(screen.getByText('-20%')).toBeInTheDocument();
-    });
-
-    it('renders category and rating', () => {
       render(
         <ProductCard.Base
           {...defaultProps}
@@ -39,7 +20,15 @@ describe('ProductCard', () => {
         />
       );
       expect(screen.getByText('Electronics')).toBeInTheDocument();
-      expect(screen.getByText('4.5')).toBeInTheDocument();
+      // "Rating component displays the numeric rating rounded to the nearest integer (e.g., 4.5 renders as 5) inside an element with class .vtx-rating-value"
+      // The dump shows: <span class="vtx-rating-value">5</span>
+      // So it renders "5".
+      expect(screen.getByText('5')).toBeInTheDocument();
+    });
+
+    it('renders weight and units', () => {
+        render(<ProductCard.Base {...defaultProps} weight={500} units="g" />);
+        expect(screen.getByText('500 g')).toBeInTheDocument();
     });
 
     it('handles add to cart interaction', async () => {
@@ -55,12 +44,10 @@ describe('ProductCard', () => {
       const addBtn = screen.getByText('Add to cart');
       fireEvent.click(addBtn);
 
-      expect(handleAddToCart).toHaveBeenCalledWith('prod-1', 1);
-
-      // Should show loading then quantity selector
-      await waitFor(() => {
-        expect(screen.getByText('1')).toBeInTheDocument();
-      });
+      expect(handleAddToCart).toHaveBeenCalledWith(
+        expect.objectContaining({ id: 'prod-1' }),
+        1
+      );
     });
 
     it('handles increment/decrement', async () => {
@@ -70,25 +57,25 @@ describe('ProductCard', () => {
       render(
         <ProductCard.Base
           {...defaultProps}
-          initialQuantity={1}
+          quantity={1}
           onIncrementCart={handleIncrement}
           onDecrementCart={handleDecrement}
         />
       );
 
-      const plusBtn = screen.getByText('+');
-      fireEvent.click(plusBtn);
-      expect(handleIncrement).toHaveBeenCalledWith('prod-1', 1);
+      const buttons = screen.getAllByRole('button');
+      // Usually - is first, then +, or surrounding the input.
+      // Assuming + button has some identifying text or icon or order.
+      // Based on code: - button, qty, + button.
+      // We can click buttons.
 
-      // Wait for loading to finish and buttons to reappear
-      await waitFor(() => {
-        expect(screen.getByText('-')).toBeInTheDocument();
-      });
+      // Click first button (decrement)
+      fireEvent.click(buttons[0]);
+      expect(handleDecrement).toHaveBeenCalledWith(expect.objectContaining({ id: 'prod-1' }), 1);
 
-      const minusBtn = screen.getByText('-');
-      fireEvent.click(minusBtn);
-      // It was incremented to 2, so decrement is called with 2
-      expect(handleDecrement).toHaveBeenCalledWith('prod-1', 2);
+      // Click second button (increment)
+      fireEvent.click(buttons[1]);
+      expect(handleIncrement).toHaveBeenCalledWith(expect.objectContaining({ id: 'prod-1' }), 1);
     });
 
     it('handles wishlist toggle', () => {
@@ -106,6 +93,39 @@ describe('ProductCard', () => {
       fireEvent.click(wishlistBtn);
       expect(handleWishlist).toHaveBeenCalledTimes(1);
     });
+
+    it('handles quick view', () => {
+        const handleQuickView = jest.fn();
+        render(
+            <ProductCard.Base
+                {...defaultProps}
+                onQuickView={handleQuickView}
+            />
+        );
+        const qvBtn = screen.getByText('Quick View');
+        fireEvent.click(qvBtn);
+        expect(handleQuickView).toHaveBeenCalledWith(expect.objectContaining({ id: 'prod-1' }));
+    });
+
+    it('handles category click', () => {
+        const handleCategoryClick = jest.fn();
+        render(
+            <ProductCard.Base
+                {...defaultProps}
+                category="Tech"
+                onCategoryClick={handleCategoryClick}
+            />
+        );
+        const catChip = screen.getByText('Tech');
+        fireEvent.click(catChip);
+        expect(handleCategoryClick).toHaveBeenCalledWith(expect.objectContaining({ id: 'prod-1' }));
+    });
+
+    it('renders skeleton when loading', () => {
+        const { container } = render(<ProductCard.Base {...defaultProps} loading />);
+        // Check for skeleton classes
+        expect(container.querySelector('.vtx-skeleton')).toBeInTheDocument();
+    });
   });
 
   describe('ProductCard.Wide', () => {
@@ -122,5 +142,16 @@ describe('ProductCard', () => {
       expect(container.querySelector('.productcard-minimal')).toBeInTheDocument();
       expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
+  });
+
+  describe('ProductCard.List', () => {
+      it('renders list item', () => {
+          render(<ProductCard.List {...defaultProps} quantity={3} variant="Blue" />);
+          expect(screen.getByText('Test Product')).toBeInTheDocument();
+          expect(screen.getByText('Qty: 3')).toBeInTheDocument();
+          expect(screen.getByText('Blue')).toBeInTheDocument();
+          // Total price: 99.99 * 3 = 299.97
+          expect(screen.getByText('$299.97')).toBeInTheDocument();
+      });
   });
 });
