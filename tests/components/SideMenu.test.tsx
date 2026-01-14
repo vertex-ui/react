@@ -96,6 +96,21 @@ describe('SideMenuItem', () => {
     expect(screen.queryByText('Submenu 1')).not.toBeInTheDocument();
   });
 
+  it('toggles submenu with keyboard', () => {
+    const submenuItems = [{ label: 'Submenu 1' }];
+    render(<SideMenuItem label="Parent Item" items={submenuItems} />);
+
+    const item = screen.getByRole('menuitem');
+
+    // Open with Enter
+    fireEvent.keyDown(item, { key: 'Enter' });
+    expect(screen.getByText('Submenu 1')).toBeInTheDocument();
+
+    // Close with Space
+    fireEvent.keyDown(item, { key: ' ' });
+    expect(screen.queryByText('Submenu 1')).not.toBeInTheDocument();
+  });
+
   it('shows chevron icon when item has submenu', () => {
     const submenuItems = [{ label: 'Submenu 1' }];
     render(<SideMenuItem label="Parent Item" items={submenuItems} />);
@@ -243,6 +258,25 @@ describe('SideMenu', () => {
   it('renders footer when provided', () => {
     render(<SideMenu items={mockItems} footer={<div data-testid="footer">Footer</div>} />);
     expect(screen.getByTestId('footer')).toBeInTheDocument();
+  });
+
+  it('applies header and footer padding', () => {
+    render(
+      <SideMenu
+        items={mockItems}
+        header="Header"
+        footer="Footer"
+        headerPadding="30px"
+        footerPadding={10}
+      />
+    );
+
+    // Header is rendered in a div with class vtx-sidemenu-header
+    const header = screen.getByText('Header').closest('.vtx-sidemenu-header');
+    expect(header).toHaveStyle({ padding: '30px' });
+
+    const footer = screen.getByText('Footer').closest('.vtx-sidemenu-footer');
+    expect(footer).toHaveStyle({ padding: '10px' });
   });
 
   it('renders nested menu items', () => {

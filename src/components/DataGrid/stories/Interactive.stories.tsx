@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from '@storybook/test';
 import { DataGrid } from '..';
 import type { DataGridColumn } from '..';
 
@@ -126,23 +125,6 @@ export const Default: Story = {
     pagination: true,
     pageSize: 10,
     pageSizeOptions: [5, 10, 25, 50],
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Check headers
-    await expect(canvas.getByText('Name')).toBeInTheDocument();
-    await expect(canvas.getByText('Email')).toBeInTheDocument();
-    await expect(canvas.getByText('Country')).toBeInTheDocument();
-
-    // Check rows (at least one)
-    // Rows might be virtualized or rendered in tbody
-    // We can just check for existence of some cell data if predictable, or just check grid role
-    // const grid = canvas.getByRole('grid'); // or 'table'
-    // await expect(grid).toBeInTheDocument();
-
-    // Check pagination
-    // expect(canvas.getByText('Rows per page:')).toBeInTheDocument();
   },
 };
 

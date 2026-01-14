@@ -59,6 +59,7 @@ const Divider = React.forwardRef<HTMLHRElement | HTMLDivElement, DividerProps>(
       component,
       className = '',
       role,
+      style, // Destructure style
       ...props
     },
     ref
@@ -75,7 +76,10 @@ const Divider = React.forwardRef<HTMLHRElement | HTMLDivElement, DividerProps>(
         : 'var(--vtx-divider-color, var(--vtx-color-neutral-200))';
 
     const commonStyles: React.CSSProperties = {
-      margin: 0,
+      marginTop: 0,
+      marginBottom: 0,
+      marginLeft: 0,
+      marginRight: 0,
       flexShrink: 0,
       borderWidth: 0,
       borderStyle: 'solid',
@@ -146,7 +150,7 @@ const Divider = React.forwardRef<HTMLHRElement | HTMLDivElement, DividerProps>(
         ...(orientation === 'horizontal' ? horizontalStyles : verticalStyles),
         ...variantStyles,
         ...withChildrenStyles,
-        ...props.style
+        ...style
     };
 
     // Additional props for vertical orientation

@@ -60,6 +60,72 @@ describe('Modal', () => {
       );
       expect(screen.getByRole('dialog')).toHaveClass('vtx-modal--lg');
     });
+
+    it('renders with description', () => {
+      render(
+        <Modal isOpen title="Title" description="Description text" onClose={() => {}}>
+          <p>Content</p>
+        </Modal>
+      );
+      expect(screen.getByText('Description text')).toBeInTheDocument();
+      const dialog = screen.getByRole('dialog');
+      expect(dialog).toHaveAttribute('aria-describedby', 'vtx-modal-description');
+    });
+
+    it('renders with custom header', () => {
+      render(
+        <Modal isOpen header={<div data-testid="custom-header">Header</div>} onClose={() => {}}>
+          <p>Content</p>
+        </Modal>
+      );
+      expect(screen.getByTestId('custom-header')).toBeInTheDocument();
+      // Default title should not be present if custom header is used (unless inside it)
+      expect(screen.queryByLabelText('Close modal')).not.toBeInTheDocument();
+    });
+
+    it('renders with footerButtons', () => {
+      const handleClick = jest.fn();
+      const footerButtons = [
+        { label: 'Cancel', onClick: () => {} },
+        { label: 'Confirm', onClick: handleClick, variant: 'primary' as const }
+      ];
+      render(
+        <Modal isOpen onClose={() => {}} footerButtons={footerButtons}>
+          <p>Content</p>
+        </Modal>
+      );
+      expect(screen.getByText('Cancel')).toBeInTheDocument();
+      expect(screen.getByText('Confirm')).toBeInTheDocument();
+    });
+
+    it('renders scrollable modal', () => {
+      render(
+        <Modal isOpen scrollable onClose={() => {}}>
+          <p>Content</p>
+        </Modal>
+      );
+      expect(screen.getByRole('dialog')).toHaveClass('vtx-modal--scrollable');
+    });
+
+    it('renders centered modal', () => {
+      render(
+        <Modal isOpen centered onClose={() => {}}>
+          <p>Content</p>
+        </Modal>
+      );
+      const backdrop = document.querySelector('.vtx-modal-backdrop');
+      expect(backdrop).toHaveClass('vtx-modal-backdrop--centered');
+    });
+
+    it('renders transparent backdrop', () => {
+      render(
+        <Modal isOpen transparentBackdrop onClose={() => {}}>
+          <p>Content</p>
+        </Modal>
+      );
+      const backdrop = document.querySelector('.vtx-modal-backdrop');
+      expect(backdrop).toHaveClass('vtx-modal-backdrop--transparent');
+    });
   });
 
   describe('Interactions', () => {
@@ -128,6 +194,41 @@ describe('Modal', () => {
 
       await user.keyboard('{Escape}');
       expect(handleClose).not.toHaveBeenCalled();
+    });
+
+    it('calls footer button onClick', async () => {
+      const handleClick = jest.fn();
+      const user = userEvent.setup();
+      const footerButtons = [
+        { label: 'Confirm', onClick: handleClick }
+      ];
+      render(
+        <Modal isOpen onClose={() => {}} footerButtons={footerButtons}>
+          <p>Content</p>
+        </Modal>
+      );
+
+      await user.click(screen.getByText('Confirm'));
+      expect(handleClick).toHaveBeenCalled();
+    });
+
+    it('hides close button when showCloseButton is false', () => {
+      render(
+        <Modal isOpen title="Title" showCloseButton={false} onClose={() => {}}>
+          <p>Content</p>
+        </Modal>
+      );
+      expect(screen.queryByLabelText('Close modal')).not.toBeInTheDocument();
+    });
+
+    it('calls onAfterOpen when opened', () => {
+      const onAfterOpen = jest.fn();
+      render(
+        <Modal isOpen onAfterOpen={onAfterOpen} onClose={() => {}}>
+          <p>Content</p>
+        </Modal>
+      );
+      expect(onAfterOpen).toHaveBeenCalled();
     });
   });
 

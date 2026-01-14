@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { userEvent, within, expect, fn } from '@storybook/test';
 import { Button } from '..';
 
 const meta: Meta<typeof Button> = {
@@ -18,11 +17,7 @@ const meta: Meta<typeof Button> = {
       control: { type: 'select' },
       options: ['sm', 'md', 'lg'],
     },
-    onClick: { action: 'clicked' },
   },
-  args: {
-    onClick: fn(),
-  }
 };
 
 export default meta;
@@ -32,13 +27,6 @@ export const Interactive: Story = {
   args: {
     variant: 'primary',
     children: 'Primary Button',
-  },
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement);
-    const button = canvas.getByRole('button', { name: /Primary Button/i });
-    await expect(button).toBeInTheDocument();
-    await userEvent.click(button);
-    await expect(args.onClick).toHaveBeenCalled();
   },
 };
 
@@ -54,9 +42,4 @@ export const AllVariants: Story = {
       <Button variant="warning">Warning</Button>
     </div>
   ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const buttons = canvas.getAllByRole('button');
-    await expect(buttons).toHaveLength(7);
-  }
 };

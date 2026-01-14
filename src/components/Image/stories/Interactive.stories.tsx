@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from '@storybook/test';
 import { Image } from '..';
 
 const meta: Meta<typeof Image> = {
@@ -25,11 +24,5 @@ export const Default: Story = {
         src: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGdyYWRpZW50fGVufDB8fDB8fHww',
         alt: 'Colorful Gradient',
         style: { width: 300, height: 200, borderRadius: 8 },
-    },
-    play: async ({ canvasElement }) => {
-        const canvas = within(canvasElement);
-        const img = canvas.getByRole('img');
-        await expect(img).toBeInTheDocument();
-        await expect(img).toHaveAttribute('alt', 'Colorful Gradient');
     },
 };

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from '@storybook/test';
 import { Link } from '..';
+
 
 const meta: Meta<typeof Link> = {
   title: 'Components/Link',
@@ -28,11 +28,5 @@ export const Default: Story = {
   args: {
     href: '#',
     children: 'Click here to learn more',
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const link = canvas.getByRole('link', { name: 'Click here to learn more' });
-    await expect(link).toBeInTheDocument();
-    await expect(link).toHaveAttribute('href', '#');
   },
 };

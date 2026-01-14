@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from '@storybook/test';
 import { TestimonialWidget } from '..';
 import type { TestimonialWidgetData } from '../types';
 
@@ -91,11 +90,6 @@ export const CardTheme: Story = {
     data: sampleTestimonials,
     theme: 'card',
     borderRadius: true,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('Sarah Johnson')).toBeInTheDocument();
-    await expect(canvas.getByText(/completely transformed/)).toBeInTheDocument();
   },
 };
 

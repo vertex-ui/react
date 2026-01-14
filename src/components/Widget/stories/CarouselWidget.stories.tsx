@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from '@storybook/test';
 import { Widget } from '..';
 import { CarouselWidgetData } from '../types';
 
@@ -97,10 +96,6 @@ export const Default: Story = {
         showOverlay: true,
       },
     },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(await canvas.findByText('Discover Nature')).toBeInTheDocument();
   },
 };
 

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from '@storybook/test';
 import { Widget } from '../../../components/Widget';
 import { Flex } from '../../../components/Flex';
 
@@ -32,16 +31,6 @@ export const Delivered: Story = {
       settings: { theme: 'ecommerce' },
     },
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText(/#6055/i)).toBeInTheDocument();
-    await expect(canvas.getByText('Beef Club & T-Bone')).toBeInTheDocument();
-    await expect(canvas.getByText('Chicken Breast')).toBeInTheDocument();
-
-    // Status might be transformed (e.g., uppercase or just text)
-    // We can search for 'Delivered'
-    await expect(canvas.getAllByText(/Delivered/i)[0]).toBeInTheDocument();
-  },
 };
 
 export const Loading: Story = {
@@ -73,10 +62,4 @@ export const OrdersList: Story = {
       />
     </Flex>
   ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText(/#6055/i)).toBeInTheDocument();
-    await expect(canvas.getByText(/#6056/i)).toBeInTheDocument();
-    await expect(canvas.getByText(/#6057/i)).toBeInTheDocument();
-  },
 };

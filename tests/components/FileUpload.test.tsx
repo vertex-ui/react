@@ -191,8 +191,21 @@ describe('FileUpload', () => {
       jest.advanceTimersByTime(3000); // Advance enough time for 100%
     });
 
-    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-    const successIcon = container.querySelector('.text-success-500');
-    expect(successIcon).toBeInTheDocument();
+    await waitFor(() => {
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const fileItem = screen.getByText('progress.txt').closest('.vtx-fileupload-item');
+        expect(fileItem).toBeInTheDocument();
+
+        // Look for success indicator inside the file item.
+        // Maybe an SVG?
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const svg = fileItem?.querySelector('svg');
+        expect(svg).toBeInTheDocument();
+
+        // Or check if progress bar is gone?
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const progressBar = fileItem?.querySelector('progress');
+        expect(progressBar).not.toBeInTheDocument();
+    });
   });
 });

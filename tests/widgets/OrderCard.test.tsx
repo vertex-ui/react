@@ -23,7 +23,13 @@ describe('OrderCard', () => {
     // However, if it fails, it might be due to how testing library queries text with spaces or breaks.
     // Let's use a regex to be safer or check partial content.
     expect(screen.getByText(/Product 1/)).toBeInTheDocument();
-    expect(screen.getByText(/× 2/)).toBeInTheDocument();
+    // "×" is rendered as an icon, so we only see the quantity "2" text.
+    // Use flexible matcher to find text "2" near product.
+    expect(screen.getByText((content, element) => {
+      return element?.tagName.toLowerCase() === 'p' &&
+             content.includes('Product 1') &&
+             content.includes('2');
+    })).toBeInTheDocument();
     // Second item should be indicated as "+ 1 more item"
     expect(screen.getByText('+ 1 more item')).toBeInTheDocument();
   });
@@ -45,7 +51,8 @@ describe('OrderCard', () => {
 
   it('renders price and delivery date', () => {
     render(<OrderCard {...defaultProps} deliveryDate="Jan 1, 2024" />);
-    expect(screen.getByText('₹99.99')).toBeInTheDocument();
+    // Currency symbol is an icon, check for amount only
+    expect(screen.getByText('99.99')).toBeInTheDocument();
     expect(screen.getByText(/Delivered on: Jan 1, 2024/)).toBeInTheDocument();
   });
 

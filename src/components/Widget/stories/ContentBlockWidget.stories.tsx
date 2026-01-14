@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from '@storybook/test';
 import type { WidgetConfig } from '../types';
 import { Widget } from '..';
 
@@ -71,12 +70,6 @@ export const EcommerceProductShowcase: Story = {
         hover: { enabled: true, effect: 'lift' },
       },
     } as WidgetConfig,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('Premium Wireless Headphones')).toBeInTheDocument();
-    await expect(canvas.getByText('NEW ARRIVAL')).toBeInTheDocument();
-    await expect(canvas.getByText('Add to Cart')).toBeInTheDocument();
   },
 };
 

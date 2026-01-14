@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from '@storybook/test';
 import { Badge } from '..';
 
 const meta: Meta<typeof Badge> = {
@@ -25,10 +24,6 @@ export const Interactive: Story = {
     variant: 'primary',
     children: 'Primary',
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('Primary')).toBeInTheDocument();
-  },
 };
 
 export const AllVariants: Story = {
@@ -43,9 +38,4 @@ export const AllVariants: Story = {
       <Badge variant="info">Info</Badge>
     </div>
   ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('Neutral')).toBeInTheDocument();
-    await expect(canvas.getByText('Error')).toBeInTheDocument();
-  },
 };

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { render, screen, fireEvent } from '../test-utils';
+import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { CheckboxGroup } from '../../src/components/CheckboxGroup/CheckboxGroup';
 import type { CheckboxOption } from '../../src/components/CheckboxGroup/CheckboxGroup';
@@ -121,16 +122,18 @@ describe('CheckboxGroup', () => {
       expect(checkboxes[2].checked).toBe(true);
     });
 
-    it('calls onChange with updated value when checkbox is clicked', () => {
+    it('calls onChange with updated value when checkbox is clicked', async () => {
+      const user = userEvent.setup();
       const handleChange = jest.fn();
       render(<CheckboxGroup options={mockOptions} value={['option1']} onChange={handleChange} />);
       const checkboxes = screen.getAllByRole('checkbox');
 
-      fireEvent.click(checkboxes[1]);
+      await user.click(checkboxes[1]);
       expect(handleChange).toHaveBeenCalledWith(['option1', 'option2']);
     });
 
-    it('calls onChange with value removed when unchecking', () => {
+    it('calls onChange with value removed when unchecking', async () => {
+      const user = userEvent.setup();
       const handleChange = jest.fn();
       render(
         <CheckboxGroup
@@ -141,7 +144,7 @@ describe('CheckboxGroup', () => {
       );
       const checkboxes = screen.getAllByRole('checkbox');
 
-      fireEvent.click(checkboxes[0]);
+      await user.click(checkboxes[0]);
       expect(handleChange).toHaveBeenCalledWith(['option2']);
     });
 
