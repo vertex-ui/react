@@ -103,7 +103,7 @@ const Widget: React.FC<WidgetProps> = ({
       case 'gridCarousel':
         return <GridCarouselWidget data={data as GridCarouselWidgetData} settings={widgetSettings as any} />;
       case 'contentBlock':
-        return <ContentBlockWidget data={data as ContentBlockWidgetData} settings={widgetSettings as any} />;
+        return <ContentBlockWidget data={data as ContentBlockWidgetData} settings={widgetSettings as any} theme={theme} />;
       case 'errorPage':
         return <ErrorPageWidget data={data as ErrorPageWidgetData} settings={widgetSettings as any} className={className} style={style} />;
       case 'emptyState':
@@ -128,7 +128,7 @@ const Widget: React.FC<WidgetProps> = ({
   if (config.type === 'grid') {
     const gridData = config.data as GridWidgetData;
     const gridSettings = (config.settings as any) || {};
-    
+
     // Merge grid config with gap/spacing from settings if needed
     const gridConfig = config.grid || gridSettings.grid || {};
     const finalGridConfig = {
@@ -136,7 +136,7 @@ const Widget: React.FC<WidgetProps> = ({
       // Support both 'spacing' (correct) and 'gap' (legacy) properties
       spacing: gridConfig.spacing || gridSettings.gap || gridSettings.spacing || 'md',
     };
-    
+
     return (
       <IntelligentGrid
         data={gridData.widgets}
@@ -159,7 +159,7 @@ const Widget: React.FC<WidgetProps> = ({
   // Handle array data with auto-grid
   if (Array.isArray(config.data)) {
     const gridSettings = (config.settings as any) || {};
-    
+
     // Merge grid config with gap/spacing from settings if needed
     const gridConfig = config.grid || gridSettings.grid || {};
     const finalGridConfig = {
@@ -167,7 +167,7 @@ const Widget: React.FC<WidgetProps> = ({
       // Support both 'spacing' (correct) and 'gap' (legacy) properties
       spacing: gridConfig.spacing || gridSettings.gap || gridSettings.spacing || 'md',
     };
-    
+
     return (
       <IntelligentGrid
         data={config.data}

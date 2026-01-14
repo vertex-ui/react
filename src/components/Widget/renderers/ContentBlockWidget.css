@@ -1,0 +1,156 @@
+/* ContentBlockWidget.css */
+
+/* Base Component */
+.vtx-content-block {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.vtx-content-block__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--vtx-spacing-3);
+    width: 100%;
+}
+
+/* Alignment Modifiers */
+.vtx-content-block--align-center .vtx-content-block__content {
+    align-items: center;
+    text-align: center;
+}
+
+.vtx-content-block--align-right .vtx-content-block__content {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.vtx-content-block--align-left .vtx-content-block__content {
+    align-items: flex-start;
+    text-align: left;
+}
+
+/* Common Typography Elements */
+.vtx-content-block__heading {
+    /* Styles are handled by Typography component variants, mainly spacing here */
+    color: var(--vtx-text-primary);
+    margin: 0;
+}
+
+.vtx-content-block__body {
+    color: var(--vtx-text-secondary);
+    margin: 0;
+}
+
+/* Common Actions */
+.vtx-content-block__actions {
+    display: flex;
+    gap: var(--vtx-spacing-3);
+    margin-top: var(--vtx-spacing-4);
+    flex-wrap: wrap;
+}
+
+/* Actions Alignment Adjustments */
+.vtx-content-block--align-center .vtx-content-block__actions {
+    justify-content: center;
+}
+
+.vtx-content-block--align-right .vtx-content-block__actions {
+    justify-content: flex-end;
+}
+
+/* Shared Color Utilities for Icons/Text */
+.vtx-text-primary {
+    color: var(--vtx-color-primary-600);
+}
+
+.vtx-text-secondary {
+    color: var(--vtx-color-neutral-500);
+}
+
+.vtx-text-success {
+    color: var(--vtx-color-success-600);
+}
+
+.vtx-text-warning {
+    color: var(--vtx-color-warning-600);
+}
+
+.vtx-text-danger {
+    color: var(--vtx-color-danger-600);
+}
+
+/* Display Modes */
+.vtx-content-block--card {
+    background-color: var(--vtx-color-surface-paper, #fff);
+    border-radius: var(--vtx-radius-lg, 8px);
+    padding: var(--vtx-spacing-6, 24px);
+    box-shadow: var(--vtx-shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06));
+}
+
+.vtx-content-block--outline {
+    background-color: transparent;
+    border: 1px solid var(--vtx-color-border-default, #e2e8f0);
+    border-radius: var(--vtx-radius-lg, 8px);
+    padding: var(--vtx-spacing-6, 24px);
+}
+
+/* Color Modes */
+/* Dark Mode */
+.vtx-content-block--dark {
+    background-color: var(--vtx-color-neutral-900, #171717);
+    color: var(--vtx-color-white, #fff);
+}
+
+.vtx-content-block--dark .vtx-content-block__heading {
+    color: var(--vtx-color-white, #fff);
+}
+
+.vtx-content-block--dark .vtx-content-block__body {
+    color: var(--vtx-color-neutral-300, #d4d4d4);
+}
+
+/* Primary Mode (Colored Background) */
+.vtx-content-block--color-primary {
+    background-color: var(--vtx-color-primary-600, #2563eb);
+    color: var(--vtx-color-white, #fff);
+}
+
+.vtx-content-block--color-primary .vtx-content-block__heading {
+    color: var(--vtx-color-white, #fff);
+}
+
+.vtx-content-block--color-primary .vtx-content-block__body,
+.vtx-content-block--color-primary .vtx-content-block__subheading {
+    color: var(--vtx-color-primary-100, #dbeafe);
+}
+
+.vtx-content-block--color-primary .vtx-content-block__icon {
+    color: var(--vtx-color-white, #fff);
+    /* Override icon colors in primary bg */
+}
+
+/* Ensure list icons are also white in colored backgrounds */
+.vtx-content-block--color-primary .vtx-content-block__list-icon {
+    color: var(--vtx-color-primary-200);
+}
+
+/* Secondary Mode */
+.vtx-content-block--color-secondary {
+    background-color: var(--vtx-color-secondary-600, #475569);
+    color: var(--vtx-color-white, #fff);
+}
+
+.vtx-content-block--color-secondary .vtx-content-block__heading {
+    color: var(--vtx-color-white, #fff);
+}
+
+.vtx-content-block--color-secondary .vtx-content-block__body {
+    color: var(--vtx-color-secondary-100, #f1f5f9);
+}
+
+/* Light Mode (Explicit) */
+.vtx-content-block--light {
+    background-color: var(--vtx-color-surface-paper, #fff);
+    color: var(--vtx-text-primary);
+}

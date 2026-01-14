@@ -1,0 +1,28 @@
+/* VisualBlockTheme.css */
+
+.vtx-content-block__media-wrapper {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.vtx-content-block__icon {
+    /* Base styles for the main visual icon */
+    transition: transform 0.2s ease;
+}
+
+/* Optional: hover effect for visual block */
+.vtx-content-block:hover .vtx-content-block__icon {
+    transform: scale(1.05);
+}
+
+/* Align adjustments for media */
+.vtx-content-block--align-left .vtx-content-block__media-wrapper,
+.vtx-content-block--align-left .vtx-content-block__icon {
+    justify-content: flex-start;
+}
+
+.vtx-content-block--align-right .vtx-content-block__media-wrapper,
+.vtx-content-block--align-right .vtx-content-block__icon {
+    justify-content: flex-end;
+}

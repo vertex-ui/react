@@ -50,7 +50,9 @@ export type WidgetTheme =
   | 'playful'
   | 'technical'
   | 'elegant'
-  | 'list';
+  | 'list'
+  | 'visual-block'
+  | 'feature-highlight';
 
 export type GridConfig = {
   mobile?: number;
@@ -892,6 +894,9 @@ export interface GridCarouselWidgetSettings extends BaseWidgetSettings {
 
 // Content Block Widget Data
 export interface ContentBlockWidgetData extends Omit<BaseWidgetData, 'metadata'> {
+  // Variant for top-level icon
+  iconVariant?: WidgetVariant;
+
   // Media Configuration (Multi-type support)
   media?: {
     type?: 'image' | 'avatar' | 'icon' | 'video' | 'gallery' | 'logo' | 'illustration';
@@ -939,11 +944,24 @@ export interface ContentBlockWidgetData extends Omit<BaseWidgetData, 'metadata'>
     headingVariant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
     subheadingVariant?: 'h3' | 'h4' | 'h5' | 'h6' | 'subtitle1' | 'subtitle2';
     bodyVariant?: 'body1' | 'body2';
+    captionVariant?: 'caption' | 'overline' | 'body2';
+    // Style of the caption
+    captionStyle?: 'text' | 'badge';
 
     // Lists (for features, specs, benefits)
     list?: Array<{
-      text: React.ReactNode;
+      text?: React.ReactNode;
+      label?: React.ReactNode; // Alias for text
+      heading?: React.ReactNode;
+      title?: React.ReactNode; // Alias for heading
+      description?: React.ReactNode;
+      body?: React.ReactNode; // Alias for description
       icon?: React.ReactNode;
+      iconVariant?: WidgetVariant; // Color variant
+      iconSize?: string; // Override icon size
+      image?: React.ReactNode; // Image node (or <img/>)
+      imageWidth?: string; // Override image width
+      imageHeight?: string; // Override image height
       checked?: boolean; // For checkmark lists
     }>;
     listType?: 'bullet' | 'number' | 'check' | 'icon' | 'none';
@@ -1056,7 +1074,7 @@ export interface ContentBlockWidgetSettings extends Omit<BaseWidgetSettings, 'va
   // Size & Spacing
   mediaWidth?: '20%' | '30%' | '40%' | '50%' | '60%' | '70%' | 'auto';
   contentWidth?: 'narrow' | 'medium' | 'wide' | 'full';
-  gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+  gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | string;
   padding?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
   // Media Dimensions (override data.media properties)
@@ -1116,6 +1134,65 @@ export interface ContentBlockWidgetSettings extends Omit<BaseWidgetSettings, 'va
   // Animation
   animate?: boolean;
   animationType?: 'fade' | 'slide-up' | 'slide-left' | 'slide-right' | 'zoom' | 'none';
+
+  // Typography Configuration
+  typography?: {
+    caption?: ContentBlockTypographyConfig;
+    heading?: ContentBlockTypographyConfig;
+    subheading?: ContentBlockTypographyConfig;
+    body?: ContentBlockTypographyConfig;
+  };
+
+  // Fine-grained Spacing Control
+  spacing?: {
+    caption?: string;    // Bottom margin for caption
+    heading?: string;    // Bottom margin for heading
+    subheading?: string; // Bottom margin for subheading
+    body?: string;       // Bottom margin for body
+    list?: string;       // Bottom margin for list container
+    listHorizontalGap?: string; // Horizontal gap between icon and text
+    itemGap?: string;    // Vertical gap between list items
+    media?: string;      // Bottom margin for media (icon/image)
+  };
+
+  /**
+   * Destination URL for the main clickable area (e.g. wrapper link)
+   */
+  linkDestination?: string;
+
+  /**
+   * If true, opens the linkDestination in a new tab
+   */
+  openInNewTab?: boolean;
+
+  /**
+   * The visual containment style of the block
+   */
+  displayMode?: 'card' | 'outline' | 'minimal';
+
+  /**
+   * The background/text color scheme
+   */
+  colorMode?: 'light' | 'dark' | 'primary' | 'secondary';
+
+  /**
+   * If true, prioritizes image loading (disables lazy loading)
+   */
+  imagePriority?: boolean;
+}
+
+// Typography Configuration Type
+export interface ContentBlockTypographyConfig {
+  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body1' | 'body2' | 'subtitle1' | 'subtitle2' | 'caption' | 'overline' | 'button' | 'label';
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'div' | 'label' | 'strong' | 'em' | 'small';
+  align?: 'left' | 'center' | 'right' | 'justify';
+  weight?: 'thin' | 'extralight' | 'light' | 'normal' | 'medium' | 'semibold' | 'bold' | 'extrabold' | 'black' | number;
+  transform?: 'none' | 'uppercase' | 'lowercase' | 'capitalize';
+  color?: 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info' | 'inherit';
+  textColor?: string; // Custom hex/rgb color
+  size?: string | number; // Custom font size
+  lineHeight?: string | number;
+  letterSpacing?: string | number;
 }
 
 // ========================================================================

@@ -10,158 +10,126 @@
 /* ===== Typography Variants ===== */
 
 /* ===== Headings with Fluid Typography ===== */
+/* ===== Headings ===== */
 .vtx-typography--h1 {
-  font-size: 2.25rem;
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.025em;
-  margin-bottom: 1rem;
+  font-size: var(--vtx-text-h1-font-size);
+  font-weight: var(--vtx-text-h1-font-weight);
+  line-height: var(--vtx-text-h1-line-height);
+  letter-spacing: var(--vtx-text-h1-letter-spacing);
+  margin-bottom: var(--vtx-spacing-4);
 }
 
 .vtx-typography--h2 {
-  font-size: 1.875rem;
-  font-weight: 700;
-  line-height: 1.25;
-  letter-spacing: -0.025em;
-  margin-bottom: 0.875rem;
+  font-size: var(--vtx-text-h2-font-size);
+  font-weight: var(--vtx-text-h2-font-weight);
+  line-height: var(--vtx-text-h2-line-height);
+  letter-spacing: var(--vtx-text-h2-letter-spacing);
+  margin-bottom: var(--vtx-spacing-3);
 }
 
 .vtx-typography--h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  line-height: 1.3;
-  letter-spacing: -0.025em;
-  margin-bottom: 0.75rem;
+  font-size: var(--vtx-text-h3-font-size);
+  font-weight: var(--vtx-text-h3-font-weight);
+  line-height: var(--vtx-text-h3-line-height);
+  letter-spacing: var(--vtx-text-h3-letter-spacing);
+  margin-bottom: var(--vtx-spacing-3);
 }
 
 .vtx-typography--h4 {
-  font-size: clamp(1.25rem, 2.5vw + 0.5rem, 1.875rem);
-  font-weight: var(--vtx-typography-h4-font-weight, 600);
-  line-height: var(--vtx-typography-h4-line-height, 1.35);
-  letter-spacing: var(--vtx-typography-h4-letter-spacing, 0);
-  margin-bottom: clamp(0.75rem, 1.5vw + 0.25rem, 1rem);
+  font-size: var(--vtx-text-h4-font-size);
+  font-weight: var(--vtx-text-h4-font-weight);
+  line-height: var(--vtx-text-h4-line-height);
+  letter-spacing: var(--vtx-text-h4-letter-spacing);
+  margin-bottom: var(--vtx-spacing-2);
 }
 
 .vtx-typography--h5 {
-  font-size: clamp(1.125rem, 2vw + 0.25rem, 1.5rem);
-  font-weight: var(--vtx-typography-h5-font-weight, 600);
-  line-height: var(--vtx-typography-h5-line-height, 1.4);
-  letter-spacing: var(--vtx-typography-h5-letter-spacing, 0);
-  margin-bottom: clamp(0.625rem, 1.25vw + 0.25rem, 0.75rem);
+  font-size: var(--vtx-text-h5-font-size);
+  font-weight: var(--vtx-text-h5-font-weight);
+  line-height: var(--vtx-text-h5-line-height);
+  letter-spacing: var(--vtx-text-h5-letter-spacing);
+  margin-bottom: var(--vtx-spacing-2);
 }
 
 .vtx-typography--h6 {
-  font-size: clamp(1rem, 1.5vw + 0.25rem, 1.25rem);
-  font-weight: var(--vtx-typography-h6-font-weight, 600);
-  line-height: var(--vtx-typography-h6-line-height, 1.5);
-  letter-spacing: var(--vtx-typography-h6-letter-spacing, 0);
-  margin-bottom: clamp(0.625rem, 1.25vw + 0.25rem, 0.75rem);
+  font-size: var(--vtx-text-h6-font-size);
+  font-weight: var(--vtx-text-h6-font-weight);
+  line-height: var(--vtx-text-h6-line-height);
+  letter-spacing: var(--vtx-text-h6-letter-spacing);
+  margin-bottom: var(--vtx-spacing-2);
 }
 
-/* ===== Body Typography with Responsive Sizing ===== */
+/* ===== Body Typography ===== */
 .vtx-typography--body1 {
-  font-size: clamp(0.9375rem, 1vw + 0.125rem, 1rem);
-  font-weight: var(--vtx-typography-body1-font-weight, 400);
-  line-height: var(--vtx-typography-body1-line-height, 1.6);
-  letter-spacing: var(--vtx-typography-body1-letter-spacing, 0);
-  margin-bottom: clamp(0.625rem, 1vw + 0.25rem, 0.75rem);
+  font-size: var(--vtx-text-body1-font-size);
+  font-weight: var(--vtx-text-body1-font-weight);
+  line-height: var(--vtx-text-body1-line-height);
+  letter-spacing: var(--vtx-text-body1-letter-spacing);
+  margin-bottom: var(--vtx-spacing-2);
 }
 
 .vtx-typography--body2 {
-  font-size: clamp(0.8125rem, 0.85vw + 0.125rem, 0.875rem);
-  font-weight: var(--vtx-typography-body2-font-weight, 400);
-  line-height: var(--vtx-typography-body2-line-height, 1.6);
-  letter-spacing: var(--vtx-typography-body2-letter-spacing, 0.01em);
-  margin-bottom: clamp(0.625rem, 1vw + 0.25rem, 0.75rem);
+  font-size: var(--vtx-text-body2-font-size);
+  font-weight: var(--vtx-text-body2-font-weight);
+  line-height: var(--vtx-text-body2-line-height);
+  letter-spacing: var(--vtx-text-body2-letter-spacing);
+  margin-bottom: var(--vtx-spacing-2);
 }
 
-/* ===== Subtitles with Responsive Sizing ===== */
+/* ===== Subtitles ===== */
 .vtx-typography--subtitle1 {
-  font-size: clamp(1rem, 1.25vw + 0.125rem, 1.125rem);
-  font-weight: var(--vtx-typography-subtitle1-font-weight, 500);
-  line-height: var(--vtx-typography-subtitle1-line-height, 1.5);
-  letter-spacing: var(--vtx-typography-subtitle1-letter-spacing, 0.0075em);
-  margin-bottom: clamp(0.5rem, 0.75vw + 0.125rem, 0.625rem);
+  font-size: var(--vtx-text-subtitle1-font-size);
+  font-weight: var(--vtx-text-subtitle1-font-weight);
+  line-height: var(--vtx-text-subtitle1-line-height);
+  letter-spacing: var(--vtx-text-subtitle1-letter-spacing);
+  margin-bottom: var(--vtx-spacing-2);
 }
 
 .vtx-typography--subtitle2 {
-  font-size: clamp(0.9375rem, 1vw + 0.0625rem, 1rem);
-  font-weight: var(--vtx-typography-subtitle2-font-weight, 500);
-  line-height: var(--vtx-typography-subtitle2-line-height, 1.5);
-  letter-spacing: var(--vtx-typography-subtitle2-letter-spacing, 0.01em);
-  margin-bottom: clamp(0.5rem, 0.75vw + 0.125rem, 0.625rem);
+  font-size: var(--vtx-text-subtitle2-font-size);
+  font-weight: var(--vtx-text-subtitle2-font-weight);
+  line-height: var(--vtx-text-subtitle2-line-height);
+  letter-spacing: var(--vtx-text-subtitle2-letter-spacing);
+  margin-bottom: var(--vtx-spacing-2);
 }
 
-/* ===== Caption with Responsive Sizing ===== */
+/* ===== Caption & Overline ===== */
 .vtx-typography--caption {
-  font-size: clamp(0.6875rem, 0.75vw + 0.0625rem, 0.75rem);
-  font-weight: var(--vtx-typography-caption-font-weight, 400);
-  line-height: var(--vtx-typography-caption-line-height, 1.5);
-  letter-spacing: var(--vtx-typography-caption-letter-spacing, 0.025em);
-  color: var(--vtx-color-neutral-600);
+  font-size: var(--vtx-text-caption-font-size);
+  font-weight: var(--vtx-text-caption-font-weight);
+  line-height: var(--vtx-text-caption-line-height);
+  letter-spacing: var(--vtx-text-caption-letter-spacing);
+  color: var(--vtx-text-secondary);
 }
 
-/* ===== Overline with Responsive Sizing ===== */
 .vtx-typography--overline {
-  font-size: clamp(0.6875rem, 0.75vw + 0.0625rem, 0.75rem);
-  font-weight: var(--vtx-typography-overline-font-weight, 600);
-  line-height: var(--vtx-typography-overline-line-height, 1.5);
-  letter-spacing: var(--vtx-typography-overline-letter-spacing, 0.1em);
+  font-size: var(--vtx-text-overline-font-size);
+  font-weight: var(--vtx-text-overline-font-weight);
+  line-height: var(--vtx-text-overline-line-height);
+  letter-spacing: var(--vtx-text-overline-letter-spacing);
   text-transform: uppercase;
-  color: var(--vtx-color-neutral-600);
+  color: var(--vtx-text-secondary);
 }
 
-/* ===== Button Typography with Responsive Sizing ===== */
+/* ===== Button & Label ===== */
 .vtx-typography--button {
-  font-size: clamp(0.8125rem, 0.85vw + 0.125rem, 0.875rem);
-  font-weight: var(--vtx-typography-button-font-weight, 600);
-  line-height: var(--vtx-typography-button-line-height, 1.5);
-  letter-spacing: var(--vtx-typography-button-letter-spacing, 0.025em);
+  font-size: var(--vtx-text-button-font-size);
+  font-weight: var(--vtx-text-button-font-weight);
+  line-height: var(--vtx-text-button-line-height);
+  letter-spacing: var(--vtx-text-button-letter-spacing);
 }
 
-/* ===== Label with Responsive Sizing ===== */
 .vtx-typography--label {
-  font-size: clamp(0.8125rem, 0.85vw + 0.125rem, 0.875rem);
-  font-weight: var(--vtx-typography-label-font-weight, 500);
-  line-height: var(--vtx-typography-label-line-height, 1.5);
-  letter-spacing: var(--vtx-typography-label-letter-spacing, 0.0075em);
+  font-size: var(--vtx-text-label-font-size);
+  font-weight: var(--vtx-text-label-font-weight);
+  line-height: var(--vtx-text-label-line-height);
+  letter-spacing: var(--vtx-text-label-letter-spacing);
   display: inline-block;
-  margin-bottom: clamp(0.375rem, 0.5vw + 0.125rem, 0.5rem);
+  margin-bottom: var(--vtx-spacing-1);
 }
 
 /* ===== Responsive Typography (Optimized) ===== */
-@media (min-width: 768px) {
-  .vtx-typography--h1 {
-    font-size: 3rem;
-    margin-bottom: 1.25rem;
-  }
-  .vtx-typography--h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-  }
-  .vtx-typography--h3 {
-    font-size: 1.875rem;
-    margin-bottom: 0.875rem;
-  }
-}
-
-@media (min-width: 1440px) {
-  .vtx-typography--h1 {
-    font-size: 3.75rem;
-    letter-spacing: -0.03em;
-    margin-bottom: 1.5rem;
-  }
-  .vtx-typography--h2 {
-    font-size: 3rem;
-    letter-spacing: -0.03em;
-    margin-bottom: 1.25rem;
-  }
-  .vtx-typography--h3 {
-    font-size: 2.25rem;
-    letter-spacing: -0.03em;
-    margin-bottom: 1rem;
-  }
-}
+/* Typography responsiveness is handled via CSS variables in base.css */
 
 /* ===== Typography Alignment ===== */
 .vtx-typography--align-left {
@@ -339,185 +307,7 @@
   color: var(--vtx-color-neutral-400);
 }
 
-/* ===== Responsive Breakpoint Adjustments ===== */
-
-/* Small Mobile: < 480px */
-@media (max-width: 479px) {
-  .vtx-typography--h1 {
-    font-size: clamp(1.875rem, 8vw, 2.5rem);
-    line-height: 1.15;
-    margin-bottom: 0.875rem;
-  }
-
-  .vtx-typography--h2 {
-    font-size: clamp(1.625rem, 7vw, 2.125rem);
-    line-height: 1.2;
-    margin-bottom: 0.75rem;
-  }
-
-  .vtx-typography--h3 {
-    font-size: clamp(1.375rem, 6vw, 1.75rem);
-    line-height: 1.25;
-    margin-bottom: 0.625rem;
-  }
-
-  .vtx-typography--h4,
-  .vtx-typography--h5,
-  .vtx-typography--h6 {
-    margin-bottom: 0.5rem;
-  }
-
-  .vtx-typography--body1,
-  .vtx-typography--body2 {
-    line-height: 1.65;
-  }
-}
-
-/* Mobile: 480px - 767px */
-@media (min-width: 480px) and (max-width: 767px) {
-  .vtx-typography--h1 {
-    line-height: 1.15;
-  }
-
-  .vtx-typography--h2 {
-    line-height: 1.2;
-  }
-
-  .vtx-typography--body1,
-  .vtx-typography--body2 {
-    line-height: 1.65;
-  }
-}
-/* Enhancements ===== */
-.vtx-typography:focus-visible {
-  outline: 2px solid var(--vtx-color-primary-500);
-  outline-offset: 2px;
-  border-radius: var(--vtx-radius-sm);
-}
-
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  .vtx-typography {
-    transition: none;
-    animation: none;
-  }
-}
-
-/* High contrast mode */
-@media (prefers-contrast: high) {
-  .vtx-typography {
-    font-weight: 500;
-  }
-
-  .vtx-typography--h1,
-  .vtx-typography--h2,
-  .vtx-typography--h3,
-  .vtx-typography--h4,
-  .vtx-typography--h5,
-  .vtx-typography--h6 {
-    font-weight: 700;
-  }
-
-  .vtx-typography--caption,
-  .vtx-typography--overline {
-    opacity: 1;
-  }
-}
-
-/* ===== Container Query Support (Modern Browsers) ===== */
-@supports (container-type: inline-size) {
-  @container (max-width: 600px) {
-    .vtx-typography--h1 {
-      font-size: clamp(1.875rem, 6vw, 2.5rem);
-    }
-
-    .vtx-typography--h2 {
-      font-size: clamp(1.625rem, 5vw, 2.125rem);
-    }
-
-    .vtx-typography--h3 {
-      font-size: clamp(1.375rem, 4vw, 1.75rem);
-    }
-  }
-}
-
-/* ===== Touch Device Optimizations ===== */
-@media (hover: none) and (pointer: coarse) {
-  .vtx-typography--body1,
-  .vtx-typography--body2 {
-    line-height: 1.65;
-    font-size: clamp(0.9375rem, 1.1vw + 0.125rem, 1.0625rem);
-  }
-
-  .vtx-typography--button,
-  .vtx-typography--label {
-    font-size: clamp(0.875rem, 1vw + 0.125rem, 0.9375rem);
-    line-height: 1.6;
-  }
-}
-
-/* ===== Very Small Screens (<= 320px) ===== */
-@media (max-width: 320px) {
-  .vtx-typography--h1 {
-    font-size: 1.75rem;
-    line-height: 1.1;
-  }
-
-  .vtx-typography--h2 {
-    font-size: 1.5rem;
-    line-height: 1.15;
-  }
-
-  .vtx-typography--h3 {
-    font-size: 1.25rem;
-    line-height: 1.2;
-  }
-
-  .vtx-typography--h4 {
-    font-size: 1.125rem;
-  }
-
-  .vtx-typography--h5,
-  .vtx-typography--h6 {
-    font-size: 1rem
-  };
-}
-
-/* Desktop: 1024px - 1439px */
-@media (min-width: 1024px) and (max-width: 1439px) {
-  .vtx-typography--h1 {
-    line-height: 1.2;
-  }
-}
-
-/* Large Desktop: >= 1440px */
-@media (min-width: 1440px) {
-  .vtx-typography--h1 {
-    letter-spacing: -0.03em;
-  }
-
-  .vtx-typography--h2 {
-    letter-spacing: -0.03em;
-  }
-
-  .vtx-typography--h3 {
-    letter-spacing: -0.03em;
-  }
-}
-
-/* ===== Landscape Mode Adjustments ===== */
-@media (max-width: 1023px) and (orientation: landscape) {
-  .vtx-typography--h1,
-  .vtx-typography--h2,
-  .vtx-typography--h3 {
-    margin-bottom: 0.5rem;
-  }
-
-  .vtx-typography--body1,
-  .vtx-typography--body2 {
-    margin-bottom: 0.5rem;
-  }
-}
+/* Responsive Breakpoint Adjustments handled in base.css */
 
 /* ===== High Resolution Displays ===== */
 @media (min-resolution: 2dppx) {

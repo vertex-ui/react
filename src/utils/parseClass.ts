@@ -27,6 +27,7 @@ const injectedRules = new Set<string>();
 const parseCache = new Map<string, string>();
 
 // Spacing scale mapping (similar to Tailwind's default scale)
+// Spacing scale mapping (similar to Tailwind's default scale)
 const spacingScale: Record<string, string> = {
   '0': '0',
   '1': '0.25rem', // 4px
@@ -51,6 +52,49 @@ const spacingScale: Record<string, string> = {
   '1.5': '0.375rem', // 6px
   '2.5': '0.625rem', // 10px
   '3.5': '0.875rem', // 14px
+  'full': '100%',
+  'auto': 'auto',
+  'screen': '100vh',
+  'xs': '0.25rem',
+  'sm': '0.5rem',
+  'md': '1rem',
+  'lg': '1.5rem',
+  'xl': '2rem',
+  '2xl': '3rem',
+  '3xl': '4rem',
+};
+
+// Color scale mapping
+const colorScale: Record<string, string> = {
+  // Brand Colors
+  'primary': 'var(--vtx-color-primary-600)',
+  'primary-hover': 'var(--vtx-color-primary-700)',
+  'secondary': 'var(--vtx-color-secondary-600)',
+  'secondary-hover': 'var(--vtx-color-secondary-700)',
+
+  // Status Colors
+  'success': 'var(--vtx-color-success-600)',
+  'warning': 'var(--vtx-color-warning-600)',
+  'error': 'var(--vtx-color-error-600)',
+  'danger': 'var(--vtx-color-error-600)', // Alias for error
+  'info': 'var(--vtx-color-info-600)',
+
+  // Base Colors
+  'white': 'var(--vtx-color-white)',
+  'black': 'var(--vtx-color-black)',
+  'transparent': 'transparent',
+  'current': 'currentColor',
+  'inherit': 'inherit',
+
+  // Semantic / UI Colors
+  'neutral': 'var(--vtx-color-neutral-600)',
+  'surface': 'var(--vtx-color-surface-paper)',
+  'border': 'var(--vtx-color-border-default)',
+
+  // Text Semantics (from base.css)
+  'main': 'var(--vtx-text-primary)',      // Main text color
+  'muted': 'var(--vtx-text-secondary)',   // Secondary text color
+  'disabled': 'var(--vtx-text-disabled)', // Disabled text state
 };
 
 // Property mapping
@@ -76,11 +120,19 @@ const propertyMap: Record<string, string> = {
   h: "height",
   // Typography
   fs: "font-size",
+  fw: "font-weight",
   lh: "line-height",
   ls: "letter-spacing",
   // Gap
   gap: "gap",
+  // Colors
+  bg: "background-color",
+  text: "color",
+  border: "border-color",
 };
+
+// Properties that use the color scale
+const colorProperties = new Set(['bg', 'text', 'border']);
 
 // Caches are now declared at the top of the file
 
@@ -98,32 +150,51 @@ export function parseClass(className: string): string {
 
   let result = className;
 
-  // First, try to match arbitrary value patterns like mb-[2px]
-  let match = className.match(/^([a-z]+)-\[(.+)\]$/);
+  // Parse prefixes (e.g., hover:)
+  const prefixMatch = className.match(/^((?:[a-z]+:)+)(.+)$/);
+  const prefixes = prefixMatch ? prefixMatch[1].split(':').filter(Boolean) : [];
+  const baseClass = prefixMatch ? prefixMatch[2] : className;
+
+  // Safe class name for CSS (escape special characters like :, [], %, ., #)
+  // e.g., mb-[30px] -> mb-\[30px\]
+  const safeClassName = className.replace(/[:[\]%.,#()]/g, '\\$&');
+
+  // Match arbitrary value patterns like mb-[2px]
+  let match = baseClass.match(/^([a-z]+)-\[(.+)\]$/);
+
   if (match) {
     const property = match[1];
     const value = match[2];
 
     const cssProp = propertyMap[property];
     if (cssProp) {
-      // Generate a safe CSS class name (no brackets)
-      const safeClass = `${property}-${value.replace(/[^a-z0-9]/gi, "")}`;
-      result = safeClass;
+      // We use the original full class name as the identifier but escaped
+      result = className;
 
-      let cssRule: string;
+      let cssContent: string;
 
       // Handle special cases for x/y axis properties
       if (property === 'mx') {
-        cssRule = `.${safeClass} { margin-left: ${value}; margin-right: ${value}; }`;
+        cssContent = `margin-left: ${value}; margin-right: ${value};`;
       } else if (property === 'my') {
-        cssRule = `.${safeClass} { margin-top: ${value}; margin-bottom: ${value}; }`;
+        cssContent = `margin-top: ${value}; margin-bottom: ${value};`;
       } else if (property === 'px') {
-        cssRule = `.${safeClass} { padding-left: ${value}; padding-right: ${value}; }`;
+        cssContent = `padding-left: ${value}; padding-right: ${value};`;
       } else if (property === 'py') {
-        cssRule = `.${safeClass} { padding-top: ${value}; padding-bottom: ${value}; }`;
+        cssContent = `padding-top: ${value}; padding-bottom: ${value};`;
       } else {
-        cssRule = `.${safeClass} { ${cssProp}: ${value}; }`;
+        cssContent = `${cssProp}: ${value};`;
       }
+
+      let selector = `.${safeClassName}`;
+
+      // Apply prefixes
+      if (prefixes.includes('hover')) selector += ':hover';
+      if (prefixes.includes('focus')) selector += ':focus';
+      if (prefixes.includes('active')) selector += ':active';
+      if (prefixes.includes('dark')) selector = `[data-theme='dark'] ${selector}`;
+
+      const cssRule = `${selector} { ${cssContent} }`;
 
       if (!injectedRules.has(cssRule)) {
         try {
@@ -136,34 +207,49 @@ export function parseClass(className: string): string {
       }
     }
   } else {
-    // Then try to match standard Tailwind-like patterns like mb-2, p-4, etc.
-    match = className.match(/^([a-z]+)-(.+)$/);
+    // Then try to match standard Tailwind-like patterns like mb-2, p-4, bg-primary
+    match = baseClass.match(/^([a-z]+)-(.+)$/);
     if (match) {
       const property = match[1];
       const scaleValue = match[2];
 
       const cssProp = propertyMap[property];
-      const mappedValue = spacingScale[scaleValue];
+
+      // Determine which scale to use
+      let mappedValue: string | undefined;
+      if (colorProperties.has(property)) {
+        mappedValue = colorScale[scaleValue];
+      } else {
+        mappedValue = spacingScale[scaleValue];
+      }
 
       if (cssProp && mappedValue) {
-        // Generate a safe CSS class name
-        const safeClass = `${property}-${scaleValue.replace(/[^a-z0-9]/gi, "")}`;
-        result = safeClass;
+        result = className;
 
-        let cssRule: string;
+        let cssContent: string;
 
-        // Handle special cases for x/y axis properties
+        // Handle special cases
         if (property === 'mx') {
-          cssRule = `.${safeClass} { margin-left: ${mappedValue}; margin-right: ${mappedValue}; }`;
+          cssContent = `margin-left: ${mappedValue}; margin-right: ${mappedValue};`;
         } else if (property === 'my') {
-          cssRule = `.${safeClass} { margin-top: ${mappedValue}; margin-bottom: ${mappedValue}; }`;
+          cssContent = `margin-top: ${mappedValue}; margin-bottom: ${mappedValue};`;
         } else if (property === 'px') {
-          cssRule = `.${safeClass} { padding-left: ${mappedValue}; padding-right: ${mappedValue}; }`;
+          cssContent = `padding-left: ${mappedValue}; padding-right: ${mappedValue};`;
         } else if (property === 'py') {
-          cssRule = `.${safeClass} { padding-top: ${mappedValue}; padding-bottom: ${mappedValue}; }`;
+          cssContent = `padding-top: ${mappedValue}; padding-bottom: ${mappedValue};`;
         } else {
-          cssRule = `.${safeClass} { ${cssProp}: ${mappedValue}; }`;
+          cssContent = `${cssProp}: ${mappedValue};`;
         }
+
+        let selector = `.${safeClassName}`;
+
+        // Apply prefixes
+        if (prefixes.includes('hover')) selector += ':hover';
+        if (prefixes.includes('focus')) selector += ':focus';
+        if (prefixes.includes('active')) selector += ':active';
+        if (prefixes.includes('dark')) selector = `[data-theme='dark'] ${selector}`;
+
+        const cssRule = `${selector} { ${cssContent} }`;
 
         if (!injectedRules.has(cssRule)) {
           try {
@@ -252,3 +338,23 @@ export function cleanupGlobalStyles(): void {
 
 // Note: Global styles are automatically initialized by ThemeProvider.
 // If you're not using ThemeProvider, you can manually call initGlobalStyles().
+
+/**
+ * Helper to generate spacing utility class from a value.
+ * Handles both scale keys (e.g. 'md', '4') and arbitrary values (e.g. '30px').
+ * @param prefix Property prefix, e.g. 'mb', 'p', 'mt'
+ * @param value The value to apply
+ */
+export function getSpacingUtilityClass(prefix: string, value?: string | number): string {
+  if (value === undefined || value === null || value === '') return '';
+
+  const stringValue = String(value);
+
+  // If it exists in the scale, use standard syntax
+  if (Object.prototype.hasOwnProperty.call(spacingScale, stringValue)) {
+    return `${prefix}-${stringValue}`;
+  }
+
+  // Otherwise use arbitrary value syntax
+  return `${prefix}-[${stringValue}]`;
+}

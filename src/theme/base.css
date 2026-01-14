@@ -147,54 +147,54 @@
    * TEXT VARIANT TOKENS
    * ============================================ */
 
-  /* Heading Variants */
-  --vtx-text-h1-font-size: 3.75rem;
-  /* 60px */
+  /* Heading Variants (Mobile First / Base) */
+  --vtx-text-h1-font-size: 2.25rem;
+  /* 36px */
   --vtx-text-h1-font-weight: 700;
   --vtx-text-h1-line-height: 1.2;
   --vtx-text-h1-letter-spacing: -0.025em;
 
-  --vtx-text-h2-font-size: 3rem;
-  /* 48px */
+  --vtx-text-h2-font-size: 1.875rem;
+  /* 30px */
   --vtx-text-h2-font-weight: 700;
   --vtx-text-h2-line-height: 1.25;
   --vtx-text-h2-letter-spacing: -0.025em;
 
-  --vtx-text-h3-font-size: 2.25rem;
-  /* 36px */
+  --vtx-text-h3-font-size: 1.5rem;
+  /* 24px */
   --vtx-text-h3-font-weight: 600;
   --vtx-text-h3-line-height: 1.3;
   --vtx-text-h3-letter-spacing: -0.025em;
 
-  --vtx-text-h4-font-size: 1.875rem;
-  /* 30px */
+  --vtx-text-h4-font-size: 1.25rem;
+  /* 20px */
   --vtx-text-h4-font-weight: 600;
   --vtx-text-h4-line-height: 1.35;
   --vtx-text-h4-letter-spacing: 0;
 
-  --vtx-text-h5-font-size: 1.5rem;
-  /* 24px */
+  --vtx-text-h5-font-size: 1.125rem;
+  /* 18px */
   --vtx-text-h5-font-weight: 600;
   --vtx-text-h5-line-height: 1.4;
   --vtx-text-h5-letter-spacing: 0;
 
-  --vtx-text-h6-font-size: 1.25rem;
-  /* 20px */
+  --vtx-text-h6-font-size: 1rem;
+  /* 16px */
   --vtx-text-h6-font-weight: 600;
   --vtx-text-h6-line-height: 1.5;
   --vtx-text-h6-letter-spacing: 0;
 
   /* Body Text Variants */
   --vtx-text-body1-font-size: 1rem;
-  /* 16px - DEFAULT WEBSITE FONT SIZE */
+  /* 16px */
   --vtx-text-body1-font-weight: 400;
-  --vtx-text-body1-line-height: 1.5;
+  --vtx-text-body1-line-height: 1.6;
   --vtx-text-body1-letter-spacing: 0;
 
   --vtx-text-body2-font-size: 0.875rem;
   /* 14px */
   --vtx-text-body2-font-weight: 400;
-  --vtx-text-body2-line-height: 1.5;
+  --vtx-text-body2-line-height: 1.6;
   --vtx-text-body2-letter-spacing: 0;
 
   /* Subtitle Variants */
@@ -202,32 +202,32 @@
   /* 18px */
   --vtx-text-subtitle1-font-weight: 500;
   --vtx-text-subtitle1-line-height: 1.5;
-  --vtx-text-subtitle1-letter-spacing: 0;
+  --vtx-text-subtitle1-letter-spacing: 0.0075em;
 
-  --vtx-text-subtitle2-font-size: 1rem;
-  /* 16px */
+  --vtx-text-subtitle2-font-size: 0.875rem;
+  /* 14px */
   --vtx-text-subtitle2-font-weight: 500;
-  --vtx-text-subtitle2-line-height: 1.5;
-  --vtx-text-subtitle2-letter-spacing: 0;
+  --vtx-text-subtitle2-line-height: 1.57;
+  --vtx-text-subtitle2-letter-spacing: 0.0075em;
 
   /* Utility Text Variants */
   --vtx-text-caption-font-size: 0.75rem;
   /* 12px */
   --vtx-text-caption-font-weight: 400;
-  --vtx-text-caption-line-height: 1.5;
-  --vtx-text-caption-letter-spacing: 0.025em;
+  --vtx-text-caption-line-height: 1.66;
+  --vtx-text-caption-letter-spacing: 0.033em;
 
-  --vtx-text-overline-font-size: 0.75rem;
-  /* 12px */
+  --vtx-text-overline-font-size: 0.625rem;
+  /* 10px */
   --vtx-text-overline-font-weight: 600;
-  --vtx-text-overline-line-height: 1.5;
-  --vtx-text-overline-letter-spacing: 0.1em;
+  --vtx-text-overline-line-height: 2.66;
+  --vtx-text-overline-letter-spacing: 0.08em;
 
   --vtx-text-button-font-size: 0.875rem;
   /* 14px */
   --vtx-text-button-font-weight: 600;
-  --vtx-text-button-line-height: 1.5;
-  --vtx-text-button-letter-spacing: 0.025em;
+  --vtx-text-button-line-height: 1.75;
+  --vtx-text-button-letter-spacing: 0.028em;
 
   --vtx-text-label-font-size: 0.875rem;
   /* 14px */
@@ -492,5 +492,43 @@ textarea {
 @media (max-width: 1024px) {
   .desktop-show {
     display: none !important;
+  }
+}
+
+/* ============================================
+ * RESPONSIVE TYPOGRAPHY OVERRIDES
+ * ============================================ */
+
+/* Tablet (md): >= 768px */
+@media (min-width: 768px) {
+  :root {
+    --vtx-text-h1-font-size: 3rem;
+    /* 48px */
+    --vtx-text-h2-font-size: 2.25rem;
+    /* 36px */
+    --vtx-text-h3-font-size: 1.875rem;
+    /* 30px */
+    --vtx-text-h4-font-size: 1.5rem;
+    /* 24px */
+    --vtx-text-h5-font-size: 1.25rem;
+    /* 20px */
+  }
+}
+
+/* Desktop (lg): >= 1024px */
+@media (min-width: 1024px) {
+  :root {
+    --vtx-text-h1-font-size: 3.75rem;
+    /* 60px */
+    --vtx-text-h2-font-size: 3rem;
+    /* 48px */
+    --vtx-text-h3-font-size: 2.25rem;
+    /* 36px */
+    --vtx-text-h4-font-size: 1.875rem;
+    /* 30px */
+    --vtx-text-h5-font-size: 1.5rem;
+    /* 24px */
+    --vtx-text-h6-font-size: 1.25rem;
+    /* 20px */
   }
 }
