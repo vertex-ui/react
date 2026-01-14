@@ -3,99 +3,168 @@ import { render, screen } from '../test-utils';
 import { InfoText } from '../../src/widgets/InfoText/InfoText';
 
 describe('InfoText', () => {
-  const Icon = () => <span data-testid="test-icon">Icon</span>;
-
   describe('InfoText.Base', () => {
-    it('renders icon, heading and subtext', () => {
+    it('renders with heading and subText', () => {
       render(
         <InfoText.Base
-          icon={<Icon />}
-          heading="Heading"
-          subText="Subtext"
+          icon={<span>Icon</span>}
+          heading="Info Title"
+          subText="Info Description"
         />
       );
-      expect(screen.getByTestId('test-icon')).toBeInTheDocument();
-      expect(screen.getByText('Heading')).toBeInTheDocument();
-      expect(screen.getByText('Subtext')).toBeInTheDocument();
+      expect(screen.getByText('Info Title')).toBeInTheDocument();
+      expect(screen.getByText('Info Description')).toBeInTheDocument();
+    });
+
+    it('renders with icon', () => {
+      render(
+        <InfoText.Base
+          heading="With Icon"
+          icon={<span data-testid="icon">★</span>}
+        />
+      );
+      expect(screen.getByTestId('icon')).toBeInTheDocument();
+    });
+
+    it('applies icon variant classes', () => {
+      const { container } = render(
+        <InfoText.Base
+          heading="Success"
+          icon={<span>✓</span>}
+          iconVariant="success"
+        />
+      );
+      expect(container.querySelector('.infotext-icon--success')).toBeInTheDocument();
     });
 
     it('renders plain icon when iconCircle is false', () => {
       const { container } = render(
         <InfoText.Base
-          icon={<Icon />}
-          heading="Heading"
+          heading="Plain"
+          icon={<span>★</span>}
           iconCircle={false}
         />
       );
       expect(container.querySelector('.infotext-icon-plain')).toBeInTheDocument();
+      expect(container.querySelector('.infotext-icon')).not.toBeInTheDocument();
     });
   });
 
   describe('InfoText.Stat', () => {
-    it('renders value, label and icon', () => {
+    it('renders stat value and label', () => {
       render(
         <InfoText.Stat
-          icon={<Icon />}
-          value="100"
-          label="Total"
-          subText="vs last week"
+          label="Total Users"
+          value="1,234"
+          subText="+12%"
         />
       );
-      expect(screen.getByTestId('test-icon')).toBeInTheDocument();
-      expect(screen.getByText('100')).toBeInTheDocument();
-      expect(screen.getByText('Total')).toBeInTheDocument();
-      expect(screen.getByText('vs last week')).toBeInTheDocument();
+      expect(screen.getByText('Total Users')).toBeInTheDocument();
+      expect(screen.getByText('1,234')).toBeInTheDocument();
+      expect(screen.getByText('+12%')).toBeInTheDocument();
     });
 
-    it('renders without icon', () => {
-      render(<InfoText.Stat value="100" label="Total" />);
-      expect(screen.getByText('100')).toBeInTheDocument();
-      expect(screen.queryByTestId('test-icon')).not.toBeInTheDocument();
+    it('renders optional icon', () => {
+      render(
+        <InfoText.Stat
+          label="Stats"
+          value="100"
+          icon={<span data-testid="stat-icon">📊</span>}
+        />
+      );
+      expect(screen.getByTestId('stat-icon')).toBeInTheDocument();
+    });
+
+    it('does not render icon wrapper if icon missing', () => {
+      const { container } = render(
+        <InfoText.Stat label="Stats" value="100" />
+      );
+      expect(container.querySelector('.infotext-icon-wrapper')).not.toBeInTheDocument();
     });
   });
 
   describe('InfoText.Feature', () => {
-    it('renders icon, title, description and badge', () => {
+    it('renders title, description and badge', () => {
       render(
         <InfoText.Feature
-          icon={<Icon />}
+          icon={<span>Icon</span>}
           title="Feature Title"
-          description="Feature Description"
-          badge={<span>New</span>}
+          description="Feature Desc"
+          badge={<span data-testid="badge">New</span>}
         />
       );
-      expect(screen.getByTestId('test-icon')).toBeInTheDocument();
       expect(screen.getByText('Feature Title')).toBeInTheDocument();
-      expect(screen.getByText('Feature Description')).toBeInTheDocument();
-      expect(screen.getByText('New')).toBeInTheDocument();
+      expect(screen.getByText('Feature Desc')).toBeInTheDocument();
+      expect(screen.getByTestId('badge')).toBeInTheDocument();
+    });
+
+    it('renders without badge', () => {
+      const { container } = render(
+        <InfoText.Feature
+          icon={<span>Icon</span>}
+          title="Feature"
+          description="Desc"
+        />
+      );
+      expect(container.querySelector('.infotext-badge')).not.toBeInTheDocument();
     });
   });
 
   describe('InfoText.Compact', () => {
-    it('renders icon and text', () => {
+    it('renders compact text', () => {
       render(
         <InfoText.Compact
-          icon={<Icon />}
+          icon={<span>Icon</span>}
           text="Compact Text"
         />
       );
-      expect(screen.getByTestId('test-icon')).toBeInTheDocument();
       expect(screen.getByText('Compact Text')).toBeInTheDocument();
+    });
+
+    it('renders small icon variant', () => {
+      const { container } = render(
+        <InfoText.Compact
+          icon={<span>Icon</span>}
+          text="Text"
+          iconVariant="warning"
+        />
+      );
+      expect(container.querySelector('.infotext-icon-small--warning')).toBeInTheDocument();
+    });
+
+    it('renders plain small icon', () => {
+      const { container } = render(
+        <InfoText.Compact
+          icon={<span>Icon</span>}
+          text="Text"
+          iconCircle={false}
+        />
+      );
+      expect(container.querySelector('.infotext-icon-small-plain')).toBeInTheDocument();
     });
   });
 
   describe('InfoText.Vertical', () => {
-    it('renders icon, heading and subtext in vertical layout', () => {
-      const { container } = render(
+    it('renders vertical content', () => {
+      render(
         <InfoText.Vertical
-          icon={<Icon />}
+          icon={<span>Icon</span>}
           heading="Vertical Heading"
-          subText="Vertical Subtext"
+          subText="Vertical Sub"
         />
       );
-      expect(container.querySelector('.infotext-vertical')).toBeInTheDocument();
       expect(screen.getByText('Vertical Heading')).toBeInTheDocument();
-      expect(screen.getByText('Vertical Subtext')).toBeInTheDocument();
+      expect(screen.getByText('Vertical Sub')).toBeInTheDocument();
+    });
+
+    it('renders without subText', () => {
+      render(
+        <InfoText.Vertical
+          icon={<span>Icon</span>}
+          heading="Heading Only"
+        />
+      );
+      expect(screen.getByText('Heading Only')).toBeInTheDocument();
     });
   });
 });

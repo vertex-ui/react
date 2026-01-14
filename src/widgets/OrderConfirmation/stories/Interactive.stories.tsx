@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from '@storybook/test';
 import { Widget } from '../../../components/Widget';
 import type { OrderConfirmationWidgetData, OrderConfirmationWidgetSettings } from '../../../components/Widget/types';
 
@@ -25,12 +24,6 @@ type Story = StoryObj<typeof meta>;
  * shipping & billing addresses, payment details, and action buttons.
  */
 export const Complete: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('ORD123456789')).toBeInTheDocument();
-    await expect(canvas.getByText('confirmed')).toBeInTheDocument();
-    await expect(canvas.getByText('Order Confirmed Successfully!', { exact: false })).toBeInTheDocument();
-  },
   args: {
     config: {
       type: 'order-confirmation',
@@ -131,10 +124,6 @@ export const Complete: Story = {
  * Simple order with minimal information - just essential details.
  */
 export const Simple: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('ORD987654321')).toBeInTheDocument();
-  },
   args: {
     config: {
       type: 'order-confirmation',

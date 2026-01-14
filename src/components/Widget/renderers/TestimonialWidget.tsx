@@ -19,7 +19,7 @@ export interface TestimonialWidgetProps {
   authorPosition?: 'top' | 'bottom';
 }
 
-const TestimonialWidget: React.FC<TestimonialWidgetProps> = ({
+export const TestimonialWidget: React.FC<TestimonialWidgetProps> = ({
   data,
   className = '',
   theme = 'card',

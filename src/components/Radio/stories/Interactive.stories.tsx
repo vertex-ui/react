@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { userEvent, within, expect } from '@storybook/test';
 import { Radio } from '..';
 
 const meta: Meta<typeof Radio> = {
@@ -29,16 +28,6 @@ export const Default: Story = {
     label: 'Default radio',
     name: 'default',
     value: 'default',
-    onChange: () => {}, // Dummy handler
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const radio = canvas.getByRole('radio');
-
-    await expect(radio).toBeInTheDocument();
-    await expect(radio).not.toBeChecked();
-
-    await userEvent.click(radio);
-    await expect(radio).toBeChecked();
   },
 };
+

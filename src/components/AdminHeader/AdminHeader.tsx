@@ -732,7 +732,7 @@ const AdminHeader = React.forwardRef<HTMLElement, AdminHeaderProps>(
             )}
 
             {/* Notifications */}
-            {showNotifications && notifications.length > 0 && (
+            {showNotifications && (
               <div className="vtx-admin-header-notifications" ref={notificationsRef}>
                 <button
                   className={`vtx-admin-header-icon-button ${

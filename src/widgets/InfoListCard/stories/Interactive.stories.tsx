@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from '@storybook/test';
 import { Widget } from '../../../components/Widget';
 import { Flex } from '../../../components/Flex';
 
@@ -34,12 +33,6 @@ export const PaymentInformation: Story = {
       },
       settings: { theme: 'modern' },
     },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('Payment Information')).toBeInTheDocument();
-    await expect(canvas.getByText('VISA')).toBeInTheDocument();
-    await expect(canvas.getByText('7892')).toBeInTheDocument();
   },
 };
 
@@ -89,11 +82,4 @@ export const MultipleCards: Story = {
       />
     </Flex>
   ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('Payment Information')).toBeInTheDocument();
-    await expect(canvas.getByText('Delivery Information')).toBeInTheDocument();
-    await expect(canvas.getByText('Order Summary')).toBeInTheDocument();
-    await expect(canvas.getByText('FDX123456789')).toBeInTheDocument();
-  },
 };

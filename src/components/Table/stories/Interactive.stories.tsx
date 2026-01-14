@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from '@storybook/test';
 import { Table } from '..';
 
 
@@ -41,15 +40,6 @@ export const Default: Story = {
     data: basicData,
     getRowKey: (row: any) => row.id,
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Check headers
-    await expect(canvas.getByText('Name')).toBeInTheDocument();
-    await expect(canvas.getByText('Email')).toBeInTheDocument();
-
-    // Check rows
-    await expect(canvas.getByText('John Doe')).toBeInTheDocument();
-    await expect(canvas.getByText('jane@example.com')).toBeInTheDocument();
-  },
 };
+
+

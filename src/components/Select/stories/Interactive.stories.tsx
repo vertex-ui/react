@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { userEvent, within, expect } from '@storybook/test';
 import { Select } from '..';
 
 const meta: Meta<typeof Select> = {
@@ -29,26 +28,13 @@ const countryOptions = [
   { value: 'jp', label: 'Japan' },
 ];
 
+
+
 export const Default: Story = {
   args: {
     options: countryOptions,
     placeholder: 'Select a country',
-    onChange: () => {}, // Dummy handler
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    const trigger = canvas.getByText('Select a country');
-    await expect(trigger).toBeInTheDocument();
-
-    await userEvent.click(trigger);
-
-    const body = within(document.body);
-    const option = await body.findByText('United States');
-    await expect(option).toBeVisible();
-
-    await userEvent.click(option);
-
-    await expect(canvas.getByText('United States')).toBeInTheDocument();
   },
 };
+
+

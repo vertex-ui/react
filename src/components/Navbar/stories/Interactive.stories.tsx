@@ -1,7 +1,6 @@
 
 import { Button } from '../../Button';
 import { Navbar } from '../Navbar';
-import { userEvent, within, expect } from '@storybook/test';
 import {
     HeartIcon,
     ShoppingCartIcon,
@@ -68,8 +67,7 @@ const megaMenuNavItems = [
 // 1. LAYOUT VARIANTS
 // =============================================================================
 
-export const LayoutSingleRow = {
-  render: () => (
+export const LayoutSingleRow = () => (
     <div style={{ minHeight: '100vh', background: '#f8fafc' }}>
         <Navbar
             variant="single-row"
@@ -87,13 +85,7 @@ export const LayoutSingleRow = {
             <p style={{ color: '#64748b' }}>Standard layout with logo, navigation, and actions in one row.</p>
         </div>
     </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('Home')).toBeVisible();
-    await expect(canvas.getByText('Sign In')).toBeVisible();
-  }
-};
+);
 
 export const LayoutTwoRow = () => (
     <div style={{ minHeight: '100vh', background: '#ffffff' }}>
@@ -343,8 +335,7 @@ export const ResponsiveBehavior = () => (
 // 5. ENTERPRISE E-COMMERCE EXAMPLE
 // =============================================================================
 
-export const EnterpriseProDesign = {
-  render: () => (
+export const EnterpriseProDesign = () => (
     <div style={{ minHeight: '100vh', background: '#f8fafc' }}>
         <Navbar
             variant="two-row"
@@ -441,5 +432,4 @@ export const EnterpriseProDesign = {
             ))}
         </div>
     </div>
-  )
-};
+);

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { render, screen, fireEvent } from '../test-utils';
+import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { RadioGroup } from '../../src/components/RadioGroup/RadioGroup';
 import type { RadioOption } from '../../src/components/RadioGroup/RadioGroup';
@@ -116,14 +117,15 @@ describe('RadioGroup', () => {
       expect(radios[2].checked).toBe(false);
     });
 
-    it('calls onChange with updated value when radio is clicked', () => {
+    it('calls onChange with updated value when radio is clicked', async () => {
+      const user = userEvent.setup();
       const handleChange = jest.fn();
       render(
         <RadioGroup name="test" options={mockOptions} value="option1" onChange={handleChange} />
       );
       const radios = screen.getAllByRole('radio');
 
-      fireEvent.click(radios[1]);
+      await user.click(radios[1]);
       expect(handleChange).toHaveBeenCalledWith('option2');
     });
 
@@ -214,6 +216,26 @@ describe('RadioGroup', () => {
       radios.forEach((radio) => {
         expect(radio.name).toBe('test-name');
       });
+    });
+
+    it('supports keyboard navigation', async () => {
+      const user = userEvent.setup();
+      render(<RadioGroup name="test-kb" options={mockOptions} />);
+      const radios = screen.getAllByRole('radio');
+
+      // Tab to first radio
+      await user.tab();
+      expect(radios[0]).toHaveFocus();
+
+      // Arrow down/right to next radio
+      await user.keyboard('{ArrowDown}');
+      expect(radios[1]).toBeChecked();
+      expect(radios[1]).toHaveFocus();
+
+      // Arrow up/left to previous radio
+      await user.keyboard('{ArrowUp}');
+      expect(radios[0]).toBeChecked();
+      expect(radios[0]).toHaveFocus();
     });
   });
 

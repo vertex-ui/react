@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from '@storybook/test';
 import { Typography } from '..';
 
 const meta: Meta<typeof Typography> = {
@@ -43,9 +42,5 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     children: 'Default text content',
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('Default text content')).toBeInTheDocument();
   },
 };

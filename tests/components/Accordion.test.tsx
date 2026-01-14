@@ -247,7 +247,7 @@ describe('Accordion', () => {
     });
   });
 
-  describe('Chevron Icon', () => {
+  describe('Chevron Icon and Custom Icons', () => {
     it('shows chevron icons by default', () => {
       render(<Accordion items={mockItems} />);
       expect(screen.getByTestId('item1-chevron-icon')).toBeInTheDocument();
@@ -267,6 +267,116 @@ describe('Accordion', () => {
       expect(screen.getByTestId('item1-chevron-icon')).toBeInTheDocument();
       expect(screen.getByTestId('item2-chevron-icon')).toBeInTheDocument();
       expect(screen.getByTestId('item3-chevron-icon')).toBeInTheDocument();
+    });
+
+    it('renders plus-minus icons', () => {
+      render(<Accordion items={mockItems} iconType="plus-minus" />);
+      expect(screen.getByTestId('item1-plus-minus-icon')).toBeInTheDocument();
+    });
+
+    it('renders custom global icons', () => {
+      const CustomExpanded = <span data-testid="custom-expanded">Expanded</span>;
+      const CustomCollapsed = <span data-testid="custom-collapsed">Collapsed</span>;
+
+      render(
+        <Accordion
+          items={mockItems}
+          iconType="custom"
+          expandedIcon={CustomExpanded}
+          collapsedIcon={CustomCollapsed}
+        />
+      );
+
+      expect(screen.getByTestId('item1-custom-icon')).toBeInTheDocument();
+      // Expect all items to be collapsed initially
+      expect(screen.getAllByText('Collapsed')).toHaveLength(mockItems.length);
+
+      // Open item
+      fireEvent.click(screen.getByText('First Item'));
+      // Wait for the state update if necessary, though fireEvent is sync usually
+      // Item 1 should now be expanded
+      expect(screen.getByText('Expanded')).toBeInTheDocument();
+      // Other items should still be collapsed
+      expect(screen.getAllByText('Collapsed')).toHaveLength(mockItems.length - 1);
+    });
+
+    it('renders specific item icons', () => {
+      const itemsWithIcon: AccordionItemProps[] = [
+        {
+          id: 'item1',
+          header: 'Item 1',
+          children: 'Content',
+          icon: {
+            expanded: <span data-testid="item-expanded">ItemExpanded</span>,
+            collapsed: <span data-testid="item-collapsed">ItemCollapsed</span>
+          }
+        }
+      ];
+
+      render(<Accordion items={itemsWithIcon} />);
+      expect(screen.getByTestId('item1-custom-icon')).toBeInTheDocument();
+      expect(screen.getByTestId('item-collapsed')).toBeInTheDocument();
+
+      fireEvent.click(screen.getByText('Item 1'));
+      expect(screen.getByTestId('item-expanded')).toBeInTheDocument();
+    });
+  });
+
+  describe('Status and State', () => {
+    it('renders item status indicator', () => {
+      const itemsWithStatus: AccordionItemProps[] = [
+        { id: 'item1', header: 'Status Item', children: 'Content', status: 'success' }
+      ];
+      render(<Accordion items={itemsWithStatus} />);
+
+      // Status is rendered in body, only visible when open or if implementation renders it regardless
+      // Based on implementation: status is inside accordion-item-body
+      fireEvent.click(screen.getByText('Status Item'));
+      expect(screen.getByText('Status: success')).toBeInTheDocument();
+    });
+
+    it('handles loading state correctly', () => {
+      render(<Accordion items={mockItems} loading />);
+
+      const accordion = screen.getByRole('presentation');
+      expect(accordion).toHaveClass('accordion--loading');
+      expect(accordion).toHaveAttribute('aria-busy', 'true');
+
+      // Should prevent interaction
+      const header = screen.getByText('First Item').closest('.accordion-item-header');
+      expect(header).toHaveAttribute('aria-busy', 'true');
+
+      fireEvent.click(screen.getByText('First Item'));
+      // Should not toggle when loading
+      const content = document.getElementById('accordion-content-item1');
+      expect(content).toHaveStyle('max-height: 0');
+    });
+
+    it('applies spacing classes', () => {
+      const { rerender } = render(<Accordion items={mockItems} spacing="compact" />);
+      expect(screen.getByRole('presentation')).toHaveClass('accordion--compact');
+
+      rerender(<Accordion items={mockItems} spacing="spacious" />);
+      expect(screen.getByRole('presentation')).toHaveClass('accordion--spacious');
+    });
+
+    it('handles divider visibility', () => {
+      const { rerender } = render(<Accordion items={mockItems} showDivider={true} />);
+      expect(screen.getByRole('presentation')).toHaveClass('accordion--divider');
+
+      rerender(<Accordion items={mockItems} showDivider={false} />);
+      expect(screen.getByRole('presentation')).not.toHaveClass('accordion--divider');
+    });
+
+    it('handles disabled animations', () => {
+      render(<Accordion items={mockItems} disableAnimations />);
+
+      expect(screen.getByRole('presentation')).toHaveClass('accordion--no-animation');
+
+      // Check inline styles for transition
+      fireEvent.click(screen.getByText('First Item'));
+      const content = document.getElementById('accordion-content-item1');
+      expect(content).toHaveStyle('transition: none');
     });
   });
 
