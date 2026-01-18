@@ -212,3 +212,66 @@
     padding: 20px 16px;
   }
 }
+
+/* ==================== Cart List Theme ==================== */
+
+.vtx-skeleton-theme--cart-list {
+  padding: 16px;
+  border-bottom: 1px solid var(--vtx-color-neutral-200, #e5e5e5);
+}
+
+.vtx-skeleton-theme--cart-list:last-child {
+  border-bottom: none;
+}
+
+/* ==================== Home Page Theme ==================== */
+
+.vtx-skeleton-theme--home-page {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.vtx-skeleton-theme--home-page__carousel {
+  width: 100%;
+}
+
+.vtx-skeleton-theme--home-page__categories {
+  display: flex;
+  gap: 16px;
+  overflow: hidden;
+  padding-bottom: 8px;
+}
+
+.vtx-skeleton-theme--home-page__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+/* ==================== Checkout Theme ==================== */
+
+.vtx-skeleton-theme--checkout {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.vtx-skeleton-theme--checkout__main {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.vtx-skeleton-theme--checkout__sidebar {
+  width: 320px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .vtx-skeleton-theme--checkout__sidebar {
+    width: 100%;
+  }
+}

@@ -9,7 +9,7 @@ import { ContentBlockWidgetProps } from '../ContentBlockWidget';
 
 const getMarginClass = (value?: string) => {
     if (!value) return '';
-    if (['px', 'rem', 'em', '%', 'vh', 'vw', 'calc'].some(u => value.includes(u))) {
+    if (['px', 'rem', 'em', '%', 'vh', 'vw', 'calc', 'var'].some(u => value.includes(u))) {
         return `mb-[${value}]`;
     }
     return `mb-${value}`;

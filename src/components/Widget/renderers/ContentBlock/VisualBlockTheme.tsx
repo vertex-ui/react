@@ -1,12 +1,20 @@
 import React from 'react';
-import { ContentBlockWidgetProps } from '../ContentBlockWidget';
-import { Typography } from '../../../Typography';
-import { Button } from '../../../Button';
-import { Link } from '../../../Link';
-import { Box } from '../../../Box';
-import { Flex } from '../../../Flex';
-import { Image } from '../../../Image';
 import './VisualBlockTheme.css';
+import Box from '@/components/Box';
+import { Button } from '@/components/Button';
+import { Flex } from '@/components/Flex';
+import { Link } from '@/components/Link';
+import { Typography } from '@/components/Typography';
+import { Image } from '@/components/Image';
+import { ContentBlockWidgetProps } from '../ContentBlockWidget';
+
+const getMarginClass = (value?: string) => {
+    if (!value) return '';
+    if (['px', 'rem', 'em', '%', 'vh', 'vw', 'calc', 'var'].some(u => value.includes(u))) {
+        return `mb-[${value}]`;
+    }
+    return `mb-${value}`;
+};
 
 export const VisualBlockTheme: React.FC<ContentBlockWidgetProps & {
     wrapperClass: string;
@@ -22,7 +30,6 @@ export const VisualBlockTheme: React.FC<ContentBlockWidgetProps & {
     textAlign,
     gapValues
 }) => {
-        console.log("dataaaaa", data)
         // Extract content
         const content = data.content || {};
         const {
@@ -38,10 +45,10 @@ export const VisualBlockTheme: React.FC<ContentBlockWidgetProps & {
         const { linkDestination, openInNewTab } = settings;
 
         const {
-            headingGap,
-            bodyGap,
-            mediaGap
-        } = gapValues;
+            headingGap = 'md',
+            bodyGap = 'md',
+            mediaGap = 'md'
+        } = gapValues || {};
 
         // Resolve Media Content
         let mediaContent: React.ReactNode = null;
@@ -53,7 +60,7 @@ export const VisualBlockTheme: React.FC<ContentBlockWidgetProps & {
             const imgHeight = settings.imageHeight || 'auto';
 
             mediaContent = (
-                <Box className="vtx-content-block__media-wrapper" w={imgWidth} style={{ maxWidth: '100%' }}>
+                <Box className={`vtx-content-block__media-wrapper ${getMarginClass(mediaGap)}`} w={imgWidth} style={{ maxWidth: '100%' }}>
                     <Image
                         src={data.image}
                         alt={(typeof heading === 'string' ? heading : 'Feature image')}
@@ -82,18 +89,17 @@ export const VisualBlockTheme: React.FC<ContentBlockWidgetProps & {
             const size = settings.customIconSize || (settings.iconSize ? iconSizeMap[settings.iconSize] : '3rem');
 
             mediaContent = (
-                <div
-                    className={`vtx-content-block__icon ${data.iconVariant ? `vtx-text-${data.iconVariant}` : 'vtx-text-primary'}`}
+                <Flex
+                    className={`vtx-content-block__icon ${data.iconVariant ? `vtx-text-${data.iconVariant}` : 'vtx-text-primary'} ${getMarginClass(mediaGap)}`}
                     style={{
                         fontSize: size,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
                         lineHeight: 1
                     }}
+                    align="center"
+                    justify="center"
                 >
                     {data.icon}
-                </div>
+                </Flex>
             );
         }
 
@@ -108,38 +114,31 @@ export const VisualBlockTheme: React.FC<ContentBlockWidgetProps & {
                 textAlign={textAlign as any}
             >
                 {/* Media Area */}
-                {mediaContent && (
-                    <Box mb={mediaGap}>
-                        {mediaContent}
-                    </Box>
-                )}
+                {mediaContent}
 
                 {/* Detailed Content */}
                 {/* Heading */}
+
                 {heading && (
-                    <Box mb={headingGap}>
-                        <Typography
-                            variant={typeSettings.heading?.variant || headingVariant}
-                            as={typeSettings.heading?.as} // Explicitly allow 'as' override
-                            className="vtx-content-block__heading"
-                            {...typeSettings.heading}
-                        >
-                            {heading}
-                        </Typography>
-                    </Box>
+                    <Typography
+                        variant={typeSettings.heading?.variant || headingVariant}
+                        as={typeSettings.heading?.as} // Explicitly allow 'as' override
+                        className={`vtx-content-block__heading ${getMarginClass(headingGap)}`}
+                        {...typeSettings.heading}
+                    >
+                        {heading}
+                    </Typography>
                 )}
 
                 {/* Description */}
                 {description && (
-                    <Box mb={bodyGap}>
-                        <Typography
-                            variant={bodyVariant}
-                            className="vtx-content-block__body"
-                            {...typeSettings.body}
-                        >
-                            {description}
-                        </Typography>
-                    </Box>
+                    <Typography
+                        variant={bodyVariant}
+                        className={`vtx-content-block__body ${getMarginClass(bodyGap)}`}
+                        {...typeSettings.body}
+                    >
+                        {description}
+                    </Typography>
                 )}
 
                 {/* Actions */}

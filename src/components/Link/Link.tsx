@@ -194,6 +194,7 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       return (
         <Component
           ref={ref}
+          href={href}
           className={classNames}
           aria-disabled={disabled}
           style={combinedStyle}

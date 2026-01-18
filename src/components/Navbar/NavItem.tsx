@@ -21,12 +21,12 @@ interface NavItemProps {
   activeIndicatorBehavior?: 'always' | 'hover' | 'never';
 }
 
-export const NavItem: React.FC<NavItemProps> = ({ 
-  item, 
-  mobile = false, 
-  onItemClick, 
-  uppercase = false, 
-  linkComponent, 
+export const NavItem: React.FC<NavItemProps> = ({
+  item,
+  mobile = false,
+  onItemClick,
+  uppercase = false,
+  linkComponent,
   defaultHoverColor,
   defaultActiveColor = 'primary',
   activeIndicatorStyle = 'underline',
@@ -40,19 +40,19 @@ export const NavItem: React.FC<NavItemProps> = ({
   const hasSubmenu = item.children && item.children.length > 0;
   const hasMegaMenu = item.megaMenu && item.megaMenu.length > 0;
 
-  // Use custom link component if provided at item level, navbar level, or default Link
-  const LinkComponent = item.component || linkComponent || Link;
-  
+  // Use custom link component if provided at item level, navbar level
+  const customComponent = item.component || linkComponent;
+
   // Determine active color (item-specific or default)
   const activeColor = item.activeColor || defaultActiveColor;
-  
+
   // Generate active style classes
   const getActiveStyleClasses = () => {
     const classes = [];
-    
+
     if (item.active) {
       classes.push('vtx-navbar__nav-item--active');
-      
+
       // Color variant class
       if (activeColor && ['primary', 'secondary', 'neutral', 'success', 'warning', 'error', 'info'].includes(activeColor)) {
         classes.push(`vtx-navbar__nav-item--active-${activeColor}`);
@@ -61,7 +61,7 @@ export const NavItem: React.FC<NavItemProps> = ({
       } else {
         classes.push('vtx-navbar__nav-item--active-primary');
       }
-      
+
       // Indicator style class
       if (activeIndicatorStyle === 'background') {
         classes.push('vtx-navbar__nav-item--active-background');
@@ -69,14 +69,14 @@ export const NavItem: React.FC<NavItemProps> = ({
         classes.push('vtx-navbar__nav-item--active-underline');
       }
     }
-    
+
     // Indicator behavior class
     if (activeIndicatorBehavior === 'hover') {
       classes.push('vtx-navbar__nav-item--indicator-hover');
     } else if (activeIndicatorBehavior === 'never') {
       classes.push('vtx-navbar__nav-item--indicator-never');
     }
-    
+
     return classes;
   };
 
@@ -114,8 +114,8 @@ export const NavItem: React.FC<NavItemProps> = ({
 
   // Custom CSS variables for non-theme colors
   const customActiveStyles: React.CSSProperties = (
-    item.active && 
-    activeColor && 
+    item.active &&
+    activeColor &&
     !['primary', 'secondary', 'neutral', 'success', 'warning', 'error', 'info'].includes(activeColor)
   ) ? {
     '--nav-active-current': activeColor
@@ -153,13 +153,14 @@ export const NavItem: React.FC<NavItemProps> = ({
     return (
       <Box className="vtx-navbar__mobile-nav-item-wrapper">
         {item.href && !hasSubmenu && !hasMegaMenu ? (
-          <LinkComponent
+          <Link
+            component={customComponent}
             href={item.href}
             className={itemClass}
             onClick={handleClick}
             hoverColor={item.hoverColor}
             style={customActiveStyles}
-            {...(LinkComponent === Link ? { noUnderline: true } : {})}
+            noUnderline
             {...(item.componentProps || {})}
           >
             <Flex align="center" justify="between" style={{ width: '100%' }}>
@@ -175,11 +176,11 @@ export const NavItem: React.FC<NavItemProps> = ({
                 )}
               </Flex>
             </Flex>
-          </LinkComponent>
+          </Link>
         ) : (
-          <button 
-            className={itemClass} 
-            onClick={handleClick} 
+          <button
+            className={itemClass}
+            onClick={handleClick}
             disabled={item.disabled}
             style={customActiveStyles}
           >
@@ -213,12 +214,12 @@ export const NavItem: React.FC<NavItemProps> = ({
           <Box className="vtx-navbar__mobile-submenu">
             {hasSubmenu &&
               item.children!.map((child, index) => (
-                <NavItem 
-                  key={index} 
-                  item={child} 
-                  mobile 
-                  onItemClick={onItemClick} 
-                  linkComponent={linkComponent} 
+                <NavItem
+                  key={index}
+                  item={child}
+                  mobile
+                  onItemClick={onItemClick}
+                  linkComponent={linkComponent}
                   defaultHoverColor={defaultHoverColor}
                   defaultActiveColor={defaultActiveColor}
                   activeIndicatorStyle={activeIndicatorStyle}
@@ -237,12 +238,12 @@ export const NavItem: React.FC<NavItemProps> = ({
                     </Typography>
                   )}
                   {column.items.map((child, index) => (
-                    <NavItem 
-                      key={index} 
-                      item={child} 
-                      mobile 
-                      onItemClick={onItemClick} 
-                      linkComponent={linkComponent} 
+                    <NavItem
+                      key={index}
+                      item={child}
+                      mobile
+                      onItemClick={onItemClick}
+                      linkComponent={linkComponent}
                       defaultHoverColor={defaultHoverColor}
                       defaultActiveColor={defaultActiveColor}
                       activeIndicatorStyle={activeIndicatorStyle}
@@ -280,21 +281,22 @@ export const NavItem: React.FC<NavItemProps> = ({
       onMouseLeave={handleMouseLeave}
     >
       {item.href && !hasSubmenu && !hasMegaMenu ? (
-        <LinkComponent
+        <Link
+          component={customComponent}
           href={item.href}
           className={itemClass}
           onClick={handleClick}
           hoverColor={item.hoverColor}
           style={customActiveStyles}
-          {...(LinkComponent === Link ? { noUnderline: true } : {})}
+          noUnderline
           {...(item.componentProps || {})}
         >
           {content}
-        </LinkComponent>
+        </Link>
       ) : (
-        <button 
-          className={itemClass} 
-          onClick={handleClick} 
+        <button
+          className={itemClass}
+          onClick={handleClick}
           disabled={item.disabled}
           style={customActiveStyles}
         >
@@ -304,11 +306,11 @@ export const NavItem: React.FC<NavItemProps> = ({
       {hasSubmenu && isOpen && (
         <div className="vtx-navbar__submenu">
           {item.children!.map((child, index) => (
-            <NavItem 
-              key={index} 
-              item={child} 
-              onItemClick={() => setIsOpen(false)} 
-              linkComponent={linkComponent} 
+            <NavItem
+              key={index}
+              item={child}
+              onItemClick={() => setIsOpen(false)}
+              linkComponent={linkComponent}
               defaultHoverColor={defaultHoverColor}
               defaultActiveColor={defaultActiveColor}
               activeIndicatorStyle={activeIndicatorStyle}
@@ -379,7 +381,8 @@ export const NavItem: React.FC<NavItemProps> = ({
                             .join(' ');
 
                           return (
-                            <LinkComponent
+                            <Link
+                              component={customComponent}
                               key={index}
                               href={child.href || '#'}
                               className={itemClass}
@@ -388,7 +391,7 @@ export const NavItem: React.FC<NavItemProps> = ({
                                 setIsOpen(false);
                               }}
                               hoverColor={child.hoverColor || defaultHoverColor}
-                              {...(LinkComponent === Link ? { noUnderline: true } : {})}
+                              noUnderline
                               {...(child.componentProps || {})}
                             >
                               <Box display="flex" alignItems="flex-start" gap={12}>
@@ -442,7 +445,7 @@ export const NavItem: React.FC<NavItemProps> = ({
                                   )}
                                 </Box>
                               </Box>
-                            </LinkComponent>
+                            </Link>
                           );
                         })}
                       </div>
@@ -450,16 +453,17 @@ export const NavItem: React.FC<NavItemProps> = ({
                       {/* Column CTA */}
                       {column.cta && (
                         <div className="vtx-navbar__megamenu-cta">
-                          <LinkComponent
+                          <Link
+                            component={customComponent}
                             href={column.cta.href}
                             className="vtx-navbar__megamenu-cta-link"
                             hoverColor={column.cta.hoverColor}
-                            {...(LinkComponent === Link ? { noUnderline: true } : {})}
+                            noUnderline
                           >
                             <Typography variant="body2" noMargin weight="semibold">
                               {column.cta.label}
                             </Typography>
-                          </LinkComponent>
+                          </Link>
                         </div>
                       )}
                     </div>

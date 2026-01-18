@@ -15,11 +15,9 @@ export interface ContentBlockWidgetProps {
 
 const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = (props) => {
   const {
-    data,
     settings = {},
     theme = 'feature-highlight',
     className = '',
-    style,
   } = props;
 
   // Extract settings for basic styling/layout

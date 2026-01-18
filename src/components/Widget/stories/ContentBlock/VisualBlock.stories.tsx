@@ -53,6 +53,26 @@ export const Interactive: Story = {
             options: ['light', 'dark', 'primary', 'secondary'],
             description: 'Color scheme'
         },
+        gap: {
+            control: 'select',
+            options: ['none', 'xs', 'sm', 'md', 'lg', 'xl', '2xl'],
+            description: 'Global spacing gap'
+        },
+        mediaGap: {
+            control: 'select',
+            options: ['none', 'xs', 'sm', 'md', 'lg', 'xl', '2xl'],
+            description: 'Spacing below media'
+        },
+        headingGap: {
+            control: 'select',
+            options: ['none', 'xs', 'sm', 'md', 'lg', 'xl', '2xl'],
+            description: 'Spacing below heading'
+        },
+        bodyGap: {
+            control: 'select',
+            options: ['none', 'xs', 'sm', 'md', 'lg', 'xl', '2xl'],
+            description: 'Spacing below body'
+        },
         heading: { control: 'text' },
         headingVariant: {
             control: 'select',
@@ -78,6 +98,10 @@ export const Interactive: Story = {
         iconVariant: 'primary',
         displayMode: 'card',
         colorMode: 'light',
+        gap: 'md',
+        mediaGap: 'md',
+        headingGap: 'sm',
+        bodyGap: 'md',
         heading: 'Visual Feature',
         headingVariant: 'h3',
         headingAs: 'h3',
@@ -117,8 +141,11 @@ export const Interactive: Story = {
                         as: args.headingAs
                     }
                 },
+                gap: args.gap,
                 spacing: {
-                    media: '1.5rem',
+                    media: args.mediaGap,
+                    heading: args.headingGap,
+                    body: args.bodyGap,
                 }
             },
         };

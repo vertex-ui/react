@@ -60,6 +60,10 @@ export interface TopBarConfig {
    * - string: Custom CSS color value
    */
   textColor?: 'light' | 'dark' | string;
+  /**
+   * Hide TopBar on specific devices
+   */
+  hideOn?: Array<'mobile' | 'tablet' | 'desktop'>;
 }
 
 export interface NavbarBaseProps {

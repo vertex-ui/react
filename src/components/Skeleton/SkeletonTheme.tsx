@@ -6,30 +6,33 @@ export interface SkeletonThemeProps extends React.HTMLAttributes<HTMLDivElement>
   /**
    * Theme preset for different content types
    */
-  theme: 
-    | 'card'
-    | 'product'
-    | 'article'
-    | 'blog-post'
-    | 'profile'
-    | 'comment'
-    | 'list-item'
-    | 'table-row'
-    | 'form'
-    | 'hero'
-    | 'about-section'
-    | 'feature-card'
-    | 'testimonial'
-    | 'pricing-card'
-    | 'stats'
-    | 'team-member'
-    | 'gallery-item'
-    | 'video-card'
-    | 'order-card'
-    | 'order-confirmation'
-    | 'order-details'
-    | 'product-grid'
-    | 'content-block';
+  theme:
+  | 'card'
+  | 'product'
+  | 'article'
+  | 'blog-post'
+  | 'profile'
+  | 'comment'
+  | 'list-item'
+  | 'table-row'
+  | 'form'
+  | 'hero'
+  | 'about-section'
+  | 'feature-card'
+  | 'testimonial'
+  | 'pricing-card'
+  | 'stats'
+  | 'team-member'
+  | 'gallery-item'
+  | 'video-card'
+  | 'order-card'
+  | 'order-confirmation'
+  | 'order-details'
+  | 'product-grid'
+  | 'content-block'
+  | 'cart-list'
+  | 'home-page'
+  | 'checkout';
   /**
    * Animation type
    * @default 'wave'
@@ -528,6 +531,149 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
                   </div>
                 </div>
               ))}
+            </div>
+          );
+
+        case 'cart-list':
+          return (
+            <div className="vtx-skeleton-theme vtx-skeleton-theme--cart-list">
+              <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                <Skeleton variant="rounded" width={80} height={80} animation={animation} />
+                <div style={{ flex: 1 }}>
+                  <Skeleton variant="text" width="60%" height={20} animation={animation} />
+                  <Skeleton variant="text" width="40%" height={16} style={{ marginTop: '8px' }} animation={animation} />
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+                  <Skeleton variant="rounded" width={100} height={32} animation={animation} />
+                  <Skeleton variant="text" width={80} height={20} animation={animation} />
+                </div>
+              </div>
+            </div>
+          );
+
+
+
+        case 'home-page':
+          return (
+            <div className="vtx-skeleton-theme vtx-skeleton-theme--home-page">
+              {/* Carousel Section */}
+              <div className="vtx-skeleton-theme--home-page__carousel">
+                <Skeleton variant="rectangular" width="100%" height={400} animation={animation} />
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '16px' }}>
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <Skeleton key={i} variant="circular" width={8} height={8} animation={animation} />
+                  ))}
+                </div>
+              </div>
+
+              {/* Categories Section */}
+              <div>
+                <Skeleton variant="text" width={200} height={24} style={{ marginBottom: '16px' }} animation={animation} />
+                <div className="vtx-skeleton-theme--home-page__categories">
+                  {[1, 2, 3, 4, 5, 6].map((i) => (
+                    <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', minWidth: '80px' }}>
+                      <Skeleton variant="circular" width={60} height={60} animation={animation} />
+                      <Skeleton variant="text" width="80%" animation={animation} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Featured Products Section */}
+              <div>
+                <Skeleton variant="text" width={250} height={24} style={{ marginBottom: '16px' }} animation={animation} />
+                <div className="vtx-skeleton-theme--home-page__grid">
+                  {Array.from({ length: 4 }).map((_, i) => (
+                    <div key={i} style={{ border: '1px solid var(--vtx-color-neutral-200)', borderRadius: '12px', overflow: 'hidden' }}>
+                      <Skeleton variant="rectangular" height={200} animation={animation} />
+                      <div style={{ padding: '12px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        <Skeleton variant="text" width="90%" animation={animation} />
+                        <Skeleton variant="text" width="60%" animation={animation} />
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '8px' }}>
+                          <Skeleton variant="text" width={60} height={24} animation={animation} />
+                          <Skeleton variant="rounded" width={32} height={32} animation={animation} />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          );
+
+        case 'checkout':
+          return (
+            <div className="vtx-skeleton-theme vtx-skeleton-theme--checkout">
+              {/* Main Section - Forms */}
+              <div className="vtx-skeleton-theme--checkout__main">
+                {/* Shipping Address */}
+                <div style={{ padding: '24px', border: '1px solid var(--vtx-color-neutral-200)', borderRadius: '12px' }}>
+                  <Skeleton variant="text" width="40%" height={24} style={{ marginBottom: '24px' }} animation={animation} />
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }}>
+                    <Skeleton variant="rounded" height={44} style={{ gridColumn: '1 / -1' }} animation={animation} />
+                    <Skeleton variant="rounded" height={44} style={{ gridColumn: '1 / -1' }} animation={animation} />
+                    <Skeleton variant="rounded" height={44} animation={animation} />
+                    <Skeleton variant="rounded" height={44} animation={animation} />
+                    <Skeleton variant="rounded" height={44} style={{ gridColumn: '1 / -1' }} animation={animation} />
+                  </div>
+                </div>
+
+                {/* Payment Method */}
+                <div style={{ padding: '24px', border: '1px solid var(--vtx-color-neutral-200)', borderRadius: '12px' }}>
+                  <Skeleton variant="text" width="30%" height={24} style={{ marginBottom: '24px' }} animation={animation} />
+                  <div style={{ display: 'flex', gap: '16px', marginBottom: '16px' }}>
+                    <Skeleton variant="rounded" width={80} height={50} animation={animation} />
+                    <Skeleton variant="rounded" width={80} height={50} animation={animation} />
+                    <Skeleton variant="rounded" width={80} height={50} animation={animation} />
+                  </div>
+                  <Skeleton variant="rounded" height={44} style={{ marginBottom: '16px' }} animation={animation} />
+                  <div style={{ display: 'flex', gap: '16px' }}>
+                    <Skeleton variant="rounded" height={44} style={{ flex: 1 }} animation={animation} />
+                    <Skeleton variant="rounded" height={44} style={{ flex: 1 }} animation={animation} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Sidebar - Order Summary */}
+              <div className="vtx-skeleton-theme--checkout__sidebar">
+                <div style={{ padding: '24px', border: '1px solid var(--vtx-color-neutral-200)', borderRadius: '12px', position: 'sticky', top: '24px' }}>
+                  <Skeleton variant="text" width="60%" height={24} style={{ marginBottom: '24px' }} animation={animation} />
+
+                  {/* Items */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '24px' }}>
+                    {[1, 2, 3].map((i) => (
+                      <div key={i} style={{ display: 'flex', gap: '12px' }}>
+                        <Skeleton variant="rounded" width={60} height={60} animation={animation} />
+                        <div style={{ flex: 1 }}>
+                          <Skeleton variant="text" width="80%" animation={animation} />
+                          <Skeleton variant="text" width="40%" style={{ marginTop: '4px' }} animation={animation} />
+                        </div>
+                        <Skeleton variant="text" width={50} animation={animation} />
+                      </div>
+                    ))}
+                  </div>
+
+                  <Skeleton variant="rectangular" height={1} style={{ marginBottom: '24px' }} animation={animation} />
+
+                  {/* Totals */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '24px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <Skeleton variant="text" width="40%" animation={animation} />
+                      <Skeleton variant="text" width="20%" animation={animation} />
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <Skeleton variant="text" width="40%" animation={animation} />
+                      <Skeleton variant="text" width="20%" animation={animation} />
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '8px' }}>
+                      <Skeleton variant="text" width="50%" height={20} animation={animation} />
+                      <Skeleton variant="text" width="30%" height={20} animation={animation} />
+                    </div>
+                  </div>
+
+                  <Skeleton variant="rounded" height={48} animation={animation} />
+                </div>
+              </div>
             </div>
           );
 
