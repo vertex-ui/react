@@ -80,7 +80,7 @@ export const TopBar: React.FC<TopBarProps> = ({
 
   return (
     <div className={classes} style={style}>
-      {containerized ? <Container>{content}</Container> : <div style={{ padding: '0 1.5rem' }}>{content}</div>}
+      {containerized ? <Container>{content}</Container> : <div style={{ padding: config.padding || '0 1.5rem' }}>{content}</div>}
     </div>
   );
 };

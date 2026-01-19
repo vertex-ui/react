@@ -111,7 +111,7 @@ export const SingleRowNavbar: React.FC<NavbarDesktopProps> = (props) => {
             </div>
           </Container>
         ) : (
-          <div className="vtx-navbar__content">
+          <div className="vtx-navbar__content" style={props.padding ? { padding: props.padding } : undefined}>
             {renderContent()}
           </div>
         )}

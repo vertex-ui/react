@@ -71,7 +71,7 @@ export const TransparentNavbar: React.FC<NavbarBaseProps> = (props) => {
             </div>
           </Container>
         ) : (
-          <div className="vtx-navbar__content" style={{ padding: '0 1.5rem' }}>
+          <div className="vtx-navbar__content" style={props.padding ? { padding: props.padding } : { padding: '0 1.5rem' }}>
             {leftSide}
             {rightSide}
           </div>

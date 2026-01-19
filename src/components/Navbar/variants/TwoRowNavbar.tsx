@@ -42,6 +42,10 @@ const TwoRowNavbar: React.FC<NavbarBaseProps> = (props) => {
     width: '100%',
   };
 
+  if (!containerized && props.padding) {
+    secondRowStyle.padding = props.padding;
+  }
+
   if (secondRowPrimaryBackground) {
     secondRowStyle.backgroundColor = 'var(--vtx-color-primary-600)';
     secondRowStyle.color =
@@ -51,8 +55,13 @@ const TwoRowNavbar: React.FC<NavbarBaseProps> = (props) => {
   }
 
   // Top row content
+  const topRowStyle: React.CSSProperties = {};
+  if (!containerized && props.padding) {
+    topRowStyle.padding = props.padding;
+  }
+
   const topRow = (
-    <div className="vtx-navbar__content pt-6 pb-3">
+    <div className="vtx-navbar__content pt-6 pb-3" style={topRowStyle}>
       <div className="vtx-navbar__left">
         {logoSection}
         {searchSection}

@@ -64,6 +64,11 @@ export interface TopBarConfig {
    * Hide TopBar on specific devices
    */
   hideOn?: Array<'mobile' | 'tablet' | 'desktop'>;
+  /**
+   * Custom padding for the TopBar content when not containerized.
+   * Only applies when containerized={false}.
+   */
+  padding?: string | number;
 }
 
 export interface NavbarBaseProps {
@@ -77,6 +82,11 @@ export interface NavbarBaseProps {
   backgroundColor?: string;
   className?: string;
   style?: React.CSSProperties;
+  /**
+   * Custom padding for the Navbar content when not containerized.
+   * Only applies when containerized={false}.
+   */
+  padding?: string | number;
   topBar?: TopBarConfig;
   /**
    * Hover style for navigation items:
