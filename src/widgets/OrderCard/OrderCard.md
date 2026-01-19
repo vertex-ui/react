@@ -16,11 +16,21 @@ import { OrderCard } from '@/widgets/OrderCard';
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `orderId` | `string` | required | ID. |
-| `status` | `'pending' \| 'delivered' ...` | `'pending'` | State. |
-| `items` | `OrderItem[]` | required | Products. |
-| `totalAmount` | `number` | required | Cost. |
-| `onTrackOrder` | `(id) => void` | `undefined` | Action handler. |
+| `orderId` | `string` | `undefined` | Unique order identifier |
+| `orderNumber` | `string` | `undefined` | Display order number (defaults to orderId) |
+| `status` | `'pending' \| 'processing' \| 'delivered' \| 'cancelled' \| 'shipped'` | `'pending'` | Order status |
+| `statusText` | `string` | `undefined` | Custom status text (overrides default) |
+| `items` | `OrderItem[]` | `undefined` | Array of order items |
+| `deliveryDate` | `string` | `undefined` | Delivery date string |
+| `deliveryLabel` | `string` | `'Delivered on'` | Delivery label text |
+| `totalAmount` | `number` | `undefined` | Total order amount |
+| `currency` | `React.ReactNode` | `<RupeeIcon />` | Currency symbol or icon |
+| `onTrackOrder` | `(orderId: string) => void` | `undefined` | Track order button handler |
+| `onViewDetails` | `(orderId: string) => void` | `undefined` | View details handler |
+| `trackButtonText` | `string` | `'Track Order'` | Track button text |
+| `loading` | `boolean` | `false` | If true, shows skeleton loading state |
+| `className` | `string` | `undefined` |   |
+| `style` | `React.CSSProperties` | `undefined` |   |
 
 ## 4. Accessibility
 - **Status**: Uses colored badges for visual status.

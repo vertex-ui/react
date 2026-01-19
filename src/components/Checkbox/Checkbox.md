@@ -16,15 +16,17 @@ import { Checkbox } from '@/components/Checkbox';
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `checked` | `boolean` | `undefined` | Controlled checked state. |
-| `onChange` | `(event) => void` | `undefined` | Callback when state changes. |
-| `label` | `ReactNode` | `undefined` | Text label next to the box. |
-| `indeterminate` | `boolean` | `false` | Visual state for "partially selected". |
-| `disabled` | `boolean` | `false` | Disables interaction. |
-| `error` | `boolean` | `false` | Applies error styling. |
-| `helperText` | `ReactNode` | `undefined` | Description text below the checkbox. |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Size of the checkbox control. |
-| `variant` | `'primary' \| 'secondary' \| ...` | `'primary'` | Color theme. |
+| `checked` | `boolean` | `undefined` | If true, the checkbox is checked |
+| `indeterminate` | `boolean` | `false` | If true, the checkbox appears indeterminate |
+| `disabled` | `boolean` | `false` | If true, the checkbox is disabled |
+| `label` | `React.ReactNode` | `undefined` | The label for the checkbox |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | The size of the checkbox |
+| `variant` | `'primary' \| 'secondary' \| 'success' \| 'error' \| 'warning' \| 'info'` | `'primary'` | The variant of the checkbox |
+| `error` | `boolean` | `false` | If true, displays error styling |
+| `helperText` | `React.ReactNode` | `undefined` | Helper text displayed below the checkbox |
+| `onChange` | `(event: React.ChangeEvent<HTMLInputElement>) => void` | `undefined` | Callback fired when the state is changed |
+| `className` | `string` | `undefined` | Additional CSS class name for the container |
+| `inputClassName` | `string` | `undefined` | Additional CSS class name for the input element |
 
 ## 4. Accessibility
 - **Labeling**: The `label` prop automatically associates a `<label>` with the input via `for/id`.

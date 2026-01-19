@@ -16,12 +16,48 @@ import { OrderConfirmation } from '@/widgets/OrderConfirmation';
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `orderId` | `string` | required | ID. |
-| `status` | `string` | `'confirmed'` | Status. |
-| `items` | `Item[]` | required | Purchased products. |
-| `shippingAddress` | `Address` | required | Destination. |
-| `total` | `number` | required | Final cost. |
+| `orderId` | `string` | `undefined` | ID. |
+| `orderNumber` | `string` | `undefined` |   |
+| `orderDate` | `string` | `undefined` |   |
+| `status` | `'pending' \| 'processing' \| 'confirmed' \| 'delivered' \| 'cancelled'` | `undefined` | Status. |
+| `statusText` | `string` | `undefined` |   |
+| `headerText` | `string` | `undefined` |   |
+| `headerSubtitle` | `string` | `undefined` |   |
+| `customerEmail` | `string` | `undefined` |   |
+| `customerPhone` | `string` | `undefined` |   |
+| `shippingAddress` | `OrderConfirmationAddress` | `undefined` | Destination. |
+| `billingAddress` | `OrderConfirmationAddress` | `undefined` |   |
+| `items` | `OrderConfirmationItem[]` | `undefined` | Purchased products. |
+| `subtotal` | `number` | `undefined` |   |
+| `shippingCost` | `number` | `undefined` |   |
+| `tax` | `number` | `undefined` |   |
+| `discount` | `number` | `undefined` |   |
+| `total` | `number` | `undefined` | Final cost. |
+| `currency` | `string` | `undefined` |   |
+| `paymentMethod` | `string` | `undefined` |   |
+| `transactionId` | `string` | `undefined` |   |
+| `estimatedDelivery` | `string` | `undefined` |   |
+| `trackingNumber` | `string` | `undefined` |   |
+| `onDownloadInvoice` | `(orderId: string) => void` | `undefined` |   |
 | `onContinueShopping` | `() => void` | `undefined` | Nav action. |
+| `onTrackOrder` | `(orderId: string) => void` | `undefined` |   |
+| `onViewDetails` | `(orderId: string) => void` | `undefined` |   |
+| `onContactSupport` | `(orderId: string) => void` | `undefined` |   |
+| `onShareOrder` | `(orderId: string) => void` | `undefined` |   |
+| `downloadInvoiceText` | `string` | `undefined` |   |
+| `continueShoppingText` | `string` | `undefined` |   |
+| `trackOrderText` | `string` | `undefined` |   |
+| `viewDetailsText` | `string` | `undefined` |   |
+| `contactSupportText` | `string` | `undefined` |   |
+| `shareOrderText` | `string` | `undefined` |   |
+| `showActions` | `boolean` | `undefined` |   |
+| `hideDownloadInvoice` | `boolean` | `undefined` |   |
+| `hideContinueShopping` | `boolean` | `undefined` |   |
+| `hideTrackOrder` | `boolean` | `undefined` |   |
+| `hideContactSupport` | `boolean` | `undefined` |   |
+| `loading` | `boolean` | `false` | If true, shows skeleton loading state |
+| `className` | `string` | `undefined` |   |
+| `style` | `React.CSSProperties` | `undefined` |   |
 
 ## 4. Accessibility
 - **Confirmation**: Clear "Success" heading.

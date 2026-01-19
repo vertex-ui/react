@@ -16,15 +16,24 @@ import { Select } from '@/components/Select';
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `options` | `SelectOption[]` | required | Array of options. |
-| `value` | `string` | `undefined` | Selected value. |
-| `onChange` | `(event) => void` | `undefined` | Native change event. |
-| `onSelectChange` | `(val, opt) => void` | `undefined` | Custom change event with full option object. |
-| `label` | `string` | `undefined` | Label text. |
-| `placeholder` | `string` | `undefined` | Placeholder text. |
-| `grouped` | `boolean` | `false` | Enable optgroups. |
-| `loading` | `boolean` | `false` | Show spinner. |
-| `error` | `string` | `undefined` | Error message. |
+| `label` | `string` | `undefined` | Label text displayed above the select |
+| `helperText` | `string` | `undefined` | Helper text displayed below the select Provides additional context or instructions |
+| `error` | `string` | `undefined` | Error message - when provided, select is shown in error state |
+| `success` | `string` | `undefined` | Success message - when provided, select is shown in success state |
+| `size` | `Size` | `theme.defaultSize` | Size of the select |
+| `fullWidth` | `boolean` | `false` | If true, select will take full width of its container |
+| `options` | `SelectOption[]` | `undefined` | Options to display in the select dropdown |
+| `placeholder` | `string` | `undefined` | Placeholder text shown when no option is selected |
+| `wrapperClassName` | `string` | `undefined` | Custom class name for the wrapper element |
+| `grouped` | `boolean` | `false` | If true, groups options by their group property |
+| `getOptionLabel` | `string \| ((option: any) => string)` | `'label'` | Property name or function to extract the display label from each option |
+| `getOptionValue` | `string \| ((option: any) => string \| number)` | `'value'` | Property name or function to extract the value from each option |
+| `getOptionDisabled` | `string \| ((option: any) => boolean)` | `'disabled'` | Property name or function to determine if an option is disabled |
+| `getOptionGroup` | `string \| ((option: any) => string)` | `'group'` | Property name or function to extract the group from each option |
+| `onSelectChange` | `(value: string, option: SelectOption \| undefined) => void` | `undefined` | Callback fired when selection changes Provides both event and selected option |
+| `loading` | `boolean` | `false` | If true, shows a loading spinner in place of the dropdown icon |
+| `defaultValue` | `string` | `undefined` | The default value for uncontrolled usage Sets the initially selected option by its value |
+| `id` | `providedId,` | `undefined` | Select component - Dropdown selection control with label, validation states, and grouping support A comprehensive select component with support for grouped options, validation states, and enhanced accessibility features. |
 
 ## 4. Accessibility
 - **Role**: Native `<select>` element.

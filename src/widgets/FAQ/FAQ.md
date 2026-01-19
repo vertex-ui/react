@@ -16,10 +16,13 @@ import { FAQ } from '@/widgets/FAQ';
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `items` | `FAQItem[] \| FAQCategory[]` | required | Content. |
 | `title` | `string` | `undefined` | Section title. |
-| `variant` | `'default' \| 'boxed'` | `'default'` | Style. |
-| `allowMultiple` | `boolean` | `false` | Expand multiple items. |
+| `subtitle` | `string` | `undefined` |   |
+| `items` | `FAQItem[] \| FAQCategory[]; // Support flat list or categories` | `undefined` | required |
+| `allowMultiple` | `boolean` | `undefined` | Expand multiple items. |
+| `variant` | `'default' \| 'boxed' \| 'minimal'` | `undefined` | `'default'` |
+| `className` | `string` | `undefined` |   |
+| `style` | `React.CSSProperties` | `undefined` |   |
 
 ## 4. Accessibility
 - **Accordions**: Uses proper button/region ARIA roles via `Accordion` component.

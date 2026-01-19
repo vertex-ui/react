@@ -20,20 +20,21 @@ import { Button } from '@/components/Button';
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `variant` | `'primary' \| 'secondary' \| 'outline' \| 'ghost' \| 'danger' \| 'success' \| 'warning'` | `'primary'` | Visual style variant of the button. |
-| `size` | `Size` | `'md'` | Size of the button. |
-| `fullWidth` | `boolean` | `false` | If true, the button takes the full width of its container. |
-| `loading` | `boolean` | `false` | Shows a loading indicator and disables interaction. |
-| `loadingText` | `string` | `undefined` | Custom text to display while loading. |
-| `disabled` | `boolean` | `false` | Disables the button, preventing user interaction. |
-| `leftIcon` | `React.ReactNode` | `undefined` | Icon to display before the button text. |
-| `rightIcon` | `React.ReactNode` | `undefined` | Icon to display after the button text. |
-| `iconOnly` | `boolean` | `false` | If true, renders the button with equal padding for icon-only usage. |
-| `asLink` | `boolean` | `false` | Renders the button as an `<a>` element. Requires `href`. |
-| `href` | `string` | `undefined` | URL for the link when `asLink` is true. |
-| `target` | `string` | `undefined` | Target attribute for the link (e.g., `_blank`). |
-| `textColor` | `string` | `undefined` | Optional custom text color. |
-| `darkText` | `boolean` | `undefined` | Forces dark or light text color class. |
+| `variant` | `'primary' \| 'secondary' \| 'outline' \| 'ghost' \| 'danger' \| 'success' \| 'warning'` | `'primary'` | Visual style variant of the button |
+| `size` | `Size` | `'md'` | Size of the button |
+| `fullWidth` | `boolean` | `false` | If true, button will take full width of its container |
+| `loading` | `boolean` | `false` | Loading state - shows loading indicator and disables interaction When true, the button becomes unclickable and shows a spinner |
+| `leftIcon` | `React.ReactNode` | `undefined` | Icon to display before button text Pass any React node (icon component, emoji, etc.) |
+| `rightIcon` | `React.ReactNode` | `undefined` | Icon to display after button text Pass any React node (icon component, emoji, etc.) |
+| `iconOnly` | `boolean` | `false` | If true, renders the button as an icon-only button (no text padding) Content should be an icon element |
+| `loadingText` | `string` | `undefined (uses children content)` | Custom loading text to display when loading is true |
+| `asLink` | `boolean` | `false` | If true, renders button as a link element with button styling Requires href prop when true |
+| `href` | `string` | `undefined` | URL when rendering as link (requires asLink=true) |
+| `target` | `string` | `undefined` | Target attribute when rendering as link |
+| `rel` | `string` | `undefined` | Rel attribute when rendering as link |
+| `textColor` | `string` | `undefined` | Optional text color for the button |
+| `darkText` | `boolean` | `undefined` | If true/false, applies dark or light text color class |
+| `children` | `React.ReactNode` | `undefined` |   |
 
 ## 4. Accessibility
 - **ARIA Roles**: Renders as a standard `<button>` or `<a>` tag.
