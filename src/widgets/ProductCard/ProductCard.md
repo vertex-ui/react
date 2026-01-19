@@ -20,25 +20,63 @@ import { ProductCard } from '@/widgets/ProductCard';
 
 ## 3. Customization Options
 
-### Common Props
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `name` | `ReactNode` | required | Product name. |
-| `image` | `string` | required | Product image URL. |
-| `price` | `number` | required | Product price. |
+| `id` | `string` | `undefined` |   |
+| `image` | `string` | `undefined` | Product image URL. |
+| `imageAlt` | `string` | `undefined` |   |
+| `category` | `string` | `undefined` |   |
+| `categoryHref` | `string` | `undefined` |   |
+| `name` | `React.ReactNode` | `undefined` | Product name. |
+| `weight` | `number` | `undefined` |   |
+| `units` | `string` | `undefined` |   |
+| `price` | `number` | `undefined` | Product price. |
 | `originalPrice` | `number` | `undefined` | Original price for discount display. |
 | `discount` | `string` | `undefined` | Discount badge text (e.g., "-20%"). |
 | `rating` | `number` | `undefined` | Product rating (0-5). |
-| `loading` | `boolean` | `false` | Shows skeleton loading state. |
-| `onAddToCart` | `(data, qty) => void` | `undefined` | Callback for adding to cart. |
-| `priority` | `boolean` | `false` | Prioritizes image loading (LCP optimization). |
-| `imageComponent` | `React.ElementType` | `undefined` | Custom image component (e.g., Next.js Image). |
-
-### Variants
-- **Base**: Standard vertical card.
-- **Wide**: Horizontal card with side-by-side image and details (`imagePosition` prop available).
-- **Minimal**: Compact vertical card with essential details only.
-- **List**: Read-only horizontal item for order summaries.
+| `featured` | `boolean` | `undefined` |   |
+| `featuredText` | `string` | `undefined` |   |
+| `showWishlist` | `boolean` | `undefined` |   |
+| `isWishlisted` | `boolean` | `undefined` |   |
+| `cartIcon` | `React.ReactNode` | `undefined` |   |
+| `wishlistIcon` | `React.ReactNode` | `undefined` |   |
+| `wishlistFilledIcon` | `React.ReactNode` | `undefined` |   |
+| `quickViewIcon` | `React.ReactNode` | `undefined` |   |
+| `href` | `string` | `undefined` |   |
+| `linkComponent` | `LinkComponent,` | `undefined` | ProductCard.Base - Standard product card Feature-rich product card with image, pricing, ratings, cart actions, and wishlist |
+| `onAddToCart` | `(data: ProductCoreData, quantity: number) => void \| Promise<void>` | `undefined` | Callback for adding to cart. |
+| `onIncrementCart` | `(data: ProductCoreData, quantity: number) => void \| Promise<void>` | `undefined` |   |
+| `onDecrementCart` | `(data: ProductCoreData, quantity: number) => void \| Promise<void>` | `undefined` |   |
+| `onWishlist` | `(data: ProductCoreData) => void` | `undefined` |   |
+| `onQuickView` | `(data: ProductCoreData) => void` | `undefined` |   |
+| `onClick` | `(data: ProductCoreData) => void` | `undefined` |   |
+| `onCategoryClick` | `(data: ProductCoreData) => void` | `undefined` |   |
+| `loading` | `boolean` | `undefined` | Shows skeleton loading state. |
+| `actionLoading` | `boolean` | `undefined` | Action loading state (e.g. adding to cart) |
+| `quantity` | `number` | `undefined` |   |
+| `imageComponent` | `React.ElementType` | `undefined` | Custom image component (e.g. Next.js Image) |
+| `fallbackImage` | `string` | `undefined` | Fallback image to show while loading or on error |
+| `priority` | `boolean` | `false` | Whether to prioritize loading the image (eager load) |
+| `className` | `string` | `undefined` |   |
+| `style` | `React.CSSProperties` | `undefined` |   |
+| `addToCartButtonVariant` | `ProductCardButtonVariant` | `undefined` |   |
+| `incrementButtonVariant` | `ProductCardButtonVariant` | `undefined` |   |
+| `decrementButtonVariant` | `ProductCardButtonVariant` | `undefined` |   |
+| `quickViewButtonVariant` | `ProductCardButtonVariant` | `undefined` |   |
+| `featuredBadgeVariant` | `'filled' \| 'outlined' \| 'light'` | `undefined` |   |
+| `featuredBadgeColor` | `'default' \| 'primary' \| 'success' \| 'error' \| 'warning' \| 'info'` | `undefined` |   |
+| `discountBadgeVariant` | `'filled' \| 'outlined' \| 'light'` | `undefined` |   |
+| `discountBadgeColor` | `'default' \| 'primary' \| 'success' \| 'error' \| 'warning' \| 'info'` | `undefined` |   |
+| `wishlistButtonColor` | `'default' \| 'primary' \| 'success' \| 'error' \| 'warning' \| 'info'` | `undefined` |   |
+| `imagePosition` | `'left' \| 'right'` | `undefined` |   |
+| `variant` | `string` | `undefined` | ProductCard.Minimal - Compact product card Minimalist product card with essential information and compact layout |
+| `readonly` | `boolean` | `undefined` |   |
+| `currency` | `string` | `undefined` |   |
+| `Qty` | `{quantity}` | `undefined` | ProductCard.List - Compact list item for orders Read-only horizontal layout for displaying order items with quantity |
+| `Base` | `ProductCardBaseWithParsedClasses as React.FC<ProductCardProps & React.RefAttributes<HTMLDivElement>>,` | `undefined` |   |
+| `Wide` | `ProductCardWideWithParsedClasses as React.FC<ProductCardWideProps & React.RefAttributes<HTMLDivElement>>,` | `undefined` |   |
+| `Minimal` | `ProductCardMinimalWithParsedClasses as React.FC<ProductCardProps & React.RefAttributes<HTMLDivElement>>,` | `undefined` |   |
+| `List` | `ProductCardListWithParsedClasses as React.FC<ProductCardListProps & React.RefAttributes<HTMLDivElement>>,` | `undefined` |   |
 
 ## 4. Accessibility
 - **Images**: Always provide `imageAlt` for screen readers.

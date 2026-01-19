@@ -14,17 +14,27 @@ import { DashboardCard } from '@/widgets/DashboardCard';
 
 ## 3. Customization Options
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `type` | `'stat' \| 'progress' \| 'comparison'` | Card mode. |
-| `data` | `Object` | Data payload (differs by type). |
-| `settings` | `Object` | Visual config (theme, layout). |
-| `loading` | `boolean` | Skeleton state. |
-
-### Data Shapes
-- **Stat**: `{ value, label, trend: { value, label }, icon }`
-- **Progress**: `{ current, target, label, unit }`
-- **Comparison**: `{ label, items: [{ label, value }] }`
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `type` | `'comparison'` | `undefined` |   |
+| `data` | `ComparisonCardData` | `undefined` |   |
+| `settings` | `ComparisonCardSettings` | `undefined` |   |
+| `current` | `number` | `undefined` |   |
+| `target` | `number` | `undefined` |   |
+| `label` | `string` | `undefined` |   |
+| `icon` | `React.ReactNode` | `undefined` |   |
+| `unit` | `string` | `undefined` |   |
+| `subtitle` | `string` | `undefined` |   |
+| `theme` | `DashboardCardTheme` | `undefined` |   |
+| `variant` | `'outlined' \| 'filled'` | `undefined` |   |
+| `showPercentage` | `boolean` | `undefined` |   |
+| `showValues` | `boolean` | `undefined` |   |
+| `progressType` | `'bar' \| 'circle'` | `undefined` |   |
+| `status` | `'on-track' \| 'at-risk' \| 'exceeded' \| 'behind'` | `undefined` |   |
+| `items` | `Array<{` | `undefined` |   |
+| `layout` | `'horizontal' \| 'vertical'` | `undefined` |   |
+| `showTrends` | `boolean` | `undefined` |   |
+| `showDivider` | `boolean` | `undefined` |   |
 
 ## 4. Accessibility
 - **Semantics**: Uses headings for values and labels.

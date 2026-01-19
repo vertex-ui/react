@@ -16,17 +16,10 @@ import { PricingTable } from '@/widgets/PricingTable';
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `tiers` | `PricingTier[]` | required | Plan data. |
-| `columns` | `2 \| 3 \| 4` | `3` | Layout columns. |
-
-### PricingTier
-| Prop | Type | Description |
-|------|------|-------------|
-| `name` | `string` | Plan name. |
-| `price` | `string` | Cost. |
-| `features` | `{ text, included }[]` | Feature list. |
-| `popular` | `boolean` | Highlight as best value. |
-| `onButtonClick` | `() => void` | Action. |
+| `tiers` | `PricingTier[]` | `undefined` | Plan data. |
+| `columns` | `2 \| 3 \| 4` | `undefined` | 4` |
+| `className` | `string` | `undefined` |   |
+| `style` | `React.CSSProperties` | `undefined` |   |
 
 ## 4. Accessibility
 - **Comparison**: Consistent structure allows easy comparison.

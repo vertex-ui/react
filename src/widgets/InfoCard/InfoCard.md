@@ -16,10 +16,16 @@ import { InfoCard } from '@/widgets/InfoCard';
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `icon` | `ReactNode` | required | Icon element. |
-| `text` | `ReactNode` | required | Main text. |
-| `subText` | `ReactNode` | `undefined` | Secondary text. |
-| `iconVariant` | `'primary' \| 'success' ...` | `'primary'` | Icon color. |
+| `icon` | `React.ReactNode` | `undefined` | Icon element to display |
+| `iconVariant` | `'primary' \| 'secondary' \| 'success' \| 'danger' \| 'warning' \| 'info'` | `'primary'` | Visual variant for the icon styling |
+| `text` | `React.ReactNode` | `undefined` | Main text content |
+| `subText` | `React.ReactNode` | `undefined` | Optional secondary text below main text |
+| `className` | `string` | `undefined` |   |
+| `style` | `React.CSSProperties` | `undefined` |   |
+| `value` | `React.ReactNode` | `undefined` | Primary value/metric to display |
+| `label` | `React.ReactNode` | `undefined` | Optional label for the metric |
+| `Base` | `InfoCardBaseWithParsedClasses as React.FC<InfoCardBaseProps & React.RefAttributes<HTMLDivElement>>,` | `undefined` | InfoCard.Metric - Centered metric display card Displays a large metric value with optional label in a centered card layout |
+| `Metric` | `InfoCardMetricWithParsedClasses as React.FC<InfoCardMetricProps & React.RefAttributes<HTMLDivElement>>,` | `undefined` |   |
 
 ## 4. Accessibility
 - **Icons**: Decorative icons should be aria-hidden (handled by Icon component usually).

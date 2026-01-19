@@ -18,10 +18,13 @@ import { ContactForm } from '@/widgets/ContactForm';
 |------|------|---------|-------------|
 | `title` | `string` | `undefined` | Header title. |
 | `description` | `string` | `undefined` | Subtitle text. |
-| `onSubmit` | `(data) => Promise` | `undefined` | Submission handler. |
-| `fields` | `Object` | `{}` | Config for field labels/visibility. |
-| `variant` | `'card' \| 'minimal'` | `'minimal'` | Visual container style. |
+| `submitLabel` | `string` | `undefined` |   |
 | `successMessage` | `string` | `undefined` | Text shown after success. |
+| `fields` | `{` | `undefined` | Config for field labels/visibility. |
+| `onSubmit` | `(data: Record<string, any>) => Promise<void> \| void` | `undefined` | Submission handler. |
+| `className` | `string` | `undefined` |   |
+| `style` | `React.CSSProperties` | `undefined` |   |
+| `variant` | `'card' \| 'minimal'` | `undefined` | `'minimal'` |
 
 ## 4. Accessibility
 - **Labels**: All inputs have associated labels.

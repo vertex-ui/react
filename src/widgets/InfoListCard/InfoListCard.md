@@ -16,17 +16,13 @@ import { InfoListCard } from '@/widgets/InfoListCard';
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `items` | `InfoListItem[]` | required | Data pairs. |
-| `heading` | `string` | `undefined` | Card title. |
-| `showDividers` | `boolean` | `false` | Separator lines. |
-| `compact` | `boolean` | `false` | Reduced padding. |
-
-### InfoListItem
-| Prop | Type | Description |
-|------|------|-------------|
-| `label` | `ReactNode` | Key. |
-| `value` | `ReactNode` | Value. |
-| `hidden` | `boolean` | Conditionally hide. |
+| `heading` | `string` | `undefined` | Card heading/title |
+| `items` | `InfoListItem[]` | `undefined` | Array of label-value pairs |
+| `showDividers` | `boolean` | `false` | Show divider between items |
+| `compact` | `boolean` | `false` | Compact spacing |
+| `variant` | `'outlined' \| 'elevated' \| 'flat'` | `'outlined'` | Card variant |
+| `className` | `string` | `undefined` | Additional class name |
+| `style` | `React.CSSProperties` | `undefined` | Inline styles |
 
 ## 4. Accessibility
 - **Structure**: Uses `div`s. Ensure labels are descriptive.

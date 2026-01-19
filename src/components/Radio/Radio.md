@@ -16,11 +16,16 @@ import { Radio } from '@/components/Radio';
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `checked` | `boolean` | `undefined` | Selected state. |
-| `label` | `ReactNode` | `undefined` | Text label. |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Size. |
-| `variant` | `'primary' \| 'secondary' ...` | `'primary'` | Color. |
-| `error` | `boolean` | `false` | Error state. |
+| `checked` | `boolean` | `undefined` | If true, the radio is checked |
+| `disabled` | `boolean` | `false` | If true, the radio is disabled |
+| `label` | `React.ReactNode` | `undefined` | The label for the radio |
+| `size` | `Size` | `theme.defaultSize` | The size of the radio |
+| `variant` | `'primary' \| 'secondary' \| 'success' \| 'error' \| 'warning' \| 'info'` | `'primary'` | The variant of the radio |
+| `error` | `boolean` | `false` | If true, displays error styling |
+| `helperText` | `React.ReactNode` | `undefined` | Helper text displayed below the radio |
+| `onChange` | `(event: React.ChangeEvent<HTMLInputElement>) => void` | `undefined` | Callback fired when the state is changed |
+| `className` | `string` | `undefined` | Additional CSS class name for the container |
+| `inputClassName` | `string` | `undefined` | Additional CSS class name for the input element |
 
 ## 4. Accessibility
 - **Grouping**: Should be used within a `RadioGroup` or fieldset for proper association.
