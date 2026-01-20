@@ -36,36 +36,32 @@ const preserveUseClient = () => ({
 const copyCss = () => ({
   name: 'copy-css',
   writeBundle() {
-    // Find the generated CSS file in dist/esm
-    const cssFiles = fs.readdirSync('dist/esm').filter(f => f.endsWith('.css'));
-    if (cssFiles.length === 0) return;
+    // With inject:true, CSS is embedded in JS modules.
+    // However, we also provide base.css separately for manual import via '@vtx-ui/react/styles'
+    const themeCssSrc = 'src/theme/base.css';
+    const themeCssDest = 'dist/esm/theme/base.css';
 
-    // Assume the largest CSS file is the main bundle if multiple exist, 
-    // or just take the first one if it's the only one.
-    // In this case we saw Alert.css containing the full bundle.
-    const srcFile = cssFiles[0];
-    const src = path.join('dist/esm', srcFile);
-    const dest = 'dist/esm/theme/base.css';
-
-    if (fs.existsSync(src)) {
-      const destDir = path.dirname(dest);
+    if (fs.existsSync(themeCssSrc)) {
+      const destDir = path.dirname(themeCssDest);
       if (!fs.existsSync(destDir)) {
         fs.mkdirSync(destDir, { recursive: true });
       }
-      fs.copyFileSync(src, dest);
-      console.log(`Copied ${src} to ${dest}`);
+      fs.copyFileSync(themeCssSrc, themeCssDest);
+      console.log(`Copied ${themeCssSrc} to ${themeCssDest}`);
+    } else {
+      console.warn(`Warning: ${themeCssSrc} not found. Styles may not be available.`);
+    }
 
-      // Copy d.ts for styles if source exists
-      const dtsSrc = 'src/styles.d.ts';
-      const dtsDest = 'dist/types/styles.d.ts';
-      if (fs.existsSync(dtsSrc)) {
-        const dtsDir = path.dirname(dtsDest);
-        if (!fs.existsSync(dtsDir)) {
-          fs.mkdirSync(dtsDir, { recursive: true });
-        }
-        fs.copyFileSync(dtsSrc, dtsDest);
-        console.log(`Copied ${dtsSrc} to ${dtsDest}`);
+    // Copy d.ts for styles if source exists
+    const dtsSrc = 'src/styles.d.ts';
+    const dtsDest = 'dist/types/styles.d.ts';
+    if (fs.existsSync(dtsSrc)) {
+      const dtsDir = path.dirname(dtsDest);
+      if (!fs.existsSync(dtsDir)) {
+        fs.mkdirSync(dtsDir, { recursive: true });
       }
+      fs.copyFileSync(dtsSrc, dtsDest);
+      console.log(`Copied ${dtsSrc} to ${dtsDest}`);
     }
   }
 });
@@ -154,7 +150,7 @@ export default {
     peerDepsExternal(),
 
     postcss({
-      extract: true,
+      inject: true,
       minimize: false,
       modules: false
     }),
