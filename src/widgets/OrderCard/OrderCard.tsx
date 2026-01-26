@@ -17,6 +17,13 @@ export interface OrderItem {
   price?: string | number;
 }
 
+export interface OrderAction {
+  label: React.ReactNode;
+  onClick?: () => void;
+  href?: string;
+  variant?: string;
+}
+
 export interface OrderCardProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Unique order identifier
@@ -30,7 +37,7 @@ export interface OrderCardProps extends React.HTMLAttributes<HTMLDivElement> {
    * Order status
    * @default 'pending'
    */
-  status?: 'pending' | 'processing' | 'delivered' | 'cancelled' | 'shipped';
+  status?: string;
   /**
    * Custom status text (overrides default)
    */
@@ -51,7 +58,7 @@ export interface OrderCardProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Total order amount
    */
-  totalAmount: number;
+  totalAmount: string | number;
   /**
    * Currency symbol or icon
    * @default <RupeeIcon />
@@ -70,6 +77,10 @@ export interface OrderCardProps extends React.HTMLAttributes<HTMLDivElement> {
    * @default 'Track Order'
    */
   trackButtonText?: string;
+  /**
+   * List of actions to display
+   */
+  actions?: OrderAction[];
   /**
    * If true, shows skeleton loading state
    * @default false
@@ -113,6 +124,7 @@ const OrderCard = React.forwardRef<HTMLDivElement, OrderCardProps>(
       onTrackOrder,
       onViewDetails,
       trackButtonText = 'Track Order',
+      actions,
       loading = false,
       className = '',
       style,
@@ -225,11 +237,30 @@ const OrderCard = React.forwardRef<HTMLDivElement, OrderCardProps>(
                 </Typography>
               )}
               <Typography variant="body1" weight="bold" noMargin className="ordercard-price">
-                {currency}{totalAmount.toLocaleString()}
+                {currency}{typeof totalAmount === 'number' ? totalAmount.toLocaleString() : totalAmount}
               </Typography>
             </Flex>
 
-            {onTrackOrder && (
+            {actions && actions.length > 0 ? (
+              <Flex gap={8}>
+                {actions.map((action, index) => (
+                  <Button
+                    key={index}
+                    variant={(action.variant as any) || 'primary'}
+                    size="sm"
+                    onClick={(e) => {
+                      e?.stopPropagation();
+                      action.onClick?.();
+                    }}
+                    asLink={!!action.href}
+                    href={action.href}
+                    className="ordercard-action-btn"
+                  >
+                    {action.label}
+                  </Button>
+                ))}
+              </Flex>
+            ) : (onTrackOrder && (
               <Button
                 variant="primary"
                 size="sm"
@@ -241,7 +272,7 @@ const OrderCard = React.forwardRef<HTMLDivElement, OrderCardProps>(
               >
                 {trackButtonText}
               </Button>
-            )}
+            ))}
           </Flex>
         </Flex>
       </Card>

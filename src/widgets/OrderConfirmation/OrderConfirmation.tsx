@@ -41,6 +41,14 @@ export interface OrderConfirmationAddress {
   phone?: string;
 }
 
+export interface OrderAction {
+  label: React.ReactNode;
+  onClick?: () => void;
+  href?: string;
+  variant?: string;
+  icon?: React.ReactNode;
+}
+
 /**
  * OrderConfirmation - Complete order confirmation view
  * 
@@ -61,7 +69,7 @@ export interface OrderConfirmationProps extends React.HTMLAttributes<HTMLDivElem
   orderId: string;
   orderNumber?: string;
   orderDate?: string;
-  status?: 'pending' | 'processing' | 'confirmed' | 'delivered' | 'cancelled';
+  status?: string;
   statusText?: string;
 
   // Header Customization
@@ -94,6 +102,9 @@ export interface OrderConfirmationProps extends React.HTMLAttributes<HTMLDivElem
   // Delivery
   estimatedDelivery?: string;
   trackingNumber?: string;
+
+  // Generic Actions
+  actions?: OrderAction[];
 
   // Actions
   onDownloadInvoice?: (orderId: string) => void;
@@ -172,7 +183,9 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
       hideContactSupport = false,
       loading = false,
       className = '',
+
       style,
+      actions,
       ...props
     },
     ref
@@ -413,81 +426,106 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
                 </Typography>
                 <Divider />
 
-                {/* Primary Actions */}
-                <Flex direction="row" gap={12} wrap="wrap">
-                  {!hideDownloadInvoice && onDownloadInvoice && (
-                    <Button
-                      variant="primary"
-                      size="md"
-                      onClick={() => onDownloadInvoice(orderId)}
-                      leftIcon={<DownloadIcon size={18} />}
-                      style={{ flex: '1 1 auto', minWidth: '170px' }}
-                    >
-                      {downloadInvoiceText}
-                    </Button>
-                  )}
-                  {!hideTrackOrder && onTrackOrder && trackingNumber && (
-                    <Button
-                      variant="primary"
-                      size="md"
-                      onClick={() => onTrackOrder(orderId)}
-                      leftIcon={<PackageIcon size={18} />}
-                      style={{ flex: '1 1 auto', minWidth: '170px' }}
-                    >
-                      {trackOrderText}
-                    </Button>
-                  )}
-                </Flex>
+                {actions && actions.length > 0 ? (
+                  <Flex direction="row" gap={12} wrap="wrap">
+                    {actions.map((action, index) => (
+                      <Button
+                        key={index}
+                        variant={(action.variant as any) || 'primary'}
+                        size="md"
+                        onClick={(e) => {
+                          e?.stopPropagation();
+                          action.onClick?.();
+                        }}
+                        leftIcon={action.icon}
+                        asLink={!!action.href}
+                        href={action.href}
+                        style={{ flex: '1 1 auto', minWidth: '170px' }}
+                      >
+                        {action.label}
+                      </Button>
+                    ))}
+                  </Flex>
+                ) : (
+                  <Flex direction="column" gap={16}>
 
-                {/* Secondary Actions */}
-                <Flex direction="row" gap={12} wrap="wrap">
-                  {!hideContinueShopping && onContinueShopping && (
-                    <Button
-                      variant="outline"
-                      size="md"
-                      onClick={onContinueShopping}
-                      leftIcon={<ShoppingBagIcon size={18} />}
-                      style={{ flex: '1 1 auto', minWidth: '170px' }}
-                    >
-                      {continueShoppingText}
-                    </Button>
-                  )}
-                  {onViewDetails && (
-                    <Button
-                      variant="outline"
-                      size="md"
-                      onClick={() => onViewDetails(orderId)}
-                      leftIcon={<EyeIcon size={18} />}
-                      style={{ flex: '1 1 auto', minWidth: '170px' }}
-                    >
-                      {viewDetailsText}
-                    </Button>
-                  )}
-                </Flex>
+                    {/* Primary Actions */}
+                    <Flex direction="row" gap={12} wrap="wrap">
+                      {!hideDownloadInvoice && onDownloadInvoice && (
+                        <Button
+                          variant="primary"
+                          size="md"
+                          onClick={() => onDownloadInvoice(orderId)}
+                          leftIcon={<DownloadIcon size={18} />}
+                          style={{ flex: '1 1 auto', minWidth: '170px' }}
+                        >
+                          {downloadInvoiceText}
+                        </Button>
+                      )}
+                      {!hideTrackOrder && onTrackOrder && trackingNumber && (
+                        <Button
+                          variant="primary"
+                          size="md"
+                          onClick={() => onTrackOrder(orderId)}
+                          leftIcon={<PackageIcon size={18} />}
+                          style={{ flex: '1 1 auto', minWidth: '170px' }}
+                        >
+                          {trackOrderText}
+                        </Button>
+                      )}
+                    </Flex>
 
-                {/* Tertiary Actions */}
-                <Flex direction="row" gap={12} wrap="wrap" justify="center">
-                  {!hideContactSupport && onContactSupport && (
-                    <Button
-                      variant="ghost"
-                      size="md"
-                      onClick={() => onContactSupport(orderId)}
-                      leftIcon={<MessageIcon size={18} />}
-                    >
-                      {contactSupportText}
-                    </Button>
-                  )}
-                  {onShareOrder && (
-                    <Button
-                      variant="ghost"
-                      size="md"
-                      onClick={() => onShareOrder(orderId)}
-                      leftIcon={<ShareIcon size={18} />}
-                    >
-                      {shareOrderText}
-                    </Button>
-                  )}
-                </Flex>
+                    {/* Secondary Actions */}
+                    <Flex direction="row" gap={12} wrap="wrap">
+                      {!hideContinueShopping && onContinueShopping && (
+                        <Button
+                          variant="outline"
+                          size="md"
+                          onClick={onContinueShopping}
+                          leftIcon={<ShoppingBagIcon size={18} />}
+                          style={{ flex: '1 1 auto', minWidth: '170px' }}
+                        >
+                          {continueShoppingText}
+                        </Button>
+                      )}
+                      {onViewDetails && (
+                        <Button
+                          variant="outline"
+                          size="md"
+                          onClick={() => onViewDetails(orderId)}
+                          leftIcon={<EyeIcon size={18} />}
+                          style={{ flex: '1 1 auto', minWidth: '170px' }}
+                        >
+                          {viewDetailsText}
+                        </Button>
+                      )}
+                    </Flex>
+
+                    {/* Tertiary Actions */}
+                    <Flex direction="row" gap={12} wrap="wrap" justify="center">
+                      {!hideContactSupport && onContactSupport && (
+                        <Button
+                          variant="ghost"
+                          size="md"
+                          onClick={() => onContactSupport(orderId)}
+                          leftIcon={<MessageIcon size={18} />}
+                        >
+                          {contactSupportText}
+                        </Button>
+                      )}
+                      {onShareOrder && (
+                        <Button
+                          variant="ghost"
+                          size="md"
+                          onClick={() => onShareOrder(orderId)}
+                          leftIcon={<ShareIcon size={18} />}
+                        >
+                          {shareOrderText}
+                        </Button>
+                      )}
+                    </Flex>
+                  </Flex>
+                )}
               </Flex>
             </Card>
           )}

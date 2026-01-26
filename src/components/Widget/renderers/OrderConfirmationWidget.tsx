@@ -48,7 +48,7 @@ const OrderConfirmationWidget: React.FC<OrderConfirmationWidgetProps> = ({
       tax={data.tax}
       discount={data.discount}
       total={data.total}
-      currency={data.currency}
+      currency={data.currency || settings?.currency}
       paymentMethod={data.paymentMethod}
       transactionId={data.transactionId}
       estimatedDelivery={data.estimatedDelivery}
@@ -58,12 +58,10 @@ const OrderConfirmationWidget: React.FC<OrderConfirmationWidgetProps> = ({
       hideContinueShopping={settings?.hideContinueShopping}
       hideTrackOrder={settings?.hideTrackOrder}
       hideContactSupport={settings?.hideContactSupport}
-      onDownloadInvoice={data.actions?.onDownloadInvoice}
-      onContinueShopping={data.actions?.onContinueShopping}
-      onTrackOrder={data.actions?.onTrackOrder}
-      onViewDetails={data.actions?.onViewDetails}
-      onContactSupport={data.actions?.onContactSupport}
-      onShareOrder={data.actions?.onShareOrder}
+      actions={data.actions?.map(action => ({
+        ...action,
+        variant: action.variant === 'outlined' ? 'outline' : action.variant,
+      }))}
       loading={settings?.loading}
       className={className}
       style={style}

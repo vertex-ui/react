@@ -299,6 +299,7 @@ export interface OrderWidgetSettings extends BaseWidgetSettings {
    * @default false
    */
   loading?: boolean;
+  currency?: string;
 }
 
 // ========================================================================
@@ -312,7 +313,7 @@ export interface OrderConfirmationWidgetData {
   orderId: string;
   orderNumber?: string;
   orderDate?: string;
-  status?: 'pending' | 'processing' | 'confirmed' | 'delivered' | 'cancelled';
+  status?: string;
   statusText?: string;
 
   headerText?: string;
@@ -362,14 +363,12 @@ export interface OrderConfirmationWidgetData {
   estimatedDelivery?: string;
   trackingNumber?: string;
 
-  actions?: {
-    onDownloadInvoice?: (orderId: string) => void;
-    onContinueShopping?: () => void;
-    onTrackOrder?: (orderId: string) => void;
-    onViewDetails?: (orderId: string) => void;
-    onContactSupport?: (orderId: string) => void;
-    onShareOrder?: (orderId: string) => void;
-  };
+  actions?: Array<{
+    label: React.ReactNode;
+    onClick?: () => void;
+    href?: string;
+    variant?: 'primary' | 'secondary' | 'ghost' | 'outlined' | 'success' | 'danger' | 'warning';
+  }>;
 }
 
 /**
@@ -382,6 +381,7 @@ export interface OrderConfirmationWidgetSettings extends BaseWidgetSettings {
   hideTrackOrder?: boolean;
   hideContactSupport?: boolean;
   loading?: boolean;
+  currency?: string;
 }
 
 // ========================================================================
@@ -395,7 +395,7 @@ export interface OrderDetailsWidgetData {
   orderId: string;
   orderNumber?: string;
   orderDate: string;
-  status: 'pending' | 'processing' | 'confirmed' | 'shipped' | 'delivered' | 'cancelled' | 'returned';
+  status: string;
   statusText?: string;
 
   customerName?: string;
@@ -439,7 +439,7 @@ export interface OrderDetailsWidgetData {
   couponCode?: string;
 
   paymentMethod?: string;
-  paymentStatus?: 'pending' | 'paid' | 'failed' | 'refunded';
+  paymentStatus?: string;
   transactionId?: string;
 
   estimatedDelivery?: string;
@@ -448,15 +448,12 @@ export interface OrderDetailsWidgetData {
   trackingUrl?: string;
   carrier?: string;
 
-  actions?: {
-    onDownloadInvoice?: (orderId: string) => void;
-    onTrackOrder?: (orderId: string) => void;
-    onCancelOrder?: (orderId: string) => void;
-    onReturnOrder?: (orderId: string) => void;
-    onReorder?: (orderId: string) => void;
-    onContactSupport?: (orderId: string) => void;
-    onWriteReview?: (orderId: string) => void;
-  };
+  actions?: Array<{
+    label: React.ReactNode;
+    onClick?: () => void;
+    href?: string;
+    variant?: 'primary' | 'secondary' | 'ghost' | 'outlined' | 'success' | 'danger' | 'warning';
+  }>;
 }
 
 /**
@@ -468,6 +465,7 @@ export interface OrderDetailsWidgetSettings extends BaseWidgetSettings {
   allowReturn?: boolean;
   allowReorder?: boolean;
   loading?: boolean;
+  currency?: string;
 }
 
 // ========================================================================

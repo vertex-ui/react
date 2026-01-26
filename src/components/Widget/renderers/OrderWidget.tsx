@@ -13,34 +13,13 @@ export const OrderWidget: React.FC<OrderWidgetProps> = ({
   settings,
 }) => {
   // Map status to OrderCard status type
-  const mapStatus = (status: string): 'pending' | 'processing' | 'delivered' | 'cancelled' | 'shipped' => {
+  const mapStatus = (status: string): string => {
     const statusLower = status.toLowerCase();
     if (statusLower === 'completed') return 'delivered';
-    if (['pending', 'processing', 'delivered', 'cancelled', 'shipped'].includes(statusLower)) {
-      return statusLower as 'pending' | 'processing' | 'delivered' | 'cancelled' | 'shipped';
-    }
-    return 'pending';
+    return statusLower;
   };
 
-  // Format date for OrderCard
-  const formatDate = (date?: string | Date) => {
-    if (!date) return undefined;
-    const d = typeof date === 'string' ? new Date(date) : date;
-    return d.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric'
-    });
-  };
 
-  // Convert number to string with proper formatting
-  const formatAmount = (amount: number | string): number => {
-    if (typeof amount === 'string') {
-      const parsed = parseFloat(amount.replace(/[^0-9.-]+/g, ''));
-      return isNaN(parsed) ? 0 : parsed;
-    }
-    return amount;
-  };
 
   // Map OrderWidgetData items to OrderCard items
   const orderItems = (data.items || []).map((item, index) => ({
@@ -50,23 +29,15 @@ export const OrderWidget: React.FC<OrderWidgetProps> = ({
     image: item.image,
   }));
 
-  // Handle track order action
-  const handleTrackOrder = data.actions?.[0]?.onClick || data.actions?.[0]?.href
-    ? () => {
-      if (data.actions?.[0]?.onClick) {
-        data.actions[0].onClick();
-      }
-    }
-    : undefined;
 
-  // Handle view details action
-  const handleViewDetails = data.actions?.[1]?.onClick || data.actions?.[1]?.href
-    ? () => {
-      if (data.actions?.[1]?.onClick) {
-        data.actions[1].onClick();
-      }
-    }
-    : undefined;
+
+  // Map actions, converting 'outlined' to 'outline' for Button component
+  const mappedActions = data.actions?.map(action => ({
+    label: action.label,
+    onClick: action.onClick,
+    href: action.href,
+    variant: action.variant === 'outlined' ? 'outline' : action.variant,
+  }));
 
   return (
     <OrderCard
@@ -75,12 +46,10 @@ export const OrderWidget: React.FC<OrderWidgetProps> = ({
       status={mapStatus(data.status)}
       statusText={data.status}
       items={orderItems.length > 0 ? orderItems : [{ id: '1', name: 'No items' }]}
-      deliveryDate={formatDate(data.date)}
-      totalAmount={formatAmount(data.total)}
-      currency="$"
-      onTrackOrder={handleTrackOrder}
-      onViewDetails={handleViewDetails}
-      trackButtonText={data.actions?.[0]?.label as string || 'Track Order'}
+      deliveryDate={data.date as string}
+      totalAmount={data.total}
+      currency={data.currency || settings?.currency || '$'}
+      actions={mappedActions}
       loading={settings?.loading}
       className={settings?.className}
       style={settings?.style}

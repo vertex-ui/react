@@ -27,8 +27,13 @@ export const Delivered: Story = {
         ],
         total: 2499,
         date: '30 Nov 2025',
+        currency: '₹',
+        actions: ([
+          { label: 'Track Order', onClick: () => console.log('Track custom') },
+          { label: 'View Details', variant: 'outline', onClick: () => console.log('Details custom') },
+        ] as any),
       },
-      settings: { theme: 'ecommerce' },
+      settings: { theme: 'ecommerce', currency: '₹' },
     },
   },
 };
@@ -52,13 +57,42 @@ export const OrdersList: Story = {
   render: () => (
     <Flex direction="column" gap={16} style={{ maxWidth: '700px', margin: '0 auto' }}>
       <Widget
-        config={{ type: 'order', data: { id: '6055', status: 'delivered', items: [{ name: 'Beef Club & T-Bone', image: sampleImage, quantity: 5 }], total: 2499, date: '30 Nov 2025' } }}
+        config={{
+          type: 'order',
+          data: {
+            id: '6055',
+            status: 'delivered',
+            items: [{ name: 'Beef Club & T-Bone', image: sampleImage, quantity: 5 }],
+            total: 2499,
+            date: '30 Nov 2025',
+            actions: [{ label: 'View Details', variant: 'outline' }]
+          }
+        }}
       />
       <Widget
-        config={{ type: 'order', data: { id: '6056', status: 'processing', items: [{ name: 'Premium Salmon Fillet', image: sampleImage, quantity: 2 }], total: 1899, date: '25 Dec 2025' } }}
+        config={{
+          type: 'order',
+          data: {
+            id: '6056',
+            status: 'processing',
+            items: [{ name: 'Premium Salmon Fillet', image: sampleImage, quantity: 2 }],
+            total: 1899,
+            date: '25 Dec 2025',
+            actions: [{ label: 'Track', variant: 'primary' }, { label: 'Details', variant: 'ghost' }]
+          }
+        }}
       />
       <Widget
-        config={{ type: 'order', data: { id: '6057', status: 'pending', items: [{ name: 'Organic Fruits Basket', image: sampleImage, quantity: 1 }], total: 799, date: '22 Dec 2025' } }}
+        config={{
+          type: 'order',
+          data: {
+            id: '6057',
+            status: 'pending',
+            items: [{ name: 'Organic Fruits Basket', image: sampleImage, quantity: 1 }],
+            total: 799,
+            date: '22 Dec 2025'
+          }
+        }}
       />
     </Flex>
   ),

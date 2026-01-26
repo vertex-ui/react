@@ -106,15 +106,12 @@ export const Complete: Story = {
         trackingUrl: 'https://example.com/track/BLUEDART123456789',
         carrier: 'BlueDart Express',
 
-        actions: {
-          onDownloadInvoice: (orderId) => console.log('Download invoice:', orderId),
-          onTrackOrder: (orderId) => console.log('Track order:', orderId),
-          onCancelOrder: (orderId) => console.log('Cancel order:', orderId),
-          onReturnOrder: (orderId) => console.log('Return order:', orderId),
-          onReorder: (orderId) => console.log('Reorder:', orderId),
-          onContactSupport: (orderId) => console.log('Contact support:', orderId),
-          onWriteReview: (orderId) => console.log('Write review:', orderId),
-        },
+        actions: [
+          { label: 'Download Invoice', variant: 'outline', onClick: () => console.log('Download') },
+          { label: 'Track Order', variant: 'primary', onClick: () => console.log('Track') },
+          { label: 'Cancel Order', variant: 'danger', onClick: () => console.log('Cancel') },
+          { label: 'Contact Support', variant: 'ghost', onClick: () => console.log('Support') },
+        ],
       } as OrderDetailsWidgetData,
       settings: {
         showActions: true,
@@ -193,11 +190,11 @@ export const Processing: Story = {
         transactionId: 'TXN20250107ABC123',
         estimatedDelivery: 'January 10-12, 2025',
 
-        actions: {
-          onDownloadInvoice: (orderId) => console.log('Download invoice:', orderId),
-          onCancelOrder: (orderId) => console.log('Cancel order:', orderId),
-          onContactSupport: (orderId) => console.log('Contact support:', orderId),
-        },
+        actions: [
+          { label: 'Download Invoice', variant: 'outline', onClick: () => console.log('Download') },
+          { label: 'Cancel Order', variant: 'danger', onClick: () => console.log('Cancel') },
+          { label: 'Contact Support', variant: 'ghost', onClick: () => console.log('Support') }
+        ],
       } as OrderDetailsWidgetData,
       settings: {
         showActions: true,
@@ -264,12 +261,12 @@ export const Delivered: Story = {
         deliveredDate: 'January 2, 2025',
         trackingNumber: 'DELIVERED567890',
 
-        actions: {
-          onDownloadInvoice: (orderId) => console.log('Download invoice:', orderId),
-          onReturnOrder: (orderId) => console.log('Return order:', orderId),
-          onReorder: (orderId) => console.log('Reorder:', orderId),
-          onWriteReview: (orderId) => console.log('Write review:', orderId),
-        },
+        actions: [
+          { label: 'Download Invoice', variant: 'outline', onClick: () => console.log('Download') },
+          { label: 'Return Order', variant: 'outline', onClick: () => console.log('Return') },
+          { label: 'Reorder', variant: 'primary', onClick: () => console.log('Reorder') },
+          { label: 'Write Review', variant: 'secondary', onClick: () => console.log('Review') },
+        ],
       } as OrderDetailsWidgetData,
       settings: {
         showActions: true,
@@ -329,11 +326,11 @@ export const Shipped: Story = {
         trackingUrl: 'https://example.com/track/FDX7890123456',
         carrier: 'FedEx',
 
-        actions: {
-          onDownloadInvoice: (orderId) => console.log('Download invoice:', orderId),
-          onTrackOrder: (orderId) => console.log('Track order:', orderId),
-          onContactSupport: (orderId) => console.log('Contact support:', orderId),
-        },
+        actions: [
+          { label: 'Download Invoice', variant: 'outline', onClick: () => console.log('Download') },
+          { label: 'Track Order', variant: 'primary', onClick: () => console.log('Track') },
+          { label: 'Contact Support', variant: 'ghost', onClick: () => console.log('Support') },
+        ],
       } as OrderDetailsWidgetData,
       settings: {
         showActions: true,
@@ -390,10 +387,10 @@ export const Cancelled: Story = {
         paymentStatus: 'refunded',
         transactionId: 'TXN20250104GHI345',
 
-        actions: {
-          onReorder: (orderId) => console.log('Reorder:', orderId),
-          onContactSupport: (orderId) => console.log('Contact support:', orderId),
-        },
+        actions: [
+          { label: 'Reorder', variant: 'primary', onClick: () => console.log('Reorder') },
+          { label: 'Contact Support', variant: 'ghost', onClick: () => console.log('Support') },
+        ],
       } as OrderDetailsWidgetData,
       settings: {
         showActions: true,
@@ -449,10 +446,10 @@ export const Pending: Story = {
         paymentMethod: 'Net Banking',
         paymentStatus: 'pending',
 
-        actions: {
-          onCancelOrder: (orderId) => console.log('Cancel order:', orderId),
-          onContactSupport: (orderId) => console.log('Contact support:', orderId),
-        },
+        actions: [
+          { label: 'Cancel Order', variant: 'danger', onClick: () => console.log('Cancel') },
+          { label: 'Contact Support', variant: 'ghost', onClick: () => console.log('Support') },
+        ],
       } as OrderDetailsWidgetData,
       settings: {
         showActions: true,
@@ -549,11 +546,11 @@ export const LargeOrder: Story = {
         deliveredDate: 'January 7, 2025',
         trackingNumber: 'DLVD9876543',
 
-        actions: {
-          onDownloadInvoice: (orderId) => console.log('Download invoice:', orderId),
-          onReorder: (orderId) => console.log('Reorder:', orderId),
-          onWriteReview: (orderId) => console.log('Write review:', orderId),
-        },
+        actions: [
+          { label: 'Download Invoice', variant: 'outline', onClick: () => console.log('Download') },
+          { label: 'Reorder', variant: 'primary', onClick: () => console.log('Reorder') },
+          { label: 'Write Review', variant: 'ghost', onClick: () => console.log('Review') },
+        ],
       } as OrderDetailsWidgetData,
       settings: {
         showActions: true,

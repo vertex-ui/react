@@ -103,14 +103,14 @@ export const Complete: Story = {
         estimatedDelivery: 'January 10-12, 2025',
         trackingNumber: 'FDX1234567890',
 
-        actions: {
-          onDownloadInvoice: (orderId: string) => console.log('Download invoice:', orderId),
-          onContinueShopping: () => console.log('Continue shopping'),
-          onTrackOrder: (orderId: string) => console.log('Track order:', orderId),
-          onViewDetails: (orderId: string) => console.log('View details:', orderId),
-          onContactSupport: (orderId: string) => console.log('Contact support:', orderId),
-          onShareOrder: (orderId: string) => console.log('Share order:', orderId),
-        },
+        actions: [
+          { label: 'Download Invoice', variant: 'outline', onClick: () => console.log('Download') },
+          { label: 'Continue Shopping', variant: 'primary', onClick: () => console.log('Continue') },
+          { label: 'Track Order', variant: 'secondary', onClick: () => console.log('Track') },
+          { label: 'View Details', variant: 'ghost', onClick: () => console.log('Details') },
+          { label: 'Contact Support', variant: 'ghost', onClick: () => console.log('Support') },
+          { label: 'Share Order', variant: 'ghost', onClick: () => console.log('Share') },
+        ],
       } as OrderConfirmationWidgetData,
       settings: {
         showActions: true,
@@ -224,11 +224,11 @@ export const WithDiscount: Story = {
         estimatedDelivery: 'January 11, 2025',
         trackingNumber: 'DHL9876543210',
 
-        actions: {
-          onDownloadInvoice: (orderId: string) => console.log('Download invoice:', orderId),
-          onContinueShopping: () => console.log('Continue shopping'),
-          onTrackOrder: (orderId: string) => console.log('Track order:', orderId),
-        },
+        actions: [
+          { label: 'Download Invoice', variant: 'outline', onClick: () => console.log('Download') },
+          { label: 'Continue Shopping', variant: 'primary', onClick: () => console.log('Continue') },
+          { label: 'Track Order', variant: 'ghost', onClick: () => console.log('Track') },
+        ],
       } as OrderConfirmationWidgetData,
       settings: {
         showActions: true,
@@ -336,13 +336,13 @@ export const LargeOrder: Story = {
         estimatedDelivery: 'January 12-14, 2025',
         trackingNumber: 'BLUEDART567890123',
 
-        actions: {
-          onDownloadInvoice: (orderId: string) => console.log('Download invoice:', orderId),
-          onContinueShopping: () => console.log('Continue shopping'),
-          onTrackOrder: (orderId: string) => console.log('Track order:', orderId),
-          onViewDetails: (orderId: string) => console.log('View details:', orderId),
-          onContactSupport: (orderId: string) => console.log('Contact support:', orderId),
-        },
+        actions: [
+          { label: 'Download Invoice', variant: 'outline', onClick: () => console.log('Download') },
+          { label: 'Continue Shopping', variant: 'primary', onClick: () => console.log('Continue') },
+          { label: 'Track Order', variant: 'secondary', onClick: () => console.log('Track') },
+          { label: 'View Details', variant: 'ghost', onClick: () => console.log('Details') },
+          { label: 'Contact Support', variant: 'ghost', onClick: () => console.log('Support') },
+        ],
       } as OrderConfirmationWidgetData,
       settings: {
         showActions: true,
@@ -394,10 +394,10 @@ export const Processing: Story = {
 
         estimatedDelivery: 'January 10, 2025',
 
-        actions: {
-          onDownloadInvoice: (orderId: string) => console.log('Download invoice:', orderId),
-          onContinueShopping: () => console.log('Continue shopping'),
-        },
+        actions: [
+          { label: 'Download Invoice', variant: 'outline', onClick: () => console.log('Download') },
+          { label: 'Continue Shopping', variant: 'primary', onClick: () => console.log('Continue') },
+        ],
       } as OrderConfirmationWidgetData,
       settings: {
         showActions: true,
@@ -489,11 +489,11 @@ export const Delivered: Story = {
         estimatedDelivery: 'Delivered on January 2, 2025',
         trackingNumber: 'DELIVERED123456',
 
-        actions: {
-          onDownloadInvoice: (orderId: string) => console.log('Download invoice:', orderId),
-          onContinueShopping: () => console.log('Continue shopping'),
-          onViewDetails: (orderId: string) => console.log('View details:', orderId),
-        },
+        actions: [
+          { label: 'Download Invoice', variant: 'outline', onClick: () => console.log('Download') },
+          { label: 'Continue Shopping', variant: 'primary', onClick: () => console.log('Continue') },
+          { label: 'View Details', variant: 'ghost', onClick: () => console.log('Details') },
+        ],
       } as OrderConfirmationWidgetData,
       settings: {
         showActions: true,

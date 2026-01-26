@@ -47,7 +47,7 @@ const OrderDetailsWidget: React.FC<OrderDetailsWidgetProps> = ({
       tax={data.tax}
       discount={data.discount}
       total={data.total}
-      currency={data.currency}
+      currency={data.currency || settings?.currency}
       couponCode={data.couponCode}
       paymentMethod={data.paymentMethod}
       paymentStatus={data.paymentStatus}
@@ -61,13 +61,10 @@ const OrderDetailsWidget: React.FC<OrderDetailsWidgetProps> = ({
       allowCancel={settings?.allowCancel}
       allowReturn={settings?.allowReturn}
       allowReorder={settings?.allowReorder}
-      onDownloadInvoice={data.actions?.onDownloadInvoice}
-      onTrackOrder={data.actions?.onTrackOrder}
-      onCancelOrder={data.actions?.onCancelOrder}
-      onReturnOrder={data.actions?.onReturnOrder}
-      onReorder={data.actions?.onReorder}
-      onContactSupport={data.actions?.onContactSupport}
-      onWriteReview={data.actions?.onWriteReview}
+      actions={data.actions?.map(action => ({
+        ...action,
+        variant: action.variant === 'outlined' ? 'outline' : action.variant,
+      }))}
       loading={settings?.loading}
       className={className}
       style={style}

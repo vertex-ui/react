@@ -45,6 +45,14 @@ export interface OrderDetailsAddress {
   phone?: string;
 }
 
+export interface OrderAction {
+  label: React.ReactNode;
+  onClick?: () => void;
+  href?: string;
+  variant?: string;
+  icon?: React.ReactNode;
+}
+
 /**
  * OrderDetails - Comprehensive order details view
  * 
@@ -66,7 +74,7 @@ export interface OrderDetailsProps extends React.HTMLAttributes<HTMLDivElement> 
   orderId: string;
   orderNumber?: string;
   orderDate: string;
-  status: 'pending' | 'processing' | 'confirmed' | 'shipped' | 'delivered' | 'cancelled' | 'returned';
+  status: string;
   statusText?: string;
 
   // Customer Info
@@ -92,7 +100,7 @@ export interface OrderDetailsProps extends React.HTMLAttributes<HTMLDivElement> 
 
   // Payment
   paymentMethod?: string;
-  paymentStatus?: 'pending' | 'paid' | 'failed' | 'refunded';
+  paymentStatus?: string;
   transactionId?: string;
 
   // Delivery
@@ -101,6 +109,9 @@ export interface OrderDetailsProps extends React.HTMLAttributes<HTMLDivElement> 
   trackingNumber?: string;
   trackingUrl?: string;
   carrier?: string;
+
+  // Generic Actions
+  actions?: OrderAction[];
 
   // Order Actions
   onDownloadInvoice?: (orderId: string) => void;
@@ -185,7 +196,9 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
       allowReorder = true,
       loading = false,
       className = '',
+
       style,
+      actions,
       ...props
     },
     ref
@@ -607,73 +620,98 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
 
                 <Divider />
 
-                {/* Primary Actions */}
-                <Flex direction="row" gap={12} wrap="wrap">
-                  {canCancel && onCancelOrder && (
-                    <Button
-                      variant="outline"
-                      size="md"
-                      onClick={() => onCancelOrder(orderId)}
-                      leftIcon={<CloseIcon size={18} />}
-                      style={{
-                        flex: '1 1 auto',
-                        minWidth: '160px',
-                        borderColor: 'var(--vtx-color-error-500)',
-                        color: 'var(--vtx-color-error-600)'
-                      }}
-                    >
-                      {cancelOrderText}
-                    </Button>
-                  )}
-                  {canReturn && onReturnOrder && (
-                    <Button
-                      variant="outline"
-                      size="md"
-                      onClick={() => onReturnOrder(orderId)}
-                      leftIcon={<ReturnIcon size={18} />}
-                      style={{ flex: '1 1 auto', minWidth: '160px' }}
-                    >
-                      {returnOrderText}
-                    </Button>
-                  )}
-                  {allowReorder && onReorder && (
-                    <Button
-                      variant="outline"
-                      size="md"
-                      onClick={() => onReorder(orderId)}
-                      leftIcon={<RefreshIcon size={18} />}
-                      style={{ flex: '1 1 auto', minWidth: '160px' }}
-                    >
-                      {reorderText}
-                    </Button>
-                  )}
-                </Flex>
+                {actions && actions.length > 0 ? (
+                  <Flex direction="row" gap={12} wrap="wrap">
+                    {actions.map((action, index) => (
+                      <Button
+                        key={index}
+                        variant={(action.variant as any) || 'primary'}
+                        size="md"
+                        onClick={(e) => {
+                          e?.stopPropagation();
+                          action.onClick?.();
+                        }}
+                        leftIcon={action.icon}
+                        asLink={!!action.href}
+                        href={action.href}
+                        style={{ flex: '1 1 auto', minWidth: '160px' }}
+                      >
+                        {action.label}
+                      </Button>
+                    ))}
+                  </Flex>
+                ) : (
+                  <Flex direction="column" gap={16}>
 
-                {/* Secondary Actions */}
-                <Flex direction="row" gap={12} wrap="wrap">
-                  {status === 'delivered' && onWriteReview && (
-                    <Button
-                      variant="ghost"
-                      size="md"
-                      onClick={() => onWriteReview(orderId)}
-                      leftIcon={<StarIcon size={18} />}
-                      style={{ flex: '1 1 auto', minWidth: '160px' }}
-                    >
-                      {writeReviewText}
-                    </Button>
-                  )}
-                  {onContactSupport && (
-                    <Button
-                      variant="ghost"
-                      size="md"
-                      onClick={() => onContactSupport(orderId)}
-                      leftIcon={<MessageIcon size={18} />}
-                      style={{ flex: '1 1 auto', minWidth: '160px' }}
-                    >
-                      {contactSupportText}
-                    </Button>
-                  )}
-                </Flex>
+                    {/* Primary Actions */}
+                    <Flex direction="row" gap={12} wrap="wrap">
+                      {canCancel && onCancelOrder && (
+                        <Button
+                          variant="outline"
+                          size="md"
+                          onClick={() => onCancelOrder(orderId)}
+                          leftIcon={<CloseIcon size={18} />}
+                          style={{
+                            flex: '1 1 auto',
+                            minWidth: '160px',
+                            borderColor: 'var(--vtx-color-error-500)',
+                            color: 'var(--vtx-color-error-600)'
+                          }}
+                        >
+                          {cancelOrderText}
+                        </Button>
+                      )}
+                      {canReturn && onReturnOrder && (
+                        <Button
+                          variant="outline"
+                          size="md"
+                          onClick={() => onReturnOrder(orderId)}
+                          leftIcon={<ReturnIcon size={18} />}
+                          style={{ flex: '1 1 auto', minWidth: '160px' }}
+                        >
+                          {returnOrderText}
+                        </Button>
+                      )}
+                      {allowReorder && onReorder && (
+                        <Button
+                          variant="outline"
+                          size="md"
+                          onClick={() => onReorder(orderId)}
+                          leftIcon={<RefreshIcon size={18} />}
+                          style={{ flex: '1 1 auto', minWidth: '160px' }}
+                        >
+                          {reorderText}
+                        </Button>
+                      )}
+                    </Flex>
+
+                    {/* Secondary Actions */}
+                    <Flex direction="row" gap={12} wrap="wrap">
+                      {status === 'delivered' && onWriteReview && (
+                        <Button
+                          variant="ghost"
+                          size="md"
+                          onClick={() => onWriteReview(orderId)}
+                          leftIcon={<StarIcon size={18} />}
+                          style={{ flex: '1 1 auto', minWidth: '160px' }}
+                        >
+                          {writeReviewText}
+                        </Button>
+                      )}
+                      {onContactSupport && (
+                        <Button
+                          variant="ghost"
+                          size="md"
+                          onClick={() => onContactSupport(orderId)}
+                          leftIcon={<MessageIcon size={18} />}
+                          style={{ flex: '1 1 auto', minWidth: '160px' }}
+                        >
+                          {contactSupportText}
+                        </Button>
+                      )}
+                    </Flex>
+                  </Flex>
+                )}
               </Flex>
             </Card>
           )}
