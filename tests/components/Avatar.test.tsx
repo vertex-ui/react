@@ -13,7 +13,7 @@ describe('Avatar', () => {
 
   it('renders initials when no src', () => {
     render(<Avatar alt="John Doe" />);
-    const fallback = document.querySelector('.vtx-avatar-fallback');
+    const fallback = document.querySelector('.lxs-avatar-fallback');
     expect(fallback).toBeInTheDocument();
     expect(fallback?.querySelector('svg')).toBeInTheDocument();
   });
@@ -21,6 +21,6 @@ describe('Avatar', () => {
   it('renders placeholder when no src and no alt', () => {
     const { container } = render(<Avatar />);
     // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-    expect(container.querySelector('.vtx-avatar-fallback')).toBeInTheDocument();
+    expect(container.querySelector('.lxs-avatar-fallback')).toBeInTheDocument();
   });
 });

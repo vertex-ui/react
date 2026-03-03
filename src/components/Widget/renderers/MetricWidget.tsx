@@ -159,10 +159,10 @@ const MetricWidget: React.FC<MetricWidgetProps> = ({
 
   const getCardClassName = () => {
     return [
-      'vtx-metric-widget',
-      `vtx-metric-widget--${theme}`,
-      `vtx-metric-widget--${size}`,
-      `vtx-metric-widget--${variant}`,
+      'lxs-metric-widget',
+      `lxs-metric-widget--${theme}`,
+      `lxs-metric-widget--${size}`,
+      `lxs-metric-widget--${variant}`,
       className,
     ].filter(Boolean).join(' ');
   };

@@ -163,13 +163,13 @@ const Rating = React.forwardRef<HTMLDivElement, RatingProps>(
       return (
         <div
           key={starIndex}
-          className={`vtx-rating-star-wrapper ${isInteractive ? 'vtx-rating-star-wrapper--interactive' : ''}`}
+          className={`lxs-rating-star-wrapper ${isInteractive ? 'lxs-rating-star-wrapper--interactive' : ''}`}
           onMouseLeave={handleMouseLeave}
         >
           {/* Half star area (left side) */}
           {allowHalf && (
             <div
-              className="vtx-rating-star-half"
+              className="lxs-rating-star-half"
               onClick={() => handleClick(starIndex, true)}
               onMouseEnter={() => handleMouseEnter(starIndex, true)}
             />
@@ -177,13 +177,13 @@ const Rating = React.forwardRef<HTMLDivElement, RatingProps>(
 
           {/* Full star area (right side or full) */}
           <div
-            className="vtx-rating-star-full"
+            className="lxs-rating-star-full"
             onClick={() => handleClick(starIndex, false)}
             onMouseEnter={() => handleMouseEnter(starIndex, false)}
           />
 
           {/* Star icon */}
-          <span className={`vtx-rating-star ${filled ? 'vtx-rating-star--filled' : halfFilled ? 'vtx-rating-star--half' : 'vtx-rating-star--empty'}`}>
+          <span className={`lxs-rating-star ${filled ? 'lxs-rating-star--filled' : halfFilled ? 'lxs-rating-star--half' : 'lxs-rating-star--empty'}`}>
             {filled && filledIcon ? (
               filledIcon
             ) : halfFilled && halfIcon ? (
@@ -203,11 +203,11 @@ const Rating = React.forwardRef<HTMLDivElement, RatingProps>(
     const displayValue = valueFormat ? valueFormat(currentValue) : currentValue.toFixed(allowHalf ? 1 : 0);
 
     const ratingClasses = [
-      'vtx-rating',
-      `vtx-rating--${size}`,
-      `vtx-rating--${color}`,
-      isInteractive && 'vtx-rating--selectable',
-      readOnly && 'vtx-rating--readonly',
+      'lxs-rating',
+      `lxs-rating--${size}`,
+      `lxs-rating--${color}`,
+      isInteractive && 'lxs-rating--selectable',
+      readOnly && 'lxs-rating--readonly',
       className,
     ]
       .filter(Boolean)
@@ -215,11 +215,11 @@ const Rating = React.forwardRef<HTMLDivElement, RatingProps>(
 
     return (
       <div ref={ref} className={ratingClasses} style={style} {...props}>
-        <div className="vtx-rating-stars">
+        <div className="lxs-rating-stars">
           {Array.from({ length: max }, (_, index) => renderStar(index))}
         </div>
         {showValue && (
-          <span className="vtx-rating-value">{displayValue}</span>
+          <span className="lxs-rating-value">{displayValue}</span>
         )}
       </div>
     );

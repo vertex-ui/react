@@ -37,23 +37,23 @@ describe('Input', () => {
 
     it('renders with different sizes', () => {
       const { rerender } = render(<Input size="small" />);
-      expect(screen.getByRole('textbox').parentElement).toHaveClass('vtx-input-container--small');
+      expect(screen.getByRole('textbox').parentElement).toHaveClass('lxs-input-container--small');
 
       rerender(<Input size="large" />);
-      expect(screen.getByRole('textbox').parentElement).toHaveClass('vtx-input-container--large');
+      expect(screen.getByRole('textbox').parentElement).toHaveClass('lxs-input-container--large');
     });
 
     it('applies custom labelClassName', () => {
       render(<Input label="Custom Label" labelClassName="custom-label-class" />);
       const label = screen.getByText('Custom Label');
-      expect(label).toHaveClass('vtx-input-label');
+      expect(label).toHaveClass('lxs-input-label');
       expect(label).toHaveClass('custom-label-class');
     });
 
     it('applies custom inputClassName', () => {
       render(<Input inputClassName="custom-input-class" />);
       const input = screen.getByRole('textbox');
-      expect(input).toHaveClass('vtx-input');
+      expect(input).toHaveClass('lxs-input');
       expect(input).toHaveClass('custom-input-class');
     });
   });

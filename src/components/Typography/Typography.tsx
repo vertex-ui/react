@@ -182,20 +182,20 @@ export interface TypographyProps extends Omit<React.HTMLAttributes<HTMLElement>,
  * Pre-computed base class names for each variant (performance optimization)
  */
 const CLASS_VARIANTS: Record<TypographyVariant, string> = {
-  h1: 'vtx-typography vtx-typography--h1',
-  h2: 'vtx-typography vtx-typography--h2',
-  h3: 'vtx-typography vtx-typography--h3',
-  h4: 'vtx-typography vtx-typography--h4',
-  h5: 'vtx-typography vtx-typography--h5',
-  h6: 'vtx-typography vtx-typography--h6',
-  body1: 'vtx-typography vtx-typography--body1',
-  body2: 'vtx-typography vtx-typography--body2',
-  subtitle1: 'vtx-typography vtx-typography--subtitle1',
-  subtitle2: 'vtx-typography vtx-typography--subtitle2',
-  caption: 'vtx-typography vtx-typography--caption',
-  overline: 'vtx-typography vtx-typography--overline',
-  button: 'vtx-typography vtx-typography--button',
-  label: 'vtx-typography vtx-typography--label',
+  h1: 'lxs-typography lxs-typography--h1',
+  h2: 'lxs-typography lxs-typography--h2',
+  h3: 'lxs-typography lxs-typography--h3',
+  h4: 'lxs-typography lxs-typography--h4',
+  h5: 'lxs-typography lxs-typography--h5',
+  h6: 'lxs-typography lxs-typography--h6',
+  body1: 'lxs-typography lxs-typography--body1',
+  body2: 'lxs-typography lxs-typography--body2',
+  subtitle1: 'lxs-typography lxs-typography--subtitle1',
+  subtitle2: 'lxs-typography lxs-typography--subtitle2',
+  caption: 'lxs-typography lxs-typography--caption',
+  overline: 'lxs-typography lxs-typography--overline',
+  button: 'lxs-typography lxs-typography--button',
+  label: 'lxs-typography lxs-typography--label',
 };
 
 /**
@@ -262,21 +262,21 @@ const TypographyComponent = React.forwardRef<HTMLElement, TypographyProps>(
     const classNames = React.useMemo(() => {
       const classes = [CLASS_VARIANTS[variant]];
 
-      if (align) classes.push(`vtx-typography--align-${align}`);
-      if (weight && typeof weight === 'string') classes.push(`vtx-typography--weight-${weight}`);
-      if (color && color !== 'inherit') classes.push(`vtx-typography--color-${color}`);
-      if (transform) classes.push(`vtx-typography--transform-${transform}`);
-      if (decoration) classes.push(`vtx-typography--decoration-${decoration}`);
-      if (truncate) classes.push('vtx-typography--truncate');
-      if (lineClamp) classes.push('vtx-typography--line-clamp');
-      if (breakWord) classes.push('vtx-typography--break-word');
-      if (italic) classes.push('vtx-typography--italic');
-      if (underline) classes.push('vtx-typography--underline');
-      if (strikethrough) classes.push('vtx-typography--strikethrough');
-      if (gradient) classes.push('vtx-typography--gradient');
-      if (noSelect) classes.push('vtx-typography--no-select');
-      if (noMargin) classes.push('vtx-typography--no-margin');
-      if (noPadding) classes.push('vtx-typography--no-padding');
+      if (align) classes.push(`lxs-typography--align-${align}`);
+      if (weight && typeof weight === 'string') classes.push(`lxs-typography--weight-${weight}`);
+      if (color && color !== 'inherit') classes.push(`lxs-typography--color-${color}`);
+      if (transform) classes.push(`lxs-typography--transform-${transform}`);
+      if (decoration) classes.push(`lxs-typography--decoration-${decoration}`);
+      if (truncate) classes.push('lxs-typography--truncate');
+      if (lineClamp) classes.push('lxs-typography--line-clamp');
+      if (breakWord) classes.push('lxs-typography--break-word');
+      if (italic) classes.push('lxs-typography--italic');
+      if (underline) classes.push('lxs-typography--underline');
+      if (strikethrough) classes.push('lxs-typography--strikethrough');
+      if (gradient) classes.push('lxs-typography--gradient');
+      if (noSelect) classes.push('lxs-typography--no-select');
+      if (noMargin) classes.push('lxs-typography--no-margin');
+      if (noPadding) classes.push('lxs-typography--no-padding');
       if (className) classes.push(className);
 
       return classes.join(' ');

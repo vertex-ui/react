@@ -20,7 +20,7 @@
 .timeline-step {
   display: flex;
   position: relative;
-  transition: var(--vtx-transition-normal, all 0.3s ease);
+  transition: var(--lxs-transition-normal, all 0.3s ease);
 }
 
 .timeline--horizontal .timeline-step {
@@ -34,7 +34,7 @@
 .timeline--vertical .timeline-step {
   flex-direction: row;
   align-items: flex-start;
-  padding: var(--vtx-spacing-2, 8px) 0;
+  padding: var(--lxs-spacing-2, 8px) 0;
   position: relative;
 }
 
@@ -56,11 +56,11 @@
 }
 
 .timeline--horizontal .timeline-step-indicator {
-  margin-bottom: var(--vtx-spacing-2, 8px);
+  margin-bottom: var(--lxs-spacing-2, 8px);
 }
 
 .timeline--vertical .timeline-step-indicator {
-  margin-right: var(--vtx-spacing-3, 12px);
+  margin-right: var(--lxs-spacing-3, 12px);
   align-items: flex-start;
 }
 
@@ -70,9 +70,9 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: var(--vtx-color-neutral-200, #e5e5e5);
-  color: var(--vtx-color-neutral-600, #525252);
-  transition: var(--vtx-transition-normal, all 0.3s ease);
+  background: var(--lxs-color-neutral-200, #e5e5e5);
+  color: var(--lxs-color-neutral-600, #525252);
+  transition: var(--lxs-transition-normal, all 0.3s ease);
   flex-shrink: 0;
   position: relative;
   z-index: 2;
@@ -110,40 +110,40 @@
 
 /* Completed State */
 .timeline-step--completed .timeline-step-icon-wrapper {
-  background: var(--step-color, var(--vtx-color-success-600, #16a34a));
-  color: var(--vtx-color-neutral-50, #ffffff);
+  background: var(--step-color, var(--lxs-color-success-600, #16a34a));
+  color: var(--lxs-color-neutral-50, #ffffff);
 }
 
 .timeline-step--completed .timeline-step-label {
-  color: var(--vtx-color-neutral-700, #404040);
+  color: var(--lxs-color-neutral-700, #404040);
 }
 
 /* Active State */
 .timeline-step--active .timeline-step-icon-wrapper {
-  background: var(--step-color, var(--vtx-color-success-600, #16a34a));
-  color: var(--vtx-color-neutral-50, #ffffff);
-  box-shadow: 0 0 0 4px var(--step-color-light, var(--vtx-color-success-100, #dcfce7));
+  background: var(--step-color, var(--lxs-color-success-600, #16a34a));
+  color: var(--lxs-color-neutral-50, #ffffff);
+  box-shadow: 0 0 0 4px var(--step-color-light, var(--lxs-color-success-100, #dcfce7));
 }
 
 .timeline-step--active .timeline-step-label {
-  color: var(--vtx-color-neutral-900, #171717);
+  color: var(--lxs-color-neutral-900, #171717);
 }
 
 /* Pending State */
 .timeline-step--pending .timeline-step-icon-wrapper {
-  background: var(--vtx-color-neutral-200, #e5e5e5);
-  color: var(--vtx-color-neutral-500, #737373);
+  background: var(--lxs-color-neutral-200, #e5e5e5);
+  color: var(--lxs-color-neutral-500, #737373);
 }
 
 .timeline-step--pending .timeline-step-label {
-  color: var(--vtx-color-neutral-500, #737373);
+  color: var(--lxs-color-neutral-500, #737373);
 }
 
 /* ==================== Connector Lines ==================== */
 .timeline-connector {
-  background: var(--vtx-color-neutral-300, #d4d4d4);
+  background: var(--lxs-color-neutral-300, #d4d4d4);
   position: absolute;
-  transition: var(--vtx-transition-normal, all 0.3s ease);
+  transition: var(--lxs-transition-normal, all 0.3s ease);
   z-index: 0;
 }
 
@@ -162,14 +162,14 @@
   width: 3px;
   left: calc(var(--icon-size) / 2);
   transform: translateX(-50%);
-  top: calc(var(--icon-size) + var(--vtx-spacing-2, 8px));
-  bottom: calc(-100% + var(--vtx-spacing-2, 8px));
+  top: calc(var(--icon-size) + var(--lxs-spacing-2, 8px));
+  bottom: calc(-100% + var(--lxs-spacing-2, 8px));
   height: auto;
 }
 
 /* Filled/Active connector */
 .timeline-connector--filled {
-  background: var(--step-color, var(--vtx-color-success-600, #16a34a));
+  background: var(--step-color, var(--lxs-color-success-600, #16a34a));
 }
 
 /* ==================== Icons ==================== */
@@ -224,7 +224,7 @@
 }
 
 .timeline-step-description {
-  margin-top: var(--vtx-spacing-1, 4px);
+  margin-top: var(--lxs-spacing-1, 4px);
   opacity: 0.8;
 }
 
@@ -232,50 +232,50 @@
 
 /* Circle Variant - Larger circles */
 .timeline--circle .timeline-step-icon-wrapper {
-  border: 2px solid var(--vtx-color-neutral-300, #d4d4d4);
+  border: 2px solid var(--lxs-color-neutral-300, #d4d4d4);
 }
 
 .timeline--circle .timeline-step--completed .timeline-step-icon-wrapper,
 .timeline--circle .timeline-step--active .timeline-step-icon-wrapper {
-  border-color: var(--step-color, var(--vtx-color-success-600, #16a34a));
+  border-color: var(--step-color, var(--lxs-color-success-600, #16a34a));
 }
 
 /* Simple Variant - Minimal style */
 .timeline--simple .timeline-step-icon-wrapper {
   background: transparent;
-  border: 2px solid var(--vtx-color-neutral-300, #d4d4d4);
+  border: 2px solid var(--lxs-color-neutral-300, #d4d4d4);
 }
 
 .timeline--simple .timeline-step--completed .timeline-step-icon-wrapper,
 .timeline--simple .timeline-step--active .timeline-step-icon-wrapper {
-  border-color: var(--step-color, var(--vtx-color-success-600, #16a34a));
-  background: var(--step-color, var(--vtx-color-success-600, #16a34a));
+  border-color: var(--step-color, var(--lxs-color-success-600, #16a34a));
+  background: var(--step-color, var(--lxs-color-success-600, #16a34a));
 }
 
 /* ==================== Color Variants ==================== */
 .timeline--primary {
-  --step-color: var(--vtx-color-primary-600, #2563eb);
-  --step-color-light: var(--vtx-color-primary-100, #dbeafe);
+  --step-color: var(--lxs-color-primary-600, #2563eb);
+  --step-color-light: var(--lxs-color-primary-100, #dbeafe);
 }
 
 .timeline--success {
-  --step-color: var(--vtx-color-success-600, #16a34a);
-  --step-color-light: var(--vtx-color-success-50, #f0fdf4);
+  --step-color: var(--lxs-color-success-600, #16a34a);
+  --step-color-light: var(--lxs-color-success-50, #f0fdf4);
 }
 
 .timeline--info {
-  --step-color: var(--vtx-color-info-600, #2563eb);
-  --step-color-light: var(--vtx-color-info-50, #eff6ff);
+  --step-color: var(--lxs-color-info-600, #2563eb);
+  --step-color-light: var(--lxs-color-info-50, #eff6ff);
 }
 
 .timeline--warning {
-  --step-color: var(--vtx-color-warning-600, #d97706);
-  --step-color-light: var(--vtx-color-warning-50, #fffbeb);
+  --step-color: var(--lxs-color-warning-600, #d97706);
+  --step-color-light: var(--lxs-color-warning-50, #fffbeb);
 }
 
 .timeline--error {
-  --step-color: var(--vtx-color-error-600, #dc2626);
-  --step-color-light: var(--vtx-color-error-50, #fef2f2);
+  --step-color: var(--lxs-color-error-600, #dc2626);
+  --step-color-light: var(--lxs-color-error-50, #fef2f2);
 }
 
 /* ==================== Responsive Design ==================== */
@@ -316,7 +316,7 @@
   .timeline--horizontal {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: var(--vtx-spacing-2, 8px);
+    padding-bottom: var(--lxs-spacing-2, 8px);
   }
 
   .timeline--horizontal .timeline-step {

@@ -7,28 +7,28 @@ describe('Grid', () => {
   // Basic rendering
   it('renders a grid component', () => {
     const { container } = render(<Grid data-testid="grid">Content</Grid>);
-    const grid = container.querySelector('.vtx-grid');
+    const grid = container.querySelector('.lxs-grid');
     expect(grid).toBeInTheDocument();
     expect(screen.getByText('Content')).toBeInTheDocument();
   });
 
   it('renders with custom className', () => {
     const { container } = render(<Grid className="custom-grid">Content</Grid>);
-    const grid = container.querySelector('.vtx-grid');
+    const grid = container.querySelector('.lxs-grid');
     expect(grid).toHaveClass('custom-grid');
   });
 
   // Container/Item props
   it('renders as container', () => {
     const { container } = render(<Grid container>Content</Grid>);
-    const grid = container.querySelector('.vtx-grid');
-    expect(grid).toHaveClass('vtx-grid-container');
+    const grid = container.querySelector('.lxs-grid');
+    expect(grid).toHaveClass('lxs-grid-container');
   });
 
   it('renders as item', () => {
     const { container } = render(<Grid item>Content</Grid>);
-    const grid = container.querySelector('.vtx-grid');
-    expect(grid).toHaveClass('vtx-grid-item');
+    const grid = container.querySelector('.lxs-grid');
+    expect(grid).toHaveClass('lxs-grid-item');
   });
 
   it('renders as both container and item', () => {
@@ -37,9 +37,9 @@ describe('Grid', () => {
         Content
       </Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
-    expect(grid).toHaveClass('vtx-grid-container');
-    expect(grid).toHaveClass('vtx-grid-item');
+    const grid = container.querySelector('.lxs-grid');
+    expect(grid).toHaveClass('lxs-grid-container');
+    expect(grid).toHaveClass('lxs-grid-item');
   });
 
   // Spacing
@@ -49,8 +49,8 @@ describe('Grid', () => {
         Content
       </Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
-    expect(grid).toHaveClass('vtx-grid-spacing-3');
+    const grid = container.querySelector('.lxs-grid');
+    expect(grid).toHaveClass('lxs-grid-spacing-3');
   });
 
   it('applies row spacing', () => {
@@ -59,8 +59,8 @@ describe('Grid', () => {
         Content
       </Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
-    expect(grid).toHaveClass('vtx-grid-row-spacing-2');
+    const grid = container.querySelector('.lxs-grid');
+    expect(grid).toHaveClass('lxs-grid-row-spacing-2');
   });
 
   it('applies column spacing', () => {
@@ -69,8 +69,8 @@ describe('Grid', () => {
         Content
       </Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
-    expect(grid).toHaveClass('vtx-grid-column-spacing-4');
+    const grid = container.querySelector('.lxs-grid');
+    expect(grid).toHaveClass('lxs-grid-column-spacing-4');
   });
 
   it('applies both row and column spacing', () => {
@@ -79,9 +79,9 @@ describe('Grid', () => {
         Content
       </Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
-    expect(grid).toHaveClass('vtx-grid-row-spacing-2');
-    expect(grid).toHaveClass('vtx-grid-column-spacing-3');
+    const grid = container.querySelector('.lxs-grid');
+    expect(grid).toHaveClass('lxs-grid-row-spacing-2');
+    expect(grid).toHaveClass('lxs-grid-column-spacing-3');
   });
 
   // Breakpoints - XS
@@ -91,8 +91,8 @@ describe('Grid', () => {
         Content
       </Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
-    expect(grid).toHaveClass('vtx-grid-xs-6');
+    const grid = container.querySelector('.lxs-grid');
+    expect(grid).toHaveClass('lxs-grid-xs-6');
   });
 
   it('applies xs breakpoint with boolean', () => {
@@ -101,8 +101,8 @@ describe('Grid', () => {
         Content
       </Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
-    expect(grid).toHaveClass('vtx-grid-xs');
+    const grid = container.querySelector('.lxs-grid');
+    expect(grid).toHaveClass('lxs-grid-xs');
   });
 
   it('applies xs breakpoint with auto', () => {
@@ -111,8 +111,8 @@ describe('Grid', () => {
         Content
       </Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
-    expect(grid).toHaveClass('vtx-grid-xs-auto');
+    const grid = container.querySelector('.lxs-grid');
+    expect(grid).toHaveClass('lxs-grid-xs-auto');
   });
 
   // Breakpoints - SM
@@ -122,8 +122,8 @@ describe('Grid', () => {
         Content
       </Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
-    expect(grid).toHaveClass('vtx-grid-sm-4');
+    const grid = container.querySelector('.lxs-grid');
+    expect(grid).toHaveClass('lxs-grid-sm-4');
   });
 
   // Breakpoints - MD
@@ -133,8 +133,8 @@ describe('Grid', () => {
         Content
       </Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
-    expect(grid).toHaveClass('vtx-grid-md-8');
+    const grid = container.querySelector('.lxs-grid');
+    expect(grid).toHaveClass('lxs-grid-md-8');
   });
 
   // Breakpoints - LG
@@ -144,8 +144,8 @@ describe('Grid', () => {
         Content
       </Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
-    expect(grid).toHaveClass('vtx-grid-lg-3');
+    const grid = container.querySelector('.lxs-grid');
+    expect(grid).toHaveClass('lxs-grid-lg-3');
   });
 
   // Breakpoints - XL
@@ -155,8 +155,8 @@ describe('Grid', () => {
         Content
       </Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
-    expect(grid).toHaveClass('vtx-grid-xl-12');
+    const grid = container.querySelector('.lxs-grid');
+    expect(grid).toHaveClass('lxs-grid-xl-12');
   });
 
   // Multiple breakpoints
@@ -166,19 +166,19 @@ describe('Grid', () => {
         Content
       </Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
-    expect(grid).toHaveClass('vtx-grid-xs-12');
-    expect(grid).toHaveClass('vtx-grid-sm-6');
-    expect(grid).toHaveClass('vtx-grid-md-4');
-    expect(grid).toHaveClass('vtx-grid-lg-3');
-    expect(grid).toHaveClass('vtx-grid-xl-2');
+    const grid = container.querySelector('.lxs-grid');
+    expect(grid).toHaveClass('lxs-grid-xs-12');
+    expect(grid).toHaveClass('lxs-grid-sm-6');
+    expect(grid).toHaveClass('lxs-grid-md-4');
+    expect(grid).toHaveClass('lxs-grid-lg-3');
+    expect(grid).toHaveClass('lxs-grid-xl-2');
   });
 
   // Direction
   it('applies row direction by default', () => {
     const { container } = render(<Grid container>Content</Grid>);
-    const grid = container.querySelector('.vtx-grid');
-    expect(grid).not.toHaveClass('vtx-grid-direction-row');
+    const grid = container.querySelector('.lxs-grid');
+    expect(grid).not.toHaveClass('lxs-grid-direction-row');
   });
 
   it('applies row-reverse direction', () => {
@@ -187,8 +187,8 @@ describe('Grid', () => {
         Content
       </Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
-    expect(grid).toHaveClass('vtx-grid-direction-row-reverse');
+    const grid = container.querySelector('.lxs-grid');
+    expect(grid).toHaveClass('lxs-grid-direction-row-reverse');
   });
 
   it('applies column direction', () => {
@@ -197,8 +197,8 @@ describe('Grid', () => {
         Content
       </Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
-    expect(grid).toHaveClass('vtx-grid-direction-column');
+    const grid = container.querySelector('.lxs-grid');
+    expect(grid).toHaveClass('lxs-grid-direction-column');
   });
 
   it('applies column-reverse direction', () => {
@@ -207,15 +207,15 @@ describe('Grid', () => {
         Content
       </Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
-    expect(grid).toHaveClass('vtx-grid-direction-column-reverse');
+    const grid = container.querySelector('.lxs-grid');
+    expect(grid).toHaveClass('lxs-grid-direction-column-reverse');
   });
 
   // Wrap
   it('applies wrap by default', () => {
     const { container } = render(<Grid container>Content</Grid>);
-    const grid = container.querySelector('.vtx-grid');
-    expect(grid).not.toHaveClass('vtx-grid-wrap-wrap');
+    const grid = container.querySelector('.lxs-grid');
+    expect(grid).not.toHaveClass('lxs-grid-wrap-wrap');
   });
 
   it('applies nowrap', () => {
@@ -224,8 +224,8 @@ describe('Grid', () => {
         Content
       </Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
-    expect(grid).toHaveClass('vtx-grid-wrap-nowrap');
+    const grid = container.querySelector('.lxs-grid');
+    expect(grid).toHaveClass('lxs-grid-wrap-nowrap');
   });
 
   it('applies wrap-reverse', () => {
@@ -234,8 +234,8 @@ describe('Grid', () => {
         Content
       </Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
-    expect(grid).toHaveClass('vtx-grid-wrap-wrap-reverse');
+    const grid = container.querySelector('.lxs-grid');
+    expect(grid).toHaveClass('lxs-grid-wrap-wrap-reverse');
   });
 
   // Alignment
@@ -245,7 +245,7 @@ describe('Grid', () => {
         Content
       </Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
+    const grid = container.querySelector('.lxs-grid');
     expect(grid).toHaveStyle({ justifyContent: 'center' });
   });
 
@@ -255,7 +255,7 @@ describe('Grid', () => {
         Content
       </Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
+    const grid = container.querySelector('.lxs-grid');
     expect(grid).toHaveStyle({ alignItems: 'flex-end' });
   });
 
@@ -265,7 +265,7 @@ describe('Grid', () => {
         Content
       </Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
+    const grid = container.querySelector('.lxs-grid');
     expect(grid).toHaveStyle({ alignContent: 'space-between' });
   });
 
@@ -275,7 +275,7 @@ describe('Grid', () => {
         Content
       </Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
+    const grid = container.querySelector('.lxs-grid');
     expect(grid).toHaveStyle({
       justifyContent: 'center',
       alignItems: 'center',
@@ -296,7 +296,7 @@ describe('Grid', () => {
         </Grid>
       </Grid>
     );
-    const grids = container.querySelectorAll('.vtx-grid');
+    const grids = container.querySelectorAll('.lxs-grid');
     expect(grids.length).toBeGreaterThanOrEqual(3);
     expect(screen.getByText('Nested content')).toBeInTheDocument();
   });
@@ -306,7 +306,7 @@ describe('Grid', () => {
     const ref = { current: null as HTMLDivElement | null };
     render(<Grid ref={ref}>Content</Grid>);
     expect(ref.current).toBeInstanceOf(HTMLDivElement);
-    expect(ref.current).toHaveClass('vtx-grid');
+    expect(ref.current).toHaveClass('lxs-grid');
   });
 
   // Custom props pass-through
@@ -316,7 +316,7 @@ describe('Grid', () => {
         Content
       </Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
+    const grid = container.querySelector('.lxs-grid');
     expect(grid).toHaveAttribute('data-testid', 'custom-grid');
     expect(grid).toHaveAttribute('id', 'grid-1');
   });
@@ -338,13 +338,13 @@ describe('Grid', () => {
         Content
       </Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
-    expect(grid).toHaveClass('vtx-grid-container');
-    expect(grid).toHaveClass('vtx-grid-spacing-3');
-    expect(grid).toHaveClass('vtx-grid-xs-12');
-    expect(grid).toHaveClass('vtx-grid-md-6');
-    expect(grid).toHaveClass('vtx-grid-direction-column');
-    expect(grid).toHaveClass('vtx-grid-wrap-nowrap');
+    const grid = container.querySelector('.lxs-grid');
+    expect(grid).toHaveClass('lxs-grid-container');
+    expect(grid).toHaveClass('lxs-grid-spacing-3');
+    expect(grid).toHaveClass('lxs-grid-xs-12');
+    expect(grid).toHaveClass('lxs-grid-md-6');
+    expect(grid).toHaveClass('lxs-grid-direction-column');
+    expect(grid).toHaveClass('lxs-grid-wrap-nowrap');
     expect(grid).toHaveClass('custom-class');
     expect(grid).toHaveStyle({
       justifyContent: 'center',
@@ -357,7 +357,7 @@ describe('Grid', () => {
     const { container } = render(
       <Grid style={{ backgroundColor: 'red', padding: '20px' }}>Content</Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
+    const grid = container.querySelector('.lxs-grid');
     expect(grid).toHaveStyle({
       backgroundColor: 'red',
       padding: '20px',
@@ -370,7 +370,7 @@ describe('Grid', () => {
         Content
       </Grid>
     );
-    const grid = container.querySelector('.vtx-grid');
+    const grid = container.querySelector('.lxs-grid');
     expect(grid).toHaveStyle({
       justifyContent: 'center',
       backgroundColor: 'blue',

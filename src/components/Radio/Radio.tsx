@@ -66,9 +66,9 @@ export interface RadioProps extends Omit<
  *
  * ```css
  * :root {
- *   --vtx-radio-color: #1976d2;
- *   --vtx-radio-size: 20px;
- *   --vtx-radio-border-width: 2px;
+ *   --lxs-radio-color: #1976d2;
+ *   --lxs-radio-size: 20px;
+ *   --lxs-radio-border-width: 2px;
  * }
  * ```
  *
@@ -135,20 +135,20 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
 
     // Build class names
     const containerClassNames = [
-      'vtx-radio',
+      'lxs-radio',
       `vtx-radio--${radioSize}`,
       `vtx-radio--${variant}`,
-      disabled && 'vtx-radio--disabled',
-      error && 'vtx-radio--error',
+      disabled && 'lxs-radio--disabled',
+      error && 'lxs-radio--error',
       className,
     ]
       .filter(Boolean)
       .join(' ');
 
-    const inputClassNames = ['vtx-radio-input', inputClassName].filter(Boolean).join(' ');
+    const inputClassNames = ['lxs-radio-input', inputClassName].filter(Boolean).join(' ');
 
     const radioElement = (
-      <div className="vtx-radio-wrapper">
+      <div className="lxs-radio-wrapper">
         <input
           ref={ref}
           type="radio"
@@ -160,8 +160,8 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
           aria-describedby={helperTextId}
           {...props}
         />
-        <span className="vtx-radio-circle">
-          <span className="vtx-radio-dot" />
+        <span className="lxs-radio-circle">
+          <span className="lxs-radio-dot" />
         </span>
       </div>
     );
@@ -169,12 +169,12 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
     if (label) {
       return (
         <div className={containerClassNames}>
-          <label htmlFor={radioId} className="vtx-radio-label">
+          <label htmlFor={radioId} className="lxs-radio-label">
             {radioElement}
-            <span className="vtx-radio-label-text">{label}</span>
+            <span className="lxs-radio-label-text">{label}</span>
           </label>
           {helperText && (
-            <span id={helperTextId} className="vtx-radio-helper-text">
+            <span id={helperTextId} className="lxs-radio-helper-text">
               {helperText}
             </span>
           )}
@@ -186,7 +186,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
       <div className={containerClassNames}>
         {radioElement}
         {helperText && (
-          <span id={helperTextId} className="vtx-radio-helper-text">
+          <span id={helperTextId} className="lxs-radio-helper-text">
             {helperText}
           </span>
         )}

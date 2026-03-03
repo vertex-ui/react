@@ -152,11 +152,11 @@ const TextWidget: React.FC<TextWidgetProps> = ({
 
   const getCardClassName = () => {
     return [
-      'vtx-text-widget',
-      `vtx-text-widget--${theme}`,
-      `vtx-text-widget--${size}`,
-      `vtx-text-widget--${variant}`,
-      alignment && `vtx-text-widget--${alignment}`,
+      'lxs-text-widget',
+      `lxs-text-widget--${theme}`,
+      `lxs-text-widget--${size}`,
+      `lxs-text-widget--${variant}`,
+      alignment && `lxs-text-widget--${alignment}`,
       className,
     ].filter(Boolean).join(' ');
   };

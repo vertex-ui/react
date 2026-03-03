@@ -1,3 +1,5 @@
+import './Navbar.css';
+
 export { Navbar, default } from './Navbar';
 export type {
   NavigationItem,

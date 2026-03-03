@@ -184,28 +184,28 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       .join(' ');
 
     const wrapperClassNames = [
-      'vtx-textarea-wrapper',
-      !fullWidth && 'vtx-textarea-wrapper--inline',
+      'lxs-textarea-wrapper',
+      !fullWidth && 'lxs-textarea-wrapper--inline',
       wrapperClassName,
     ]
       .filter(Boolean)
       .join(' ');
 
     const textareaContainerClassNames = [
-      'vtx-textarea-container',
-      `vtx-textarea-container--${textareaSize}`,
-      hasError && 'vtx-textarea-container--error',
-      hasSuccess && 'vtx-textarea-container--success',
-      disabled && 'vtx-textarea-container--disabled',
-      showClearButton && 'vtx-textarea-container--with-clear',
+      'lxs-textarea-container',
+      `lxs-textarea-container--${textareaSize}`,
+      hasError && 'lxs-textarea-container--error',
+      hasSuccess && 'lxs-textarea-container--success',
+      disabled && 'lxs-textarea-container--disabled',
+      showClearButton && 'lxs-textarea-container--with-clear',
       className,
     ]
       .filter(Boolean)
       .join(' ');
 
     const textareaClasses = [
-      'vtx-textarea',
-      autoResize && 'vtx-textarea--auto-resize',
+      'lxs-textarea',
+      autoResize && 'lxs-textarea--auto-resize',
       textareaClassName,
     ]
       .filter(Boolean)
@@ -270,10 +270,10 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     return (
       <div className={wrapperClassNames}>
         {label && (
-          <label htmlFor={id} className={`vtx-textarea-label ${labelClassName}`.trim()}>
+          <label htmlFor={id} className={`lxs-textarea-label ${labelClassName}`.trim()}>
             {label}
             {required && (
-              <span className="vtx-textarea-label__required" aria-label="required">
+              <span className="lxs-textarea-label__required" aria-label="required">
                 {' '}
                 *
               </span>
@@ -298,7 +298,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           {showClearButton && (
             <button
               type="button"
-              className="vtx-textarea-clear"
+              className="lxs-textarea-clear"
               onClick={handleClear}
               aria-label="Clear textarea"
               tabIndex={-1}
@@ -307,29 +307,29 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             </button>
           )}
         </div>
-        <div className="vtx-textarea-footer">
-          <div className="vtx-textarea-footer-left">
+        <div className="lxs-textarea-footer">
+          <div className="lxs-textarea-footer-left">
             {helperText && !error && !success && (
-              <p id={helperId} className="vtx-textarea-helper">
+              <p id={helperId} className="lxs-textarea-helper">
                 {helperText}
               </p>
             )}
             {error && (
-              <p id={errorId} className="vtx-textarea-error" role="alert">
+              <p id={errorId} className="lxs-textarea-error" role="alert">
                 {error}
               </p>
             )}
             {success && (
-              <p id={successId} className="vtx-textarea-success" role="status">
+              <p id={successId} className="lxs-textarea-success" role="status">
                 {success}
               </p>
             )}
           </div>
           {showCounter && (
             <p 
-              className={`vtx-textarea-counter ${
-                isAtLimit ? 'vtx-textarea-counter--at-limit' : 
-                isNearLimit ? 'vtx-textarea-counter--near-limit' : ''
+              className={`lxs-textarea-counter ${
+                isAtLimit ? 'lxs-textarea-counter--at-limit' : 
+                isNearLimit ? 'lxs-textarea-counter--near-limit' : ''
               }`.trim()}
               aria-live="polite"
             >

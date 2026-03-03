@@ -111,10 +111,10 @@ const Tabs = forwardRef<HTMLDivElement, TabsProps>(
     };
 
     const rootClasses = [
-      'vtx-tabs',
-      `vtx-tabs--${variant}`,
-      `vtx-tabs--${orientation}`,
-      `vtx-tabs--${size}`,
+      'lxs-tabs',
+      `lxs-tabs--${variant}`,
+      `lxs-tabs--${orientation}`,
+      `lxs-tabs--${size}`,
       className,
     ]
       .filter(Boolean)
@@ -200,10 +200,10 @@ const TabList = forwardRef<HTMLDivElement, TabListProps>(
     const showControls = showScrollControls && isHorizontal;
 
     return (
-      <div className={`vtx-tab-list-container ${showControls ? 'vtx-tab-list-container--with-controls' : ''}`}>
+      <div className={`lxs-tab-list-container ${showControls ? 'lxs-tab-list-container--with-controls' : ''}`}>
         {showControls && (
           <button 
-            className={`vtx-tab-scroll-btn vtx-tab-scroll-btn--left ${!showLeftArrow ? 'vtx-tab-scroll-btn--hidden' : ''}`}
+            className={`lxs-tab-scroll-btn lxs-tab-scroll-btn--left ${!showLeftArrow ? 'lxs-tab-scroll-btn--hidden' : ''}`}
             onClick={() => scroll('left')}
             aria-label="Scroll left"
             type="button"
@@ -216,7 +216,7 @@ const TabList = forwardRef<HTMLDivElement, TabListProps>(
         
         <div
           ref={mergedRef}
-          className={`vtx-tab-list ${className || ''} ${showControls ? 'vtx-tab-list--scrollable' : ''}`}
+          className={`lxs-tab-list ${className || ''} ${showControls ? 'lxs-tab-list--scrollable' : ''}`}
           role="tablist"
           onScroll={showControls ? checkScroll : undefined}
           {...props}
@@ -226,7 +226,7 @@ const TabList = forwardRef<HTMLDivElement, TabListProps>(
 
         {showControls && (
           <button 
-            className={`vtx-tab-scroll-btn vtx-tab-scroll-btn--right ${!showRightArrow ? 'vtx-tab-scroll-btn--hidden' : ''}`}
+            className={`lxs-tab-scroll-btn lxs-tab-scroll-btn--right ${!showRightArrow ? 'lxs-tab-scroll-btn--hidden' : ''}`}
             onClick={() => scroll('right')}
             aria-label="Scroll right"
             type="button"
@@ -276,7 +276,7 @@ const Tab = forwardRef<HTMLButtonElement, TabProps>(
     return (
       <button
         ref={ref}
-        className={`vtx-tab ${className || ''}`}
+        className={`lxs-tab ${className || ''}`}
         role="tab"
         aria-selected={isSelected}
         aria-disabled={disabled}
@@ -286,7 +286,7 @@ const Tab = forwardRef<HTMLButtonElement, TabProps>(
         tabIndex={isSelected ? 0 : -1}
         {...props}
       >
-        {icon && <span className="vtx-tab__icon">{icon}</span>}
+        {icon && <span className="lxs-tab__icon">{icon}</span>}
         {children}
       </button>
     );
@@ -308,7 +308,7 @@ export interface TabPanelsProps extends React.HTMLAttributes<HTMLDivElement> {
 const TabPanels = forwardRef<HTMLDivElement, TabPanelsProps>(
   ({ children, className, ...props }, ref) => {
     return (
-      <div ref={ref} className={`vtx-tab-panels ${className || ''}`} {...props}>
+      <div ref={ref} className={`lxs-tab-panels ${className || ''}`} {...props}>
         {children}
       </div>
     );
@@ -343,7 +343,7 @@ const TabPanel = forwardRef<HTMLDivElement, TabPanelProps>(
     return (
       <div
         ref={ref}
-        className={`vtx-tab-panel ${className || ''}`}
+        className={`lxs-tab-panel ${className || ''}`}
         role="tabpanel"
         hidden={!isSelected}
         data-state={isSelected ? 'active' : 'inactive'}

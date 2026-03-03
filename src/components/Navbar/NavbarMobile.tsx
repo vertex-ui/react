@@ -71,10 +71,10 @@ export const NavbarMobile: React.FC<NavbarMobileProps> = ({
     };
 
     const navbarClass = [
-        'vtx-navbar',
-        'vtx-navbar--mobile',
-        sticky && 'vtx-navbar--sticky',
-        shadow && 'vtx-navbar--shadow',
+        'lxs-navbar',
+        'lxs-navbar--mobile',
+        sticky && 'lxs-navbar--sticky',
+        shadow && 'lxs-navbar--shadow',
         className,
     ]
         .filter(Boolean)
@@ -84,39 +84,39 @@ export const NavbarMobile: React.FC<NavbarMobileProps> = ({
     if (backgroundColor) style.backgroundColor = backgroundColor;
 
     const MobileHeaderContent = (
-        <Flex justify="between" align="center" className="vtx-navbar__mobile-header">
-            <div className="vtx-navbar__logo">
+        <Flex justify="between" align="center" className="lxs-navbar__mobile-header">
+            <div className="lxs-navbar__logo">
                 {logo ? (
                     <img
                         src={logo}
                         alt={logoAlt}
-                        className="vtx-navbar__logo-image"
+                        className="lxs-navbar__logo-image"
                         onClick={onLogoClick}
                         loading="eager"
                         fetchPriority="high"
                     />
                 ) : brandText ? (
-                    <span className="vtx-navbar__brand-text" onClick={onLogoClick}>
+                    <span className="lxs-navbar__brand-text" onClick={onLogoClick}>
                         {brandText}
                     </span>
                 ) : null}
             </div>
-            <div className="vtx-navbar__icons">
+            <div className="lxs-navbar__icons">
                 {notificationCount !== undefined && (
-                    <Button variant="ghost" iconOnly onClick={onNotificationClick} className="vtx-navbar__icon-button">
+                    <Button variant="ghost" iconOnly onClick={onNotificationClick} className="lxs-navbar__icon-button">
                         <Badge content={notificationCount > 0 ? String(notificationCount) : ''} variant="error" size="sm">
                             <BellIcon size={20} />
                         </Badge>
                     </Button>
                 )}
                 {cartCount !== undefined && (
-                    <Button variant="ghost" iconOnly onClick={onCartClick} className="vtx-navbar__icon-button">
+                    <Button variant="ghost" iconOnly onClick={onCartClick} className="lxs-navbar__icon-button">
                         <Badge content={cartCount > 0 ? String(cartCount) : ''} variant="error" size="sm">
                             <ShoppingCartIcon size={20} />
                         </Badge>
                     </Button>
                 )}
-                <Button variant="ghost" iconOnly onClick={handleToggle} className="vtx-navbar__menu-button">
+                <Button variant="ghost" iconOnly onClick={handleToggle} className="lxs-navbar__menu-button">
                     {isOpen ? <CloseIcon size={24} /> : <MenuIcon size={24} />}
                 </Button>
             </div>
@@ -137,10 +137,10 @@ export const NavbarMobile: React.FC<NavbarMobileProps> = ({
             </div>
 
             {/* Mobile Drawer */}
-            <div className={`vtx-navbar__drawer ${isOpen ? 'vtx-navbar__drawer--open' : ''}`}>
-                <div className="vtx-navbar__drawer-content">
+            <div className={`vtx-navbar__drawer ${isOpen ? 'lxs-navbar__drawer--open' : ''}`}>
+                <div className="lxs-navbar__drawer-content">
                     {(search || searchOptions.length > 0) && (
-                        <div className="vtx-navbar__drawer-search">
+                        <div className="lxs-navbar__drawer-search">
                             <Autocomplete
                                 placeholder={search?.placeholder || 'Search...'}
                                 value={searchQuery}
@@ -169,7 +169,7 @@ export const NavbarMobile: React.FC<NavbarMobileProps> = ({
                     )}
 
                     {navigationItems.length > 0 && (
-                        <nav className="vtx-navbar__drawer-nav">
+                        <nav className="lxs-navbar__drawer-nav">
                             {navigationItems.map((item, index) => (
                                 <NavItem 
                                     key={index} 
@@ -187,16 +187,16 @@ export const NavbarMobile: React.FC<NavbarMobileProps> = ({
                     )}
 
                     {user && (
-                        <div className="vtx-navbar__drawer-user">
+                        <div className="lxs-navbar__drawer-user">
                             <Flex align="center" gap={3}>
                                 <Avatar src={user.avatar} alt={user.name} size="md" />
                                 <div>
-                                    {user.name && <div className="vtx-navbar__drawer-user-name">{user.name}</div>}
-                                    {user.email && <div className="vtx-navbar__drawer-user-email">{user.email}</div>}
+                                    {user.name && <div className="lxs-navbar__drawer-user-name">{user.name}</div>}
+                                    {user.email && <div className="lxs-navbar__drawer-user-email">{user.email}</div>}
                                 </div>
                             </Flex>
                             {user.menuItems && user.menuItems.length > 0 && (
-                                <div className="vtx-navbar__drawer-user-menu">
+                                <div className="lxs-navbar__drawer-user-menu">
                                     {user.menuItems.map((item, index) => (
                                         <NavItem 
                                             key={index} 
@@ -215,12 +215,12 @@ export const NavbarMobile: React.FC<NavbarMobileProps> = ({
                         </div>
                     )}
 
-                    {actions && <div className="vtx-navbar__drawer-actions">{actions}</div>}
+                    {actions && <div className="lxs-navbar__drawer-actions">{actions}</div>}
                 </div>
             </div>
 
             {/* Overlay */}
-            {isOpen && <div className="vtx-navbar__overlay" onClick={handleClose} />}
+            {isOpen && <div className="lxs-navbar__overlay" onClick={handleClose} />}
         </>
     );
 };

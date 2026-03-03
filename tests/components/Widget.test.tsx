@@ -43,7 +43,7 @@ describe('Widget', () => {
 
     const { container } = render(<Widget config={gridConfig} />);
     // Check for grid classes
-    const grid = container.querySelector('.vtx-widget-grid');
+    const grid = container.querySelector('.lxs-widget-grid');
     expect(grid).toBeInTheDocument();
     expect(grid).toHaveClass('mobile-cols-1');
     expect(grid).toHaveClass('desktop-cols-2');
@@ -64,7 +64,7 @@ describe('Widget', () => {
     };
 
     const { container } = render(<Widget config={arrayConfig} />);
-    expect(container.querySelector('.vtx-widget-grid')).toBeInTheDocument();
+    expect(container.querySelector('.lxs-widget-grid')).toBeInTheDocument();
     expect(screen.getByText('Metric 1')).toBeInTheDocument();
     expect(screen.getByText('Metric 2')).toBeInTheDocument();
   });
@@ -80,7 +80,7 @@ describe('Widget', () => {
     // We should check that it contains no significant content or check innerHTML
     // Or check if it only contains the toast container if that's part of ThemeProvider
     // The safest is checking if it doesn't contain any widget-specific classes or elements
-    expect(container.querySelector('.vtx-card')).not.toBeInTheDocument();
+    expect(container.querySelector('.lxs-card')).not.toBeInTheDocument();
     expect(spy).toHaveBeenCalledWith(expect.stringContaining('Unknown widget type'));
     spy.mockRestore();
   });

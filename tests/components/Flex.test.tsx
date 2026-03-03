@@ -13,7 +13,7 @@ describe('Flex', () => {
     it('renders with custom className', () => {
       const { container } = render(<Flex className="custom-class">Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex).toHaveClass('vtx-flex');
+      expect(flex).toHaveClass('lxs-flex');
       expect(flex).toHaveClass('custom-class');
     });
 
@@ -38,7 +38,7 @@ describe('Flex', () => {
     it('renders row direction by default', () => {
       const { container } = render(<Flex>Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex).toHaveClass('vtx-flex');
+      expect(flex).toHaveClass('lxs-flex');
       expect(flex.style.flexDirection).toBe('row');
     });
 
@@ -200,16 +200,16 @@ describe('Flex', () => {
     it('renders as display flex by default', () => {
       const { container } = render(<Flex>Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      // Box adds vtx-box--display-flex class or display:flex inline style
+      // Box adds lxs-box--display-flex class or display:flex inline style
       // Since default display is not set in props, Box might not add inline style?
       // Wait, Flex sets display={inline ? 'inline-flex' : 'flex'}.
-      expect(flex.classList.contains('vtx-box--display-flex')).toBe(true);
+      expect(flex.classList.contains('lxs-box--display-flex')).toBe(true);
     });
 
     it('renders as inline-flex when inline is true', () => {
       const { container } = render(<Flex inline>Content</Flex>);
       const flex = container.firstChild as HTMLElement;
-      expect(flex.classList.contains('vtx-box--display-inline-flex')).toBe(true);
+      expect(flex.classList.contains('lxs-box--display-inline-flex')).toBe(true);
     });
   });
 

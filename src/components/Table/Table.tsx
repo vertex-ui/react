@@ -597,24 +597,24 @@ function Table<T = unknown>({
     [currentFilters, onFiltersChange, pagination, onPageChange]
   );
   const containerClassNames = [
-    'vtx-table-container',
-    scrollable && 'vtx-table-container--scrollable',
-    maxHeight && 'vtx-table-container--fixed-header',
-    stickyHeader && 'vtx-table-container--sticky-header',
+    'lxs-table-container',
+    scrollable && 'lxs-table-container--scrollable',
+    maxHeight && 'lxs-table-container--fixed-header',
+    stickyHeader && 'lxs-table-container--sticky-header',
     containerClassName,
   ]
     .filter(Boolean)
     .join(' ');
 
   const tableClassNames = [
-    'vtx-table',
-    `vtx-table--${tableSize}`,
-    dense && 'vtx-table--dense',
-    striped && 'vtx-table--striped',
-    hoverable && 'vtx-table--hoverable',
-    bordered && 'vtx-table--bordered',
-    (onRowClick || selectable) && 'vtx-table--clickable',
-    stickyHeader && 'vtx-table--sticky-header',
+    'lxs-table',
+    `lxs-table--${tableSize}`,
+    dense && 'lxs-table--dense',
+    striped && 'lxs-table--striped',
+    hoverable && 'lxs-table--hoverable',
+    bordered && 'lxs-table--bordered',
+    (onRowClick || selectable) && 'lxs-table--clickable',
+    stickyHeader && 'lxs-table--sticky-header',
     className,
   ]
     .filter(Boolean)
@@ -635,23 +635,23 @@ function Table<T = unknown>({
 
     if (!isSorted) {
       return (
-        <span className="vtx-table-sort-icon vtx-table-sort-icon--inactive">
+        <span className="lxs-table-sort-icon lxs-table-sort-icon--inactive">
           <ArrowUpIcon size={14} />
         </span>
       );
     }
 
     return (
-      <span className="vtx-table-sort-icon vtx-table-sort-icon--active">
+      <span className="lxs-table-sort-icon lxs-table-sort-icon--active">
         {direction === 'asc' ? <ArrowUpIcon size={14} /> : <ArrowDownIcon size={14} />}
       </span>
     );
   };
 
   return (
-    <div className="vtx-table-wrapper">
+    <div className="lxs-table-wrapper">
       {toolbar && (
-        <div className="vtx-table-toolbar">
+        <div className="lxs-table-toolbar">
           {typeof toolbar === 'object' &&
           toolbar !== null &&
           !React.isValidElement(toolbar) &&
@@ -662,7 +662,7 @@ function Table<T = unknown>({
                   {toolbar.title}
                 </Typography>
               )}
-              {toolbar.actions && <div className="vtx-table-toolbar-actions">{toolbar.actions}</div>}
+              {toolbar.actions && <div className="lxs-table-toolbar-actions">{toolbar.actions}</div>}
             </Flex>
           ) : (
             <>{toolbar}</>
@@ -670,7 +670,7 @@ function Table<T = unknown>({
         </div>
       )}
       {selectable && currentSelectedRows.length > 0 && (
-        <div className="vtx-table-selection-toolbar">
+        <div className="lxs-table-selection-toolbar">
           <Flex align="center" gap={16}>
             <Typography variant="body2" noMargin>
               {currentSelectedRows.length} selected
@@ -680,11 +680,11 @@ function Table<T = unknown>({
       )}
       <div className={containerClassNames} style={{ maxHeight }}>
         <table className={tableClassNames} {...props}>
-          {caption && <caption className="vtx-table-caption">{caption}</caption>}
-          <thead className="vtx-table-header">
+          {caption && <caption className="lxs-table-caption">{caption}</caption>}
+          <thead className="lxs-table-header">
             <tr>
               {selectable && (
-                <th className="vtx-table-header-cell vtx-table-cell--checkbox">
+                <th className="lxs-table-header-cell lxs-table-cell--checkbox">
                   <Checkbox
                     checked={isAllSelected}
                     indeterminate={isSomeSelected}
@@ -693,14 +693,14 @@ function Table<T = unknown>({
                   />
                 </th>
               )}
-              {expandableRows && <th className="vtx-table-header-cell vtx-table-cell--expand" />}
+              {expandableRows && <th className="lxs-table-header-cell lxs-table-cell--expand" />}
               {columns.map((column) => {
                 const isSortable = sortable && column.sortable !== false;
                 const isFilterable = filterable && column.filterable !== false;
                 const headerClassNames = [
-                  'vtx-table-header-cell',
-                  isSortable && 'vtx-table-header-cell--sortable',
-                  column.sticky && `vtx-table-header-cell--sticky-${column.sticky}`,
+                  'lxs-table-header-cell',
+                  isSortable && 'lxs-table-header-cell--sortable',
+                  column.sticky && `lxs-table-header-cell--sticky-${column.sticky}`,
                   column.headerClassName,
                 ]
                   .filter(Boolean)
@@ -724,9 +724,9 @@ function Table<T = unknown>({
                         : undefined
                     }
                   >
-                    <div className="vtx-table-header-content">
+                    <div className="lxs-table-header-content">
                       <div
-                        className="vtx-table-header-label"
+                        className="lxs-table-header-label"
                         onClick={() => isSortable && handleSort(column.key)}
                         onKeyDown={(e) => {
                           if (isSortable && (e.key === 'Enter' || e.key === ' ')) {
@@ -742,13 +742,13 @@ function Table<T = unknown>({
                         {isSortable && renderSortIcon(column.key)}
                       </div>
                       {isFilterable && (
-                        <div className="vtx-table-filter">
+                        <div className="lxs-table-filter">
                           <Input
                             size="sm"
                             placeholder={column.filterPlaceholder || `Filter ${column.header}...`}
                             value={currentFilters[column.key] || ''}
                             onChange={(e) => handleFilterChange(column.key, e.target.value)}
-                            className="vtx-table-filter-input"
+                            className="lxs-table-filter-input"
                           />
                         </div>
                       )}
@@ -758,25 +758,25 @@ function Table<T = unknown>({
               })}
             </tr>
           </thead>
-          <tbody className="vtx-table-body">
+          <tbody className="lxs-table-body">
             {loading ? (
               skeletonLoader ? (
                 // Skeleton loader rows
                 Array.from({ length: skeletonRows }).map((_, index) => (
-                  <tr key={`skeleton-${index}`} className="vtx-table-row vtx-table-row--skeleton">
+                  <tr key={`skeleton-${index}`} className="lxs-table-row lxs-table-row--skeleton">
                     {selectable && (
-                      <td className="vtx-table-cell">
-                        <div className="vtx-table-skeleton vtx-table-skeleton--checkbox" />
+                      <td className="lxs-table-cell">
+                        <div className="lxs-table-skeleton lxs-table-skeleton--checkbox" />
                       </td>
                     )}
                     {expandableRows && (
-                      <td className="vtx-table-cell">
-                        <div className="vtx-table-skeleton vtx-table-skeleton--icon" />
+                      <td className="lxs-table-cell">
+                        <div className="lxs-table-skeleton lxs-table-skeleton--icon" />
                       </td>
                     )}
                     {columns.map((column) => (
-                      <td key={column.key} className="vtx-table-cell">
-                        <div className="vtx-table-skeleton vtx-table-skeleton--text" />
+                      <td key={column.key} className="lxs-table-cell">
+                        <div className="lxs-table-skeleton lxs-table-skeleton--text" />
                       </td>
                     ))}
                   </tr>
@@ -786,12 +786,12 @@ function Table<T = unknown>({
                 <tr>
                   <td
                     colSpan={columns.length + (selectable ? 1 : 0) + (expandableRows ? 1 : 0)}
-                    className="vtx-table-loading"
+                    className="lxs-table-loading"
                   >
-                    <div className="vtx-table-loading-content">
+                    <div className="lxs-table-loading-content">
                       {loadingContent || (
                         <>
-                          <div className="vtx-table-spinner" />
+                          <div className="lxs-table-spinner" />
                           <Typography size="sm">Loading...</Typography>
                         </>
                       )}
@@ -803,16 +803,16 @@ function Table<T = unknown>({
               <tr>
                 <td
                   colSpan={columns.length + (selectable ? 1 : 0) + (expandableRows ? 1 : 0)}
-                  className="vtx-table-empty"
+                  className="lxs-table-empty"
                 >
                   {emptyStateIcon || emptyStateDescription ? (
-                    <div className="vtx-table-empty-state">
+                    <div className="lxs-table-empty-state">
                       {emptyStateIcon && (
-                        <div className="vtx-table-empty-state-icon">{emptyStateIcon}</div>
+                        <div className="lxs-table-empty-state-icon">{emptyStateIcon}</div>
                       )}
-                      <div className="vtx-table-empty-state-message">{emptyMessage}</div>
+                      <div className="lxs-table-empty-state-message">{emptyMessage}</div>
                       {emptyStateDescription && (
-                        <div className="vtx-table-empty-state-description">{emptyStateDescription}</div>
+                        <div className="lxs-table-empty-state-description">{emptyStateDescription}</div>
                       )}
                     </div>
                   ) : (
@@ -826,9 +826,9 @@ function Table<T = unknown>({
                 const isSelected = currentSelectedRows.includes(rowKey);
                 const isExpanded = currentExpandedRows.includes(rowKey);
                 const rowClassNames = [
-                  'vtx-table-row',
-                  isSelected && 'vtx-table-row--selected',
-                  isExpanded && 'vtx-table-row--expanded',
+                  'lxs-table-row',
+                  isSelected && 'lxs-table-row--selected',
+                  isExpanded && 'lxs-table-row--expanded',
                 ]
                   .filter(Boolean)
                   .join(' ');
@@ -857,7 +857,7 @@ function Table<T = unknown>({
                       }}
                     >
                       {selectable && (
-                        <td className="vtx-table-cell vtx-table-cell--checkbox">
+                        <td className="lxs-table-cell lxs-table-cell--checkbox">
                           <Checkbox
                             checked={isSelected}
                             onChange={(e) => {
@@ -869,9 +869,9 @@ function Table<T = unknown>({
                         </td>
                       )}
                       {expandableRows && (
-                        <td className="vtx-table-cell vtx-table-cell--expand">
+                        <td className="lxs-table-cell lxs-table-cell--expand">
                           <button
-                            className="vtx-table-expand-button"
+                            className="lxs-table-expand-button"
                             onClick={(e) => {
                               e.stopPropagation();
                               handleExpandRow(rowKey);
@@ -885,8 +885,8 @@ function Table<T = unknown>({
                       )}
                       {columns.map((column) => {
                         const cellClassNames = [
-                          'vtx-table-cell',
-                          column.sticky && `vtx-table-cell--sticky-${column.sticky}`,
+                          'lxs-table-cell',
+                          column.sticky && `lxs-table-cell--sticky-${column.sticky}`,
                           column.className,
                         ]
                           .filter(Boolean)
@@ -911,10 +911,10 @@ function Table<T = unknown>({
                       })}
                     </tr>
                     {expandableRows && isExpanded && renderExpandedRow && (
-                      <tr className="vtx-table-row-expanded">
+                      <tr className="lxs-table-row-expanded">
                         <td
                           colSpan={columns.length + (selectable ? 1 : 0) + 1}
-                          className="vtx-table-cell-expanded"
+                          className="lxs-table-cell-expanded"
                         >
                           {renderExpandedRow(row, rowIndex)}
                         </td>
@@ -928,14 +928,14 @@ function Table<T = unknown>({
         </table>
       </div>
       {pagination && (
-        <div className="vtx-table-pagination">
+        <div className="lxs-table-pagination">
           <Flex align="center" justify="between" style={{ width: '100%' }}>
             <Flex align="center" gap={8}>
               <Typography variant="body2" textColor="var(--color-neutral-600)" noMargin>
                 Rows per page:
               </Typography>
               <select
-                className="vtx-table-pagination-select"
+                className="lxs-table-pagination-select"
                 value={currentRowsPerPage}
                 onChange={(e) => handleRowsPerPageChange(Number(e.target.value))}
                 aria-label="Rows per page"
@@ -956,7 +956,7 @@ function Table<T = unknown>({
               </Typography>
               <Flex align="center" gap={4}>
                 <button
-                  className="vtx-table-pagination-button"
+                  className="lxs-table-pagination-button"
                   onClick={() => handlePageChange(0)}
                   disabled={currentPage === 0}
                   aria-label="First page"
@@ -965,7 +965,7 @@ function Table<T = unknown>({
                   <ChevronsLeftIcon size={18} />
                 </button>
                 <button
-                  className="vtx-table-pagination-button"
+                  className="lxs-table-pagination-button"
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 0}
                   aria-label="Previous page"
@@ -974,7 +974,7 @@ function Table<T = unknown>({
                   <ChevronLeftIcon size={18} />
                 </button>
                 <button
-                  className="vtx-table-pagination-button"
+                  className="lxs-table-pagination-button"
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={(currentPage + 1) * currentRowsPerPage >= filteredData.length}
                   aria-label="Next page"
@@ -983,7 +983,7 @@ function Table<T = unknown>({
                   <ChevronRightIcon size={18} />
                 </button>
                 <button
-                  className="vtx-table-pagination-button"
+                  className="lxs-table-pagination-button"
                   onClick={() =>
                     handlePageChange(Math.ceil(filteredData.length / currentRowsPerPage) - 1)
                   }

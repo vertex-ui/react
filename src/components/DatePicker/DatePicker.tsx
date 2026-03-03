@@ -284,7 +284,7 @@ const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
     return (
       <div
         ref={containerRef}
-        className={`vtx-datepicker ${className}`.trim()}
+        className={`lxs-datepicker ${className}`.trim()}
       >
         <Input
           ref={ref}
@@ -303,7 +303,7 @@ const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
           required={required}
           readOnly={false}
           rightIcon={<CalendarIcon size={16} />}
-          className={`vtx-datepicker__input ${inputClassName}`.trim()}
+          className={`lxs-datepicker__input ${inputClassName}`.trim()}
           clearable={clearable}
           onClear={handleClear}
           {...props}
@@ -312,7 +312,7 @@ const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
         {isOpen && (
           <div
             ref={dropdownRef}
-            className={`vtx-datepicker__dropdown ${dropdownClassName}`.trim()}
+            className={`lxs-datepicker__dropdown ${dropdownClassName}`.trim()}
           >
             <Calendar
               value={value}
@@ -326,10 +326,10 @@ const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
             />
             
             {showToday && (
-              <div className="vtx-datepicker__footer">
+              <div className="lxs-datepicker__footer">
                 <button
                   type="button"
-                  className="vtx-datepicker__today-button"
+                  className="lxs-datepicker__today-button"
                   onClick={handleTodayClick}
                 >
                   Today

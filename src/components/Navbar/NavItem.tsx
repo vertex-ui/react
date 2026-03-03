@@ -51,30 +51,30 @@ export const NavItem: React.FC<NavItemProps> = ({
     const classes = [];
 
     if (item.active) {
-      classes.push('vtx-navbar__nav-item--active');
+      classes.push('lxs-navbar__nav-item--active');
 
       // Color variant class
       if (activeColor && ['primary', 'secondary', 'neutral', 'success', 'warning', 'error', 'info'].includes(activeColor)) {
         classes.push(`vtx-navbar__nav-item--active-${activeColor}`);
       } else if (activeColor && activeColor !== 'primary') {
-        classes.push('vtx-navbar__nav-item--active-custom');
+        classes.push('lxs-navbar__nav-item--active-custom');
       } else {
-        classes.push('vtx-navbar__nav-item--active-primary');
+        classes.push('lxs-navbar__nav-item--active-primary');
       }
 
       // Indicator style class
       if (activeIndicatorStyle === 'background') {
-        classes.push('vtx-navbar__nav-item--active-background');
+        classes.push('lxs-navbar__nav-item--active-background');
       } else if (activeIndicatorStyle === 'underline') {
-        classes.push('vtx-navbar__nav-item--active-underline');
+        classes.push('lxs-navbar__nav-item--active-underline');
       }
     }
 
     // Indicator behavior class
     if (activeIndicatorBehavior === 'hover') {
-      classes.push('vtx-navbar__nav-item--indicator-hover');
+      classes.push('lxs-navbar__nav-item--indicator-hover');
     } else if (activeIndicatorBehavior === 'never') {
-      classes.push('vtx-navbar__nav-item--indicator-never');
+      classes.push('lxs-navbar__nav-item--indicator-never');
     }
 
     return classes;
@@ -82,7 +82,7 @@ export const NavItem: React.FC<NavItemProps> = ({
 
   useEffect(() => {
     if (hasMegaMenu && isOpen && wrapperRef.current) {
-      const navbar = wrapperRef.current.closest('.vtx-navbar-wrapper');
+      const navbar = wrapperRef.current.closest('.lxs-navbar-wrapper');
       if (navbar) {
         const rect = navbar.getBoundingClientRect();
         setMegaMenuTop(rect.bottom);
@@ -102,12 +102,12 @@ export const NavItem: React.FC<NavItemProps> = ({
   };
 
   const itemClass = [
-    'vtx-navbar__nav-item',
+    'lxs-navbar__nav-item',
     ...getActiveStyleClasses(),
-    item.disabled && 'vtx-navbar__nav-item--disabled',
-    (hasSubmenu || hasMegaMenu) && 'vtx-navbar__nav-item--with-submenu',
-    mobile && 'vtx-navbar__nav-item--mobile',
-    uppercase && 'vtx-navbar__nav-item--uppercase',
+    item.disabled && 'lxs-navbar__nav-item--disabled',
+    (hasSubmenu || hasMegaMenu) && 'lxs-navbar__nav-item--with-submenu',
+    mobile && 'lxs-navbar__nav-item--mobile',
+    uppercase && 'lxs-navbar__nav-item--uppercase',
   ]
     .filter(Boolean)
     .join(' ');
@@ -122,8 +122,8 @@ export const NavItem: React.FC<NavItemProps> = ({
   } as React.CSSProperties : {};
 
   const wrapperClass = [
-    'vtx-navbar__nav-item-wrapper',
-    hasMegaMenu && 'vtx-navbar__nav-item-wrapper--mega',
+    'lxs-navbar__nav-item-wrapper',
+    hasMegaMenu && 'lxs-navbar__nav-item-wrapper--mega',
   ]
     .filter(Boolean)
     .join(' ');
@@ -142,7 +142,7 @@ export const NavItem: React.FC<NavItemProps> = ({
       {(hasSubmenu || hasMegaMenu) && (
         <ChevronDownIcon
           size={16}
-          className={`vtx-navbar__nav-item-arrow ${isOpen ? 'vtx-navbar__nav-item-arrow--open' : ''
+          className={`vtx-navbar__nav-item-arrow ${isOpen ? 'lxs-navbar__nav-item-arrow--open' : ''
             }`}
         />
       )}
@@ -151,7 +151,7 @@ export const NavItem: React.FC<NavItemProps> = ({
 
   if (mobile) {
     return (
-      <Box className="vtx-navbar__mobile-nav-item-wrapper">
+      <Box className="lxs-navbar__mobile-nav-item-wrapper">
         {item.href && !hasSubmenu && !hasMegaMenu ? (
           <Link
             component={customComponent}
@@ -199,7 +199,7 @@ export const NavItem: React.FC<NavItemProps> = ({
               {(hasSubmenu || hasMegaMenu) && (
                 <ChevronDownIcon
                   size={20}
-                  className={`vtx-navbar__nav-item-arrow ${isOpen ? 'vtx-navbar__nav-item-arrow--open' : ''
+                  className={`vtx-navbar__nav-item-arrow ${isOpen ? 'lxs-navbar__nav-item-arrow--open' : ''
                     }`}
                   style={{
                     transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
@@ -211,7 +211,7 @@ export const NavItem: React.FC<NavItemProps> = ({
           </button>
         )}
         {(hasSubmenu || hasMegaMenu) && isOpen && (
-          <Box className="vtx-navbar__mobile-submenu">
+          <Box className="lxs-navbar__mobile-submenu">
             {hasSubmenu &&
               item.children!.map((child, index) => (
                 <NavItem
@@ -230,10 +230,10 @@ export const NavItem: React.FC<NavItemProps> = ({
               item.megaMenu!.map((column, colIndex) => (
                 <Box
                   key={colIndex}
-                  className="vtx-navbar__mobile-megamenu-column"
+                  className="lxs-navbar__mobile-megamenu-column"
                 >
                   {column.title && (
-                    <Typography variant="overline" weight="bold" className="vtx-navbar__mobile-megamenu-title">
+                    <Typography variant="overline" weight="bold" className="lxs-navbar__mobile-megamenu-title">
                       {column.title}
                     </Typography>
                   )}
@@ -304,7 +304,7 @@ export const NavItem: React.FC<NavItemProps> = ({
         </button>
       )}
       {hasSubmenu && isOpen && (
-        <div className="vtx-navbar__submenu">
+        <div className="lxs-navbar__submenu">
           {item.children!.map((child, index) => (
             <NavItem
               key={index}
@@ -321,17 +321,17 @@ export const NavItem: React.FC<NavItemProps> = ({
       )}
       {hasMegaMenu && isOpen && (
         <div
-          className="vtx-navbar__megamenu"
+          className="lxs-navbar__megamenu"
           style={{
             top: megaMenuTop > 0 ? `${megaMenuTop}px` : undefined
           }}
         >
-          <div className="vtx-navbar__megamenu-container">
-            <div className="vtx-navbar__megamenu-content">
+          <div className="lxs-navbar__megamenu-container">
+            <div className="lxs-navbar__megamenu-content">
               {item.megaMenu!.map((column, colIndex) => {
                 const columnClass = [
-                  'vtx-navbar__megamenu-column',
-                  column.featured && 'vtx-navbar__megamenu-column--featured',
+                  'lxs-navbar__megamenu-column',
+                  column.featured && 'lxs-navbar__megamenu-column--featured',
                   column.span && `vtx-navbar__megamenu-column--span-${column.span}`,
                 ]
                   .filter(Boolean)
@@ -339,22 +339,22 @@ export const NavItem: React.FC<NavItemProps> = ({
 
                 return (
                   <div key={colIndex} className={columnClass}>
-                    <div className="vtx-navbar__megamenu-column-inner">
+                    <div className="lxs-navbar__megamenu-column-inner">
                       {/* Column Header */}
                       {column.title && (
-                        <div className="vtx-navbar__megamenu-header">
+                        <div className="lxs-navbar__megamenu-header">
                           <Typography
                             variant="caption"
                             weight="bold"
                             transform="uppercase"
-                            className="vtx-navbar__megamenu-title"
+                            className="lxs-navbar__megamenu-title"
                           >
                             {column.title}
                           </Typography>
                           {column.description && (
                             <Typography
                               variant="caption"
-                              className="vtx-navbar__megamenu-description"
+                              className="lxs-navbar__megamenu-description"
                             >
                               {column.description}
                             </Typography>
@@ -364,18 +364,18 @@ export const NavItem: React.FC<NavItemProps> = ({
 
                       {/* Featured Image */}
                       {column.image && (
-                        <div className="vtx-navbar__megamenu-image">
+                        <div className="lxs-navbar__megamenu-image">
                           <img src={column.image} alt={column.title || 'Featured'} />
                         </div>
                       )}
 
                       {/* Menu Items */}
-                      <div className="vtx-navbar__megamenu-items">
+                      <div className="lxs-navbar__megamenu-items">
                         {column.items.map((child, index) => {
                           const itemClass = [
-                            'vtx-navbar__megamenu-item',
-                            child.featured && 'vtx-navbar__megamenu-item--featured',
-                            child.active && 'vtx-navbar__megamenu-item--active',
+                            'lxs-navbar__megamenu-item',
+                            child.featured && 'lxs-navbar__megamenu-item--featured',
+                            child.active && 'lxs-navbar__megamenu-item--active',
                           ]
                             .filter(Boolean)
                             .join(' ');
@@ -396,22 +396,22 @@ export const NavItem: React.FC<NavItemProps> = ({
                             >
                               <Box display="flex" alignItems="flex-start" gap={12}>
                                 {child.icon && (
-                                  <Box className="vtx-navbar__megamenu-item-icon">
+                                  <Box className="lxs-navbar__megamenu-item-icon">
                                     {child.icon}
                                   </Box>
                                 )}
                                 {child.image && (
-                                  <Box className="vtx-navbar__megamenu-item-image">
+                                  <Box className="lxs-navbar__megamenu-item-image">
                                     <img src={child.image} alt={child.label} />
                                   </Box>
                                 )}
-                                <Box display="flex" flexDirection="column" gap={2} className="vtx-navbar__megamenu-item-text">
+                                <Box display="flex" flexDirection="column" gap={2} className="lxs-navbar__megamenu-item-text">
                                   <Box display="flex" alignItems="center" gap={6}>
                                     <Typography
                                       variant="body2"
                                       weight="medium"
                                       noMargin
-                                      className="vtx-navbar__megamenu-item-label"
+                                      className="lxs-navbar__megamenu-item-label"
                                     >
                                       {child.label}
                                     </Typography>
@@ -420,7 +420,7 @@ export const NavItem: React.FC<NavItemProps> = ({
                                         variant={child.tagVariant as any}
                                         size="sm"
                                         pill
-                                        className="vtx-navbar__megamenu-item-tag"
+                                        className="lxs-navbar__megamenu-item-tag"
                                       >
                                         {child.tag || child.tagVariant}
                                       </Badge>
@@ -438,7 +438,7 @@ export const NavItem: React.FC<NavItemProps> = ({
                                     <Typography
                                       variant="caption"
                                       noMargin
-                                      className="vtx-navbar__megamenu-item-description"
+                                      className="lxs-navbar__megamenu-item-description"
                                     >
                                       {child.description}
                                     </Typography>
@@ -452,11 +452,11 @@ export const NavItem: React.FC<NavItemProps> = ({
 
                       {/* Column CTA */}
                       {column.cta && (
-                        <div className="vtx-navbar__megamenu-cta">
+                        <div className="lxs-navbar__megamenu-cta">
                           <Link
                             component={customComponent}
                             href={column.cta.href}
-                            className="vtx-navbar__megamenu-cta-link"
+                            className="lxs-navbar__megamenu-cta-link"
                             hoverColor={column.cta.hoverColor}
                             noUnderline
                           >

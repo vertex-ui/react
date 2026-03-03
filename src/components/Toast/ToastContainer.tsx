@@ -54,7 +54,7 @@ const ToastContainerInner: React.FC<ToastContainerProps> = ({
   const getPositionStyles = (pos: ToastPosition) => {
     const styles: React.CSSProperties = {
       position: 'fixed',
-      zIndex: 'var(--vtx-z-notification, 1400)',
+      zIndex: 'var(--lxs-z-notification, 1400)',
       pointerEvents: 'none',
     };
 
@@ -78,9 +78,9 @@ const ToastContainerInner: React.FC<ToastContainerProps> = ({
 
   // Build container class names
   const containerClasses = [
-    'vtx-toast-container',
+    'lxs-toast-container',
     `vtx-toast-container--${position}`,
-    stacked && 'vtx-toast-container--stacked',
+    stacked && 'lxs-toast-container--stacked',
     className,
   ]
     .filter(Boolean)
@@ -95,20 +95,20 @@ const ToastContainerInner: React.FC<ToastContainerProps> = ({
       style={
         {
           ...getPositionStyles(position),
-          '--vtx-toast-gap': `${gap}px`,
+          '--lxs-toast-gap': `${gap}px`,
           ...style,
-        } as React.CSSProperties & { '--vtx-toast-gap': string }
+        } as React.CSSProperties & { '--lxs-toast-gap': string }
       }
       aria-live="polite"
       aria-label="Notifications"
     >
       {/* Hidden count indicator */}
       {hiddenCount > 0 && (
-        <div className="vtx-toast-container__hidden-count">+{hiddenCount} more</div>
+        <div className="lxs-toast-container__hidden-count">+{hiddenCount} more</div>
       )}
 
       {/* Toast list */}
-      <div className="vtx-toast-container__list">
+      <div className="lxs-toast-container__list">
         {visibleToasts.map((toast, index) => (
           <Toast
             key={toast.id}

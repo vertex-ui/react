@@ -180,21 +180,21 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       .join(' ');
 
     const wrapperClassNames = [
-      'vtx-input-wrapper',
-      fullWidth && 'vtx-input-wrapper--full-width',
+      'lxs-input-wrapper',
+      fullWidth && 'lxs-input-wrapper--full-width',
       wrapperClassName,
     ]
       .filter(Boolean)
       .join(' ');
 
     const inputContainerClassNames = [
-      'vtx-input-container',
-      `vtx-input-container--${inputSize}`,
-      hasError && 'vtx-input-container--error',
-      hasSuccess && 'vtx-input-container--success',
-      disabled && 'vtx-input-container--disabled',
-      (leftIcon || prefix) && 'vtx-input-container--with-left-element',
-      (rightIcon || suffix || showClearButton) && 'vtx-input-container--with-right-element',
+      'lxs-input-container',
+      `lxs-input-container--${inputSize}`,
+      hasError && 'lxs-input-container--error',
+      hasSuccess && 'lxs-input-container--success',
+      disabled && 'lxs-input-container--disabled',
+      (leftIcon || prefix) && 'lxs-input-container--with-left-element',
+      (rightIcon || suffix || showClearButton) && 'lxs-input-container--with-right-element',
       className,
     ]
       .filter(Boolean)
@@ -210,10 +210,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className={wrapperClassNames}>
         {label && (
-          <label htmlFor={id} className={`vtx-input-label ${labelClassName}`.trim()}>
+          <label htmlFor={id} className={`lxs-input-label ${labelClassName}`.trim()}>
             {label}
             {required && (
-              <span className="vtx-input-label__required" aria-label="required">
+              <span className="lxs-input-label__required" aria-label="required">
                 {' '}
                 *
               </span>
@@ -222,19 +222,19 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         )}
         <div className={inputContainerClassNames}>
           {leftIcon && (
-            <span className="vtx-input-icon vtx-input-icon--left" aria-hidden="true">
+            <span className="lxs-input-icon lxs-input-icon--left" aria-hidden="true">
               {leftIcon}
             </span>
           )}
           {prefix && (
-            <span className="vtx-input-prefix" aria-hidden="true">
+            <span className="lxs-input-prefix" aria-hidden="true">
               {prefix}
             </span>
           )}
           <input
             ref={ref}
             id={id}
-            className={`vtx-input ${inputClassName}`.trim()}
+            className={`lxs-input ${inputClassName}`.trim()}
             disabled={disabled}
             required={required}
             value={value}
@@ -244,14 +244,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             {...props}
           />
           {suffix && (
-            <span className="vtx-input-suffix" aria-hidden="true">
+            <span className="lxs-input-suffix" aria-hidden="true">
               {suffix}
             </span>
           )}
           {showClearButton && (
             <button
               type="button"
-              className="vtx-input-clear"
+              className="lxs-input-clear"
               onClick={handleClear}
               aria-label="Clear input"
               tabIndex={-1}
@@ -260,28 +260,28 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             </button>
           )}
           {rightIcon && !showClearButton && (
-            <span className="vtx-input-icon vtx-input-icon--right" aria-hidden="true">
+            <span className="lxs-input-icon lxs-input-icon--right" aria-hidden="true">
               {rightIcon}
             </span>
           )}
         </div>
         {helperText && !error && !success && (
-          <p id={helperId} className="vtx-input-helper">
+          <p id={helperId} className="lxs-input-helper">
             {helperText}
           </p>
         )}
         {error && (
-          <p id={errorId} className="vtx-input-error" role="alert">
+          <p id={errorId} className="lxs-input-error" role="alert">
             {error}
           </p>
         )}
         {success && (
-          <p id={successId} className="vtx-input-success" role="status">
+          <p id={successId} className="lxs-input-success" role="status">
             {success}
           </p>
         )}
         {showCounter && (
-          <p className="vtx-input-counter" aria-live="polite">
+          <p className="lxs-input-counter" aria-live="polite">
             {currentLength} / {maxLength}
           </p>
         )}

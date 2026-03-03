@@ -5,7 +5,7 @@ import { Navbar } from '../../src/components/Navbar/Navbar';
 describe('Navbar', () => {
   it('renders correctly', () => {
     const { container } = render(<Navbar />);
-    expect(container.querySelector('.vtx-navbar')).toBeInTheDocument();
+    expect(container.querySelector('.lxs-navbar')).toBeInTheDocument();
   });
 
   it('renders logo', () => {

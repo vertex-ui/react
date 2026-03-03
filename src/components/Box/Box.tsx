@@ -631,11 +631,11 @@ const Box = React.forwardRef<HTMLElement, BoxProps>(
 
     // Build class names
     const classNames = [
-      'vtx-box',
-      display && `vtx-box--display-${display}`,
-      position && `vtx-box--position-${position}`,
-      overflow && `vtx-box--overflow-${overflow}`,
-      shadow && typeof shadow === 'string' && !shadow.includes('(') && `vtx-box--shadow-${shadow}`,
+      'lxs-box',
+      display && `lxs-box--display-${display}`,
+      position && `lxs-box--position-${position}`,
+      overflow && `lxs-box--overflow-${overflow}`,
+      shadow && typeof shadow === 'string' && !shadow.includes('(') && `lxs-box--shadow-${shadow}`,
       className,
     ]
       .filter(Boolean)

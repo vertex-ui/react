@@ -349,7 +349,7 @@ const DateRangePicker = React.forwardRef<HTMLInputElement, DateRangePickerProps>
     return (
       <div
         ref={containerRef}
-        className={`vtx-datepicker ${className}`.trim()}
+        className={`lxs-datepicker ${className}`.trim()}
       >
         <Input
           ref={ref}
@@ -366,7 +366,7 @@ const DateRangePicker = React.forwardRef<HTMLInputElement, DateRangePickerProps>
           required={required}
           readOnly
           rightIcon={<CalendarIcon size={16} />}
-          className={`vtx-datepicker__input ${inputClassName}`.trim()}
+          className={`lxs-datepicker__input ${inputClassName}`.trim()}
           clearable={clearable}
           onClear={handleClear}
           {...props}
@@ -375,18 +375,18 @@ const DateRangePicker = React.forwardRef<HTMLInputElement, DateRangePickerProps>
         {isOpen && (
           <div
             ref={dropdownRef}
-            className={`vtx-datepicker__dropdown ${dropdownClassName}`.trim()}
+            className={`lxs-datepicker__dropdown ${dropdownClassName}`.trim()}
           >
-            <div className="vtx-datepicker__content">
+            <div className="lxs-datepicker__content">
               {presets.length > 0 && (
-                <div className="vtx-datepicker__presets">
+                <div className="lxs-datepicker__presets">
                   {presets.map((preset) => (
                     <button
                       key={preset.label}
                       type="button"
                       className={[
-                        'vtx-datepicker__preset-button',
-                        activePreset === preset.label && 'vtx-datepicker__preset-button--active',
+                        'lxs-datepicker__preset-button',
+                        activePreset === preset.label && 'lxs-datepicker__preset-button--active',
                       ]
                         .filter(Boolean)
                         .join(' ')}
@@ -398,7 +398,7 @@ const DateRangePicker = React.forwardRef<HTMLInputElement, DateRangePickerProps>
                 </div>
               )}
               
-              <div className="vtx-datepicker__calendar-container">
+              <div className="lxs-datepicker__calendar-container">
                 <Calendar
                   rangeValue={[value.start, value.end]}
                   onRangeChange={handleRangeChange}

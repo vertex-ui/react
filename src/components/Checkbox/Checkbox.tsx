@@ -68,10 +68,10 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
  *
  * ```css
  * :root {
- *   --vtx-checkbox-color: #1976d2;
- *   --vtx-checkbox-size: 20px;
- *   --vtx-checkbox-border-width: 2px;
- *   --vtx-checkbox-border-radius: 4px;
+ *   --lxs-checkbox-color: #1976d2;
+ *   --lxs-checkbox-size: 20px;
+ *   --lxs-checkbox-border-width: 2px;
+ *   --lxs-checkbox-border-radius: 4px;
  * }
  * ```
  *
@@ -141,17 +141,17 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
 
     // Build class names
     const containerClassNames = [
-      'vtx-checkbox',
-      `vtx-checkbox--${checkboxSize}`,
-      `vtx-checkbox--${variant}`,
-      disabled && 'vtx-checkbox--disabled',
-      error && 'vtx-checkbox--error',
+      'lxs-checkbox',
+      `lxs-checkbox--${checkboxSize}`,
+      `lxs-checkbox--${variant}`,
+      disabled && 'lxs-checkbox--disabled',
+      error && 'lxs-checkbox--error',
       className,
     ]
       .filter(Boolean)
       .join(' ');
 
-    const inputClassNames = ['vtx-checkbox-input', inputClassName].filter(Boolean).join(' ');
+    const inputClassNames = ['lxs-checkbox-input', inputClassName].filter(Boolean).join(' ');
 
     // Handle ref for indeterminate state
     const inputRef = useRef<HTMLInputElement>(null);
@@ -166,8 +166,8 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
 
     return (
       <div className={containerClassNames}>
-        <label className="vtx-checkbox-label" htmlFor={checkboxId}>
-          <span className="vtx-checkbox-wrapper">
+        <label className="lxs-checkbox-label" htmlFor={checkboxId}>
+          <span className="lxs-checkbox-wrapper">
             <input
               ref={inputRef}
               type="checkbox"
@@ -178,10 +178,10 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
               onChange={onChange}
               {...props}
             />
-            <span className="vtx-checkbox-box">
+            <span className="lxs-checkbox-box">
               {/* Check icon */}
               <svg
-                className="vtx-checkbox-icon vtx-checkbox-icon--check"
+                className="lxs-checkbox-icon lxs-checkbox-icon--check"
                 viewBox="0 0 24 24"
                 fill="none"
                 aria-hidden="true"
@@ -196,7 +196,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
               </svg>
               {/* Indeterminate icon */}
               <svg
-                className="vtx-checkbox-icon vtx-checkbox-icon--indeterminate"
+                className="lxs-checkbox-icon lxs-checkbox-icon--indeterminate"
                 viewBox="0 0 24 24"
                 fill="none"
                 aria-hidden="true"
@@ -205,9 +205,9 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
               </svg>
             </span>
           </span>
-          {label && <span className="vtx-checkbox-label-text">{label}</span>}
+          {label && <span className="lxs-checkbox-label-text">{label}</span>}
         </label>
-        {helperText && <div className="vtx-checkbox-helper-text">{helperText}</div>}
+        {helperText && <div className="lxs-checkbox-helper-text">{helperText}</div>}
       </div>
     );
   }

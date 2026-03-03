@@ -190,7 +190,7 @@ const ActionMenu = React.forwardRef<HTMLDivElement, ActionMenuProps>(
         : undefined,
     }));
 
-    const positionClass = `vtx-action-menu--${position}`;
+    const positionClass = `lxs-action-menu--${position}`;
 
     // Render trigger - supports both ReactNode and render function
     const renderTriggerContent = () => {
@@ -205,7 +205,7 @@ const ActionMenu = React.forwardRef<HTMLDivElement, ActionMenuProps>(
       // Default trigger
       return (
         <Flex align="center" gap={8}>
-          {triggerIcon && <span className="vtx-action-menu-trigger-icon">{triggerIcon}</span>}
+          {triggerIcon && <span className="lxs-action-menu-trigger-icon">{triggerIcon}</span>}
           <Typography variant="body2" noMargin>
             {triggerLabel}
           </Typography>
@@ -219,9 +219,9 @@ const ActionMenu = React.forwardRef<HTMLDivElement, ActionMenuProps>(
     const isCustomTrigger = typeof trigger === 'function' || React.isValidElement(trigger);
 
     return (
-      <div ref={containerRef} className="vtx-action-menu-container">
+      <div ref={containerRef} className="lxs-action-menu-container">
         {isCustomTrigger ? (
-          <div className="vtx-action-menu-trigger-wrapper">
+          <div className="lxs-action-menu-trigger-wrapper">
             {typeof trigger === 'function' ? (
               triggerContent
             ) : (
@@ -231,9 +231,9 @@ const ActionMenu = React.forwardRef<HTMLDivElement, ActionMenuProps>(
         ) : (
           <div
             className={[
-              'vtx-action-menu-trigger',
-              disabled && 'vtx-action-menu-trigger--disabled',
-              isOpen && 'vtx-action-menu-trigger--open',
+              'lxs-action-menu-trigger',
+              disabled && 'lxs-action-menu-trigger--disabled',
+              isOpen && 'lxs-action-menu-trigger--open',
               triggerClassName,
             ]
               .filter(Boolean)
@@ -257,7 +257,7 @@ const ActionMenu = React.forwardRef<HTMLDivElement, ActionMenuProps>(
         {isOpen && (
           <div
             ref={ref || menuRef}
-            className={['vtx-action-menu', positionClass, className].filter(Boolean).join(' ')}
+            className={['lxs-action-menu', positionClass, className].filter(Boolean).join(' ')}
             role="menu"
           >
             {wrappedItems.map((item, index) => (

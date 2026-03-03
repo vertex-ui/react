@@ -134,7 +134,7 @@ const Logo = ({ collapsed }: { collapsed?: boolean }) => (
     </div>
     {!collapsed && (
       <Typography variant="h6" weight="bold" noMargin>
-        Vertex UI
+        Luxis UI
       </Typography>
     )}
   </Flex>

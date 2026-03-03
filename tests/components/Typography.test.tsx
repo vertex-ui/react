@@ -11,16 +11,16 @@ describe('Typography', () => {
   it('renders with default variant (body1)', () => {
     render(<Typography>Default text</Typography>);
     const element = screen.getByText('Default text');
-    expect(element).toHaveClass('vtx-typography');
-    expect(element).toHaveClass('vtx-typography--body1');
+    expect(element).toHaveClass('lxs-typography');
+    expect(element).toHaveClass('lxs-typography--body1');
   });
 
   it('renders heading variants', () => {
     render(<Typography variant="h1">Heading 1</Typography>);
-    expect(screen.getByText('Heading 1')).toHaveClass('vtx-typography--h1');
+    expect(screen.getByText('Heading 1')).toHaveClass('lxs-typography--h1');
 
     render(<Typography variant="h2">Heading 2</Typography>);
-    expect(screen.getByText('Heading 2')).toHaveClass('vtx-typography--h2');
+    expect(screen.getByText('Heading 2')).toHaveClass('lxs-typography--h2');
   });
 
   it('renders as correct HTML element', () => {
@@ -35,12 +35,12 @@ describe('Typography', () => {
       </Typography>
     );
     expect(container.querySelector('h2')).toBeInTheDocument();
-    expect(screen.getByText('Custom Element')).toHaveClass('vtx-typography--h1');
+    expect(screen.getByText('Custom Element')).toHaveClass('lxs-typography--h1');
   });
 
   it('applies text alignment classes', () => {
     render(<Typography align="center">Centered text</Typography>);
-    expect(screen.getByText('Centered text')).toHaveClass('vtx-typography--align-center');
+    expect(screen.getByText('Centered text')).toHaveClass('lxs-typography--align-center');
   });
 
   it('applies color styles', () => {
@@ -51,7 +51,7 @@ describe('Typography', () => {
 
   it('applies weight classes', () => {
     render(<Typography weight="bold">Bold text</Typography>);
-    expect(screen.getByText('Bold text')).toHaveClass('vtx-typography--weight-bold');
+    expect(screen.getByText('Bold text')).toHaveClass('lxs-typography--weight-bold');
   });
 
   it('applies numeric weight as inline style', () => {
@@ -62,41 +62,41 @@ describe('Typography', () => {
 
   it('applies text transform classes', () => {
     render(<Typography transform="uppercase">Transform text</Typography>);
-    expect(screen.getByText('Transform text')).toHaveClass('vtx-typography--transform-uppercase');
+    expect(screen.getByText('Transform text')).toHaveClass('lxs-typography--transform-uppercase');
   });
 
   it('applies text decoration utility classes', () => {
     render(<Typography underline>Underlined text</Typography>);
-    expect(screen.getByText('Underlined text')).toHaveClass('vtx-typography--underline');
+    expect(screen.getByText('Underlined text')).toHaveClass('lxs-typography--underline');
 
     render(<Typography strikethrough>Strikethrough text</Typography>);
-    expect(screen.getByText('Strikethrough text')).toHaveClass('vtx-typography--strikethrough');
+    expect(screen.getByText('Strikethrough text')).toHaveClass('lxs-typography--strikethrough');
   });
 
   it('applies utility classes', () => {
     render(<Typography truncate>Truncated text</Typography>);
-    expect(screen.getByText('Truncated text')).toHaveClass('vtx-typography--truncate');
+    expect(screen.getByText('Truncated text')).toHaveClass('lxs-typography--truncate');
 
     render(<Typography italic>Italic text</Typography>);
-    expect(screen.getByText('Italic text')).toHaveClass('vtx-typography--italic');
+    expect(screen.getByText('Italic text')).toHaveClass('lxs-typography--italic');
   });
 
   it('applies line clamp with correct style', () => {
     render(<Typography lineClamp={3}>Clamped text</Typography>);
     const element = screen.getByText('Clamped text');
-    expect(element).toHaveClass('vtx-typography--line-clamp');
+    expect(element).toHaveClass('lxs-typography--line-clamp');
   });
 
   it('applies gradient class when gradient prop is provided', () => {
     render(<Typography gradient={['#667eea', '#764ba2']}>Gradient text</Typography>);
-    expect(screen.getByText('Gradient text')).toHaveClass('vtx-typography--gradient');
+    expect(screen.getByText('Gradient text')).toHaveClass('lxs-typography--gradient');
   });
 
   it('applies default font size for body1 variant', () => {
     render(<Typography>Default body1 text</Typography>);
     const element = screen.getByText('Default body1 text');
     // body1 variant should have default font size from CSS variables
-    expect(element).toHaveClass('vtx-typography--body1');
+    expect(element).toHaveClass('lxs-typography--body1');
     // Custom size prop should not be applied when not specified
     expect(element.style.fontSize).toBe('');
   });
@@ -105,8 +105,8 @@ describe('Typography', () => {
     render(<Typography>Inherited styles</Typography>);
     const element = screen.getByText('Inherited styles');
     // Should inherit font family from CSS variables
-    expect(element).toHaveClass('vtx-typography');
-    expect(element).toHaveClass('vtx-typography--body1');
+    expect(element).toHaveClass('lxs-typography');
+    expect(element).toHaveClass('lxs-typography--body1');
     // Should not have inline font-family override
     expect(element.style.fontFamily).toBe('');
   });
@@ -123,7 +123,7 @@ describe('Typography', () => {
       </Typography>
     );
     const element = screen.getByText('Custom h1 size');
-    expect(element).toHaveClass('vtx-typography--h1');
+    expect(element).toHaveClass('lxs-typography--h1');
     expect(element.style.fontSize).toBe('18px');
   });
 
@@ -136,7 +136,7 @@ describe('Typography', () => {
     render(<Typography className="custom-class">Custom class</Typography>);
     const element = screen.getByText('Custom class');
     expect(element).toHaveClass('custom-class');
-    expect(element).toHaveClass('vtx-typography');
+    expect(element).toHaveClass('lxs-typography');
   });
 
   it('forwards HTML attributes', () => {
@@ -178,12 +178,12 @@ describe('Typography', () => {
       </Typography>
     );
     const element = screen.getByText('Combined');
-    expect(element).toHaveClass('vtx-typography--h2');
-    expect(element).toHaveClass('vtx-typography--align-center');
-    expect(element).toHaveClass('vtx-typography--weight-bold');
-    expect(element).toHaveClass('vtx-typography--transform-uppercase');
-    expect(element).toHaveClass('vtx-typography--italic');
-    expect(element).toHaveClass('vtx-typography--underline');
+    expect(element).toHaveClass('lxs-typography--h2');
+    expect(element).toHaveClass('lxs-typography--align-center');
+    expect(element).toHaveClass('lxs-typography--weight-bold');
+    expect(element).toHaveClass('lxs-typography--transform-uppercase');
+    expect(element).toHaveClass('lxs-typography--italic');
+    expect(element).toHaveClass('lxs-typography--underline');
     expect(element).toHaveClass('custom-class');
   });
 

@@ -280,9 +280,9 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
   };
 
   const backdropClassNames = [
-    'vtx-modal-backdrop',
-    transparentBackdrop && 'vtx-modal-backdrop--transparent',
-    centered && 'vtx-modal-backdrop--centered',
+    'lxs-modal-backdrop',
+    transparentBackdrop && 'lxs-modal-backdrop--transparent',
+    centered && 'lxs-modal-backdrop--centered',
     `vtx-modal-backdrop--${animation}`,
     backdropClassName,
   ]
@@ -290,9 +290,9 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
     .join(' ');
 
   const modalClassNames = [
-    'vtx-modal',
+    'lxs-modal',
     `vtx-modal--${effectiveSize}`,
-    scrollable && 'vtx-modal--scrollable',
+    scrollable && 'lxs-modal--scrollable',
     `vtx-modal--${animation}`,
     className,
   ]
@@ -301,7 +301,7 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
 
   const renderHeader = () => {
     if (header) {
-      return <div className="vtx-modal-header">{header}</div>;
+      return <div className="lxs-modal-header">{header}</div>;
     }
 
     if (!title && !showCloseButton) {
@@ -309,14 +309,14 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
     }
 
     return (
-      <Flex className="vtx-modal-header" justify="between" align="center" gap={8}>
+      <Flex className="lxs-modal-header" justify="between" align="center" gap={8}>
         {title && (
-          <Flex direction="column" gap={4} className="vtx-modal-header-content">
-            <Typography as="h2" variant="h6" weight="semibold" id="vtx-modal-title" noMargin>
+          <Flex direction="column" gap={4} className="lxs-modal-header-content">
+            <Typography as="h2" variant="h6" weight="semibold" id="lxs-modal-title" noMargin>
               {title}
             </Typography>
             {description && (
-              <Typography variant="body2" textColor="var(--color-neutral-600)" id="vtx-modal-description" noMargin>
+              <Typography variant="body2" textColor="var(--color-neutral-600)" id="lxs-modal-description" noMargin>
                 {description}
               </Typography>
             )}
@@ -327,7 +327,7 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
             variant="ghost"
             iconOnly
             size="sm"
-            className="vtx-modal-close"
+            className="lxs-modal-close"
             onClick={onClose}
             aria-label="Close modal"
           >
@@ -352,15 +352,15 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
         className={modalClassNames}
         role="dialog"
         aria-modal="true"
-        aria-labelledby={title ? 'vtx-modal-title' : undefined}
-        aria-describedby={description ? 'vtx-modal-description' : undefined}
+        aria-labelledby={title ? 'lxs-modal-title' : undefined}
+        aria-describedby={description ? 'lxs-modal-description' : undefined}
       >
         {renderHeader()}
-        <Flex direction="column" className="vtx-modal-body">
+        <Flex direction="column" className="lxs-modal-body">
           {children}
         </Flex>
         {(footer || footerButtons) && (
-          <Flex className="vtx-modal-footer" justify="end" align="center" gap={8}>
+          <Flex className="lxs-modal-footer" justify="end" align="center" gap={8}>
             {footerButtons
               ? footerButtons.map((btn, index) => (
                   <Button

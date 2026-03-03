@@ -24,9 +24,9 @@ jest.mock('../../src/components/Box', () => ({
 
 describe('Divider', () => {
   const getRootBox = () => {
-    // The root divider always has class 'vtx-divider'
+    // The root divider always has class 'lxs-divider'
     const boxes = screen.getAllByTestId('mock-box');
-    return boxes.find(box => box.classList.contains('vtx-divider')) || boxes[0];
+    return boxes.find(box => box.classList.contains('lxs-divider')) || boxes[0];
   };
 
   const getStyle = () => {
@@ -81,18 +81,18 @@ describe('Divider', () => {
 
   it('renders inset variant', () => {
     render(<Divider variant="inset" />);
-    expect(getStyle().marginLeft).toBe('var(--vtx-spacing-9)');
+    expect(getStyle().marginLeft).toBe('var(--lxs-spacing-9)');
   });
 
   it('renders middle variant', () => {
     render(<Divider variant="middle" />);
-    expect(getStyle().marginLeft).toBe('var(--vtx-spacing-3)');
+    expect(getStyle().marginLeft).toBe('var(--lxs-spacing-3)');
   });
 
   // Light variant
   it('renders light divider', () => {
     render(<Divider light />);
-    expect(getStyle().borderColor).toBe('var(--vtx-divider-color-light, var(--vtx-color-neutral-100))');
+    expect(getStyle().borderColor).toBe('var(--lxs-divider-color-light, var(--lxs-color-neutral-100))');
   });
 
   // Flex item
@@ -109,7 +109,7 @@ describe('Divider', () => {
   // Children tests
   it('renders with text children', () => {
     const { container } = render(<Divider>OR</Divider>);
-    const divider = container.querySelector('.vtx-divider') as HTMLElement;
+    const divider = container.querySelector('.lxs-divider') as HTMLElement;
     expect(divider?.tagName).toBe('DIV');
     expect(divider.style.display).toBe('flex');
     expect(screen.getByText('OR')).toBeInTheDocument();
@@ -127,7 +127,7 @@ describe('Divider', () => {
 
   it('wraps children in a wrapper span', () => {
     const { container } = render(<Divider>Text</Divider>);
-    const wrapper = container.querySelector('.vtx-divider-wrapper');
+    const wrapper = container.querySelector('.lxs-divider-wrapper');
     expect(wrapper).toBeInTheDocument();
     expect(wrapper?.textContent).toBe('Text');
   });
@@ -137,32 +137,32 @@ describe('Divider', () => {
   // We can check if the children are rendered.
   it('renders with center text alignment by default', () => {
     const { container } = render(<Divider>CENTER</Divider>);
-    const divider = container.querySelector('.vtx-divider') as HTMLElement;
+    const divider = container.querySelector('.lxs-divider') as HTMLElement;
     expect(divider.style.textAlign).toBe('center');
   });
 
   it('renders with left text alignment', () => {
     const { container } = render(<Divider textAlign="left">LEFT</Divider>);
-    const divider = container.querySelector('.vtx-divider') as HTMLElement;
+    const divider = container.querySelector('.lxs-divider') as HTMLElement;
     expect(divider).toBeInTheDocument();
   });
 
   it('renders with right text alignment', () => {
     const { container } = render(<Divider textAlign="right">RIGHT</Divider>);
-    const divider = container.querySelector('.vtx-divider') as HTMLElement;
+    const divider = container.querySelector('.lxs-divider') as HTMLElement;
     expect(divider).toBeInTheDocument();
   });
 
   // Component prop tests
   it('renders with custom component', () => {
     const { container } = render(<Divider component="li" />);
-    const divider = container.querySelector('.vtx-divider');
+    const divider = container.querySelector('.lxs-divider');
     expect(divider?.tagName).toBe('LI');
   });
 
   it('renders children with custom component', () => {
     const { container } = render(<Divider component="section">Section</Divider>);
-    const divider = container.querySelector('.vtx-divider');
+    const divider = container.querySelector('.lxs-divider');
     expect(divider?.tagName).toBe('SECTION');
     expect(screen.getByText('Section')).toBeInTheDocument();
   });
@@ -170,19 +170,19 @@ describe('Divider', () => {
   // Role and accessibility tests
   it('has correct role for vertical divider', () => {
     const { container } = render(<Divider orientation="vertical" />);
-    const divider = container.querySelector('.vtx-divider');
+    const divider = container.querySelector('.lxs-divider');
     expect(divider).toHaveAttribute('role', 'separator');
   });
 
   it('accepts custom role', () => {
     const { container } = render(<Divider role="presentation" />);
-    const divider = container.querySelector('.vtx-divider');
+    const divider = container.querySelector('.lxs-divider');
     expect(divider).toHaveAttribute('role', 'presentation');
   });
 
   it('can be hidden from screen readers', () => {
     const { container } = render(<Divider aria-hidden="true" />);
-    const divider = container.querySelector('.vtx-divider');
+    const divider = container.querySelector('.lxs-divider');
     expect(divider).toHaveAttribute('aria-hidden', 'true');
   });
 
@@ -192,7 +192,7 @@ describe('Divider', () => {
         Content
       </Divider>
     );
-    const divider = container.querySelector('.vtx-divider');
+    const divider = container.querySelector('.lxs-divider');
     expect(divider).toHaveAttribute('role', 'presentation');
   });
 
@@ -201,25 +201,25 @@ describe('Divider', () => {
     const ref = { current: null as HTMLHRElement | null };
     render(<Divider ref={ref} />);
     expect(ref.current).toBeInstanceOf(HTMLHRElement);
-    expect(ref.current).toHaveClass('vtx-divider');
+    expect(ref.current).toHaveClass('lxs-divider');
   });
 
   it('forwards ref for div element', () => {
     const ref = { current: null as HTMLDivElement | null };
     render(<Divider orientation="vertical" ref={ref} />);
     expect(ref.current).toBeInstanceOf(HTMLDivElement);
-    expect(ref.current).toHaveClass('vtx-divider');
+    expect(ref.current).toHaveClass('lxs-divider');
   });
 
   // Combined props tests
   it('renders vertical divider with middle variant', () => {
     render(<Divider orientation="vertical" variant="middle" />);
-    expect(getStyle().marginTop).toBe('var(--vtx-spacing-2)');
+    expect(getStyle().marginTop).toBe('var(--lxs-spacing-2)');
   });
 
   it('renders light inset divider', () => {
     render(<Divider variant="inset" light />);
-    expect(getStyle().marginLeft).toBe('var(--vtx-spacing-9)');
+    expect(getStyle().marginLeft).toBe('var(--lxs-spacing-9)');
   });
 
   it('renders vertical flex item with children', () => {

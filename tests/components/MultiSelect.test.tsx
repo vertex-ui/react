@@ -103,10 +103,10 @@ describe('MultiSelect', () => {
       <MultiSelect options={mockOptions} value={['1']} onChange={handleChange} />
     );
 
-    const inputArea = container.querySelector('.vtx-multiselect-input-area')!;
+    const inputArea = container.querySelector('.lxs-multiselect-input-area')!;
     fireEvent.click(inputArea);
 
-    const option = container.querySelector('.vtx-multiselect-option')!;
+    const option = container.querySelector('.lxs-multiselect-option')!;
     fireEvent.click(option);
 
     expect(handleChange).toHaveBeenCalledWith([], []);
@@ -181,7 +181,7 @@ describe('MultiSelect', () => {
       <MultiSelect options={mockOptions} value={['1', '2']} onChange={handleChange} showSelectAll />
     );
 
-    const inputArea = container.querySelector('.vtx-multiselect-input-area')!;
+    const inputArea = container.querySelector('.lxs-multiselect-input-area')!;
     fireEvent.click(inputArea);
 
     const clearAllButton = screen.getByText('Clear All');
@@ -193,7 +193,7 @@ describe('MultiSelect', () => {
   it('displays grouped options correctly', () => {
     const { container } = render(<MultiSelect options={groupedOptions} grouped />);
 
-    const inputArea = container.querySelector('.vtx-multiselect-input-area')!;
+    const inputArea = container.querySelector('.lxs-multiselect-input-area')!;
     fireEvent.click(inputArea);
 
     expect(screen.getByText('Frontend')).toBeInTheDocument();
@@ -212,21 +212,21 @@ describe('MultiSelect', () => {
 
   it('applies size classes correctly', () => {
     const { rerender, container } = render(<MultiSelect options={mockOptions} size="small" />);
-    expect(container.querySelector('.vtx-multiselect-container')).toHaveClass(
-      'vtx-multiselect-container--small'
+    expect(container.querySelector('.lxs-multiselect-container')).toHaveClass(
+      'lxs-multiselect-container--small'
     );
 
     rerender(<MultiSelect options={mockOptions} size="large" />);
-    expect(container.querySelector('.vtx-multiselect-container')).toHaveClass(
-      'vtx-multiselect-container--large'
+    expect(container.querySelector('.lxs-multiselect-container')).toHaveClass(
+      'lxs-multiselect-container--large'
     );
   });
 
   it('applies error state correctly', () => {
     const { container } = render(<MultiSelect options={mockOptions} error="Required field" />);
 
-    expect(container.querySelector('.vtx-multiselect-container')).toHaveClass(
-      'vtx-multiselect-container--error'
+    expect(container.querySelector('.lxs-multiselect-container')).toHaveClass(
+      'lxs-multiselect-container--error'
     );
     expect(screen.getByText('Required field')).toBeInTheDocument();
   });
@@ -234,8 +234,8 @@ describe('MultiSelect', () => {
   it('applies success state correctly', () => {
     const { container } = render(<MultiSelect options={mockOptions} success="Looks good!" />);
 
-    expect(container.querySelector('.vtx-multiselect-container')).toHaveClass(
-      'vtx-multiselect-container--success'
+    expect(container.querySelector('.lxs-multiselect-container')).toHaveClass(
+      'lxs-multiselect-container--success'
     );
     expect(screen.getByText('Looks good!')).toBeInTheDocument();
   });
@@ -253,8 +253,8 @@ describe('MultiSelect', () => {
   it('disables component when disabled prop is true', () => {
     const { container } = render(<MultiSelect options={mockOptions} disabled />);
 
-    expect(container.querySelector('.vtx-multiselect-container')).toHaveClass(
-      'vtx-multiselect-container--disabled'
+    expect(container.querySelector('.lxs-multiselect-container')).toHaveClass(
+      'lxs-multiselect-container--disabled'
     );
 
     const button = screen.getByRole('button');
@@ -266,8 +266,8 @@ describe('MultiSelect', () => {
 
   it('applies fullWidth class when fullWidth is true', () => {
     const { container } = render(<MultiSelect options={mockOptions} fullWidth />);
-    expect(container.querySelector('.vtx-multiselect-wrapper')).toHaveClass(
-      'vtx-multiselect-wrapper--full-width'
+    expect(container.querySelector('.lxs-multiselect-wrapper')).toHaveClass(
+      'lxs-multiselect-wrapper--full-width'
     );
   });
 
@@ -332,7 +332,7 @@ describe('MultiSelect', () => {
     fireEvent.click(container);
 
     // Find option 1
-    const option1 = screen.getByText('Option 1').closest('.vtx-multiselect-option');
+    const option1 = screen.getByText('Option 1').closest('.lxs-multiselect-option');
     expect(option1).toBeInTheDocument();
 
     // Select with Enter
@@ -362,8 +362,8 @@ describe('MultiSelect', () => {
     );
 
     const chip = screen.getByText('Option 1').parentElement;
-    expect(chip).toHaveClass('vtx-chip--success');
-    expect(chip).toHaveClass('vtx-chip--outlined');
+    expect(chip).toHaveClass('lxs-chip--success');
+    expect(chip).toHaveClass('lxs-chip--outlined');
   });
 
   it('works as uncontrolled component with defaultValue', () => {
@@ -379,18 +379,18 @@ describe('MultiSelect', () => {
 
     const hiddenSelect = container.querySelector('select[name="items"]');
     expect(hiddenSelect).toBeInTheDocument();
-    expect(hiddenSelect).toHaveClass('vtx-multiselect-hidden-select');
+    expect(hiddenSelect).toHaveClass('lxs-multiselect-hidden-select');
   });
 
   it('applies custom className', () => {
     const { container } = render(<MultiSelect options={mockOptions} className="custom-class" />);
-    expect(container.querySelector('.vtx-multiselect-wrapper')).toHaveClass('custom-class');
+    expect(container.querySelector('.lxs-multiselect-wrapper')).toHaveClass('custom-class');
   });
 
   it('shows loading spinner in icon when loading prop is true', () => {
     const { container } = render(<MultiSelect options={mockOptions} loading />);
 
-    const spinner = container.querySelector('.vtx-multiselect-icon-spinner');
+    const spinner = container.querySelector('.lxs-multiselect-icon-spinner');
     expect(spinner).toBeInTheDocument();
   });
 
@@ -398,12 +398,12 @@ describe('MultiSelect', () => {
     const { container } = render(<MultiSelect options={mockOptions} loading />);
 
     // Spinner should be present
-    const spinner = container.querySelector('.vtx-multiselect-icon-spinner');
+    const spinner = container.querySelector('.lxs-multiselect-icon-spinner');
     expect(spinner).toBeInTheDocument();
 
     // Regular chevron path should not be present
     const chevronPath = container.querySelector(
-      '.vtx-multiselect-icon svg path[d="M4 6L8 10L12 6"]'
+      '.lxs-multiselect-icon svg path[d="M4 6L8 10L12 6"]'
     );
     expect(chevronPath).not.toBeInTheDocument();
   });

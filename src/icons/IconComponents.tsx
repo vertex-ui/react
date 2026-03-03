@@ -63,14 +63,14 @@ import {
 
 export const SpinnerIcon = (props: { size?: number }) => (
     <svg
-        className="vtx-multiselect-icon-spinner"
+        className="lxs-multiselect-icon-spinner"
         width={props.size || 16}
         height={props.size || 16}
         viewBox="0 0 16 16"
         fill="none"
     >
         <circle
-            className="vtx-multiselect-icon-spinner-track"
+            className="lxs-multiselect-icon-spinner-track"
             cx="8"
             cy="8"
             r="6"
@@ -78,7 +78,7 @@ export const SpinnerIcon = (props: { size?: number }) => (
             strokeWidth="2"
         />
         <path
-            className="vtx-multiselect-icon-spinner-path"
+            className="lxs-multiselect-icon-spinner-path"
             fill="currentColor"
             d="M8 2C4.686 2 2 4.686 2 8h2c0-2.21 1.79-4 4-4V2z"
         />
@@ -93,7 +93,7 @@ export const CloseSmallIcon = (props: { size?: number }) => (
         height={props.size || 16}
         viewBox="0 0 16 16"
         fill="none"
-        className="vtx-icon-close"
+        className="lxs-icon-close"
     >
         <path
             d="M12 4L4 12M4 4L12 12"

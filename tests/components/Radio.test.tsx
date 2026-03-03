@@ -23,26 +23,26 @@ describe('Radio', () => {
 
     it('applies custom className', () => {
       const { container } = render(<Radio className="custom-class" />);
-      const wrapper = container.querySelector('.vtx-radio');
+      const wrapper = container.querySelector('.lxs-radio');
       expect(wrapper).toHaveClass('custom-class');
     });
 
     it('renders all three sizes', () => {
       const { container: small } = render(<Radio size="sm" />);
-      expect(small.querySelector('.vtx-radio--sm')).toBeInTheDocument();
+      expect(small.querySelector('.lxs-radio--sm')).toBeInTheDocument();
 
       const { container: medium } = render(<Radio size="md" />);
-      expect(medium.querySelector('.vtx-radio--md')).toBeInTheDocument();
+      expect(medium.querySelector('.lxs-radio--md')).toBeInTheDocument();
 
       const { container: large } = render(<Radio size="lg" />);
-      expect(large.querySelector('.vtx-radio--lg')).toBeInTheDocument();
+      expect(large.querySelector('.lxs-radio--lg')).toBeInTheDocument();
     });
 
     it('renders all variants', () => {
       const variants = ['primary', 'secondary', 'success', 'error', 'warning', 'info'] as const;
       variants.forEach((variant) => {
         const { container } = render(<Radio variant={variant} />);
-        expect(container.querySelector(`.vtx-radio--${variant}`)).toBeInTheDocument();
+        expect(container.querySelector(`.lxs-radio--${variant}`)).toBeInTheDocument();
       });
     });
   });
@@ -93,8 +93,8 @@ describe('Radio', () => {
 
     it('applies disabled class', () => {
       const { container } = render(<Radio disabled />);
-      const wrapper = container.querySelector('.vtx-radio');
-      expect(wrapper).toHaveClass('vtx-radio--disabled');
+      const wrapper = container.querySelector('.lxs-radio');
+      expect(wrapper).toHaveClass('lxs-radio--disabled');
     });
 
     it('is marked as disabled in DOM', () => {
@@ -107,8 +107,8 @@ describe('Radio', () => {
   describe('Error State', () => {
     it('applies error class when error is true', () => {
       const { container } = render(<Radio error />);
-      const wrapper = container.querySelector('.vtx-radio');
-      expect(wrapper).toHaveClass('vtx-radio--error');
+      const wrapper = container.querySelector('.lxs-radio');
+      expect(wrapper).toHaveClass('lxs-radio--error');
     });
 
     it('renders error state with helper text', () => {

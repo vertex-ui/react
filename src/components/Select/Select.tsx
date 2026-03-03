@@ -180,11 +180,11 @@ export interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement
  * @example
  * Customize loading spinner via CSS
  * ```css
- * .vtx-select-icon-spinner {
- *   --vtx-select-loader-color: #10b981;
- *   --vtx-select-loader-speed: 1.2s;
- *   --vtx-select-loader-track-opacity: 0.15;
- *   --vtx-select-loader-path-opacity: 0.85;
+ * .lxs-select-icon-spinner {
+ *   --lxs-select-loader-color: #10b981;
+ *   --lxs-select-loader-speed: 1.2s;
+ *   --lxs-select-loader-track-opacity: 0.15;
+ *   --lxs-select-loader-path-opacity: 0.85;
  * }
  * ```
  */
@@ -246,19 +246,19 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       .join(' ');
 
     const wrapperClassNames = [
-      'vtx-select-wrapper',
-      fullWidth && 'vtx-select-wrapper--full-width',
+      'lxs-select-wrapper',
+      fullWidth && 'lxs-select-wrapper--full-width',
       wrapperClassName,
     ]
       .filter(Boolean)
       .join(' ');
 
     const selectContainerClassNames = [
-      'vtx-select-container',
-      `vtx-select-container--${selectSize}`,
-      hasError && 'vtx-select-container--error',
-      hasSuccess && 'vtx-select-container--success',
-      disabled && 'vtx-select-container--disabled',
+      'lxs-select-container',
+      `lxs-select-container--${selectSize}`,
+      hasError && 'lxs-select-container--error',
+      hasSuccess && 'lxs-select-container--success',
+      disabled && 'lxs-select-container--disabled',
       className,
     ]
       .filter(Boolean)
@@ -322,10 +322,10 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     return (
       <div className={wrapperClassNames}>
         {label && (
-          <label htmlFor={id} className="vtx-select-label">
+          <label htmlFor={id} className="lxs-select-label">
             {label}
             {required && (
-              <span className="vtx-select-label__required" aria-label="required">
+              <span className="lxs-select-label__required" aria-label="required">
                 {' '}
                 *
               </span>
@@ -336,7 +336,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           <select
             ref={ref}
             id={id}
-            className="vtx-select"
+            className="lxs-select"
             disabled={disabled}
             required={required}
             aria-invalid={hasError}
@@ -352,17 +352,17 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             )}
             {renderOptions()}
           </select>
-          <span className="vtx-select-icon" aria-hidden="true">
+          <span className="lxs-select-icon" aria-hidden="true">
             {loading ? (
               <svg
-                className="vtx-select-icon-spinner"
+                className="lxs-select-icon-spinner"
                 width="16"
                 height="16"
                 viewBox="0 0 16 16"
                 fill="none"
               >
                 <circle
-                  className="vtx-select-icon-spinner-track"
+                  className="lxs-select-icon-spinner-track"
                   cx="8"
                   cy="8"
                   r="6"
@@ -370,7 +370,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                   strokeWidth="2"
                 />
                 <path
-                  className="vtx-select-icon-spinner-path"
+                  className="lxs-select-icon-spinner-path"
                   fill="currentColor"
                   d="M8 2C4.686 2 2 4.686 2 8h2c0-2.21 1.79-4 4-4V2z"
                 />
@@ -389,17 +389,17 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           </span>
         </div>
         {helperText && !error && !success && (
-          <p id={helperId} className="vtx-select-helper">
+          <p id={helperId} className="lxs-select-helper">
             {helperText}
           </p>
         )}
         {error && (
-          <p id={errorId} className="vtx-select-error" role="alert">
+          <p id={errorId} className="lxs-select-error" role="alert">
             {error}
           </p>
         )}
         {success && (
-          <p id={successId} className="vtx-select-success" role="status">
+          <p id={successId} className="lxs-select-success" role="status">
             {success}
           </p>
         )}

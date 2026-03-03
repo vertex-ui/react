@@ -281,16 +281,16 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   };
 
   return (
-    <Flex direction="column" gap={8} className={`vtx-fileupload-wrapper ${className}`}>
+    <Flex direction="column" gap={8} className={`lxs-fileupload-wrapper ${className}`}>
       {label && (
-        <Typography as="label" htmlFor={id} variant="label" className="vtx-fileupload-label">
+        <Typography as="label" htmlFor={id} variant="label" className="lxs-fileupload-label">
           {label}
-          {required && <span className="vtx-fileupload-label__required"> *</span>}
+          {required && <span className="lxs-fileupload-label__required"> *</span>}
         </Typography>
       )}
 
       <div
-        className={`vtx-fileupload-dropzone ${isDragging ? 'vtx-fileupload-dropzone--active' : ''} ${error ? 'vtx-fileupload-dropzone--error' : ''} ${disabled ? 'vtx-fileupload-dropzone--disabled' : ''}`}
+        className={`lxs-fileupload-dropzone ${isDragging ? 'lxs-fileupload-dropzone--active' : ''} ${error ? 'lxs-fileupload-dropzone--error' : ''} ${disabled ? 'lxs-fileupload-dropzone--disabled' : ''}`}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
@@ -308,20 +308,20 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           ref={inputRef}
           id={id}
           type="file"
-          className="vtx-fileupload-input"
+          className="lxs-fileupload-input"
           multiple={multiple}
           accept={accept}
           onChange={handleInputChange}
           disabled={disabled}
         />
 
-        <Flex direction="column" align="center" gap={12} className="vtx-fileupload-content">
-          <FiUploadCloud className="vtx-fileupload-icon" />
-          <Typography variant="body2" align="center" className="vtx-fileupload-text">
+        <Flex direction="column" align="center" gap={12} className="lxs-fileupload-content">
+          <FiUploadCloud className="lxs-fileupload-icon" />
+          <Typography variant="body2" align="center" className="lxs-fileupload-text">
             <Button
               variant="ghost"
               size="sm"
-              className="vtx-fileupload-browse-btn"
+              className="lxs-fileupload-browse-btn"
               disabled={disabled}
               onClick={(e) => {
                 e.stopPropagation(); // Prevent bubbling since parent is also clickable
@@ -333,10 +333,10 @@ export const FileUpload: React.FC<FileUploadProps> = ({
             {' '}or drag and drop
           </Typography>
           {helperText && !error && (
-            <Typography variant="caption" color="secondary" className="vtx-fileupload-helper">{helperText}</Typography>
+            <Typography variant="caption" color="secondary" className="lxs-fileupload-helper">{helperText}</Typography>
           )}
           {error && (
-            <Typography variant="caption" color="error" className="vtx-fileupload-error">
+            <Typography variant="caption" color="error" className="lxs-fileupload-error">
               <FiAlertCircle style={{ marginRight: 4, verticalAlign: 'text-bottom' }} />
               {error}
             </Typography>
@@ -345,10 +345,10 @@ export const FileUpload: React.FC<FileUploadProps> = ({
       </div>
 
       {files.length > 0 && (
-        <Flex direction="column" gap={12} className="vtx-fileupload-list">
+        <Flex direction="column" gap={12} className="lxs-fileupload-list">
           {files.map((item) => (
-            <Flex key={item.id} align="center" className="vtx-fileupload-item">
-              <div className="vtx-fileupload-item__preview">
+            <Flex key={item.id} align="center" className="lxs-fileupload-item">
+              <div className="lxs-fileupload-item__preview">
                 {item.previewUrl ? (
                   <img src={item.previewUrl} alt={item.file.name} loading="lazy" />
                 ) : (
@@ -356,29 +356,29 @@ export const FileUpload: React.FC<FileUploadProps> = ({
                 )}
               </div>
 
-              <Flex direction="column" gap={2} className="vtx-fileupload-item__info">
-                <Typography variant="body2" weight="medium" className="vtx-fileupload-item__name" title={item.file.name}>
+              <Flex direction="column" gap={2} className="lxs-fileupload-item__info">
+                <Typography variant="body2" weight="medium" className="lxs-fileupload-item__name" title={item.file.name}>
                   {item.file.name}
                 </Typography>
-                <Flex gap={8} className="vtx-fileupload-item__meta">
+                <Flex gap={8} className="lxs-fileupload-item__meta">
                   <Typography variant="caption" color="secondary">{formatFileSize(item.file.size)}</Typography>
                   {item.status === 'error' && (
-                    <Typography variant="caption" color="error" className="vtx-fileupload-item__error-text">
+                    <Typography variant="caption" color="error" className="lxs-fileupload-item__error-text">
                       • {item.error}
                     </Typography>
                   )}
                 </Flex>
               </Flex>
 
-              <Flex align="center" className="vtx-fileupload-item__actions">
+              <Flex align="center" className="lxs-fileupload-item__actions">
                 {item.status === 'success' && (
-                  <FiCheckCircle className="text-success-500" style={{ color: 'var(--vtx-color-success-500)', marginRight: 8 }} />
+                  <FiCheckCircle className="text-success-500" style={{ color: 'var(--lxs-color-success-500)', marginRight: 8 }} />
                 )}
                 <Button
                   variant="ghost"
                   size="sm"
                   iconOnly
-                  className="vtx-fileupload-item__remove"
+                  className="lxs-fileupload-item__remove"
                   onClick={() => handleRemove(item.id)}
                   aria-label="Remove file"
                   disabled={disabled}
@@ -389,15 +389,15 @@ export const FileUpload: React.FC<FileUploadProps> = ({
 
               {item.status === 'uploading' && (
                 <div
-                  className="vtx-fileupload-item__progress"
+                  className="lxs-fileupload-item__progress"
                   style={{ width: `${item.progress}%` }}
                 />
               )}
               {item.status === 'error' && (
-                <div className="vtx-fileupload-item__progress vtx-fileupload-item__progress--error" style={{ width: '100%' }} />
+                <div className="lxs-fileupload-item__progress lxs-fileupload-item__progress--error" style={{ width: '100%' }} />
               )}
               {item.status === 'success' && (
-                <div className="vtx-fileupload-item__progress vtx-fileupload-item__progress--complete" style={{ width: '100%' }} />
+                <div className="lxs-fileupload-item__progress lxs-fileupload-item__progress--complete" style={{ width: '100%' }} />
               )}
             </Flex>
           ))}

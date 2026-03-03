@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+﻿import type { Meta, StoryObj } from '@storybook/react';
 import { Widget } from '../../../components/Widget';
 import type { OrderConfirmationWidgetData, OrderConfirmationWidgetSettings } from '../../../components/Widget/types';
 
@@ -29,7 +29,7 @@ export const Complete: Story = {
       type: 'order-confirmation',
       data: {
         orderId: 'ORD123456789',
-        orderNumber: 'VTX-2025-001',
+        orderNumber: 'lxs-2025-001',
         orderDate: 'January 7, 2025',
         status: 'confirmed',
 
@@ -174,7 +174,7 @@ export const WithDiscount: Story = {
       type: 'order-confirmation',
       data: {
         orderId: 'ORD456789123',
-        orderNumber: 'VTX-2025-002',
+        orderNumber: 'lxs-2025-002',
         orderDate: 'January 7, 2025',
         status: 'processing',
 
@@ -246,7 +246,7 @@ export const LargeOrder: Story = {
       type: 'order-confirmation',
       data: {
         orderId: 'ORD789456123',
-        orderNumber: 'VTX-2025-003',
+        orderNumber: 'lxs-2025-003',
         orderDate: 'January 7, 2025',
         status: 'confirmed',
 
@@ -442,7 +442,7 @@ export const Delivered: Story = {
       type: 'order-confirmation',
       data: {
         orderId: 'ORD555666777',
-        orderNumber: 'VTX-2024-999',
+        orderNumber: 'lxs-2024-999',
         orderDate: 'December 28, 2024',
         status: 'delivered',
 

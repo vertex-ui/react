@@ -20,7 +20,7 @@ describe('Link', () => {
   it('renders disabled link correctly', () => {
     render(<Link href="/test" disabled>Disabled Link</Link>);
     const link = screen.getByText('Disabled Link').closest('a');
-    expect(link).toHaveClass('vtx-link--disabled');
+    expect(link).toHaveClass('lxs-link--disabled');
     expect(link).toHaveAttribute('aria-disabled', 'true');
     expect(link).not.toHaveAttribute('href');
   });
@@ -28,7 +28,7 @@ describe('Link', () => {
   it('applies noUnderline class', () => {
     render(<Link href="/test" noUnderline>No Underline</Link>);
     const link = screen.getByRole('link', { name: /no underline/i });
-    expect(link).toHaveClass('vtx-link--no-underline');
+    expect(link).toHaveClass('lxs-link--no-underline');
   });
 
   it('applies variant and color classes', () => {
@@ -38,8 +38,8 @@ describe('Link', () => {
       </Link>
     );
     const link = screen.getByRole('link', { name: /styled link/i });
-    expect(link).toHaveClass('vtx-link--h1');
-    expect(link).toHaveClass('vtx-link--secondary');
+    expect(link).toHaveClass('lxs-link--h1');
+    expect(link).toHaveClass('lxs-link--secondary');
   });
 
   it('renders left and right icons', () => {

@@ -41,13 +41,13 @@ describe('MenuItem', () => {
   it('applies active class when active', () => {
     render(<MenuItem label="Test Item" active />);
     const item = screen.getByRole('menuitem');
-    expect(item).toHaveClass('vtx-menu-item--active');
+    expect(item).toHaveClass('lxs-menu-item--active');
   });
 
   it('applies danger class when variant is danger', () => {
     render(<MenuItem label="Test Item" variant="danger" />);
     const item = screen.getByRole('menuitem');
-    expect(item).toHaveClass('vtx-menu-item--danger');
+    expect(item).toHaveClass('lxs-menu-item--danger');
   });
 
   it('renders divider when divider is true', () => {
@@ -108,25 +108,25 @@ describe('Menu', () => {
   it('applies vertical orientation class by default', () => {
     render(<Menu items={mockItems} />);
     const menu = screen.getByRole('menu');
-    expect(menu).toHaveClass('vtx-menu--vertical');
+    expect(menu).toHaveClass('lxs-menu--vertical');
   });
 
   it('applies horizontal orientation class', () => {
     render(<Menu items={mockItems} orientation="horizontal" />);
     const menu = screen.getByRole('menu');
-    expect(menu).toHaveClass('vtx-menu--horizontal');
+    expect(menu).toHaveClass('lxs-menu--horizontal');
   });
 
   it('applies responsive class by default', () => {
     render(<Menu items={mockItems} />);
     const menu = screen.getByRole('menu');
-    expect(menu).toHaveClass('vtx-menu--responsive');
+    expect(menu).toHaveClass('lxs-menu--responsive');
   });
 
   it('does not apply responsive class when responsive is false', () => {
     render(<Menu items={mockItems} responsive={false} />);
     const menu = screen.getByRole('menu');
-    expect(menu).not.toHaveClass('vtx-menu--responsive');
+    expect(menu).not.toHaveClass('lxs-menu--responsive');
   });
 
   it('renders toggle button when responsive', () => {
@@ -145,13 +145,13 @@ describe('Menu', () => {
     const toggleButton = screen.getByLabelText('Toggle menu');
     const menu = screen.getByRole('menu');
 
-    expect(menu).not.toHaveClass('vtx-menu--mobile-open');
+    expect(menu).not.toHaveClass('lxs-menu--mobile-open');
 
     fireEvent.click(toggleButton);
-    expect(menu).toHaveClass('vtx-menu--mobile-open');
+    expect(menu).toHaveClass('lxs-menu--mobile-open');
 
     fireEvent.click(toggleButton);
-    expect(menu).not.toHaveClass('vtx-menu--mobile-open');
+    expect(menu).not.toHaveClass('lxs-menu--mobile-open');
   });
 
   it('closes mobile menu on Escape key', () => {
@@ -161,10 +161,10 @@ describe('Menu', () => {
     fireEvent.click(toggleButton);
 
     const menu = screen.getByRole('menu');
-    expect(menu).toHaveClass('vtx-menu--mobile-open');
+    expect(menu).toHaveClass('lxs-menu--mobile-open');
 
     fireEvent.keyDown(document, { key: 'Escape' });
-    expect(menu).not.toHaveClass('vtx-menu--mobile-open');
+    expect(menu).not.toHaveClass('lxs-menu--mobile-open');
   });
 
   it('closes mobile menu on outside click', () => {
@@ -179,10 +179,10 @@ describe('Menu', () => {
     fireEvent.click(toggleButton);
 
     const menu = screen.getByRole('menu');
-    expect(menu).toHaveClass('vtx-menu--mobile-open');
+    expect(menu).toHaveClass('lxs-menu--mobile-open');
 
     fireEvent.mouseDown(screen.getByTestId('outside'));
-    expect(menu).not.toHaveClass('vtx-menu--mobile-open');
+    expect(menu).not.toHaveClass('lxs-menu--mobile-open');
   });
 
   it('applies custom className', () => {
@@ -260,8 +260,8 @@ describe('Menu', () => {
 
     render(<Menu items={itemsWithSubmenu} responsive={false} />);
 
-    const parentItem = screen.getByText('Parent Item').closest('.vtx-menu-item');
-    expect(parentItem).toHaveClass('vtx-menu-item--has-submenu');
+    const parentItem = screen.getByText('Parent Item').closest('.lxs-menu-item');
+    expect(parentItem).toHaveClass('lxs-menu-item--has-submenu');
   });
 
   it('toggles submenu on click', () => {

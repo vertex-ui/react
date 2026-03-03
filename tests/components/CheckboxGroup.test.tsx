@@ -15,7 +15,7 @@ describe('CheckboxGroup', () => {
   describe('Rendering', () => {
     it('renders without crashing', () => {
       const { container } = render(<CheckboxGroup options={mockOptions} />);
-      expect(container.querySelector('.vtx-checkbox-group')).toBeInTheDocument();
+      expect(container.querySelector('.lxs-checkbox-group')).toBeInTheDocument();
     });
 
     it('renders all options', () => {
@@ -39,7 +39,7 @@ describe('CheckboxGroup', () => {
       const { container } = render(
         <CheckboxGroup options={mockOptions} className="custom-class" />
       );
-      const group = container.querySelector('.vtx-checkbox-group');
+      const group = container.querySelector('.lxs-checkbox-group');
       expect(group).toHaveClass('custom-class');
     });
   });
@@ -47,23 +47,23 @@ describe('CheckboxGroup', () => {
   describe('Orientation', () => {
     it('renders vertical by default', () => {
       const { container } = render(<CheckboxGroup options={mockOptions} />);
-      const group = container.querySelector('.vtx-checkbox-group');
-      expect(group).toHaveClass('vtx-checkbox-group--vertical');
+      const group = container.querySelector('.lxs-checkbox-group');
+      expect(group).toHaveClass('lxs-checkbox-group--vertical');
     });
 
     it('renders horizontal when orientation is horizontal', () => {
       const { container } = render(
         <CheckboxGroup options={mockOptions} orientation="horizontal" />
       );
-      const group = container.querySelector('.vtx-checkbox-group');
-      expect(group).toHaveClass('vtx-checkbox-group--horizontal');
+      const group = container.querySelector('.lxs-checkbox-group');
+      expect(group).toHaveClass('lxs-checkbox-group--horizontal');
     });
   });
 
   describe('Size', () => {
     it('passes size prop to checkboxes', () => {
       const { container } = render(<CheckboxGroup options={mockOptions} size="lg" />);
-      const checkboxes = container.querySelectorAll('.vtx-checkbox--lg');
+      const checkboxes = container.querySelectorAll('.lxs-checkbox--lg');
       expect(checkboxes).toHaveLength(3);
     });
   });
@@ -172,8 +172,8 @@ describe('CheckboxGroup', () => {
 
     it('applies disabled class', () => {
       const { container } = render(<CheckboxGroup options={mockOptions} disabled />);
-      const group = container.querySelector('.vtx-checkbox-group');
-      expect(group).toHaveClass('vtx-checkbox-group--disabled');
+      const group = container.querySelector('.lxs-checkbox-group');
+      expect(group).toHaveClass('lxs-checkbox-group--disabled');
     });
 
     it('disables individual options', () => {
@@ -201,13 +201,13 @@ describe('CheckboxGroup', () => {
   describe('Error State', () => {
     it('applies error class when error is true', () => {
       const { container } = render(<CheckboxGroup options={mockOptions} error />);
-      const group = container.querySelector('.vtx-checkbox-group');
-      expect(group).toHaveClass('vtx-checkbox-group--error');
+      const group = container.querySelector('.lxs-checkbox-group');
+      expect(group).toHaveClass('lxs-checkbox-group--error');
     });
 
     it('passes error state to all checkboxes', () => {
       const { container } = render(<CheckboxGroup options={mockOptions} error />);
-      const checkboxes = container.querySelectorAll('.vtx-checkbox--error');
+      const checkboxes = container.querySelectorAll('.lxs-checkbox--error');
       expect(checkboxes).toHaveLength(3);
     });
 
@@ -222,7 +222,7 @@ describe('CheckboxGroup', () => {
       const ref = React.createRef<HTMLDivElement>();
       render(<CheckboxGroup ref={ref} options={mockOptions} />);
       expect(ref.current).toBeInstanceOf(HTMLDivElement);
-      expect(ref.current).toHaveClass('vtx-checkbox-group');
+      expect(ref.current).toHaveClass('lxs-checkbox-group');
     });
   });
 });

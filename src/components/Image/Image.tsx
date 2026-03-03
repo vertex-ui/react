@@ -124,7 +124,7 @@ const Image = React.forwardRef<HTMLDivElement, ImageProps>(
         return (
             <div
                 ref={ref}
-                className={`vtx-image-wrapper ${className}`}
+                className={`lxs-image-wrapper ${className}`}
                 style={style}
                 {...props}
             >
@@ -133,7 +133,7 @@ const Image = React.forwardRef<HTMLDivElement, ImageProps>(
                     <img
                         src={fallback}
                         alt={alt ? `${alt} placeholder` : 'Placeholder'}
-                        className={`vtx-image-placeholder ${loaded && !error ? 'vtx-image-placeholder--hidden' : ''}`}
+                        className={`lxs-image-placeholder ${loaded && !error ? 'lxs-image-placeholder--hidden' : ''}`}
                         loading="lazy"
                     />
                 )}
@@ -143,7 +143,7 @@ const Image = React.forwardRef<HTMLDivElement, ImageProps>(
                     <Component
                         src={src}
                         alt={alt}
-                        className={`vtx-image-main ${loaded ? 'vtx-image-main--loaded' : 'vtx-image-main--loading'} ${imageProps.className || ''}`}
+                        className={`lxs-image-main ${loaded ? 'lxs-image-main--loaded' : 'lxs-image-main--loading'} ${imageProps.className || ''}`}
                         onLoad={handleLoad}
                         onError={handleError}
                         loading={priority ? "eager" : "lazy"}

@@ -23,7 +23,7 @@ describe('Checkbox', () => {
 
     it('applies custom className', () => {
       const { container } = render(<Checkbox className="custom-class" />);
-      const wrapper = container.querySelector('.vtx-checkbox');
+      const wrapper = container.querySelector('.lxs-checkbox');
       expect(wrapper).toHaveClass('custom-class');
     });
 
@@ -38,9 +38,9 @@ describe('Checkbox', () => {
       const { container: medium } = render(<Checkbox size="medium" />);
       const { container: large } = render(<Checkbox size="large" />);
 
-      expect(small.querySelector('.vtx-checkbox--small')).toBeInTheDocument();
-      expect(medium.querySelector('.vtx-checkbox--medium')).toBeInTheDocument();
-      expect(large.querySelector('.vtx-checkbox--large')).toBeInTheDocument();
+      expect(small.querySelector('.lxs-checkbox--small')).toBeInTheDocument();
+      expect(medium.querySelector('.lxs-checkbox--medium')).toBeInTheDocument();
+      expect(large.querySelector('.lxs-checkbox--large')).toBeInTheDocument();
     });
   });
 
@@ -140,8 +140,8 @@ describe('Checkbox', () => {
 
     it('applies disabled class', () => {
       const { container } = render(<Checkbox disabled />);
-      const wrapper = container.querySelector('.vtx-checkbox');
-      expect(wrapper).toHaveClass('vtx-checkbox--disabled');
+      const wrapper = container.querySelector('.lxs-checkbox');
+      expect(wrapper).toHaveClass('lxs-checkbox--disabled');
     });
 
     it('is marked as disabled in DOM', () => {
@@ -154,8 +154,8 @@ describe('Checkbox', () => {
   describe('Error State', () => {
     it('applies error class when error is true', () => {
       const { container } = render(<Checkbox error />);
-      const wrapper = container.querySelector('.vtx-checkbox');
-      expect(wrapper).toHaveClass('vtx-checkbox--error');
+      const wrapper = container.querySelector('.lxs-checkbox');
+      expect(wrapper).toHaveClass('lxs-checkbox--error');
     });
 
     it('renders error state with helper text', () => {

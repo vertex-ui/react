@@ -319,7 +319,7 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
             <Typography variant="h3" weight="bold" noMargin>
               Order Details
             </Typography>
-            <Typography variant="body1" noMargin style={{ color: 'var(--vtx-color-text-secondary)' }}>
+            <Typography variant="body1" noMargin style={{ color: 'var(--lxs-color-text-secondary)' }}>
               Placed on {orderDate}
             </Typography>
           </Flex>
@@ -342,7 +342,7 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
             {/* Order Number Card */}
             <Card variant="outlined" style={{ flex: '1 1 200px', minWidth: '200px' }}>
               <Flex direction="column" gap={8}>
-                <Typography variant="caption" noMargin style={{ color: 'var(--vtx-color-text-secondary)', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: 600 }}>
+                <Typography variant="caption" noMargin style={{ color: 'var(--lxs-color-text-secondary)', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: 600 }}>
                   Order Number
                 </Typography>
                 <Typography variant="h6" weight="bold" noMargin>
@@ -354,7 +354,7 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
             {/* Status Card */}
             <Card variant="outlined" style={{ flex: '1 1 200px', minWidth: '200px' }}>
               <Flex direction="column" gap={8}>
-                <Typography variant="caption" noMargin style={{ color: 'var(--vtx-color-text-secondary)', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: 600 }}>
+                <Typography variant="caption" noMargin style={{ color: 'var(--lxs-color-text-secondary)', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: 600 }}>
                   Status
                 </Typography>
                 <Badge variant={getStatusVariant()} style={{ alignSelf: 'flex-start', padding: '4px 12px' }}>
@@ -367,10 +367,10 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
             {(deliveredDate || estimatedDelivery) && (
               <Card variant="outlined" style={{ flex: '1 1 200px', minWidth: '200px' }}>
                 <Flex direction="column" gap={8}>
-                  <Typography variant="caption" noMargin style={{ color: 'var(--vtx-color-text-secondary)', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: 600 }}>
+                  <Typography variant="caption" noMargin style={{ color: 'var(--lxs-color-text-secondary)', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: 600 }}>
                     {deliveredDate ? 'Delivered On' : 'Estimated Delivery'}
                   </Typography>
-                  <Typography variant="h6" weight="bold" noMargin style={{ color: deliveredDate ? 'var(--vtx-color-success-600)' : 'inherit' }}>
+                  <Typography variant="h6" weight="bold" noMargin style={{ color: deliveredDate ? 'var(--lxs-color-success-600)' : 'inherit' }}>
                     {deliveredDate || estimatedDelivery}
                   </Typography>
                 </Flex>
@@ -381,7 +381,7 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
             {paymentStatus && (
               <Card variant="outlined" style={{ flex: '1 1 200px', minWidth: '200px' }}>
                 <Flex direction="column" gap={8}>
-                  <Typography variant="caption" noMargin style={{ color: 'var(--vtx-color-text-secondary)', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: 600 }}>
+                  <Typography variant="caption" noMargin style={{ color: 'var(--lxs-color-text-secondary)', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: 600 }}>
                     Payment
                   </Typography>
                   <Badge variant={getPaymentStatusVariant()} style={{ alignSelf: 'flex-start', padding: '4px 12px' }}>
@@ -434,7 +434,7 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
                 <Flex direction="column" gap={12}>
                   {trackingNumber && (
                     <Flex direction="column" gap={4}>
-                      <Typography variant="caption" noMargin style={{ color: 'var(--vtx-color-text-secondary)', fontSize: '0.75rem' }}>
+                      <Typography variant="caption" noMargin style={{ color: 'var(--lxs-color-text-secondary)', fontSize: '0.75rem' }}>
                         Tracking Number
                       </Typography>
                       {trackingUrl ? (
@@ -443,7 +443,7 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
                           target="_blank"
                           rel="noopener noreferrer"
                           style={{
-                            color: 'var(--vtx-color-primary-600)',
+                            color: 'var(--lxs-color-primary-600)',
                             fontWeight: 600,
                             textDecoration: 'none'
                           }}
@@ -459,7 +459,7 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
                   )}
                   {carrier && (
                     <Flex direction="column" gap={4}>
-                      <Typography variant="caption" noMargin style={{ color: 'var(--vtx-color-text-secondary)', fontSize: '0.75rem' }}>
+                      <Typography variant="caption" noMargin style={{ color: 'var(--lxs-color-text-secondary)', fontSize: '0.75rem' }}>
                         Carrier
                       </Typography>
                       <Typography variant="body2" weight="medium" noMargin>
@@ -489,7 +489,7 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
                   variant={item.variant}
                   readonly={true}
                   currency={typeof currency === 'string' ? currency : undefined}
-                  style={{ borderBottom: index < items.length - 1 ? '1px solid var(--vtx-color-neutral-200, #e0e0e0)' : 'none', padding: '12px 0' }}
+                  style={{ borderBottom: index < items.length - 1 ? '1px solid var(--lxs-color-neutral-200, #e0e0e0)' : 'none', padding: '12px 0' }}
                 />
               ))}
             </Flex>
@@ -654,8 +654,8 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
                           style={{
                             flex: '1 1 auto',
                             minWidth: '160px',
-                            borderColor: 'var(--vtx-color-error-500)',
-                            color: 'var(--vtx-color-error-600)'
+                            borderColor: 'var(--lxs-color-error-500)',
+                            color: 'var(--lxs-color-error-600)'
                           }}
                         >
                           {cancelOrderText}
@@ -717,7 +717,7 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
           )}
 
           {/* Help Text with Better Design */}
-          <Card variant="filled" className="orderdetails-help-card" style={{ background: 'var(--vtx-color-primary-50)', border: '1px solid var(--vtx-color-primary-100)' }}>
+          <Card variant="filled" className="orderdetails-help-card" style={{ background: 'var(--lxs-color-primary-50)', border: '1px solid var(--lxs-color-primary-100)' }}>
             <Flex direction="column" gap={12} align="center">
               <Flex align="center" gap={8}>
                 <MessageIcon size={20} />
@@ -725,7 +725,7 @@ const OrderDetails = React.forwardRef<HTMLDivElement, OrderDetailsProps>(
                   Need Help?
                 </Typography>
               </Flex>
-              <Typography variant="body2" align="center" noMargin style={{ color: 'var(--vtx-color-text-secondary)' }}>
+              <Typography variant="body2" align="center" noMargin style={{ color: 'var(--lxs-color-text-secondary)' }}>
                 Our support team is available 24/7 to assist you with your order
               </Typography>
               <Flex direction="row" gap={16} wrap="wrap" justify="center" style={{ marginTop: '4px' }}>

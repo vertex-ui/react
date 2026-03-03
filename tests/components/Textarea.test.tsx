@@ -39,7 +39,7 @@ describe('Textarea', () => {
     expect(screen.getByText('Error Message')).toBeInTheDocument();
     expect(textarea).toHaveAttribute('aria-invalid', 'true');
     // Using regex to match class name as it might have other classes
-    expect(textarea.closest('.vtx-textarea-container')).toHaveClass('vtx-textarea-container--error');
+    expect(textarea.closest('.lxs-textarea-container')).toHaveClass('lxs-textarea-container--error');
   });
 
   it('renders success state', () => {
@@ -47,14 +47,14 @@ describe('Textarea', () => {
     const textarea = screen.getByLabelText('Test');
 
     expect(screen.getByText('Success Message')).toBeInTheDocument();
-    expect(textarea.closest('.vtx-textarea-container')).toHaveClass('vtx-textarea-container--success');
+    expect(textarea.closest('.lxs-textarea-container')).toHaveClass('lxs-textarea-container--success');
   });
 
   it('handles disabled state', () => {
     render(<Textarea label="Test" disabled />);
     const textarea = screen.getByLabelText('Test');
     expect(textarea).toBeDisabled();
-    expect(textarea.closest('.vtx-textarea-container')).toHaveClass('vtx-textarea-container--disabled');
+    expect(textarea.closest('.lxs-textarea-container')).toHaveClass('lxs-textarea-container--disabled');
   });
 
   it('handles clearable functionality', () => {

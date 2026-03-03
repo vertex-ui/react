@@ -255,7 +255,7 @@ const ProductCardBase = React.forwardRef<HTMLDivElement, ProductCardProps>(
             {/* WISHLIST BUTTON */}
             {showWishlist && (
               <button
-                className={`productcard-wishlist-btn ${isWishlisted ? 'productcard-wishlist-btn--active' : ''} ${onWishlist ? 'vtx-cursor-pointer' : 'vtx-cursor-default'} productcard-wishlist-btn--${props.wishlistButtonColor || 'error'}`}
+                className={`productcard-wishlist-btn ${isWishlisted ? 'productcard-wishlist-btn--active' : ''} ${onWishlist ? 'lxs-cursor-pointer' : 'lxs-cursor-default'} productcard-wishlist-btn--${props.wishlistButtonColor || 'error'}`}
                 onClick={(e) => {
                   e.stopPropagation();
                   onWishlist?.(coreData);

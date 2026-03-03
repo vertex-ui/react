@@ -149,13 +149,13 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     const hasSuccess = Boolean(success) && !hasError;
 
     const wrapperClassNames = [
-      'vtx-form-control',
-      `vtx-form-control--spacing-${spacing}`,
-      `vtx-form-control--label-${labelPosition}`,
-      fullWidth && 'vtx-form-control--full-width',
-      hasError && 'vtx-form-control--error',
-      hasSuccess && 'vtx-form-control--success',
-      disabled && 'vtx-form-control--disabled',
+      'lxs-form-control',
+      `lxs-form-control--spacing-${spacing}`,
+      `lxs-form-control--label-${labelPosition}`,
+      fullWidth && 'lxs-form-control--full-width',
+      hasError && 'lxs-form-control--error',
+      hasSuccess && 'lxs-form-control--success',
+      disabled && 'lxs-form-control--disabled',
       wrapperClassName,
       className,
     ]
@@ -164,37 +164,37 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
 
     return (
       <div ref={ref} className={wrapperClassNames} {...props}>
-        <div className="vtx-form-control__inner">
+        <div className="lxs-form-control__inner">
           {label && (
             <label
               htmlFor={`${id}-input`}
-              className={`vtx-form-control__label ${labelClassName}`.trim()}
+              className={`lxs-form-control__label ${labelClassName}`.trim()}
             >
               {label}
               {required && (
-                <span className="vtx-form-control__label-required" aria-label="required">
+                <span className="lxs-form-control__label-required" aria-label="required">
                   {' '}
                   *
                 </span>
               )}
             </label>
           )}
-          <div className="vtx-form-control__field">{children}</div>
+          <div className="lxs-form-control__field">{children}</div>
         </div>
         {(helperText || error || success) && (
-          <div className="vtx-form-control__messages">
+          <div className="lxs-form-control__messages">
             {helperText && !error && !success && (
-              <p id={helperId} className="vtx-form-control__helper">
+              <p id={helperId} className="lxs-form-control__helper">
                 {helperText}
               </p>
             )}
             {error && (
-              <p id={errorId} className="vtx-form-control__error" role="alert">
+              <p id={errorId} className="lxs-form-control__error" role="alert">
                 {error}
               </p>
             )}
             {success && (
-              <p id={successId} className="vtx-form-control__success" role="status">
+              <p id={successId} className="lxs-form-control__success" role="status">
                 {success}
               </p>
             )}

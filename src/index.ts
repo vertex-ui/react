@@ -1,5 +1,5 @@
 // =============================
-// Vertex UI React – Main Exports
+// Luxis UI React – Main Exports
 // =============================
 
 // --- Form Controls ---

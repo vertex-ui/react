@@ -270,10 +270,10 @@ const HeaderWidget: React.FC<HeaderWidgetProps> = ({
 
   const getCardClassName = () => {
     return [
-      'vtx-header-widget',
-      `vtx-header-widget--${theme}`,
-      `vtx-header-widget--${size}`,
-      `vtx-header-widget--${variant}`,
+      'lxs-header-widget',
+      `lxs-header-widget--${theme}`,
+      `lxs-header-widget--${size}`,
+      `lxs-header-widget--${variant}`,
       className,
     ].filter(Boolean).join(' ');
   };

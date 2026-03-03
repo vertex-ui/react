@@ -17,8 +17,8 @@ A comprehensive, customizable theme system built with CSS variables and React Co
 
 ```tsx
 // In your main entry point (App.tsx or index.tsx)
-import { ThemeProvider } from '@vtx-ui/react';
-import '@vtx-ui/react/theme/base.css'; // Import base CSS variables
+import { ThemeProvider } from '@luxis-ui/react';
+import '@luxis-ui/react/theme/base.css'; // Import base CSS variables
 
 function App() {
   return (
@@ -34,7 +34,7 @@ function App() {
 All VTX UI components automatically use the theme:
 
 ```tsx
-import { Button, Input, Badge } from '@vtx-ui/react';
+import { Button, Input, Badge } from '@luxis-ui/react';
 
 function MyComponent() {
   return (
@@ -50,7 +50,7 @@ function MyComponent() {
 ### 3. Access Theme in Your Code
 
 ```tsx
-import { useThemeContext } from '@vtx-ui/react';
+import { useThemeContext } from '@luxis-ui/react';
 
 function ThemeToggle() {
   const { theme, setMode } = useThemeContext();
@@ -73,24 +73,24 @@ Create a custom CSS file:
 /* custom-theme.css */
 :root {
   /* Brand colors */
-  --vtx-color-primary-500: #7c3aed; /* Purple */
-  --vtx-color-primary-600: #6d28d9;
-  --vtx-color-primary-700: #5b21b6;
+  --lxs-color-primary-500: #7c3aed; /* Purple */
+  --lxs-color-primary-600: #6d28d9;
+  --lxs-color-primary-700: #5b21b6;
 
   /* Custom spacing */
-  --vtx-spacing-4: 1.25rem;
+  --lxs-spacing-4: 1.25rem;
 
   /* Custom typography */
-  --vtx-font-family-sans: 'Inter', sans-serif;
-  --vtx-font-size-base: 1.125rem;
+  --lxs-font-family-sans: 'Inter', sans-serif;
+  --lxs-font-size-base: 1.125rem;
 
   /* Custom border radius */
-  --vtx-radius-md: 0.5rem;
+  --lxs-radius-md: 0.5rem;
 }
 
 /* Dark mode overrides */
 [data-theme='dark'] {
-  --vtx-color-primary-500: #a78bfa;
+  --lxs-color-primary-500: #a78bfa;
 }
 ```
 
@@ -109,7 +109,7 @@ VTX UI provides intelligent color palette generation. You can pass either:
 #### Option 1: Auto-Generate Full Palette from Single Color
 
 ```tsx
-import { ThemeProvider, createCustomTokens } from '@vtx-ui/react';
+import { ThemeProvider, createCustomTokens } from '@luxis-ui/react';
 
 const customTokens = createCustomTokens({
   colors: {
@@ -130,7 +130,7 @@ function App() {
 #### Option 2: Mix Both Approaches
 
 ```tsx
-import { ThemeProvider, createCustomTokens } from '@vtx-ui/react';
+import { ThemeProvider, createCustomTokens } from '@luxis-ui/react';
 
 const customTokens = createCustomTokens({
   colors: {
@@ -166,10 +166,10 @@ function CustomComponent() {
   return (
     <div
       style={{
-        padding: 'var(--vtx-spacing-4)',
-        backgroundColor: 'var(--vtx-color-primary-50)',
-        borderRadius: 'var(--vtx-radius-md)',
-        color: 'var(--vtx-color-neutral-900)',
+        padding: 'var(--lxs-spacing-4)',
+        backgroundColor: 'var(--lxs-color-primary-50)',
+        borderRadius: 'var(--lxs-radius-md)',
+        color: 'var(--lxs-color-neutral-900)',
       }}
     >
       Styled with theme variables
@@ -184,22 +184,22 @@ function CustomComponent() {
 
 ```css
 /* Primary */
---vtx-color-primary-[50|100|200|300|400|500|600|700|800|900]
+--lxs-color-primary-[50|100|200|300|400|500|600|700|800|900]
 
 /* Neutral */
---vtx-color-neutral-[50|100|200|300|400|500|600|700|800|900]
+--lxs-color-neutral-[50|100|200|300|400|500|600|700|800|900]
 
 /* Semantic */
---vtx-color-success-[50|500|600|700]
---vtx-color-warning-[50|500|600|700]
---vtx-color-error-[50|500|600|700]
---vtx-color-info-[50|500|600|700]
+--lxs-color-success-[50|500|600|700]
+--lxs-color-warning-[50|500|600|700]
+--lxs-color-error-[50|500|600|700]
+--lxs-color-info-[50|500|600|700]
 ```
 
 ### Spacing
 
 ```css
---vtx-spacing-[0|1|2|3|4|5|6|8|10|12|16|20|24]
+--lxs-spacing-[0|1|2|3|4|5|6|8|10|12|16|20|24]
 /* Values: 0, 4px, 8px, 12px, 16px, 20px, 24px, 32px, 40px, 48px, 64px, 80px, 96px */
 ```
 
@@ -207,46 +207,46 @@ function CustomComponent() {
 
 ```css
 /* Font Families */
---vtx-font-family-sans
---vtx-font-family-mono
+--lxs-font-family-sans
+--lxs-font-family-mono
 
 /* Font Sizes */
---vtx-font-size-[xs|sm|base|lg|xl|2xl|3xl|4xl]
+--lxs-font-size-[xs|sm|base|lg|xl|2xl|3xl|4xl]
 /* Values: 12px, 14px, 16px, 18px, 20px, 24px, 30px, 36px */
 
 /* Font Weights */
---vtx-font-weight-[normal|medium|semibold|bold]
+--lxs-font-weight-[normal|medium|semibold|bold]
 /* Values: 400, 500, 600, 700 */
 
 /* Line Heights */
---vtx-line-height-[tight|normal|relaxed]
+--lxs-line-height-[tight|normal|relaxed]
 /* Values: 1.25, 1.5, 1.75 */
 ```
 
 ### Border Radius
 
 ```css
---vtx-radius-[none|sm|base|md|lg|xl|2xl|full]
+--lxs-radius-[none|sm|base|md|lg|xl|2xl|full]
 /* Values: 0, 2px, 4px, 6px, 8px, 12px, 16px, 9999px */
 ```
 
 ### Shadows
 
 ```css
---vtx-shadow-[sm|base|md|lg|xl|none]
+--lxs-shadow-[sm|base|md|lg|xl|none]
 ```
 
 ### Transitions
 
 ```css
---vtx-transition-[fast|base|slow]
+--lxs-transition-[fast|base|slow]
 /* Values: 150ms, 200ms, 300ms */
 ```
 
 ### Z-Index
 
 ```css
---vtx-z-[dropdown|sticky|modal|tooltip|notification]
+--lxs-z-[dropdown|sticky|modal|tooltip|notification]
 /* Values: 1000, 1100, 1200, 1300, 1400 */
 ```
 
@@ -259,11 +259,11 @@ function Card({ children }) {
   return (
     <div
       style={{
-        padding: 'var(--vtx-spacing-6)',
-        backgroundColor: 'var(--vtx-color-neutral-50)',
-        borderRadius: 'var(--vtx-radius-lg)',
-        boxShadow: 'var(--vtx-shadow-md)',
-        border: '1px solid var(--vtx-color-neutral-200)',
+        padding: 'var(--lxs-spacing-6)',
+        backgroundColor: 'var(--lxs-color-neutral-50)',
+        borderRadius: 'var(--lxs-radius-lg)',
+        boxShadow: 'var(--lxs-shadow-md)',
+        border: '1px solid var(--lxs-color-neutral-200)',
       }}
     >
       {children}
@@ -275,7 +275,7 @@ function Card({ children }) {
 ### Custom Component with Theme Hook
 
 ```tsx
-import { useThemeContext } from '@vtx-ui/react';
+import { useThemeContext } from '@luxis-ui/react';
 
 function BrandedHeader() {
   const { theme } = useThemeContext();
@@ -296,7 +296,7 @@ function BrandedHeader() {
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     /* Auto dark mode if no theme is set */
-    --vtx-color-neutral-900: #fafafa;
+    --lxs-color-neutral-900: #fafafa;
     /* ... other dark mode variables */
   }
 }
@@ -304,8 +304,8 @@ function BrandedHeader() {
 @media (max-width: 768px) {
   :root {
     /* Adjust spacing on mobile */
-    --vtx-spacing-4: 0.875rem;
-    --vtx-font-size-base: 0.9375rem;
+    --lxs-spacing-4: 0.875rem;
+    --lxs-font-size-base: 0.9375rem;
   }
 }
 ```
@@ -315,14 +315,14 @@ function BrandedHeader() {
 1. **Always provide fallback values**
 
    ```css
-   color: var(--vtx-color-primary-500, #3b82f6);
+   color: var(--lxs-color-primary-500, #3b82f6);
    ```
 
 2. **Import base.css once** at your app entry point
 
 3. **Use semantic color names** instead of specific shades
-   - ✅ `--vtx-color-error-600`
-   - ❌ `--vtx-color-red-600`
+   - ✅ `--lxs-color-error-600`
+   - ❌ `--lxs-color-red-600`
 
 4. **Test both themes** - Ensure your UI works in light and dark modes
 
@@ -337,7 +337,7 @@ function BrandedHeader() {
 ## TypeScript Support
 
 ```tsx
-import type { Tokens, Theme } from '@vtx-ui/react';
+import type { Tokens, Theme } from '@luxis-ui/react';
 
 // Type-safe token access
 const customTokens: Partial<Tokens> = {
@@ -365,7 +365,7 @@ import { ThemeProvider, createTheme } from '@mui/material';
 const theme = createTheme({ palette: { primary: { main: '#1976d2' } } });
 
 // After (VTX UI)
-import { ThemeProvider } from '@vtx-ui/react';
+import { ThemeProvider } from '@luxis-ui/react';
 const customTokens = { colors: { primary: { 500: '#1976d2' } } };
 <ThemeProvider customTokens={customTokens}>
 ```
@@ -378,7 +378,7 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 const theme = extendTheme({ colors: { brand: { 500: '#1a202c' } } });
 
 // After (VTX UI)
-import { ThemeProvider } from '@vtx-ui/react';
+import { ThemeProvider } from '@luxis-ui/react';
 const customTokens = { colors: { primary: { 500: '#1a202c' } } };
 <ThemeProvider customTokens={customTokens}>
 ```

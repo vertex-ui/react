@@ -76,10 +76,10 @@ export interface ToggleButtonProps extends Omit<React.InputHTMLAttributes<HTMLIn
  *
  * ```css
  * :root {
- *   --vtx-toggle-color: #1976d2;
- *   --vtx-toggle-width: 40px;
- *   --vtx-toggle-height: 24px;
- *   --vtx-toggle-thumb-size: 20px;
+ *   --lxs-toggle-color: #1976d2;
+ *   --lxs-toggle-width: 40px;
+ *   --lxs-toggle-height: 24px;
+ *   --lxs-toggle-thumb-size: 20px;
  * }
  * ```
  *
@@ -142,22 +142,22 @@ const ToggleButton = React.forwardRef<HTMLInputElement, ToggleButtonProps>(
 
     // Build class names
     const containerClassNames = [
-      'vtx-toggle-button',
+      'lxs-toggle-button',
       `vtx-toggle-button--${toggleSize}`,
       `vtx-toggle-button--${variant}`,
-      disabled && 'vtx-toggle-button--disabled',
-      error && 'vtx-toggle-button--error',
+      disabled && 'lxs-toggle-button--disabled',
+      error && 'lxs-toggle-button--error',
       className,
     ]
       .filter(Boolean)
       .join(' ');
 
     const labelClassNames = [
-      'vtx-toggle-button-label',
+      'lxs-toggle-button-label',
       `vtx-toggle-button-label--${labelPlacement}`
     ].filter(Boolean).join(' ');
 
-    const inputClassNames = ['vtx-toggle-button-input', inputClassName].filter(Boolean).join(' ');
+    const inputClassNames = ['lxs-toggle-button-input', inputClassName].filter(Boolean).join(' ');
 
     const inputRef = useRef<HTMLInputElement>(null);
     useImperativeHandle(ref, () => inputRef.current!);
@@ -167,7 +167,7 @@ const ToggleButton = React.forwardRef<HTMLInputElement, ToggleButtonProps>(
     return (
       <div className={containerClassNames}>
         <label className={labelClassNames} htmlFor={toggleId}>
-          <span className="vtx-toggle-button-wrapper">
+          <span className="lxs-toggle-button-wrapper">
             <input
               ref={inputRef}
               type="checkbox"
@@ -180,15 +180,15 @@ const ToggleButton = React.forwardRef<HTMLInputElement, ToggleButtonProps>(
               aria-checked={checked ?? false}
               {...props}
             />
-            <span className="vtx-toggle-button-track">
-              <span className="vtx-toggle-button-thumb">
-                {displayIcon && <span className="vtx-toggle-button-icon">{displayIcon}</span>}
+            <span className="lxs-toggle-button-track">
+              <span className="lxs-toggle-button-thumb">
+                {displayIcon && <span className="lxs-toggle-button-icon">{displayIcon}</span>}
               </span>
             </span>
           </span>
-          {label && <span className="vtx-toggle-button-label-text">{label}</span>}
+          {label && <span className="lxs-toggle-button-label-text">{label}</span>}
         </label>
-        {helperText && <div className="vtx-toggle-button-helper-text">{helperText}</div>}
+        {helperText && <div className="lxs-toggle-button-helper-text">{helperText}</div>}
       </div>
     );
   }

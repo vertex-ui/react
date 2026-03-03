@@ -150,27 +150,27 @@ const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPro
 
     // Determine text color based on theme's color contrast configuration
     const getTextColorClass = () => {
-      if (props.darkText === true) return 'vtx-button--dark-text';
-      if (props.darkText === false) return 'vtx-button--light-text';
+      if (props.darkText === true) return 'lxs-button--dark-text';
+      if (props.darkText === false) return 'lxs-button--light-text';
       
       // Use theme's colorContrast configuration
       const contrast = theme.colorContrast[variant];
       if (contrast === 'light') {
-        return 'vtx-button--dark-text'; // Light background needs dark text
+        return 'lxs-button--dark-text'; // Light background needs dark text
       } else if (contrast === 'dark') {
-        return 'vtx-button--light-text'; // Dark background needs light text
+        return 'lxs-button--light-text'; // Dark background needs light text
       }
       
       return null;
     };
 
     const classNames = [
-      'vtx-button',
-      `vtx-button--${variant}`,
-      `vtx-button--${buttonSize}`,
-      fullWidth && 'vtx-button--full-width',
-      loading && 'vtx-button--loading',
-      iconOnly && 'vtx-button--icon-only',
+      'lxs-button',
+      `lxs-button--${variant}`,
+      `lxs-button--${buttonSize}`,
+      fullWidth && 'lxs-button--full-width',
+      loading && 'lxs-button--loading',
+      iconOnly && 'lxs-button--icon-only',
       getTextColorClass(),
       className,
     ]
@@ -186,10 +186,10 @@ const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPro
     const content = (
       <>
         {loading && (
-          <span className="vtx-button__spinner" role="status" aria-label="Loading">
-            <svg className="vtx-button__spinner-icon" viewBox="0 0 24 24">
+          <span className="lxs-button__spinner" role="status" aria-label="Loading">
+            <svg className="lxs-button__spinner-icon" viewBox="0 0 24 24">
               <circle
-                className="vtx-button__spinner-circle"
+                className="lxs-button__spinner-circle"
                 cx="12"
                 cy="12"
                 r="10"
@@ -199,14 +199,14 @@ const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPro
             </svg>
           </span>
         )}
-        {!loading && leftIcon && <span className="vtx-button__icon-left">{leftIcon}</span>}
+        {!loading && leftIcon && <span className="lxs-button__icon-left">{leftIcon}</span>}
         {!iconOnly && (
-          <span className="vtx-button__content">
+          <span className="lxs-button__content">
             {loading && loadingText ? loadingText : children}
           </span>
         )}
         {iconOnly && !loading && children}
-        {!loading && rightIcon && <span className="vtx-button__icon-right">{rightIcon}</span>}
+        {!loading && rightIcon && <span className="lxs-button__icon-right">{rightIcon}</span>}
       </>
     );
 

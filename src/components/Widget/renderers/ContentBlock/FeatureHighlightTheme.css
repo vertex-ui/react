@@ -1,52 +1,52 @@
 /* FeatureHighlightTheme.css */
 
 /* Caption Elements */
-.vtx-content-block__caption {
-    font-weight: var(--vtx-font-weight-bold);
+.lxs-content-block__caption {
+    font-weight: var(--lxs-font-weight-bold);
     letter-spacing: 0.05em;
     text-transform: uppercase;
     margin: 0;
 }
 
-.vtx-content-block__caption--badge {
+.lxs-content-block__caption--badge {
     display: inline-block;
     padding: 0.25rem 0.75rem;
-    background-color: var(--vtx-color-primary-50);
-    color: var(--vtx-color-primary-700) !important;
+    background-color: var(--lxs-color-primary-50);
+    color: var(--lxs-color-primary-700) !important;
     /* Force color over typography */
-    border-radius: var(--vtx-radius-full);
+    border-radius: var(--lxs-radius-full);
     width: fit-content;
-    margin-bottom: var(--vtx-spacing-2);
+    margin-bottom: var(--lxs-spacing-2);
 }
 
-.vtx-content-block__subheading {
-    color: var(--vtx-text-secondary);
+.lxs-content-block__subheading {
+    color: var(--lxs-text-secondary);
     margin: 0;
 }
 
 /* List Items */
-.vtx-content-block__list-group {
+.lxs-content-block__list-group {
     display: flex;
     flex-direction: column;
-    gap: var(--vtx-spacing-4);
-    margin-top: var(--vtx-spacing-2);
+    gap: var(--lxs-spacing-4);
+    margin-top: var(--lxs-spacing-2);
 }
 
-.vtx-content-block__list-item-row {
+.lxs-content-block__list-item-row {
     display: flex;
-    gap: var(--vtx-spacing-3);
+    gap: var(--lxs-spacing-3);
     width: 100%;
 }
 
-.vtx-align-start {
+.lxs-align-start {
     align-items: flex-start;
 }
 
-.vtx-align-center {
+.lxs-align-center {
     align-items: center;
 }
 
-.vtx-content-block__list-icon-wrapper {
+.lxs-content-block__list-icon-wrapper {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -56,19 +56,19 @@
     /* Default size */
 }
 
-.vtx-content-block__list-icon-wrapper>svg,
-.vtx-content-block__list-icon-wrapper>img {
+.lxs-content-block__list-icon-wrapper>svg,
+.lxs-content-block__list-icon-wrapper>img {
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
 
-.vtx-content-block__list-text-wrapper {
+.lxs-content-block__list-text-wrapper {
     display: flex;
     flex-direction: column;
     flex: 1;
 }
 
-.vtx-mt-1 {
+.lxs-mt-1 {
     margin-top: 0.25rem;
 }

@@ -11,44 +11,44 @@ describe('Chip', () => {
 
   it('applies size classes correctly', () => {
     const { rerender, container } = render(<Chip label="Small" size="small" />);
-    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--small');
+    expect(container.querySelector('.lxs-chip')).toHaveClass('lxs-chip--small');
 
     rerender(<Chip label="Medium" size="medium" />);
-    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--medium');
+    expect(container.querySelector('.lxs-chip')).toHaveClass('lxs-chip--medium');
 
     rerender(<Chip label="Large" size="large" />);
-    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--large');
+    expect(container.querySelector('.lxs-chip')).toHaveClass('lxs-chip--large');
   });
 
   it('applies variant classes correctly', () => {
     const { rerender, container } = render(<Chip label="Test" variant="filled" />);
-    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--filled');
+    expect(container.querySelector('.lxs-chip')).toHaveClass('lxs-chip--filled');
 
     rerender(<Chip label="Test" variant="outlined" />);
-    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--outlined');
+    expect(container.querySelector('.lxs-chip')).toHaveClass('lxs-chip--outlined');
 
     rerender(<Chip label="Test" variant="light" />);
-    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--light');
+    expect(container.querySelector('.lxs-chip')).toHaveClass('lxs-chip--light');
   });
 
   it('applies color classes correctly', () => {
     const { rerender, container } = render(<Chip label="Test" color="primary" />);
-    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--primary');
+    expect(container.querySelector('.lxs-chip')).toHaveClass('lxs-chip--primary');
 
     rerender(<Chip label="Test" color="success" />);
-    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--success');
+    expect(container.querySelector('.lxs-chip')).toHaveClass('lxs-chip--success');
 
     rerender(<Chip label="Test" color="error" />);
-    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--error');
+    expect(container.querySelector('.lxs-chip')).toHaveClass('lxs-chip--error');
 
     rerender(<Chip label="Test" color="warning" />);
-    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--warning');
+    expect(container.querySelector('.lxs-chip')).toHaveClass('lxs-chip--warning');
 
     rerender(<Chip label="Test" color="info" />);
-    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--info');
+    expect(container.querySelector('.lxs-chip')).toHaveClass('lxs-chip--info');
 
     rerender(<Chip label="Test" color="default" />);
-    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--default');
+    expect(container.querySelector('.lxs-chip')).toHaveClass('lxs-chip--default');
   });
 
   it('renders with icon', () => {
@@ -62,7 +62,7 @@ describe('Chip', () => {
     // The avatar img is aria-hidden, but jsdom/testing-library may still give it role 'img'.
     const avatar = screen.getByAltText('');
     expect(avatar).toHaveAttribute('src', 'https://example.com/avatar.jpg');
-    expect(avatar).toHaveClass('vtx-chip__avatar');
+    expect(avatar).toHaveClass('lxs-chip__avatar');
   });
 
   it('shows delete button when onDelete is provided', () => {
@@ -120,7 +120,7 @@ describe('Chip', () => {
 
   it('applies clickable class when onClick is provided', () => {
     const { container } = render(<Chip label="Click" onClick={() => {}} />);
-    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--clickable');
+    expect(container.querySelector('.lxs-chip')).toHaveClass('lxs-chip--clickable');
   });
 
   it('disables interactions when disabled', () => {
@@ -132,17 +132,17 @@ describe('Chip', () => {
     fireEvent.click(chip!);
 
     expect(handleClick).not.toHaveBeenCalled();
-    expect(chip).toHaveClass('vtx-chip--disabled');
+    expect(chip).toHaveClass('lxs-chip--disabled');
   });
 
   it('applies disabled class when disabled', () => {
     const { container } = render(<Chip label="Disabled" disabled />);
-    expect(container.querySelector('.vtx-chip')).toHaveClass('vtx-chip--disabled');
+    expect(container.querySelector('.lxs-chip')).toHaveClass('lxs-chip--disabled');
   });
 
   it('applies custom className', () => {
     const { container } = render(<Chip label="Custom" className="my-custom-class" />);
-    expect(container.querySelector('.vtx-chip')).toHaveClass('my-custom-class');
+    expect(container.querySelector('.lxs-chip')).toHaveClass('my-custom-class');
   });
 
   it('sets aria-label correctly', () => {

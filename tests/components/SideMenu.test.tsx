@@ -37,13 +37,13 @@ describe('SideMenuItem', () => {
   it('applies active class when active', () => {
     render(<SideMenuItem label="Test Item" active />);
     const item = screen.getByRole('menuitem');
-    expect(item).toHaveClass('vtx-sidemenu-item--active');
+    expect(item).toHaveClass('lxs-sidemenu-item--active');
   });
 
   it('applies disabled class when disabled', () => {
     render(<SideMenuItem label="Test Item" disabled />);
     const item = screen.getByRole('menuitem');
-    expect(item).toHaveClass('vtx-sidemenu-item--disabled');
+    expect(item).toHaveClass('lxs-sidemenu-item--disabled');
     expect(item).toHaveAttribute('aria-disabled', 'true');
   });
 
@@ -115,14 +115,14 @@ describe('SideMenuItem', () => {
     const submenuItems = [{ label: 'Submenu 1' }];
     render(<SideMenuItem label="Parent Item" items={submenuItems} />);
 
-    const chevron = document.querySelector('.vtx-sidemenu-chevron');
+    const chevron = document.querySelector('.lxs-sidemenu-chevron');
     expect(chevron).toBeInTheDocument();
   });
 
   it('applies collapsed styles when collapsed', () => {
     render(<SideMenuItem label="Test Item" collapsed />);
     const item = screen.getByRole('menuitem');
-    expect(item).toHaveClass('vtx-sidemenu-item--collapsed');
+    expect(item).toHaveClass('lxs-sidemenu-item--collapsed');
   });
 
   it('shows title attribute when collapsed', () => {
@@ -134,7 +134,7 @@ describe('SideMenuItem', () => {
   it('hides label text when collapsed', () => {
     const { container } = render(<SideMenuItem label="Test Item" collapsed />);
     // When collapsed, the Text component with label should not be rendered
-    const textElements = container.querySelectorAll('.vtx-text');
+    const textElements = container.querySelectorAll('.lxs-text');
     expect(textElements).toHaveLength(0);
   });
 
@@ -167,7 +167,7 @@ describe('SideMenuItem', () => {
     render(<SideMenuItem label="Parent Item" items={submenuItems} />);
     
     const item = screen.getByRole('menuitem');
-    expect(item).toHaveClass('vtx-sidemenu-item--has-submenu');
+    expect(item).toHaveClass('lxs-sidemenu-item--has-submenu');
   });
 
   it('prevents default on click when has submenu', () => {
@@ -241,7 +241,7 @@ describe('SideMenu', () => {
   it('applies collapsed class when collapsed', () => {
     render(<SideMenu items={mockItems} collapsed />);
     const nav = screen.getByRole('navigation');
-    expect(nav).toHaveClass('vtx-sidemenu--collapsed');
+    expect(nav).toHaveClass('lxs-sidemenu--collapsed');
   });
 
   it('applies custom className', () => {
@@ -271,11 +271,11 @@ describe('SideMenu', () => {
       />
     );
 
-    // Header is rendered in a div with class vtx-sidemenu-header
-    const header = screen.getByText('Header').closest('.vtx-sidemenu-header');
+    // Header is rendered in a div with class lxs-sidemenu-header
+    const header = screen.getByText('Header').closest('.lxs-sidemenu-header');
     expect(header).toHaveStyle({ padding: '30px' });
 
-    const footer = screen.getByText('Footer').closest('.vtx-sidemenu-footer');
+    const footer = screen.getByText('Footer').closest('.lxs-sidemenu-footer');
     expect(footer).toHaveStyle({ padding: '10px' });
   });
 
@@ -304,7 +304,7 @@ describe('SideMenu', () => {
     render(<SideMenu items={mockItems} collapsed />);
     const menuItems = screen.getAllByRole('menuitem');
     menuItems.forEach((item) => {
-      expect(item).toHaveClass('vtx-sidemenu-item--collapsed');
+      expect(item).toHaveClass('lxs-sidemenu-item--collapsed');
     });
   });
 
@@ -338,7 +338,7 @@ describe('SideMenu', () => {
     render(<SideMenu items={itemsWithActive} />);
 
     const dashboard = screen.getByText('Dashboard').closest('[role="menuitem"]');
-    expect(dashboard).toHaveClass('vtx-sidemenu-item--active');
+    expect(dashboard).toHaveClass('lxs-sidemenu-item--active');
   });
 
   it('handles disabled items', () => {
@@ -349,7 +349,7 @@ describe('SideMenu', () => {
     render(<SideMenu items={itemsWithDisabled} />);
 
     const products = screen.getByText('Products').closest('[role="menuitem"]');
-    expect(products).toHaveClass('vtx-sidemenu-item--disabled');
+    expect(products).toHaveClass('lxs-sidemenu-item--disabled');
   });
 
   it('forwards ref to aside element', () => {

@@ -23,7 +23,7 @@ describe('ToggleButton', () => {
 
     it('applies custom className', () => {
       const { container } = render(<ToggleButton className="custom-class" />);
-      const wrapper = container.querySelector('.vtx-toggle-button');
+      const wrapper = container.querySelector('.lxs-toggle-button');
       expect(wrapper).toHaveClass('custom-class');
     });
 
@@ -32,20 +32,20 @@ describe('ToggleButton', () => {
       const { container: medium } = render(<ToggleButton size="md" />);
       const { container: large } = render(<ToggleButton size="lg" />);
 
-      expect(small.querySelector('.vtx-toggle-button--sm')).toBeInTheDocument();
-      expect(medium.querySelector('.vtx-toggle-button--md')).toBeInTheDocument();
-      expect(large.querySelector('.vtx-toggle-button--lg')).toBeInTheDocument();
+      expect(small.querySelector('.lxs-toggle-button--sm')).toBeInTheDocument();
+      expect(medium.querySelector('.lxs-toggle-button--md')).toBeInTheDocument();
+      expect(large.querySelector('.lxs-toggle-button--lg')).toBeInTheDocument();
     });
 
     it('renders label placements correctly', () => {
         const { container: start } = render(<ToggleButton label="Start" labelPlacement="start" />);
-        expect(start.querySelector('.vtx-toggle-button-label--start')).toBeInTheDocument();
+        expect(start.querySelector('.lxs-toggle-button-label--start')).toBeInTheDocument();
 
         const { container: top } = render(<ToggleButton label="Top" labelPlacement="top" />);
-        expect(top.querySelector('.vtx-toggle-button-label--top')).toBeInTheDocument();
+        expect(top.querySelector('.lxs-toggle-button-label--top')).toBeInTheDocument();
 
         const { container: bottom } = render(<ToggleButton label="Bottom" labelPlacement="bottom" />);
-        expect(bottom.querySelector('.vtx-toggle-button-label--bottom')).toBeInTheDocument();
+        expect(bottom.querySelector('.lxs-toggle-button-label--bottom')).toBeInTheDocument();
     });
   });
 
@@ -114,16 +114,16 @@ describe('ToggleButton', () => {
 
     it('applies disabled class', () => {
       const { container } = render(<ToggleButton disabled />);
-      const wrapper = container.querySelector('.vtx-toggle-button');
-      expect(wrapper).toHaveClass('vtx-toggle-button--disabled');
+      const wrapper = container.querySelector('.lxs-toggle-button');
+      expect(wrapper).toHaveClass('lxs-toggle-button--disabled');
     });
   });
 
   describe('Error State', () => {
     it('applies error class when error is true', () => {
       const { container } = render(<ToggleButton error />);
-      const wrapper = container.querySelector('.vtx-toggle-button');
-      expect(wrapper).toHaveClass('vtx-toggle-button--error');
+      const wrapper = container.querySelector('.lxs-toggle-button');
+      expect(wrapper).toHaveClass('lxs-toggle-button--error');
     });
 
     it('renders error state with helper text', () => {

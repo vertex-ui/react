@@ -45,12 +45,12 @@ export const useNavbarSections = (props: NavbarBaseProps) => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const logoSection = (logo || brandText) && (
-    <Flex align="center" className="vtx-navbar__logo">
+    <Flex align="center" className="lxs-navbar__logo">
       {logo ? (
         <img
           src={logo}
           alt={logoAlt}
-          className="vtx-navbar__logo-image"
+          className="lxs-navbar__logo-image"
           onClick={onLogoClick}
           style={{ cursor: onLogoClick ? 'pointer' : 'default' }}
           loading="eager"
@@ -60,7 +60,7 @@ export const useNavbarSections = (props: NavbarBaseProps) => {
         <Typography
           variant="h5"
           as="span"
-          className="vtx-navbar__brand-text"
+          className="lxs-navbar__brand-text"
           onClick={onLogoClick}
           weight="bold"
           style={{ cursor: onLogoClick ? 'pointer' : 'default' }}
@@ -72,7 +72,7 @@ export const useNavbarSections = (props: NavbarBaseProps) => {
   );
 
   const navigationSection = navigationItems.length > 0 && (
-    <Flex as="nav" align="center" className="vtx-navbar__nav">
+    <Flex as="nav" align="center" className="lxs-navbar__nav">
       {navigationItems.map((item, index) => (
         <NavItem 
           key={index} 
@@ -110,15 +110,15 @@ export const useNavbarSections = (props: NavbarBaseProps) => {
       showSearchIcon
       clearable
       size="md"
-      className={`vtx-navbar__search-input ${searchFullWidth ? 'vtx-navbar__search-input--full' : ''}`}
+      className={`vtx-navbar__search-input ${searchFullWidth ? 'lxs-navbar__search-input--full' : ''}`}
       fullWidth={searchFullWidth}
     />
   );
 
   const iconsSection = (notificationCount !== undefined || cartCount !== undefined) && (
-    <Flex align="center" className="vtx-navbar__icons">
+    <Flex align="center" className="lxs-navbar__icons">
       {notificationCount !== undefined && (
-        <Button variant="ghost" iconOnly onClick={onNotificationClick} className="vtx-navbar__icon-button">
+        <Button variant="ghost" iconOnly onClick={onNotificationClick} className="lxs-navbar__icon-button">
           <Badge
             content={notificationCount > 0 ? String(notificationCount) : ''}
             variant="error"
@@ -129,7 +129,7 @@ export const useNavbarSections = (props: NavbarBaseProps) => {
         </Button>
       )}
       {cartCount !== undefined && (
-        <Button variant="ghost" iconOnly onClick={onCartClick} className="vtx-navbar__icon-button">
+        <Button variant="ghost" iconOnly onClick={onCartClick} className="lxs-navbar__icon-button">
           <Badge content={cartCount > 0 ? String(cartCount) : ''} variant="error" size="sm">
             <ShoppingCartIcon size={20} />
           </Badge>
@@ -139,7 +139,7 @@ export const useNavbarSections = (props: NavbarBaseProps) => {
   );
 
   const userSection = user && (
-    <Button variant="ghost" className="vtx-navbar__user-button">
+    <Button variant="ghost" className="lxs-navbar__user-button">
       <Flex align="center" gap="0.5rem">
         <Avatar src={user.avatar} alt={user.name} size="sm" />
         {user.name && <Typography variant="body2" weight="medium">{user.name}</Typography>}

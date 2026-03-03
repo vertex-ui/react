@@ -114,7 +114,7 @@ describe('OrderConfirmation', () => {
 
     it('renders skeleton loading state', () => {
       const { container } = render(<OrderConfirmation {...defaultProps} loading />);
-      expect(container.querySelector('.vtx-skeleton-theme')).toBeInTheDocument();
+      expect(container.querySelector('.lxs-skeleton-theme')).toBeInTheDocument();
     });
   });
 

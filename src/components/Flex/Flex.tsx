@@ -129,7 +129,7 @@ const Flex = React.forwardRef<HTMLDivElement, FlexProps & React.HTMLAttributes<H
         flexShrink={shrink}
         flexBasis={basis}
         width={fullWidth ? '100%' : undefined}
-        className={`vtx-flex ${className}`.trim()}
+        className={`lxs-flex ${className}`.trim()}
         style={style}
         {...rest}
       >

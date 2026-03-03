@@ -182,15 +182,15 @@ const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
     }, [items]);
 
     const breadcrumbClassNames = [
-      'vtx-breadcrumb',
-      `vtx-breadcrumb--${breadcrumbSize}`,
+      'lxs-breadcrumb',
+      `lxs-breadcrumb--${breadcrumbSize}`,
       className,
     ]
       .filter(Boolean)
       .join(' ');
 
     const separatorClassNames = [
-      'vtx-breadcrumb-separator',
+      'lxs-breadcrumb-separator',
       separatorClassName,
     ]
       .filter(Boolean)
@@ -202,17 +202,17 @@ const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
       const isEllipsis = item.label === '...';
 
       const itemClassNames = [
-        'vtx-breadcrumb-item',
-        isActive && 'vtx-breadcrumb-item--active',
-        isEllipsis && 'vtx-breadcrumb-item--ellipsis',
+        'lxs-breadcrumb-item',
+        isActive && 'lxs-breadcrumb-item--active',
+        isEllipsis && 'lxs-breadcrumb-item--ellipsis',
       ]
         .filter(Boolean)
         .join(' ');
 
       const content = (
         <>
-          {item.icon && <span className="vtx-breadcrumb-item-icon">{item.icon}</span>}
-          {item.label && <Typography as="span" variant="body2" className="vtx-breadcrumb-item-label">{item.label}</Typography>}
+          {item.icon && <span className="lxs-breadcrumb-item-icon">{item.icon}</span>}
+          {item.label && <Typography as="span" variant="body2" className="lxs-breadcrumb-item-label">{item.label}</Typography>}
         </>
       );
 
@@ -220,7 +220,7 @@ const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
       if (isEllipsis) {
         return (
           <li key={index} className={itemClassNames}>
-            <span className="vtx-breadcrumb-item-content">{item.label}</span>
+            <span className="lxs-breadcrumb-item-content">{item.label}</span>
           </li>
         );
       }
@@ -229,7 +229,7 @@ const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
       if (isActive) {
         return (
           <li key={index} className={itemClassNames} aria-current="page">
-            <span className="vtx-breadcrumb-item-content">{content}</span>
+            <span className="lxs-breadcrumb-item-content">{content}</span>
           </li>
         );
       }
@@ -245,7 +245,7 @@ const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
               href={item.href}
               component={linkComponent}
               componentProps={item.linkProps}
-              className="vtx-breadcrumb-item-link"
+              className="lxs-breadcrumb-item-link"
               color="inherit"
             >
               {content}
@@ -257,7 +257,7 @@ const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
       // Render as plain text if no link
       return (
         <li key={index} className={itemClassNames}>
-          <span className="vtx-breadcrumb-item-content">{content}</span>
+          <span className="lxs-breadcrumb-item-content">{content}</span>
         </li>
       );
     };
@@ -265,7 +265,7 @@ const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
     return (
       <nav ref={ref} className={breadcrumbClassNames} aria-label="Breadcrumb">
         {/* Desktop view */}
-        <ol className="vtx-breadcrumb-list vtx-breadcrumb-list--desktop">
+        <ol className="lxs-breadcrumb-list lxs-breadcrumb-list--desktop">
           {displayItems.map((item, index) => (
             <React.Fragment key={index}>
               {renderItem(item, index)}
@@ -279,7 +279,7 @@ const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
         </ol>
         
         {/* Mobile view */}
-        <ol className="vtx-breadcrumb-list vtx-breadcrumb-list--mobile">
+        <ol className="lxs-breadcrumb-list lxs-breadcrumb-list--mobile">
           {mobileDisplayItems.map((item, index) => (
             <React.Fragment key={index}>
               {renderItem(item, index)}

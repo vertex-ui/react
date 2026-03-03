@@ -164,27 +164,27 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     const isCustomHoverColor = hoverColor && !isStandardHoverColor;
 
     const classNames = [
-      'vtx-link',
-      `vtx-link--${variant}`,
-      `vtx-link--${color}`,
-      isStandardHoverColor && `vtx-link--hover-${hoverColor}`,
-      isCustomHoverColor && 'vtx-link--hover-custom',
-      noUnderline && 'vtx-link--no-underline',
-      disabled && 'vtx-link--disabled',
+      'lxs-link',
+      `lxs-link--${variant}`,
+      `lxs-link--${color}`,
+      isStandardHoverColor && `lxs-link--hover-${hoverColor}`,
+      isCustomHoverColor && 'lxs-link--hover-custom',
+      noUnderline && 'lxs-link--no-underline',
+      disabled && 'lxs-link--disabled',
       className,
     ]
       .filter(Boolean)
       .join(' ');
 
     const combinedStyle = isCustomHoverColor
-      ? { ...style, '--vtx-link-hover-color': hoverColor } as React.CSSProperties
+      ? { ...style, '--lxs-link-hover-color': hoverColor } as React.CSSProperties
       : style;
 
     const content = (
       <>
-        {leftIcon && <span className="vtx-link__icon-left">{leftIcon}</span>}
-        <span className="vtx-link__content">{children}</span>
-        {rightIcon && <span className="vtx-link__icon-right">{rightIcon}</span>}
+        {leftIcon && <span className="lxs-link__icon-left">{leftIcon}</span>}
+        <span className="lxs-link__content">{children}</span>
+        {rightIcon && <span className="lxs-link__icon-right">{rightIcon}</span>}
       </>
     );
 

@@ -1,3 +1,6 @@
+import './Menu.css';
+import './ActionMenu.css';
+
 export { default as Menu } from './Menu';
 export type { MenuProps, MenuItemProps } from './Menu';
 export { Menu as MenuComponent } from './Menu';

@@ -15,7 +15,7 @@ describe('RadioGroup', () => {
   describe('Rendering', () => {
     it('renders without crashing', () => {
       const { container } = render(<RadioGroup name="test" options={mockOptions} />);
-      expect(container.querySelector('.vtx-radio-group')).toBeInTheDocument();
+      expect(container.querySelector('.lxs-radio-group')).toBeInTheDocument();
     });
 
     it('renders all options', () => {
@@ -39,7 +39,7 @@ describe('RadioGroup', () => {
       const { container } = render(
         <RadioGroup name="test" options={mockOptions} className="custom-class" />
       );
-      const group = container.querySelector('.vtx-radio-group');
+      const group = container.querySelector('.lxs-radio-group');
       expect(group).toHaveClass('custom-class');
     });
   });
@@ -47,23 +47,23 @@ describe('RadioGroup', () => {
   describe('Orientation', () => {
     it('renders vertical by default', () => {
       const { container } = render(<RadioGroup name="test" options={mockOptions} />);
-      const group = container.querySelector('.vtx-radio-group');
-      expect(group).toHaveClass('vtx-radio-group--vertical');
+      const group = container.querySelector('.lxs-radio-group');
+      expect(group).toHaveClass('lxs-radio-group--vertical');
     });
 
     it('renders horizontal when orientation is horizontal', () => {
       const { container } = render(
         <RadioGroup name="test" options={mockOptions} orientation="horizontal" />
       );
-      const group = container.querySelector('.vtx-radio-group');
-      expect(group).toHaveClass('vtx-radio-group--horizontal');
+      const group = container.querySelector('.lxs-radio-group');
+      expect(group).toHaveClass('lxs-radio-group--horizontal');
     });
   });
 
   describe('Size', () => {
     it('passes size prop to radios', () => {
       const { container } = render(<RadioGroup name="test" options={mockOptions} size="lg" />);
-      const radios = container.querySelectorAll('.vtx-radio--lg');
+      const radios = container.querySelectorAll('.lxs-radio--lg');
       expect(radios).toHaveLength(3);
     });
   });
@@ -73,7 +73,7 @@ describe('RadioGroup', () => {
       const { container } = render(
         <RadioGroup name="test" options={mockOptions} variant="success" />
       );
-      const radios = container.querySelectorAll('.vtx-radio--success');
+      const radios = container.querySelectorAll('.lxs-radio--success');
       expect(radios).toHaveLength(3);
     });
   });
@@ -153,8 +153,8 @@ describe('RadioGroup', () => {
 
     it('applies disabled class', () => {
       const { container } = render(<RadioGroup name="test" options={mockOptions} disabled />);
-      const group = container.querySelector('.vtx-radio-group');
-      expect(group).toHaveClass('vtx-radio-group--disabled');
+      const group = container.querySelector('.lxs-radio-group');
+      expect(group).toHaveClass('lxs-radio-group--disabled');
     });
 
     it('disables individual options', () => {
@@ -182,13 +182,13 @@ describe('RadioGroup', () => {
   describe('Error State', () => {
     it('applies error class when error is true', () => {
       const { container } = render(<RadioGroup name="test" options={mockOptions} error />);
-      const group = container.querySelector('.vtx-radio-group');
-      expect(group).toHaveClass('vtx-radio-group--error');
+      const group = container.querySelector('.lxs-radio-group');
+      expect(group).toHaveClass('lxs-radio-group--error');
     });
 
     it('passes error state to all radios', () => {
       const { container } = render(<RadioGroup name="test" options={mockOptions} error />);
-      const radios = container.querySelectorAll('.vtx-radio--error');
+      const radios = container.querySelectorAll('.lxs-radio--error');
       expect(radios).toHaveLength(3);
     });
 
@@ -244,7 +244,7 @@ describe('RadioGroup', () => {
       const ref = React.createRef<HTMLDivElement>();
       render(<RadioGroup ref={ref} name="test" options={mockOptions} />);
       expect(ref.current).toBeInstanceOf(HTMLDivElement);
-      expect(ref.current).toHaveClass('vtx-radio-group');
+      expect(ref.current).toHaveClass('lxs-radio-group');
     });
   });
 });

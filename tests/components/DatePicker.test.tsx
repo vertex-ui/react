@@ -59,7 +59,7 @@ describe('DatePicker', () => {
       // Select 15th of current month
       // We must select the one that is a button (day) not just text
       const days = screen.getAllByRole('button', { name: /15/ });
-      const day15 = days.find(el => el.classList.contains('vtx-datepicker__day'));
+      const day15 = days.find(el => el.classList.contains('lxs-datepicker__day'));
 
       if (day15) await user.click(day15);
 
@@ -139,8 +139,8 @@ describe('DatePicker', () => {
       const prevBtn = screen.getByLabelText('Previous month');
       const nextBtn = screen.getByLabelText('Next month');
 
-      // The component implementation uses class "vtx-datepicker__month-year" for header
-      const header = document.querySelector('.vtx-datepicker__month-year');
+      // The component implementation uses class "lxs-datepicker__month-year" for header
+      const header = document.querySelector('.lxs-datepicker__month-year');
 
       // Get initial month
       const initialMonthText = header?.textContent;

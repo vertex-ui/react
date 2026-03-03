@@ -30,7 +30,7 @@ describe('TestimonialWidget', () => {
 
   const defaultProps = {
     data: { testimonials },
-    className: 'vtx-testimonial-widget'
+    className: 'lxs-testimonial-widget'
   };
 
   describe('Rendering', () => {
@@ -70,14 +70,14 @@ describe('TestimonialWidget', () => {
     it('renders minimal theme', () => {
       const { container } = render(<TestimonialWidget {...defaultProps} theme="minimal" />);
       // eslint-disable-next-line testing-library/no-node-access
-      const widget = container.querySelector('.vtx-testimonial-widget') as HTMLElement;
+      const widget = container.querySelector('.lxs-testimonial-widget') as HTMLElement;
       expect(widget).toHaveStyle({ background: 'transparent' });
     });
 
     it('renders gradient theme', () => {
       const { container } = render(<TestimonialWidget {...defaultProps} theme="gradient" />);
       // eslint-disable-next-line testing-library/no-node-access
-      const widget = container.querySelector('.vtx-testimonial-widget') as HTMLElement;
+      const widget = container.querySelector('.lxs-testimonial-widget') as HTMLElement;
       // JSDOM might drop gradients in some environments or return as backgroundImage.
       // Checking for existence is enough if styles are applied via props spread in component.
       // But let's check color which is also set for gradient theme.
@@ -87,7 +87,7 @@ describe('TestimonialWidget', () => {
     it('renders glassmorphism theme', () => {
       const { container } = render(<TestimonialWidget {...defaultProps} theme="glassmorphism" />);
       // eslint-disable-next-line testing-library/no-node-access
-      const widget = container.querySelector('.vtx-testimonial-widget') as HTMLElement;
+      const widget = container.querySelector('.lxs-testimonial-widget') as HTMLElement;
       expect(widget.style.backdropFilter).toBe('blur(20px)');
     });
   });

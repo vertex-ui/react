@@ -7,7 +7,7 @@ describe('AdminHeader', () => {
   describe('Rendering', () => {
     it('renders correctly with minimal props', () => {
       const { container } = render(<AdminHeader />);
-      expect(container.querySelector('.vtx-admin-header')).toBeInTheDocument();
+      expect(container.querySelector('.lxs-admin-header')).toBeInTheDocument();
     });
 
     it('renders branding elements', () => {
@@ -32,11 +32,11 @@ describe('AdminHeader', () => {
           blur
         />
       );
-      const header = container.querySelector('.vtx-admin-header');
-      expect(header).toHaveClass('vtx-admin-header--elevated');
-      expect(header).toHaveClass('vtx-admin-header--dark');
-      expect(header).toHaveClass('vtx-admin-header--sticky');
-      expect(header).toHaveClass('vtx-admin-header--blur');
+      const header = container.querySelector('.lxs-admin-header');
+      expect(header).toHaveClass('lxs-admin-header--elevated');
+      expect(header).toHaveClass('lxs-admin-header--dark');
+      expect(header).toHaveClass('lxs-admin-header--sticky');
+      expect(header).toHaveClass('lxs-admin-header--blur');
     });
   });
 
@@ -162,7 +162,7 @@ describe('AdminHeader', () => {
 
     it('renders initials fallback when no avatar', () => {
       const { container } = render(<AdminHeader userName="John Doe" />);
-      const fallback = container.querySelector('.vtx-admin-header-user-avatar-fallback');
+      const fallback = container.querySelector('.lxs-admin-header-user-avatar-fallback');
       expect(fallback).toHaveTextContent('J');
     });
   });

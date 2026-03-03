@@ -79,7 +79,7 @@ describe('Toast', () => {
     );
 
     const toast = screen.getByRole('alert');
-    expect(toast).toHaveClass('vtx-toast--success');
+    expect(toast).toHaveClass('lxs-toast--success');
   });
 
   it('renders with primary variant', () => {
@@ -96,7 +96,7 @@ describe('Toast', () => {
     );
 
     const toast = screen.getByRole('alert');
-    expect(toast).toHaveClass('vtx-toast--primary');
+    expect(toast).toHaveClass('lxs-toast--primary');
   });
 
   it('renders with title and description', () => {
@@ -195,7 +195,7 @@ describe('Toast', () => {
       </Toast>
     );
 
-    expect(document.querySelector('.vtx-toast__progress')).toBeInTheDocument();
+    expect(document.querySelector('.lxs-toast__progress')).toBeInTheDocument();
   });
 
   it('hides progress bar when progressBar is false', () => {
@@ -211,7 +211,7 @@ describe('Toast', () => {
       </Toast>
     );
 
-    expect(document.querySelector('.vtx-toast__progress')).not.toBeInTheDocument();
+    expect(document.querySelector('.lxs-toast__progress')).not.toBeInTheDocument();
   });
 
   it('does not auto-close when autoClose is false', () => {
@@ -247,7 +247,7 @@ describe('Toast', () => {
       </Toast>
     );
 
-    expect(document.querySelector('.vtx-toast__icon')).not.toBeInTheDocument();
+    expect(document.querySelector('.lxs-toast__icon')).not.toBeInTheDocument();
   });
 
   it('renders custom icon', () => {

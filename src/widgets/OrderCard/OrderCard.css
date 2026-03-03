@@ -2,21 +2,21 @@
 .ordercard {
   width: 100%;
   max-width: 100%;
-  padding: var(--vtx-spacing-3, 12px);
-  transition: var(--vtx-transition-normal, all 0.3s ease);
+  padding: var(--lxs-spacing-3, 12px);
+  transition: var(--lxs-transition-normal, all 0.3s ease);
   cursor: pointer;
 }
 
 .ordercard:hover {
-  box-shadow: var(--vtx-shadow-md, 0 4px 12px rgba(0, 0, 0, 0.1));
+  box-shadow: var(--lxs-shadow-md, 0 4px 12px rgba(0, 0, 0, 0.1));
   transform: translateY(-2px);
 }
 
 /* Header Section */
 .ordercard-header {
-  padding-bottom: var(--vtx-spacing-2, 8px);
-  margin-bottom: var(--vtx-spacing-2, 8px);
-  border-bottom: 1px solid var(--vtx-color-neutral-200, #e5e5e5);
+  padding-bottom: var(--lxs-spacing-2, 8px);
+  margin-bottom: var(--lxs-spacing-2, 8px);
+  border-bottom: 1px solid var(--lxs-color-neutral-200, #e5e5e5);
 }
 
 /* Image Wrapper */
@@ -24,9 +24,9 @@
   width: 56px;
   height: 56px;
   flex-shrink: 0;
-  border-radius: var(--vtx-radius-md, 8px);
+  border-radius: var(--lxs-radius-md, 8px);
   overflow: hidden;
-  background: var(--vtx-color-neutral-100, #f5f5f5);
+  background: var(--lxs-color-neutral-100, #f5f5f5);
 }
 
 .ordercard-image {
@@ -44,7 +44,7 @@
   -webkit-box-orient: vertical;
   line-height: 1.5;
   word-break: break-word;
-  color: var(--vtx-color-neutral-800, #262626);
+  color: var(--lxs-color-neutral-800, #262626);
 }
 
 /* More Items Text */
@@ -59,7 +59,7 @@
 
 /* Price */
 .ordercard-price {
-  color: var(--vtx-color-neutral-900, #171717);
+  color: var(--lxs-color-neutral-900, #171717);
   font-size: 1.125rem;
 }
 
@@ -72,14 +72,14 @@
 /* Content Section */
 .ordercard-content {
   align-items: flex-start;
-  padding: var(--vtx-spacing-2, 8px) 0;
+  padding: var(--lxs-spacing-2, 8px) 0;
 }
 
 /* Footer Section */
 .ordercard-footer {
-  padding-top: var(--vtx-spacing-2, 8px);
-  margin-top: var(--vtx-spacing-2, 8px);
-  border-top: 1px solid var(--vtx-color-neutral-200, #e5e5e5);
+  padding-top: var(--lxs-spacing-2, 8px);
+  margin-top: var(--lxs-spacing-2, 8px);
+  border-top: 1px solid var(--lxs-color-neutral-200, #e5e5e5);
 }
 
 /* ==================== Responsive Design ==================== */
@@ -87,7 +87,7 @@
 /* Tablet and below */
 @media (max-width: 768px) {
   .ordercard {
-    padding: var(--vtx-spacing-3, 12px);
+    padding: var(--lxs-spacing-3, 12px);
   }
 
   .ordercard-image-wrapper {
@@ -103,7 +103,7 @@
 /* Mobile */
 @media (max-width: 480px) {
   .ordercard {
-    padding: var(--vtx-spacing-2, 8px) var(--vtx-spacing-3, 12px);
+    padding: var(--lxs-spacing-2, 8px) var(--lxs-spacing-3, 12px);
   }
 
   .ordercard-image-wrapper {
@@ -112,13 +112,13 @@
   }
 
   .ordercard-content {
-    padding: var(--vtx-spacing-1, 4px) 0;
+    padding: var(--lxs-spacing-1, 4px) 0;
   }
 
   .ordercard-footer {
     flex-direction: column;
     align-items: stretch !important;
-    gap: var(--vtx-spacing-2, 8px);
+    gap: var(--lxs-spacing-2, 8px);
   }
 
   .ordercard-track-btn {
@@ -134,7 +134,7 @@
 /* Small mobile - very compact */
 @media (max-width: 375px) {
   .ordercard {
-    padding: var(--vtx-spacing-2, 8px);
+    padding: var(--lxs-spacing-2, 8px);
   }
 
   .ordercard-image-wrapper {
@@ -143,12 +143,12 @@
   }
 
   .ordercard-header {
-    padding-bottom: var(--vtx-spacing-1, 4px);
-    margin-bottom: var(--vtx-spacing-1, 4px);
+    padding-bottom: var(--lxs-spacing-1, 4px);
+    margin-bottom: var(--lxs-spacing-1, 4px);
   }
 
   .ordercard-content {
-    gap: var(--vtx-spacing-2, 8px);
+    gap: var(--lxs-spacing-2, 8px);
   }
 }
 
@@ -160,7 +160,7 @@
 }
 
 /* Status badge should not wrap */
-.ordercard .vtx-badge {
+.ordercard .lxs-badge {
   flex-shrink: 0;
   white-space: nowrap;
 }
@@ -169,7 +169,7 @@
 @media print {
   .ordercard {
     box-shadow: none !important;
-    border: 1px solid var(--vtx-color-neutral-300, #d4d4d4);
+    border: 1px solid var(--lxs-color-neutral-300, #d4d4d4);
   }
 
   .ordercard:hover {

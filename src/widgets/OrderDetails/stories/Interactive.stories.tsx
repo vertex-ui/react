@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+﻿import type { Meta, StoryObj } from '@storybook/react';
 import { Widget } from '../../../components/Widget';
 import type { OrderDetailsWidgetData, OrderDetailsWidgetSettings } from '../../../components/Widget/types';
 
@@ -29,7 +29,7 @@ export const Complete: Story = {
       type: 'order-details',
       data: {
         orderId: 'ORD987654321',
-        orderNumber: 'VTX-2025-456',
+        orderNumber: 'lxs-2025-456',
         orderDate: 'January 5, 2025',
         status: 'shipped',
 
@@ -133,7 +133,7 @@ export const Processing: Story = {
       type: 'order-details',
       data: {
         orderId: 'ORD123456789',
-        orderNumber: 'VTX-2025-123',
+        orderNumber: 'lxs-2025-123',
         orderDate: 'January 7, 2025',
         status: 'processing',
 
@@ -215,7 +215,7 @@ export const Delivered: Story = {
       type: 'order-details',
       data: {
         orderId: 'ORD456789012',
-        orderNumber: 'VTX-2024-999',
+        orderNumber: 'lxs-2024-999',
         orderDate: 'December 28, 2024',
         status: 'delivered',
 
@@ -287,7 +287,7 @@ export const Shipped: Story = {
       type: 'order-details',
       data: {
         orderId: 'ORD789012345',
-        orderNumber: 'VTX-2025-789',
+        orderNumber: 'lxs-2025-789',
         orderDate: 'January 6, 2025',
         status: 'shipped',
 
@@ -350,7 +350,7 @@ export const Cancelled: Story = {
       type: 'order-details',
       data: {
         orderId: 'ORD345678901',
-        orderNumber: 'VTX-2025-345',
+        orderNumber: 'lxs-2025-345',
         orderDate: 'January 4, 2025',
         status: 'cancelled',
         statusText: 'Cancelled by customer',
@@ -411,7 +411,7 @@ export const Pending: Story = {
       type: 'order-details',
       data: {
         orderId: 'ORD901234567',
-        orderNumber: 'VTX-2025-901',
+        orderNumber: 'lxs-2025-901',
         orderDate: 'January 7, 2025',
         status: 'pending',
         statusText: 'Awaiting payment confirmation',
@@ -469,7 +469,7 @@ export const LargeOrder: Story = {
       type: 'order-details',
       data: {
         orderId: 'ORD567890123',
-        orderNumber: 'VTX-2025-567',
+        orderNumber: 'lxs-2025-567',
         orderDate: 'January 3, 2025',
         status: 'delivered',
 

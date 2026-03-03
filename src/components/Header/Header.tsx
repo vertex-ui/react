@@ -129,15 +129,15 @@ const NotificationPanel = React.forwardRef<
   const unreadCount = notifications.filter((n) => !n.read).length;
 
   return (
-    <div ref={ref} className="vtx-header-notifications-panel">
-      <div className="vtx-header-notifications-header">
+    <div ref={ref} className="lxs-header-notifications-panel">
+      <div className="lxs-header-notifications-header">
         <Flex justify="between" align="center">
           <Typography variant="subtitle2" noMargin>
             Notifications
           </Typography>
           {unreadCount > 0 && onMarkAllAsRead && (
             <button
-              className="vtx-header-notifications-mark-read"
+              className="lxs-header-notifications-mark-read"
               onClick={() => {
                 onMarkAllAsRead();
                 onClose();
@@ -148,9 +148,9 @@ const NotificationPanel = React.forwardRef<
           )}
         </Flex>
       </div>
-      <div className="vtx-header-notifications-list">
+      <div className="lxs-header-notifications-list">
         {notifications.length === 0 ? (
-          <div className="vtx-header-notifications-empty">
+          <div className="lxs-header-notifications-empty">
             <BellIcon />
             <Typography variant="body2" textColor="var(--color-neutral-500)" noMargin>
               No notifications
@@ -160,16 +160,16 @@ const NotificationPanel = React.forwardRef<
           notifications.map((notification) => (
             <div
               key={notification.id}
-              className={`vtx-header-notification-item ${!notification.read ? 'vtx-header-notification-item--unread' : ''} ${notification.type ? `vtx-header-notification-item--${notification.type}` : ''}`}
+              className={`lxs-header-notification-item ${!notification.read ? 'lxs-header-notification-item--unread' : ''} ${notification.type ? `lxs-header-notification-item--${notification.type}` : ''}`}
               onClick={() => {
                 onNotificationClick?.(notification);
                 onClose();
               }}
             >
               {notification.icon && (
-                <div className="vtx-header-notification-icon">{notification.icon}</div>
+                <div className="lxs-header-notification-icon">{notification.icon}</div>
               )}
-              <div className="vtx-header-notification-content">
+              <div className="lxs-header-notification-content">
                 <Typography
                   variant="body2"
                   noMargin
@@ -186,7 +186,7 @@ const NotificationPanel = React.forwardRef<
                   {notification.time}
                 </Typography>
               </div>
-              {!notification.read && <div className="vtx-header-notification-dot" />}
+              {!notification.read && <div className="lxs-header-notification-dot" />}
             </div>
           ))
         )}
@@ -277,7 +277,7 @@ const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
       return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    const headerClasses = ['vtx-header', sticky && 'vtx-header--sticky', className]
+    const headerClasses = ['lxs-header', sticky && 'lxs-header--sticky', className]
       .filter(Boolean)
       .join(' ');
 
@@ -287,7 +287,7 @@ const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
           {/* Toggle Button */}
           {showToggle && onToggleSidebar && (
             <button
-              className="vtx-header-toggle"
+              className="lxs-header-toggle"
               onClick={onToggleSidebar}
               aria-label="Toggle sidebar"
             >
@@ -296,26 +296,26 @@ const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
           )}
 
           {/* Logo */}
-          {logo && <div className="vtx-header-logo">{logo}</div>}
+          {logo && <div className="lxs-header-logo">{logo}</div>}
 
           {/* Title */}
           {title && (
-            <Typography variant="h6" noMargin className="vtx-header-title">
+            <Typography variant="h6" noMargin className="lxs-header-title">
               {title}
             </Typography>
           )}
         </Flex>
 
         {/* Actions */}
-        {actions && <div className="vtx-header-actions">{actions}</div>}
+        {actions && <div className="lxs-header-actions">{actions}</div>}
 
         {/* Right Section */}
-        <div className="vtx-header-right">
+        <div className="lxs-header-right">
           {/* Notifications */}
           {notifications && notifications.length > 0 && (
-            <div className="vtx-header-notifications" ref={notificationsRef}>
+            <div className="lxs-header-notifications" ref={notificationsRef}>
               <button
-                className={`vtx-header-icon-button ${notificationsOpen ? 'vtx-header-icon-button--active' : ''}`}
+                className={`lxs-header-icon-button ${notificationsOpen ? 'lxs-header-icon-button--active' : ''}`}
                 onClick={() => setNotificationsOpen(!notificationsOpen)}
                 aria-label="Notifications"
               >
@@ -351,15 +351,15 @@ const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
 
           {/* User Menu */}
           {userName && (
-            <div className="vtx-header-user-menu" ref={userMenuRef}>
+            <div className="lxs-header-user-menu" ref={userMenuRef}>
               <button
-                className={`vtx-header-user-button ${userMenuOpen ? 'vtx-header-user-button--active' : ''}`}
+                className={`lxs-header-user-button ${userMenuOpen ? 'lxs-header-user-button--active' : ''}`}
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
                 aria-label="User menu"
               >
                 <Avatar src={userAvatar} alt={userName} size="sm" />
                 {!userAvatar && (
-                  <span className="vtx-header-avatar-fallback">
+                  <span className="lxs-header-avatar-fallback">
                     {userName
                       .split(' ')
                       .map((n) => n[0])
@@ -367,7 +367,7 @@ const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
                       .slice(0, 2)}
                   </span>
                 )}
-                <div className="vtx-header-user-info">
+                <div className="lxs-header-user-info">
                   <Typography variant="body2" noMargin style={{ fontWeight: 600 }}>
                     {userName}
                   </Typography>
@@ -380,7 +380,7 @@ const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
                 <ChevronDownIcon />
               </button>
               {userMenuOpen && (
-                <div className="vtx-header-user-dropdown">
+                <div className="lxs-header-user-dropdown">
                   <Menu items={userMenuItems} responsive={false} />
                 </div>
               )}

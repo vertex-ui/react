@@ -1,4 +1,4 @@
-
+import './AdminHeader.css';
 
 export { default, AdminHeader } from './AdminHeader';
 export type {

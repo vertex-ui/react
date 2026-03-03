@@ -87,9 +87,9 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
     ref
   ) => {
     const containerClassNames = [
-      'vtx-container',
-      fluid || maxWidth === 'fluid' ? 'vtx-container--fluid' : `vtx-container--${maxWidth}`,
-      disableGutters && 'vtx-container--no-gutters',
+      'lxs-container',
+      fluid || maxWidth === 'fluid' ? 'lxs-container--fluid' : `lxs-container--${maxWidth}`,
+      disableGutters && 'lxs-container--no-gutters',
       className,
     ]
       .filter(Boolean)

@@ -112,11 +112,11 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
  * @example
  * Customize appearance with CSS
  * ```css
- * .vtx-card {
- *   --vtx-card-bg: #ffffff;
- *   --vtx-card-border-radius: 8px;
- *   --vtx-card-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
- *   --vtx-card-padding: 16px;
+ * .lxs-card {
+ *   --lxs-card-bg: #ffffff;
+ *   --lxs-card-border-radius: 8px;
+ *   --lxs-card-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+ *   --lxs-card-padding: 16px;
  * }
  * ```
  */
@@ -147,12 +147,12 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
 
     // Compose class names
     const cardClassNames = [
-      'vtx-card',
-      `vtx-card--${variant}`,
-      `vtx-card--${cardSize}`,
-      hoverable ? 'vtx-card--hoverable' : '',
-      clickable ? 'vtx-card--clickable' : '',
-      noPadding && !padding ? 'vtx-card--no-padding' : '',
+      'lxs-card',
+      `lxs-card--${variant}`,
+      `lxs-card--${cardSize}`,
+      hoverable ? 'lxs-card--hoverable' : '',
+      clickable ? 'lxs-card--clickable' : '',
+      noPadding && !padding ? 'lxs-card--no-padding' : '',
       className,
     ]
       .filter(Boolean)
@@ -161,7 +161,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     // Compose style, ensuring custom property is set if padding is provided
     const customStyle: React.CSSProperties = {
       ...(style || {}),
-      ...(padding ? { ['--vtx-card-padding' as any]: padding } : {}),
+      ...(padding ? { ['--lxs-card-padding' as any]: padding } : {}),
     };
 
     // If clickable, set tabIndex to 0 by default unless provided
@@ -177,13 +177,13 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
         {...props}
       >
         {header && (
-          <div className={`vtx-card-header${divider ? ' vtx-card-header--divider' : ''}`}>
+          <div className={`lxs-card-header${divider ? ' lxs-card-header--divider' : ''}`}>
             {header}
           </div>
         )}
-        <div className="vtx-card-content">{children}</div>
+        <div className="lxs-card-content">{children}</div>
         {footer && (
-          <div className={`vtx-card-footer${divider ? ' vtx-card-footer--divider' : ''}`}>
+          <div className={`lxs-card-footer${divider ? ' lxs-card-footer--divider' : ''}`}>
             {footer}
           </div>
         )}

@@ -37,7 +37,7 @@ const copyCss = () => ({
   name: 'copy-css',
   writeBundle() {
     // With inject:true, CSS is embedded in JS modules.
-    // However, we also provide base.css separately for manual import via '@vtx-ui/react/styles'
+    // However, we also provide base.css separately for manual import via '@luxis-ui/react/styles'
     const themeCssSrc = 'src/theme/base.css';
     const themeCssDest = 'dist/esm/theme/base.css';
 

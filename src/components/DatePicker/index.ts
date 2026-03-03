@@ -1,3 +1,5 @@
+import './DatePicker.css';
+
 export { default as DatePicker } from './DatePicker';
 export { default as DateRangePicker } from './DateRangePicker';
 export type { DatePickerProps } from './DatePicker';

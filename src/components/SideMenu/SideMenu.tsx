@@ -98,7 +98,7 @@ const ChevronIcon = ({ isOpen }: { isOpen: boolean }) => (
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    className={`vtx-sidemenu-chevron ${isOpen ? 'vtx-sidemenu-chevron--open' : ''}`}
+    className={`lxs-sidemenu-chevron ${isOpen ? 'lxs-sidemenu-chevron--open' : ''}`}
   >
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
   </svg>
@@ -157,7 +157,7 @@ export const SideMenuItem = React.forwardRef<
     const content = (
       <>
         <Flex align="center" gap={collapsed ? 0 : 12} style={{ flex: 1, minWidth: 0 }}>
-          {icon && <span className="vtx-sidemenu-item-icon">{icon}</span>}
+          {icon && <span className="lxs-sidemenu-item-icon">{icon}</span>}
           {!collapsed && (
             <>
               <Typography
@@ -172,7 +172,7 @@ export const SideMenuItem = React.forwardRef<
               >
                 {label}
               </Typography>
-              {badge && <span className="vtx-sidemenu-item-badge">{badge}</span>}
+              {badge && <span className="lxs-sidemenu-item-badge">{badge}</span>}
               {hasSubmenu && <ChevronIcon isOpen={isSubmenuOpen} />}
             </>
           )}
@@ -181,11 +181,11 @@ export const SideMenuItem = React.forwardRef<
     );
 
     const itemClasses = [
-      'vtx-sidemenu-item',
-      active && 'vtx-sidemenu-item--active',
-      disabled && 'vtx-sidemenu-item--disabled',
-      hasSubmenu && 'vtx-sidemenu-item--has-submenu',
-      collapsed && 'vtx-sidemenu-item--collapsed',
+      'lxs-sidemenu-item',
+      active && 'lxs-sidemenu-item--active',
+      disabled && 'lxs-sidemenu-item--disabled',
+      hasSubmenu && 'lxs-sidemenu-item--has-submenu',
+      collapsed && 'lxs-sidemenu-item--collapsed',
     ]
       .filter(Boolean)
       .join(' ');
@@ -210,7 +210,7 @@ export const SideMenuItem = React.forwardRef<
           {content}
         </ItemWrapper>
         {hasSubmenu && isSubmenuOpen && !collapsed && (
-          <div className="vtx-sidemenu-submenu">
+          <div className="lxs-sidemenu-submenu">
             {items.map((item, index) => (
               <SideMenuItem key={index} {...item} collapsed={collapsed} level={level + 1} />
             ))}
@@ -280,7 +280,7 @@ const SideMenu = React.forwardRef<HTMLDivElement, SideMenuProps>(
       ? `${width}px`
       : width;
 
-    const sidebarClasses = ['vtx-sidemenu', collapsed && 'vtx-sidemenu--collapsed', className]
+    const sidebarClasses = ['lxs-sidemenu', collapsed && 'lxs-sidemenu--collapsed', className]
       .filter(Boolean)
       .join(' ');
 
@@ -288,14 +288,14 @@ const SideMenu = React.forwardRef<HTMLDivElement, SideMenuProps>(
       <aside ref={ref} className={sidebarClasses} style={{ width: sidebarWidth }} role="navigation">
         {header && (
           <div
-            className="vtx-sidemenu-header"
+            className="lxs-sidemenu-header"
             style={headerPadding ? { padding: typeof headerPadding === 'number' ? `${headerPadding}px` : headerPadding } : undefined}
           >
             {header}
           </div>
         )}
 
-        <div className="vtx-sidemenu-content">
+        <div className="lxs-sidemenu-content">
           {items.map((item, index) => (
             <SideMenuItem key={index} {...item} collapsed={collapsed} />
           ))}
@@ -303,7 +303,7 @@ const SideMenu = React.forwardRef<HTMLDivElement, SideMenuProps>(
 
         {footer && (
           <div
-            className="vtx-sidemenu-footer"
+            className="lxs-sidemenu-footer"
             style={footerPadding ? { padding: typeof footerPadding === 'number' ? `${footerPadding}px` : footerPadding } : undefined}
           >
             {footer}

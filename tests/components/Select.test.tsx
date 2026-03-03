@@ -39,16 +39,16 @@ describe('Select', () => {
   it('renders with error state', () => {
     const { container } = render(<Select options={options} error="This field is required" />);
     expect(screen.getByText('This field is required')).toBeInTheDocument();
-    const selectContainer = container.querySelector('.vtx-select-container');
-    expect(selectContainer).toHaveClass('vtx-select-container--error');
+    const selectContainer = container.querySelector('.lxs-select-container');
+    expect(selectContainer).toHaveClass('lxs-select-container--error');
   });
 
   it('renders with success state', () => {
     const { container } = render(
       <Select options={options} success={'success'} helperText="Looks good!" />
     );
-    const selectContainer = container.querySelector('.vtx-select-container');
-    expect(selectContainer).toHaveClass('vtx-select-container--success');
+    const selectContainer = container.querySelector('.lxs-select-container');
+    expect(selectContainer).toHaveClass('lxs-select-container--success');
   });
 
   it('renders disabled state', () => {
@@ -72,7 +72,7 @@ describe('Select', () => {
 
   it('applies custom className', () => {
     const { container } = render(<Select options={options} className="custom-select" />);
-    const selectContainer = container.querySelector('.vtx-select-container');
+    const selectContainer = container.querySelector('.lxs-select-container');
     expect(selectContainer).toHaveClass('custom-select');
   });
 
@@ -161,7 +161,7 @@ describe('Select', () => {
   it('shows loading spinner in icon when loading prop is true', () => {
     const { container } = render(<Select options={options} loading />);
 
-    const spinner = container.querySelector('.vtx-select-icon-spinner');
+    const spinner = container.querySelector('.lxs-select-icon-spinner');
     expect(spinner).toBeInTheDocument();
   });
 
@@ -169,11 +169,11 @@ describe('Select', () => {
     const { container } = render(<Select options={options} loading />);
 
     // Spinner should be present
-    const spinner = container.querySelector('.vtx-select-icon-spinner');
+    const spinner = container.querySelector('.lxs-select-icon-spinner');
     expect(spinner).toBeInTheDocument();
 
     // Regular chevron path should not be present
-    const chevronPath = container.querySelector('.vtx-select-icon svg path[d="M4 6L8 10L12 6"]');
+    const chevronPath = container.querySelector('.lxs-select-icon svg path[d="M4 6L8 10L12 6"]');
     expect(chevronPath).not.toBeInTheDocument();
   });
 

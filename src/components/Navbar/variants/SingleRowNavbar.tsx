@@ -26,8 +26,8 @@ export const SingleRowNavbar: React.FC<NavbarDesktopProps> = (props) => {
   } = useNavbarSections(props);
 
   const navbarClass = [
-    'vtx-navbar',
-    shadow && 'vtx-navbar--shadow',
+    'lxs-navbar',
+    shadow && 'lxs-navbar--shadow',
     className,
   ].filter(Boolean).join(' ');
 
@@ -40,13 +40,13 @@ export const SingleRowNavbar: React.FC<NavbarDesktopProps> = (props) => {
     if (singleRowVariant === 'balanced') {
       return (
         <>
-          <div className="vtx-navbar__left">
+          <div className="lxs-navbar__left">
             {logoSection}
           </div>
-          <div className="vtx-navbar__center">
+          <div className="lxs-navbar__center">
             {navigationSection}
           </div>
-          <div className="vtx-navbar__right">
+          <div className="lxs-navbar__right">
             {searchSection}
             {iconsSection}
             {userSection}
@@ -60,16 +60,16 @@ export const SingleRowNavbar: React.FC<NavbarDesktopProps> = (props) => {
     if (singleRowVariant === 'search-centered') {
       return (
         <>
-          <div className="vtx-navbar__left">
+          <div className="lxs-navbar__left">
             {logoSection}
-            <div className="vtx-navbar__nav" style={{ marginLeft: '24px' }}>
+            <div className="lxs-navbar__nav" style={{ marginLeft: '24px' }}>
               {navigationSection}
             </div>
           </div>
-          <div className="vtx-navbar__center" style={{ width: '100%', justifyContent: 'center' }}>
+          <div className="lxs-navbar__center" style={{ width: '100%', justifyContent: 'center' }}>
             {searchSection}
           </div>
-          <div className="vtx-navbar__right">
+          <div className="lxs-navbar__right">
             {iconsSection}
             {userSection}
             {actionsSection}
@@ -81,16 +81,16 @@ export const SingleRowNavbar: React.FC<NavbarDesktopProps> = (props) => {
     // 3. Standard (Default): Logo + Nav | ... | Actions
     return (
       <>
-        <div className="vtx-navbar__left">
+        <div className="lxs-navbar__left">
           {logoSection}
-          <div className="vtx-navbar__nav" style={{ marginLeft: '24px' }}>
+          <div className="lxs-navbar__nav" style={{ marginLeft: '24px' }}>
             {navigationSection}
           </div>
         </div>
-        <div className="vtx-navbar__center">
+        <div className="lxs-navbar__center">
           {/* Empty center for spacing */}
         </div>
-        <div className="vtx-navbar__right">
+        <div className="lxs-navbar__right">
           {searchSection}
           {iconsSection}
           {userSection}
@@ -101,17 +101,17 @@ export const SingleRowNavbar: React.FC<NavbarDesktopProps> = (props) => {
   };
 
   return (
-    <div className={`vtx-navbar-wrapper ${sticky ? 'vtx-navbar-wrapper--sticky' : ''}`}>
+    <div className={`vtx-navbar-wrapper ${sticky ? 'lxs-navbar-wrapper--sticky' : ''}`}>
       {topBar && <TopBar config={topBar} containerized={containerized} />}
       <nav className={navbarClass} style={style}>
         {containerized ? (
           <Container style={{ height: '100%' }}>
-            <div className="vtx-navbar__content">
+            <div className="lxs-navbar__content">
               {renderContent()}
             </div>
           </Container>
         ) : (
-          <div className="vtx-navbar__content" style={props.padding ? { padding: props.padding } : undefined}>
+          <div className="lxs-navbar__content" style={props.padding ? { padding: props.padding } : undefined}>
             {renderContent()}
           </div>
         )}

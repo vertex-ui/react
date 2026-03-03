@@ -118,7 +118,7 @@ describe('ProductCard', () => {
 
     it('renders skeleton when loading', () => {
         const { container } = render(<ProductCard.Base {...defaultProps} loading />);
-        expect(container.querySelector('.vtx-skeleton')).toBeInTheDocument();
+        expect(container.querySelector('.lxs-skeleton')).toBeInTheDocument();
     });
 
     it('renders original price and discount', () => {

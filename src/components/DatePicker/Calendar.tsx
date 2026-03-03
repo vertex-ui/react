@@ -135,10 +135,10 @@ export const Calendar: React.FC<CalendarProps> = ({
   const days = getDaysInMonth();
 
   return (
-    <div className="vtx-datepicker__calendar">
-      <div className="vtx-datepicker__header">
+    <div className="lxs-datepicker__calendar">
+      <div className="lxs-datepicker__header">
         <button
-          className="vtx-datepicker__nav-button"
+          className="lxs-datepicker__nav-button"
           onClick={() => handleMonthChange(-1)}
           type="button"
           aria-label="Previous month"
@@ -146,12 +146,12 @@ export const Calendar: React.FC<CalendarProps> = ({
           <ChevronLeftIcon size={16} />
         </button>
         
-        <div className="vtx-datepicker__month-year">
+        <div className="lxs-datepicker__month-year">
           {MONTHS[viewDate.getMonth()]} {viewDate.getFullYear()}
         </div>
         
         <button
-          className="vtx-datepicker__nav-button"
+          className="lxs-datepicker__nav-button"
           onClick={() => handleMonthChange(1)}
           type="button"
           aria-label="Next month"
@@ -160,15 +160,15 @@ export const Calendar: React.FC<CalendarProps> = ({
         </button>
       </div>
       
-      <div className="vtx-datepicker__weekdays">
+      <div className="lxs-datepicker__weekdays">
         {WEEKDAYS.map((weekday) => (
-          <div key={weekday} className="vtx-datepicker__weekday">
+          <div key={weekday} className="lxs-datepicker__weekday">
             {weekday}
           </div>
         ))}
       </div>
       
-      <div className="vtx-datepicker__days">
+      <div className="lxs-datepicker__days">
         {days.map((date, index) => {
           const isSelected = value ? isSameDay(date, value) : false;
           const isToday = isSameDay(date, today);
@@ -182,14 +182,14 @@ export const Calendar: React.FC<CalendarProps> = ({
             <button
               key={index}
               className={[
-                'vtx-datepicker__day',
-                isSelected && 'vtx-datepicker__day--selected',
-                isToday && 'vtx-datepicker__day--today',
-                isOtherMonth && 'vtx-datepicker__day--other-month',
-                isDisabled && 'vtx-datepicker__day--disabled',
-                inRange && 'vtx-datepicker__day--in-range',
-                rangeStart && 'vtx-datepicker__day--range-start',
-                rangeEnd && 'vtx-datepicker__day--range-end',
+                'lxs-datepicker__day',
+                isSelected && 'lxs-datepicker__day--selected',
+                isToday && 'lxs-datepicker__day--today',
+                isOtherMonth && 'lxs-datepicker__day--other-month',
+                isDisabled && 'lxs-datepicker__day--disabled',
+                inRange && 'lxs-datepicker__day--in-range',
+                rangeStart && 'lxs-datepicker__day--range-start',
+                rangeEnd && 'lxs-datepicker__day--range-end',
               ]
                 .filter(Boolean)
                 .join(' ')}

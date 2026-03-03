@@ -74,7 +74,7 @@ describe('Tooltip', () => {
     fireEvent.mouseEnter(trigger);
 
     await waitFor(() => {
-      const arrow = document.body.querySelector('.vtx-tooltip-arrow');
+      const arrow = document.body.querySelector('.lxs-tooltip-arrow');
       expect(arrow).toBeInTheDocument();
     });
   });
@@ -90,7 +90,7 @@ describe('Tooltip', () => {
     fireEvent.mouseEnter(trigger);
 
     await waitFor(() => {
-      const tooltip = document.body.querySelector('.vtx-tooltip--dark');
+      const tooltip = document.body.querySelector('.lxs-tooltip--dark');
       expect(tooltip).toBeInTheDocument();
     });
   });
@@ -146,7 +146,7 @@ describe('Tooltip', () => {
     fireEvent.mouseEnter(trigger);
 
     await waitFor(() => {
-      const tooltip = document.body.querySelector('.vtx-tooltip');
+      const tooltip = document.body.querySelector('.lxs-tooltip');
       expect(tooltip).toHaveClass('custom-tooltip');
     });
   });
@@ -159,7 +159,7 @@ describe('Tooltip', () => {
     );
 
     await waitFor(() => {
-      const closeButton = document.body.querySelector('.vtx-tooltip-close');
+      const closeButton = document.body.querySelector('.lxs-tooltip-close');
       expect(closeButton).toBeInTheDocument();
       expect(closeButton).toHaveAttribute('aria-label', 'Dismiss tooltip');
     });
@@ -174,11 +174,11 @@ describe('Tooltip', () => {
     );
 
     await waitFor(() => {
-      const closeButton = document.body.querySelector('.vtx-tooltip-close');
+      const closeButton = document.body.querySelector('.lxs-tooltip-close');
       expect(closeButton).toBeInTheDocument();
     });
 
-    const closeButton = document.body.querySelector('.vtx-tooltip-close') as HTMLElement;
+    const closeButton = document.body.querySelector('.lxs-tooltip-close') as HTMLElement;
     fireEvent.click(closeButton);
 
     expect(onDismiss).toHaveBeenCalledTimes(1);
@@ -195,7 +195,7 @@ describe('Tooltip', () => {
       );
 
       await waitFor(() => {
-        const tooltip = document.body.querySelector(`.vtx-tooltip--${variant}`);
+        const tooltip = document.body.querySelector(`.lxs-tooltip--${variant}`);
         expect(tooltip).toBeInTheDocument();
       });
 

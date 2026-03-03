@@ -9,7 +9,7 @@ describe('ThemeProvider', () => {
   afterEach(() => {
     cleanup();
     // Clean up injected style elements
-    const styleElement = document.getElementById('vtx-ui-variables');
+    const styleElement = document.getElementById('luxis-ui-variables');
     if (styleElement) {
       styleElement.remove();
     }
@@ -29,9 +29,9 @@ describe('ThemeProvider', () => {
         <div>Content</div>
       </ThemeProvider>
     );
-    const styleElement = document.getElementById('vtx-ui-variables');
+    const styleElement = document.getElementById('luxis-ui-variables');
     expect(styleElement).toBeInTheDocument();
-    expect(styleElement?.textContent).toContain('--vtx-color');
+    expect(styleElement?.textContent).toContain('--lxs-color');
   });
 
   it('does not inject CSS variables when no custom tokens provided', () => {
@@ -40,7 +40,7 @@ describe('ThemeProvider', () => {
         <div>Content</div>
       </ThemeProvider>
     );
-    const styleElement = document.getElementById('vtx-ui-variables');
+    const styleElement = document.getElementById('luxis-ui-variables');
     expect(styleElement).not.toBeInTheDocument();
   });
 

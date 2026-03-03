@@ -186,11 +186,11 @@ export interface MultiSelectProps {
  * @example
  * Customize loading spinner via CSS
  * ```css
- * .vtx-multiselect-icon-spinner {
- *   --vtx-multiselect-loader-color: #10b981;
- *   --vtx-multiselect-loader-speed: 1.2s;
- *   --vtx-multiselect-loader-track-opacity: 0.15;
- *   --vtx-multiselect-loader-path-opacity: 0.85;
+ * .lxs-multiselect-icon-spinner {
+ *   --lxs-multiselect-loader-color: #10b981;
+ *   --lxs-multiselect-loader-speed: 1.2s;
+ *   --lxs-multiselect-loader-track-opacity: 0.15;
+ *   --lxs-multiselect-loader-path-opacity: 0.85;
  * }
  * ```
  */
@@ -385,8 +385,8 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
     const remainingCount = maxChipsDisplay ? selectedOptions.length - maxChipsDisplay : 0;
 
     const wrapperClassNames = [
-      'vtx-multiselect-wrapper',
-      fullWidth && 'vtx-multiselect-wrapper--full-width',
+      'lxs-multiselect-wrapper',
+      fullWidth && 'lxs-multiselect-wrapper--full-width',
       className,
     ]
       .filter(Boolean)
@@ -394,12 +394,12 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
 
     const size: 'sm' | 'md' | 'lg' = sizeProp || theme?.defaultSize || 'md';
     const containerClassNames = [
-      'vtx-multiselect-container',
+      'lxs-multiselect-container',
       `vtx-multiselect-container--${size}`,
-      hasError && 'vtx-multiselect-container--error',
-      hasSuccess && 'vtx-multiselect-container--success',
-      disabled && 'vtx-multiselect-container--disabled',
-      isOpen && 'vtx-multiselect-container--open',
+      hasError && 'lxs-multiselect-container--error',
+      hasSuccess && 'lxs-multiselect-container--success',
+      disabled && 'lxs-multiselect-container--disabled',
+      isOpen && 'lxs-multiselect-container--open',
     ]
       .filter(Boolean)
       .join(' ');
@@ -410,10 +410,10 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
     return (
       <div className={wrapperClassNames} ref={ref}>
         {label && (
-          <label htmlFor={id} className="vtx-multiselect-label">
+          <label htmlFor={id} className="lxs-multiselect-label">
             {label}
             {required && (
-              <span className="vtx-multiselect-label__required" aria-label="required">
+              <span className="lxs-multiselect-label__required" aria-label="required">
                 {' '}
                 *
               </span>
@@ -431,7 +431,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
           aria-disabled={disabled}
         >
           <div
-            className="vtx-multiselect-input-area"
+            className="lxs-multiselect-input-area"
             onClick={() => !disabled && setIsOpen(!isOpen)}
             role="button"
             tabIndex={disabled ? -1 : 0}
@@ -443,9 +443,9 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
             }}
           >
             {selectedOptions.length === 0 ? (
-              <span className="vtx-multiselect-placeholder">{placeholder}</span>
+              <span className="lxs-multiselect-placeholder">{placeholder}</span>
             ) : (
-              <div className="vtx-multiselect-chips">
+              <div className="lxs-multiselect-chips">
                 {displayedChips.map((option) => {
                   const value = extractValue(option, getOptionValue);
                   const label = extractValue(option, getOptionLabel);
@@ -475,7 +475,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
             )}
           </div>
 
-          <span className="vtx-multiselect-icon" aria-hidden="true">
+          <span className="lxs-multiselect-icon" aria-hidden="true">
             {loading ? (
               <SpinnerIcon size={16} />
             ) : (
@@ -484,9 +484,9 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
           </span>
 
           {isOpen && (
-            <div ref={dropdownRef} className="vtx-multiselect-dropdown" role="listbox">
+            <div ref={dropdownRef} className="lxs-multiselect-dropdown" role="listbox">
               {searchable && (
-                <div className="vtx-multiselect-search">
+                <div className="lxs-multiselect-search">
                   <input
                     type="text"
                     placeholder="Search..."
@@ -498,10 +498,10 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
               )}
 
               {showSelectAll && (
-                <div className="vtx-multiselect-actions">
+                <div className="lxs-multiselect-actions">
                   <button
                     type="button"
-                    className="vtx-multiselect-action-button"
+                    className="lxs-multiselect-action-button"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleSelectAll();
@@ -511,7 +511,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
                   </button>
                   <button
                     type="button"
-                    className="vtx-multiselect-action-button"
+                    className="lxs-multiselect-action-button"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleClearAll();
@@ -522,13 +522,13 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
                 </div>
               )}
 
-              <div className="vtx-multiselect-options">
+              <div className="lxs-multiselect-options">
                 {filteredOptions.length === 0 ? (
-                  <div className="vtx-multiselect-empty">No options found</div>
+                  <div className="lxs-multiselect-empty">No options found</div>
                 ) : (
                   Object.entries(groupedOptions).map(([group, groupOptions]) => (
                     <div key={group}>
-                      {grouped && group && <div className="vtx-multiselect-optgroup">{group}</div>}
+                      {grouped && group && <div className="lxs-multiselect-optgroup">{group}</div>}
                       {groupOptions.map((option) => {
                         const value = extractValue(option, getOptionValue);
                         const label = extractValue(option, getOptionLabel);
@@ -536,9 +536,9 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
                         const isSelected = selectedValues.includes(value);
 
                         const optionClassNames = [
-                          'vtx-multiselect-option',
-                          isSelected && 'vtx-multiselect-option--selected',
-                          isDisabled && 'vtx-multiselect-option--disabled',
+                          'lxs-multiselect-option',
+                          isSelected && 'lxs-multiselect-option--selected',
+                          isDisabled && 'lxs-multiselect-option--disabled',
                         ]
                           .filter(Boolean)
                           .join(' ');
@@ -563,17 +563,17 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
                             {selectionStyle === 'checkbox' && (
                               <div
                                 className={`vtx-multiselect-checkbox ${
-                                  isSelected ? 'vtx-multiselect-checkbox--checked' : ''
+                                  isSelected ? 'lxs-multiselect-checkbox--checked' : ''
                                 }`}
                               >
                                 {isSelected && <CheckIcon size={16} />}
                               </div>
                             )}
 
-                            <span className="vtx-multiselect-option-label">{label}</span>
+                            <span className="lxs-multiselect-option-label">{label}</span>
 
                             {selectionStyle === 'checkmark' && (
-                              <div className="vtx-multiselect-checkmark">
+                              <div className="lxs-multiselect-checkmark">
                                 {isSelected && <CheckIcon size={20} />}
                               </div>
                             )}
@@ -595,7 +595,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
             name={name}
             value={selectedValues.map(String)}
             onChange={() => {}}
-            className="vtx-multiselect-hidden-select"
+            className="lxs-multiselect-hidden-select"
             required={required}
             disabled={disabled}
             tabIndex={-1}
@@ -613,17 +613,17 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
         )}
 
         {helperText && !error && !success && (
-          <p id={helperId} className="vtx-multiselect-helper">
+          <p id={helperId} className="lxs-multiselect-helper">
             {helperText}
           </p>
         )}
         {error && (
-          <p id={errorId} className="vtx-multiselect-error" role="alert">
+          <p id={errorId} className="lxs-multiselect-error" role="alert">
             {error}
           </p>
         )}
         {success && (
-          <p id={successId} className="vtx-multiselect-success" role="status">
+          <p id={successId} className="lxs-multiselect-success" role="status">
             {success}
           </p>
         )}

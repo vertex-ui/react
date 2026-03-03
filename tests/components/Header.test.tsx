@@ -5,7 +5,7 @@ import { Header } from '../../src/components/Header/Header';
 describe('Header', () => {
   it('renders correctly', () => {
     const { container } = render(<Header />);
-    expect(container.querySelector('.vtx-header')).toBeInTheDocument();
+    expect(container.querySelector('.lxs-header')).toBeInTheDocument();
   });
 
   it('renders title', () => {

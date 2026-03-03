@@ -74,9 +74,9 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
       switch (theme) {
         case 'card':
           return (
-            <div className="vtx-skeleton-theme vtx-skeleton-theme--card">
+            <div className="lxs-skeleton-theme lxs-skeleton-theme--card">
               <Skeleton variant="rounded" height={200} animation={animation} />
-              <div className="vtx-skeleton-theme__content">
+              <div className="lxs-skeleton-theme__content">
                 <Skeleton variant="text" width="60%" animation={animation} />
                 <Skeleton variant="text" width="90%" animation={animation} />
                 <Skeleton variant="text" width="80%" animation={animation} />
@@ -86,9 +86,9 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
 
         case 'product':
           return (
-            <div className="vtx-skeleton-theme vtx-skeleton-theme--product">
+            <div className="lxs-skeleton-theme lxs-skeleton-theme--product">
               <Skeleton variant="rounded" height={220} animation={animation} />
-              <div className="vtx-skeleton-theme__content">
+              <div className="lxs-skeleton-theme__content">
                 <Skeleton variant="text" width="50%" height={12} animation={animation} />
                 <Skeleton variant="text" width="85%" height={16} animation={animation} />
                 <Skeleton variant="text" width="40%" height={12} animation={animation} />
@@ -102,7 +102,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
         case 'article':
         case 'blog-post':
           return (
-            <div className="vtx-skeleton-theme vtx-skeleton-theme--article">
+            <div className="lxs-skeleton-theme lxs-skeleton-theme--article">
               <Skeleton variant="text" width="70%" height={32} animation={animation} />
               <div style={{ display: 'flex', gap: '12px', marginTop: '12px' }}>
                 <Skeleton variant="circular" width={40} height={40} animation={animation} />
@@ -112,7 +112,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
                 </div>
               </div>
               <Skeleton variant="rounded" height={300} style={{ marginTop: '20px' }} animation={animation} />
-              <div className="vtx-skeleton-theme__content" style={{ marginTop: '20px' }}>
+              <div className="lxs-skeleton-theme__content" style={{ marginTop: '20px' }}>
                 <Skeleton variant="text" width="100%" animation={animation} />
                 <Skeleton variant="text" width="100%" animation={animation} />
                 <Skeleton variant="text" width="95%" animation={animation} />
@@ -125,7 +125,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
 
         case 'profile':
           return (
-            <div className="vtx-skeleton-theme vtx-skeleton-theme--profile">
+            <div className="lxs-skeleton-theme lxs-skeleton-theme--profile">
               <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
                 <Skeleton variant="circular" width={80} height={80} animation={animation} />
                 <div style={{ flex: 1 }}>
@@ -134,7 +134,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
                   <Skeleton variant="text" width="50%" animation={animation} />
                 </div>
               </div>
-              <div className="vtx-skeleton-theme__content" style={{ marginTop: '24px' }}>
+              <div className="lxs-skeleton-theme__content" style={{ marginTop: '24px' }}>
                 <Skeleton variant="text" width="100%" animation={animation} />
                 <Skeleton variant="text" width="95%" animation={animation} />
                 <Skeleton variant="text" width="90%" animation={animation} />
@@ -144,7 +144,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
 
         case 'comment':
           return (
-            <div className="vtx-skeleton-theme vtx-skeleton-theme--comment">
+            <div className="lxs-skeleton-theme lxs-skeleton-theme--comment">
               <div style={{ display: 'flex', gap: '12px' }}>
                 <Skeleton variant="circular" width={40} height={40} animation={animation} />
                 <div style={{ flex: 1 }}>
@@ -158,7 +158,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
 
         case 'list-item':
           return (
-            <div className="vtx-skeleton-theme vtx-skeleton-theme--list-item">
+            <div className="lxs-skeleton-theme lxs-skeleton-theme--list-item">
               <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                 <Skeleton variant="rounded" width={60} height={60} animation={animation} />
                 <div style={{ flex: 1 }}>
@@ -172,7 +172,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
 
         case 'table-row':
           return (
-            <div className="vtx-skeleton-theme vtx-skeleton-theme--table-row">
+            <div className="lxs-skeleton-theme lxs-skeleton-theme--table-row">
               <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
                 <Skeleton variant="text" width="20%" animation={animation} />
                 <Skeleton variant="text" width="30%" animation={animation} />
@@ -184,7 +184,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
 
         case 'form':
           return (
-            <div className="vtx-skeleton-theme vtx-skeleton-theme--form">
+            <div className="lxs-skeleton-theme lxs-skeleton-theme--form">
               <Skeleton variant="text" width="30%" height={14} animation={animation} />
               <Skeleton variant="rounded" height={40} style={{ marginTop: '8px' }} animation={animation} />
               <Skeleton variant="text" width="30%" height={14} style={{ marginTop: '16px' }} animation={animation} />
@@ -197,7 +197,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
 
         case 'hero':
           return (
-            <div className="vtx-skeleton-theme vtx-skeleton-theme--hero">
+            <div className="lxs-skeleton-theme lxs-skeleton-theme--hero">
               <Skeleton variant="text" width="60%" height={48} animation={animation} />
               <Skeleton variant="text" width="80%" height={24} style={{ marginTop: '16px' }} animation={animation} />
               <Skeleton variant="text" width="70%" height={24} animation={animation} />
@@ -211,9 +211,9 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
         case 'about-section':
         case 'content-block':
           return (
-            <div className="vtx-skeleton-theme vtx-skeleton-theme--about">
+            <div className="lxs-skeleton-theme lxs-skeleton-theme--about">
               <Skeleton variant="text" width="50%" height={32} animation={animation} />
-              <div className="vtx-skeleton-theme__content" style={{ marginTop: '16px' }}>
+              <div className="lxs-skeleton-theme__content" style={{ marginTop: '16px' }}>
                 <Skeleton variant="text" width="100%" animation={animation} />
                 <Skeleton variant="text" width="100%" animation={animation} />
                 <Skeleton variant="text" width="95%" animation={animation} />
@@ -221,7 +221,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
                 <Skeleton variant="text" width="90%" animation={animation} />
               </div>
               <Skeleton variant="rounded" height={200} style={{ marginTop: '24px' }} animation={animation} />
-              <div className="vtx-skeleton-theme__content" style={{ marginTop: '16px' }}>
+              <div className="lxs-skeleton-theme__content" style={{ marginTop: '16px' }}>
                 <Skeleton variant="text" width="100%" animation={animation} />
                 <Skeleton variant="text" width="95%" animation={animation} />
                 <Skeleton variant="text" width="100%" animation={animation} />
@@ -231,9 +231,9 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
 
         case 'feature-card':
           return (
-            <div className="vtx-skeleton-theme vtx-skeleton-theme--feature">
+            <div className="lxs-skeleton-theme lxs-skeleton-theme--feature">
               <Skeleton variant="circular" width={60} height={60} animation={animation} />
-              <div className="vtx-skeleton-theme__content" style={{ marginTop: '16px' }}>
+              <div className="lxs-skeleton-theme__content" style={{ marginTop: '16px' }}>
                 <Skeleton variant="text" width="70%" height={20} animation={animation} />
                 <Skeleton variant="text" width="100%" animation={animation} />
                 <Skeleton variant="text" width="90%" animation={animation} />
@@ -243,8 +243,8 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
 
         case 'testimonial':
           return (
-            <div className="vtx-skeleton-theme vtx-skeleton-theme--testimonial">
-              <div className="vtx-skeleton-theme__content">
+            <div className="lxs-skeleton-theme lxs-skeleton-theme--testimonial">
+              <div className="lxs-skeleton-theme__content">
                 <Skeleton variant="text" width="100%" animation={animation} />
                 <Skeleton variant="text" width="95%" animation={animation} />
                 <Skeleton variant="text" width="85%" animation={animation} />
@@ -261,7 +261,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
 
         case 'pricing-card':
           return (
-            <div className="vtx-skeleton-theme vtx-skeleton-theme--pricing">
+            <div className="lxs-skeleton-theme lxs-skeleton-theme--pricing">
               <Skeleton variant="text" width="50%" height={20} animation={animation} />
               <Skeleton variant="text" width="70%" height={48} style={{ marginTop: '12px' }} animation={animation} />
               <Skeleton variant="text" width="60%" style={{ marginTop: '8px' }} animation={animation} />
@@ -276,7 +276,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
 
         case 'stats':
           return (
-            <div className="vtx-skeleton-theme vtx-skeleton-theme--stats">
+            <div className="lxs-skeleton-theme lxs-skeleton-theme--stats">
               <Skeleton variant="text" width="60%" height={40} animation={animation} />
               <Skeleton variant="text" width="80%" style={{ marginTop: '8px' }} animation={animation} />
             </div>
@@ -284,9 +284,9 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
 
         case 'team-member':
           return (
-            <div className="vtx-skeleton-theme vtx-skeleton-theme--team">
+            <div className="lxs-skeleton-theme lxs-skeleton-theme--team">
               <Skeleton variant="rounded" height={250} animation={animation} />
-              <div className="vtx-skeleton-theme__content" style={{ marginTop: '16px' }}>
+              <div className="lxs-skeleton-theme__content" style={{ marginTop: '16px' }}>
                 <Skeleton variant="text" width="70%" height={20} animation={animation} />
                 <Skeleton variant="text" width="50%" animation={animation} />
                 <div style={{ display: 'flex', gap: '8px', marginTop: '12px' }}>
@@ -300,9 +300,9 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
 
         case 'gallery-item':
           return (
-            <div className="vtx-skeleton-theme vtx-skeleton-theme--gallery">
+            <div className="lxs-skeleton-theme lxs-skeleton-theme--gallery">
               <Skeleton variant="rounded" height={280} animation={animation} />
-              <div className="vtx-skeleton-theme__content" style={{ marginTop: '12px' }}>
+              <div className="lxs-skeleton-theme__content" style={{ marginTop: '12px' }}>
                 <Skeleton variant="text" width="80%" animation={animation} />
                 <Skeleton variant="text" width="60%" animation={animation} />
               </div>
@@ -311,9 +311,9 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
 
         case 'video-card':
           return (
-            <div className="vtx-skeleton-theme vtx-skeleton-theme--video">
+            <div className="lxs-skeleton-theme lxs-skeleton-theme--video">
               <Skeleton variant="rounded" height={200} animation={animation} />
-              <div className="vtx-skeleton-theme__content" style={{ marginTop: '12px' }}>
+              <div className="lxs-skeleton-theme__content" style={{ marginTop: '12px' }}>
                 <div style={{ display: 'flex', gap: '12px' }}>
                   <Skeleton variant="circular" width={40} height={40} animation={animation} />
                   <div style={{ flex: 1 }}>
@@ -328,7 +328,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
 
         case 'order-card':
           return (
-            <div className="vtx-skeleton-theme vtx-skeleton-theme--order">
+            <div className="lxs-skeleton-theme lxs-skeleton-theme--order">
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
                 <Skeleton variant="text" width="30%" animation={animation} />
                 <Skeleton variant="rounded" width={80} height={24} animation={animation} />
@@ -352,9 +352,9 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
 
         case 'order-confirmation':
           return (
-            <div className="vtx-skeleton-theme vtx-skeleton-theme--order-confirmation" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div className="lxs-skeleton-theme lxs-skeleton-theme--order-confirmation" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               {/* Header Skeleton */}
-              <div style={{ padding: '24px', backgroundColor: 'var(--vtx-color-neutral-50)', borderRadius: '8px' }}>
+              <div style={{ padding: '24px', backgroundColor: 'var(--lxs-color-neutral-50)', borderRadius: '8px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
                   <Skeleton variant="circular" width={56} height={56} animation={animation} />
                   <Skeleton variant="text" width="60%" height={32} animation={animation} />
@@ -364,7 +364,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
               </div>
 
               {/* Order Details */}
-              <div style={{ padding: '16px', border: '1px solid var(--vtx-color-neutral-200)', borderRadius: '8px' }}>
+              <div style={{ padding: '16px', border: '1px solid var(--lxs-color-neutral-200)', borderRadius: '8px' }}>
                 <Skeleton variant="text" width="40%" height={20} style={{ marginBottom: '12px' }} animation={animation} />
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <Skeleton variant="text" width="100%" height={16} animation={animation} />
@@ -374,7 +374,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
               </div>
 
               {/* Items */}
-              <div style={{ padding: '16px', border: '1px solid var(--vtx-color-neutral-200)', borderRadius: '8px' }}>
+              <div style={{ padding: '16px', border: '1px solid var(--lxs-color-neutral-200)', borderRadius: '8px' }}>
                 <Skeleton variant="text" width="30%" height={20} style={{ marginBottom: '12px' }} animation={animation} />
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   {[1, 2, 3].map((i) => (
@@ -392,7 +392,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
               </div>
 
               {/* Summary */}
-              <div style={{ padding: '16px', border: '1px solid var(--vtx-color-neutral-200)', borderRadius: '8px' }}>
+              <div style={{ padding: '16px', border: '1px solid var(--lxs-color-neutral-200)', borderRadius: '8px' }}>
                 <Skeleton variant="text" width="40%" height={20} style={{ marginBottom: '12px' }} animation={animation} />
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <Skeleton variant="text" width="100%" height={16} animation={animation} />
@@ -404,7 +404,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
               {/* Addresses */}
               <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
                 {[1, 2].map((i) => (
-                  <div key={i} style={{ flex: '1 1 280px', padding: '16px', border: '1px solid var(--vtx-color-neutral-200)', borderRadius: '8px' }}>
+                  <div key={i} style={{ flex: '1 1 280px', padding: '16px', border: '1px solid var(--lxs-color-neutral-200)', borderRadius: '8px' }}>
                     <Skeleton variant="text" width="50%" height={20} style={{ marginBottom: '8px' }} animation={animation} />
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                       <Skeleton variant="text" width="80%" height={14} animation={animation} />
@@ -416,7 +416,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
               </div>
 
               {/* Actions */}
-              <div style={{ padding: '16px', border: '1px solid var(--vtx-color-neutral-200)', borderRadius: '8px' }}>
+              <div style={{ padding: '16px', border: '1px solid var(--lxs-color-neutral-200)', borderRadius: '8px' }}>
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                   <Skeleton variant="rounded" height={40} style={{ flex: '1 1 170px' }} animation={animation} />
                   <Skeleton variant="rounded" height={40} style={{ flex: '1 1 170px' }} animation={animation} />
@@ -427,7 +427,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
 
         case 'order-details':
           return (
-            <div className="vtx-skeleton-theme vtx-skeleton-theme--order-details" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <div className="lxs-skeleton-theme lxs-skeleton-theme--order-details" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
               {/* Header */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <Skeleton variant="text" width="40%" height={32} animation={animation} />
@@ -435,7 +435,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
               </div>
 
               {/* Timeline */}
-              <div style={{ padding: '32px 24px', border: '1px solid var(--vtx-color-neutral-200)', borderRadius: '8px' }}>
+              <div style={{ padding: '32px 24px', border: '1px solid var(--lxs-color-neutral-200)', borderRadius: '8px' }}>
                 <div style={{ display: 'flex', gap: '16px', justifyContent: 'space-between' }}>
                   {[1, 2, 3, 4].map((i) => (
                     <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
@@ -449,7 +449,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
               {/* Info Cards */}
               <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
                 {[1, 2, 3, 4].map((i) => (
-                  <div key={i} style={{ flex: '1 1 200px', minWidth: '200px', padding: '12px', border: '1px solid var(--vtx-color-neutral-200)', borderRadius: '8px' }}>
+                  <div key={i} style={{ flex: '1 1 200px', minWidth: '200px', padding: '12px', border: '1px solid var(--lxs-color-neutral-200)', borderRadius: '8px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                       <Skeleton variant="text" width="60%" height={12} animation={animation} />
                       <Skeleton variant="text" width="80%" height={20} animation={animation} />
@@ -465,7 +465,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
               </div>
 
               {/* Items */}
-              <div style={{ padding: '16px', border: '1px solid var(--vtx-color-neutral-200)', borderRadius: '8px' }}>
+              <div style={{ padding: '16px', border: '1px solid var(--lxs-color-neutral-200)', borderRadius: '8px' }}>
                 <Skeleton variant="text" width="30%" height={20} style={{ marginBottom: '12px' }} animation={animation} />
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   {[1, 2, 3].map((i) => (
@@ -483,7 +483,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
               </div>
 
               {/* Summary */}
-              <div style={{ padding: '16px', border: '1px solid var(--vtx-color-neutral-200)', borderRadius: '8px' }}>
+              <div style={{ padding: '16px', border: '1px solid var(--lxs-color-neutral-200)', borderRadius: '8px' }}>
                 <Skeleton variant="text" width="40%" height={20} style={{ marginBottom: '12px' }} animation={animation} />
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <Skeleton variant="text" width="100%" height={16} animation={animation} />
@@ -495,7 +495,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
               {/* Addresses */}
               <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
                 {[1, 2].map((i) => (
-                  <div key={i} style={{ flex: '1 1 280px', padding: '16px', border: '1px solid var(--vtx-color-neutral-200)', borderRadius: '8px' }}>
+                  <div key={i} style={{ flex: '1 1 280px', padding: '16px', border: '1px solid var(--lxs-color-neutral-200)', borderRadius: '8px' }}>
                     <Skeleton variant="text" width="50%" height={20} style={{ marginBottom: '8px' }} animation={animation} />
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                       <Skeleton variant="text" width="80%" height={14} animation={animation} />
@@ -507,7 +507,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
               </div>
 
               {/* Actions */}
-              <div style={{ padding: '16px', border: '1px solid var(--vtx-color-neutral-200)', borderRadius: '8px' }}>
+              <div style={{ padding: '16px', border: '1px solid var(--lxs-color-neutral-200)', borderRadius: '8px' }}>
                 <Skeleton variant="text" width="40%" height={20} style={{ marginBottom: '12px' }} animation={animation} />
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                   <Skeleton variant="rounded" height={40} style={{ flex: '1 1 160px' }} animation={animation} />
@@ -522,7 +522,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
           return (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '16px' }}>
               {Array.from({ length: count }).map((_, i) => (
-                <div key={i} className="vtx-skeleton-theme vtx-skeleton-theme--product-grid">
+                <div key={i} className="lxs-skeleton-theme lxs-skeleton-theme--product-grid">
                   <Skeleton variant="rounded" height={200} animation={animation} />
                   <div style={{ padding: '12px' }}>
                     <Skeleton variant="text" width="70%" animation={animation} />
@@ -536,7 +536,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
 
         case 'cart-list':
           return (
-            <div className="vtx-skeleton-theme vtx-skeleton-theme--cart-list">
+            <div className="lxs-skeleton-theme lxs-skeleton-theme--cart-list">
               <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
                 <Skeleton variant="rounded" width={80} height={80} animation={animation} />
                 <div style={{ flex: 1 }}>
@@ -555,9 +555,9 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
 
         case 'home-page':
           return (
-            <div className="vtx-skeleton-theme vtx-skeleton-theme--home-page">
+            <div className="lxs-skeleton-theme lxs-skeleton-theme--home-page">
               {/* Carousel Section */}
-              <div className="vtx-skeleton-theme--home-page__carousel">
+              <div className="lxs-skeleton-theme--home-page__carousel">
                 <Skeleton variant="rectangular" width="100%" height={400} animation={animation} />
                 <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '16px' }}>
                   {[1, 2, 3, 4, 5].map((i) => (
@@ -569,7 +569,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
               {/* Categories Section */}
               <div>
                 <Skeleton variant="text" width={200} height={24} style={{ marginBottom: '16px' }} animation={animation} />
-                <div className="vtx-skeleton-theme--home-page__categories">
+                <div className="lxs-skeleton-theme--home-page__categories">
                   {[1, 2, 3, 4, 5, 6].map((i) => (
                     <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', minWidth: '80px' }}>
                       <Skeleton variant="circular" width={60} height={60} animation={animation} />
@@ -582,9 +582,9 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
               {/* Featured Products Section */}
               <div>
                 <Skeleton variant="text" width={250} height={24} style={{ marginBottom: '16px' }} animation={animation} />
-                <div className="vtx-skeleton-theme--home-page__grid">
+                <div className="lxs-skeleton-theme--home-page__grid">
                   {Array.from({ length: 4 }).map((_, i) => (
-                    <div key={i} style={{ border: '1px solid var(--vtx-color-neutral-200)', borderRadius: '12px', overflow: 'hidden' }}>
+                    <div key={i} style={{ border: '1px solid var(--lxs-color-neutral-200)', borderRadius: '12px', overflow: 'hidden' }}>
                       <Skeleton variant="rectangular" height={200} animation={animation} />
                       <div style={{ padding: '12px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                         <Skeleton variant="text" width="90%" animation={animation} />
@@ -603,11 +603,11 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
 
         case 'checkout':
           return (
-            <div className="vtx-skeleton-theme vtx-skeleton-theme--checkout">
+            <div className="lxs-skeleton-theme lxs-skeleton-theme--checkout">
               {/* Main Section - Forms */}
-              <div className="vtx-skeleton-theme--checkout__main">
+              <div className="lxs-skeleton-theme--checkout__main">
                 {/* Shipping Address */}
-                <div style={{ padding: '24px', border: '1px solid var(--vtx-color-neutral-200)', borderRadius: '12px' }}>
+                <div style={{ padding: '24px', border: '1px solid var(--lxs-color-neutral-200)', borderRadius: '12px' }}>
                   <Skeleton variant="text" width="40%" height={24} style={{ marginBottom: '24px' }} animation={animation} />
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }}>
                     <Skeleton variant="rounded" height={44} style={{ gridColumn: '1 / -1' }} animation={animation} />
@@ -619,7 +619,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
                 </div>
 
                 {/* Payment Method */}
-                <div style={{ padding: '24px', border: '1px solid var(--vtx-color-neutral-200)', borderRadius: '12px' }}>
+                <div style={{ padding: '24px', border: '1px solid var(--lxs-color-neutral-200)', borderRadius: '12px' }}>
                   <Skeleton variant="text" width="30%" height={24} style={{ marginBottom: '24px' }} animation={animation} />
                   <div style={{ display: 'flex', gap: '16px', marginBottom: '16px' }}>
                     <Skeleton variant="rounded" width={80} height={50} animation={animation} />
@@ -635,8 +635,8 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
               </div>
 
               {/* Sidebar - Order Summary */}
-              <div className="vtx-skeleton-theme--checkout__sidebar">
-                <div style={{ padding: '24px', border: '1px solid var(--vtx-color-neutral-200)', borderRadius: '12px', position: 'sticky', top: '24px' }}>
+              <div className="lxs-skeleton-theme--checkout__sidebar">
+                <div style={{ padding: '24px', border: '1px solid var(--lxs-color-neutral-200)', borderRadius: '12px', position: 'sticky', top: '24px' }}>
                   <Skeleton variant="text" width="60%" height={24} style={{ marginBottom: '24px' }} animation={animation} />
 
                   {/* Items */}
@@ -687,7 +687,7 @@ const SkeletonTheme = React.forwardRef<HTMLDivElement, SkeletonThemeProps>(
       return (
         <div
           ref={ref}
-          className={`vtx-skeleton-theme-container ${className}`}
+          className={`lxs-skeleton-theme-container ${className}`}
           style={{ display: 'flex', flexDirection: 'column', gap: '16px', ...style }}
           {...props}
         >

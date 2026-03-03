@@ -55,10 +55,10 @@ const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
     ref
   ) => {
     const skeletonClasses = [
-      'vtx-skeleton',
-      `vtx-skeleton--${variant}`,
-      animation !== 'none' && `vtx-skeleton--${animation}`,
-      respectMotionPreference && 'vtx-skeleton--respect-motion',
+      'lxs-skeleton',
+      `lxs-skeleton--${variant}`,
+      animation !== 'none' && `lxs-skeleton--${animation}`,
+      respectMotionPreference && 'lxs-skeleton--respect-motion',
       className,
     ]
       .filter(Boolean)

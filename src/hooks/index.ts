@@ -168,7 +168,7 @@ export const useBodyScrollLock = (isLocked: boolean): void => {
  * ```
  */
 let idCounter = 0;
-export const useId = (prefix = 'vtx'): string => {
+export const useId = (prefix = 'lxs'): string => {
   const [id] = useState(() => `${prefix}-${++idCounter}`);
   return id;
 };

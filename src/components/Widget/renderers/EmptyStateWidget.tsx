@@ -130,11 +130,11 @@ const EmptyStateWidget: React.FC<EmptyStateWidgetProps> = ({
   };
 
   const containerClasses = [
-    'vtx-empty-state',
-    `vtx-empty-state--${theme}`,
-    `vtx-empty-state--${variant}`,
-    !centered && 'vtx-empty-state--left',
-    compact && 'vtx-empty-state--compact',
+    'lxs-empty-state',
+    `lxs-empty-state--${theme}`,
+    `lxs-empty-state--${variant}`,
+    !centered && 'lxs-empty-state--left',
+    compact && 'lxs-empty-state--compact',
     className,
   ].filter(Boolean).join(' ');
 
@@ -153,12 +153,12 @@ const EmptyStateWidget: React.FC<EmptyStateWidgetProps> = ({
     >
       {/* Illustration/Icon */}
       {showIllustration && (
-        <div className="vtx-empty-state__illustration mb-8" role="img" aria-label={`Empty state: ${type}`}>
+        <div className="lxs-empty-state__illustration mb-8" role="img" aria-label={`Empty state: ${type}`}>
           {displayIcon}
         </div>
       )}
 
-      <Flex direction="column" className="vtx-empty-state__content" gap={0}>
+      <Flex direction="column" className="lxs-empty-state__content" gap={0}>
         {/* Title */}
         <Typography
           as="h2"
@@ -183,7 +183,7 @@ const EmptyStateWidget: React.FC<EmptyStateWidgetProps> = ({
         {/* Actions */}
         {actions && actions.length > 0 && (
           <Flex
-            className="vtx-empty-state__actions mt-2"
+            className="lxs-empty-state__actions mt-2"
             gap={12}
             wrap="wrap"
             justify={centered ? 'center' : 'start'}
@@ -227,7 +227,7 @@ const EmptyStateWidget: React.FC<EmptyStateWidgetProps> = ({
 
         {/* Additional Info */}
         {additionalInfo && (
-          <div className="vtx-empty-state__info mt-8">
+          <div className="lxs-empty-state__info mt-8">
             <Typography
               as="p"
               variant="body2"

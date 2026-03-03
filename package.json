@@ -1,16 +1,16 @@
 {
-  "name": "@vtx-ui/react",
-  "version": "0.0.1-beta.25",
+  "name": "@luxis-ui/react",
+  "version": "0.0.1-beta.26",
   "description": "Enterprise-grade React UI library for React and Next.js",
   "license": "MIT",
   "author": "Innostes Solutions Pvt Ltd <contact@innostes.com>",
   "homepage": "https://innostes.com/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vertex-ui/react"
+    "url": "https://github.com/luxis-ui/react"
   },
   "bugs": {
-    "url": "https://github.com/vertex-ui/react/issues"
+    "url": "https://github.com/luxis-ui/react/issues"
   },
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
@@ -111,8 +111,8 @@
     "enterprise-ui",
     "a11y",
     "themeable",
-    "vtx-ui",
-    "vertex-ui"
+    "luxis-ui",
+    "luxis-ui"
   ],
   "publishConfig": {
     "access": "public"

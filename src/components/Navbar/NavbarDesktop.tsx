@@ -22,10 +22,10 @@ export const NavbarDesktop: React.FC<NavbarDesktopProps> = (props) => {
     }, [transparent, sticky]);
 
     const wrapperClass = [
-        'vtx-navbar-wrapper',
-        sticky && 'vtx-navbar-wrapper--sticky',
-        transparent && 'vtx-navbar-wrapper--transparent',
-        isScrolled && 'vtx-navbar-wrapper--scrolled',
+        'lxs-navbar-wrapper',
+        sticky && 'lxs-navbar-wrapper--sticky',
+        transparent && 'lxs-navbar-wrapper--transparent',
+        isScrolled && 'lxs-navbar-wrapper--scrolled',
     ].filter(Boolean).join(' ');
 
     const renderVariant = () => {

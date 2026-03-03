@@ -31,7 +31,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                 hoverColor={item.hoverColor}
                 leftIcon={item.icon}
                 component={item.component}
-                className="vtx-navbar__topbar-link"
+                className="lxs-navbar__topbar-link"
               >
                 {item.label}
               </Link>
@@ -56,11 +56,11 @@ export const TopBar: React.FC<TopBarProps> = ({
 
   // Determine standard class names
   const classes = [
-    'vtx-navbar__topbar',
+    'lxs-navbar__topbar',
     isStandardBg && `vtx-navbar__topbar--${backgroundColor}`,
     isStandardText && `vtx-navbar__topbar--text-${textColor}`,
     // Auto-light text for primary/secondary/dark backgrounds if not specified
-    !textColor && (backgroundColor === 'primary' || backgroundColor === 'secondary' || backgroundColor === 'dark') && 'vtx-navbar__topbar--text-light',
+    !textColor && (backgroundColor === 'primary' || backgroundColor === 'secondary' || backgroundColor === 'dark') && 'lxs-navbar__topbar--text-light',
     // Responsive visibility
     config.hideOn?.includes('mobile') && 'mobile-hide',
     config.hideOn?.includes('tablet') && 'tablet-hide',

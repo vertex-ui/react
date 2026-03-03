@@ -2,7 +2,7 @@
    DataGrid - Professional MUI-inspired Design
    ========================================== */
 
-.vertex-datagrid {
+.luxis-datagrid {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -14,7 +14,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.vertex-datagrid--auto-height {
+.luxis-datagrid--auto-height {
   height: auto;
 }
 
@@ -22,20 +22,20 @@
    Density Variants
    ========================================== */
 
-.vertex-datagrid--compact .vertex-datagrid-th,
-.vertex-datagrid--compact .vertex-datagrid-td {
+.luxis-datagrid--compact .luxis-datagrid-th,
+.luxis-datagrid--compact .luxis-datagrid-td {
   padding: 4px 16px;
   font-size: 0.8125rem;
 }
 
-.vertex-datagrid--standard .vertex-datagrid-th,
-.vertex-datagrid--standard .vertex-datagrid-td {
+.luxis-datagrid--standard .luxis-datagrid-th,
+.luxis-datagrid--standard .luxis-datagrid-td {
   padding: 8px 16px;
   font-size: 0.875rem;
 }
 
-.vertex-datagrid--comfortable .vertex-datagrid-th,
-.vertex-datagrid--comfortable .vertex-datagrid-td {
+.luxis-datagrid--comfortable .luxis-datagrid-th,
+.luxis-datagrid--comfortable .luxis-datagrid-td {
   padding: 12px 20px;
   font-size: 0.875rem;
 }
@@ -44,18 +44,18 @@
    Size Variants
    ========================================== */
 
-.vertex-datagrid--sm .vertex-datagrid-th,
-.vertex-datagrid--sm .vertex-datagrid-td {
+.luxis-datagrid--sm .luxis-datagrid-th,
+.luxis-datagrid--sm .luxis-datagrid-td {
   font-size: 0.75rem;
 }
 
-.vertex-datagrid--md .vertex-datagrid-th,
-.vertex-datagrid--md .vertex-datagrid-td {
+.luxis-datagrid--md .luxis-datagrid-th,
+.luxis-datagrid--md .luxis-datagrid-td {
   font-size: 0.875rem;
 }
 
-.vertex-datagrid--lg .vertex-datagrid-th,
-.vertex-datagrid--lg .vertex-datagrid-td {
+.luxis-datagrid--lg .luxis-datagrid-th,
+.luxis-datagrid--lg .luxis-datagrid-td {
   font-size: 1rem;
 }
 
@@ -63,13 +63,13 @@
    Table Container
    ========================================== */
 
-.vertex-datagrid-container {
+.luxis-datagrid-container {
   overflow: auto;
   flex: 1;
   background: #fff;
 }
 
-.vertex-datagrid-table {
+.luxis-datagrid-table {
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
@@ -79,12 +79,12 @@
    Table Header
    ========================================== */
 
-.vertex-datagrid-thead {
+.luxis-datagrid-thead {
   background: #fafafa;
   border-bottom: 1px solid rgba(224, 224, 224, 1);
 }
 
-.vertex-datagrid-th {
+.luxis-datagrid-th {
   text-align: left;
   font-weight: 600;
   color: rgba(0, 0, 0, 0.87);
@@ -96,7 +96,7 @@
   z-index: 100;
 }
 
-.vertex-datagrid-th-content {
+.luxis-datagrid-th-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -104,7 +104,7 @@
   min-height: 40px;
 }
 
-.vertex-datagrid-th-label {
+.luxis-datagrid-th-label {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -113,37 +113,37 @@
   transition: color 0.2s;
 }
 
-.vertex-datagrid-th--sortable .vertex-datagrid-th-label {
+.luxis-datagrid-th--sortable .luxis-datagrid-th-label {
   cursor: pointer;
 }
 
-.vertex-datagrid-th--sortable:hover {
+.luxis-datagrid-th--sortable:hover {
   background: rgba(0, 0, 0, 0.04);
 }
 
-.vertex-datagrid-th-text {
+.luxis-datagrid-th-text {
   font-size: 0.875rem;
   font-weight: 600;
   line-height: 1.5rem;
   letter-spacing: 0.01071em;
 }
 
-.vertex-datagrid-sort-icon {
+.luxis-datagrid-sort-icon {
   display: flex;
   align-items: center;
   color: rgba(0, 0, 0, 0.26);
   transition: color 0.2s, opacity 0.2s;
 }
 
-.vertex-datagrid-th--sortable .vertex-datagrid-sort-icon {
+.luxis-datagrid-th--sortable .luxis-datagrid-sort-icon {
   opacity: 0;
 }
 
-.vertex-datagrid-th--sortable:hover .vertex-datagrid-sort-icon {
+.luxis-datagrid-th--sortable:hover .luxis-datagrid-sort-icon {
   opacity: 1;
 }
 
-.vertex-datagrid-sort-icon--active {
+.luxis-datagrid-sort-icon--active {
   opacity: 1 !important;
   color: rgba(0, 0, 0, 0.87);
 }
@@ -152,7 +152,7 @@
    Column Menu Button
    ========================================== */
 
-.vertex-datagrid-column-menu-btn {
+.luxis-datagrid-column-menu-btn {
   position: relative;
   display: flex;
   align-items: center;
@@ -169,21 +169,21 @@
   transition: opacity 0.2s, background 0.2s, color 0.2s;
 }
 
-.vertex-datagrid-th:hover .vertex-datagrid-column-menu-btn {
+.luxis-datagrid-th:hover .luxis-datagrid-column-menu-btn {
   opacity: 1;
 }
 
-.vertex-datagrid-column-menu-btn:hover {
+.luxis-datagrid-column-menu-btn:hover {
   background: rgba(0, 0, 0, 0.04);
   color: rgba(0, 0, 0, 0.87);
 }
 
-.vertex-datagrid-column-menu-btn--filtered {
+.luxis-datagrid-column-menu-btn--filtered {
   opacity: 1;
   color: #1976d2;
 }
 
-.vertex-datagrid-filter-badge {
+.luxis-datagrid-filter-badge {
   position: absolute;
   top: 2px;
   right: 2px;
@@ -197,7 +197,7 @@
    Column Menu Dropdown
    ========================================== */
 
-.vertex-datagrid-column-menu {
+.luxis-datagrid-column-menu {
   min-width: 200px;
   background: #fff;
   border-radius: 4px;
@@ -207,7 +207,7 @@
   padding: 8px 0;
 }
 
-.vertex-datagrid-column-menu-item {
+.luxis-datagrid-column-menu-item {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -224,27 +224,27 @@
   position: relative;
 }
 
-.vertex-datagrid-column-menu-item:hover {
+.luxis-datagrid-column-menu-item:hover {
   background: rgba(0, 0, 0, 0.04);
 }
 
-.vertex-datagrid-column-menu-item svg {
+.luxis-datagrid-column-menu-item svg {
   flex-shrink: 0;
 }
 
-.vertex-datagrid-column-menu-divider {
+.luxis-datagrid-column-menu-divider {
   height: 1px;
   margin: 8px 0;
   background: rgba(0, 0, 0, 0.12);
 }
 
-.vertex-datagrid-menu-check {
+.luxis-datagrid-menu-check {
   margin-left: auto;
   color: #1976d2;
   font-weight: 600;
 }
 
-.vertex-datagrid-menu-badge {
+.luxis-datagrid-menu-badge {
   margin-left: auto;
   color: #1976d2;
   font-size: 1.2rem;
@@ -254,7 +254,7 @@
    Filter Panel Overlay
    ========================================== */
 
-.vertex-datagrid-filter-panel-overlay {
+.luxis-datagrid-filter-panel-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.2);
@@ -265,7 +265,7 @@
   backdrop-filter: blur(2px);
 }
 
-.vertex-datagrid-filter-panel {
+.luxis-datagrid-filter-panel {
   width: 90%;
   max-width: 600px;
   max-height: 80vh;
@@ -279,7 +279,7 @@
   overflow: hidden;
 }
 
-.vertex-datagrid-filter-panel-header {
+.luxis-datagrid-filter-panel-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -287,7 +287,7 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
-.vertex-datagrid-filter-close {
+.luxis-datagrid-filter-close {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -302,12 +302,12 @@
   transition: background 0.2s, color 0.2s;
 }
 
-.vertex-datagrid-filter-close:hover {
+.luxis-datagrid-filter-close:hover {
   background: rgba(0, 0, 0, 0.04);
   color: rgba(0, 0, 0, 0.87);
 }
 
-.vertex-datagrid-filter-panel-body {
+.luxis-datagrid-filter-panel-body {
   flex: 1;
   padding: 20px;
   overflow-y: auto;
@@ -316,7 +316,7 @@
   gap: 16px;
 }
 
-.vertex-datagrid-filter-empty {
+.luxis-datagrid-filter-empty {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -327,13 +327,13 @@
   color: rgba(0, 0, 0, 0.38);
 }
 
-.vertex-datagrid-filter-row {
+.luxis-datagrid-filter-row {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.vertex-datagrid-filter-logic-btn {
+.luxis-datagrid-filter-logic-btn {
   align-self: flex-start;
   padding: 4px 12px;
   border: 1px solid #1976d2;
@@ -346,18 +346,18 @@
   transition: background 0.2s, color 0.2s;
 }
 
-.vertex-datagrid-filter-logic-btn:hover {
+.luxis-datagrid-filter-logic-btn:hover {
   background: rgba(25, 118, 210, 0.04);
 }
 
-.vertex-datagrid-filter-controls {
+.luxis-datagrid-filter-controls {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr auto;
   gap: 8px;
   align-items: start;
 }
 
-.vertex-datagrid-filter-select {
+.luxis-datagrid-filter-select {
   padding: 8px 12px;
   border: 1px solid rgba(0, 0, 0, 0.23);
   border-radius: 4px;
@@ -369,17 +369,17 @@
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.vertex-datagrid-filter-select:hover {
+.luxis-datagrid-filter-select:hover {
   border-color: rgba(0, 0, 0, 0.87);
 }
 
-.vertex-datagrid-filter-select:focus {
+.luxis-datagrid-filter-select:focus {
   outline: none;
   border-color: #1976d2;
   box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
 }
 
-.vertex-datagrid-filter-remove {
+.luxis-datagrid-filter-remove {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -394,18 +394,18 @@
   transition: background 0.2s, color 0.2s;
 }
 
-.vertex-datagrid-filter-remove:hover {
+.luxis-datagrid-filter-remove:hover {
   background: rgba(211, 47, 47, 0.04);
   color: #d32f2f;
 }
 
-.vertex-datagrid-filter-actions {
+.luxis-datagrid-filter-actions {
   display: flex;
   gap: 8px;
   padding-top: 8px;
 }
 
-.vertex-datagrid-filter-panel-footer {
+.luxis-datagrid-filter-panel-footer {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -418,33 +418,33 @@
    Table Body
    ========================================== */
 
-.vertex-datagrid-tbody {
+.luxis-datagrid-tbody {
   background: #fff;
 }
 
-.vertex-datagrid-row {
+.luxis-datagrid-row {
   border-bottom: 1px solid rgba(224, 224, 224, 1);
   transition: background 0.15s;
 }
 
-.vertex-datagrid-row:hover {
+.luxis-datagrid-row:hover {
   background: rgba(0, 0, 0, 0.04);
 }
 
-.vertex-datagrid-row--selected {
+.luxis-datagrid-row--selected {
   background: rgba(25, 118, 210, 0.08);
 }
 
-.vertex-datagrid-row--selected:hover {
+.luxis-datagrid-row--selected:hover {
   background: rgba(25, 118, 210, 0.12);
 }
 
-.vertex-datagrid-td {
+.luxis-datagrid-td {
   color: rgba(0, 0, 0, 0.87);
   border-bottom: 1px solid rgba(224, 224, 224, 1);
 }
 
-.vertex-datagrid-checkbox-cell {
+.luxis-datagrid-checkbox-cell {
   width: 58px;
   padding-left: 16px !important;
   padding-right: 0 !important;
@@ -454,20 +454,20 @@
   background: #fafafa !important;
 }
 
-.vertex-datagrid-tbody .vertex-datagrid-checkbox-cell {
+.luxis-datagrid-tbody .luxis-datagrid-checkbox-cell {
   background: #fff !important;
   z-index: 101 !important;
 }
 
-.vertex-datagrid-row:hover .vertex-datagrid-checkbox-cell {
+.luxis-datagrid-row:hover .luxis-datagrid-checkbox-cell {
   background: rgba(0, 0, 0, 0.04) !important;
 }
 
-.vertex-datagrid-row--selected .vertex-datagrid-checkbox-cell {
+.luxis-datagrid-row--selected .luxis-datagrid-checkbox-cell {
   background: rgba(25, 118, 210, 0.08) !important;
 }
 
-.vertex-datagrid-row--selected:hover .vertex-datagrid-checkbox-cell {
+.luxis-datagrid-row--selected:hover .luxis-datagrid-checkbox-cell {
   background: rgba(25, 118, 210, 0.12) !important;
 }
 
@@ -475,59 +475,59 @@
    Pinned/Frozen Columns
    ========================================== */
 
-.vertex-datagrid-th--pinned-left,
-.vertex-datagrid-td--pinned-left {
+.luxis-datagrid-th--pinned-left,
+.luxis-datagrid-td--pinned-left {
   position: sticky !important;
   z-index: 100 !important;
   box-shadow: 2px 0 5px -1px rgba(0, 0, 0, 0.15) !important;
 }
 
-.vertex-datagrid-th--pinned-left {
+.luxis-datagrid-th--pinned-left {
   z-index: 101 !important;
   background: #fafafa !important;
 }
 
-.vertex-datagrid-td--pinned-left {
+.luxis-datagrid-td--pinned-left {
   background: #fff !important;
 }
 
-.vertex-datagrid-row:hover .vertex-datagrid-td--pinned-left {
+.luxis-datagrid-row:hover .luxis-datagrid-td--pinned-left {
   background: rgba(0, 0, 0, 0.04) !important;
 }
 
-.vertex-datagrid-row--selected .vertex-datagrid-td--pinned-left {
+.luxis-datagrid-row--selected .luxis-datagrid-td--pinned-left {
   background: rgba(25, 118, 210, 0.08) !important;
 }
 
-.vertex-datagrid-row--selected:hover .vertex-datagrid-td--pinned-left {
+.luxis-datagrid-row--selected:hover .luxis-datagrid-td--pinned-left {
   background: rgba(25, 118, 210, 0.12) !important;
 }
 
-.vertex-datagrid-th--pinned-right,
-.vertex-datagrid-td--pinned-right {
+.luxis-datagrid-th--pinned-right,
+.luxis-datagrid-td--pinned-right {
   position: sticky !important;
   z-index: 100 !important;
   box-shadow: -2px 0 5px -1px rgba(0, 0, 0, 0.15) !important;
 }
 
-.vertex-datagrid-th--pinned-right {
+.luxis-datagrid-th--pinned-right {
   z-index: 101 !important;
   background: #fafafa !important;
 }
 
-.vertex-datagrid-td--pinned-right {
+.luxis-datagrid-td--pinned-right {
   background: #fff !important;
 }
 
-.vertex-datagrid-row:hover .vertex-datagrid-td--pinned-right {
+.luxis-datagrid-row:hover .luxis-datagrid-td--pinned-right {
   background: rgba(0, 0, 0, 0.04) !important;
 }
 
-.vertex-datagrid-row--selected .vertex-datagrid-td--pinned-right {
+.luxis-datagrid-row--selected .luxis-datagrid-td--pinned-right {
   background: rgba(25, 118, 210, 0.08) !important;
 }
 
-.vertex-datagrid-row--selected:hover .vertex-datagrid-td--pinned-right {
+.luxis-datagrid-row--selected:hover .luxis-datagrid-td--pinned-right {
   background: rgba(25, 118, 210, 0.12) !important;
 }
 
@@ -535,15 +535,15 @@
    Loading & Empty States
    ========================================== */
 
-.vertex-datagrid-loading,
-.vertex-datagrid-empty {
+.luxis-datagrid-loading,
+.luxis-datagrid-empty {
   padding: 0;
   text-align: center;
   border: none;
 }
 
-.vertex-datagrid-loading-content,
-.vertex-datagrid-empty-content {
+.luxis-datagrid-loading-content,
+.luxis-datagrid-empty-content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -553,16 +553,16 @@
   color: rgba(0, 0, 0, 0.38);
 }
 
-.vertex-datagrid-spinner {
+.luxis-datagrid-spinner {
   width: 40px;
   height: 40px;
   border: 3px solid rgba(25, 118, 210, 0.1);
   border-top-color: #1976d2;
   border-radius: 50%;
-  animation: vertex-spinner-rotate 0.8s linear infinite;
+  animation: luxis-spinner-rotate 0.8s linear infinite;
 }
 
-@keyframes vertex-spinner-rotate {
+@keyframes luxis-spinner-rotate {
   from {
     transform: rotate(0deg);
   }
@@ -572,7 +572,7 @@
 }
 
 /* Empty State with Icon & Description */
-.vertex-datagrid-empty-state {
+.luxis-datagrid-empty-state {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -580,19 +580,19 @@
   padding: 64px 24px;
 }
 
-.vertex-datagrid-empty-state-icon {
+.luxis-datagrid-empty-state-icon {
   font-size: 48px;
   color: rgba(0, 0, 0, 0.26);
   opacity: 0.6;
 }
 
-.vertex-datagrid-empty-state-message {
+.luxis-datagrid-empty-state-message {
   font-size: 1.125rem;
   font-weight: 600;
   color: rgba(0, 0, 0, 0.6);
 }
 
-.vertex-datagrid-empty-state-description {
+.luxis-datagrid-empty-state-description {
   font-size: 0.875rem;
   color: rgba(0, 0, 0, 0.38);
   max-width: 400px;
@@ -601,11 +601,11 @@
 }
 
 /* Skeleton Loader */
-.vertex-datagrid-row--skeleton {
-  animation: vertex-pulse 1.5s ease-in-out infinite;
+.luxis-datagrid-row--skeleton {
+  animation: luxis-pulse 1.5s ease-in-out infinite;
 }
 
-.vertex-datagrid-skeleton {
+.luxis-datagrid-skeleton {
   height: 16px;
   background: linear-gradient(
     90deg,
@@ -615,21 +615,21 @@
   );
   background-size: 200% 100%;
   border-radius: 4px;
-  animation: vertex-skeleton-shimmer 1.5s ease-in-out infinite;
+  animation: luxis-skeleton-shimmer 1.5s ease-in-out infinite;
 }
 
-.vertex-datagrid-skeleton--text {
+.luxis-datagrid-skeleton--text {
   width: 100%;
   max-width: 180px;
 }
 
-.vertex-datagrid-skeleton--checkbox {
+.luxis-datagrid-skeleton--checkbox {
   width: 16px;
   height: 16px;
   border-radius: 2px;
 }
 
-@keyframes vertex-skeleton-shimmer {
+@keyframes luxis-skeleton-shimmer {
   0% {
     background-position: 200% 0;
   }
@@ -638,7 +638,7 @@
   }
 }
 
-@keyframes vertex-pulse {
+@keyframes luxis-pulse {
   0%, 100% {
     opacity: 1;
   }
@@ -651,7 +651,7 @@
    Footer / Pagination
    ========================================== */
 
-.vertex-datagrid-footer {
+.luxis-datagrid-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -662,20 +662,20 @@
   gap: 16px;
 }
 
-.vertex-datagrid-footer-left,
-.vertex-datagrid-footer-center,
-.vertex-datagrid-footer-right {
+.luxis-datagrid-footer-left,
+.luxis-datagrid-footer-center,
+.luxis-datagrid-footer-right {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.vertex-datagrid-footer-center {
+.luxis-datagrid-footer-center {
   flex: 1;
   justify-content: center;
 }
 
-.vertex-datagrid-filter-chip {
+.luxis-datagrid-filter-chip {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -690,18 +690,18 @@
   transition: background 0.2s;
 }
 
-.vertex-datagrid-filter-chip:hover {
+.luxis-datagrid-filter-chip:hover {
   background: rgba(25, 118, 210, 0.16);
 }
 
-.vertex-datagrid-pagesize-label {
+.luxis-datagrid-pagesize-label {
   display: flex;
   align-items: center;
   gap: 8px;
   cursor: default;
 }
 
-.vertex-datagrid-pagesize-select {
+.luxis-datagrid-pagesize-select {
   padding: 4px 28px 4px 8px;
   border: 1px solid rgba(0, 0, 0, 0.23);
   border-radius: 4px;
@@ -715,22 +715,22 @@
   min-width: 70px;
 }
 
-.vertex-datagrid-pagesize-select:hover {
+.luxis-datagrid-pagesize-select:hover {
   border-color: rgba(0, 0, 0, 0.87);
 }
 
-.vertex-datagrid-pagesize-select:focus {
+.luxis-datagrid-pagesize-select:focus {
   outline: none;
   border-color: #1976d2;
 }
 
-.vertex-datagrid-pagination {
+.luxis-datagrid-pagination {
   display: flex;
   align-items: center;
   gap: 4px;
 }
 
-.vertex-datagrid-pagination-btn {
+.luxis-datagrid-pagination-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -745,12 +745,12 @@
   transition: background 0.2s, color 0.2s;
 }
 
-.vertex-datagrid-pagination-btn:hover:not(:disabled) {
+.luxis-datagrid-pagination-btn:hover:not(:disabled) {
   background: rgba(0, 0, 0, 0.04);
   color: rgba(0, 0, 0, 0.87);
 }
 
-.vertex-datagrid-pagination-btn:disabled {
+.luxis-datagrid-pagination-btn:disabled {
   color: rgba(0, 0, 0, 0.26);
   cursor: default;
 }
@@ -759,23 +759,23 @@
    Scrollbar Styling
    ========================================== */
 
-.vertex-datagrid-container::-webkit-scrollbar {
+.luxis-datagrid-container::-webkit-scrollbar {
   width: 12px;
   height: 12px;
 }
 
-.vertex-datagrid-container::-webkit-scrollbar-track {
+.luxis-datagrid-container::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0.05);
 }
 
-.vertex-datagrid-container::-webkit-scrollbar-thumb {
+.luxis-datagrid-container::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.2);
   border-radius: 6px;
   border: 2px solid transparent;
   background-clip: padding-box;
 }
 
-.vertex-datagrid-container::-webkit-scrollbar-thumb:hover {
+.luxis-datagrid-container::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.3);
   background-clip: padding-box;
 }
@@ -785,23 +785,23 @@
    ========================================== */
 
 @media (max-width: 768px) {
-  .vertex-datagrid-footer {
+  .luxis-datagrid-footer {
     flex-wrap: wrap;
     justify-content: center;
   }
   
-  .vertex-datagrid-footer-left,
-  .vertex-datagrid-footer-center,
-  .vertex-datagrid-footer-right {
+  .luxis-datagrid-footer-left,
+  .luxis-datagrid-footer-center,
+  .luxis-datagrid-footer-right {
     width: 100%;
     justify-content: center;
   }
   
-  .vertex-datagrid-filter-controls {
+  .luxis-datagrid-filter-controls {
     grid-template-columns: 1fr;
   }
   
-  .vertex-datagrid-filter-panel {
+  .luxis-datagrid-filter-panel {
     width: 95%;
     max-height: 90vh;
   }
@@ -810,33 +810,33 @@
    Dark Mode Support
    ========================================== */
 
-[data-theme='dark'] .vertex-datagrid {
-  background: var(--vtx-color-neutral-800);
-  border-color: var(--vtx-color-neutral-700);
+[data-theme='dark'] .luxis-datagrid {
+  background: var(--lxs-color-neutral-800);
+  border-color: var(--lxs-color-neutral-700);
 }
 
-[data-theme='dark'] .vertex-datagrid-container {
-  background: var(--vtx-color-neutral-800);
+[data-theme='dark'] .luxis-datagrid-container {
+  background: var(--lxs-color-neutral-800);
 }
 
-[data-theme='dark'] .vertex-datagrid-empty-state-icon {
-  color: var(--vtx-color-neutral-500);
+[data-theme='dark'] .luxis-datagrid-empty-state-icon {
+  color: var(--lxs-color-neutral-500);
 }
 
-[data-theme='dark'] .vertex-datagrid-empty-state-message {
-  color: var(--vtx-color-neutral-200);
+[data-theme='dark'] .luxis-datagrid-empty-state-message {
+  color: var(--lxs-color-neutral-200);
 }
 
-[data-theme='dark'] .vertex-datagrid-empty-state-description {
-  color: var(--vtx-color-neutral-400);
+[data-theme='dark'] .luxis-datagrid-empty-state-description {
+  color: var(--lxs-color-neutral-400);
 }
 
-[data-theme='dark'] .vertex-datagrid-skeleton {
+[data-theme='dark'] .luxis-datagrid-skeleton {
   background: linear-gradient(
     90deg,
-    var(--vtx-color-neutral-700) 25%,
-    var(--vtx-color-neutral-600) 50%,
-    var(--vtx-color-neutral-700) 75%
+    var(--lxs-color-neutral-700) 25%,
+    var(--lxs-color-neutral-600) 50%,
+    var(--lxs-color-neutral-700) 75%
   );
   background-size: 200% 100%;
 }

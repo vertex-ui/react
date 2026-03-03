@@ -125,30 +125,30 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
       // Skip contrast logic if outline mode or lightMode is true
       if (outline || lightMode) return null;
 
-      if (darkText === true) return 'vtx-badge--dark-text';
-      if (darkText === false) return 'vtx-badge--light-text';
+      if (darkText === true) return 'lxs-badge--dark-text';
+      if (darkText === false) return 'lxs-badge--light-text';
 
       // Use theme's colorContrast configuration
       const contrast = theme.colorContrast[variant as keyof typeof theme.colorContrast];
       if (contrast === 'light') {
-        return 'vtx-badge--dark-text'; // Light background needs dark text
+        return 'lxs-badge--dark-text'; // Light background needs dark text
       } else if (contrast === 'dark') {
-        return 'vtx-badge--light-text'; // Dark background needs light text
+        return 'lxs-badge--light-text'; // Dark background needs light text
       }
 
       return null;
     };
 
     const classNames = [
-      'vtx-badge',
-      `vtx-badge--${variant}`,
-      `vtx-badge--${badgeSize}`,
-      pill && 'vtx-badge--pill',
-      rounded && 'vtx-badge--rounded',
-      dot && 'vtx-badge--with-dot',
-      outline && 'vtx-badge--outline',
-      !lightMode && !outline && 'vtx-badge--solid',
-      onRemove && 'vtx-badge--removable',
+      'lxs-badge',
+      `lxs-badge--${variant}`,
+      `lxs-badge--${badgeSize}`,
+      pill && 'lxs-badge--pill',
+      rounded && 'lxs-badge--rounded',
+      dot && 'lxs-badge--with-dot',
+      outline && 'lxs-badge--outline',
+      !lightMode && !outline && 'lxs-badge--solid',
+      onRemove && 'lxs-badge--removable',
       getTextColorClass(),
       className,
     ]
@@ -165,17 +165,17 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
 
     return (
       <span ref={ref} className={classNames} {...props}>
-        {dot && <span className="vtx-badge-dot" aria-hidden="true" />}
+        {dot && <span className="lxs-badge-dot" aria-hidden="true" />}
         {icon && (
-          <span className="vtx-badge-icon" aria-hidden="true">
+          <span className="lxs-badge-icon" aria-hidden="true">
             {icon}
           </span>
         )}
-        <span className="vtx-badge-content">{truncatedContent}</span>
+        <span className="lxs-badge-content">{truncatedContent}</span>
         {onRemove && (
           <button
             type="button"
-            className="vtx-badge-remove"
+            className="lxs-badge-remove"
             onClick={onRemove}
             aria-label="Remove badge"
           >

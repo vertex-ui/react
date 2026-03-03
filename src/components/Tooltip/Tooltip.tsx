@@ -288,11 +288,11 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
     }, []);
 
     const tooltipClassNames = [
-      'vtx-tooltip',
+      'lxs-tooltip',
       `vtx-tooltip--${placement}`,
       `vtx-tooltip--${variant}`,
-      arrow && 'vtx-tooltip--with-arrow',
-      isVisible && 'vtx-tooltip--visible',
+      arrow && 'lxs-tooltip--with-arrow',
+      isVisible && 'lxs-tooltip--visible',
       className,
     ]
       .filter(Boolean)
@@ -326,7 +326,7 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
         if (open === undefined) hideTooltip();
         children.props.onBlur?.(e);
       },
-      'aria-describedby': isVisible ? 'vtx-tooltip-content' : undefined,
+      'aria-describedby': isVisible ? 'lxs-tooltip-content' : undefined,
     });
 
     return (
@@ -336,7 +336,7 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
           createPortal(
             <div
               ref={ref}
-              id="vtx-tooltip-content"
+              id="lxs-tooltip-content"
               role="tooltip"
               className={tooltipClassNames}
               style={{
@@ -348,13 +348,13 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
               onMouseLeave={handleTooltipMouseLeave}
               {...props}
             >
-              {arrow && <span className="vtx-tooltip-arrow" aria-hidden="true" />}
-              <div className="vtx-tooltip-inner">
-                <span className="vtx-tooltip-content">{content}</span>
+              {arrow && <span className="lxs-tooltip-arrow" aria-hidden="true" />}
+              <div className="lxs-tooltip-inner">
+                <span className="lxs-tooltip-content">{content}</span>
                 {dismissible && (
                   <button
                     type="button"
-                    className="vtx-tooltip-close"
+                    className="lxs-tooltip-close"
                     onClick={handleDismiss}
                     aria-label="Dismiss tooltip"
                   >

@@ -56,7 +56,7 @@ describe('DataGrid', () => {
 
     it('renders skeleton loader', () => {
       const { container } = render(<DataGrid columns={columns} rows={[]} loading skeletonLoader skeletonRows={3} />);
-      const skeletons = container.querySelectorAll('.vertex-datagrid-row--skeleton');
+      const skeletons = container.querySelectorAll('.luxis-datagrid-row--skeleton');
       expect(skeletons).toHaveLength(3);
     });
   });
@@ -196,7 +196,7 @@ describe('DataGrid', () => {
       render(<DataGrid columns={columns} rows={rows} />);
 
       // Hover header to see menu button (or button is always there but maybe transparent?)
-      // In implementation: .vertex-datagrid-th-content:hover .vertex-datagrid-column-menu-btn
+      // In implementation: .luxis-datagrid-th-content:hover .luxis-datagrid-column-menu-btn
       // JSDOM doesn't do hover styles, but element is in DOM if not conditionally rendered by JS hover state.
       // Implementation: always rendered inside th-content.
 

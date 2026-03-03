@@ -167,10 +167,10 @@ const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
 
     // Build class names
     const classNames = [
-      'vtx-checkbox-group',
-      `vtx-checkbox-group--${orientation}`,
-      error && 'vtx-checkbox-group--error',
-      disabled && 'vtx-checkbox-group--disabled',
+      'lxs-checkbox-group',
+      `lxs-checkbox-group--${orientation}`,
+      error && 'lxs-checkbox-group--error',
+      disabled && 'lxs-checkbox-group--disabled',
       className,
     ]
       .filter(Boolean)
@@ -178,8 +178,8 @@ const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
 
     return (
       <div ref={ref} className={classNames} {...props}>
-        {label && <div className="vtx-checkbox-group-label">{label}</div>}
-        <div className="vtx-checkbox-group-options">
+        {label && <div className="lxs-checkbox-group-label">{label}</div>}
+        <div className="lxs-checkbox-group-options">
           {options.map((option) => {
             const isChecked = currentValue.includes(option.value);
             const isDisabled = disabled || option.disabled;
@@ -197,7 +197,7 @@ const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
             );
           })}
         </div>
-        {helperText && <div className="vtx-checkbox-group-helper-text">{helperText}</div>}
+        {helperText && <div className="lxs-checkbox-group-helper-text">{helperText}</div>}
       </div>
     );
   }

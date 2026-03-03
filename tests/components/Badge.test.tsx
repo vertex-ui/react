@@ -29,58 +29,58 @@ describe('Badge', () => {
 
     it('renders with different variants', () => {
       const { container } = render(<Badge variant="success">Success</Badge>);
-      const badge = container.querySelector('.vtx-badge');
-      expect(badge).toHaveClass('vtx-badge--success');
+      const badge = container.querySelector('.lxs-badge');
+      expect(badge).toHaveClass('lxs-badge--success');
     });
 
     it('renders with sizes', () => {
       const { container: sm } = render(<Badge size="sm">Small</Badge>);
-      expect(sm.querySelector('.vtx-badge')).toHaveClass('vtx-badge--sm');
+      expect(sm.querySelector('.lxs-badge')).toHaveClass('lxs-badge--sm');
 
       const { container: lg } = render(<Badge size="lg">Large</Badge>);
-      expect(lg.querySelector('.vtx-badge')).toHaveClass('vtx-badge--lg');
+      expect(lg.querySelector('.lxs-badge')).toHaveClass('lxs-badge--lg');
     });
 
     it('renders with dot indicator', () => {
       const { container } = render(<Badge dot>Status</Badge>);
-      const badge = container.querySelector('.vtx-badge');
-      expect(badge).toHaveClass('vtx-badge--with-dot');
-      expect(container.querySelector('.vtx-badge-dot')).toBeInTheDocument();
+      const badge = container.querySelector('.lxs-badge');
+      expect(badge).toHaveClass('lxs-badge--with-dot');
+      expect(container.querySelector('.lxs-badge-dot')).toBeInTheDocument();
     });
 
     it('renders outline style', () => {
       const { container } = render(<Badge outline>Outline</Badge>);
-      const badge = container.querySelector('.vtx-badge');
-      expect(badge).toHaveClass('vtx-badge--outline');
+      const badge = container.querySelector('.lxs-badge');
+      expect(badge).toHaveClass('lxs-badge--outline');
     });
 
     it('renders pill style', () => {
       const { container } = render(<Badge pill>Pill</Badge>);
-      const badge = container.querySelector('.vtx-badge');
-      expect(badge).toHaveClass('vtx-badge--pill');
+      const badge = container.querySelector('.lxs-badge');
+      expect(badge).toHaveClass('lxs-badge--pill');
     });
 
     it('renders rounded style', () => {
       const { container } = render(<Badge rounded>Rounded</Badge>);
-      const badge = container.querySelector('.vtx-badge');
-      expect(badge).toHaveClass('vtx-badge--rounded');
+      const badge = container.querySelector('.lxs-badge');
+      expect(badge).toHaveClass('lxs-badge--rounded');
     });
 
     it('renders solid style by default', () => {
       const { container } = render(<Badge>Solid</Badge>);
-      const badge = container.querySelector('.vtx-badge');
-      expect(badge).toHaveClass('vtx-badge--solid');
+      const badge = container.querySelector('.lxs-badge');
+      expect(badge).toHaveClass('lxs-badge--solid');
     });
 
     it('does not apply solid class when lightMode is true', () => {
       const { container } = render(<Badge lightMode>Light</Badge>);
-      const badge = container.querySelector('.vtx-badge');
-      expect(badge).not.toHaveClass('vtx-badge--solid');
+      const badge = container.querySelector('.lxs-badge');
+      expect(badge).not.toHaveClass('lxs-badge--solid');
     });
 
     it('applies custom className', () => {
       const { container } = render(<Badge className="custom-badge">Test</Badge>);
-      const badge = container.querySelector('.vtx-badge');
+      const badge = container.querySelector('.lxs-badge');
       expect(badge).toHaveClass('custom-badge');
     });
 
@@ -95,22 +95,22 @@ describe('Badge', () => {
     it('applies light text class based on theme contrast (dark background)', () => {
       // Mocked theme: secondary -> dark (needs light text)
       const { container } = render(<Badge variant="secondary">Secondary</Badge>);
-      const badge = container.querySelector('.vtx-badge');
-      expect(badge).toHaveClass('vtx-badge--light-text');
+      const badge = container.querySelector('.lxs-badge');
+      expect(badge).toHaveClass('lxs-badge--light-text');
     });
 
     it('overrides theme contrast with darkText prop', () => {
       const { container } = render(<Badge variant="secondary" darkText={true}>Forced Dark</Badge>);
-      const badge = container.querySelector('.vtx-badge');
-      expect(badge).toHaveClass('vtx-badge--dark-text');
-      expect(badge).not.toHaveClass('vtx-badge--light-text');
+      const badge = container.querySelector('.lxs-badge');
+      expect(badge).toHaveClass('lxs-badge--dark-text');
+      expect(badge).not.toHaveClass('lxs-badge--light-text');
     });
 
     it('overrides theme contrast with lightText (darkText=false) prop', () => {
       const { container } = render(<Badge variant="primary" darkText={false}>Forced Light</Badge>);
-      const badge = container.querySelector('.vtx-badge');
-      expect(badge).toHaveClass('vtx-badge--light-text');
-      expect(badge).not.toHaveClass('vtx-badge--dark-text');
+      const badge = container.querySelector('.lxs-badge');
+      expect(badge).toHaveClass('lxs-badge--light-text');
+      expect(badge).not.toHaveClass('lxs-badge--dark-text');
     });
   });
 
@@ -139,14 +139,14 @@ describe('Badge', () => {
   describe('Accessibility', () => {
     it('hides dot indicator from screen readers', () => {
       const { container } = render(<Badge dot>Status</Badge>);
-      const dot = container.querySelector('.vtx-badge-dot');
+      const dot = container.querySelector('.lxs-badge-dot');
       expect(dot).toHaveAttribute('aria-hidden', 'true');
     });
 
     it('hides icon from screen readers', () => {
       const Icon = () => <span>Icon</span>;
       const { container } = render(<Badge icon={<Icon />}>Status</Badge>);
-      const iconWrapper = container.querySelector('.vtx-badge-icon');
+      const iconWrapper = container.querySelector('.lxs-badge-icon');
       expect(iconWrapper).toHaveAttribute('aria-hidden', 'true');
     });
 
@@ -161,7 +161,7 @@ describe('Badge', () => {
       const ref = React.createRef<HTMLSpanElement>();
       render(<Badge ref={ref}>Ref Test</Badge>);
       expect(ref.current).toBeInstanceOf(HTMLSpanElement);
-      expect(ref.current).toHaveClass('vtx-badge');
+      expect(ref.current).toHaveClass('lxs-badge');
     });
   });
 });

@@ -51,14 +51,14 @@ describe('Modal', () => {
           <p>Small</p>
         </Modal>
       );
-      expect(screen.getByRole('dialog')).toHaveClass('vtx-modal--sm');
+      expect(screen.getByRole('dialog')).toHaveClass('lxs-modal--sm');
 
       rerender(
         <Modal isOpen size="lg" onClose={() => {}}>
           <p>Large</p>
         </Modal>
       );
-      expect(screen.getByRole('dialog')).toHaveClass('vtx-modal--lg');
+      expect(screen.getByRole('dialog')).toHaveClass('lxs-modal--lg');
     });
 
     it('renders with description', () => {
@@ -69,7 +69,7 @@ describe('Modal', () => {
       );
       expect(screen.getByText('Description text')).toBeInTheDocument();
       const dialog = screen.getByRole('dialog');
-      expect(dialog).toHaveAttribute('aria-describedby', 'vtx-modal-description');
+      expect(dialog).toHaveAttribute('aria-describedby', 'lxs-modal-description');
     });
 
     it('renders with custom header', () => {
@@ -104,7 +104,7 @@ describe('Modal', () => {
           <p>Content</p>
         </Modal>
       );
-      expect(screen.getByRole('dialog')).toHaveClass('vtx-modal--scrollable');
+      expect(screen.getByRole('dialog')).toHaveClass('lxs-modal--scrollable');
     });
 
     it('renders centered modal', () => {
@@ -113,8 +113,8 @@ describe('Modal', () => {
           <p>Content</p>
         </Modal>
       );
-      const backdrop = document.querySelector('.vtx-modal-backdrop');
-      expect(backdrop).toHaveClass('vtx-modal-backdrop--centered');
+      const backdrop = document.querySelector('.lxs-modal-backdrop');
+      expect(backdrop).toHaveClass('lxs-modal-backdrop--centered');
     });
 
     it('renders transparent backdrop', () => {
@@ -123,8 +123,8 @@ describe('Modal', () => {
           <p>Content</p>
         </Modal>
       );
-      const backdrop = document.querySelector('.vtx-modal-backdrop');
-      expect(backdrop).toHaveClass('vtx-modal-backdrop--transparent');
+      const backdrop = document.querySelector('.lxs-modal-backdrop');
+      expect(backdrop).toHaveClass('lxs-modal-backdrop--transparent');
     });
   });
 
@@ -251,7 +251,7 @@ describe('Modal', () => {
       );
       const dialog = screen.getByRole('dialog');
       expect(dialog).toHaveAttribute('aria-modal', 'true');
-      expect(dialog).toHaveAttribute('aria-labelledby', 'vtx-modal-title');
+      expect(dialog).toHaveAttribute('aria-labelledby', 'lxs-modal-title');
     });
   });
 });

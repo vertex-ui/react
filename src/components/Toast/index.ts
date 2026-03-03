@@ -1,3 +1,5 @@
+import './Toast.css';
+
 export { default as Toast } from './Toast';
 export { Toast as ToastComponent } from './Toast';
 export { ToastContainer } from './ToastContainer';

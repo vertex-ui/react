@@ -302,31 +302,31 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
       .join(' ');
 
     const wrapperClassNames = [
-      'vtx-autocomplete-wrapper',
-      fullWidth && 'vtx-autocomplete-wrapper--full-width',
+      'lxs-autocomplete-wrapper',
+      fullWidth && 'lxs-autocomplete-wrapper--full-width',
       wrapperClassName,
     ]
       .filter(Boolean)
       .join(' ');
 
     const inputContainerClassNames = [
-      'vtx-autocomplete-container',
-      `vtx-autocomplete-container--${inputSize}`,
-      hasError && 'vtx-autocomplete-container--error',
-      hasSuccess && 'vtx-autocomplete-container--success',
-      disabled && 'vtx-autocomplete-container--disabled',
-      isFocused && 'vtx-autocomplete-container--focused',
-      shouldShowDropdown && 'vtx-autocomplete-container--open',
-      (showSearchIcon || loading) && 'vtx-autocomplete-container--with-left-icon',
-      showClearButton && 'vtx-autocomplete-container--with-right-icon',
+      'lxs-autocomplete-container',
+      `lxs-autocomplete-container--${inputSize}`,
+      hasError && 'lxs-autocomplete-container--error',
+      hasSuccess && 'lxs-autocomplete-container--success',
+      disabled && 'lxs-autocomplete-container--disabled',
+      isFocused && 'lxs-autocomplete-container--focused',
+      shouldShowDropdown && 'lxs-autocomplete-container--open',
+      (showSearchIcon || loading) && 'lxs-autocomplete-container--with-left-icon',
+      showClearButton && 'lxs-autocomplete-container--with-right-icon',
       className,
     ]
       .filter(Boolean)
       .join(' ');
 
     const dropdownClassNames = [
-      'vtx-autocomplete-dropdown',
-      shouldShowDropdown && 'vtx-autocomplete-dropdown--open',
+      'lxs-autocomplete-dropdown',
+      shouldShowDropdown && 'lxs-autocomplete-dropdown--open',
       dropdownClassName,
     ]
       .filter(Boolean)
@@ -464,20 +464,20 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
           aria-selected={isHighlighted}
           aria-disabled={isDisabled}
           className={[
-            'vtx-autocomplete-option',
-            isHighlighted && 'vtx-autocomplete-option--highlighted',
-            isDisabled && 'vtx-autocomplete-option--disabled',
+            'lxs-autocomplete-option',
+            isHighlighted && 'lxs-autocomplete-option--highlighted',
+            isDisabled && 'lxs-autocomplete-option--disabled',
           ]
             .filter(Boolean)
             .join(' ')}
           onClick={() => handleOptionClick(option)}
           onMouseEnter={() => !isDisabled && setHighlightedIndex(index)}
         >
-          {icon && <span className="vtx-autocomplete-option__icon">{icon}</span>}
-          <div className="vtx-autocomplete-option__content">
-            <div className="vtx-autocomplete-option__label">{label}</div>
+          {icon && <span className="lxs-autocomplete-option__icon">{icon}</span>}
+          <div className="lxs-autocomplete-option__content">
+            <div className="lxs-autocomplete-option__label">{label}</div>
             {description && (
-              <div className="vtx-autocomplete-option__description">{description}</div>
+              <div className="lxs-autocomplete-option__description">{description}</div>
             )}
           </div>
         </div>
@@ -487,16 +487,16 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
     const renderDropdownContent = () => {
       if (loading) {
         return (
-          <div className="vtx-autocomplete-message vtx-autocomplete-message--loading">
+          <div className="lxs-autocomplete-message lxs-autocomplete-message--loading">
             <svg
-              className="vtx-autocomplete-spinner"
+              className="lxs-autocomplete-spinner"
               width="20"
               height="20"
               viewBox="0 0 20 20"
               fill="none"
             >
               <circle
-                className="vtx-autocomplete-spinner__track"
+                className="lxs-autocomplete-spinner__track"
                 cx="10"
                 cy="10"
                 r="8"
@@ -504,7 +504,7 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
                 strokeWidth="2"
               />
               <path
-                className="vtx-autocomplete-spinner__path"
+                className="lxs-autocomplete-spinner__path"
                 fill="currentColor"
                 d="M10 2C5.582 2 2 5.582 2 10h2c0-3.314 2.686-6 6-6V2z"
               />
@@ -516,7 +516,7 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
 
       if (options.length === 0) {
         return (
-          <div className="vtx-autocomplete-message vtx-autocomplete-message--empty">
+          <div className="lxs-autocomplete-message lxs-autocomplete-message--empty">
             {noOptionsMessage}
           </div>
         );
@@ -526,7 +526,7 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
         <div
           role="listbox"
           id={listboxId}
-          className="vtx-autocomplete-options"
+          className="lxs-autocomplete-options"
           ref={dropdownRef}
         >
           {options.map((option, index) =>
@@ -539,10 +539,10 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
     return (
       <div className={wrapperClassNames} ref={wrapperRef}>
         {label && (
-          <label htmlFor={id} className={`vtx-autocomplete-label ${labelClassName}`.trim()}>
+          <label htmlFor={id} className={`lxs-autocomplete-label ${labelClassName}`.trim()}>
             {label}
             {required && (
-              <span className="vtx-autocomplete-label__required" aria-label="required">
+              <span className="lxs-autocomplete-label__required" aria-label="required">
                 {' '}
                 *
               </span>
@@ -551,21 +551,21 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
         )}
         <div className={inputContainerClassNames}>
           {showSearchIcon && !loading && (
-            <span className="vtx-autocomplete-icon vtx-autocomplete-icon--left" aria-hidden="true">
+            <span className="lxs-autocomplete-icon lxs-autocomplete-icon--left" aria-hidden="true">
               <SearchIcon size={16} />
             </span>
           )}
           {loading && (
-            <span className="vtx-autocomplete-icon vtx-autocomplete-icon--left" aria-hidden="true">
+            <span className="lxs-autocomplete-icon lxs-autocomplete-icon--left" aria-hidden="true">
               <svg
-                className="vtx-autocomplete-icon-spinner"
+                className="lxs-autocomplete-icon-spinner"
                 width="16"
                 height="16"
                 viewBox="0 0 16 16"
                 fill="none"
               >
                 <circle
-                  className="vtx-autocomplete-icon-spinner__track"
+                  className="lxs-autocomplete-icon-spinner__track"
                   cx="8"
                   cy="8"
                   r="6"
@@ -573,7 +573,7 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
                   strokeWidth="2"
                 />
                 <path
-                  className="vtx-autocomplete-icon-spinner__path"
+                  className="lxs-autocomplete-icon-spinner__path"
                   fill="currentColor"
                   d="M8 2C4.686 2 2 4.686 2 8h2c0-2.21 1.79-4 4-4V2z"
                 />
@@ -591,7 +591,7 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
             }}
             id={id}
             type="text"
-            className={`vtx-autocomplete-input ${inputClassName}`.trim()}
+            className={`lxs-autocomplete-input ${inputClassName}`.trim()}
             disabled={disabled}
             required={required}
             value={inputValue}
@@ -611,7 +611,7 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
           {showClearButton && (
             <button
               type="button"
-              className="vtx-autocomplete-clear"
+              className="lxs-autocomplete-clear"
               onClick={handleClear}
               aria-label="Clear input"
               tabIndex={-1}
@@ -624,17 +624,17 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
           )}
         </div>
         {helperText && !error && !success && (
-          <p id={helperId} className="vtx-autocomplete-helper">
+          <p id={helperId} className="lxs-autocomplete-helper">
             {helperText}
           </p>
         )}
         {error && (
-          <p id={errorId} className="vtx-autocomplete-error" role="alert">
+          <p id={errorId} className="lxs-autocomplete-error" role="alert">
             {error}
           </p>
         )}
         {success && (
-          <p id={successId} className="vtx-autocomplete-success" role="status">
+          <p id={successId} className="lxs-autocomplete-success" role="status">
             {success}
           </p>
         )}

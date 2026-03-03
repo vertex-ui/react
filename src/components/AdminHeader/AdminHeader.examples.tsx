@@ -104,7 +104,7 @@ export const CompleteDashboardHeader = () => {
           V
         </div>
       }
-      title="Vertex Admin"
+      title="Luxis Admin"
       subtitle="v2.0.0"
       onToggleSidebar={() => setMobileOpen(!mobileOpen)}
       showSearch
@@ -145,7 +145,7 @@ export const DarkThemeHeader = () => {
 
   return (
     <AdminHeader
-      logo={<div style={{ fontSize: '24px', color: 'var(--vtx-color-primary-500)' }}><ZapIcon /></div>}
+      logo={<div style={{ fontSize: '24px', color: 'var(--lxs-color-primary-500)' }}><ZapIcon /></div>}
       title="Dashboard"
       onToggleSidebar={() => console.log('Toggle')}
       showSearch
@@ -286,7 +286,7 @@ export const EcommerceAdminHeader = () => {
 export const GradientHeader = () => {
   return (
     <AdminHeader
-      logo={<div style={{ fontSize: '24px', color: 'var(--vtx-color-primary-500)' }}><ZapIcon /></div>}
+      logo={<div style={{ fontSize: '24px', color: 'var(--lxs-color-primary-500)' }}><ZapIcon /></div>}
       title="Modern App"
       subtitle="Dashboard"
       onToggleSidebar={() => console.log('Toggle')}
@@ -389,7 +389,7 @@ export const SaasApplicationHeader = () => {
 export const CompactMobileHeader = () => {
   return (
     <AdminHeader
-      logo={<div style={{ width: 32, height: 32, borderRadius: 6, background: 'var(--vtx-color-primary-500)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold' }}>M</div>}
+      logo={<div style={{ width: 32, height: 32, borderRadius: 6, background: 'var(--lxs-color-primary-500)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold' }}>M</div>}
       title="App"
       onToggleSidebar={() => console.log('Toggle')}
       notifications={[

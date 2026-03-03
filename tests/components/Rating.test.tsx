@@ -9,7 +9,7 @@ describe('Rating', () => {
     // Here we can check if 5 star wrappers are rendered.
     const { container } = render(<Rating value={3} />);
     // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-    const stars = container.querySelectorAll('.vtx-rating-star-wrapper');
+    const stars = container.querySelectorAll('.lxs-rating-star-wrapper');
     expect(stars.length).toBe(5);
   });
 
@@ -25,10 +25,10 @@ describe('Rating', () => {
     // Find stars using class
     // DOM structure: wrapper > full/half triggers > span (icon)
     // We should click on the trigger divs.
-    // .vtx-rating-star-full is the trigger for full star.
+    // .lxs-rating-star-full is the trigger for full star.
 
     // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-    const starTriggers = container.querySelectorAll('.vtx-rating-star-full');
+    const starTriggers = container.querySelectorAll('.lxs-rating-star-full');
     expect(starTriggers.length).toBe(5);
 
     if (starTriggers.length >= 5) {
@@ -42,7 +42,7 @@ describe('Rating', () => {
     const onChange = jest.fn();
     const { container } = render(<Rating value={3} readOnly selectable onChange={onChange} />);
     // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-    const starTriggers = container.querySelectorAll('.vtx-rating-star-full');
+    const starTriggers = container.querySelectorAll('.lxs-rating-star-full');
     if (starTriggers.length >= 5) {
         fireEvent.click(starTriggers[4]);
         expect(onChange).not.toHaveBeenCalled();

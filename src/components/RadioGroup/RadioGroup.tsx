@@ -177,10 +177,10 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
 
     // Build class names
     const classNames = [
-      'vtx-radio-group',
-      `vtx-radio-group--${orientation}`,
-      error && 'vtx-radio-group--error',
-      disabled && 'vtx-radio-group--disabled',
+      'lxs-radio-group',
+      `lxs-radio-group--${orientation}`,
+      error && 'lxs-radio-group--error',
+      disabled && 'lxs-radio-group--disabled',
       className,
     ]
       .filter(Boolean)
@@ -194,8 +194,8 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
         aria-label={typeof label === 'string' ? label : undefined}
         {...props}
       >
-        {label && <div className="vtx-radio-group-label">{label}</div>}
-        <div className="vtx-radio-group-options">
+        {label && <div className="lxs-radio-group-label">{label}</div>}
+        <div className="lxs-radio-group-options">
           {options.map((option) => {
             const isChecked = currentValue === option.value;
             const isDisabled = disabled || option.disabled;
@@ -216,7 +216,7 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
             );
           })}
         </div>
-        {helperText && <div className="vtx-radio-group-helper-text">{helperText}</div>}
+        {helperText && <div className="lxs-radio-group-helper-text">{helperText}</div>}
       </div>
     );
   }

@@ -53,15 +53,15 @@ describe('RichTextEditor', () => {
     it('renders error state', () => {
       render(<RichTextEditor error="Field required" />);
       expect(screen.getByText('Field required')).toBeInTheDocument();
-      const container = screen.getByRole('textbox').closest('.vtx-richtext-container');
-      expect(container).toHaveClass('vtx-richtext-container--error');
+      const container = screen.getByRole('textbox').closest('.lxs-richtext-container');
+      expect(container).toHaveClass('lxs-richtext-container--error');
     });
 
     it('renders success state', () => {
       render(<RichTextEditor success="Looks good" />);
       expect(screen.getByText('Looks good')).toBeInTheDocument();
-      const container = screen.getByRole('textbox').closest('.vtx-richtext-container');
-      expect(container).toHaveClass('vtx-richtext-container--success');
+      const container = screen.getByRole('textbox').closest('.lxs-richtext-container');
+      expect(container).toHaveClass('lxs-richtext-container--success');
     });
 
     it('hides toolbar when hideToolbar is true', () => {

@@ -48,6 +48,6 @@ describe('InfoListCard', () => {
   it('renders dividers when showDividers is true', () => {
     const { container } = render(<InfoListCard items={mockItems} showDividers />);
     // Divider usually renders an HR or a div with specific class
-    expect(container.querySelectorAll('.vtx-divider')).toHaveLength(1); // Between 2 visible items
+    expect(container.querySelectorAll('.lxs-divider')).toHaveLength(1); // Between 2 visible items
   });
 });

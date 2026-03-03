@@ -112,12 +112,12 @@ const Chip = React.forwardRef<HTMLDivElement, ChipProps>(
     ref
   ) => {
     const chipClassNames = [
-      'vtx-chip',
+      'lxs-chip',
       `vtx-chip--${size}`,
       `vtx-chip--${variant}`,
       `vtx-chip--${color}`,
-      onClick && !disabled && 'vtx-chip--clickable',
-      disabled && 'vtx-chip--disabled',
+      onClick && !disabled && 'lxs-chip--clickable',
+      disabled && 'lxs-chip--disabled',
       className,
     ]
       .filter(Boolean)
@@ -165,17 +165,17 @@ const Chip = React.forwardRef<HTMLDivElement, ChipProps>(
         aria-disabled={disabled}
         data-testid={dataTestId}
       >
-        {avatar && <img src={avatar} alt="" className="vtx-chip__avatar" aria-hidden="true" />}
+        {avatar && <img src={avatar} alt="" className="lxs-chip__avatar" aria-hidden="true" />}
         {icon && !avatar && (
-          <span className="vtx-chip__icon" aria-hidden="true">
+          <span className="lxs-chip__icon" aria-hidden="true">
             {icon}
           </span>
         )}
-        <span className="vtx-chip__label">{label}</span>
+        <span className="lxs-chip__label">{label}</span>
         {onDelete && (
           <button
             type="button"
-            className="vtx-chip__delete"
+            className="lxs-chip__delete"
             onClick={handleDeleteClick}
             onKeyDown={handleDeleteKeyDown}
             disabled={disabled}

@@ -1,110 +1,110 @@
 /* ===== Box Component Base Styles ===== */
-.vtx-box {
+.lxs-box {
   box-sizing: border-box;
 }
 
 /* ===== Display Utilities ===== */
-.vtx-box--display-block {
+.lxs-box--display-block {
   display: block;
 }
 
-.vtx-box--display-inline-block {
+.lxs-box--display-inline-block {
   display: inline-block;
 }
 
-.vtx-box--display-inline {
+.lxs-box--display-inline {
   display: inline;
 }
 
-.vtx-box--display-flex {
+.lxs-box--display-flex {
   display: flex;
 }
 
-.vtx-box--display-inline-flex {
+.lxs-box--display-inline-flex {
   display: inline-flex;
 }
 
-.vtx-box--display-grid {
+.lxs-box--display-grid {
   display: grid;
 }
 
-.vtx-box--display-inline-grid {
+.lxs-box--display-inline-grid {
   display: inline-grid;
 }
 
-.vtx-box--display-none {
+.lxs-box--display-none {
   display: none;
 }
 
 /* ===== Position Utilities ===== */
-.vtx-box--position-static {
+.lxs-box--position-static {
   position: static;
 }
 
-.vtx-box--position-relative {
+.lxs-box--position-relative {
   position: relative;
 }
 
-.vtx-box--position-absolute {
+.lxs-box--position-absolute {
   position: absolute;
 }
 
-.vtx-box--position-fixed {
+.lxs-box--position-fixed {
   position: fixed;
 }
 
-.vtx-box--position-sticky {
+.lxs-box--position-sticky {
   position: sticky;
 }
 
 /* ===== Overflow Utilities ===== */
-.vtx-box--overflow-visible {
+.lxs-box--overflow-visible {
   overflow: visible;
 }
 
-.vtx-box--overflow-hidden {
+.lxs-box--overflow-hidden {
   overflow: hidden;
 }
 
-.vtx-box--overflow-scroll {
+.lxs-box--overflow-scroll {
   overflow: scroll;
 }
 
-.vtx-box--overflow-auto {
+.lxs-box--overflow-auto {
   overflow: auto;
 }
 
 /* ===== Shadow Utilities ===== */
-.vtx-box--shadow-none {
+.lxs-box--shadow-none {
   box-shadow: none;
 }
 
-.vtx-box--shadow-sm {
+.lxs-box--shadow-sm {
   box-shadow: var(
-    --vtx-shadow-sm,
+    --lxs-shadow-sm,
     0 1px 2px 0 rgba(0, 0, 0, 0.05)
   );
 }
 
-.vtx-box--shadow-md {
+.lxs-box--shadow-md {
   box-shadow: var(
-    --vtx-shadow-md,
+    --lxs-shadow-md,
     0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06)
   );
 }
 
-.vtx-box--shadow-lg {
+.lxs-box--shadow-lg {
   box-shadow: var(
-    --vtx-shadow-lg,
+    --lxs-shadow-lg,
     0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05)
   );
 }
 
-.vtx-box--shadow-xl {
+.lxs-box--shadow-xl {
   box-shadow: var(
-    --vtx-shadow-xl,
+    --lxs-shadow-xl,
     0 20px 25px -5px rgba(0, 0, 0, 0.1),
     0 10px 10px -5px rgba(0, 0, 0, 0.04)
   );

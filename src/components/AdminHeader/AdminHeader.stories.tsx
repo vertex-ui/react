@@ -47,7 +47,7 @@ Professional admin panel header component with comprehensive features for modern
 ## Usage
 
 \`\`\`tsx
-import { AdminHeader } from '@vertex-ui/react';
+import { AdminHeader } from '@luxis-ui/react';
 
 function App() {
   return (
@@ -253,7 +253,7 @@ const mockSearchSuggestions: SearchSuggestion[] = [
  */
 export const Default: Story = {
   args: {
-    logo: <div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--vtx-color-primary-500)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold' }}>V</div>,
+    logo: <div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--lxs-color-primary-500)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold' }}>V</div>,
     title: 'Admin Dashboard',
     subtitle: 'Control Panel',
     onToggleSidebar: () => console.log('Toggle sidebar'),
@@ -281,7 +281,7 @@ export const WithSearch: Story = {
 
     return (
       <AdminHeader
-        logo={<div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--vtx-color-primary-500)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold' }}>V</div>}
+        logo={<div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--lxs-color-primary-500)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold' }}>V</div>}
         title="Dashboard"
         onToggleSidebar={() => console.log('Toggle')}
         showSearch
@@ -307,7 +307,7 @@ export const WithSearch: Story = {
  */
 export const DarkTheme: Story = {
   args: {
-    logo: <div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--vtx-color-primary-400)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold' }}>V</div>,
+    logo: <div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--lxs-color-primary-400)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold' }}>V</div>,
     title: 'Admin Portal',
     onToggleSidebar: () => console.log('Toggle'),
     showSearch: true,
@@ -327,7 +327,7 @@ export const DarkTheme: Story = {
  */
 export const PrimaryTheme: Story = {
   args: {
-    logo: <div style={{ width: 32, height: 32, borderRadius: 8, background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--vtx-color-primary-500)', fontWeight: 'bold' }}>V</div>,
+    logo: <div style={{ width: 32, height: 32, borderRadius: 8, background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--lxs-color-primary-500)', fontWeight: 'bold' }}>V</div>,
     title: 'Control Center',
     onToggleSidebar: () => console.log('Toggle'),
     showSearch: true,
@@ -345,7 +345,7 @@ export const PrimaryTheme: Story = {
  */
 export const GradientTheme: Story = {
   args: {
-    logo: <div style={{ width: 32, height: 32, borderRadius: 8, background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--vtx-color-primary-500)', fontWeight: 'bold' }}>V</div>,
+    logo: <div style={{ width: 32, height: 32, borderRadius: 8, background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--lxs-color-primary-500)', fontWeight: 'bold' }}>V</div>,
     title: 'Modern Dashboard',
     subtitle: 'Analytics & Insights',
     onToggleSidebar: () => console.log('Toggle'),
@@ -382,7 +382,7 @@ export const Minimal: Story = {
  */
 export const WithBreadcrumbs: Story = {
   args: {
-    logo: <div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--vtx-color-primary-500)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold' }}>V</div>,
+    logo: <div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--lxs-color-primary-500)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold' }}>V</div>,
     title: 'Dashboard',
     onToggleSidebar: () => console.log('Toggle'),
     showBreadcrumbs: true,
@@ -404,7 +404,7 @@ export const WithBreadcrumbs: Story = {
  */
 export const WithoutAvatar: Story = {
   args: {
-    logo: <div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--vtx-color-primary-500)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold' }}>V</div>,
+    logo: <div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--lxs-color-primary-500)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold' }}>V</div>,
     title: 'Admin Panel',
     onToggleSidebar: () => console.log('Toggle'),
     showSearch: true,
@@ -420,7 +420,7 @@ export const WithoutAvatar: Story = {
  */
 export const WithQuickActions: Story = {
   args: {
-    logo: <div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--vtx-color-primary-500)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold' }}>V</div>,
+    logo: <div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--lxs-color-primary-500)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold' }}>V</div>,
     title: 'E-Commerce Admin',
     onToggleSidebar: () => console.log('Toggle'),
     quickActions: [
@@ -464,7 +464,7 @@ export const WithQuickActions: Story = {
  */
 export const TransparentWithBlur: Story = {
   args: {
-    logo: <div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--vtx-color-primary-500)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold' }}>V</div>,
+    logo: <div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--lxs-color-primary-500)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold' }}>V</div>,
     title: 'Modern Admin',
     onToggleSidebar: () => console.log('Toggle'),
     showSearch: true,
@@ -514,7 +514,7 @@ export const InteractiveNotifications: Story = {
 
     return (
       <AdminHeader
-        logo={<div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--vtx-color-primary-500)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold' }}>V</div>}
+        logo={<div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--lxs-color-primary-500)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold' }}>V</div>}
         title="Notification Demo"
         onToggleSidebar={() => console.log('Toggle')}
         notifications={notifications}

@@ -33,21 +33,21 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = (props) => {
     if (!val) return undefined;
     const spacingMap: Record<string, string> = {
       'none': '0',
-      'xs': 'var(--vtx-spacing-1)',
-      'sm': 'var(--vtx-spacing-2)',
-      'md': 'var(--vtx-spacing-4)',
-      'lg': 'var(--vtx-spacing-6)',
-      'xl': 'var(--vtx-spacing-8)',
-      '2xl': 'var(--vtx-spacing-12)'
+      'xs': 'var(--lxs-spacing-1)',
+      'sm': 'var(--lxs-spacing-2)',
+      'md': 'var(--lxs-spacing-4)',
+      'lg': 'var(--lxs-spacing-6)',
+      'xl': 'var(--lxs-spacing-8)',
+      '2xl': 'var(--lxs-spacing-12)'
     };
     return spacingMap[val] || val;
   };
 
-  const globalGap = getGapValue(gap) || 'var(--vtx-spacing-4)';
+  const globalGap = getGapValue(gap) || 'var(--lxs-spacing-4)';
 
   // Specific spacing overrides with defaults
   const gapValues = {
-    captionGap: getGapValue(spacing.caption) || 'var(--vtx-spacing-2)',
+    captionGap: getGapValue(spacing.caption) || 'var(--lxs-spacing-2)',
     headingGap: getGapValue(spacing.heading) || globalGap,
     subheadingGap: getGapValue(spacing.subheading) || globalGap,
     bodyGap: getGapValue(spacing.body) || globalGap,
@@ -70,11 +70,11 @@ const ContentBlockWidget: React.FC<ContentBlockWidgetProps> = (props) => {
   const alignItems = getAlignItems(contentAlign);
 
   const wrapperClass = [
-    'vtx-content-block',
-    `vtx-content-block--theme-${theme}`,
-    `vtx-content-block--align-${contentAlign}`,
-    displayMode && `vtx-content-block--${displayMode}`,
-    colorMode && `vtx-content-block--${colorMode}`, // e.g. vtx-content-block--dark
+    'lxs-content-block',
+    `lxs-content-block--theme-${theme}`,
+    `lxs-content-block--align-${contentAlign}`,
+    displayMode && `lxs-content-block--${displayMode}`,
+    colorMode && `lxs-content-block--${colorMode}`, // e.g. lxs-content-block--dark
     className,
   ].filter(Boolean).join(' ');
 

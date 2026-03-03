@@ -316,7 +316,7 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
                   variant={item.variant}
                   readonly={true}
                   currency={currency}
-                  style={{ borderBottom: index < items.length - 1 ? '1px solid var(--vtx-color-neutral-200, #e0e0e0)' : 'none', padding: '12px 0' }}
+                  style={{ borderBottom: index < items.length - 1 ? '1px solid var(--lxs-color-neutral-200, #e0e0e0)' : 'none', padding: '12px 0' }}
                 />
               ))}
             </Flex>
@@ -535,8 +535,8 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
             variant="filled"
             className="orderconfirmation-help-card"
             style={{
-              background: 'var(--vtx-color-primary-50)',
-              border: '1px solid var(--vtx-color-primary-100)'
+              background: 'var(--lxs-color-primary-50)',
+              border: '1px solid var(--lxs-color-primary-100)'
             }}
           >
             <Flex direction="column" gap={12} align="center">
@@ -546,7 +546,7 @@ const OrderConfirmation = React.forwardRef<HTMLDivElement, OrderConfirmationProp
                   Need Help?
                 </Typography>
               </Flex>
-              <Typography variant="body2" align="center" noMargin style={{ color: 'var(--vtx-color-text-secondary)' }}>
+              <Typography variant="body2" align="center" noMargin style={{ color: 'var(--lxs-color-text-secondary)' }}>
                 Our support team is available 24/7 to assist you with your order
               </Typography>
               <Flex direction="row" gap={16} wrap="wrap" justify="center" style={{ marginTop: '4px' }}>

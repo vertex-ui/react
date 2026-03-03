@@ -377,7 +377,7 @@ const ColumnMenu: React.FC<{
   return (
     <div
       ref={menuRef}
-      className="vertex-datagrid-column-menu"
+      className="luxis-datagrid-column-menu"
       style={{
         position: 'fixed',
         top: rect.bottom + 4,
@@ -388,7 +388,7 @@ const ColumnMenu: React.FC<{
       {column.sortable && (
         <>
           <button
-            className="vertex-datagrid-column-menu-item"
+            className="luxis-datagrid-column-menu-item"
             onClick={() => {
               onSort('asc');
               onClose();
@@ -396,10 +396,10 @@ const ColumnMenu: React.FC<{
           >
             <ArrowUpIcon size={16} />
             <span>Sort ascending</span>
-            {currentSort === 'asc' && <span className="vertex-datagrid-menu-check">✓</span>}
+            {currentSort === 'asc' && <span className="luxis-datagrid-menu-check">✓</span>}
           </button>
           <button
-            className="vertex-datagrid-column-menu-item"
+            className="luxis-datagrid-column-menu-item"
             onClick={() => {
               onSort('desc');
               onClose();
@@ -407,11 +407,11 @@ const ColumnMenu: React.FC<{
           >
             <ArrowDownIcon size={16} />
             <span>Sort descending</span>
-            {currentSort === 'desc' && <span className="vertex-datagrid-menu-check">✓</span>}
+            {currentSort === 'desc' && <span className="luxis-datagrid-menu-check">✓</span>}
           </button>
           {currentSort && (
             <button
-              className="vertex-datagrid-column-menu-item"
+              className="luxis-datagrid-column-menu-item"
               onClick={() => {
                 onSort(null);
                 onClose();
@@ -421,12 +421,12 @@ const ColumnMenu: React.FC<{
               <span>Unsort</span>
             </button>
           )}
-          {column.filterable && <div className="vertex-datagrid-column-menu-divider" />}
+          {column.filterable && <div className="luxis-datagrid-column-menu-divider" />}
         </>
       )}
       {column.filterable && (
         <button
-          className="vertex-datagrid-column-menu-item"
+          className="luxis-datagrid-column-menu-item"
           onClick={() => {
             onFilter();
             onClose();
@@ -436,7 +436,7 @@ const ColumnMenu: React.FC<{
             <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z" />
           </svg>
           <span>{hasFilter ? 'Edit filter' : 'Filter'}</span>
-          {hasFilter && <span className="vertex-datagrid-menu-badge">●</span>}
+          {hasFilter && <span className="luxis-datagrid-menu-badge">●</span>}
         </button>
       )}
     </div>
@@ -522,11 +522,11 @@ const FilterPanel: React.FC<{
   };
 
   return (
-    <div className="vertex-datagrid-filter-panel-overlay">
-      <div ref={panelRef} className="vertex-datagrid-filter-panel">
-        <div className="vertex-datagrid-filter-panel-header">
+    <div className="luxis-datagrid-filter-panel-overlay">
+      <div ref={panelRef} className="luxis-datagrid-filter-panel">
+        <div className="luxis-datagrid-filter-panel-header">
           <Typography weight="semibold" size="sm">Filters</Typography>
-          <button className="vertex-datagrid-filter-close" onClick={onClose}>
+          <button className="luxis-datagrid-filter-close" onClick={onClose}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
@@ -534,9 +534,9 @@ const FilterPanel: React.FC<{
           </button>
         </div>
         
-        <div className="vertex-datagrid-filter-panel-body">
+        <div className="luxis-datagrid-filter-panel-body">
           {filterModel.items.length === 0 ? (
-            <div className="vertex-datagrid-filter-empty">
+            <div className="luxis-datagrid-filter-empty">
               <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z" />
               </svg>
@@ -553,10 +553,10 @@ const FilterPanel: React.FC<{
                 const needsInput = !['isEmpty', 'isNotEmpty'].includes(item.operator);
 
                 return (
-                  <div key={item.id || index} className="vertex-datagrid-filter-row">
+                  <div key={item.id || index} className="luxis-datagrid-filter-row">
                     {index > 0 && (
                       <button
-                        className="vertex-datagrid-filter-logic-btn"
+                        className="luxis-datagrid-filter-logic-btn"
                         onClick={toggleLogicOperator}
                         title="Toggle AND/OR"
                       >
@@ -564,11 +564,11 @@ const FilterPanel: React.FC<{
                       </button>
                     )}
                     
-                    <div className="vertex-datagrid-filter-controls">
+                    <div className="luxis-datagrid-filter-controls">
                       <select
                         value={item.field}
                         onChange={(e) => updateFilter(index, { field: e.target.value })}
-                        className="vertex-datagrid-filter-select"
+                        className="luxis-datagrid-filter-select"
                       >
                         {filterableColumns.map((col) => (
                           <option key={col.field} value={col.field}>
@@ -580,7 +580,7 @@ const FilterPanel: React.FC<{
                       <select
                         value={item.operator}
                         onChange={(e) => updateFilter(index, { operator: e.target.value })}
-                        className="vertex-datagrid-filter-select"
+                        className="luxis-datagrid-filter-select"
                       >
                         {operators.map((op) => (
                           <option key={op.value} value={op.value}>
@@ -599,7 +599,7 @@ const FilterPanel: React.FC<{
                       )}
 
                       <button
-                        className="vertex-datagrid-filter-remove"
+                        className="luxis-datagrid-filter-remove"
                         onClick={() => removeFilter(index)}
                         title="Remove filter"
                       >
@@ -613,7 +613,7 @@ const FilterPanel: React.FC<{
                 );
               })}
               
-              <div className="vertex-datagrid-filter-actions">
+              <div className="luxis-datagrid-filter-actions">
                 <Button variant="ghost" size="sm" onClick={() => addFilter()}>
                   + Add filter
                 </Button>
@@ -623,7 +623,7 @@ const FilterPanel: React.FC<{
         </div>
 
         {filterModel.items.length > 0 && (
-          <div className="vertex-datagrid-filter-panel-footer">
+          <div className="luxis-datagrid-filter-panel-footer">
             <Button 
               variant="ghost" 
               size="sm" 
@@ -850,8 +850,8 @@ const DataGridBase = ({
   const totalPages = Math.ceil(sortedRows.length / pageSize);
   const hasActiveFilters = filterModel.items.length > 0;
 
-  const densityClass = `vertex-datagrid--${density}`;
-  const sizeClass = `vertex-datagrid--${gridSize}`;
+  const densityClass = `luxis-datagrid--${density}`;
+  const sizeClass = `luxis-datagrid--${gridSize}`;
 
   const getCellPinnedStyle = (column: DataGridColumn, index: number, isHeader = false) => {
     if (!column.pinned) return {};
@@ -886,16 +886,16 @@ const DataGridBase = ({
 
   return (
     <div
-      className={`vertex-datagrid ${densityClass} ${sizeClass} ${autoHeight ? 'vertex-datagrid--auto-height' : ''} ${className || ''}`}
+      className={`luxis-datagrid ${densityClass} ${sizeClass} ${autoHeight ? 'luxis-datagrid--auto-height' : ''} ${className || ''}`}
       {...props}
     >
       {/* Table Container */}
-      <div className="vertex-datagrid-container">
-        <table className="vertex-datagrid-table">
-          <thead className="vertex-datagrid-thead">
+      <div className="luxis-datagrid-container">
+        <table className="luxis-datagrid-table">
+          <thead className="luxis-datagrid-thead">
             <tr>
               {checkboxSelection && (
-                <th className="vertex-datagrid-th vertex-datagrid-checkbox-cell">
+                <th className="luxis-datagrid-th luxis-datagrid-checkbox-cell">
                   <Checkbox
                     checked={selectionModel.length === paginatedRows.length && paginatedRows.length > 0}
                     indeterminate={selectionModel.length > 0 && selectionModel.length < paginatedRows.length}
@@ -913,7 +913,7 @@ const DataGridBase = ({
                 return (
                   <th
                     key={column.field}
-                    className={`vertex-datagrid-th ${column.sortable ? 'vertex-datagrid-th--sortable' : ''} ${column.pinned ? `vertex-datagrid-th--pinned-${column.pinned}` : ''}`}
+                    className={`luxis-datagrid-th ${column.sortable ? 'luxis-datagrid-th--sortable' : ''} ${column.pinned ? `luxis-datagrid-th--pinned-${column.pinned}` : ''}`}
                     style={{
                       width: column.width,
                       minWidth: column.minWidth,
@@ -923,16 +923,16 @@ const DataGridBase = ({
                       ...pinnedStyle,
                     }}
                   >
-                    <div className="vertex-datagrid-th-content">
+                    <div className="luxis-datagrid-th-content">
                       <div 
-                        className="vertex-datagrid-th-label"
+                        className="luxis-datagrid-th-label"
                         onClick={() => column.sortable && handleColumnSort(column, 
                           !isSorted ? 'asc' : sortDirection === 'asc' ? 'desc' : null
                         )}
                       >
-                        <span className="vertex-datagrid-th-text">{column.headerName}</span>
+                        <span className="luxis-datagrid-th-text">{column.headerName}</span>
                         {column.sortable && (
-                          <div className={`vertex-datagrid-sort-icon ${isSorted ? 'vertex-datagrid-sort-icon--active' : ''}`}>
+                          <div className={`luxis-datagrid-sort-icon ${isSorted ? 'luxis-datagrid-sort-icon--active' : ''}`}>
                             {isSorted ? (
                               sortDirection === 'asc' ? (
                                 <ArrowUpIcon size={18} />
@@ -950,7 +950,7 @@ const DataGridBase = ({
                       
                       {!disableColumnMenu && (column.sortable || column.filterable) && (
                         <button
-                          className={`vertex-datagrid-column-menu-btn ${hasFilter ? 'vertex-datagrid-column-menu-btn--filtered' : ''}`}
+                          className={`luxis-datagrid-column-menu-btn ${hasFilter ? 'luxis-datagrid-column-menu-btn--filtered' : ''}`}
                           onClick={(e) => {
                             e.stopPropagation();
                             setColumnMenuState({ column, anchorEl: e.currentTarget });
@@ -962,7 +962,7 @@ const DataGridBase = ({
                             <circle cx="12" cy="12" r="2" />
                             <circle cx="12" cy="19" r="2" />
                           </svg>
-                          {hasFilter && <span className="vertex-datagrid-filter-badge" />}
+                          {hasFilter && <span className="luxis-datagrid-filter-badge" />}
                         </button>
                       )}
                     </div>
@@ -971,20 +971,20 @@ const DataGridBase = ({
               })}
             </tr>
           </thead>
-          <tbody className="vertex-datagrid-tbody">
+          <tbody className="luxis-datagrid-tbody">
             {loading ? (
               skeletonLoader ? (
                 // Skeleton loader rows
                 Array.from({ length: skeletonRows }).map((_, index) => (
-                  <tr key={`skeleton-${index}`} className="vertex-datagrid-row vertex-datagrid-row--skeleton">
+                  <tr key={`skeleton-${index}`} className="luxis-datagrid-row luxis-datagrid-row--skeleton">
                     {checkboxSelection && (
-                      <td className="vertex-datagrid-td vertex-datagrid-checkbox-cell">
-                        <div className="vertex-datagrid-skeleton vertex-datagrid-skeleton--checkbox" />
+                      <td className="luxis-datagrid-td luxis-datagrid-checkbox-cell">
+                        <div className="luxis-datagrid-skeleton luxis-datagrid-skeleton--checkbox" />
                       </td>
                     )}
                     {columns.map((column) => (
-                      <td key={column.field} className="vertex-datagrid-td">
-                        <div className="vertex-datagrid-skeleton vertex-datagrid-skeleton--text" />
+                      <td key={column.field} className="luxis-datagrid-td">
+                        <div className="luxis-datagrid-skeleton luxis-datagrid-skeleton--text" />
                       </td>
                     ))}
                   </tr>
@@ -992,11 +992,11 @@ const DataGridBase = ({
               ) : (
                 // Traditional loading state
                 <tr>
-                  <td colSpan={columns.length + (checkboxSelection ? 1 : 0)} className="vertex-datagrid-loading">
-                    <div className="vertex-datagrid-loading-content">
+                  <td colSpan={columns.length + (checkboxSelection ? 1 : 0)} className="luxis-datagrid-loading">
+                    <div className="luxis-datagrid-loading-content">
                       {loadingContent || (
                         <>
-                          <div className="vertex-datagrid-spinner" />
+                          <div className="luxis-datagrid-spinner" />
                           <Typography size="sm" color="secondary">Loading...</Typography>
                         </>
                       )}
@@ -1006,19 +1006,19 @@ const DataGridBase = ({
               )
             ) : paginatedRows.length === 0 ? (
               <tr>
-                <td colSpan={columns.length + (checkboxSelection ? 1 : 0)} className="vertex-datagrid-empty">
+                <td colSpan={columns.length + (checkboxSelection ? 1 : 0)} className="luxis-datagrid-empty">
                   {emptyStateIcon || emptyStateDescription ? (
-                    <div className="vertex-datagrid-empty-state">
+                    <div className="luxis-datagrid-empty-state">
                       {emptyStateIcon && (
-                        <div className="vertex-datagrid-empty-state-icon">{emptyStateIcon}</div>
+                        <div className="luxis-datagrid-empty-state-icon">{emptyStateIcon}</div>
                       )}
-                      <div className="vertex-datagrid-empty-state-message">{emptyStateTitle}</div>
+                      <div className="luxis-datagrid-empty-state-message">{emptyStateTitle}</div>
                       {emptyStateDescription && (
-                        <div className="vertex-datagrid-empty-state-description">{emptyStateDescription}</div>
+                        <div className="luxis-datagrid-empty-state-description">{emptyStateDescription}</div>
                       )}
                     </div>
                   ) : (
-                    <div className="vertex-datagrid-empty-content">
+                    <div className="luxis-datagrid-empty-content">
                       <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.3">
                         <rect x="3" y="3" width="18" height="18" rx="2" />
                         <line x1="3" y1="9" x2="21" y2="9" />
@@ -1037,10 +1037,10 @@ const DataGridBase = ({
                 return (
                   <tr
                     key={rowId}
-                    className={`vertex-datagrid-row ${isSelected ? 'vertex-datagrid-row--selected' : ''}`}
+                    className={`luxis-datagrid-row ${isSelected ? 'luxis-datagrid-row--selected' : ''}`}
                   >
                     {checkboxSelection && (
-                      <td className="vertex-datagrid-td vertex-datagrid-checkbox-cell">
+                      <td className="luxis-datagrid-td luxis-datagrid-checkbox-cell">
                         <Checkbox
                           checked={isSelected}
                           onChange={() => handleRowSelect(rowId)}
@@ -1058,7 +1058,7 @@ const DataGridBase = ({
                       return (
                         <td
                           key={column.field}
-                          className={`vertex-datagrid-td ${column.pinned ? `vertex-datagrid-td--pinned-${column.pinned}` : ''}`}
+                          className={`luxis-datagrid-td ${column.pinned ? `luxis-datagrid-td--pinned-${column.pinned}` : ''}`}
                           style={{
                             textAlign: column.align || 'left',
                             ...pinnedStyle,
@@ -1078,11 +1078,11 @@ const DataGridBase = ({
 
       {/* Footer / Pagination */}
       {!hideFooter && pagination && (
-        <div className="vertex-datagrid-footer">
-          <div className="vertex-datagrid-footer-left">
+        <div className="luxis-datagrid-footer">
+          <div className="luxis-datagrid-footer-left">
             {hasActiveFilters && (
               <button
-                className="vertex-datagrid-filter-chip"
+                className="luxis-datagrid-filter-chip"
                 onClick={() => setFilterPanelOpen(true)}
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -1093,14 +1093,14 @@ const DataGridBase = ({
             )}
           </div>
           
-          <div className="vertex-datagrid-footer-center">
+          <div className="luxis-datagrid-footer-center">
             <Typography size="sm" color="secondary">
               {sortedRows.length === 0 ? '0 rows' : `${page * pageSize + 1}–${Math.min((page + 1) * pageSize, sortedRows.length)} of ${sortedRows.length}`}
             </Typography>
           </div>
 
-          <div className="vertex-datagrid-footer-right">
-            <label className="vertex-datagrid-pagesize-label">
+          <div className="luxis-datagrid-footer-right">
+            <label className="luxis-datagrid-pagesize-label">
               <Typography size="sm" color="secondary">Rows per page:</Typography>
               <select
                 value={pageSize}
@@ -1108,7 +1108,7 @@ const DataGridBase = ({
                   setPageSize(Number(e.target.value));
                   setPage(0);
                 }}
-                className="vertex-datagrid-pagesize-select"
+                className="luxis-datagrid-pagesize-select"
               >
                 {pageSizeOptions.map((option) => (
                   <option key={option} value={option}>
@@ -1118,9 +1118,9 @@ const DataGridBase = ({
               </select>
             </label>
 
-            <div className="vertex-datagrid-pagination">
+            <div className="luxis-datagrid-pagination">
               <button
-                className="vertex-datagrid-pagination-btn"
+                className="luxis-datagrid-pagination-btn"
                 onClick={() => setPage(0)}
                 disabled={page === 0}
                 title="First page"
@@ -1130,7 +1130,7 @@ const DataGridBase = ({
                 </svg>
               </button>
               <button
-                className="vertex-datagrid-pagination-btn"
+                className="luxis-datagrid-pagination-btn"
                 onClick={() => setPage((p) => Math.max(0, p - 1))}
                 disabled={page === 0}
                 title="Previous page"
@@ -1143,7 +1143,7 @@ const DataGridBase = ({
                 Page {page + 1} of {totalPages || 1}
               </Typography>
               <button
-                className="vertex-datagrid-pagination-btn"
+                className="luxis-datagrid-pagination-btn"
                 onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
                 disabled={page >= totalPages - 1}
                 title="Next page"
@@ -1153,7 +1153,7 @@ const DataGridBase = ({
                 </svg>
               </button>
               <button
-                className="vertex-datagrid-pagination-btn"
+                className="luxis-datagrid-pagination-btn"
                 onClick={() => setPage(totalPages - 1)}
                 disabled={page >= totalPages - 1}
                 title="Last page"

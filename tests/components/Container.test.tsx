@@ -15,8 +15,8 @@ describe('Container', () => {
     render(<Container data-testid="container">Content</Container>);
     const containerDiv = screen.getByTestId('container');
 
-    expect(containerDiv).toHaveClass('vtx-container');
-    expect(containerDiv).toHaveClass('vtx-container--lg'); // Default maxWidth
+    expect(containerDiv).toHaveClass('lxs-container');
+    expect(containerDiv).toHaveClass('lxs-container--lg'); // Default maxWidth
   });
 
   it('applies different maxWidth classes', () => {
@@ -25,41 +25,41 @@ describe('Container', () => {
     variants.forEach((size) => {
       const { unmount } = render(<Container maxWidth={size} data-testid={`container-${size}`}>Content</Container>);
       const containerDiv = screen.getByTestId(`container-${size}`);
-      expect(containerDiv).toHaveClass(`vtx-container--${size}`);
+      expect(containerDiv).toHaveClass(`lxs-container--${size}`);
       unmount();
     });
 
     render(<Container maxWidth="fluid" data-testid="container-fluid">Content</Container>);
-    expect(screen.getByTestId('container-fluid')).toHaveClass('vtx-container--fluid');
+    expect(screen.getByTestId('container-fluid')).toHaveClass('lxs-container--fluid');
   });
 
   it('applies disableGutters class', () => {
     render(<Container disableGutters data-testid="container">Content</Container>);
-    expect(screen.getByTestId('container')).toHaveClass('vtx-container--no-gutters');
+    expect(screen.getByTestId('container')).toHaveClass('lxs-container--no-gutters');
   });
 
   it('applies fluid prop correctly', () => {
     render(<Container fluid data-testid="container">Content</Container>);
-    expect(screen.getByTestId('container')).toHaveClass('vtx-container--fluid');
+    expect(screen.getByTestId('container')).toHaveClass('lxs-container--fluid');
   });
 
   it('renders as fluid when both maxWidth="fluid" and fluid prop are used', () => {
     render(<Container fluid maxWidth="fluid" data-testid="container">Content</Container>);
-    expect(screen.getByTestId('container')).toHaveClass('vtx-container--fluid');
+    expect(screen.getByTestId('container')).toHaveClass('lxs-container--fluid');
   });
 
   it('merges custom className', () => {
     render(<Container className="custom-class" data-testid="container">Content</Container>);
     const containerDiv = screen.getByTestId('container');
     expect(containerDiv).toHaveClass('custom-class');
-    expect(containerDiv).toHaveClass('vtx-container');
+    expect(containerDiv).toHaveClass('lxs-container');
   });
 
   it('forwards ref', () => {
     const ref = React.createRef<HTMLDivElement>();
     render(<Container ref={ref} data-testid="container">Content</Container>);
     expect(ref.current).toBeInstanceOf(HTMLDivElement);
-    expect(ref.current).toHaveClass('vtx-container');
+    expect(ref.current).toHaveClass('lxs-container');
   });
 
   it('passes other props to the div element', () => {

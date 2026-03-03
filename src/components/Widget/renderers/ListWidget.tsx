@@ -152,10 +152,10 @@ const ListWidget: React.FC<ListWidgetProps> = ({
 
   const getCardClassName = () => {
     return [
-      'vtx-list-widget',
-      `vtx-list-widget--${theme}`,
-      `vtx-list-widget--${size}`,
-      `vtx-list-widget--${variant}`,
+      'lxs-list-widget',
+      `lxs-list-widget--${theme}`,
+      `lxs-list-widget--${size}`,
+      `lxs-list-widget--${variant}`,
       className,
     ].filter(Boolean).join(' ');
   };

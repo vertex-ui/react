@@ -67,34 +67,34 @@ const spacingScale: Record<string, string> = {
 // Color scale mapping
 const colorScale: Record<string, string> = {
   // Brand Colors
-  'primary': 'var(--vtx-color-primary-600)',
-  'primary-hover': 'var(--vtx-color-primary-700)',
-  'secondary': 'var(--vtx-color-secondary-600)',
-  'secondary-hover': 'var(--vtx-color-secondary-700)',
+  'primary': 'var(--lxs-color-primary-600)',
+  'primary-hover': 'var(--lxs-color-primary-700)',
+  'secondary': 'var(--lxs-color-secondary-600)',
+  'secondary-hover': 'var(--lxs-color-secondary-700)',
 
   // Status Colors
-  'success': 'var(--vtx-color-success-600)',
-  'warning': 'var(--vtx-color-warning-600)',
-  'error': 'var(--vtx-color-error-600)',
-  'danger': 'var(--vtx-color-error-600)', // Alias for error
-  'info': 'var(--vtx-color-info-600)',
+  'success': 'var(--lxs-color-success-600)',
+  'warning': 'var(--lxs-color-warning-600)',
+  'error': 'var(--lxs-color-error-600)',
+  'danger': 'var(--lxs-color-error-600)', // Alias for error
+  'info': 'var(--lxs-color-info-600)',
 
   // Base Colors
-  'white': 'var(--vtx-color-white)',
-  'black': 'var(--vtx-color-black)',
+  'white': 'var(--lxs-color-white)',
+  'black': 'var(--lxs-color-black)',
   'transparent': 'transparent',
   'current': 'currentColor',
   'inherit': 'inherit',
 
   // Semantic / UI Colors
-  'neutral': 'var(--vtx-color-neutral-600)',
-  'surface': 'var(--vtx-color-surface-paper)',
-  'border': 'var(--vtx-color-border-default)',
+  'neutral': 'var(--lxs-color-neutral-600)',
+  'surface': 'var(--lxs-color-surface-paper)',
+  'border': 'var(--lxs-color-border-default)',
 
   // Text Semantics (from base.css)
-  'main': 'var(--vtx-text-primary)',      // Main text color
-  'muted': 'var(--vtx-text-secondary)',   // Secondary text color
-  'disabled': 'var(--vtx-text-disabled)', // Disabled text state
+  'main': 'var(--lxs-text-primary)',      // Main text color
+  'muted': 'var(--lxs-text-secondary)',   // Secondary text color
+  'disabled': 'var(--lxs-text-disabled)', // Disabled text state
 };
 
 // Property mapping

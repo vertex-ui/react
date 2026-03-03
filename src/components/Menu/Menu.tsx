@@ -147,12 +147,12 @@ export const MenuItem = React.forwardRef<HTMLDivElement, MenuItemProps>(
         <div
           ref={ref || itemRef}
           className={[
-            'vtx-menu-item',
-            active && 'vtx-menu-item--active',
-            disabled && 'vtx-menu-item--disabled',
+            'lxs-menu-item',
+            active && 'lxs-menu-item--active',
+            disabled && 'lxs-menu-item--disabled',
             variant !== 'default' && `vtx-menu-item--${variant}`,
-            hasSubmenu && 'vtx-menu-item--has-submenu',
-            isSubmenuOpen && 'vtx-menu-item--submenu-open',
+            hasSubmenu && 'lxs-menu-item--has-submenu',
+            isSubmenuOpen && 'lxs-menu-item--submenu-open',
           ]
             .filter(Boolean)
             .join(' ')}
@@ -165,7 +165,7 @@ export const MenuItem = React.forwardRef<HTMLDivElement, MenuItemProps>(
           aria-expanded={hasSubmenu ? isSubmenuOpen : undefined}
         >
           <Flex align="center" gap={8} style={{ flex: 1 }}>
-            {icon && <span className="vtx-menu-item-icon">{icon}</span>}
+            {icon && <span className="lxs-menu-item-icon">{icon}</span>}
             <Typography variant="body2" noMargin style={{ flex: 1 }}>
               {label}
             </Typography>
@@ -174,24 +174,24 @@ export const MenuItem = React.forwardRef<HTMLDivElement, MenuItemProps>(
                 variant="caption"
                 textColor="var(--color-neutral-500)"
                 noMargin
-                className="vtx-menu-item-shortcut"
+                className="lxs-menu-item-shortcut"
               >
                 {shortcut}
               </Typography>
             )}
             {displayRightIcon && (
-              <span className="vtx-menu-item-right-icon">{displayRightIcon}</span>
+              <span className="lxs-menu-item-right-icon">{displayRightIcon}</span>
             )}
           </Flex>
         </div>
         {hasSubmenu && isSubmenuOpen && (
-          <div className="vtx-submenu" role="menu">
+          <div className="lxs-submenu" role="menu">
             {items.map((item, index) => (
               <MenuItem key={index} {...item} />
             ))}
           </div>
         )}
-        {divider && <div className="vtx-menu-divider" role="separator" />}
+        {divider && <div className="lxs-menu-divider" role="separator" />}
       </>
     );
   }
@@ -271,10 +271,10 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
       : children;
 
     const menuClassNames = [
-      'vtx-menu',
+      'lxs-menu',
       `vtx-menu--${orientation}`,
-      responsive && 'vtx-menu--responsive',
-      isMobileMenuOpen && 'vtx-menu--mobile-open',
+      responsive && 'lxs-menu--responsive',
+      isMobileMenuOpen && 'lxs-menu--mobile-open',
       className,
     ]
       .filter(Boolean)
@@ -290,10 +290,10 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
     };
 
     return (
-      <div ref={menuRef} className="vtx-menu-container">
+      <div ref={menuRef} className="lxs-menu-container">
         {responsive && (
           <button
-            className="vtx-menu-toggle"
+            className="lxs-menu-toggle"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
             aria-expanded={isMobileMenuOpen}

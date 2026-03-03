@@ -13,8 +13,8 @@ describe('Card', () => {
 
     it('renders with custom className', () => {
       const { container } = render(<Card className="custom-class">Content</Card>);
-      const card = container.querySelector('.vtx-card');
-      expect(card).toHaveClass('vtx-card');
+      const card = container.querySelector('.lxs-card');
+      expect(card).toHaveClass('lxs-card');
       expect(card).toHaveClass('custom-class');
     });
 
@@ -38,61 +38,61 @@ describe('Card', () => {
   describe('Variants', () => {
     it('renders elevated variant by default', () => {
       const { container } = render(<Card>Content</Card>);
-      const card = container.querySelector('.vtx-card');
-      expect(card).toHaveClass('vtx-card--elevated');
+      const card = container.querySelector('.lxs-card');
+      expect(card).toHaveClass('lxs-card--elevated');
     });
 
     it('renders outlined variant', () => {
       const { container } = render(<Card variant="outlined">Content</Card>);
-      const card = container.querySelector('.vtx-card');
-      expect(card).toHaveClass('vtx-card--outlined');
+      const card = container.querySelector('.lxs-card');
+      expect(card).toHaveClass('lxs-card--outlined');
     });
 
     it('renders filled variant', () => {
       const { container } = render(<Card variant="filled">Content</Card>);
-      const card = container.querySelector('.vtx-card');
-      expect(card).toHaveClass('vtx-card--filled');
+      const card = container.querySelector('.lxs-card');
+      expect(card).toHaveClass('lxs-card--filled');
     });
   });
 
   describe('Sizes', () => {
     it('renders medium size by default', () => {
       const { container } = render(<Card>Content</Card>);
-      const card = container.querySelector('.vtx-card');
-      expect(card).toHaveClass('vtx-card--md');
+      const card = container.querySelector('.lxs-card');
+      expect(card).toHaveClass('lxs-card--md');
     });
 
     it('renders small size when specified', () => {
       const { container } = render(<Card size="sm">Content</Card>);
-      const card = container.querySelector('.vtx-card');
-      expect(card).toHaveClass('vtx-card--sm');
+      const card = container.querySelector('.lxs-card');
+      expect(card).toHaveClass('lxs-card--sm');
     });
 
     it('renders large size when specified', () => {
       const { container } = render(<Card size="lg">Content</Card>);
-      const card = container.querySelector('.vtx-card');
-      expect(card).toHaveClass('vtx-card--lg');
+      const card = container.querySelector('.lxs-card');
+      expect(card).toHaveClass('lxs-card--lg');
     });
   });
 
   describe('Padding', () => {
     it('has default padding', () => {
       const { container } = render(<Card>Content</Card>);
-      const card = container.querySelector('.vtx-card');
-      expect(card).not.toHaveClass('vtx-card--no-padding');
+      const card = container.querySelector('.lxs-card');
+      expect(card).not.toHaveClass('lxs-card--no-padding');
     });
 
     it('removes padding when noPadding is true', () => {
       const { container } = render(<Card noPadding>Content</Card>);
-      const card = container.querySelector('.vtx-card');
-      expect(card).toHaveClass('vtx-card--no-padding');
+      const card = container.querySelector('.lxs-card');
+      expect(card).toHaveClass('lxs-card--no-padding');
     });
 
     it('applies custom padding via style prop', () => {
       const { container } = render(<Card padding="32px">Content</Card>);
-      const card = container.querySelector('.vtx-card') as HTMLElement;
+      const card = container.querySelector('.lxs-card') as HTMLElement;
       // The custom property is set on the root, but the actual padding is on the content div
-      expect(card.style.getPropertyValue('--vtx-card-padding')).toBe('32px');
+      expect(card.style.getPropertyValue('--lxs-card-padding')).toBe('32px');
     });
 
     it('custom padding overrides noPadding', () => {
@@ -101,9 +101,9 @@ describe('Card', () => {
           Content
         </Card>
       );
-      const card = container.querySelector('.vtx-card') as HTMLElement;
-      expect(card.style.getPropertyValue('--vtx-card-padding')).toBe('24px');
-      expect(card).not.toHaveClass('vtx-card--no-padding');
+      const card = container.querySelector('.lxs-card') as HTMLElement;
+      expect(card.style.getPropertyValue('--lxs-card-padding')).toBe('24px');
+      expect(card).not.toHaveClass('lxs-card--no-padding');
     });
   });
 
@@ -135,8 +135,8 @@ describe('Card', () => {
           Content
         </Card>
       );
-      const header = container.querySelector('.vtx-card-header');
-      expect(header).toHaveClass('vtx-card-header--divider');
+      const header = container.querySelector('.lxs-card-header');
+      expect(header).toHaveClass('lxs-card-header--divider');
     });
 
     it('applies divider class to footer when divider is true', () => {
@@ -145,22 +145,22 @@ describe('Card', () => {
           Content
         </Card>
       );
-      const footer = container.querySelector('.vtx-card-footer');
-      expect(footer).toHaveClass('vtx-card-footer--divider');
+      const footer = container.querySelector('.lxs-card-footer');
+      expect(footer).toHaveClass('lxs-card-footer--divider');
     });
   });
 
   describe('Interactive States', () => {
     it('applies hoverable class when hoverable is true', () => {
       const { container } = render(<Card hoverable>Content</Card>);
-      const card = container.querySelector('.vtx-card');
-      expect(card).toHaveClass('vtx-card--hoverable');
+      const card = container.querySelector('.lxs-card');
+      expect(card).toHaveClass('lxs-card--hoverable');
     });
 
     it('applies clickable class when clickable is true', () => {
       const { container } = render(<Card clickable>Content</Card>);
-      const card = container.querySelector('.vtx-card');
-      expect(card).toHaveClass('vtx-card--clickable');
+      const card = container.querySelector('.lxs-card');
+      expect(card).toHaveClass('lxs-card--clickable');
     });
 
     it('can be both hoverable and clickable', () => {
@@ -169,9 +169,9 @@ describe('Card', () => {
           Content
         </Card>
       );
-      const card = container.querySelector('.vtx-card');
-      expect(card).toHaveClass('vtx-card--hoverable');
-      expect(card).toHaveClass('vtx-card--clickable');
+      const card = container.querySelector('.lxs-card');
+      expect(card).toHaveClass('lxs-card--hoverable');
+      expect(card).toHaveClass('lxs-card--clickable');
     });
   });
 
@@ -189,7 +189,7 @@ describe('Card', () => {
           Content
         </Card>
       );
-      const card = container.querySelector('.vtx-card') as HTMLElement;
+      const card = container.querySelector('.lxs-card') as HTMLElement;
       expect(card.tabIndex).toBe(0);
     });
 
@@ -207,7 +207,7 @@ describe('Card', () => {
   describe('Custom Styling', () => {
     it('applies custom style prop', () => {
       const { container } = render(<Card style={{ backgroundColor: 'red' }}>Content</Card>);
-      const card = container.querySelector('.vtx-card') as HTMLElement;
+      const card = container.querySelector('.lxs-card') as HTMLElement;
       // backgroundColor is set as an inline style, but may be empty if CSS variables override it
       // So we check the style property directly
       expect(card.style.backgroundColor === 'red' || card.style.backgroundColor === '').toBe(true);
@@ -219,8 +219,8 @@ describe('Card', () => {
           Content
         </Card>
       );
-      const card = container.querySelector('.vtx-card') as HTMLElement;
-      expect(card.style.getPropertyValue('--vtx-card-padding')).toBe('20px');
+      const card = container.querySelector('.lxs-card') as HTMLElement;
+      expect(card.style.getPropertyValue('--lxs-card-padding')).toBe('20px');
       expect(card.style.backgroundColor === 'blue' || card.style.backgroundColor === '').toBe(true);
     });
   });
@@ -231,7 +231,7 @@ describe('Card', () => {
           Content
         </Card>
       );
-      const card = container.querySelector('.vtx-card') as HTMLElement;
+      const card = container.querySelector('.lxs-card') as HTMLElement;
       expect(card.id).toBe('my-card');
       expect(card.title).toBe('Card Title');
     });

@@ -257,14 +257,14 @@ const SearchBar: React.FC<{
   };
 
   return (
-    <div className="vtx-admin-header-search" ref={searchRef}>
-      <form onSubmit={handleSubmit} className="vtx-admin-header-search-form">
-        <div className="vtx-admin-header-search-icon">
-          {loading ? <span className="vtx-admin-header-search-spinner" /> : icon || <SearchIcon />}
+    <div className="lxs-admin-header-search" ref={searchRef}>
+      <form onSubmit={handleSubmit} className="lxs-admin-header-search-form">
+        <div className="lxs-admin-header-search-icon">
+          {loading ? <span className="lxs-admin-header-search-spinner" /> : icon || <SearchIcon />}
         </div>
         <input
           type="text"
-          className="vtx-admin-header-search-input"
+          className="lxs-admin-header-search-input"
           placeholder={placeholder || 'Search...'}
           value={localValue}
           onChange={handleChange}
@@ -273,7 +273,7 @@ const SearchBar: React.FC<{
         {localValue && (
           <button
             type="button"
-            className="vtx-admin-header-search-clear"
+            className="lxs-admin-header-search-clear"
             onClick={() => {
               setLocalValue('');
               onChange?.('');
@@ -286,22 +286,22 @@ const SearchBar: React.FC<{
       </form>
 
       {showSuggestions && suggestions && suggestions.length > 0 && (
-        <div className="vtx-admin-header-search-suggestions">
+        <div className="lxs-admin-header-search-suggestions">
           {suggestions.map((suggestion) => (
             <button
               key={suggestion.id}
               type="button"
-              className="vtx-admin-header-search-suggestion"
+              className="lxs-admin-header-search-suggestion"
               onClick={() => {
                 suggestion.onClick?.();
                 setShowSuggestions(false);
               }}
             >
-              {suggestion.icon && <span className="vtx-admin-header-search-suggestion-icon">{suggestion.icon}</span>}
-              <div className="vtx-admin-header-search-suggestion-content">
-                <span className="vtx-admin-header-search-suggestion-label">{suggestion.label}</span>
+              {suggestion.icon && <span className="lxs-admin-header-search-suggestion-icon">{suggestion.icon}</span>}
+              <div className="lxs-admin-header-search-suggestion-content">
+                <span className="lxs-admin-header-search-suggestion-label">{suggestion.label}</span>
                 {suggestion.category && (
-                  <span className="vtx-admin-header-search-suggestion-category">{suggestion.category}</span>
+                  <span className="lxs-admin-header-search-suggestion-category">{suggestion.category}</span>
                 )}
               </div>
             </button>
@@ -333,10 +333,10 @@ const NotificationsPanel: React.FC<{
   };
 
   return (
-    <div className="vtx-admin-header-notifications-panel">
+    <div className="lxs-admin-header-notifications-panel">
       {/* Header */}
-      <div className="vtx-admin-header-notifications-header">
-        <div className="vtx-admin-header-notifications-header-title">
+      <div className="lxs-admin-header-notifications-header">
+        <div className="lxs-admin-header-notifications-header-title">
           <Typography variant="subtitle2" noMargin style={{ fontWeight: 600 }}>
             Notifications
           </Typography>
@@ -346,10 +346,10 @@ const NotificationsPanel: React.FC<{
             </Badge>
           )}
         </div>
-        <div className="vtx-admin-header-notifications-header-actions">
+        <div className="lxs-admin-header-notifications-header-actions">
           {unreadCount > 0 && onMarkAllAsRead && (
             <button
-              className="vtx-admin-header-notifications-action-btn"
+              className="lxs-admin-header-notifications-action-btn"
               onClick={onMarkAllAsRead}
               title="Mark all as read"
             >
@@ -358,7 +358,7 @@ const NotificationsPanel: React.FC<{
           )}
           {notifications.length > 0 && onClearAll && (
             <button
-              className="vtx-admin-header-notifications-action-btn vtx-admin-header-notifications-action-btn--danger"
+              className="lxs-admin-header-notifications-action-btn lxs-admin-header-notifications-action-btn--danger"
               onClick={onClearAll}
               title="Clear all"
             >
@@ -369,11 +369,11 @@ const NotificationsPanel: React.FC<{
       </div>
 
       {/* List */}
-      <div className="vtx-admin-header-notifications-list">
+      <div className="lxs-admin-header-notifications-list">
         {notifications.length === 0 ? (
-          <div className="vtx-admin-header-notifications-empty">
+          <div className="lxs-admin-header-notifications-empty">
             <div style={{ fontSize: '48px', opacity: 0.3 }}><BellIcon /></div>
-            <Typography variant="body2" noMargin style={{ marginTop: '12px', color: 'var(--vtx-color-neutral-500)' }}>
+            <Typography variant="body2" noMargin style={{ marginTop: '12px', color: 'var(--lxs-color-neutral-500)' }}>
               No notifications
             </Typography>
           </div>
@@ -384,16 +384,16 @@ const NotificationsPanel: React.FC<{
               return (
                 <ItemTag
                   key={notification.id}
-                  className={`vtx-admin-header-notification-item ${
-                    !notification.read ? 'vtx-admin-header-notification-item--unread' : ''
-                  } ${notification.type ? `vtx-admin-header-notification-item--${notification.type}` : ''}`}
+                  className={`lxs-admin-header-notification-item ${
+                    !notification.read ? 'lxs-admin-header-notification-item--unread' : ''
+                  } ${notification.type ? `lxs-admin-header-notification-item--${notification.type}` : ''}`}
                   onClick={() => handleNotificationClick(notification)}
                   href={notification.href}
                   type={notification.href ? undefined : 'button'}
                 >
                   {/* Icon/Avatar */}
                   {(notification.icon || notification.avatar) && (
-                    <div className="vtx-admin-header-notification-icon">
+                    <div className="lxs-admin-header-notification-icon">
                       {notification.avatar ? (
                         <Avatar src={notification.avatar} size="sm" alt="Notification" />
                       ) : (
@@ -403,22 +403,22 @@ const NotificationsPanel: React.FC<{
                   )}
 
                   {/* Content */}
-                  <div className="vtx-admin-header-notification-content">
+                  <div className="lxs-admin-header-notification-content">
                     <Typography variant="body2" noMargin style={{ fontWeight: notification.read ? 400 : 600 }}>
                       {notification.title}
                     </Typography>
                     {notification.description && (
-                      <Typography variant="caption" noMargin style={{ color: 'var(--vtx-color-neutral-600)', marginTop: '2px' }}>
+                      <Typography variant="caption" noMargin style={{ color: 'var(--lxs-color-neutral-600)', marginTop: '2px' }}>
                         {notification.description}
                       </Typography>
                     )}
-                    <Typography variant="caption" noMargin style={{ color: 'var(--vtx-color-neutral-500)', marginTop: '4px' }}>
+                    <Typography variant="caption" noMargin style={{ color: 'var(--lxs-color-neutral-500)', marginTop: '4px' }}>
                       {notification.time}
                     </Typography>
                   </div>
 
                   {/* Unread indicator */}
-                  {!notification.read && <div className="vtx-admin-header-notification-dot" />}
+                  {!notification.read && <div className="lxs-admin-header-notification-dot" />}
                 </ItemTag>
               );
             })}
@@ -428,9 +428,9 @@ const NotificationsPanel: React.FC<{
 
       {/* Footer */}
       {notifications.length > maxNotifications && onViewAll && (
-        <div className="vtx-admin-header-notifications-footer">
+        <div className="lxs-admin-header-notifications-footer">
           <button
-            className="vtx-admin-header-notifications-view-all"
+            className="lxs-admin-header-notifications-view-all"
             onClick={() => {
               onViewAll();
               onClose();
@@ -459,26 +459,26 @@ const UserMenu: React.FC<{
   };
 
   return (
-    <div className="vtx-admin-header-user-dropdown">
+    <div className="lxs-admin-header-user-dropdown">
       {items.map((item, index) => {
         const ItemTag = item.href ? 'a' : 'button';
         return (
           <React.Fragment key={index}>
             <ItemTag
-              className={`vtx-admin-header-user-menu-item ${
-                item.variant ? `vtx-admin-header-user-menu-item--${item.variant}` : ''
-              } ${item.disabled ? 'vtx-admin-header-user-menu-item--disabled' : ''}`}
+              className={`lxs-admin-header-user-menu-item ${
+                item.variant ? `lxs-admin-header-user-menu-item--${item.variant}` : ''
+              } ${item.disabled ? 'lxs-admin-header-user-menu-item--disabled' : ''}`}
               onClick={() => handleItemClick(item)}
               href={item.href}
               type={item.href ? undefined : 'button'}
               disabled={item.disabled}
             >
-              {item.icon && <span className="vtx-admin-header-user-menu-icon">{item.icon}</span>}
-              <span className="vtx-admin-header-user-menu-label">{item.label}</span>
-              {item.badge && <Badge size="sm" className="vtx-admin-header-user-menu-badge">{item.badge}</Badge>}
-              {item.shortcut && <span className="vtx-admin-header-user-menu-shortcut">{item.shortcut}</span>}
+              {item.icon && <span className="lxs-admin-header-user-menu-icon">{item.icon}</span>}
+              <span className="lxs-admin-header-user-menu-label">{item.label}</span>
+              {item.badge && <Badge size="sm" className="lxs-admin-header-user-menu-badge">{item.badge}</Badge>}
+              {item.shortcut && <span className="lxs-admin-header-user-menu-shortcut">{item.shortcut}</span>}
             </ItemTag>
-            {item.divider && <div className="vtx-admin-header-user-menu-divider" />}
+            {item.divider && <div className="lxs-admin-header-user-menu-divider" />}
           </React.Fragment>
         );
       })}
@@ -616,11 +616,11 @@ const AdminHeader = React.forwardRef<HTMLElement, AdminHeaderProps>(
     }, []);
 
     const headerClasses = [
-      'vtx-admin-header',
-      `vtx-admin-header--${variant}`,
-      `vtx-admin-header--${theme}`,
-      sticky && 'vtx-admin-header--sticky',
-      blur && 'vtx-admin-header--blur',
+      'lxs-admin-header',
+      `lxs-admin-header--${variant}`,
+      `lxs-admin-header--${theme}`,
+      sticky && 'lxs-admin-header--sticky',
+      blur && 'lxs-admin-header--blur',
       className,
     ]
       .filter(Boolean)
@@ -633,13 +633,13 @@ const AdminHeader = React.forwardRef<HTMLElement, AdminHeaderProps>(
 
     return (
       <header ref={ref} className={headerClasses} style={headerStyle}>
-        <div className="vtx-admin-header-container">
+        <div className="lxs-admin-header-container">
           {/* Left Section */}
-          <div className="vtx-admin-header-left">
+          <div className="lxs-admin-header-left">
             {/* Mobile Toggle */}
             {showToggleButton && onToggleSidebar && (
               <button
-                className="vtx-admin-header-toggle"
+                className="lxs-admin-header-toggle"
                 onClick={onToggleSidebar}
                 aria-label="Toggle sidebar"
                 type="button"
@@ -651,18 +651,18 @@ const AdminHeader = React.forwardRef<HTMLElement, AdminHeaderProps>(
             {/* Logo & Title */}
             {(logo || title) && (
               <div
-                className="vtx-admin-header-brand"
+                className="lxs-admin-header-brand"
                 onClick={onLogoClick}
                 style={{ cursor: onLogoClick ? 'pointer' : 'default' }}
               >
-                {logo && <div className="vtx-admin-header-logo">{logo}</div>}
+                {logo && <div className="lxs-admin-header-logo">{logo}</div>}
                 {title && (
-                  <div className="vtx-admin-header-brand-text">
-                    <Typography variant="h6" noMargin className="vtx-admin-header-title">
+                  <div className="lxs-admin-header-brand-text">
+                    <Typography variant="h6" noMargin className="lxs-admin-header-title">
                       {title}
                     </Typography>
                     {subtitle && (
-                      <Typography variant="caption" noMargin className="vtx-admin-header-subtitle">
+                      <Typography variant="caption" noMargin className="lxs-admin-header-subtitle">
                         {subtitle}
                       </Typography>
                     )}
@@ -675,7 +675,7 @@ const AdminHeader = React.forwardRef<HTMLElement, AdminHeaderProps>(
           </div>
 
           {/* Center Section */}
-          <div className="vtx-admin-header-center">
+          <div className="lxs-admin-header-center">
             {/* Search */}
             {showSearch && (
               <SearchBar
@@ -694,15 +694,15 @@ const AdminHeader = React.forwardRef<HTMLElement, AdminHeaderProps>(
           </div>
 
           {/* Right Section */}
-          <div className="vtx-admin-header-right">
+          <div className="lxs-admin-header-right">
             {/* Quick Actions */}
             {quickActions.length > 0 && (
-              <div className="vtx-admin-header-quick-actions">
+              <div className="lxs-admin-header-quick-actions">
                 {quickActions.map((action) => (
                   <button
                     key={action.id}
-                    className={`vtx-admin-header-icon-button ${
-                      action.disabled ? 'vtx-admin-header-icon-button--disabled' : ''
+                    className={`lxs-admin-header-icon-button ${
+                      action.disabled ? 'lxs-admin-header-icon-button--disabled' : ''
                     }`}
                     onClick={action.onClick}
                     title={action.tooltip || action.label}
@@ -712,7 +712,7 @@ const AdminHeader = React.forwardRef<HTMLElement, AdminHeaderProps>(
                   >
                     {action.icon}
                     {action.badge && (
-                      <Badge variant="error" size="sm" className="vtx-admin-header-icon-badge">
+                      <Badge variant="error" size="sm" className="lxs-admin-header-icon-badge">
                         {action.badge}
                       </Badge>
                     )}
@@ -728,15 +728,15 @@ const AdminHeader = React.forwardRef<HTMLElement, AdminHeaderProps>(
 
             {/* Divider */}
             {(showNotifications || showUserMenu) && (
-              <div className="vtx-admin-header-divider" />
+              <div className="lxs-admin-header-divider" />
             )}
 
             {/* Notifications */}
             {showNotifications && (
-              <div className="vtx-admin-header-notifications" ref={notificationsRef}>
+              <div className="lxs-admin-header-notifications" ref={notificationsRef}>
                 <button
-                  className={`vtx-admin-header-icon-button ${
-                    notificationsOpen ? 'vtx-admin-header-icon-button--active' : ''
+                  className={`lxs-admin-header-icon-button ${
+                    notificationsOpen ? 'lxs-admin-header-icon-button--active' : ''
                   }`}
                   onClick={() => setNotificationsOpen(!notificationsOpen)}
                   aria-label="Notifications"
@@ -744,7 +744,7 @@ const AdminHeader = React.forwardRef<HTMLElement, AdminHeaderProps>(
                 >
                   {notificationIcon || <BellIcon />}
                   {unreadCount > 0 && (
-                    <Badge variant="error" size="sm" className="vtx-admin-header-icon-badge">
+                    <Badge variant="error" size="sm" className="lxs-admin-header-icon-badge">
                       {unreadCount > 9 ? '9+' : unreadCount}
                     </Badge>
                   )}
@@ -765,10 +765,10 @@ const AdminHeader = React.forwardRef<HTMLElement, AdminHeaderProps>(
 
             {/* User Menu */}
             {showUserMenu && userName && (
-              <div className="vtx-admin-header-user" ref={userMenuRef}>
+              <div className="lxs-admin-header-user" ref={userMenuRef}>
                 <button
-                  className={`vtx-admin-header-user-button ${
-                    userMenuOpen ? 'vtx-admin-header-user-button--active' : ''
+                  className={`lxs-admin-header-user-button ${
+                    userMenuOpen ? 'lxs-admin-header-user-button--active' : ''
                   }`}
                   onClick={() => {
                     if (userMenuItems.length > 0) {
@@ -785,19 +785,19 @@ const AdminHeader = React.forwardRef<HTMLElement, AdminHeaderProps>(
                       src={userAvatar}
                       alt={userName}
                       size="sm"
-                      className="vtx-admin-header-user-avatar"
+                      className="lxs-admin-header-user-avatar"
                     />
                   ) : (
-                    <div className="vtx-admin-header-user-avatar vtx-admin-header-user-avatar-fallback">
+                    <div className="lxs-admin-header-user-avatar lxs-admin-header-user-avatar-fallback">
                       {userAvatarFallback || userName.charAt(0).toUpperCase()}
                     </div>
                   )}
-                  <div className="vtx-admin-header-user-info">
-                    <Typography variant="body2" noMargin className="vtx-admin-header-user-name">
+                  <div className="lxs-admin-header-user-info">
+                    <Typography variant="body2" noMargin className="lxs-admin-header-user-name">
                       {userName}
                     </Typography>
                     {userRole && (
-                      <Typography variant="caption" noMargin className="vtx-admin-header-user-role">
+                      <Typography variant="caption" noMargin className="lxs-admin-header-user-role">
                         {userRole}
                       </Typography>
                     )}
@@ -816,10 +816,10 @@ const AdminHeader = React.forwardRef<HTMLElement, AdminHeaderProps>(
 
         {/* Breadcrumbs (if enabled) */}
         {showBreadcrumbs && breadcrumbs.length > 0 && (
-          <div className="vtx-admin-header-breadcrumbs">
+          <div className="lxs-admin-header-breadcrumbs">
             {breadcrumbs.map((crumb, index) => (
               <React.Fragment key={index}>
-                {index > 0 && <span className="vtx-admin-header-breadcrumb-separator">/</span>}
+                {index > 0 && <span className="lxs-admin-header-breadcrumb-separator">/</span>}
                 {crumb.href || crumb.onClick ? (
                   <a
                     href={crumb.href}
@@ -829,12 +829,12 @@ const AdminHeader = React.forwardRef<HTMLElement, AdminHeaderProps>(
                         crumb.onClick();
                       }
                     }}
-                    className="vtx-admin-header-breadcrumb"
+                    className="lxs-admin-header-breadcrumb"
                   >
                     {crumb.label}
                   </a>
                 ) : (
-                  <span className="vtx-admin-header-breadcrumb vtx-admin-header-breadcrumb--current">
+                  <span className="lxs-admin-header-breadcrumb lxs-admin-header-breadcrumb--current">
                     {crumb.label}
                   </span>
                 )}

@@ -44,7 +44,7 @@ These props set defaults for all navigation items:
 ### Basic Usage with Theme Colors
 
 ```tsx
-import { Navbar, NavigationItem } from '@vertex-ui/react';
+import { Navbar, NavigationItem } from '@luxis-ui/react';
 
 const navigationItems: NavigationItem[] = [
   {
@@ -157,23 +157,23 @@ The following theme color variants are supported:
 The following CSS classes are generated based on the configuration:
 
 ### Base Classes
-- `.vtx-navbar__nav-item--active`: Base active styling
-- `.vtx-navbar__nav-item--active-underline`: Underline indicator style
-- `.vtx-navbar__nav-item--active-background`: Background indicator style
+- `.lxs-navbar__nav-item--active`: Base active styling
+- `.lxs-navbar__nav-item--active-underline`: Underline indicator style
+- `.lxs-navbar__nav-item--active-background`: Background indicator style
 
 ### Color Variant Classes
-- `.vtx-navbar__nav-item--active-primary`
-- `.vtx-navbar__nav-item--active-secondary`
-- `.vtx-navbar__nav-item--active-neutral`
-- `.vtx-navbar__nav-item--active-success`
-- `.vtx-navbar__nav-item--active-warning`
-- `.vtx-navbar__nav-item--active-error`
-- `.vtx-navbar__nav-item--active-info`
-- `.vtx-navbar__nav-item--active-custom`: For custom colors
+- `.lxs-navbar__nav-item--active-primary`
+- `.lxs-navbar__nav-item--active-secondary`
+- `.lxs-navbar__nav-item--active-neutral`
+- `.lxs-navbar__nav-item--active-success`
+- `.lxs-navbar__nav-item--active-warning`
+- `.lxs-navbar__nav-item--active-error`
+- `.lxs-navbar__nav-item--active-info`
+- `.lxs-navbar__nav-item--active-custom`: For custom colors
 
 ### Behavior Classes
-- `.vtx-navbar__nav-item--indicator-hover`: Shows indicator on hover
-- `.vtx-navbar__nav-item--indicator-never`: Never shows indicator
+- `.lxs-navbar__nav-item--indicator-hover`: Shows indicator on hover
+- `.lxs-navbar__nav-item--indicator-never`: Never shows indicator
 
 ## CSS Variables
 
@@ -182,13 +182,13 @@ New CSS variables for customization:
 ```css
 :root {
   /* Active indicator colors - support for all theme variants */
-  --nav-active-primary: var(--vtx-color-primary-600, #2563eb);
-  --nav-active-secondary: var(--vtx-color-secondary-600, #7c3aed);
-  --nav-active-neutral: var(--vtx-color-neutral-600, #525252);
-  --nav-active-success: var(--vtx-color-success-600, #16a34a);
-  --nav-active-warning: var(--vtx-color-warning-600, #d97706);
-  --nav-active-error: var(--vtx-color-error-600, #dc2626);
-  --nav-active-info: var(--vtx-color-info-600, #2563eb);
+  --nav-active-primary: var(--lxs-color-primary-600, #2563eb);
+  --nav-active-secondary: var(--lxs-color-secondary-600, #7c3aed);
+  --nav-active-neutral: var(--lxs-color-neutral-600, #525252);
+  --nav-active-success: var(--lxs-color-success-600, #16a34a);
+  --nav-active-warning: var(--lxs-color-warning-600, #d97706);
+  --nav-active-error: var(--lxs-color-error-600, #dc2626);
+  --nav-active-info: var(--lxs-color-info-600, #2563eb);
   --nav-active-current: var(--nav-active-primary); /* Changes based on activeColor */
 }
 ```
@@ -198,7 +198,7 @@ New CSS variables for customization:
 ### Before (Old Way)
 ```css
 /* Only supported primary color and always showed underline */
-.vtx-navbar__nav-item--active::after {
+.lxs-navbar__nav-item--active::after {
   width: 100%;
   background: var(--nav-primary);
 }

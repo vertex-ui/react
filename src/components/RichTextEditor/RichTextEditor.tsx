@@ -249,33 +249,33 @@ const RichTextEditor = React.forwardRef<HTMLDivElement, RichTextEditorProps>(
       .join(' ');
 
     const wrapperClassNames = [
-      'vtx-richtext-wrapper',
-      !fullWidth && 'vtx-richtext-wrapper--inline',
+      'lxs-richtext-wrapper',
+      !fullWidth && 'lxs-richtext-wrapper--inline',
       wrapperClassName,
     ]
       .filter(Boolean)
       .join(' ');
 
     const containerClassNames = [
-      'vtx-richtext-container',
-      `vtx-richtext-container--${editorSize}`,
-      hasError && 'vtx-richtext-container--error',
-      hasSuccess && 'vtx-richtext-container--success',
-      disabled && 'vtx-richtext-container--disabled',
-      isFocused && 'vtx-richtext-container--focused',
+      'lxs-richtext-container',
+      `lxs-richtext-container--${editorSize}`,
+      hasError && 'lxs-richtext-container--error',
+      hasSuccess && 'lxs-richtext-container--success',
+      disabled && 'lxs-richtext-container--disabled',
+      isFocused && 'lxs-richtext-container--focused',
     ]
       .filter(Boolean)
       .join(' ');
 
     const editorClasses = [
-      'vtx-richtext-editor',
+      'lxs-richtext-editor',
       editorClassName,
     ]
       .filter(Boolean)
       .join(' ');
 
     const toolbarClasses = [
-      'vtx-richtext-toolbar',
+      'lxs-richtext-toolbar',
       toolbarClassName,
     ]
       .filter(Boolean)
@@ -461,10 +461,10 @@ const RichTextEditor = React.forwardRef<HTMLDivElement, RichTextEditorProps>(
     return (
       <div className={wrapperClassNames}>
         {label && (
-          <label htmlFor={id} className={`vtx-richtext-label ${labelClassName}`.trim()}>
+          <label htmlFor={id} className={`lxs-richtext-label ${labelClassName}`.trim()}>
             {label}
             {required && (
-              <span className="vtx-richtext-label__required" aria-label="required">
+              <span className="lxs-richtext-label__required" aria-label="required">
                 {' '}
                 *
               </span>
@@ -478,7 +478,7 @@ const RichTextEditor = React.forwardRef<HTMLDivElement, RichTextEditorProps>(
                 <button
                   key={button}
                   type="button"
-                  className="vtx-richtext-toolbar-button"
+                  className="lxs-richtext-toolbar-button"
                   onClick={() => handleToolbarAction(button)}
                   disabled={disabled}
                   title={getButtonTitle(button)}
@@ -491,7 +491,7 @@ const RichTextEditor = React.forwardRef<HTMLDivElement, RichTextEditorProps>(
               {showClearButton && (
                 <button
                   type="button"
-                  className="vtx-richtext-toolbar-clear"
+                  className="lxs-richtext-toolbar-clear"
                   onClick={handleClear}
                   disabled={disabled}
                   title="Clear all content"
@@ -521,31 +521,31 @@ const RichTextEditor = React.forwardRef<HTMLDivElement, RichTextEditorProps>(
             suppressContentEditableWarning
           />
         </div>
-        <div className="vtx-richtext-footer">
-          <div className="vtx-richtext-footer-left">
+        <div className="lxs-richtext-footer">
+          <div className="lxs-richtext-footer-left">
             {helperText && !error && !success && (
-              <p id={helperId} className="vtx-richtext-helper">
+              <p id={helperId} className="lxs-richtext-helper">
                 {helperText}
               </p>
             )}
             {error && (
-              <p id={errorId} className="vtx-richtext-error" role="alert">
+              <p id={errorId} className="lxs-richtext-error" role="alert">
                 {error}
               </p>
             )}
             {success && (
-              <p id={successId} className="vtx-richtext-success" role="status">
+              <p id={successId} className="lxs-richtext-success" role="status">
                 {success}
               </p>
             )}
           </div>
           {showCounter && (
             <p
-              className={`vtx-richtext-counter ${
+              className={`lxs-richtext-counter ${
                 isAtLimit
-                  ? 'vtx-richtext-counter--at-limit'
+                  ? 'lxs-richtext-counter--at-limit'
                   : isNearLimit
-                  ? 'vtx-richtext-counter--near-limit'
+                  ? 'lxs-richtext-counter--near-limit'
                   : ''
               }`.trim()}
               aria-live="polite"

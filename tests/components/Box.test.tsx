@@ -30,32 +30,32 @@ describe('Box Component', () => {
   describe('Class Names', () => {
     it('applies base class', () => {
       const { container } = render(<Box>Content</Box>);
-      expect(container.firstChild).toHaveClass('vtx-box');
+      expect(container.firstChild).toHaveClass('lxs-box');
     });
 
     it('applies custom className', () => {
       const { container } = render(<Box className="custom-class">Content</Box>);
-      expect(container.firstChild).toHaveClass('vtx-box', 'custom-class');
+      expect(container.firstChild).toHaveClass('lxs-box', 'custom-class');
     });
 
     it('applies display class', () => {
       const { container } = render(<Box display="flex">Content</Box>);
-      expect(container.firstChild).toHaveClass('vtx-box--display-flex');
+      expect(container.firstChild).toHaveClass('lxs-box--display-flex');
     });
 
     it('applies position class', () => {
       const { container } = render(<Box position="relative">Content</Box>);
-      expect(container.firstChild).toHaveClass('vtx-box--position-relative');
+      expect(container.firstChild).toHaveClass('lxs-box--position-relative');
     });
 
     it('applies overflow class', () => {
       const { container } = render(<Box overflow="hidden">Content</Box>);
-      expect(container.firstChild).toHaveClass('vtx-box--overflow-hidden');
+      expect(container.firstChild).toHaveClass('lxs-box--overflow-hidden');
     });
 
     it('applies shadow preset class', () => {
       const { container } = render(<Box shadow="md">Content</Box>);
-      expect(container.firstChild).toHaveClass('vtx-box--shadow-md');
+      expect(container.firstChild).toHaveClass('lxs-box--shadow-md');
     });
   });
 
@@ -416,7 +416,7 @@ describe('Box Component', () => {
         </Box>
       );
       const element = container.firstChild as HTMLElement;
-      expect(element).toHaveClass('vtx-box', 'vtx-box--display-flex', 'vtx-box--shadow-md');
+      expect(element).toHaveClass('lxs-box', 'lxs-box--display-flex', 'lxs-box--shadow-md');
       expect(element).toHaveStyle({
         flexDirection: 'column',
         padding: '4px',

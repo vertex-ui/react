@@ -60,7 +60,7 @@ export const VisualBlockTheme: React.FC<ContentBlockWidgetProps & {
             const imgHeight = settings.imageHeight || 'auto';
 
             mediaContent = (
-                <Box className={`vtx-content-block__media-wrapper ${getMarginClass(mediaGap)}`} w={imgWidth} style={{ maxWidth: '100%' }}>
+                <Box className={`lxs-content-block__media-wrapper ${getMarginClass(mediaGap)}`} w={imgWidth} style={{ maxWidth: '100%' }}>
                     <Image
                         src={data.image}
                         alt={(typeof heading === 'string' ? heading : 'Feature image')}
@@ -70,7 +70,7 @@ export const VisualBlockTheme: React.FC<ContentBlockWidgetProps & {
                             width: '100%',
                             height: imgHeight,
                             objectFit: 'cover',
-                            borderRadius: 'var(--vtx-radius-md)' // Nice default
+                            borderRadius: 'var(--lxs-radius-md)' // Nice default
                         }}
                     />
                 </Box>
@@ -90,7 +90,7 @@ export const VisualBlockTheme: React.FC<ContentBlockWidgetProps & {
 
             mediaContent = (
                 <Flex
-                    className={`vtx-content-block__icon ${data.iconVariant ? `vtx-text-${data.iconVariant}` : 'vtx-text-primary'} ${getMarginClass(mediaGap)}`}
+                    className={`lxs-content-block__icon ${data.iconVariant ? `lxs-text-${data.iconVariant}` : 'lxs-text-primary'} ${getMarginClass(mediaGap)}`}
                     style={{
                         fontSize: size,
                         lineHeight: 1
@@ -105,7 +105,7 @@ export const VisualBlockTheme: React.FC<ContentBlockWidgetProps & {
 
         const contentNode = (
             <Box
-                className="vtx-content-block__content"
+                className="lxs-content-block__content"
                 display="flex"
                 flexDirection="column"
                 gap={0}
@@ -123,7 +123,7 @@ export const VisualBlockTheme: React.FC<ContentBlockWidgetProps & {
                     <Typography
                         variant={typeSettings.heading?.variant || headingVariant}
                         as={typeSettings.heading?.as} // Explicitly allow 'as' override
-                        className={`vtx-content-block__heading ${getMarginClass(headingGap)}`}
+                        className={`lxs-content-block__heading ${getMarginClass(headingGap)}`}
                         {...typeSettings.heading}
                     >
                         {heading}
@@ -134,7 +134,7 @@ export const VisualBlockTheme: React.FC<ContentBlockWidgetProps & {
                 {description && (
                     <Typography
                         variant={bodyVariant}
-                        className={`vtx-content-block__body ${getMarginClass(bodyGap)}`}
+                        className={`lxs-content-block__body ${getMarginClass(bodyGap)}`}
                         {...typeSettings.body}
                     >
                         {description}
@@ -143,7 +143,7 @@ export const VisualBlockTheme: React.FC<ContentBlockWidgetProps & {
 
                 {/* Actions */}
                 {actions.length > 0 && (
-                    <Flex className="vtx-content-block__actions" gap={3} wrap="wrap">
+                    <Flex className="lxs-content-block__actions" gap={3} wrap="wrap">
                         {actions.map((action, index) => (
                             action.type === 'link' ? (
                                 <Link

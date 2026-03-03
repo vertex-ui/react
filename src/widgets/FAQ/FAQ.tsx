@@ -47,7 +47,7 @@ const FAQ: React.FC<FAQProps> = ({
     const accordionItems = faqItems.map((item, idx) => ({
       id: item.id || `faq-${idx}`,
       header: item.question,
-      children: <div className="vtx-faq-answer">{item.answer}</div>
+      children: <div className="lxs-faq-answer">{item.answer}</div>
     }));
 
     return (
@@ -55,20 +55,20 @@ const FAQ: React.FC<FAQProps> = ({
         items={accordionItems}
         allowMultiple={allowMultiple}
         variant={getAccordionVariant(variant)}
-        className={`vtx-faq-accordion ${variant === 'boxed' ? '' : 'accordion--divider'}`}
+        className={`lxs-faq-accordion ${variant === 'boxed' ? '' : 'accordion--divider'}`}
       />
     );
   };
 
   return (
-    <div className={`vtx-faq-wrapper ${className}`} style={style}>
-      {title && <h2 className="vtx-faq-title">{title}</h2>}
-      {subtitle && <p className="vtx-faq-subtitle">{subtitle}</p>}
+    <div className={`lxs-faq-wrapper ${className}`} style={style}>
+      {title && <h2 className="lxs-faq-title">{title}</h2>}
+      {subtitle && <p className="lxs-faq-subtitle">{subtitle}</p>}
 
       {isCategories(items) ? (
         items.map((cat, idx) => (
-          <div key={idx} className="vtx-faq-category">
-            {cat.title && <h3 className="vtx-faq-category-title">{cat.title}</h3>}
+          <div key={idx} className="lxs-faq-category">
+            {cat.title && <h3 className="lxs-faq-category-title">{cat.title}</h3>}
             {renderAccordionSafe(cat.items)}
           </div>
         ))

@@ -25,11 +25,11 @@ export const CenteredNavbar: React.FC<NavbarBaseProps> = (props) => {
   } = useNavbarSections(props);
 
   const navbarClass = [
-    'vtx-navbar',
-    'vtx-navbar--desktop',
-    'vtx-navbar--centered',
-    sticky && 'vtx-navbar--sticky',
-    shadow && 'vtx-navbar--shadow',
+    'lxs-navbar',
+    'lxs-navbar--desktop',
+    'lxs-navbar--centered',
+    sticky && 'lxs-navbar--sticky',
+    shadow && 'lxs-navbar--shadow',
     className,
   ].filter(Boolean).join(' ');
 
@@ -42,10 +42,10 @@ export const CenteredNavbar: React.FC<NavbarBaseProps> = (props) => {
       <nav className={navbarClass} style={style}>
         {containerized ? (
           <Container style={{ height: '100%' }}>
-            <div className="vtx-navbar__content">
+            <div className="lxs-navbar__content">
               {logoSection}
               {navigationSection}
-              <div className="vtx-navbar__right">
+              <div className="lxs-navbar__right">
                 {searchSection}
                 {iconsSection}
                 {userSection}
@@ -54,10 +54,10 @@ export const CenteredNavbar: React.FC<NavbarBaseProps> = (props) => {
             </div>
           </Container>
         ) : (
-          <div className="vtx-navbar__content" style={props.padding ? { padding: props.padding } : { padding: '0 1.5rem' }}>
+          <div className="lxs-navbar__content" style={props.padding ? { padding: props.padding } : { padding: '0 1.5rem' }}>
             {logoSection}
             {navigationSection}
-            <div className="vtx-navbar__right">
+            <div className="lxs-navbar__right">
               {searchSection}
               {iconsSection}
               {userSection}

@@ -88,11 +88,11 @@ const ContactForm: React.FC<ContactFormProps> = ({
   }
 
   const formContent = (
-    <form className="vtx-contact-form" onSubmit={handleSubmit}>
+    <form className="lxs-contact-form" onSubmit={handleSubmit}>
       {(title || description) && (
-        <div className="vtx-contact-header">
-          {title && <h3 className="vtx-contact-form-title">{title}</h3>}
-          {description && <p className="vtx-contact-form-description">{description}</p>}
+        <div className="lxs-contact-header">
+          {title && <h3 className="lxs-contact-form-title">{title}</h3>}
+          {description && <p className="lxs-contact-form-description">{description}</p>}
         </div>
       )}
 
@@ -136,7 +136,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
         />
       )}
 
-      <div className="vtx-contact-field">
+      <div className="lxs-contact-field">
         <label
           htmlFor={messageId}
           style={{ marginBottom: '4px', fontSize: '0.875rem', fontWeight: 500 }}
@@ -146,7 +146,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
         <textarea
           id={messageId}
           name="message"
-          className="vtx-contact-textarea"
+          className="lxs-contact-textarea"
           value={formData.message}
           onChange={handleChange}
           required

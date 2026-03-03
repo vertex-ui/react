@@ -30,13 +30,13 @@ describe('Autocomplete', () => {
 
     it('renders success state', () => {
       const { container } = render(<Autocomplete options={options} success="Great choice!" />);
-      expect(container.querySelector('.vtx-autocomplete-container--success')).toBeInTheDocument();
+      expect(container.querySelector('.lxs-autocomplete-container--success')).toBeInTheDocument();
       expect(screen.getByText('Great choice!')).toBeInTheDocument();
     });
 
     it('renders search icon when requested', () => {
       const { container } = render(<Autocomplete options={options} showSearchIcon />);
-      expect(container.querySelector('.vtx-autocomplete-icon--left')).toBeInTheDocument();
+      expect(container.querySelector('.lxs-autocomplete-icon--left')).toBeInTheDocument();
     });
   });
 
@@ -139,14 +139,14 @@ describe('Autocomplete', () => {
 
       // Arrow Down -> Highlights Apple (index 0)
       await user.keyboard('{ArrowDown}');
-      const option1 = screen.getByText('Apple').closest('.vtx-autocomplete-option');
-      expect(option1).toHaveClass('vtx-autocomplete-option--highlighted');
+      const option1 = screen.getByText('Apple').closest('.lxs-autocomplete-option');
+      expect(option1).toHaveClass('lxs-autocomplete-option--highlighted');
 
       // Arrow Down -> Highlights Banana (index 1)
       await user.keyboard('{ArrowDown}');
-      const option2 = screen.getByText('Banana').closest('.vtx-autocomplete-option');
-      expect(option2).toHaveClass('vtx-autocomplete-option--highlighted');
-      expect(option1).not.toHaveClass('vtx-autocomplete-option--highlighted');
+      const option2 = screen.getByText('Banana').closest('.lxs-autocomplete-option');
+      expect(option2).toHaveClass('lxs-autocomplete-option--highlighted');
+      expect(option1).not.toHaveClass('lxs-autocomplete-option--highlighted');
     });
 
     it('selects highlighted option with Enter', async () => {
@@ -176,8 +176,8 @@ describe('Autocomplete', () => {
       await user.keyboard('{ArrowDown}'); // Banana
       await user.keyboard('{ArrowDown}'); // Cherry
 
-      const cherry = screen.getByText('Cherry').closest('.vtx-autocomplete-option');
-      expect(cherry).toHaveClass('vtx-autocomplete-option--highlighted');
+      const cherry = screen.getByText('Cherry').closest('.lxs-autocomplete-option');
+      expect(cherry).toHaveClass('lxs-autocomplete-option--highlighted');
 
       // Next should skip Durian and wrap or stop?
       // Implementation logic: next < options.length - 1 ? next + 1 : 0
@@ -185,8 +185,8 @@ describe('Autocomplete', () => {
       // Let's verify wrap around to Apple
       await user.keyboard('{ArrowDown}');
 
-      const apple = screen.getByText('Apple').closest('.vtx-autocomplete-option');
-      expect(apple).toHaveClass('vtx-autocomplete-option--highlighted');
+      const apple = screen.getByText('Apple').closest('.lxs-autocomplete-option');
+      expect(apple).toHaveClass('lxs-autocomplete-option--highlighted');
     });
 
     it('closes dropdown with Escape', async () => {

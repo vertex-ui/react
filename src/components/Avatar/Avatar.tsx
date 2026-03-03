@@ -103,10 +103,10 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
     };
 
     const classNames = [
-      'vtx-avatar',
+      'lxs-avatar',
       `vtx-avatar--${avatarSize}`,
       `vtx-avatar--${shape}`,
-      statusIndicator && 'vtx-avatar--with-status',
+      statusIndicator && 'lxs-avatar--with-status',
       className,
     ]
       .filter(Boolean)
@@ -127,7 +127,7 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
           <img
             src={src}
             alt={alt}
-            className="vtx-avatar-image"
+            className="lxs-avatar-image"
             onError={handleImageError}
             onLoad={handleImageLoad}
             loading={priority ? "eager" : "lazy"}
@@ -135,13 +135,13 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
             {...imgProps}
           />
         ) : (
-          <span className="vtx-avatar-fallback" aria-hidden="true">
+          <span className="lxs-avatar-fallback" aria-hidden="true">
             {fallback === '?' ? <UserIcon /> : displayFallback}
           </span>
         )}
         {statusIndicator && (
           <span
-            className={`vtx-avatar-status vtx-avatar-status--${statusPosition}`}
+            className={`vtx-avatar-status lxs-avatar-status--${statusPosition}`}
             aria-label="Status indicator"
           >
             {statusIndicator}

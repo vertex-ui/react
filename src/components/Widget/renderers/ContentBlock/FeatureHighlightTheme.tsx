@@ -60,7 +60,7 @@ export const FeatureHighlightTheme: React.FC<ContentBlockWidgetProps & {
         return (
             <div className={wrapperClass} style={style}>
                 <Box
-                    className="vtx-content-block__content"
+                    className="lxs-content-block__content"
                     display="flex"
                     flexDirection="column"
                     gap={0}
@@ -73,7 +73,7 @@ export const FeatureHighlightTheme: React.FC<ContentBlockWidgetProps & {
                         <Typography
                             variant={captionVariant}
                             color={typeSettings.caption?.color || (captionStyle === 'badge' ? undefined : 'primary')}
-                            className={`vtx-content-block__caption ${captionStyle === 'badge' ? 'vtx-content-block__caption--badge' : ''} ${getMarginClass(captionGap)}`}
+                            className={`lxs-content-block__caption ${captionStyle === 'badge' ? 'lxs-content-block__caption--badge' : ''} ${getMarginClass(captionGap)}`}
                             {...typeSettings.caption}
                         >
                             {caption}
@@ -84,7 +84,7 @@ export const FeatureHighlightTheme: React.FC<ContentBlockWidgetProps & {
                     {heading && (
                         <Typography
                             variant={headingVariant}
-                            className={`vtx-content-block__heading ${getMarginClass(headingGap)}`}
+                            className={`lxs-content-block__heading ${getMarginClass(headingGap)}`}
                             {...typeSettings.heading}
                         >
                             {heading}
@@ -95,7 +95,7 @@ export const FeatureHighlightTheme: React.FC<ContentBlockWidgetProps & {
                     {subheading && (
                         <Typography
                             variant={subheadingVariant}
-                            className={`vtx-content-block__subheading ${getMarginClass(subheadingGap)}`}
+                            className={`lxs-content-block__subheading ${getMarginClass(subheadingGap)}`}
                             {...typeSettings.subheading}
                         >
                             {subheading}
@@ -106,7 +106,7 @@ export const FeatureHighlightTheme: React.FC<ContentBlockWidgetProps & {
                     {description && (
                         <Typography
                             variant={bodyVariant}
-                            className={`vtx-content-block__body ${getMarginClass(bodyGap)}`}
+                            className={`lxs-content-block__body ${getMarginClass(bodyGap)}`}
                             {...typeSettings.body}
                         >
                             {description}
@@ -117,7 +117,7 @@ export const FeatureHighlightTheme: React.FC<ContentBlockWidgetProps & {
                     {list.length > 0 && (
                         <Flex
                             direction="column"
-                            className="vtx-content-block__list-group"
+                            className="lxs-content-block__list-group"
                             style={{ marginBottom: listGap }}
                             gap={settings.spacing?.itemGap}
                         >
@@ -141,7 +141,7 @@ export const FeatureHighlightTheme: React.FC<ContentBlockWidgetProps & {
                                 return (
                                     <Flex
                                         key={index}
-                                        className={`vtx-content-block__list-item-row ${hasDescription ? 'vtx-align-start' : 'vtx-align-center'}`}
+                                        className={`lxs-content-block__list-item-row ${hasDescription ? 'lxs-align-start' : 'lxs-align-center'}`}
                                         align={hasDescription ? 'start' : 'center'}
                                         gap={settings.spacing?.listHorizontalGap}
                                         fullWidth
@@ -149,7 +149,7 @@ export const FeatureHighlightTheme: React.FC<ContentBlockWidgetProps & {
                                         {/* Icon / Image Area */}
                                         {(item.icon || item.image) && (
                                             <Flex
-                                                className={`vtx-content-block__list-icon-wrapper ${item.iconVariant ? `vtx-text-${item.iconVariant}` : ''} ${hasDescription ? 'vtx-mt-1' : ''}`}
+                                                className={`lxs-content-block__list-icon-wrapper ${item.iconVariant ? `lxs-text-${item.iconVariant}` : ''} ${hasDescription ? 'lxs-mt-1' : ''}`}
                                                 style={wrapperStyle}
                                                 justify="center"
                                                 align="center"
@@ -163,12 +163,12 @@ export const FeatureHighlightTheme: React.FC<ContentBlockWidgetProps & {
                                         <Flex
                                             direction="column"
                                             grow={1}
-                                            className="vtx-content-block__list-text-wrapper"
+                                            className="lxs-content-block__list-text-wrapper"
                                         >
                                             {itemHeading && (
                                                 <Typography
                                                     variant={hasDescription ? "subtitle1" : "body1"}
-                                                    className="vtx-content-block__list-heading"
+                                                    className="lxs-content-block__list-heading"
                                                     weight={hasDescription ? "semibold" : "normal"}
                                                 >
                                                     {itemHeading}
@@ -177,8 +177,8 @@ export const FeatureHighlightTheme: React.FC<ContentBlockWidgetProps & {
                                             {hasDescription && (
                                                 <Typography
                                                     variant="body2"
-                                                    className="vtx-content-block__list-description"
-                                                    style={{ marginTop: '0.25rem', color: 'var(--vtx-text-secondary)' }}
+                                                    className="lxs-content-block__list-description"
+                                                    style={{ marginTop: '0.25rem', color: 'var(--lxs-text-secondary)' }}
                                                 >
                                                     {item.description || item.body}
                                                 </Typography>
@@ -192,7 +192,7 @@ export const FeatureHighlightTheme: React.FC<ContentBlockWidgetProps & {
 
                     {/* Actions */}
                     {actions.length > 0 && (
-                        <div className="vtx-content-block__actions">
+                        <div className="lxs-content-block__actions">
                             {actions.map((action, index) => (
                                 action.type === 'link' ? (
                                     <Link

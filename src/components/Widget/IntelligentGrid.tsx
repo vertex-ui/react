@@ -33,7 +33,7 @@ const getGridClasses = (mobile: number, tablet: number, desktop: number, spacing
   const spacingClass = spacing ? `gap-${spacing}` : 'gap-md';
   
   return [
-    'vtx-widget-grid',
+    'lxs-widget-grid',
     spacingClass,
     `mobile-cols-${mobile}`,
     `tablet-cols-${tablet}`,
@@ -88,7 +88,7 @@ const IntelligentGrid: React.FC<IntelligentGridProps> = ({
       }}
     >
       {data.map((item, index) => (
-        <div key={item?.id || index} className="vtx-widget-grid-item">
+        <div key={item?.id || index} className="lxs-widget-grid-item">
           {renderItem(item, index)}
         </div>
       ))}

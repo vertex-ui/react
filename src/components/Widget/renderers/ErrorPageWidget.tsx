@@ -149,28 +149,28 @@ const ErrorPageWidget: React.FC<ErrorPageWidgetProps> = ({
     if (theme === 'technical') return '#00ff00';
     if (theme === 'professional') {
       const colorMap: Record<string, string> = {
-        primary: 'var(--vtx-color-primary-600, #2563eb)',
-        danger: 'var(--vtx-color-danger-600, #dc2626)',
-        warning: 'var(--vtx-color-warning-600, #d97706)',
-        info: 'var(--vtx-color-info-600, #2563eb)',
+        primary: 'var(--lxs-color-primary-600, #2563eb)',
+        danger: 'var(--lxs-color-danger-600, #dc2626)',
+        warning: 'var(--lxs-color-warning-600, #d97706)',
+        info: 'var(--lxs-color-info-600, #2563eb)',
       };
       return colorMap[variant] || colorMap.primary;
     }
     if (theme === 'playful') {
       const colorMap: Record<string, string> = {
-        primary: 'var(--vtx-color-primary-500, #3b82f6)',
-        danger: 'var(--vtx-color-danger-500, #ef4444)',
-        warning: 'var(--vtx-color-warning-500, #f59e0b)',
-        info: 'var(--vtx-color-info-500, #3b82f6)',
+        primary: 'var(--lxs-color-primary-500, #3b82f6)',
+        danger: 'var(--lxs-color-danger-500, #ef4444)',
+        warning: 'var(--lxs-color-warning-500, #f59e0b)',
+        info: 'var(--lxs-color-info-500, #3b82f6)',
       };
       return colorMap[variant] || colorMap.primary;
     }
     if (theme === 'elegant') {
       const colorMap: Record<string, string> = {
-        primary: 'var(--vtx-color-primary-400, #60a5fa)',
-        danger: 'var(--vtx-color-danger-400, #f87171)',
-        warning: 'var(--vtx-color-warning-400, #fbbf24)',
-        info: 'var(--vtx-color-info-400, #60a5fa)',
+        primary: 'var(--lxs-color-primary-400, #60a5fa)',
+        danger: 'var(--lxs-color-danger-400, #f87171)',
+        warning: 'var(--lxs-color-warning-400, #fbbf24)',
+        info: 'var(--lxs-color-info-400, #60a5fa)',
       };
       return colorMap[variant] || colorMap.primary;
     }
@@ -178,11 +178,11 @@ const ErrorPageWidget: React.FC<ErrorPageWidgetProps> = ({
   };
 
   const containerClasses = [
-    'vtx-error-page',
-    `vtx-error-page--${theme}`,
-    `vtx-error-page--${variant}`,
-    !centered && 'vtx-error-page--left',
-    fullHeight && 'vtx-error-page--full-height',
+    'lxs-error-page',
+    `lxs-error-page--${theme}`,
+    `lxs-error-page--${variant}`,
+    !centered && 'lxs-error-page--left',
+    fullHeight && 'lxs-error-page--full-height',
     className,
   ].filter(Boolean).join(' ');
 
@@ -201,7 +201,7 @@ const ErrorPageWidget: React.FC<ErrorPageWidgetProps> = ({
     >
       {/* Illustration/Icon */}
       {showIllustration && (
-        <div className="vtx-error-page__illustration mb-8" role="img" aria-label={`Error ${errorCode}`}>
+        <div className="lxs-error-page__illustration mb-8" role="img" aria-label={`Error ${errorCode}`}>
           {displayIcon}
         </div>
       )}
@@ -209,14 +209,14 @@ const ErrorPageWidget: React.FC<ErrorPageWidgetProps> = ({
       {/* Error Code */}
       <Typography
         as="div"
-        className="vtx-error-page__code mb-6"
+        className="lxs-error-page__code mb-6"
         textColor={getCodeColor()}
         aria-label={`Error code ${errorCode}`}
       >
         {errorCode}
       </Typography>
 
-      <Flex direction="column" className="vtx-error-page__content" gap={0}>
+      <Flex direction="column" className="lxs-error-page__content" gap={0}>
         {/* Title */}
         <Typography
           as="h1"
@@ -253,7 +253,7 @@ const ErrorPageWidget: React.FC<ErrorPageWidgetProps> = ({
         {/* Actions */}
         {allActions.length > 0 && (
           <Flex
-            className="vtx-error-page__actions mt-2"
+            className="lxs-error-page__actions mt-2"
             gap={16}
             wrap="wrap"
             justify={centered ? 'center' : 'start'}
@@ -296,7 +296,7 @@ const ErrorPageWidget: React.FC<ErrorPageWidgetProps> = ({
 
         {/* Additional Info */}
         {additionalInfo && (
-          <div className="vtx-error-page__info mt-10">
+          <div className="lxs-error-page__info mt-10">
             <Typography
               as="p"
               variant="body2"

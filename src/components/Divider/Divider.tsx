@@ -72,8 +72,8 @@ const Divider = React.forwardRef<HTMLHRElement | HTMLDivElement, DividerProps>(
 
     // Common styles
     const borderColor = light
-        ? 'var(--vtx-divider-color-light, var(--vtx-color-neutral-100))'
-        : 'var(--vtx-divider-color, var(--vtx-color-neutral-200))';
+        ? 'var(--lxs-divider-color-light, var(--lxs-color-neutral-100))'
+        : 'var(--lxs-divider-color, var(--lxs-color-neutral-200))';
 
     const commonStyles: React.CSSProperties = {
       marginTop: 0,
@@ -106,10 +106,10 @@ const Divider = React.forwardRef<HTMLHRElement | HTMLDivElement, DividerProps>(
     let variantStyles: React.CSSProperties = {};
     if (orientation === 'horizontal') {
         if (variant === 'inset') {
-            variantStyles.marginLeft = 'var(--vtx-spacing-9)';
+            variantStyles.marginLeft = 'var(--lxs-spacing-9)';
         } else if (variant === 'middle') {
-            variantStyles.marginLeft = 'var(--vtx-spacing-3)';
-            variantStyles.marginRight = 'var(--vtx-spacing-3)';
+            variantStyles.marginLeft = 'var(--lxs-spacing-3)';
+            variantStyles.marginRight = 'var(--lxs-spacing-3)';
         }
 
         if (flexItem) {
@@ -118,10 +118,10 @@ const Divider = React.forwardRef<HTMLHRElement | HTMLDivElement, DividerProps>(
         }
     } else {
         if (variant === 'inset') {
-            variantStyles.marginTop = 'var(--vtx-spacing-2)';
+            variantStyles.marginTop = 'var(--lxs-spacing-2)';
         } else if (variant === 'middle') {
-            variantStyles.marginTop = 'var(--vtx-spacing-2)';
-            variantStyles.marginBottom = 'var(--vtx-spacing-2)';
+            variantStyles.marginTop = 'var(--lxs-spacing-2)';
+            variantStyles.marginBottom = 'var(--lxs-spacing-2)';
         }
     }
 
@@ -133,10 +133,10 @@ const Divider = React.forwardRef<HTMLHRElement | HTMLDivElement, DividerProps>(
              withChildrenStyles.whiteSpace = 'nowrap';
              withChildrenStyles.textAlign = 'center';
              withChildrenStyles.border = 0;
-             withChildrenStyles.fontFamily = 'var(--vtx-font-family-sans)';
-             withChildrenStyles.fontSize = 'var(--vtx-divider-text-size, var(--vtx-font-size-sm))';
-             withChildrenStyles.color = light ? 'var(--vtx-divider-text-color-light, var(--vtx-color-neutral-500))' : 'var(--vtx-divider-text-color, var(--vtx-color-neutral-600))';
-             withChildrenStyles.fontWeight = 'var(--vtx-divider-text-weight, var(--vtx-font-weight-medium))';
+             withChildrenStyles.fontFamily = 'var(--lxs-font-family-sans)';
+             withChildrenStyles.fontSize = 'var(--lxs-divider-text-size, var(--lxs-font-size-sm))';
+             withChildrenStyles.color = light ? 'var(--lxs-divider-text-color-light, var(--lxs-color-neutral-500))' : 'var(--lxs-divider-text-color, var(--lxs-color-neutral-600))';
+             withChildrenStyles.fontWeight = 'var(--lxs-divider-text-weight, var(--lxs-font-weight-medium))';
              withChildrenStyles.alignItems = 'center';
         } else {
              withChildrenStyles.display = 'flex';
@@ -174,7 +174,7 @@ const Divider = React.forwardRef<HTMLHRElement | HTMLDivElement, DividerProps>(
                         width={beforeWidth}
                         borderTop={`thin solid ${borderColor}`}
                     />
-                    <span className="vtx-divider-wrapper" style={{ paddingLeft: 'var(--vtx-spacing-3)', paddingRight: 'var(--vtx-spacing-3)' }}>
+                    <span className="lxs-divider-wrapper" style={{ paddingLeft: 'var(--lxs-spacing-3)', paddingRight: 'var(--lxs-spacing-3)' }}>
                         {children}
                     </span>
                     <Box
@@ -192,7 +192,7 @@ const Divider = React.forwardRef<HTMLHRElement | HTMLDivElement, DividerProps>(
                         height="100%"
                         borderLeft={`thin solid ${borderColor}`}
                     />
-                    <span className="vtx-divider-wrapper" style={{ paddingTop: 'var(--vtx-spacing-2)', paddingBottom: 'var(--vtx-spacing-2)' }}>
+                    <span className="lxs-divider-wrapper" style={{ paddingTop: 'var(--lxs-spacing-2)', paddingBottom: 'var(--lxs-spacing-2)' }}>
                         {children}
                     </span>
                     <Box
@@ -209,7 +209,7 @@ const Divider = React.forwardRef<HTMLHRElement | HTMLDivElement, DividerProps>(
       <Box
         as={Component as any}
         ref={ref as any}
-        className={`vtx-divider ${className}`.trim()} // Keep class for tests looking for it
+        className={`lxs-divider ${className}`.trim()} // Keep class for tests looking for it
         role={dividerRole}
         style={finalStyle}
         {...additionalProps}

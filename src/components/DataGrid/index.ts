@@ -1,3 +1,5 @@
+import './DataGrid.css';
+
 export { default as DataGrid, DataGrid as default } from './DataGrid';
 export type {
   DataGridColumn,

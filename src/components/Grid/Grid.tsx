@@ -110,7 +110,7 @@ export interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
  *
  * ```css
  * :root {
- *   --vtx-grid-spacing-unit: 8px;
+ *   --lxs-grid-spacing-unit: 8px;
  * }
  * ```
  *
@@ -193,23 +193,23 @@ const Grid = React.forwardRef<HTMLDivElement, GridProps>(
   ) => {
     // Build class names
     const classNames = [
-      'vtx-grid',
-      container && 'vtx-grid-container',
-      item && 'vtx-grid-item',
+      'lxs-grid',
+      container && 'lxs-grid-container',
+      item && 'lxs-grid-item',
       // Spacing
-      container && spacing !== undefined && `vtx-grid-spacing-${spacing}`,
-      container && rowSpacing !== undefined && `vtx-grid-row-spacing-${rowSpacing}`,
-      container && columnSpacing !== undefined && `vtx-grid-column-spacing-${columnSpacing}`,
+      container && spacing !== undefined && `lxs-grid-spacing-${spacing}`,
+      container && rowSpacing !== undefined && `lxs-grid-row-spacing-${rowSpacing}`,
+      container && columnSpacing !== undefined && `lxs-grid-column-spacing-${columnSpacing}`,
       // Breakpoints
-      xs !== undefined && `vtx-grid-xs${xs === true ? '' : xs === 'auto' ? '-auto' : `-${xs}`}`,
-      sm !== undefined && `vtx-grid-sm${sm === true ? '' : sm === 'auto' ? '-auto' : `-${sm}`}`,
-      md !== undefined && `vtx-grid-md${md === true ? '' : md === 'auto' ? '-auto' : `-${md}`}`,
-      lg !== undefined && `vtx-grid-lg${lg === true ? '' : lg === 'auto' ? '-auto' : `-${lg}`}`,
-      xl !== undefined && `vtx-grid-xl${xl === true ? '' : xl === 'auto' ? '-auto' : `-${xl}`}`,
+      xs !== undefined && `lxs-grid-xs${xs === true ? '' : xs === 'auto' ? '-auto' : `-${xs}`}`,
+      sm !== undefined && `lxs-grid-sm${sm === true ? '' : sm === 'auto' ? '-auto' : `-${sm}`}`,
+      md !== undefined && `lxs-grid-md${md === true ? '' : md === 'auto' ? '-auto' : `-${md}`}`,
+      lg !== undefined && `lxs-grid-lg${lg === true ? '' : lg === 'auto' ? '-auto' : `-${lg}`}`,
+      xl !== undefined && `lxs-grid-xl${xl === true ? '' : xl === 'auto' ? '-auto' : `-${xl}`}`,
       // Direction
-      container && direction !== 'row' && `vtx-grid-direction-${direction}`,
+      container && direction !== 'row' && `lxs-grid-direction-${direction}`,
       // Wrap
-      container && wrap !== 'wrap' && `vtx-grid-wrap-${wrap}`,
+      container && wrap !== 'wrap' && `lxs-grid-wrap-${wrap}`,
       className,
     ]
       .filter(Boolean)

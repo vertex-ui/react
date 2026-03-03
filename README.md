@@ -2,7 +2,7 @@
   <img src="https://innostes.com/images/home/section_navbar/company-latest-logo.png" alt="Innostes Solutions Pvt Ltd" width="220"/>
 </p>
 
-<h1 align="center">@vtx-ui/react</h1>
+<h1 align="center">@luxis-ui/react</h1>
 
 <p align="center">
   <strong>Enterprise-Grade React UI Library</strong><br/>
@@ -10,12 +10,12 @@
 </p>
 
 <p align="center">
-  <b>Documentation & full guides at <a href="https://vertexui.com/" target="_blank">vertexui.com</a></b><br/>
-  <sub>Developed and maintained by <a href="https://innostes.com/" target="_blank">Innostes Solutions Pvt Ltd</a> for the <a href="https://github.com/vertex-ui" target="_blank">vertex-ui</a> organization.</sub>
+  <b>Documentation & full guides at <a href="https://luxisui.com/" target="_blank">luxisui.com</a></b><br/>
+  <sub>Developed and maintained by <a href="https://innostes.com/" target="_blank">Innostes Solutions Pvt Ltd</a> for the <a href="https://github.com/luxis-ui" target="_blank">luxis-ui</a> organization.</sub>
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@vtx-ui/react"><img src="https://badge.fury.io/js/%40vui%2Freact.svg" alt="npm version" /></a>
+  <a href="https://www.npmjs.com/package/@luxis-ui/react"><img src="https://badge.fury.io/js/%40vui%2Freact.svg" alt="npm version" /></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a>
   <img src="https://img.shields.io/badge/TypeScript-100%25-blue" alt="TypeScript" />
   <img src="https://img.shields.io/badge/Tests-508%20Passing-success" alt="Tests" />
@@ -27,7 +27,7 @@
 ## Table of Contents
 
 - [Overview](#overview)
-- [Why Choose @vtx-ui/react](#why-choose-vuireact)
+- [Why Choose @luxis-ui/react](#why-choose-vuireact)
 - [Key Features](#key-features)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
@@ -48,9 +48,9 @@
 
 ## Overview
 
-**@vtx-ui/react** is a comprehensive UI component library built with React and TypeScript, designed for enterprise applications that demand reliability, accessibility, and seamless customization. With **45+ production-ready components** and **8 specialized widgets**, our library provides everything you need to build modern, scalable web applications.
+**@luxis-ui/react** is a comprehensive UI component library built with React and TypeScript, designed for enterprise applications that demand reliability, accessibility, and seamless customization. With **45+ production-ready components** and **8 specialized widgets**, our library provides everything you need to build modern, scalable web applications.
 
-## Why Choose @vtx-ui/react?
+## Why Choose @luxis-ui/react?
 
 ### Built for Enterprise
 
@@ -108,17 +108,17 @@ Custom hooks, HOCs, and utilities to accelerate development. Theme debugging too
 
 ### npm
 ```bash
-npm install @vtx-ui/react
+npm install @luxis-ui/react
 ```
 
 ### yarn
 ```bash
-yarn add @vtx-ui/react
+yarn add @luxis-ui/react
 ```
 
 ### pnpm
 ```bash
-pnpm add @vtx-ui/react
+pnpm add @luxis-ui/react
 ```
 
 ### Requirements
@@ -134,7 +134,7 @@ pnpm add @vtx-ui/react
 Import the base stylesheet in your application entry point:
 
 ```tsx
-import '@vtx-ui/react/styles.css';
+import '@luxis-ui/react/styles.css';
 ```
 
 ### 2. Wrap with ThemeProvider
@@ -142,7 +142,7 @@ import '@vtx-ui/react/styles.css';
 Wrap your application with the `ThemeProvider` to enable theming:
 
 ```tsx
-import { ThemeProvider, Button } from '@vtx-ui/react';
+import { ThemeProvider, Button } from '@luxis-ui/react';
 
 function App() {
   return (
@@ -162,7 +162,7 @@ export default App;
 Import and use any component:
 
 ```tsx
-import { Button, Input, Card, Modal } from '@vtx-ui/react';
+import { Button, Input, Card, Modal } from '@luxis-ui/react';
 
 function MyComponent() {
   return (
@@ -295,7 +295,7 @@ Pre-built, domain-specific widgets for rapid application development. **8 specia
 ### Using Widgets
 
 ```tsx
-import { ProductCard, DashboardCard, Navbar } from '@vtx-ui/react';
+import { ProductCard, DashboardCard, Navbar } from '@luxis-ui/react';
 
 function Dashboard() {
   return (
@@ -326,7 +326,7 @@ function Dashboard() {
 
 ## Theming System
 
-@vtx-ui/react features a powerful, flexible theming system built on CSS custom properties, enabling dynamic theme changes without rebuilding your application.
+@luxis-ui/react features a powerful, flexible theming system built on CSS custom properties, enabling dynamic theme changes without rebuilding your application.
 
 ### Unified Primary Color System
 
@@ -334,9 +334,9 @@ All components use a **consistent primary color palette** for branding:
 
 ```css
 :root {
-  --vtx-color-primary-500: #3b82f6; /* Focus rings, borders */
-  --vtx-color-primary-600: #2563eb; /* Main brand color */
-  --vtx-color-primary-700: #1d4ed8; /* Hover states */
+  --lxs-color-primary-500: #3b82f6; /* Focus rings, borders */
+  --lxs-color-primary-600: #2563eb; /* Main brand color */
+  --lxs-color-primary-700: #1d4ed8; /* Hover states */
 }
 ```
 
@@ -345,7 +345,7 @@ All components use a **consistent primary color palette** for branding:
 Built-in light and dark mode support:
 
 ```tsx
-import { ThemeProvider, useTheme } from '@vtx-ui/react';
+import { ThemeProvider, useTheme } from '@luxis-ui/react';
 
 function App() {
   return (
@@ -373,30 +373,30 @@ Create your brand identity by customizing color tokens:
 ```css
 /* Blue Theme (Default) - Modern, tech-focused */
 :root {
-  --vtx-color-primary-500: #3b82f6;
-  --vtx-color-primary-600: #2563eb;
-  --vtx-color-primary-700: #1d4ed8;
+  --lxs-color-primary-500: #3b82f6;
+  --lxs-color-primary-600: #2563eb;
+  --lxs-color-primary-700: #1d4ed8;
 }
 
 /* Green Theme - Eco-friendly, growth-oriented */
 :root {
-  --vtx-color-primary-500: #10b981;
-  --vtx-color-primary-600: #059669;
-  --vtx-color-primary-700: #047857;
+  --lxs-color-primary-500: #10b981;
+  --lxs-color-primary-600: #059669;
+  --lxs-color-primary-700: #047857;
 }
 
 /* Purple Theme - Premium, creative */
 :root {
-  --vtx-color-primary-500: #8b5cf6;
-  --vtx-color-primary-600: #7c3aed;
-  --vtx-color-primary-700: #6d28d9;
+  --lxs-color-primary-500: #8b5cf6;
+  --lxs-color-primary-600: #7c3aed;
+  --lxs-color-primary-700: #6d28d9;
 }
 
 /* Red Theme - Bold, action-driven */
 :root {
-  --vtx-color-primary-500: #ef4444;
-  --vtx-color-primary-600: #dc2626;
-  --vtx-color-primary-700: #b91c1c;
+  --lxs-color-primary-500: #ef4444;
+  --lxs-color-primary-600: #dc2626;
+  --lxs-color-primary-700: #b91c1c;
 }
 ```
 
@@ -407,34 +407,34 @@ Customize spacing, typography, border radius, and more:
 ```css
 :root {
   /* Spacing Scale */
-  --vtx-spacing-xs: 0.25rem;
-  --vtx-spacing-sm: 0.5rem;
-  --vtx-spacing-md: 1rem;
-  --vtx-spacing-lg: 1.5rem;
-  --vtx-spacing-xl: 2rem;
+  --lxs-spacing-xs: 0.25rem;
+  --lxs-spacing-sm: 0.5rem;
+  --lxs-spacing-md: 1rem;
+  --lxs-spacing-lg: 1.5rem;
+  --lxs-spacing-xl: 2rem;
   
   /* Typography */
-  --vtx-font-family-base: 'Inter', system-ui, sans-serif;
-  --vtx-font-size-sm: 0.875rem;
-  --vtx-font-size-base: 1rem;
-  --vtx-font-size-lg: 1.125rem;
+  --lxs-font-family-base: 'Inter', system-ui, sans-serif;
+  --lxs-font-size-sm: 0.875rem;
+  --lxs-font-size-base: 1rem;
+  --lxs-font-size-lg: 1.125rem;
   
   /* Border Radius */
-  --vtx-radius-sm: 0.25rem;
-  --vtx-radius-md: 0.375rem;
-  --vtx-radius-lg: 0.5rem;
+  --lxs-radius-sm: 0.25rem;
+  --lxs-radius-md: 0.375rem;
+  --lxs-radius-lg: 0.5rem;
   
   /* Shadows */
-  --vtx-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --vtx-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-  --vtx-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --lxs-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --lxs-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --lxs-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
 }
 ```
 
 ### Using Theme Tokens in JavaScript
 
 ```tsx
-import { useTheme } from '@vtx-ui/react';
+import { useTheme } from '@luxis-ui/react';
 
 function MyComponent() {
   const { tokens, mode } = useTheme();
@@ -457,14 +457,14 @@ Override styles for specific components:
 
 ```css
 /* Custom Button styles */
-.vtx-button--primary {
+.lxs-button--primary {
   --button-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   --button-padding: 0.75rem 2rem;
   font-weight: 600;
 }
 
 /* Custom Card styles */
-.vtx-card {
+.lxs-card {
   --card-bg: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
 }
@@ -506,7 +506,7 @@ import {
   useFocusTrap, 
   useDebounce,
   useTheme 
-} from '@vtx-ui/react';
+} from '@luxis-ui/react';
 
 function SearchDropdown() {
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -535,7 +535,7 @@ function SearchDropdown() {
 Every component, hook, and utility is fully typed with comprehensive TypeScript definitions:
 
 ```tsx
-import { ButtonProps, InputProps, ModalProps } from '@vtx-ui/react';
+import { ButtonProps, InputProps, ModalProps } from '@luxis-ui/react';
 
 // Full IntelliSense support
 const buttonProps: ButtonProps = {
@@ -581,7 +581,7 @@ import type {
   // Utility Types
   ComponentWithChildren,
   HTMLDivProps,
-} from '@vtx-ui/react';
+} from '@luxis-ui/react';
 ```
 
 ---
@@ -680,16 +680,16 @@ Full bundle: ~45 KB gzipped
 
 ```tsx
 // ✅ Good - Tree-shakable imports
-import { Button, Input } from '@vtx-ui/react';
+import { Button, Input } from '@luxis-ui/react';
 
 // ❌ Avoid - Imports entire library
-import * as VUI from '@vtx-ui/react';
+import * as VUI from '@luxis-ui/react';
 
 // ✅ Good - Lazy load heavy components
-const DataGrid = lazy(() => import('@vtx-ui/react').then(m => ({ default: m.DataGrid })));
+const DataGrid = lazy(() => import('@luxis-ui/react').then(m => ({ default: m.DataGrid })));
 
 // ✅ Good - Import only required widgets
-import { ProductCard } from '@vtx-ui/react';
+import { ProductCard } from '@luxis-ui/react';
 ```
 
 ---
@@ -700,7 +700,7 @@ import { ProductCard } from '@vtx-ui/react';
 
 ```bash
 # Clone repository
-git clone https://github.com/vertex-ui/react.git
+git clone https://github.com/luxis-ui/react.git
 cd react
 
 # Install dependencies
@@ -734,7 +734,7 @@ npm run type-check         # TypeScript type checking
 ### Project Structure
 
 ```
-vertex-ui-react/
+luxis-ui-react/
 ├── src/
 │   ├── components/        # Core UI components
 │   │   ├── Button/
@@ -804,7 +804,7 @@ describe('Button', () => {
 
 ### Modern Browsers
 
-@vtx-ui/react supports all modern browsers with the following minimum versions:
+@luxis-ui/react supports all modern browsers with the following minimum versions:
 
 | Browser | Version |
 |---------|---------|
@@ -834,7 +834,7 @@ describe('Button', () => {
 
 ### Professional Services
 
-[Innostes Solutions Pvt Ltd](https://innostes.com/) offers comprehensive enterprise support for @vtx-ui/react:
+[Innostes Solutions Pvt Ltd](https://innostes.com/) offers comprehensive enterprise support for @luxis-ui/react:
 
 #### 🎯 Enterprise Licensing
 - Volume licensing options
@@ -864,14 +864,14 @@ describe('Button', () => {
 
 - **Email**: [contact@innostes.com](mailto:contact@innostes.com)
 - **Website**: [innostes.com](https://innostes.com/)
-- **GitHub Issues**: [Report bugs or request features](https://github.com/vertex-ui/react/issues)
-- **Documentation**: [vertexui.com](https://vertexui.com/)
+- **GitHub Issues**: [Report bugs or request features](https://github.com/luxis-ui/react/issues)
+- **Documentation**: [luxisui.com](https://luxisui.com/)
 
 ---
 
 ## Contributing
 
-We welcome contributions from the community! Whether it's bug fixes, new features, documentation improvements, or examples—your help makes @vtx-ui/react better for everyone.
+We welcome contributions from the community! Whether it's bug fixes, new features, documentation improvements, or examples—your help makes @luxis-ui/react better for everyone.
 
 ### Getting Started
 
@@ -956,7 +956,7 @@ Building enterprise-grade software solutions
 
 - Website: [innostes.com](https://innostes.com/)
 - Email: [contact@innostes.com](mailto:contact@innostes.com)
-- GitHub: [@vertex-ui](https://github.com/vertex-ui)
+- GitHub: [@luxis-ui](https://github.com/luxis-ui)
 
 ---
 
@@ -964,17 +964,17 @@ Building enterprise-grade software solutions
 
 ### Documentation & Resources
 
-- 📘 **[Official Documentation](https://vertexui.com/)** - Complete guides and API reference
-- 📖 **[Storybook](https://storybook.vertexui.com)** - Interactive component explorer
-- 📦 **[npm Package](https://www.npmjs.com/package/@vtx-ui/react)** - Package registry
-- 💻 **[GitHub Repository](https://github.com/vertex-ui/react)** - Source code
-- 🐛 **[Issue Tracker](https://github.com/vertex-ui/react/issues)** - Bug reports and feature requests
-- 📋 **[Changelog](https://github.com/vertex-ui/react/releases)** - Release history
+- 📘 **[Official Documentation](https://luxisui.com/)** - Complete guides and API reference
+- 📖 **[Storybook](https://storybook.luxisui.com)** - Interactive component explorer
+- 📦 **[npm Package](https://www.npmjs.com/package/@luxis-ui/react)** - Package registry
+- 💻 **[GitHub Repository](https://github.com/luxis-ui/react)** - Source code
+- 🐛 **[Issue Tracker](https://github.com/luxis-ui/react/issues)** - Bug reports and feature requests
+- 📋 **[Changelog](https://github.com/luxis-ui/react/releases)** - Release history
 
 ### Community
 
-- 💬 **[Discussions](https://github.com/vertex-ui/react/discussions)** - Community Q&A
-- 🐦 **[Twitter](https://twitter.com/vertexui)** - Latest updates
+- 💬 **[Discussions](https://github.com/luxis-ui/react/discussions)** - Community Q&A
+- 🐦 **[Twitter](https://twitter.com/luxisui)** - Latest updates
 - 💼 **[LinkedIn](https://www.linkedin.com/company/innostes-solutions)** - Company updates
 
 ---
@@ -984,5 +984,5 @@ Building enterprise-grade software solutions
 </p>
 
 <p align="center">
-  <sub>Part of the <a href="https://github.com/vertex-ui">vertex-ui</a> ecosystem</sub>
+  <sub>Part of the <a href="https://github.com/luxis-ui">luxis-ui</a> ecosystem</sub>
 </p>

@@ -47,11 +47,11 @@ const TwoRowNavbar: React.FC<NavbarBaseProps> = (props) => {
   }
 
   if (secondRowPrimaryBackground) {
-    secondRowStyle.backgroundColor = 'var(--vtx-color-primary-600)';
+    secondRowStyle.backgroundColor = 'var(--lxs-color-primary-600)';
     secondRowStyle.color =
       theme.colorContrast.primary === 'light'
-        ? 'var(--vtx-color-neutral-900)'
-        : 'var(--vtx-color-neutral-50)';
+        ? 'var(--lxs-color-neutral-900)'
+        : 'var(--lxs-color-neutral-50)';
   }
 
   // Top row content
@@ -61,12 +61,12 @@ const TwoRowNavbar: React.FC<NavbarBaseProps> = (props) => {
   }
 
   const topRow = (
-    <div className="vtx-navbar__content pt-6 pb-3" style={topRowStyle}>
-      <div className="vtx-navbar__left">
+    <div className="lxs-navbar__content pt-6 pb-3" style={topRowStyle}>
+      <div className="lxs-navbar__left">
         {logoSection}
         {searchSection}
       </div>
-      <div className="vtx-navbar__right">
+      <div className="lxs-navbar__right">
         {contentNodes?.map((node, i) => (
           <div key={i}>{node}</div>
         ))}
@@ -79,9 +79,9 @@ const TwoRowNavbar: React.FC<NavbarBaseProps> = (props) => {
 
   // Bottom row navigation
   const navClasses = [
-    'vtx-navbar__nav',
-    fullWidthSubMenu && 'vtx-navbar__nav--full-width',
-    showNavSeparators && 'vtx-navbar__nav--with-separators',
+    'lxs-navbar__nav',
+    fullWidthSubMenu && 'lxs-navbar__nav--full-width',
+    showNavSeparators && 'lxs-navbar__nav--with-separators',
   ]
     .filter(Boolean)
     .join(' ');
@@ -89,7 +89,7 @@ const TwoRowNavbar: React.FC<NavbarBaseProps> = (props) => {
   const navigationContent = (
     <nav className={navClasses}>
       {navigationItems.map((item, index) => (
-        <div key={index} className="vtx-navbar__nav-item-wrapper">
+        <div key={index} className="lxs-navbar__nav-item-wrapper">
           <NavItem
             item={item}
             uppercase={uppercaseNavItems}
@@ -115,12 +115,12 @@ const TwoRowNavbar: React.FC<NavbarBaseProps> = (props) => {
 
   return (
     <div
-      className={`vtx-navbar-wrapper ${sticky ? 'vtx-navbar-wrapper--sticky' : ''} ${className}`}
+      className={`vtx-navbar-wrapper ${sticky ? 'lxs-navbar-wrapper--sticky' : ''} ${className}`}
     >
       {props.topBar && <TopBar config={props.topBar} containerized={containerized} />}
 
       <div
-        className={`vtx-navbar vtx-navbar--two-row ${shadow ? 'vtx-navbar--shadow' : ''}`}
+        className={`vtx-navbar lxs-navbar--two-row ${shadow ? 'lxs-navbar--shadow' : ''}`}
         style={navbarStyle}
       >
         {containerized ? (

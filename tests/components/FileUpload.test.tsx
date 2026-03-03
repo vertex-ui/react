@@ -138,15 +138,15 @@ describe('FileUpload', () => {
     const { container } = render(<FileUpload onUpload={onUpload} label="Upload Files" />);
 
     // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-    const dropzone = container.querySelector('.vtx-fileupload-dropzone') as HTMLElement;
+    const dropzone = container.querySelector('.lxs-fileupload-dropzone') as HTMLElement;
 
     // Test Drag Over
     fireEvent.dragOver(dropzone);
-    expect(dropzone).toHaveClass('vtx-fileupload-dropzone--active');
+    expect(dropzone).toHaveClass('lxs-fileupload-dropzone--active');
 
     // Test Drag Leave
     fireEvent.dragLeave(dropzone);
-    expect(dropzone).not.toHaveClass('vtx-fileupload-dropzone--active');
+    expect(dropzone).not.toHaveClass('lxs-fileupload-dropzone--active');
 
     // Test Drop
     const file = new File(['content'], 'dropped.txt', { type: 'text/plain' });
@@ -193,7 +193,7 @@ describe('FileUpload', () => {
 
     await waitFor(() => {
         // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-        const fileItem = screen.getByText('progress.txt').closest('.vtx-fileupload-item');
+        const fileItem = screen.getByText('progress.txt').closest('.lxs-fileupload-item');
         expect(fileItem).toBeInTheDocument();
 
         // Look for success indicator inside the file item.

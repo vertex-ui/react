@@ -214,9 +214,9 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
 
     // Build class names
     const classNames = [
-      'vtx-toast',
-      `vtx-toast--${variant}`,
-      isAnimatingOut && 'vtx-toast--exiting',
+      'lxs-toast',
+      `lxs-toast--${variant}`,
+      isAnimatingOut && 'lxs-toast--exiting',
       className,
     ]
       .filter(Boolean)
@@ -225,22 +225,22 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
     // Render icon
     const renderIcon = () => {
       if (icon === false) return null;
-      if (icon) return <div className="vtx-toast__icon">{icon}</div>;
-      return <div className="vtx-toast__icon">{DefaultIcons[variant]}</div>;
+      if (icon) return <div className="lxs-toast__icon">{icon}</div>;
+      return <div className="lxs-toast__icon">{DefaultIcons[variant]}</div>;
     };
 
     // Render content
     const renderContent = () => {
       if (title || description) {
         return (
-          <div className="vtx-toast__content">
-            {title && <div className="vtx-toast__title">{title}</div>}
-            {description && <div className="vtx-toast__description">{description}</div>}
-            {children && <div className="vtx-toast__body">{children}</div>}
+          <div className="lxs-toast__content">
+            {title && <div className="lxs-toast__title">{title}</div>}
+            {description && <div className="lxs-toast__description">{description}</div>}
+            {children && <div className="lxs-toast__body">{children}</div>}
           </div>
         );
       }
-      return <div className="vtx-toast__content">{children}</div>;
+      return <div className="lxs-toast__content">{children}</div>;
     };
 
     return (
@@ -250,7 +250,7 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
         style={
           {
             ...style,
-            '--vtx-toast-animation-duration': `${animationDuration}ms`,
+            '--lxs-toast-animation-duration': `${animationDuration}ms`,
           } as React.CSSProperties
         }
         onMouseEnter={handleMouseEnter}
@@ -262,20 +262,20 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
         data-toast-id={id}
         {...props}
       >
-        <div className="vtx-toast__wrapper">
+        <div className="lxs-toast__wrapper">
           {renderIcon()}
           {renderContent()}
 
-          <div className="vtx-toast__actions">
+          <div className="lxs-toast__actions">
             {action && (
-              <button className="vtx-toast__action" onClick={action.onClick} type="button">
+              <button className="lxs-toast__action" onClick={action.onClick} type="button">
                 {action.label}
               </button>
             )}
 
             {closeButton && (
               <button
-                className="vtx-toast__close"
+                className="lxs-toast__close"
                 onClick={handleDismiss}
                 type="button"
                 aria-label="Close notification"
@@ -287,9 +287,9 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
         </div>
 
         {progressBar && autoClose !== false && (
-          <div className="vtx-toast__progress-container">
+          <div className="lxs-toast__progress-container">
             <div
-              className="vtx-toast__progress"
+              className="lxs-toast__progress"
               style={{
                 transform: `scaleX(${progress / 100})`,
                 animationPlayState: isPaused ? 'paused' : 'running',

@@ -79,7 +79,7 @@ describe('Table', () => {
       <Table columns={columns} data={data} getRowKey={getRowKey} striped />
     );
     const table = container.querySelector('table');
-    expect(table).toHaveClass('vtx-table--striped');
+    expect(table).toHaveClass('lxs-table--striped');
   });
 
   it('applies bordered style', () => {
@@ -87,7 +87,7 @@ describe('Table', () => {
       <Table columns={columns} data={data} getRowKey={getRowKey} bordered />
     );
     const table = container.querySelector('table');
-    expect(table).toHaveClass('vtx-table--bordered');
+    expect(table).toHaveClass('lxs-table--bordered');
   });
 
   it('applies hoverable style', () => {
@@ -95,7 +95,7 @@ describe('Table', () => {
       <Table columns={columns} data={data} getRowKey={getRowKey} hoverable />
     );
     const table = container.querySelector('table');
-    expect(table).toHaveClass('vtx-table--hoverable');
+    expect(table).toHaveClass('lxs-table--hoverable');
   });
 
   it('renders custom cell content with render function', () => {

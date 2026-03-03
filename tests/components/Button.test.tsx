@@ -15,24 +15,24 @@ describe('Button', () => {
 
     it('renders with different variants', () => {
       const { rerender } = render(<Button variant="primary">Primary</Button>);
-      expect(screen.getByRole('button')).toHaveClass('vtx-button--primary');
+      expect(screen.getByRole('button')).toHaveClass('lxs-button--primary');
 
       rerender(<Button variant="secondary">Secondary</Button>);
-      expect(screen.getByRole('button')).toHaveClass('vtx-button--secondary');
+      expect(screen.getByRole('button')).toHaveClass('lxs-button--secondary');
 
       rerender(<Button variant="outline">Outline</Button>);
-      expect(screen.getByRole('button')).toHaveClass('vtx-button--outline');
+      expect(screen.getByRole('button')).toHaveClass('lxs-button--outline');
     });
 
     it('renders with different sizes', () => {
       const { rerender } = render(<Button size="small">Small</Button>);
-      expect(screen.getByRole('button')).toHaveClass('vtx-button--small');
+      expect(screen.getByRole('button')).toHaveClass('lxs-button--small');
 
       rerender(<Button size="medium">Medium</Button>);
-      expect(screen.getByRole('button')).toHaveClass('vtx-button--medium');
+      expect(screen.getByRole('button')).toHaveClass('lxs-button--medium');
 
       rerender(<Button size="large">Large</Button>);
-      expect(screen.getByRole('button')).toHaveClass('vtx-button--large');
+      expect(screen.getByRole('button')).toHaveClass('lxs-button--large');
     });
 
     it('renders loading state', () => {
