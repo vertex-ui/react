@@ -32,3 +32,37 @@ export const Default: Story = {
     items: basicItems,
   },
 };
+
+export const Small: Story = {
+  args: {
+    items: basicItems,
+    size: 'sm',
+  },
+};
+
+export const Large: Story = {
+  args: {
+    items: basicItems,
+    size: 'lg',
+  },
+};
+
+export const WithMaxItems: Story = {
+  args: {
+    items: [
+      { label: 'Home', href: '/' },
+      { label: 'Products', href: '/products' },
+      { label: 'Electronics', href: '/products/electronics' },
+      { label: 'Computers', href: '/products/electronics/computers' },
+      { label: 'Laptops', active: true },
+    ],
+    maxItems: 3,
+  },
+};
+
+export const CustomSeparator: Story = {
+  args: {
+    items: basicItems,
+    separator: '>',
+  },
+};
