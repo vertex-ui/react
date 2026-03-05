@@ -180,7 +180,7 @@ const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPro
     // Inline style for text color override
     const style = props.style ? { ...props.style } : {};
     if (props.textColor) {
-      style.color = props.textColor;
+      (style as any)['--_button-color'] = props.textColor;
     }
 
     const content = (
