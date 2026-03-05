@@ -61,3 +61,6 @@ import { Button } from '@/components/Button';
 ## 8. Versioning & Maintenance
 - **Backward Compatibility**: Fully compatible with previous major versions.
 - **Updates**: Check the changelog for any new variants or deprecated props.
+
+## Custom Styling
+Users can pass a `className` or `style` prop to customize the component's appearance. Refer to the examples file for detailed usage with CSS classes.

@@ -73,3 +73,32 @@ const A11yExample = () => (
   <Divider aria-hidden="true" />
 );
 ```
+
+
+## Custom Styling
+
+You can override the default styles of the component by providing a custom `className` or `style` prop, or by defining custom CSS variables if the component supports them.
+
+### Example: overriding via CSS file
+
+**`custom-divider.css`**
+```css
+.custom-divider {
+  /* Your custom styles here */
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  padding: 16px;
+}
+```
+
+**`Usage.tsx`**
+```tsx
+import { Divider } from 'src/components/Divider';
+import './custom-divider.css';
+
+const StyledExample = () => (
+  <Divider className="custom-divider">
+    Custom Styled Content
+  </Divider>
+);
+```

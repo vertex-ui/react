@@ -64,3 +64,32 @@ const A11yExample = () => (
   />
 );
 ```
+
+
+## Custom Styling
+
+You can override the default styles of the component by providing a custom `className` or `style` prop, or by defining custom CSS variables if the component supports them.
+
+### Example: overriding via CSS file
+
+**`custom-togglebutton.css`**
+```css
+.custom-togglebutton {
+  /* Your custom styles here */
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  padding: 16px;
+}
+```
+
+**`Usage.tsx`**
+```tsx
+import { ToggleButton } from 'src/components/ToggleButton';
+import './custom-togglebutton.css';
+
+const StyledExample = () => (
+  <ToggleButton className="custom-togglebutton">
+    Custom Styled Content
+  </ToggleButton>
+);
+```

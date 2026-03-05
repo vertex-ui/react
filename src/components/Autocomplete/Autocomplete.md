@@ -52,3 +52,6 @@ import { Autocomplete } from '@/components/Autocomplete';
 
 ## 8. Versioning & Maintenance
 - **Updates**: Future versions may include virtual scrolling for massive option lists.
+
+## Custom Styling
+Users can pass a `className` or `style` prop to customize the component's appearance. Refer to the examples file for detailed usage with CSS classes.

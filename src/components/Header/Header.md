@@ -41,3 +41,6 @@ import { Header } from '@/components/Header';
 
 ## 8. Versioning & Maintenance
 - **Stability**: Stable API.
+
+## Custom Styling
+Users can pass a `className` or `style` prop to customize the component's appearance. Refer to the examples file for detailed usage with CSS classes.

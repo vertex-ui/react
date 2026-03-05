@@ -49,3 +49,6 @@ import { Alert } from '@/components/Alert';
 ## 8. Versioning & Maintenance
 - **Stability**: Stable API.
 - **Customization**: CSS variables allow for easy theme overrides.
+
+## Custom Styling
+Users can pass a `className` or `style` prop to customize the component's appearance. Refer to the examples file for detailed usage with CSS classes.

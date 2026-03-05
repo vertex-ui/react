@@ -49,3 +49,6 @@ import { Box } from '@/components/Box';
 
 ## 8. Versioning & Maintenance
 - **Performance**: Box is highly optimized but avoid excessive nesting depth (>20 levels) in performance-critical loops.
+
+## Custom Styling
+Users can pass a `className` or `style` prop to customize the component's appearance. Refer to the examples file for detailed usage with CSS classes.

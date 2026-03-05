@@ -80,3 +80,32 @@ const A11yExample = () => (
   />
 );
 ```
+
+
+## Custom Styling
+
+You can override the default styles of the component by providing a custom `className` or `style` prop, or by defining custom CSS variables if the component supports them.
+
+### Example: overriding via CSS file
+
+**`custom-datagrid.css`**
+```css
+.custom-datagrid {
+  /* Your custom styles here */
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  padding: 16px;
+}
+```
+
+**`Usage.tsx`**
+```tsx
+import { DataGrid } from 'src/components/DataGrid';
+import './custom-datagrid.css';
+
+const StyledExample = () => (
+  <DataGrid className="custom-datagrid">
+    Custom Styled Content
+  </DataGrid>
+);
+```
