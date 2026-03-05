@@ -141,7 +141,7 @@ const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
   (
     {
       items,
-      separator = <ChevronRightIcon size={16} />,
+      separator,
       linkComponent,
       maxItems,
       size,
@@ -152,6 +152,8 @@ const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
   ) => {
     const { theme } = useThemeContext();
     const breadcrumbSize = size || theme.defaultSize;
+
+    const separatorElement = separator ?? <ChevronRightIcon size={breadcrumbSize === 'sm' ? 14 : breadcrumbSize === 'lg' ? 20 : 16} />;
 
     // Handle collapsing if maxItems is set
     const displayItems = React.useMemo(() => {
@@ -196,6 +198,18 @@ const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
       .filter(Boolean)
       .join(' ');
 
+    const getTypographyVariant = (s: string) => {
+      switch (s) {
+        case 'sm':
+          return 'caption';
+        case 'lg':
+          return 'body1';
+        case 'md':
+        default:
+          return 'body2';
+      }
+    };
+
     const renderItem = (item: BreadcrumbItem, index: number) => {
       const isLast = index === displayItems.length - 1;
       const isActive = item.active || isLast;
@@ -212,7 +226,7 @@ const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
       const content = (
         <>
           {item.icon && <span className="lxs-breadcrumb-item-icon">{item.icon}</span>}
-          {item.label && <Typography as="span" variant="body2" className="lxs-breadcrumb-item-label">{item.label}</Typography>}
+          {item.label && <Typography as="span" variant={getTypographyVariant(breadcrumbSize)} className="lxs-breadcrumb-item-label">{item.label}</Typography>}
         </>
       );
 
@@ -271,7 +285,7 @@ const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
               {renderItem(item, index)}
               {index < displayItems.length - 1 && (
                 <li className={separatorClassNames} aria-hidden="true">
-                  {separator}
+                  {separatorElement}
                 </li>
               )}
             </React.Fragment>
@@ -285,7 +299,7 @@ const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
               {renderItem(item, index)}
               {index < mobileDisplayItems.length - 1 && (
                 <li className={separatorClassNames} aria-hidden="true">
-                  {separator}
+                  {separatorElement}
                 </li>
               )}
             </React.Fragment>
