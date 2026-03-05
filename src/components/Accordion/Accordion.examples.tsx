@@ -1,5 +1,6 @@
 "use client";
 
+import './Accordion.examples.css';
 import React, { useState } from 'react';
 import { Accordion } from './index';
 
@@ -330,3 +331,42 @@ export const AccordionExamples: React.FC = () => {
 };
 
 export default AccordionExamples;
+
+
+export const AccordionStatesExamples: React.FC = () => {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', padding: '2rem' }}>
+      <h2>Accordion Examples</h2>
+
+      <section>
+        <h3>Standard States</h3>
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+          <div>
+            <h4>Normal</h4>
+            <Accordion items={[{ id: '1', header: 'Section 1', children: 'Content' }]} />
+          </div>
+          <div>
+            <h4>Disabled</h4>
+            <Accordion items={[{ id: '1', header: 'Section 1', children: 'Content' }]} disabled />
+          </div>
+          <div>
+            <h4>Loading</h4>
+            <Accordion items={[{ id: '1', header: 'Section 1', children: 'Content' }]} loading />
+          </div>
+          <div>
+            <h4>Loading & Disabled</h4>
+            <Accordion items={[{ id: '1', header: 'Section 1', children: 'Content' }]} loading disabled />
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h3>Custom CSS Override</h3>
+        <p>Using <code>className="custom-accordion"</code> to override standard properties like background-color, color, border-radius, border-color.</p>
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <Accordion items={[{ id: '1', header: 'Section 1', children: 'Content' }]} className="custom-accordion" />
+        </div>
+      </section>
+    </div>
+  );
+};

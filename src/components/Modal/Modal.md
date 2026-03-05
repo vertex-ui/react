@@ -24,6 +24,8 @@ import { Modal } from '@/components/Modal';
 | `closeOnBackdropClick` | `boolean` | `true` | Close when clicking outside. |
 | `scrollable` | `boolean` | `false` | Scroll body content internally. |
 | `centered` | `boolean` | `true` | Center vertically in viewport. |
+| `disabled` | `boolean` | `false` | Disables the component. |
+| `loading` | `boolean` | `false` | Shows a loading state. |
 
 ## 4. Accessibility
 - **Focus Trap**: Traps focus within the modal while open.

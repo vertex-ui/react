@@ -22,6 +22,7 @@ import { RadioGroup } from '@/components/RadioGroup';
 | `onChange` | `(value) => void` | `undefined` | Change callback. |
 | `orientation` | `'vertical' \| 'horizontal'` | `'vertical'` | Layout. |
 | `label` | `ReactNode` | `undefined` | Group label. |
+| `disabled` | `boolean` | `false` | Disables the component. |
 
 ## 4. Accessibility
 - **Role**: `role="radiogroup"`.

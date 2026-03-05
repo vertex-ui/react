@@ -22,6 +22,7 @@ import { RichTextEditor } from '@/components/RichTextEditor';
 | `maxLength` | `number` | `undefined` | Character limit (text only). |
 | `minHeight` | `number` | `200` | Minimum editor height. |
 | `placeholder` | `string` | `undefined` | Empty state text. |
+| `disabled` | `boolean` | `false` | Disables the component. |
 
 ## 4. Accessibility
 - **Role**: `role="textbox"`, `aria-multiline="true"`.

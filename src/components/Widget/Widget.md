@@ -18,6 +18,8 @@ import { Widget } from '@/components/Widget';
 |------|------|-------------|
 | `config` | `WidgetConfig` | Configuration object `{ type, data, settings }`. |
 | `className` | `string` | Custom class. |
+| `disabled` | `boolean` | `false` | Disables the component. |
+| `loading` | `boolean` | `false` | Shows a loading state. |
 
 ### WidgetConfig
 - **type**: String identifier (e.g., 'metric', 'chart').

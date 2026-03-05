@@ -24,6 +24,8 @@ import { MultiSelect } from '@/components/MultiSelect';
 | `maxChipsDisplay` | `number` | `undefined` | Limit visible chips (e.g., "+3 more"). |
 | `grouped` | `boolean` | `false` | Group options by category. |
 | `showSelectAll` | `boolean` | `false` | Show bulk actions. |
+| `disabled` | `boolean` | `false` | Disables the component. |
+| `loading` | `boolean` | `false` | Shows a loading state. |
 
 ## 4. Accessibility
 - **Roles**: `role="listbox"`, `role="option"`.

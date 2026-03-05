@@ -22,6 +22,7 @@ import { ToggleButton } from '@/components/ToggleButton';
 | `labelPlacement` | `'start' \| 'end'` | `'end'` | Label position. |
 | `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Size. |
 | `icon` | `ReactNode` | `undefined` | Icon inside thumb. |
+| `disabled` | `boolean` | `false` | Disables the component. |
 
 ## 4. Accessibility
 - **Role**: `role="switch"`.

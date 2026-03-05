@@ -24,6 +24,7 @@ import { Table } from '@/components/Table';
 | `maxHeight` | `string` | `undefined` | Fixed header scroll. |
 | `selectable` | `boolean` | `false` | Row selection. |
 | `onRowClick` | `(row, index, e) => void` | `undefined` | Row click handler. |
+| `loading` | `boolean` | `false` | Shows a loading state. |
 
 ## 4. Accessibility
 - **Structure**: Semantic `<table>`, `<thead>`, `<tbody>`.

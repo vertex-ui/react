@@ -1,4 +1,5 @@
 "use client";
+import './AdminHeader.examples.css';
 
 import { useState } from 'react';
 import { AdminHeader } from './AdminHeader';
@@ -521,6 +522,46 @@ export const AdminHeaderShowcase = () => {
           <p>Corporate portal content...</p>
         </div>
       </div>
+    </div>
+  );
+};
+
+
+
+export const AdminHeaderStatesExamples: React.FC = () => {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', padding: '2rem' }}>
+      <h2>AdminHeader Examples</h2>
+
+      <section>
+        <h3>Standard States</h3>
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+          <div>
+            <h4>Normal</h4>
+            <AdminHeader title="Admin Dashboard" />
+          </div>
+          <div>
+            <h4>Disabled</h4>
+            <AdminHeader title="Admin Dashboard" disabled />
+          </div>
+          <div>
+            <h4>Loading</h4>
+            <AdminHeader title="Admin Dashboard" loading />
+          </div>
+          <div>
+            <h4>Loading & Disabled</h4>
+            <AdminHeader title="Admin Dashboard" loading disabled />
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h3>Custom CSS Override</h3>
+        <p>Using <code>className="custom-adminheader"</code> to override standard properties like background-color, color, border-radius, border-color.</p>
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <AdminHeader title="Admin Dashboard" className="custom-adminheader" />
+        </div>
+      </section>
     </div>
   );
 };

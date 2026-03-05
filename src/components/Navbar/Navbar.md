@@ -22,6 +22,7 @@ import { Navbar } from '@/components/Navbar';
 | `mobileBreakpoint` | `number` | `1024` | Pixel width to switch layouts. |
 | `desktopLayout` | `'single-row' \| 'double-row'` | `'single-row'` | Layout style. |
 | `linkComponent` | `ElementType` | `undefined` | Router link component. |
+| `disabled` | `boolean` | `false` | Disables the component. |
 
 ## 4. Accessibility
 - **Landmark**: `<nav>`.

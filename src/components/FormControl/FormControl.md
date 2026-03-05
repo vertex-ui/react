@@ -23,6 +23,7 @@ import { FormControl } from '@/components/FormControl';
 | `required` | `boolean` | `false` | Show asterisk. |
 | `fullWidth` | `boolean` | `true` | Expand to container. |
 | `labelPosition` | `'top' \| 'left'` | `'top'` | Label placement. |
+| `disabled` | `boolean` | `false` | Disables the component. |
 
 ## 4. Accessibility
 - **Association**: Automatically links label to input via ID (if children support `id`).

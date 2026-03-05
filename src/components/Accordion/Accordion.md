@@ -27,6 +27,7 @@ import { Accordion, AccordionItem } from '@/components/Accordion';
 | `showChevron` | `boolean` | `true` | Toggles the visibility of the expand/collapse icon. |
 | `chevronPosition` | `'left' \| 'right'` | `'right'` | Position of the chevron icon. |
 | `disableAnimations` | `boolean` | `false` | Disables transition animations for performance or accessibility. |
+| `loading` | `boolean` | `false` | Shows a loading state. |
 
 ### AccordionItem Props
 | Prop | Type | Default | Description |
