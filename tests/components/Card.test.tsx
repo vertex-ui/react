@@ -92,7 +92,7 @@ describe('Card', () => {
       const { container } = render(<Card padding="32px">Content</Card>);
       const card = container.querySelector('.lxs-card') as HTMLElement;
       // The custom property is set on the root, but the actual padding is on the content div
-      expect(card.style.getPropertyValue('--_card-padding')).toBe('32px');
+      expect(card.style.getPropertyValue('--lxs-card-padding')).toBe('32px');
     });
 
     it('custom padding overrides noPadding', () => {
@@ -102,7 +102,7 @@ describe('Card', () => {
         </Card>
       );
       const card = container.querySelector('.lxs-card') as HTMLElement;
-      expect(card.style.getPropertyValue('--_card-padding')).toBe('24px');
+      expect(card.style.getPropertyValue('--lxs-card-padding')).toBe('24px');
       expect(card).not.toHaveClass('lxs-card--no-padding');
     });
   });
@@ -220,7 +220,7 @@ describe('Card', () => {
         </Card>
       );
       const card = container.querySelector('.lxs-card') as HTMLElement;
-      expect(card.style.getPropertyValue('--_card-padding')).toBe('20px');
+      expect(card.style.getPropertyValue('--lxs-card-padding')).toBe('20px');
       expect(card.style.backgroundColor === 'blue' || card.style.backgroundColor === '').toBe(true);
     });
   });
