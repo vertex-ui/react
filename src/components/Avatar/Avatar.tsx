@@ -104,8 +104,8 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
 
     const classNames = [
       'lxs-avatar',
-      `vtx-avatar--${avatarSize}`,
-      `vtx-avatar--${shape}`,
+      `lxs-avatar--${avatarSize}`,
+      `lxs-avatar--${shape}`,
       statusIndicator && 'lxs-avatar--with-status',
       className,
     ]
@@ -113,7 +113,21 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
       .join(' ');
 
     const showImage = src && !imageError;
-    const displayFallback = fallback.slice(0, 2).toUpperCase();
+
+    // Use fallback prop if it's explicitly set to something other than '?'
+    // Otherwise, generate initials from the 'alt' text (if any)
+    let displayFallback: React.ReactNode = <UserIcon />;
+    if (fallback !== '?') {
+        displayFallback = fallback.slice(0, 2).toUpperCase();
+    } else if (alt && alt.trim().length > 0) {
+        // e.g. "John Doe" -> "JD", "Company Inc" -> "CI", "Alice" -> "A"
+        const words = alt.trim().split(/\s+/);
+        if (words.length >= 2) {
+            displayFallback = (words[0][0] + words[1][0]).toUpperCase();
+        } else {
+            displayFallback = words[0].slice(0, 2).toUpperCase();
+        }
+    }
 
     return (
       <div
@@ -136,12 +150,12 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
           />
         ) : (
           <span className="lxs-avatar-fallback" aria-hidden="true">
-            {fallback === '?' ? <UserIcon /> : displayFallback}
+            {displayFallback}
           </span>
         )}
         {statusIndicator && (
           <span
-            className={`vtx-avatar-status lxs-avatar-status--${statusPosition}`}
+            className={`lxs-avatar-status lxs-avatar-status--${statusPosition}`}
             aria-label="Status indicator"
           >
             {statusIndicator}
