@@ -74,3 +74,33 @@ const A11yExample = () => (
   />
 );
 ```
+
+
+## States Example
+
+Demonstrating different states of the MultiSelect.
+
+```tsx
+import { MultiSelect } from 'src/components/MultiSelect';
+
+const StatesExample = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <div>
+      <h3>Normal State</h3>
+      <MultiSelect options={[{ value: '1', label: 'Option 1' }, { value: '2', label: 'Option 2' }]} placeholder="Select options" />
+    </div>
+    <div>
+      <h3>Disabled State</h3>
+      <MultiSelect options={[{ value: '1', label: 'Option 1' }, { value: '2', label: 'Option 2' }]} placeholder="Select options" disabled />
+    </div>
+    <div>
+      <h3>Loading State</h3>
+      <MultiSelect options={[{ value: '1', label: 'Option 1' }, { value: '2', label: 'Option 2' }]} placeholder="Select options" loading />
+    </div>
+    <div>
+      <h3>Loading & Disabled State</h3>
+      <MultiSelect options={[{ value: '1', label: 'Option 1' }, { value: '2', label: 'Option 2' }]} placeholder="Select options" loading disabled />
+    </div>
+  </div>
+);
+```

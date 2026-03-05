@@ -75,3 +75,25 @@ const A11yExample = () => (
   />
 );
 ```
+
+
+## States Example
+
+Demonstrating different states of the CheckboxGroup.
+
+```tsx
+import { CheckboxGroup } from 'src/components/CheckboxGroup';
+
+const StatesExample = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <div>
+      <h3>Normal State</h3>
+      <CheckboxGroup options={[{ value: '1', label: 'Option 1' }, { value: '2', label: 'Option 2' }]} />
+    </div>
+    <div>
+      <h3>Disabled State</h3>
+      <CheckboxGroup options={[{ value: '1', label: 'Option 1' }, { value: '2', label: 'Option 2' }]} disabled />
+    </div>
+  </div>
+);
+```

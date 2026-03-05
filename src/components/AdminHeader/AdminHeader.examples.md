@@ -74,3 +74,41 @@ const A11yExample = () => (
   />
 );
 ```
+
+
+## States Example
+
+Demonstrating different states of the AdminHeader.
+
+```tsx
+import { AdminHeader } from 'src/components/AdminHeader';
+
+const StatesExample = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <div>
+      <h3>Normal State</h3>
+      <AdminHeader>
+        Example Content
+      </AdminHeader>
+    </div>
+    <div>
+      <h3>Disabled State</h3>
+      <AdminHeader disabled>
+        Example Content
+      </AdminHeader>
+    </div>
+    <div>
+      <h3>Loading State</h3>
+      <AdminHeader loading>
+        Example Content
+      </AdminHeader>
+    </div>
+    <div>
+      <h3>Loading & Disabled State</h3>
+      <AdminHeader loading disabled>
+        Example Content
+      </AdminHeader>
+    </div>
+  </div>
+);
+```

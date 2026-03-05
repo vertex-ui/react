@@ -63,3 +63,29 @@ const A11yExample = () => (
   />
 );
 ```
+
+
+## States Example
+
+Demonstrating different states of the Chip.
+
+```tsx
+import { Chip } from 'src/components/Chip';
+
+const StatesExample = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <div>
+      <h3>Normal State</h3>
+      <Chip>
+        Chip Text
+      </Chip>
+    </div>
+    <div>
+      <h3>Disabled State</h3>
+      <Chip disabled>
+        Chip Text
+      </Chip>
+    </div>
+  </div>
+);
+```

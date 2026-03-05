@@ -66,3 +66,25 @@ const A11yExample = () => (
   />
 );
 ```
+
+
+## States Example
+
+Demonstrating different states of the Checkbox.
+
+```tsx
+import { Checkbox } from 'src/components/Checkbox';
+
+const StatesExample = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <div>
+      <h3>Normal State</h3>
+      <Checkbox label="Accept terms" />
+    </div>
+    <div>
+      <h3>Disabled State</h3>
+      <Checkbox label="Accept terms" disabled />
+    </div>
+  </div>
+);
+```

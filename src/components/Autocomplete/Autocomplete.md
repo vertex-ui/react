@@ -27,6 +27,7 @@ import { Autocomplete } from '@/components/Autocomplete';
 | `renderOption` | `(opt, index) => ReactNode` | `undefined` | Custom renderer for dropdown items. |
 | `error` | `string` | `undefined` | Error message to display. |
 | `showSearchIcon` | `boolean` | `false` | Displays a search icon in the input. |
+| `disabled` | `boolean` | `false` | Disables the component. |
 
 ## 4. Accessibility
 - **ARIA Pattern**: Implements the Combobox pattern.

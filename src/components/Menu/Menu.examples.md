@@ -76,3 +76,25 @@ const A11yExample = () => (
   </nav>
 );
 ```
+
+
+## States Example
+
+Demonstrating different states of the Menu.
+
+```tsx
+import { Menu } from 'src/components/Menu';
+
+const StatesExample = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <div>
+      <h3>Normal State</h3>
+      <Menu trigger={<button>Open Menu</button>} items={[{ id: '1', label: 'Item 1' }]} />
+    </div>
+    <div>
+      <h3>Disabled State</h3>
+      <Menu trigger={<button>Open Menu</button>} items={[{ id: '1', label: 'Item 1' }]} disabled />
+    </div>
+  </div>
+);
+```

@@ -84,3 +84,25 @@ const A11yExample = () => (
   />
 );
 ```
+
+
+## States Example
+
+Demonstrating different states of the Table.
+
+```tsx
+import { Table } from 'src/components/Table';
+
+const StatesExample = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <div>
+      <h3>Normal State</h3>
+      <Table columns={[{ key: 'id', header: 'ID' }]} data={[{ id: 1 }]} />
+    </div>
+    <div>
+      <h3>Loading State</h3>
+      <Table columns={[{ key: 'id', header: 'ID' }]} data={[{ id: 1 }]} loading />
+    </div>
+  </div>
+);
+```

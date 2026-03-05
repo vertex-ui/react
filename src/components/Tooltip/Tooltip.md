@@ -22,6 +22,7 @@ import { Tooltip } from '@/components/Tooltip';
 | `delay` | `number` | `200` | Show delay (ms). |
 | `arrow` | `boolean` | `false` | Show pointer arrow. |
 | `variant` | `'dark' \| 'light'` | `'dark'` | Theme. |
+| `disabled` | `boolean` | `false` | Disables the component. |
 
 ## 4. Accessibility
 - **Trigger**: Adds `aria-describedby` to the child.

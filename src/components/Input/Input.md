@@ -33,6 +33,7 @@ import { Input } from '@/components/Input';
 | `prefix` | `string` | `undefined` | Prefix text to display before input value |
 | `suffix` | `string` | `undefined` | Suffix text to display after input value |
 | `id` | `providedId,` | `undefined` | Input component - Text input field with label, helper text, validation states, and rich features A comprehensive input component with support for icons, prefixes, suffixes, character counting, clear functionality, and various validation states. |
+| `disabled` | `boolean` | `false` | Disables the component. |
 
 ## 4. Accessibility
 - **Labeling**: Internal `label` element linked via ID.

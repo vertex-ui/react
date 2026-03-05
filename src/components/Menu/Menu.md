@@ -20,6 +20,7 @@ import { Menu, MenuItem } from '@/components/Menu';
 | `orientation` | `'vertical' \| 'horizontal'` | `'vertical'` | Layout direction. |
 | `responsive` | `boolean` | `true` | Collapses to hamburger on mobile. |
 | `width` | `string \| number` | `undefined` | Fixed width for vertical menu. |
+| `disabled` | `boolean` | `false` | Disables the component. |
 
 ### MenuItem Props
 | Prop | Type | Description |

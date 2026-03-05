@@ -24,6 +24,7 @@ import { Link } from '@/components/Link';
 | `leftIcon` | `ReactNode` | `undefined` | Icon before text. |
 | `rightIcon` | `ReactNode` | `undefined` | Icon after text. |
 | `external` | `boolean` | `false` | Opens in new tab. |
+| `disabled` | `boolean` | `false` | Disables the component. |
 
 ## 4. Accessibility
 - **Roles**: Renders an `<a>` tag.

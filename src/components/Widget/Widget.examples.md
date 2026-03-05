@@ -76,3 +76,33 @@ const A11yExample = () => (
   </section>
 );
 ```
+
+
+## States Example
+
+Demonstrating different states of the Widget.
+
+```tsx
+import { Widget } from 'src/components/Widget';
+
+const StatesExample = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <div>
+      <h3>Normal State</h3>
+      <Widget config={{ type: 'text', data: { content: 'Widget Content' } }} />
+    </div>
+    <div>
+      <h3>Disabled State</h3>
+      <Widget config={{ type: 'text', data: { content: 'Widget Content' } }} disabled />
+    </div>
+    <div>
+      <h3>Loading State</h3>
+      <Widget config={{ type: 'text', data: { content: 'Widget Content' } }} loading />
+    </div>
+    <div>
+      <h3>Loading & Disabled State</h3>
+      <Widget config={{ type: 'text', data: { content: 'Widget Content' } }} loading disabled />
+    </div>
+  </div>
+);
+```

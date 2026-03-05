@@ -81,3 +81,29 @@ const A11yExample = () => (
   />
 );
 ```
+
+
+## States Example
+
+Demonstrating different states of the Navbar.
+
+```tsx
+import { Navbar } from 'src/components/Navbar';
+
+const StatesExample = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <div>
+      <h3>Normal State</h3>
+      <Navbar>
+        Example Content
+      </Navbar>
+    </div>
+    <div>
+      <h3>Disabled State</h3>
+      <Navbar disabled>
+        Example Content
+      </Navbar>
+    </div>
+  </div>
+);
+```

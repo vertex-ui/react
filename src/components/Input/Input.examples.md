@@ -66,3 +66,25 @@ const A11yExample = () => (
   />
 );
 ```
+
+
+## States Example
+
+Demonstrating different states of the Input.
+
+```tsx
+import { Input } from 'src/components/Input';
+
+const StatesExample = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <div>
+      <h3>Normal State</h3>
+      <Input placeholder="Enter value..." />
+    </div>
+    <div>
+      <h3>Disabled State</h3>
+      <Input placeholder="Enter value..." disabled />
+    </div>
+  </div>
+);
+```

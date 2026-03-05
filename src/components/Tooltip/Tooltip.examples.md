@@ -67,3 +67,29 @@ const A11yExample = () => (
   </Tooltip>
 );
 ```
+
+
+## States Example
+
+Demonstrating different states of the Tooltip.
+
+```tsx
+import { Tooltip } from 'src/components/Tooltip';
+
+const StatesExample = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <div>
+      <h3>Normal State</h3>
+      <Tooltip content="This is a tooltip">
+        <span>Hover me</span>
+      </Tooltip>
+    </div>
+    <div>
+      <h3>Disabled State</h3>
+      <Tooltip content="This is a tooltip" disabled>
+        <span>Hover me</span>
+      </Tooltip>
+    </div>
+  </div>
+);
+```

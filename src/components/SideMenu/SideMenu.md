@@ -22,6 +22,7 @@ import { SideMenu } from '@/components/SideMenu';
 | `collapsedWidth` | `string \| number` | `'80px'` | Collapsed width. |
 | `header` | `ReactNode` | `undefined` | Top content (Logo). |
 | `footer` | `ReactNode` | `undefined` | Bottom content. |
+| `disabled` | `boolean` | `false` | Disables the component. |
 
 ### SideMenuItemProps
 | Prop | Type | Description |

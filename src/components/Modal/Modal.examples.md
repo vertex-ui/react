@@ -91,3 +91,41 @@ const A11yExample = () => (
   </Modal>
 );
 ```
+
+
+## States Example
+
+Demonstrating different states of the Modal.
+
+```tsx
+import { Modal } from 'src/components/Modal';
+
+const StatesExample = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <div>
+      <h3>Normal State</h3>
+      <Modal isOpen={true} onClose={() => {}} title="Example Modal">
+        <p>Modal Content</p>
+      </Modal>
+    </div>
+    <div>
+      <h3>Disabled State</h3>
+      <Modal isOpen={true} onClose={() => {}} title="Example Modal" disabled>
+        <p>Modal Content</p>
+      </Modal>
+    </div>
+    <div>
+      <h3>Loading State</h3>
+      <Modal isOpen={true} onClose={() => {}} title="Example Modal" loading>
+        <p>Modal Content</p>
+      </Modal>
+    </div>
+    <div>
+      <h3>Loading & Disabled State</h3>
+      <Modal isOpen={true} onClose={() => {}} title="Example Modal" loading disabled>
+        <p>Modal Content</p>
+      </Modal>
+    </div>
+  </div>
+);
+```

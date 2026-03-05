@@ -31,6 +31,8 @@ import { AdminHeader } from '@/components/AdminHeader';
 | `variant` | `'default' \| 'elevated' \| 'bordered' \| 'minimal'` | `'default'` | Visual style variant of the header. |
 | `theme` | `'light' \| 'dark' \| 'primary'` | `'light'` | Color theme for the header background. |
 | `sticky` | `boolean` | `true` | Keeps the header fixed at the top of the viewport. |
+| `disabled` | `boolean` | `false` | Disables the component. |
+| `loading` | `boolean` | `false` | Shows a loading state. |
 
 ## 4. Accessibility
 - **Landmark Role**: Uses the `<header>` HTML element.

@@ -77,3 +77,25 @@ const A11yExample = () => (
   />
 );
 ```
+
+
+## States Example
+
+Demonstrating different states of the SideMenu.
+
+```tsx
+import { SideMenu } from 'src/components/SideMenu';
+
+const StatesExample = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <div>
+      <h3>Normal State</h3>
+      <SideMenu items={[{ id: '1', label: 'Dashboard', icon: 'home' }]} />
+    </div>
+    <div>
+      <h3>Disabled State</h3>
+      <SideMenu items={[{ id: '1', label: 'Dashboard', icon: 'home' }]} disabled />
+    </div>
+  </div>
+);
+```

@@ -83,3 +83,33 @@ const A11yExample = () => (
   </section>
 );
 ```
+
+
+## States Example
+
+Demonstrating different states of the Accordion.
+
+```tsx
+import { Accordion } from 'src/components/Accordion';
+
+const StatesExample = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <div>
+      <h3>Normal State</h3>
+      <Accordion items={[{ id: '1', header: 'Section 1', children: 'Content' }]} />
+    </div>
+    <div>
+      <h3>Disabled State</h3>
+      <Accordion items={[{ id: '1', header: 'Section 1', children: 'Content' }]} disabled />
+    </div>
+    <div>
+      <h3>Loading State</h3>
+      <Accordion items={[{ id: '1', header: 'Section 1', children: 'Content' }]} loading />
+    </div>
+    <div>
+      <h3>Loading & Disabled State</h3>
+      <Accordion items={[{ id: '1', header: 'Section 1', children: 'Content' }]} loading disabled />
+    </div>
+  </div>
+);
+```

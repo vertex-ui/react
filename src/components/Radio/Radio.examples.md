@@ -65,3 +65,25 @@ const A11yExample = () => (
   />
 );
 ```
+
+
+## States Example
+
+Demonstrating different states of the Radio.
+
+```tsx
+import { Radio } from 'src/components/Radio';
+
+const StatesExample = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <div>
+      <h3>Normal State</h3>
+      <Radio label="Select me" value="1" />
+    </div>
+    <div>
+      <h3>Disabled State</h3>
+      <Radio label="Select me" value="1" disabled />
+    </div>
+  </div>
+);
+```
