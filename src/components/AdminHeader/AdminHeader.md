@@ -58,3 +58,6 @@ import { AdminHeader } from '@/components/AdminHeader';
 ## 8. Versioning & Maintenance
 - **Updates**: New props for advanced search filtering may be added in v2.0.
 - **Compatibility**: Fully backward compatible with v1.x.
+
+## Custom Styling
+Users can pass a `className` or `style` prop to customize the component's appearance. Refer to the examples file for detailed usage with CSS classes.
