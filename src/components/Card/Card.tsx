@@ -161,7 +161,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     // Compose style, ensuring custom property is set if padding is provided
     const customStyle: React.CSSProperties = {
       ...(style || {}),
-      ...(padding ? { ['--lxs-card-padding' as any]: padding } : {}),
+      ...(padding ? { ['--_card-padding' as any]: padding } : {}),
     };
 
     // If clickable, set tabIndex to 0 by default unless provided

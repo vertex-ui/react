@@ -137,6 +137,10 @@ export interface AutocompleteProps
    */
   onClear?: () => void;
   /**
+   * Alias for onClear, fired when the search clear button is clicked
+   */
+  onSearchClear?: () => void;
+  /**
    * Custom class name for the wrapper element
    */
   wrapperClassName?: string;
@@ -236,6 +240,7 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
       showSearchIcon = false,
       clearable = false,
       onClear,
+      onSearchClear,
       className = '',
       wrapperClassName = '',
       labelClassName = '',
@@ -392,6 +397,7 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
       }
       setIsOpen(false);
       setIsFocused(false);
+      onChange?.(label);
       onSelect?.(value, option);
 
       // Return focus to input
@@ -403,7 +409,9 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
         setInternalValue('');
       }
       setIsOpen(false);
+      onChange?.('');
       onClear?.();
+      onSearchClear?.();
       inputRef.current?.focus();
     };
 
@@ -456,10 +464,12 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
       const icon = extractValue(option, getOptionIcon);
       const isDisabled = extractValue(option, getOptionDisabled);
       const isHighlighted = index === highlightedIndex;
+      const optionId = `${listboxId}-option-${index}`;
 
       return (
         <div
           key={value || index}
+          id={optionId}
           role="option"
           aria-selected={isHighlighted}
           aria-disabled={isDisabled}
@@ -604,6 +614,11 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
             aria-autocomplete="list"
             aria-controls={shouldShowDropdown ? listboxId : undefined}
             aria-expanded={shouldShowDropdown}
+            aria-activedescendant={
+              shouldShowDropdown && highlightedIndex >= 0
+                ? `${listboxId}-option-${highlightedIndex}`
+                : undefined
+            }
             role="combobox"
             autoComplete="off"
             {...props}
