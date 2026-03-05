@@ -163,7 +163,7 @@ export interface AdminHeaderProps {
   userMenuItems?: UserMenuItem[];
   /** Show user menu */
   showUserMenu?: boolean;
-  /** User avatar click handler (if no menu) */
+  /** User avatar click handler */
   onUserAvatarClick?: () => void;
 
   /* ===== CUSTOM CONTENT ===== */
@@ -213,28 +213,38 @@ const SearchBar: React.FC<{
   onChange?: (value: string) => void;
   onSubmit?: (value: string) => void;
   onFocus?: () => void;
+  onBlur?: () => void;
   placeholder?: string;
   loading?: boolean;
   suggestions?: SearchSuggestion[];
   icon?: React.ReactNode;
-}> = ({ value = '', onChange, onSubmit, onFocus, placeholder, loading, suggestions, icon }) => {
+  autoFocus?: boolean;
+}> = ({ value = '', onChange, onSubmit, onFocus, onBlur, placeholder, loading, suggestions, icon, autoFocus }) => {
   const [localValue, setLocalValue] = useState(value);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setLocalValue(value);
   }, [value]);
 
   useEffect(() => {
+    if (autoFocus && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [autoFocus]);
+
+  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
         setShowSuggestions(false);
+        onBlur?.();
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  }, [onBlur]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
@@ -256,6 +266,10 @@ const SearchBar: React.FC<{
     }
   };
 
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    // Handle blur in the click outside instead so users clicking inside search form don't dismiss it
+  };
+
   return (
     <div className="lxs-admin-header-search" ref={searchRef}>
       <form onSubmit={handleSubmit} className="lxs-admin-header-search-form">
@@ -263,12 +277,14 @@ const SearchBar: React.FC<{
           {loading ? <span className="lxs-admin-header-search-spinner" /> : icon || <SearchIcon />}
         </div>
         <input
+          ref={inputRef}
           type="text"
           className="lxs-admin-header-search-input"
           placeholder={placeholder || 'Search...'}
           value={localValue}
           onChange={handleChange}
           onFocus={handleFocus}
+          onBlur={handleBlur}
         />
         {localValue && (
           <button
@@ -577,6 +593,7 @@ const AdminHeader = React.forwardRef<HTMLElement, AdminHeaderProps>(
       blur = false,
       // Behavior
       maxNotifications = 5,
+      autoHideSearch = false,
       showBreadcrumbs = false,
       breadcrumbs = [],
     },
@@ -584,6 +601,7 @@ const AdminHeader = React.forwardRef<HTMLElement, AdminHeaderProps>(
   ) => {
     const [notificationsOpen, setNotificationsOpen] = useState(false);
     const [userMenuOpen, setUserMenuOpen] = useState(false);
+    const [searchHidden, setSearchHidden] = useState(autoHideSearch);
     const notificationsRef = useRef<HTMLDivElement>(null);
     const userMenuRef = useRef<HTMLDivElement>(null);
 
@@ -678,16 +696,33 @@ const AdminHeader = React.forwardRef<HTMLElement, AdminHeaderProps>(
           <div className="lxs-admin-header-center">
             {/* Search */}
             {showSearch && (
-              <SearchBar
-                value={searchValue}
-                onChange={onSearchChange}
-                onSubmit={onSearchSubmit}
-                onFocus={onSearchFocus}
-                placeholder={searchPlaceholder}
-                loading={searchLoading}
-                suggestions={searchSuggestions}
-                icon={searchIcon}
-              />
+              autoHideSearch && searchHidden ? (
+                <button
+                  className="lxs-admin-header-icon-button"
+                  onClick={() => setSearchHidden(false)}
+                  aria-label="Search"
+                  type="button"
+                >
+                  {searchIcon || <SearchIcon />}
+                </button>
+              ) : (
+                <SearchBar
+                  value={searchValue}
+                  onChange={onSearchChange}
+                  onSubmit={onSearchSubmit}
+                  onFocus={onSearchFocus}
+                  onBlur={() => {
+                    if (autoHideSearch) {
+                      setSearchHidden(true);
+                    }
+                  }}
+                  placeholder={searchPlaceholder}
+                  loading={searchLoading}
+                  suggestions={searchSuggestions}
+                  icon={searchIcon}
+                  autoFocus={autoHideSearch}
+                />
+              )
             )}
 
             {centerContent}
@@ -766,46 +801,81 @@ const AdminHeader = React.forwardRef<HTMLElement, AdminHeaderProps>(
             {/* User Menu */}
             {showUserMenu && userName && (
               <div className="lxs-admin-header-user" ref={userMenuRef}>
-                <button
+                <div
                   className={`lxs-admin-header-user-button ${
                     userMenuOpen ? 'lxs-admin-header-user-button--active' : ''
                   }`}
-                  onClick={() => {
-                    if (userMenuItems.length > 0) {
-                      setUserMenuOpen(!userMenuOpen);
-                    } else {
-                      onUserAvatarClick?.();
-                    }
-                  }}
-                  aria-label="User menu"
-                  type="button"
+                  style={{ cursor: 'default' }}
                 >
-                  {userAvatar ? (
-                    <Avatar
-                      src={userAvatar}
-                      alt={userName}
-                      size="sm"
-                      className="lxs-admin-header-user-avatar"
-                    />
+                  {onUserAvatarClick ? (
+                    <button
+                      type="button"
+                      onClick={onUserAvatarClick}
+                      aria-label="User profile"
+                      className="lxs-admin-header-user-avatar-trigger"
+                      style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', display: 'flex', outlineOffset: '2px', borderRadius: '50%' }}
+                    >
+                      {userAvatar ? (
+                        <div style={{ width: 32, height: 32, borderRadius: '50%', overflow: 'hidden' }}>
+                          <Avatar
+                            src={userAvatar}
+                            alt={userName}
+                            size="sm"
+                            className="lxs-admin-header-user-avatar"
+                          />
+                        </div>
+                      ) : (
+                        <div className="lxs-admin-header-user-avatar lxs-admin-header-user-avatar-fallback">
+                          {userAvatarFallback || userName.charAt(0).toUpperCase()}
+                        </div>
+                      )}
+                    </button>
                   ) : (
-                    <div className="lxs-admin-header-user-avatar lxs-admin-header-user-avatar-fallback">
-                      {userAvatarFallback || userName.charAt(0).toUpperCase()}
-                    </div>
+                    userAvatar ? (
+                      <div style={{ width: 32, height: 32, borderRadius: '50%', overflow: 'hidden' }}>
+                        <Avatar
+                          src={userAvatar}
+                          alt={userName}
+                          size="sm"
+                          className="lxs-admin-header-user-avatar"
+                        />
+                      </div>
+                    ) : (
+                      <div className="lxs-admin-header-user-avatar lxs-admin-header-user-avatar-fallback">
+                        {userAvatarFallback || userName.charAt(0).toUpperCase()}
+                      </div>
+                    )
                   )}
-                  <div className="lxs-admin-header-user-info">
-                    <Typography variant="body2" noMargin className="lxs-admin-header-user-name">
-                      {userName}
-                    </Typography>
-                    {userRole && (
-                      <Typography variant="caption" noMargin className="lxs-admin-header-user-role">
-                        {userRole}
-                      </Typography>
-                    )}
-                  </div>
-                  {userMenuItems.length > 0 && (
-                    <ChevronDownIcon />
+
+                  {(userName || userMenuItems.length > 0) && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (userMenuItems.length > 0) {
+                          setUserMenuOpen(!userMenuOpen);
+                        } else if (!onUserAvatarClick) {
+                          // Optional fallback if no onUserAvatarClick but someone clicks the name
+                        }
+                      }}
+                      aria-label="User menu"
+                      style={{ background: 'none', border: 'none', padding: 0, cursor: userMenuItems.length > 0 ? 'pointer' : 'default', display: 'flex', alignItems: 'center', gap: 'var(--lxs-spacing-2, 0.5rem)', textAlign: 'left', outlineOffset: '2px', borderRadius: '4px' }}
+                    >
+                      <div className="lxs-admin-header-user-info">
+                        <Typography variant="body2" noMargin className="lxs-admin-header-user-name">
+                          {userName}
+                        </Typography>
+                        {userRole && (
+                          <Typography variant="caption" noMargin className="lxs-admin-header-user-role">
+                            {userRole}
+                          </Typography>
+                        )}
+                      </div>
+                      {userMenuItems.length > 0 && (
+                        <ChevronDownIcon />
+                      )}
+                    </button>
                   )}
-                </button>
+                </div>
                 {userMenuOpen && userMenuItems.length > 0 && (
                   <UserMenu items={userMenuItems} onClose={() => setUserMenuOpen(false)} />
                 )}

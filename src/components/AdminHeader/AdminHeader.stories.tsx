@@ -491,6 +491,83 @@ export const TransparentWithBlur: Story = {
 };
 
 /**
+ * Fully Interactive example combining multiple features including blur, autoHideSearch, and onUserAvatarClick
+ */
+export const InteractiveFull: Story = {
+  render: () => {
+    const [searchValue, setSearchValue] = useState('');
+    const [showSuggestions, setShowSuggestions] = useState(false);
+    const [notifications, setNotifications] = useState(mockNotifications);
+
+    const handleNotificationClick = (notification: NotificationItem) => {
+      console.log('Clicked:', notification);
+      setNotifications((prev) =>
+        prev.map((n) => (n.id === notification.id ? { ...n, read: true } : n))
+      );
+    };
+
+    const handleMarkAllAsRead = () => {
+      setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+    };
+
+    const handleClearAll = () => {
+      setNotifications([]);
+    };
+
+    return (
+      <div style={{ height: '200vh', background: 'url(https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&q=80) center/cover', padding: '20px 0' }}>
+        <AdminHeader
+          logo={
+            <div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--lxs-color-primary-500)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold' }}>
+              V
+            </div>
+          }
+          title="Interactive Demo"
+          subtitle="All features enabled"
+          onToggleSidebar={() => console.log('Toggle sidebar')}
+          showSearch
+          autoHideSearch
+          searchValue={searchValue}
+          onSearchChange={(val) => {
+            setSearchValue(val);
+            setShowSuggestions(val.length > 0);
+          }}
+          onSearchSubmit={(val) => console.log('Search submit:', val)}
+          searchSuggestions={showSuggestions ? mockSearchSuggestions : []}
+          searchPlaceholder="Search (auto-hides on blur)..."
+          notifications={notifications}
+          onNotificationClick={handleNotificationClick}
+          onMarkAllAsRead={handleMarkAllAsRead}
+          onClearAllNotifications={handleClearAll}
+          quickActions={mockQuickActions}
+          userName="Interactive User"
+          userRole="Demo Role"
+          userAvatar="https://i.pravatar.cc/150?img=11"
+          userMenuItems={mockUserMenuItems}
+          onUserAvatarClick={() => alert('Avatar clicked directly!')}
+          variant="default"
+          theme="light"
+          sticky
+          blur
+        />
+        <div style={{ padding: '2rem', color: 'white', marginTop: '2rem', background: 'rgba(0,0,0,0.5)', borderRadius: '8px', margin: '2rem' }}>
+          <h2>Scroll down to see sticky header with blur effect</h2>
+          <p>
+            - Click the search icon to reveal the search input (autoHideSearch is true). Click outside to hide it.
+          </p>
+          <p>
+            - Click the user avatar directly to see the onUserAvatarClick handler fire (note the menu also opens, but the avatar click is now independent).
+          </p>
+          <p>
+            - Notifications can be clicked, marked as read, or cleared.
+          </p>
+        </div>
+      </div>
+    );
+  },
+};
+
+/**
  * Interactive example with notification management
  */
 export const InteractiveNotifications: Story = {
