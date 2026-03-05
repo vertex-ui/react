@@ -68,3 +68,6 @@ const A11yExample = () => (
   </nav>
 );
 ```
+
+## Comprehensive Prop Examples
+For detailed examples showing the usage of every boolean and enum prop individually, as well as custom CSS overrides, refer to the `Timeline.examples.tsx` file.

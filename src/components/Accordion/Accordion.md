@@ -58,3 +58,6 @@ import { Accordion, AccordionItem } from '@/components/Accordion';
 ## 8. Versioning & Maintenance
 - **Stability**: Stable API.
 - **Note**: Ensure `id` props are stable references if dynamically generating items.
+
+## Custom Styling
+Users can pass a `className` or `style` prop to customize the component's appearance. Refer to the examples file for detailed usage with CSS classes.

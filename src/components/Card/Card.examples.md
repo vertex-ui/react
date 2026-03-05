@@ -77,3 +77,6 @@ const A11yExample = () => (
   </Card>
 );
 ```
+
+## Comprehensive Prop Examples
+For detailed examples showing the usage of every boolean and enum prop individually, as well as custom CSS overrides, refer to the `Card.examples.tsx` file.
