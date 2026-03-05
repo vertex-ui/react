@@ -67,31 +67,5 @@ const A11yExample = () => (
 );
 ```
 
-
-## Custom Styling
-
-You can override the default styles of the component by providing a custom `className` or `style` prop, or by defining custom CSS variables if the component supports them.
-
-### Example: overriding via CSS file
-
-**`custom-checkbox.css`**
-```css
-.custom-checkbox {
-  /* Your custom styles here */
-  background-color: #f0f0f0;
-  border-radius: 8px;
-  padding: 16px;
-}
-```
-
-**`Usage.tsx`**
-```tsx
-import { Checkbox } from 'src/components/Checkbox';
-import './custom-checkbox.css';
-
-const StyledExample = () => (
-  <Checkbox className="custom-checkbox">
-    Custom Styled Content
-  </Checkbox>
-);
-```
+## Comprehensive Prop Examples
+For detailed examples showing the usage of every boolean and enum prop individually, as well as custom CSS overrides, refer to the `Checkbox.examples.tsx` file.

@@ -85,31 +85,5 @@ const A11yExample = () => (
 );
 ```
 
-
-## Custom Styling
-
-You can override the default styles of the component by providing a custom `className` or `style` prop, or by defining custom CSS variables if the component supports them.
-
-### Example: overriding via CSS file
-
-**`custom-table.css`**
-```css
-.custom-table {
-  /* Your custom styles here */
-  background-color: #f0f0f0;
-  border-radius: 8px;
-  padding: 16px;
-}
-```
-
-**`Usage.tsx`**
-```tsx
-import { Table } from 'src/components/Table';
-import './custom-table.css';
-
-const StyledExample = () => (
-  <Table className="custom-table">
-    Custom Styled Content
-  </Table>
-);
-```
+## Comprehensive Prop Examples
+For detailed examples showing the usage of every boolean and enum prop individually, as well as custom CSS overrides, refer to the `Table.examples.tsx` file.

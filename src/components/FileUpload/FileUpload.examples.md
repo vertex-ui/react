@@ -68,31 +68,5 @@ const A11yExample = () => (
 );
 ```
 
-
-## Custom Styling
-
-You can override the default styles of the component by providing a custom `className` or `style` prop, or by defining custom CSS variables if the component supports them.
-
-### Example: overriding via CSS file
-
-**`custom-fileupload.css`**
-```css
-.custom-fileupload {
-  /* Your custom styles here */
-  background-color: #f0f0f0;
-  border-radius: 8px;
-  padding: 16px;
-}
-```
-
-**`Usage.tsx`**
-```tsx
-import { FileUpload } from 'src/components/FileUpload';
-import './custom-fileupload.css';
-
-const StyledExample = () => (
-  <FileUpload className="custom-fileupload">
-    Custom Styled Content
-  </FileUpload>
-);
-```
+## Comprehensive Prop Examples
+For detailed examples showing the usage of every boolean and enum prop individually, as well as custom CSS overrides, refer to the `FileUpload.examples.tsx` file.

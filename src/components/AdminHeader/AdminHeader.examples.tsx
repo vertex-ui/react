@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { AdminHeader } from './AdminHeader';
-import './custom-adminheader.css';
 import type { NotificationItem, UserMenuItem, QuickAction, SearchSuggestion } from './AdminHeader';
 import {
   HomeIcon,
@@ -522,46 +521,6 @@ export const AdminHeaderShowcase = () => {
           <p>Corporate portal content...</p>
         </div>
       </div>
-
-      {/* Boolean States Combinations */}
-      <section style={{ padding: '20px', backgroundColor: '#f9fafb', borderTop: '1px solid #eee' }}>
-        <h2>Boolean State Combinations</h2>
-        <p>Combining multiple boolean state props (sticky, blur, showSearch, showBreadcrumbs, showNotifications, showQuickActions).</p>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <AdminHeader
-            logo={<div style={{ fontWeight: 'bold' }}>All Enabled</div>}
-            userName="John Doe"
-            showSearch={true}
-            showBreadcrumbs={true}
-            showNotifications={true}
-            sticky={true}
-            blur={true}
-            breadcrumbs={[{ label: 'Home' }, { label: 'Dash' }]}
-            quickActions={[{ id: '1', label: 'Add', icon: <PlusIcon /> }]}
-          />
-          <AdminHeader
-            logo={<div style={{ fontWeight: 'bold' }}>All Disabled</div>}
-            userName="John Doe"
-            showSearch={false}
-            showBreadcrumbs={false}
-            showNotifications={false}
-            sticky={false}
-            blur={false}
-          />
-        </div>
-      </section>
-
-      {/* Custom Styles overrides */}
-      <section style={{ padding: '20px', backgroundColor: '#ffffff', borderTop: '1px solid #eee' }}>
-        <h2>Custom CSS Override</h2>
-        <p>You can supply custom CSS class names to style specific occurrences. (requires external custom-adminheader.css or overriding internally)</p>
-        <div>
-          <AdminHeader
-            logo={<div style={{ fontWeight: 'bold' }}>Custom Styled Header</div>}
-            className="custom-adminheader"
-          />
-        </div>
-      </section>
     </div>
   );
 };

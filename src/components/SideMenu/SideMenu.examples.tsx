@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { SideMenu } from './SideMenu';
-import './custom-sidemenu.css';
 
 /**
  * Example: Basic Layout with Collapsible Sidebar
@@ -196,46 +195,16 @@ export const SimpleExample = () => {
   ];
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', flexDirection: 'column' }}>
-      <div style={{ display: 'flex', flex: 1 }}>
-        <SideMenu
-          items={menuItems}
-          header={<h2 style={{ margin: 0 }}>My App</h2>}
-        />
+    <div style={{ display: 'flex', minHeight: '100vh' }}>
+      <SideMenu
+        items={menuItems}
+        header={<h2 style={{ margin: 0 }}>My App</h2>}
+      />
 
-        <main style={{ flex: 1, padding: '20px', backgroundColor: '#ffffff' }}>
-          <h1>Simple Sidebar Example</h1>
-          <p>A basic sidebar without collapse functionality.</p>
-        </main>
-      </div>
-
-      {/* Boolean States Combinations */}
-      <section style={{ padding: '20px', backgroundColor: '#f9fafb', borderTop: '1px solid #eee' }}>
-        <h2>Boolean State Combinations</h2>
-        <p>Combining multiple boolean state props (collapsed, collapsible, darkText).</p>
-        <div style={{ display: 'flex', gap: '20px', height: '400px' }}>
-          <SideMenu
-            items={menuItems}
-            collapsed={true}
-          />
-          <SideMenu
-            items={menuItems}
-            collapsed={false}
-          />
-        </div>
-      </section>
-
-      {/* Custom Styles overrides */}
-      <section style={{ padding: '20px', backgroundColor: '#ffffff', borderTop: '1px solid #eee' }}>
-        <h2>Custom CSS Override</h2>
-        <p>You can supply custom CSS class names to style specific occurrences. (requires external custom-sidemenu.css or overriding internally)</p>
-        <div style={{ height: '400px' }}>
-          <SideMenu
-            items={menuItems}
-            className="custom-sidemenu"
-          />
-        </div>
-      </section>
+      <main style={{ flex: 1, padding: '20px', backgroundColor: '#ffffff' }}>
+        <h1>Simple Sidebar Example</h1>
+        <p>A basic sidebar without collapse functionality.</p>
+      </main>
     </div>
   );
 };

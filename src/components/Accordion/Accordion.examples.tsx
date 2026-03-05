@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { Accordion } from './index';
-import './custom-accordion.css';
 
 /**
  * Beautiful, comprehensive examples showcasing the redesigned Accordion component
@@ -138,59 +137,6 @@ export const AccordionExamples: React.FC = () => {
     <div style={{ maxWidth: '800px', margin: '0 auto', padding: '2rem' }}>
       <h1>🎨 VTX Accordion Component Showcase</h1>
       
-      {/* Boolean States Combinations */}
-      <section style={{ marginBottom: '3rem' }}>
-        <h2>Boolean State Combinations</h2>
-        <p>Combining multiple boolean state props (disabled, loading).</p>
-        <Accordion
-          items={basicItems}
-          variant="default"
-          size="md"
-          allowMultiple={true}
-          disabled={false}
-          loading={false}
-          showChevron={true}
-          showDivider={true}
-          collapsible={true}
-        />
-        <br />
-        <Accordion
-          items={basicItems}
-          variant="default"
-          size="md"
-          allowMultiple={true}
-          disabled={true}
-          loading={false}
-          showChevron={true}
-          showDivider={true}
-          collapsible={true}
-        />
-        <br />
-        <Accordion
-          items={basicItems}
-          variant="default"
-          size="md"
-          allowMultiple={true}
-          disabled={false}
-          loading={true}
-          showChevron={true}
-          showDivider={true}
-          collapsible={true}
-        />
-      </section>
-
-      {/* Custom Styles overrides */}
-      <section style={{ marginBottom: '3rem' }}>
-        <h2>Custom CSS Override</h2>
-        <p>You can supply custom CSS class names to style specific occurrences. (requires external custom-accordion.css or overriding internally)</p>
-        <Accordion
-          items={basicItems}
-          variant="default"
-          size="md"
-          className="custom-accordion"
-        />
-      </section>
-
       {/* Basic Default Accordion */}
       <section style={{ marginBottom: '3rem' }}>
         <h2>Default Variant</h2>

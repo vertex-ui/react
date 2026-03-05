@@ -77,31 +77,5 @@ const A11yExample = () => (
 );
 ```
 
-
-## Custom Styling
-
-You can override the default styles of the component by providing a custom `className` or `style` prop, or by defining custom CSS variables if the component supports them.
-
-### Example: overriding via CSS file
-
-**`custom-rating.css`**
-```css
-.custom-rating {
-  /* Your custom styles here */
-  background-color: #f0f0f0;
-  border-radius: 8px;
-  padding: 16px;
-}
-```
-
-**`Usage.tsx`**
-```tsx
-import { Rating } from 'src/components/Rating';
-import './custom-rating.css';
-
-const StyledExample = () => (
-  <Rating className="custom-rating">
-    Custom Styled Content
-  </Rating>
-);
-```
+## Comprehensive Prop Examples
+For detailed examples showing the usage of every boolean and enum prop individually, as well as custom CSS overrides, refer to the `Rating.examples.tsx` file.

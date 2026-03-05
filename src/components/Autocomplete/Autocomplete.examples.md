@@ -85,31 +85,5 @@ const A11yExample = () => (
 );
 ```
 
-
-## Custom Styling
-
-You can override the default styles of the component by providing a custom `className` or `style` prop, or by defining custom CSS variables if the component supports them.
-
-### Example: overriding via CSS file
-
-**`custom-autocomplete.css`**
-```css
-.custom-autocomplete {
-  /* Your custom styles here */
-  background-color: #f0f0f0;
-  border-radius: 8px;
-  padding: 16px;
-}
-```
-
-**`Usage.tsx`**
-```tsx
-import { Autocomplete } from 'src/components/Autocomplete';
-import './custom-autocomplete.css';
-
-const StyledExample = () => (
-  <Autocomplete className="custom-autocomplete">
-    Custom Styled Content
-  </Autocomplete>
-);
-```
+## Comprehensive Prop Examples
+For detailed examples showing the usage of every boolean and enum prop individually, as well as custom CSS overrides, refer to the `Autocomplete.examples.tsx` file.

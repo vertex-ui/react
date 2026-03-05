@@ -73,31 +73,5 @@ const A11yExample = () => (
 );
 ```
 
-
-## Custom Styling
-
-You can override the default styles of the component by providing a custom `className` or `style` prop, or by defining custom CSS variables if the component supports them.
-
-### Example: overriding via CSS file
-
-**`custom-flex.css`**
-```css
-.custom-flex {
-  /* Your custom styles here */
-  background-color: #f0f0f0;
-  border-radius: 8px;
-  padding: 16px;
-}
-```
-
-**`Usage.tsx`**
-```tsx
-import { Flex } from 'src/components/Flex';
-import './custom-flex.css';
-
-const StyledExample = () => (
-  <Flex className="custom-flex">
-    Custom Styled Content
-  </Flex>
-);
-```
+## Comprehensive Prop Examples
+For detailed examples showing the usage of every boolean and enum prop individually, as well as custom CSS overrides, refer to the `Flex.examples.tsx` file.
