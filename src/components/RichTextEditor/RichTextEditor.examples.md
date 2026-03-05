@@ -63,25 +63,3 @@ const A11yExample = () => (
   />
 );
 ```
-
-
-## States Example
-
-Demonstrating different states of the RichTextEditor.
-
-```tsx
-import { RichTextEditor } from 'src/components/RichTextEditor';
-
-const StatesExample = () => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-    <div>
-      <h3>Normal State</h3>
-      <RichTextEditor value="<p>Hello World</p>" onChange={() => {}} />
-    </div>
-    <div>
-      <h3>Disabled State</h3>
-      <RichTextEditor value="<p>Hello World</p>" onChange={() => {}} disabled />
-    </div>
-  </div>
-);
-```

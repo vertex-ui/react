@@ -73,25 +73,3 @@ const A11yExample = () => (
   />
 );
 ```
-
-
-## States Example
-
-Demonstrating different states of the DatePicker.
-
-```tsx
-import { DatePicker } from 'src/components/DatePicker';
-
-const StatesExample = () => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-    <div>
-      <h3>Normal State</h3>
-      <DatePicker onChange={(date) => console.log(date)} />
-    </div>
-    <div>
-      <h3>Disabled State</h3>
-      <DatePicker onChange={(date) => console.log(date)} disabled />
-    </div>
-  </div>
-);
-```

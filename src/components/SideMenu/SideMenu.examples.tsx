@@ -1,4 +1,5 @@
 "use client";
+import './SideMenu.examples.css';
 
 import { useState } from 'react';
 import { SideMenu } from './SideMenu';
@@ -220,3 +221,35 @@ const HomeIcon = () => <span>🏠</span>;
 const FolderIcon = () => <span>📁</span>;
 const CalendarIcon = () => <span>📅</span>;
 const FileIcon = () => <span>📄</span>;
+
+
+
+export const SideMenuStatesExamples: React.FC = () => {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', padding: '2rem' }}>
+      <h2>SideMenu Examples</h2>
+
+      <section>
+        <h3>Standard States</h3>
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+          <div>
+            <h4>Normal</h4>
+            <SideMenu items={[{ id: '1', label: 'Dashboard', icon: 'home' }]} />
+          </div>
+          <div>
+            <h4>Disabled</h4>
+            <SideMenu items={[{ id: '1', label: 'Dashboard', icon: 'home' }]} disabled />
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h3>Custom CSS Override</h3>
+        <p>Using <code>className="custom-sidemenu"</code> to override standard properties like background-color, color, border-radius, border-color.</p>
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <SideMenu items={[{ id: '1', label: 'Dashboard', icon: 'home' }]} className="custom-sidemenu" />
+        </div>
+      </section>
+    </div>
+  );
+};

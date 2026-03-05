@@ -84,33 +84,3 @@ const A11yExample = () => (
   />
 );
 ```
-
-
-## States Example
-
-Demonstrating different states of the Autocomplete.
-
-```tsx
-import { Autocomplete } from 'src/components/Autocomplete';
-
-const StatesExample = () => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-    <div>
-      <h3>Normal State</h3>
-      <Autocomplete options={[{ value: 'apple', label: 'Apple' }, { value: 'banana', label: 'Banana' }]} placeholder="Search..." />
-    </div>
-    <div>
-      <h3>Disabled State</h3>
-      <Autocomplete options={[{ value: 'apple', label: 'Apple' }, { value: 'banana', label: 'Banana' }]} placeholder="Search..." disabled />
-    </div>
-    <div>
-      <h3>Loading State</h3>
-      <Autocomplete options={[{ value: 'apple', label: 'Apple' }, { value: 'banana', label: 'Banana' }]} placeholder="Search..." loading />
-    </div>
-    <div>
-      <h3>Loading & Disabled State</h3>
-      <Autocomplete options={[{ value: 'apple', label: 'Apple' }, { value: 'banana', label: 'Banana' }]} placeholder="Search..." loading disabled />
-    </div>
-  </div>
-);
-```

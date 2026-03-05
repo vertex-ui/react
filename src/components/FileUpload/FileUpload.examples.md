@@ -67,25 +67,3 @@ const A11yExample = () => (
   />
 );
 ```
-
-
-## States Example
-
-Demonstrating different states of the FileUpload.
-
-```tsx
-import { FileUpload } from 'src/components/FileUpload';
-
-const StatesExample = () => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-    <div>
-      <h3>Normal State</h3>
-      <FileUpload onUpload={(files) => console.log(files)} />
-    </div>
-    <div>
-      <h3>Disabled State</h3>
-      <FileUpload onUpload={(files) => console.log(files)} disabled />
-    </div>
-  </div>
-);
-```

@@ -74,33 +74,3 @@ const A11yExample = () => (
   />
 );
 ```
-
-
-## States Example
-
-Demonstrating different states of the Select.
-
-```tsx
-import { Select } from 'src/components/Select';
-
-const StatesExample = () => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-    <div>
-      <h3>Normal State</h3>
-      <Select options={[{ value: '1', label: 'Option 1' }, { value: '2', label: 'Option 2' }]} placeholder="Select an option" />
-    </div>
-    <div>
-      <h3>Disabled State</h3>
-      <Select options={[{ value: '1', label: 'Option 1' }, { value: '2', label: 'Option 2' }]} placeholder="Select an option" disabled />
-    </div>
-    <div>
-      <h3>Loading State</h3>
-      <Select options={[{ value: '1', label: 'Option 1' }, { value: '2', label: 'Option 2' }]} placeholder="Select an option" loading />
-    </div>
-    <div>
-      <h3>Loading & Disabled State</h3>
-      <Select options={[{ value: '1', label: 'Option 1' }, { value: '2', label: 'Option 2' }]} placeholder="Select an option" loading disabled />
-    </div>
-  </div>
-);
-```

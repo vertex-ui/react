@@ -80,25 +80,3 @@ const A11yExample = () => (
   />
 );
 ```
-
-
-## States Example
-
-Demonstrating different states of the DataGrid.
-
-```tsx
-import { DataGrid } from 'src/components/DataGrid';
-
-const StatesExample = () => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-    <div>
-      <h3>Normal State</h3>
-      <DataGrid columns={[{ key: 'id', header: 'ID' }, { key: 'name', header: 'Name' }]} data={[{ id: 1, name: 'John Doe' }]} />
-    </div>
-    <div>
-      <h3>Loading State</h3>
-      <DataGrid columns={[{ key: 'id', header: 'ID' }, { key: 'name', header: 'Name' }]} data={[{ id: 1, name: 'John Doe' }]} loading />
-    </div>
-  </div>
-);
-```

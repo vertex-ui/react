@@ -64,25 +64,3 @@ const A11yExample = () => (
   />
 );
 ```
-
-
-## States Example
-
-Demonstrating different states of the ToggleButton.
-
-```tsx
-import { ToggleButton } from 'src/components/ToggleButton';
-
-const StatesExample = () => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-    <div>
-      <h3>Normal State</h3>
-      <ToggleButton label="Toggle Option" checked={true} onChange={() => {}} />
-    </div>
-    <div>
-      <h3>Disabled State</h3>
-      <ToggleButton label="Toggle Option" checked={true} onChange={() => {}} disabled />
-    </div>
-  </div>
-);
-```

@@ -65,29 +65,3 @@ const A11yExample = () => (
   </Link>
 );
 ```
-
-
-## States Example
-
-Demonstrating different states of the Link.
-
-```tsx
-import { Link } from 'src/components/Link';
-
-const StatesExample = () => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-    <div>
-      <h3>Normal State</h3>
-      <Link href="#">
-        Click Here
-      </Link>
-    </div>
-    <div>
-      <h3>Disabled State</h3>
-      <Link href="#" disabled>
-        Click Here
-      </Link>
-    </div>
-  </div>
-);
-```

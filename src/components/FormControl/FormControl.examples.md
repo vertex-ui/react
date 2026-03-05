@@ -74,29 +74,3 @@ const A11yExample = () => (
   </FormControl>
 );
 ```
-
-
-## States Example
-
-Demonstrating different states of the FormControl.
-
-```tsx
-import { FormControl } from 'src/components/FormControl';
-
-const StatesExample = () => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-    <div>
-      <h3>Normal State</h3>
-      <FormControl label="Email Address">
-        <input type="email" />
-      </FormControl>
-    </div>
-    <div>
-      <h3>Disabled State</h3>
-      <FormControl label="Email Address" disabled>
-        <input type="email" />
-      </FormControl>
-    </div>
-  </div>
-);
-```
