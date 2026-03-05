@@ -458,6 +458,45 @@ export interface BoxProps extends React.HTMLAttributes<HTMLElement> {
 /**
  * Convert value to CSS string (adds px for numbers)
  */
+
+/**
+ * Resolve color token to CSS variable
+ */
+const resolveColor = (value: string | undefined): string | undefined => {
+  if (!value) return undefined;
+  if (value.startsWith('#') || value.startsWith('rgb') || value.startsWith('hsl') || value.startsWith('var')) {
+    return value;
+  }
+
+  if (value.includes('.')) {
+    const [color, shade] = value.split('.');
+    return `var(--lxs-color-${color}-${shade})`;
+  }
+
+  const simpleColors = ['primary', 'secondary', 'success', 'warning', 'error', 'danger', 'info', 'neutral'];
+  if (simpleColors.includes(value)) {
+    return `var(--lxs-color-${value}-600)`;
+  }
+
+  if (value === 'white' || value === 'black' || value === 'transparent' || value === 'currentColor' || value === 'inherit') {
+    return value === 'white' ? 'var(--lxs-color-white)' :
+           value === 'black' ? 'var(--lxs-color-black)' : value;
+  }
+
+  return value;
+};
+
+/**
+ * Resolve border value to CSS string
+ */
+const resolveBorder = (value: string | number | undefined): string | undefined => {
+  if (value === undefined) return undefined;
+  if (typeof value === 'number') {
+    return `${value}px solid var(--lxs-color-border-default, #e5e7eb)`;
+  }
+  return value;
+};
+
 const toCSSValue = (value: string | number | undefined): string | undefined => {
   if (value === undefined) return undefined;
   if (typeof value === 'number') return `${value}px`;
@@ -648,12 +687,12 @@ const Box = React.forwardRef<HTMLElement, BoxProps>(
 
     // Background
     if (bg || backgroundColor) {
-      inlineStyles.backgroundColor = bg || backgroundColor;
+      inlineStyles.backgroundColor = resolveColor(bg || backgroundColor);
     }
 
     // Color
     if (color) {
-      inlineStyles.color = color;
+      inlineStyles.color = resolveColor(color);
     }
 
     // Dimensions
@@ -728,29 +767,31 @@ const Box = React.forwardRef<HTMLElement, BoxProps>(
       }
     }
 
+
     // Border
     if (border !== undefined) {
-      inlineStyles.border = toCSSValue(border);
-    }
-    if (borderColor) {
-      inlineStyles.borderColor = borderColor;
+      inlineStyles.border = resolveBorder(border);
     }
     if (borderRadius !== undefined || rounded !== undefined) {
       inlineStyles.borderRadius = toCSSValue(borderRadius ?? rounded);
     }
     if (borderTop !== undefined) {
-      inlineStyles.borderTop = toCSSValue(borderTop);
+      inlineStyles.borderTop = resolveBorder(borderTop);
     }
     if (borderRight !== undefined) {
-      inlineStyles.borderRight = toCSSValue(borderRight);
+      inlineStyles.borderRight = resolveBorder(borderRight);
     }
     if (borderBottom !== undefined) {
-      inlineStyles.borderBottom = toCSSValue(borderBottom);
+      inlineStyles.borderBottom = resolveBorder(borderBottom);
     }
     if (borderLeft !== undefined) {
-      inlineStyles.borderLeft = toCSSValue(borderLeft);
+      inlineStyles.borderLeft = resolveBorder(borderLeft);
     }
 
+    // Apply borderColor LAST so it overrides the default colors set by resolveBorder
+    if (borderColor) {
+      inlineStyles.borderColor = resolveColor(borderColor);
+    }
     // Shadow
     if (shadow && shadow.includes('(')) {
       inlineStyles.boxShadow = shadow;
