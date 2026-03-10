@@ -1,9 +1,9 @@
 "use client";
 
-import React, { Children, isValidElement, useCallback, useState } from "react";
+import React, { Children, isValidElement, useCallback, useState, useMemo, useId } from "react";
 import AccordionItem from "./AccordionItem";
 import { Skeleton } from "../Skeleton";
-import { AccordionProps, AccordionItemProps } from "./types";
+import type { AccordionProps, AccordionItemProps } from "./types";
 import { useThemeContext } from '../../theme';
 import './Accordion.css';
 /**
@@ -32,7 +32,7 @@ import './Accordion.css';
 const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
   (
     {
-      items,
+      items = [],
       children,
       allowMultiple = false,
       defaultOpenItems = [],
@@ -59,22 +59,24 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
   ) => {
     const { theme } = useThemeContext();
     const accordionSize = size ?? theme.defaultSize;
+    const componentId = useId();
 
     // Handle both controlled and uncontrolled modes
-    const [internalOpenItems, setInternalOpenItems] = useState<string[]>(defaultOpenItems);
+    const [internalOpenItems, setInternalOpenItems] = useState<readonly string[]>(defaultOpenItems);
     const isControlled = openItems !== undefined;
     const currentOpenItems = isControlled ? openItems : internalOpenItems;
 
     // Convert children to items if children are provided
-    const accordionItems: AccordionItemProps[] =
-      items ||
-      Children.toArray(children)
+    const accordionItems = useMemo<readonly AccordionItemProps[]>(() => {
+      if (items && items.length > 0) return items;
+
+      return Children.toArray(children)
         .filter((child) => isValidElement(child))
         .map((child, index) => {
           if (isValidElement(child) && child.props) {
             const el = child as React.ReactElement<any>;
             return {
-              id: el.props.id || `accordion-item-${index}`,
+              id: el.props.id || `accordion-${componentId}-item-${index}`,
               header: el.props.header || `Item ${index + 1}`,
               children: el.props.children,
               disabled: el.props.disabled,
@@ -82,11 +84,12 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
             };
           }
           return {
-            id: `accordion-item-${index}`,
+            id: `accordion-${componentId}-item-${index}`,
             header: `Item ${index + 1}`,
-            children: child,
+            children: child as React.ReactNode,
           };
         });
+    }, [items, children, componentId]);
 
     const handleItemToggle = useCallback(
       (itemId: string) => {
@@ -105,7 +108,7 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
           // Only one item can be open at a time
           const alreadyOpen = currentOpenItems.includes(itemId);
           if (alreadyOpen) {
-            newOpenItems = collapsible ? [] : currentOpenItems;
+            newOpenItems = collapsible ? [] : [...currentOpenItems];
           } else {
             newOpenItems = [itemId];
           }
@@ -124,7 +127,10 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
     const skeletonHeightMap = { sm: 14, md: 16, lg: 20 };
     const skeletonPadding = skeletonPaddingMap[accordionSize];
     const skeletonHeight = skeletonHeightMap[accordionSize];
-    const skeletonKeys = Array.from({ length: skeletonCount }, (_, i) => `skeleton-item-${i}`);
+
+    const skeletonKeys = useMemo(() => {
+      return Array.from({ length: skeletonCount }, (_, i) => `skeleton-item-${i}`);
+    }, [skeletonCount]);
 
     return (
       <div
@@ -152,12 +158,13 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
                 <Skeleton variant="circular" width={skeletonHeight + 4} height={skeletonHeight + 4} animation="wave" style={{ flexShrink: 0 }} />
               </div>
             ))
-          : accordionItems.map((item) => (
+          : accordionItems.map((item, index) => (
               <AccordionItem
-                key={item.id}
+                key={item.id ?? `fallback-id-${index}`}
+                id={item.id ?? `fallback-id-${index}`}
                 item={item}
-                isOpen={currentOpenItems.includes(item.id)}
-                onToggle={() => handleItemToggle(item.id)}
+                isOpen={item.id ? currentOpenItems.includes(item.id) : false}
+                onToggle={handleItemToggle}
                 variant={variant}
                 size={accordionSize}
                 showChevron={showChevron}

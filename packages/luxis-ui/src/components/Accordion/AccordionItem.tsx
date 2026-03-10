@@ -1,11 +1,9 @@
 "use client";
 
-
 import { ChevronDownIcon, PlusIcon, MinusIcon } from '../../icons/IconComponents';
-import React, { useRef } from 'react';
-import { AccordionItemComponentProps, AccordionItemProps } from './types';
+import React, { useRef, useCallback, useMemo } from 'react';
+import type { AccordionItemComponentProps, AccordionItemProps } from './types';
 import { useThemeContext } from '../../theme';
-
 
 /**
  * AccordionItem component - A single item within an Accordion.
@@ -19,6 +17,7 @@ const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemComponentPro
   (
     {
       item,
+      id,
       isOpen,
       onToggle,
       variant = 'default',
@@ -38,7 +37,6 @@ const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemComponentPro
     const itemSize = size ?? theme.defaultSize;
     const contentRef = useRef<HTMLDivElement>(null);
     const { 
-      id, 
       header, 
       children, 
       disabled: itemDisabled, 
@@ -52,26 +50,27 @@ const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemComponentPro
     const isDisabled = disabled || itemDisabled;
     const isLoading = loading || itemLoading;
 
-    const handleToggle = () => {
+    const handleToggle = useCallback(() => {
       if (!isDisabled && !isLoading) {
-        onToggle();
+        onToggle(id);
       }
-    };
+    }, [isDisabled, isLoading, onToggle, id]);
 
-    const handleKeyDown = (event: React.KeyboardEvent) => {
+    const handleKeyDown = useCallback((event: React.KeyboardEvent) => {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
         handleToggle();
       }
-    };
+    }, [handleToggle]);
 
-    const getIcon = () => {
+    const renderIcon = useCallback(() => {
       // Use item-specific icons if provided
       if (itemIcon) {
         return (
           <div 
             className={`accordion-item-chevron ${isOpen ? 'open' : ''}`} 
             data-testid={`${dataTestId || id}-custom-icon`}
+            aria-hidden="true"
           >
             {isOpen ? itemIcon.expanded : itemIcon.collapsed}
           </div>
@@ -84,6 +83,7 @@ const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemComponentPro
           <div 
             className={`accordion-item-chevron ${isOpen ? 'open' : ''}`} 
             data-testid={`${dataTestId || id}-custom-icon`}
+            aria-hidden="true"
           >
             {isOpen ? expandedIcon : collapsedIcon}
           </div>
@@ -96,6 +96,7 @@ const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemComponentPro
           <div
             className={`accordion-item-chevron accordion-item-chevron--plus-minus ${isOpen ? 'open' : ''}`}
             data-testid={`${dataTestId || id}-plus-minus-icon`}
+            aria-hidden="true"
           >
             {isOpen ? (
               <MinusIcon size={16} aria-hidden="true" />
@@ -113,11 +114,25 @@ const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemComponentPro
         <div 
           className={`accordion-item-chevron ${isOpen ? 'open' : ''}`} 
           data-testid={`${dataTestId || id}-chevron-icon`}
+          aria-hidden="true"
         >
-          <ChevronDownIcon size={16} aria-hidden="true" style={{ transform: isOpen ? 'rotate(180deg)' : undefined, transition: 'transform 0.2s' }} />
+          <ChevronDownIcon size={16} aria-hidden="true" />
         </div>
       );
-    };
+    }, [
+      itemIcon,
+      isOpen,
+      dataTestId,
+      id,
+      iconType,
+      expandedIcon,
+      collapsedIcon
+    ]);
+
+    const contentStyle = useMemo<React.CSSProperties>(() => ({
+      maxHeight: disableAnimations ? (isOpen ? 'none' : '0') : (isOpen ? 'var(--accordion-content-max-height, 500px)' : '0'),
+      transition: disableAnimations ? 'none' : undefined,
+    }), [disableAnimations, isOpen]);
 
     return (
       <div
@@ -138,6 +153,7 @@ const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemComponentPro
         aria-busy={isLoading}
       >
         <div
+          id={`accordion-header-${id}`}
           className="accordion-item-header"
           role="button"
           tabIndex={isDisabled || isLoading ? -1 : 0}
@@ -150,9 +166,9 @@ const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemComponentPro
           onKeyDown={handleKeyDown}
           data-testid={`${dataTestId || id}-header`}
         >
-          {chevronPosition === 'left' && showChevron && getIcon()}
+          {chevronPosition === 'left' && showChevron && renderIcon()}
           <div className="accordion-item-header-content">{header}</div>
-          {chevronPosition === 'right' && showChevron && getIcon()}
+          {chevronPosition === 'right' && showChevron && renderIcon()}
         </div>
         <div
           id={`accordion-content-${id}`}
@@ -160,10 +176,7 @@ const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemComponentPro
           role="region"
           aria-labelledby={`accordion-header-${id}`}
           ref={contentRef}
-          style={{
-            maxHeight: disableAnimations ? (isOpen ? 'none' : '0') : (isOpen ? '500px' : '0'),
-            transition: disableAnimations ? 'none' : undefined,
-          }}
+          style={contentStyle}
           data-testid={`${dataTestId || id}-content`}
         >
           <div className="accordion-item-body">
@@ -189,12 +202,10 @@ export default AccordionItem as React.FC<
   AccordionItemComponentProps & React.RefAttributes<HTMLDivElement>
 >;
 export { AccordionItem };
-export type { AccordionItemComponentProps, AccordionItemProps };
 
 // Create a simple wrapper component for use as children
 export const AccordionItemWrapper: React.FC<AccordionItemProps> = ({ children, ...props }) => {
   return <div {...props}>{children}</div>;
 };
 
-AccordionItemWrapper.displayName = 'AccordionItem';
-
+AccordionItemWrapper.displayName = 'AccordionItemWrapper';

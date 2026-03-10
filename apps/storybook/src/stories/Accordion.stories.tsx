@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import '@luxis-ui/react/theme/base.css';
 import { Accordion, ThemeProvider } from '@luxis-ui/react';
+import { expect, within, userEvent } from '@storybook/test';
 
 const meta: Meta<typeof Accordion> = {
   title: 'Components/Accordion',
@@ -125,6 +126,26 @@ export const Default: Story = {
   args: {
     items: defaultItems,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const firstHeader = await canvas.findByText('What is Luxis UI?');
+
+    // Test initial state
+    expect(firstHeader.parentElement).toHaveAttribute('aria-expanded', 'false');
+
+    // Test interaction
+    await userEvent.click(firstHeader);
+    expect(firstHeader.parentElement).toHaveAttribute('aria-expanded', 'true');
+
+    // Second item shouldn't be expanded initially
+    const secondHeader = await canvas.findByText('How do I install it?');
+    expect(secondHeader.parentElement).toHaveAttribute('aria-expanded', 'false');
+
+    // Clicking second item should close first item (since allowMultiple is false by default)
+    await userEvent.click(secondHeader);
+    expect(secondHeader.parentElement).toHaveAttribute('aria-expanded', 'true');
+    expect(firstHeader.parentElement).toHaveAttribute('aria-expanded', 'false');
+  },
 };
 
 export const Bordered: Story = {
@@ -153,6 +174,22 @@ export const AllowMultiple: Story = {
     items: defaultItems,
     allowMultiple: true,
     defaultOpenItems: ['item1', 'item2'],
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const firstHeader = await canvas.findByText('What is Luxis UI?');
+    const secondHeader = await canvas.findByText('How do I install it?');
+    const thirdHeader = await canvas.findByText('Does it support dark mode?');
+
+    // Verify default open items
+    expect(firstHeader.parentElement).toHaveAttribute('aria-expanded', 'true');
+    expect(secondHeader.parentElement).toHaveAttribute('aria-expanded', 'true');
+
+    // Click third item to see if it opens while others stay open
+    await userEvent.click(thirdHeader);
+    expect(thirdHeader.parentElement).toHaveAttribute('aria-expanded', 'true');
+    expect(firstHeader.parentElement).toHaveAttribute('aria-expanded', 'true');
+    expect(secondHeader.parentElement).toHaveAttribute('aria-expanded', 'true');
   },
 };
 
@@ -204,4 +241,3 @@ export const ChevronLeft: Story = {
     chevronPosition: 'left',
   },
 };
-
