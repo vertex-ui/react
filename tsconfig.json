@@ -1,50 +1,16 @@
 {
   "compilerOptions": {
-    "target": "ES2019",
+     "target": "ES2020",                  // modern enough for React 18
     "module": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "jsx": "react-jsx",
-
-    "moduleResolution": "bundler",
-    "ignoreDeprecations": "5.0",
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@utils/*": ["src/utils/*"],
-      "@theme/*": ["src/theme/*"],
-      "@icons/*": ["src/icons/*"],
-      "@widgets/*": ["src/widgets/*"],
-      "@hoc/*": ["src/hoc/*"],
-      "@stories/*": ["src/stories/*"]
-    },
-
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-
-    "sourceMap": true,
-
-    "importHelpers": true,
-    "noEmitHelpers": true,
-
+    "jsx": "react-jsx",                   // React 17+ transform
     "strict": true,
-    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "bundler",
+    "esModuleInterop": true,
     "skipLibCheck": true,
-
-    "isolatedModules": true,
-    "resolveJsonModule": true,
-
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-
-    "removeComments": false,
-    "allowJs": false,
-
-    "noEmit": true
-  },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist", "example", "tests"]
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "@luxis-ui/react": ["./packages/luxis-ui/src"]
+    }
+  }
 }

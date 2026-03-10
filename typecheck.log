@@ -1,7 +1,0 @@
-
-> @luxis-ui/react@0.0.1-beta.18 typecheck
-> tsc --noEmit
-
-src/stories/widgets/ProductCard.stories.tsx(55,11): error TS2353: Object literal may only specify known properties, and 'isWishlisted' does not exist in type 'WidgetSettings'.
-src/stories/widgets/ProductCard.stories.tsx(201,11): error TS2353: Object literal may only specify known properties, and 'isWishlisted' does not exist in type 'WidgetSettings'.
-src/stories/widgets/ProductCard.stories.tsx(280,17): error TS2353: Object literal may only specify known properties, and 'isWishlisted' does not exist in type 'WidgetSettings'.
