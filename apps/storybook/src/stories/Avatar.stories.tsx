@@ -2,6 +2,7 @@ import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import '@luxis-ui/react/theme/base.css';
 import { Avatar, ThemeProvider } from '@luxis-ui/react';
+import { expect, within, userEvent } from '@storybook/test';
 
 const meta: Meta<typeof Avatar> = {
   title: 'Components/Avatar',
@@ -96,6 +97,11 @@ export const WithFallbackText: Story = {
   args: {
     src: undefined,
     fallback: 'JD',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const fallbackText = canvas.getByText('JD');
+    expect(fallbackText).toBeInTheDocument();
   },
 };
 

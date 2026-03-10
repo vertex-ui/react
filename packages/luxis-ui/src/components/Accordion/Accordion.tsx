@@ -185,8 +185,5 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
 
 Accordion.displayName = 'Accordion';
 
-export default Accordion as React.FC<
-  AccordionProps & React.RefAttributes<HTMLDivElement>
->;
 export { Accordion };
 export type { AccordionProps } from './types';

@@ -1,7 +1,7 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import '@luxis-ui/react/theme/base.css';
 import { Alert, ThemeProvider } from '@luxis-ui/react';
+import { expect, within, userEvent } from '@storybook/test';
 
 const meta: Meta<typeof Alert> = {
   title: 'Components/Alert',
@@ -188,7 +188,17 @@ export const Dismissible: Story = {
     title: 'Dismissible Alert',
     description: 'Click the close button to dismiss this alert.',
     dismissible: true,
-    onClose: () => console.log('Alert closed'),
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const alertRoot = canvas.getByRole('alert');
+    expect(alertRoot).toBeInTheDocument();
+
+    const closeButton = canvas.getByRole('button', { name: /close alert/i });
+    expect(closeButton).toBeInTheDocument();
+
+    await userEvent.click(closeButton);
+    expect(alertRoot).not.toBeInTheDocument();
   },
 };
 
@@ -257,7 +267,7 @@ export const FullWidth: Story = {
 // ---------- All Variants Showcase ----------
 
 export const AllVariants: Story = {
-  render: (args: React.ComponentProps<typeof Alert>) => (
+  render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
       {(['success', 'error', 'warning', 'info', 'neutral'] as const).map((variant) => (
         <Alert key={variant} {...args} variant={variant} title={variant.charAt(0).toUpperCase() + variant.slice(1)} description={`This is a ${variant} alert.`} />
@@ -273,7 +283,7 @@ export const AllVariants: Story = {
 // ---------- All Styles Showcase ----------
 
 export const AllStyles: Story = {
-  render: (args: React.ComponentProps<typeof Alert>) => (
+  render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
       {(['filled', 'outlined', 'subtle', 'left-accent'] as const).map((alertStyle) => (
         <Alert key={alertStyle} {...args} alertStyle={alertStyle} title={alertStyle} description={`This is the ${alertStyle} style.`} />

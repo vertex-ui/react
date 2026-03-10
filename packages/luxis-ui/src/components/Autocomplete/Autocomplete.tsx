@@ -1,182 +1,11 @@
 "use client";
 
-import React, { InputHTMLAttributes, useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import { useId } from '../../hooks';
-import { Size, useThemeContext } from '../../theme';
+import { useThemeContext } from '../../theme';
 import { SearchIcon, CloseSmallIcon } from '../../icons/IconComponents';
+import type { AutocompleteProps } from './Autocomplete.types';
 import './Autocomplete.css';
-
-export interface AutocompleteOption {
-  /**
-   * Value of the option
-   */
-  value: string;
-  /**
-   * Display label for the option
-   */
-  label: string;
-  /**
-   * Optional description or secondary text
-   */
-  description?: string;
-  /**
-   * If true, option cannot be selected
-   * @default false
-   */
-  disabled?: boolean;
-  /**
-   * Icon to display before label
-   */
-  icon?: React.ReactNode;
-}
-
-export interface AutocompleteProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'onChange' | 'onSelect'> {
-  /**
-   * Label text displayed above the input
-   */
-  label?: string;
-  /**
-   * Helper text displayed below the input
-   * Provides additional context or instructions
-   */
-  helperText?: string;
-  /**
-   * Error message - when provided, input is shown in error state
-   * Takes precedence over helperText when both are present
-   */
-  error?: string;
-  /**
-   * Success message - when provided, input is shown in success state
-   */
-  success?: string;
-  /**
-   * Size of the input
-   * @default theme.defaultSize
-   */
-  size?: Size;
-  /**
-   * If true, input will take full width of its container
-   * @default false
-   */
-  fullWidth?: boolean;
-  /**
-   * Options to display in the autocomplete dropdown
-   */
-  options: any[];
-  /**
-   * Property name or function to extract the display label from each option
-   * @default 'label'
-   * @example
-   * getOptionLabel="productName" // uses option.productName
-   * getOptionLabel={(option) => option.firstName + ' ' + option.lastName}
-   */
-  getOptionLabel?: string | ((option: any) => string);
-  /**
-   * Property name or function to extract the value from each option
-   * @default 'value'
-   * @example
-   * getOptionValue="id" // uses option.id
-   * getOptionValue={(option) => option.uuid}
-   */
-  getOptionValue?: string | ((option: any) => string);
-  /**
-   * Property name or function to determine if an option is disabled
-   * @default 'disabled'
-   * @example
-   * getOptionDisabled="isInactive" // uses option.isInactive
-   * getOptionDisabled={(option) => option.stock === 0}
-   */
-  getOptionDisabled?: string | ((option: any) => boolean);
-  /**
-   * Property name or function to extract the description from each option
-   * @default 'description'
-   */
-  getOptionDescription?: string | ((option: any) => string | undefined);
-  /**
-   * Property name or function to extract the icon from each option
-   * @default 'icon'
-   */
-  getOptionIcon?: string | ((option: any) => React.ReactNode);
-  /**
-   * Message to display when no options are available
-   * @default 'No options'
-   */
-  noOptionsMessage?: string;
-  /**
-   * If true, shows a loading spinner
-   * @default false
-   */
-  loading?: boolean;
-  /**
-   * Loading message to display
-   * @default 'Loading...'
-   */
-  loadingMessage?: string;
-  /**
-   * Callback fired when input value changes
-   */
-  onChange?: (value: string) => void;
-  /**
-   * Callback fired when an option is selected
-   * Provides the selected option and its value
-   */
-  onSelect?: (value: string, option: any) => void;
-  /**
-   * If true, shows search icon on the left
-   * @default false
-   */
-  showSearchIcon?: boolean;
-  /**
-   * If true, shows a clear button when input has value
-   * @default false
-   */
-  clearable?: boolean;
-  /**
-   * Callback fired when clear button is clicked
-   */
-  onClear?: () => void;
-  /**
-   * Custom class name for the wrapper element
-   */
-  wrapperClassName?: string;
-  /**
-   * Custom class name for the label element
-   */
-  labelClassName?: string;
-  /**
-   * Custom class name for the input element itself
-   */
-  inputClassName?: string;
-  /**
-   * Custom class name for the dropdown element
-   */
-  dropdownClassName?: string;
-  /**
-   * Custom render function for options
-   */
-  renderOption?: (option: any, index: number) => React.ReactNode;
-  /**
-   * Input value (controlled)
-   */
-  value?: string;
-  /**
-   * If true, opens dropdown on focus even if input is empty
-   * @default true
-   */
-  openOnFocus?: boolean;
-  /**
-   * Minimum characters to type before showing options
-   * @default 0
-   */
-  minSearchLength?: number;
-  /**
-   * If true, disables built-in client-side filtering.
-   * Use this for async/server-side search where you supply pre-filtered options via `onChange`.
-   * @default false
-   */
-  disableClientFilter?: boolean;
-}
 
 /**
  * Autocomplete component - Text input with dropdown suggestions
@@ -185,39 +14,13 @@ export interface AutocompleteProps
  * validation states, loading states, and rich features like icons and descriptions.
  *
  * @example
- * Basic usage
- * ```tsx
  * <Autocomplete
  *   label="Search"
  *   placeholder="Type to search..."
  *   options={searchResults}
- *   onSelect={(value, option) => console.log('Selected:', value, option)}
+ *   onSelectOption={(value, option) => console.log('Selected:', value, option)}
  *   onChange={(value) => fetchResults(value)}
  * />
- * ```
- *
- * @example
- * With custom getters
- * ```tsx
- * <Autocomplete
- *   options={products}
- *   getOptionLabel={(opt) => opt.name}
- *   getOptionValue={(opt) => opt.id}
- *   getOptionDescription={(opt) => opt.category}
- *   onSelect={(value, option) => navigate(`/product/${value}`)}
- * />
- * ```
- *
- * @example
- * With loading state
- * ```tsx
- * <Autocomplete
- *   loading={isLoading}
- *   loadingMessage="Searching..."
- *   options={results}
- *   showSearchIcon
- * />
- * ```
  */
 const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
   (
@@ -238,7 +41,7 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
       loading = false,
       loadingMessage = 'Loading...',
       onChange,
-      onSelect,
+      onSelectOption,
       showSearchIcon = false,
       clearable = false,
       onClear,
@@ -287,20 +90,21 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
     const activeSearchQuery = isControlled ? controlledValue : searchQuery;
 
     // Helper to safely extract value from option using string key or function
-    const extractValue = (option: any, getter: string | ((option: any) => any)): any => {
+    const extractValue = useCallback((option: any, getter: any): any => {
       if (typeof getter === 'function') {
         return getter(option);
       }
-      return typeof option === 'object' ? option[getter] : option;
-    };
+      return typeof option === 'object' && option !== null ? option[getter] : option;
+    }, []);
 
-    const filteredOptions =
-      disableClientFilter || !activeSearchQuery
+    const filteredOptions = useMemo(() => {
+      return disableClientFilter || !activeSearchQuery
         ? options
         : options.filter((option) => {
-            const label = String(extractValue(option, getOptionLabel));
-            return label.toLowerCase().includes(activeSearchQuery.toLowerCase());
+            const labelValue = String(extractValue(option, getOptionLabel));
+            return labelValue.toLowerCase().includes(activeSearchQuery.toLowerCase());
           });
+    }, [disableClientFilter, activeSearchQuery, options, extractValue, getOptionLabel]);
 
     const hasError = Boolean(error);
     const hasSuccess = Boolean(success) && !hasError;
@@ -368,7 +172,7 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
       setHighlightedIndex(-1);
     }, [filteredOptions.length]);
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
       const newValue = e.target.value;
       if (!isControlled) {
         setInternalValue(newValue);
@@ -377,18 +181,18 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
       setIsOpen(true);
       setHighlightedIndex(-1);
       onChange?.(newValue);
-    };
+    }, [isControlled, onChange]);
 
-    const handleInputFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    const handleInputFocus = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
       setIsFocused(true);
       if (openOnFocus && !suppressNextOpenRef.current) {
         setIsOpen(true);
       }
       suppressNextOpenRef.current = false;
       onFocus?.(e);
-    };
+    }, [openOnFocus, onFocus]);
 
-    const handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const handleInputBlur = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
       // Delay to allow option click to register
       setTimeout(() => {
         if (!wrapperRef.current?.contains(document.activeElement)) {
@@ -397,28 +201,29 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
         }
       }, 200);
       onBlur?.(e);
-    };
+    }, [onBlur]);
 
-    const handleOptionClick = (option: any) => {
+    const handleOptionClick = useCallback((option: any) => {
       if (extractValue(option, getOptionDisabled)) {
         return;
       }
 
       const value = String(extractValue(option, getOptionValue));
-      const label = String(extractValue(option, getOptionLabel));
+      const labelStr = String(extractValue(option, getOptionLabel));
 
       if (!isControlled) {
-        setInternalValue(label);
+        setInternalValue(labelStr);
         setSearchQuery('');
       }
       setIsOpen(false);
-      onSelect?.(value, option);
+      onSelectOption?.(value, option);
 
       suppressNextOpenRef.current = true;
       inputRef.current?.focus();
-    };
+    }, [extractValue, getOptionDisabled, getOptionValue, getOptionLabel, isControlled, onSelectOption]);
 
-    const handleClear = () => {
+    const handleClear = useCallback((e: React.MouseEvent) => {
+      e.stopPropagation();
       if (!isControlled) {
         setInternalValue('');
         setSearchQuery('');
@@ -428,9 +233,9 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
       onChange?.('');
       suppressNextOpenRef.current = true;
       inputRef.current?.focus();
-    };
+    }, [isControlled, onClear, onChange]);
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
       if (!shouldShowDropdown || filteredOptions.length === 0) {
         return;
       }
@@ -468,19 +273,21 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
           setHighlightedIndex(-1);
           break;
       }
-    };
+    }, [shouldShowDropdown, filteredOptions, highlightedIndex, extractValue, getOptionDisabled, handleOptionClick]);
 
-    const renderDefaultOption = (option: any, index: number) => {
-      const label = String(extractValue(option, getOptionLabel));
+    const renderDefaultOption = useCallback((option: any, index: number) => {
+      const labelStr = String(extractValue(option, getOptionLabel));
       const value = String(extractValue(option, getOptionValue));
       const description = extractValue(option, getOptionDescription);
-      const icon = extractValue(option, getOptionIcon);
+      const iconNode = extractValue(option, getOptionIcon);
       const isDisabled = extractValue(option, getOptionDisabled);
       const isHighlighted = index === highlightedIndex;
+      const itemId = `${listboxId}-option-${value || index}`;
 
       return (
         <div
           key={value || index}
+          id={itemId}
           role="option"
           aria-selected={isHighlighted}
           aria-disabled={isDisabled}
@@ -498,18 +305,18 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
           }}
           onMouseEnter={() => !isDisabled && setHighlightedIndex(index)}
         >
-          {icon && <span className="lxs-autocomplete-option__icon">{icon}</span>}
+          {iconNode && <span className="lxs-autocomplete-option__icon" aria-hidden="true">{iconNode}</span>}
           <div className="lxs-autocomplete-option__content">
-            <div className="lxs-autocomplete-option__label">{label}</div>
+            <div className="lxs-autocomplete-option__label">{labelStr}</div>
             {description && (
               <div className="lxs-autocomplete-option__description">{description}</div>
             )}
           </div>
         </div>
       );
-    };
+    }, [extractValue, getOptionLabel, getOptionValue, getOptionDescription, getOptionIcon, getOptionDisabled, highlightedIndex, handleOptionClick, listboxId]);
 
-    const renderDropdownContent = () => {
+    const renderDropdownContent = useCallback(() => {
       if (loading) {
         return (
           <div className="lxs-autocomplete-message lxs-autocomplete-message--loading">
@@ -519,6 +326,7 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
               height="20"
               viewBox="0 0 20 20"
               fill="none"
+              aria-hidden="true"
             >
               <circle
                 className="lxs-autocomplete-spinner__track"
@@ -559,7 +367,11 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
           )}
         </div>
       );
-    };
+    }, [loading, loadingMessage, filteredOptions, noOptionsMessage, listboxId, renderOption, renderDefaultOption]);
+
+    const activeDescendantId = highlightedIndex >= 0 && filteredOptions.length > highlightedIndex
+        ? `${listboxId}-option-${extractValue(filteredOptions[highlightedIndex], getOptionValue) || highlightedIndex}`
+        : undefined;
 
     return (
       <div className={wrapperClassNames} ref={wrapperRef}>
@@ -610,9 +422,9 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
               if (typeof ref === 'function') {
                 ref(node);
               } else if (ref) {
-                ref.current = node;
+                (ref as React.MutableRefObject<HTMLInputElement | null>).current = node;
               }
-              (inputRef as React.MutableRefObject<HTMLInputElement | null>).current = node;
+              inputRef.current = node;
             }}
             id={id}
             type="text"
@@ -629,6 +441,7 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
             aria-autocomplete="list"
             aria-controls={shouldShowDropdown ? listboxId : undefined}
             aria-expanded={shouldShowDropdown}
+            aria-activedescendant={shouldShowDropdown ? activeDescendantId : undefined}
             role="combobox"
             autoComplete="off"
             {...props}
@@ -641,7 +454,7 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
               aria-label="Clear input"
               tabIndex={-1}
             >
-              <CloseSmallIcon size={16} />
+              <CloseSmallIcon size={16} aria-hidden="true" />
             </button>
           )}
           {shouldShowDropdown && (
@@ -670,5 +483,4 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(
 
 Autocomplete.displayName = 'Autocomplete';
 
-export default Autocomplete as React.FC<AutocompleteProps & React.RefAttributes<HTMLInputElement>>;
 export { Autocomplete };
