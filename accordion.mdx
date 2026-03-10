@@ -146,6 +146,13 @@ END_LLM_CONTEXT
 
 The Accordion component renders a vertically stacked list of interactive headings that reveal or hide content. It solves the problem of presenting dense information in a limited space by allowing users to expand only the sections they care about. Use it for FAQ pages, complex settings, or step-by-step forms.
 
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash commands
+USE WHEN: Setting up the project
+SOURCE: N/A
+-->
 ```bash
 npm install @luxis-ui/core
 # or
@@ -153,6 +160,13 @@ yarn add @luxis-ui/core
 # or
 pnpm add @luxis-ui/core
 ```
+<!--
+EXAMPLE: Customization Snippet
+PURPOSE: Demonstrates a specific configuration
+OUTPUT: A configured component
+USE WHEN: Applying specific attributes or styling
+SOURCE: N/A
+-->
 ```tsx
 import { Accordion } from '@luxis-ui/core';
 ```
@@ -214,6 +228,13 @@ This renders a functional accordion where clicking a header expands its content.
 
 Edit the code below — the preview updates in real time.
 
+<!--
+EXAMPLE: Customization Snippet
+PURPOSE: Demonstrates a specific configuration
+OUTPUT: A configured component
+USE WHEN: Applying specific attributes or styling
+SOURCE: N/A
+-->
 ```tsx live
 // ✏️ Edit this code — the preview updates in real time
 import { Accordion } from '@luxis-ui/core';
@@ -850,6 +871,13 @@ When using compound components (`AccordionItem`), these props are available.
 
 <details>
 <summary>View full TypeScript interface</summary>
+<!--
+EXAMPLE: Customization Snippet
+PURPOSE: Demonstrates a specific configuration
+OUTPUT: A configured component
+USE WHEN: Applying specific attributes or styling
+SOURCE: N/A
+-->
 ```ts
 import { ReactNode } from 'react';
 
@@ -1003,6 +1031,13 @@ export default function AccessibleExample() {
 | `--accordion-content-bg` | `var(--color-background-alt, #fafbfc)` | Body content background |
 
 **Override globally (all instances):**
+<!--
+EXAMPLE: CSS Override
+PURPOSE: Demonstrates token customization
+OUTPUT: CSS variables
+USE WHEN: Theming the component
+SOURCE: N/A
+-->
 ```css
 :root {
   --accordion-bg: #f0fdf4;
@@ -1010,6 +1045,13 @@ export default function AccessibleExample() {
 ```
 
 **Override for one section:**
+<!--
+EXAMPLE: CSS Override
+PURPOSE: Demonstrates token customization
+OUTPUT: CSS variables
+USE WHEN: Theming the component
+SOURCE: N/A
+-->
 ```css
 .my-custom-accordion {
   --accordion-focus-color: #10b981;
@@ -1017,7 +1059,16 @@ export default function AccessibleExample() {
 ```
 
 **Override inline on one instance:**
+<!--
+EXAMPLE: Customization Snippet
+PURPOSE: Demonstrates a specific configuration
+OUTPUT: A configured component
+USE WHEN: Applying specific attributes or styling
+SOURCE: N/A
+-->
 ```tsx
+import { Accordion } from '@luxis-ui/core';
+
 <Accordion
   style={{ '--accordion-icon-color': 'red' } as React.CSSProperties}
   items={items}
@@ -1029,7 +1080,16 @@ export default function AccessibleExample() {
 Three levels of customization — start with Level 1 and only go deeper if needed.
 
 ### Level 1 — className (Quickest)
+<!--
+EXAMPLE: Customization Snippet
+PURPOSE: Demonstrates a specific configuration
+OUTPUT: A configured component
+USE WHEN: Applying specific attributes or styling
+SOURCE: N/A
+-->
 ```tsx
+import { Accordion } from '@luxis-ui/core';
+
 <Accordion
   className="my-4 border-2 border-red-500"
   items={items}
@@ -1045,6 +1105,13 @@ Most visual changes should be done at this level.
 
 The Accordion can be composed using `AccordionItem` children instead of the `items` prop. This gives you full control over the rendering of each specific item.
 
+<!--
+EXAMPLE: Customization Snippet
+PURPOSE: Demonstrates a specific configuration
+OUTPUT: A configured component
+USE WHEN: Applying specific attributes or styling
+SOURCE: N/A
+-->
 ```tsx
 import { Accordion, AccordionItem } from '@luxis-ui/core';
 
@@ -1063,6 +1130,13 @@ export default function CompoundExample() {
 ```
 
 ### Using with forwardRef
+<!--
+EXAMPLE: Customization Snippet
+PURPOSE: Demonstrates a specific configuration
+OUTPUT: A configured component
+USE WHEN: Applying specific attributes or styling
+SOURCE: N/A
+-->
 ```tsx
 import { forwardRef, useRef } from 'react';
 import { Accordion } from '@luxis-ui/core';
@@ -1273,16 +1347,37 @@ packages/luxis-ui/src/components/Accordion/Accordion.tsx
 app/storybook/src/stories/Accordion.stories.tsx
 
 ## Install
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash commands
+USE WHEN: Setting up the project
+SOURCE: N/A
+-->
 ```bash
 npm install @luxis-ui/core
 ```
 
 ## Import
+<!--
+EXAMPLE: Customization Snippet
+PURPOSE: Demonstrates a specific configuration
+OUTPUT: A configured component
+USE WHEN: Applying specific attributes or styling
+SOURCE: N/A
+-->
 ```tsx
 import { Accordion } from '@luxis-ui/core';
 ```
 
 ## Minimal usage
+<!--
+EXAMPLE: Customization Snippet
+PURPOSE: Demonstrates a specific configuration
+OUTPUT: A configured component
+USE WHEN: Applying specific attributes or styling
+SOURCE: N/A
+-->
 ```tsx
 import { Accordion } from '@luxis-ui/core';
 

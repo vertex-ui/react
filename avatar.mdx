@@ -133,6 +133,13 @@ END_LLM_CONTEXT
 
 The Avatar component is a visual representation of a user, organization, or specific entity. It elegantly handles edge cases like missing images or broken URLs by automatically falling back to generated text initials or a default icon. It supports multiple shapes, sizes, and absolutely positioned status indicators for building rich interfaces like chat apps or activity feeds.
 
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash commands
+USE WHEN: Setting up the project
+SOURCE: N/A
+-->
 ```bash
 npm install @luxis-ui/core
 # or
@@ -140,6 +147,13 @@ yarn add @luxis-ui/core
 # or
 pnpm add @luxis-ui/core
 ```
+<!--
+EXAMPLE: Customization Snippet
+PURPOSE: Demonstrates a specific configuration
+OUTPUT: A configured component
+USE WHEN: Applying specific attributes or styling
+SOURCE: N/A
+-->
 ```tsx
 import { Avatar } from '@luxis-ui/core';
 ```
@@ -191,6 +205,13 @@ This renders a 40px circular image. If the URL `https://i.pravatar.cc/150?img=32
 
 Edit the code below — the preview updates in real time.
 
+<!--
+EXAMPLE: Customization Snippet
+PURPOSE: Demonstrates a specific configuration
+OUTPUT: A configured component
+USE WHEN: Applying specific attributes or styling
+SOURCE: N/A
+-->
 ```tsx live
 // ✏️ Edit this code — the preview updates in real time
 import { Avatar } from '@luxis-ui/core';
@@ -432,6 +453,13 @@ Complete reference for all props. All types and defaults are sourced directly fr
 
 <details>
 <summary>View full TypeScript interface</summary>
+<!--
+EXAMPLE: Customization Snippet
+PURPOSE: Demonstrates a specific configuration
+OUTPUT: A configured component
+USE WHEN: Applying specific attributes or styling
+SOURCE: N/A
+-->
 ```ts
 import { HTMLAttributes, ImgHTMLAttributes } from "react";
 
@@ -499,6 +527,13 @@ The inner text inside the fallback span is explicitly hidden from screen readers
 | `--lxs-avatar-color` | `var(--lxs-color-neutral-700)` | Text color for initials/icon |
 
 **Override globally (all instances):**
+<!--
+EXAMPLE: CSS Override
+PURPOSE: Demonstrates token customization
+OUTPUT: CSS variables
+USE WHEN: Theming the component
+SOURCE: N/A
+-->
 ```css
 :root {
   --lxs-avatar-bg: var(--lxs-color-primary-100);
@@ -507,6 +542,13 @@ The inner text inside the fallback span is explicitly hidden from screen readers
 ```
 
 **Override for one section:**
+<!--
+EXAMPLE: CSS Override
+PURPOSE: Demonstrates token customization
+OUTPUT: CSS variables
+USE WHEN: Theming the component
+SOURCE: N/A
+-->
 ```css
 .admin-sidebar {
   --lxs-avatar-bg: #333;
@@ -515,7 +557,16 @@ The inner text inside the fallback span is explicitly hidden from screen readers
 ```
 
 **Override inline on one instance:**
+<!--
+EXAMPLE: Customization Snippet
+PURPOSE: Demonstrates a specific configuration
+OUTPUT: A configured component
+USE WHEN: Applying specific attributes or styling
+SOURCE: N/A
+-->
 ```tsx
+import { Avatar } from '@luxis-ui/core';
+
 <Avatar
   style={{ '--lxs-avatar-bg': 'purple', '--lxs-avatar-color': 'white' } as React.CSSProperties}
   alt="Purple User"
@@ -527,7 +578,16 @@ The inner text inside the fallback span is explicitly hidden from screen readers
 Three levels of customization — start with Level 1 and only go deeper if needed.
 
 ### Level 1 — className (Quickest)
+<!--
+EXAMPLE: Customization Snippet
+PURPOSE: Demonstrates a specific configuration
+OUTPUT: A configured component
+USE WHEN: Applying specific attributes or styling
+SOURCE: N/A
+-->
 ```tsx
+import { Avatar } from '@luxis-ui/core';
+
 // Using utility classes like Tailwind
 <Avatar
   className="border-2 border-primary-500 shadow-md hover:scale-105 transition-transform"
@@ -544,7 +604,16 @@ Most visual changes regarding the fallback state should be done at this level.
 
 If you need to pass specific attributes directly to the underlying `<img>` HTML element (like `crossOrigin` or custom `referrerPolicy`), use the `imgProps` object.
 
+<!--
+EXAMPLE: Customization Snippet
+PURPOSE: Demonstrates a specific configuration
+OUTPUT: A configured component
+USE WHEN: Applying specific attributes or styling
+SOURCE: N/A
+-->
 ```tsx
+import { Avatar } from '@luxis-ui/core';
+
 <Avatar
   src="https://example.com/image.jpg"
   alt="Secure User"
@@ -556,6 +625,13 @@ If you need to pass specific attributes directly to the underlying `<img>` HTML 
 ```
 
 ### Using with forwardRef
+<!--
+EXAMPLE: Customization Snippet
+PURPOSE: Demonstrates a specific configuration
+OUTPUT: A configured component
+USE WHEN: Applying specific attributes or styling
+SOURCE: N/A
+-->
 ```tsx
 import { forwardRef, useRef } from 'react';
 import { Avatar } from '@luxis-ui/core';
@@ -791,16 +867,37 @@ packages/luxis-ui/src/components/Avatar/Avatar.tsx
 app/storybook/src/stories/Avatar.stories.tsx
 
 ## Install
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash commands
+USE WHEN: Setting up the project
+SOURCE: N/A
+-->
 ```bash
 npm install @luxis-ui/core
 ```
 
 ## Import
+<!--
+EXAMPLE: Customization Snippet
+PURPOSE: Demonstrates a specific configuration
+OUTPUT: A configured component
+USE WHEN: Applying specific attributes or styling
+SOURCE: N/A
+-->
 ```tsx
 import { Avatar } from '@luxis-ui/core';
 ```
 
 ## Minimal usage
+<!--
+EXAMPLE: Customization Snippet
+PURPOSE: Demonstrates a specific configuration
+OUTPUT: A configured component
+USE WHEN: Applying specific attributes or styling
+SOURCE: N/A
+-->
 ```tsx
 import { Avatar } from '@luxis-ui/core';
 
