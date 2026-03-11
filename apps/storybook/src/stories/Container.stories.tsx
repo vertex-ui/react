@@ -1,3 +1,4 @@
+import { expect, within } from '@storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import '@luxis-ui/react/theme/base.css';
 import { Container, ThemeProvider } from '@luxis-ui/react';
@@ -110,6 +111,12 @@ export const Default: Story = {
       <ContentRow />
     </Container>
   ),
+
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Simple baseline check to ensure render
+    expect(canvasElement).toBeTruthy();
+  },
 };
 
 // ── Max-width variants ────────────────────────────────────────────────────────

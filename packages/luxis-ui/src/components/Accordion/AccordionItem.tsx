@@ -38,7 +38,7 @@ const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemComponentPro
     const itemSize = size ?? theme.defaultSize;
     const contentRef = useRef<HTMLDivElement>(null);
     const { 
-      id, 
+      id,
       header, 
       children, 
       disabled: itemDisabled, 
@@ -197,4 +197,3 @@ export const AccordionItemWrapper: React.FC<AccordionItemProps> = ({ children, .
 };
 
 AccordionItemWrapper.displayName = 'AccordionItem';
-

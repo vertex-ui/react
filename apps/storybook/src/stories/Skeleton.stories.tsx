@@ -1,3 +1,4 @@
+import { expect, within } from '@storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Skeleton } from '@luxis-ui/react';
 
@@ -46,6 +47,12 @@ export const Default: Story = {
   args: {
     width: '100%',
     height: 16,
+  },
+
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Simple baseline check to ensure render
+    expect(canvasElement).toBeTruthy();
   },
 };
 

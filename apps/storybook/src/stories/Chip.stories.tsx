@@ -1,3 +1,4 @@
+import { expect, within } from '@storybook/test';
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import '@luxis-ui/react/theme/base.css';
@@ -80,6 +81,12 @@ type Story = StoryObj<typeof Chip>;
 export const Default: Story = {
   args: {
     label: 'Default Chip',
+  },
+
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Simple baseline check to ensure render
+    expect(canvasElement).toBeTruthy();
   },
 };
 

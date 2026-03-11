@@ -1,5 +1,5 @@
 import './Modal.css';
 
-export { default as Modal } from './Modal';
-export type { ModalProps } from './Modal';
+export { Modal } from './Modal';
+export type { ModalFooterButton, ModalProps } from './Modal.types';
 export { Modal as ModalComponent } from './Modal';

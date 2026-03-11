@@ -3,60 +3,9 @@
 import React from 'react';
 import { useThemeContext, Size } from '../../theme';
 import './Card.css';
+import type { CardProps } from './Card.types';
 
-export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  /**
-   * The content of the card
-   */
-  children: React.ReactNode;
-  /**
-   * The variant of the card
-   * @default 'elevated'
-   */
-  variant?: 'elevated' | 'outlined' | 'filled';
-  /**
-   * Size of the card
-   * @default 'md'
-   */
-  size?: Size;
-  /**
-   * If true, removes padding from the card
-   * @default false
-   */
-  noPadding?: boolean;
-  /**
-   * Custom padding value (e.g., '16px', '1rem', '0')
-   * Overrides noPadding when provided
-   */
-  padding?: string;
-  /**
-   * If true, makes the card hoverable with interaction effects
-   * @default false
-   */
-  hoverable?: boolean;
-  /**
-   * If true, makes the card clickable (adds cursor pointer)
-   * @default false
-   */
-  clickable?: boolean;
-  /**
-   * Additional CSS class name
-   */
-  className?: string;
-  /**
-   * Header content for the card
-   */
-  header?: React.ReactNode;
-  /**
-   * Footer content for the card
-   */
-  footer?: React.ReactNode;
-  /**
-   * If true, adds dividers between header, content, and footer
-   * @default false
-   */
-  divider?: boolean;
-}
+
 
 /**
  * Card component - Container for grouping related content
@@ -194,5 +143,4 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
 
 Card.displayName = 'Card';
 
-export default Card as React.FC<CardProps & React.RefAttributes<HTMLDivElement>>;
 export { Card };

@@ -1,5 +1,5 @@
 import './CheckboxGroup.css';
 
-export { default as CheckboxGroup } from './CheckboxGroup';
-export type { CheckboxGroupProps, CheckboxOption } from './CheckboxGroup';
+export { CheckboxGroup } from './CheckboxGroup';
+export type { CheckboxOption, CheckboxGroupProps } from './CheckboxGroup.types';
 export { CheckboxGroup as CheckboxGroupComponent } from './CheckboxGroup';

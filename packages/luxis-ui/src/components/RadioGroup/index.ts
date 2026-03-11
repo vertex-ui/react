@@ -1,5 +1,5 @@
 import './RadioGroup.css';
 
-export { default as RadioGroup } from './RadioGroup';
-export type { RadioGroupProps, RadioOption } from './RadioGroup';
+export { RadioGroup } from './RadioGroup';
+export type { RadioOption, RadioGroupProps } from './RadioGroup.types';
 export { RadioGroup as RadioGroupComponent } from './RadioGroup';

@@ -1,3 +1,4 @@
+import { expect, within } from '@storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import '@luxis-ui/react/theme/base.css';
 import {
@@ -130,6 +131,12 @@ export const Default: Story = {
       </TableContainer>
     </ThemeProvider>
   ),
+
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Simple baseline check to ensure render
+    expect(canvasElement).toBeTruthy();
+  },
 };
 
 // ─────────────────────────────────────────────

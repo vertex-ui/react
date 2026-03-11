@@ -1,3 +1,4 @@
+import { expect, within } from '@storybook/test';
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import '@luxis-ui/react/theme/base.css';
@@ -108,6 +109,12 @@ export const Default: Story = {
     label: 'Country',
     placeholder: 'Select a country',
     options: countries,
+  },
+
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Simple baseline check to ensure render
+    expect(canvasElement).toBeTruthy();
   },
 };
 

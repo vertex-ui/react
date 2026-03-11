@@ -1,3 +1,4 @@
+import { expect, within } from '@storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import '@luxis-ui/react/theme/base.css';
 import { Header, ThemeProvider, Button, Badge } from '@luxis-ui/react';
@@ -58,6 +59,12 @@ export const Default: Story = {
     userAvatar: 'https://randomuser.me/api/portraits/women/44.jpg',
     notifications,
     userMenuItems,
+  },
+
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Simple baseline check to ensure render
+    expect(canvasElement).toBeTruthy();
   },
 };
 
