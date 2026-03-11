@@ -1,0 +1,913 @@
+---
+title: "Menu — Luxis UI React Component"
+description: "A flexible menu system including vertical/horizontal navigation menus and dropdown action menus. Supports nested submenus and responsive mobile views."
+status: stable
+since: "1.0.0"
+category: "Components"
+npm: "@luxis-ui/core"
+import: "import { Menu, MenuItem, ActionMenu } from '@luxis-ui/core'"
+component: "Menu"
+keywords:
+  - menu
+  - react menu
+  - menu component
+  - dropdown menu
+  - action menu
+  - navigation menu
+  - luxis ui menu
+  - typescript menu
+  - accessible menu
+  - react design system
+slug: /components/menu
+canonical: "https://luxis-ui.dev/docs/components/menu"
+og_image: "/img/og/menu.png"
+llm_summary: >
+  Menu renders a navigation list (`<div role="menu">`) containing MenuItem elements (`<div role="menuitem">`). ActionMenu renders a trigger button that toggles a dropdown Menu.
+  Menu Props: `items` (MenuItemProps[], default=undefined), `children` (ReactNode, default=undefined), `orientation` ('vertical' | 'horizontal', default='vertical'), `responsive` (boolean, default=true), `width` (string | number, default=undefined), `className` (string, default='').
+  MenuItem Props: `label` (string, required), `onClick` (function, default=undefined), `icon` (ReactNode, default=undefined), `rightIcon` (ReactNode, default=undefined), `disabled` (boolean, default=false), `active` (boolean, default=false), `variant` ('default' | 'danger', default='default'), `shortcut` (string, default=undefined), `divider` (boolean, default=false), `items` (MenuItemProps[], default=undefined).
+  ActionMenu Props: `items` (MenuItemProps[], required), `trigger` (ReactNode | function, default=undefined), `triggerLabel` (string, default='Actions'), `triggerIcon` (ReactNode, default=undefined), `position` ('bottom-start' | 'bottom-end' | 'top-start' | 'top-end', default='bottom-start'), `className` (string, default=''), `triggerClassName` (string, default=''), `disabled` (boolean, default=false), `onOpen` (function, default=undefined), `onClose` (function, default=undefined).
+  Primary use cases: sidebar navigation, top navigation bars, and contextual dropdown actions. Do NOT use it for complex form inputs; use Select instead.
+  Accessibility: Uses `role="menu"` and `role="menuitem"`. Supports keyboard navigation (Enter, Space, ArrowDown, ArrowUp).
+  Import: `import { Menu, MenuItem, ActionMenu } from '@luxis-ui/core'`.
+---
+
+{/*
+LLM_CONTEXT
+  component    : Menu
+  source       : packages/luxis-ui/src/Menu/Menu.tsx, ActionMenu.tsx
+  story        : app/storybook/src/stories/Menu.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components
+  status       : stable
+  aria-pattern : Menu Button
+
+  What it renders:
+  Menu renders a `<div>` with `role="menu"`. MenuItem renders a `<div>` with `role="menuitem"` (and `aria-haspopup`/`aria-expanded` if it contains submenus). ActionMenu renders a trigger element (often a button) that controls the visibility of an associated Menu.
+
+  When to use:
+  - Sidebar navigation links.
+  - Contextual dropdown menus (e.g., "More actions" button on a table row).
+  - User profile dropdowns in a header.
+
+  When NOT to use:
+  - Selecting a value in a form. Use Select or Combobox instead.
+  - Simple routing links that don't need a menu structure. Use Link instead.
+
+  Ecosystem equivalents:
+  - MUI        : <Menu>, <MenuItem>
+  - Chakra UI  : <Menu>, <MenuButton>, <MenuList>, <MenuItem>
+  - shadcn/ui  : DropdownMenu, NavigationMenu
+  - Radix UI   : DropdownMenu, NavigationMenu
+  - HTML native: <select> (for forms, not exact), <details>/<summary> (for disclosure, not exact)
+
+  Props (must match source exactly — every single prop):
+  Menu Props:
+  items (MenuItemProps[], default=undefined) — Menu items configuration
+  children (ReactNode, default=undefined) — Custom children (MenuItem components)
+  orientation ('vertical' | 'horizontal', default='vertical') — Menu orientation
+  responsive (boolean, default=true) — Whether menu is responsive (converts to hamburger on mobile)
+  width (string | number, default=undefined) — Menu width (for vertical menus)
+  className (string, default='') — Custom className
+
+  MenuItem Props:
+  label (string) — Menu item label
+  onClick (function, default=undefined) — Click handler
+  icon (ReactNode, default=undefined) — Icon to display before label
+  rightIcon (ReactNode, default=undefined) — Icon to display after label
+  disabled (boolean, default=false) — Whether the item is disabled
+  active (boolean, default=false) — Whether the item is active/selected
+  variant ('default' | 'danger', default='default') — Item variant
+  shortcut (string, default=undefined) — Keyboard shortcut to display
+  divider (boolean, default=false) — Divider after this item
+  items (MenuItemProps[], default=undefined) — Submenu items for multi-level menus
+
+  ActionMenu Props:
+  items (MenuItemProps[]) — Menu items to display in dropdown
+  trigger (ReactNode | function, default=undefined) — Trigger element (button, icon, etc.) or render function
+  triggerLabel (string, default='Actions') — Trigger label text (used if trigger is not provided)
+  triggerIcon (ReactNode, default=undefined) — Trigger icon (used if trigger is not provided)
+  position ('bottom-start' | 'bottom-end' | 'top-start' | 'top-end', default='bottom-start') — Position of the menu relative to trigger
+  className (string, default='') — Custom className for the menu
+  triggerClassName (string, default='') — Custom className for the trigger
+  disabled (boolean, default=false) — Whether the menu is disabled
+  onOpen (function, default=undefined) — Callback when menu opens
+  onClose (function, default=undefined) — Callback when menu closes
+
+  Accessibility:
+  WCAG: AA
+  Keyboard: Tab to focus trigger/items. Enter/Space to activate item or open submenu. ArrowDown/ArrowUp to navigate submenus. Escape to close menu.
+  Screen reader: Announces menu roles and expansion states.
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Menu React Component — Luxis UI",
+  "description": "A flexible menu system including vertical/horizontal navigation menus and dropdown action menus. Supports nested submenus and responsive mobile views.",
+  "keywords": "menu, react menu, menu component, dropdown menu, action menu, navigation menu, luxis ui menu, typescript menu, accessible menu, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use Menu in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { Menu, MenuItem, ActionMenu } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI Menu accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Menu accepts items (array of objects), orientation ('vertical' or 'horizontal'), responsive (boolean), and width. ActionMenu accepts items, trigger, position, and callbacks."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I create a dropdown menu?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the ActionMenu component and pass an array of items. It handles the trigger button and dropdown positioning automatically."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI Menu different from MUI Menu?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Luxis UI Menu combines static navigation menus and dynamic dropdowns (via ActionMenu) in a unified, declarative API. It also handles responsive mobile hamburgers out of the box."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Menu
+
+<ComponentStatus status="stable" version="1.0.0" aria="WAI-ARIA Menu Button" />
+
+The Menu system provides a comprehensive set of components for building navigation sidebars, horizontal top bars, and contextual dropdown action menus. It includes built-in support for nested submenus, keyboard navigation, and responsive mobile layouts.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for Menu components
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding Menu components to any file
+SOURCE: packages/luxis-ui/src/components/Menu/index.ts
+-->
+```tsx
+import { Menu, MenuItem, ActionMenu } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI's `Menu` handles static structural navigation, while `ActionMenu` replaces MUI's `<Menu>` or Chakra's `<MenuList>` for popover dropdown actions.
+</Callout>
+
+## Before You Start
+
+This package exports three main pieces: `Menu` (the container), `MenuItem` (the individual row), and `ActionMenu` (a wrapper that creates a dropdown triggered by a button). Use `Menu` for persistent navigation and `ActionMenu` for transient context menus.
+
+<Callout type="tip" title="New to Luxis UI?">
+  ActionMenu abstracts away the need to manage open/close state manually, unlike some other libraries.
+</Callout>
+
+## How to Use Menu in React
+
+The minimum code to render a working ActionMenu dropdown:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of ActionMenu
+OUTPUT: A button that opens a dropdown menu with two items
+USE WHEN: You need a simple context menu
+SOURCE: Derived from ActionMenu.tsx defaults
+-->
+```tsx
+import { ActionMenu } from '@luxis-ui/core';
+import { EditIcon, DeleteIcon } from '@luxis-ui/icons';
+
+export default function Example() {
+  return (
+    <ActionMenu
+      triggerLabel="Options"
+      items={[
+        { label: 'Edit Profile', icon: <EditIcon /> },
+        { label: 'Delete Account', icon: <DeleteIcon />, variant: 'danger' }
+      ]}
+    />
+  );
+}
+```
+
+This renders a trigger button labeled "Options". Clicking it reveals a dropdown with an edit action and a styled danger action for deletion.
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of Menu with key props
+OUTPUT: A vertical sidebar menu with active states and submenus
+USE WHEN: Exploring props before copying to your project
+SOURCE: N/A
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { Menu, MenuItem } from '@luxis-ui/core';
+import { SettingsIcon, UserIcon, DashboardIcon } from '@luxis-ui/icons';
+
+export default function LiveExample() {
+  return (
+    <div style={{ padding: '20px', background: '#f5f5f5', borderRadius: '8px' }}>
+      <Menu width={250}>
+        <MenuItem label="Dashboard" icon={<DashboardIcon />} active />
+        <MenuItem label="Users" icon={<UserIcon />} shortcut="⌘U" />
+        <MenuItem divider />
+        <MenuItem
+          label="Settings"
+          icon={<SettingsIcon />}
+          items={[
+            { label: 'General' },
+            { label: 'Security' },
+            { label: 'Billing' }
+          ]}
+        />
+      </Menu>
+    </div>
+  );
+}
+```
+
+## Menu Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### Horizontal Menu
+
+Use `orientation="horizontal"` to render a top navigation bar instead of a vertical sidebar.
+
+<!--
+EXAMPLE: Horizontal Menu
+PURPOSE: Demonstrates a horizontal navigation layout
+OUTPUT: A row of menu items suitable for a header
+USE WHEN: Building main site navigation
+SOURCE: packages/luxis-ui/src/Menu/Menu.tsx
+-->
+```tsx
+import { Menu, MenuItem } from '@luxis-ui/core';
+import { HomeIcon, BellIcon, UserIcon } from '@luxis-ui/icons';
+
+export default function HorizontalExample() {
+  return (
+    <Menu orientation="horizontal" responsive={false}>
+      <MenuItem label="Home" icon={<HomeIcon />} active />
+      <MenuItem label="Notifications" icon={<BellIcon />} />
+      <MenuItem divider />
+      <MenuItem label="Profile" icon={<UserIcon />} />
+    </Menu>
+  );
+}
+```
+
+This automatically adjusts padding and hover styling for a horizontal layout.
+
+---
+
+### Nested Submenus
+
+Both `Menu` and `ActionMenu` support nested arrays of items to create submenus.
+
+<!--
+EXAMPLE: Nested Submenus
+PURPOSE: Shows how to create multi-level menus
+OUTPUT: A menu with an expandable nested section
+USE WHEN: Organizing complex navigation hierarchies
+SOURCE: packages/luxis-ui/src/Menu/Menu.tsx
+-->
+```tsx
+import { Menu, MenuItem } from '@luxis-ui/core';
+import { FolderIcon, FileIcon } from '@luxis-ui/icons';
+
+export default function SubmenuExample() {
+  return (
+    <Menu width={200}>
+      <MenuItem label="Recent Files" icon={<FileIcon />} />
+      <MenuItem
+        label="Projects"
+        icon={<FolderIcon />}
+        items={[
+          { label: 'Website Redesign', icon: <FileIcon /> },
+          { label: 'Mobile App', icon: <FileIcon /> },
+          {
+            label: 'Archives',
+            icon: <FolderIcon />,
+            items: [
+              { label: '2022 Data' },
+              { label: '2023 Data' }
+            ]
+          }
+        ]}
+      />
+    </Menu>
+  );
+}
+```
+
+In a vertical menu, submenus expand inline via an accordion effect.
+
+---
+
+### Custom Trigger ActionMenu
+
+You can replace the default ActionMenu button with any custom component.
+
+<!--
+EXAMPLE: Custom Trigger
+PURPOSE: Shows how to pass a custom React node as the menu trigger
+OUTPUT: An avatar image that acts as a dropdown trigger
+USE WHEN: Building profile dropdowns or icon-only menus
+SOURCE: packages/luxis-ui/src/Menu/ActionMenu.tsx
+-->
+```tsx
+import { ActionMenu } from '@luxis-ui/core';
+import { LogoutIcon, SettingsIcon } from '@luxis-ui/icons';
+
+export default function CustomTriggerExample() {
+  const customAvatar = (
+    <div style={{
+      width: 40, height: 40, borderRadius: '50%',
+      background: '#3b82f6', color: 'white',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      cursor: 'pointer', fontWeight: 'bold'
+    }}>
+      JD
+    </div>
+  );
+
+  return (
+    <ActionMenu
+      trigger={customAvatar}
+      position="bottom-start"
+      items={[
+        { label: 'Account Settings', icon: <SettingsIcon /> },
+        { divider: true },
+        { label: 'Sign Out', icon: <LogoutIcon />, variant: 'danger' }
+      ]}
+    />
+  );
+}
+```
+
+This is ideal for user avatars in application headers.
+
+---
+
+### Controlled ActionMenu (Render Function)
+
+When you need total control over the trigger's state and rendering logic, pass a function as the `trigger` prop.
+
+When to use: When you need the trigger button to reflect the open/closed state visually or handle its own click events.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  By default ActionMenu manages its own state (uncontrolled). Use the render prop pattern when the trigger component needs access to `isOpen` or `toggle`.
+</Callout>
+
+<!--
+EXAMPLE: Controlled ActionMenu
+PURPOSE: Using a render function for the trigger
+OUTPUT: A custom button that changes text based on menu state
+USE WHEN: The trigger needs complex internal state logic based on the menu
+SOURCE: packages/luxis-ui/src/Menu/ActionMenu.tsx
+-->
+```tsx
+import { ActionMenu } from '@luxis-ui/core';
+import { EditIcon } from '@luxis-ui/icons';
+
+export default function RenderPropExample() {
+  return (
+    <ActionMenu
+      items={[
+        { label: 'Rename', icon: <EditIcon /> },
+        { label: 'Move to folder' }
+      ]}
+      trigger={({ isOpen, toggle, disabled }) => (
+        <button
+          onClick={toggle}
+          disabled={disabled}
+          style={{
+            background: isOpen ? '#3b82f6' : '#e5e7eb',
+            color: isOpen ? 'white' : 'black',
+            padding: '8px 16px',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer'
+          }}
+        >
+          {isOpen ? 'Close Options ▲' : 'Open Options ▼'}
+        </button>
+      )}
+    />
+  );
+}
+```
+
+## Menu Best Practices
+
+Follow these guidelines to ensure your menus are intuitive and accessible.
+
+<DoAndDont
+  good={`// ✅ Group related actions with dividers
+<ActionMenu items={[
+  { label: 'Copy' },
+  { label: 'Paste' },
+  { divider: true },
+  { label: 'Delete', variant: 'danger' }
+]} />`}
+  bad={`// ❌ Don't mix destructive actions with safe ones without visual separation
+<ActionMenu items={[
+  { label: 'Copy' },
+  { label: 'Delete', variant: 'danger' },
+  { label: 'Paste' }
+]} />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use the danger variant for destructive actions
+<MenuItem label="Delete Data" variant="danger" />`}
+  bad={`// ❌ Don't rely solely on icons to convey destruction
+<MenuItem label="Delete Data" icon={<TrashIcon color="red" />} />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use ActionMenu for context menus
+<ActionMenu triggerLabel="More" items={actions} />`}
+  bad={`// ❌ Don't use Menu inside a modal for simple dropdowns
+<Modal><Menu items={actions} /></Modal>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Provide shortcuts for power users
+<MenuItem label="Save" shortcut="⌘S" />`}
+  bad={`// ❌ Don't use shortcuts for rarely used items
+<MenuItem label="Logout" shortcut="⌘L" />`}
+/>
+
+## Menu Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly from `packages/luxis-ui/src/Menu/Menu.tsx` and `ActionMenu.tsx`.
+
+### Menu Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `children` | `ReactNode` | `undefined` | false | Custom children (MenuItem components) |
+| `className` | `string` | `''` | false | Custom className |
+| `items` | `MenuItemProps[]` | `undefined` | false | Menu items configuration |
+| `orientation` | `'vertical' \| 'horizontal'` | `'vertical'` | false | Menu orientation |
+| `responsive` | `boolean` | `true` | false | Whether menu converts to hamburger on mobile |
+| `width` | `string \| number` | `undefined` | false | Menu width (for vertical menus) |
+
+### MenuItem Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `label` | `string` | - | true | Menu item label |
+| `active` | `boolean` | `false` | false | Whether the item is active/selected |
+| `disabled` | `boolean` | `false` | false | Whether the item is disabled |
+| `divider` | `boolean` | `false` | false | Divider after this item |
+| `icon` | `ReactNode` | `undefined` | false | Icon to display before label |
+| `items` | `MenuItemProps[]` | `undefined` | false | Submenu items for multi-level menus |
+| `onClick` | `() => void` | `undefined` | false | Click handler |
+| `rightIcon` | `ReactNode` | `undefined` | false | Icon to display after label |
+| `shortcut` | `string` | `undefined` | false | Keyboard shortcut to display |
+| `variant` | `'default' \| 'danger'` | `'default'` | false | Item variant |
+
+### ActionMenu Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `items` | `MenuItemProps[]` | - | true | Menu items to display in dropdown |
+| `className` | `string` | `''` | false | Custom className for the menu |
+| `disabled` | `boolean` | `false` | false | Whether the menu is disabled |
+| `onClose` | `() => void` | `undefined` | false | Callback when menu closes |
+| `onOpen` | `() => void` | `undefined` | false | Callback when menu opens |
+| `position` | `'bottom-start' \| 'bottom-end' \| 'top-start' \| 'top-end'` | `'bottom-start'` | false | Position of the menu relative to trigger |
+| `trigger` | `ReactNode \| function` | `undefined` | false | Trigger element or render function |
+| `triggerClassName` | `string` | `''` | false | Custom className for the trigger |
+| `triggerIcon` | `ReactNode` | `undefined` | false | Trigger icon (used if trigger is not provided) |
+| `triggerLabel` | `string` | `'Actions'` | false | Trigger label text |
+
+### HTML Native Props
+
+Menu components forward standard HTML attributes to their container elements.
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for Menu
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/Menu/Menu.tsx
+-->
+```ts
+export interface MenuItemProps {
+  label: string;
+  onClick?: () => void;
+  icon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+  disabled?: boolean;
+  active?: boolean;
+  variant?: 'default' | 'danger';
+  shortcut?: string;
+  divider?: boolean;
+  items?: MenuItemProps[];
+}
+
+export interface MenuProps {
+  items?: MenuItemProps[];
+  children?: React.ReactNode;
+  orientation?: 'vertical' | 'horizontal';
+  responsive?: boolean;
+  className?: string;
+  width?: string | number;
+}
+
+export interface ActionMenuProps {
+  items: MenuItemProps[];
+  trigger?: React.ReactNode | ((props: { isOpen: boolean; toggle: () => void; disabled: boolean }) => React.ReactNode);
+  triggerLabel?: string;
+  triggerIcon?: React.ReactNode;
+  position?: 'bottom-start' | 'bottom-end' | 'top-start' | 'top-end';
+  className?: string;
+  triggerClassName?: string;
+  disabled?: boolean;
+  onOpen?: () => void;
+  onClose?: () => void;
+}
+```
+
+</details>
+
+## Menu Accessibility Guide
+
+Menu follows the Menu Button WAI-ARIA pattern and meets WCAG AA standards.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| <KeyboardKey>Tab</KeyboardKey> | Focuses menu items |
+| <KeyboardKey>Enter</KeyboardKey> | Activates item, toggles submenu, or opens ActionMenu |
+| <KeyboardKey>Space</KeyboardKey> | Activates item, toggles submenu, or opens ActionMenu |
+| <KeyboardKey>ArrowDown</KeyboardKey> | Opens submenu |
+| <KeyboardKey>ArrowUp</KeyboardKey> | Closes submenu |
+| <KeyboardKey>Escape</KeyboardKey> | Closes ActionMenu or responsive mobile menu |
+
+### ARIA Attributes
+
+| Attribute | Value | When |
+|-----------|-------|------|
+| `role` | `"menu"` | Applied to the container |
+| `role` | `"menuitem"` | Applied to individual items |
+| `aria-haspopup` | `"menu"` | When an item has a submenu or on the ActionMenu trigger |
+| `aria-expanded` | `boolean` | Indicates if a submenu or ActionMenu is open |
+| `aria-disabled` | `"true"` | When an item or menu is disabled |
+
+### Screen Reader Behavior
+
+Screen readers will identify the `ActionMenu` trigger as a button with a menu popup. When opened, it will read the contents as a menu list. `MenuItem` components announce their label, state (e.g., active or disabled), and whether they contain a submenu (collapsible/expandable).
+
+### Accessibility Checklist
+
+- [ ] Ensure `triggerLabel` is meaningful if not using a custom trigger with text.
+- [ ] Do not trap focus indefinitely within the menu.
+- [ ] Use valid `aria-label` attributes if rendering icon-only custom triggers.
+- [ ] Always verify with keyboard-only navigation before shipping
+
+## Menu Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions like colors, spacing, and radius. Override them to restyle Menu without fighting CSS specificity.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-background-hover` | Dynamic | Background color for hovered menu items |
+| `--lxs-background-active` | Dynamic | Background color for active menu items |
+| `--lxs-border-color` | Dynamic | Color of menu dividers |
+| `--lxs-shadow-sm` | Dynamic | Shadow applied to vertical menus |
+| `--lxs-shadow-lg` | Dynamic | Shadow applied to ActionMenu dropdowns |
+
+**Override globally:**
+```css
+:root {
+  --lxs-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+```
+
+**Override for one section:**
+```css
+.my-dashboard {
+  --lxs-background-hover: #e0f2fe;
+}
+```
+
+## Customizing Menu
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to ActionMenu
+OUTPUT: ActionMenu with additional container styling
+USE WHEN: Quick one-off style overrides
+SOURCE: N/A
+-->
+```tsx
+<ActionMenu
+  items={[{ label: 'Account Settings' }]}
+  className="my-custom-dropdown"
+  triggerClassName="my-custom-button"
+/>
+```
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: Menu with a custom hover background
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+```tsx
+<Menu
+  items={[{ label: 'Account Settings' }]}
+  style={{ '--lxs-background-hover': '#fee2e2' } as React.CSSProperties}
+/>
+```
+
+### Using with forwardRef
+
+<!--
+EXAMPLE: forwardRef
+PURPOSE: Accessing the underlying DOM node
+OUTPUT: Menu with attached ref
+USE WHEN: Calling native DOM methods or measuring the menu
+SOURCE: N/A
+-->
+```tsx
+import { useRef, useEffect } from 'react';
+import { Menu, MenuItem } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    console.log('Menu mounted:', ref.current);
+  }, []);
+
+  return (
+    <Menu ref={ref}>
+      <MenuItem label="Home" />
+    </Menu>
+  );
+}
+```
+
+## Common Menu Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Table Row Actions
+
+Used when: Providing context-specific actions for an item in a list or data grid.
+
+<!--
+EXAMPLE: Table Row Actions
+PURPOSE: Context menu for data rows
+OUTPUT: A small icon button that reveals actions
+USE WHEN: Saving space in dense data displays
+SOURCE: Common usage pattern for ActionMenu
+-->
+```tsx
+import { ActionMenu } from '@luxis-ui/core';
+import { MoreVerticalIcon, EditIcon, ShareIcon, TrashIcon } from '@luxis-ui/icons';
+
+export default function TableRowActions() {
+  return (
+    <ActionMenu
+      triggerIcon={<MoreVerticalIcon />}
+      triggerLabel=""
+      position="bottom-end"
+      items={[
+        { label: 'Edit Record', icon: <EditIcon /> },
+        { label: 'Share Link', icon: <ShareIcon /> },
+        { divider: true },
+        { label: 'Delete Record', icon: <TrashIcon />, variant: 'danger' }
+      ]}
+    />
+  );
+}
+```
+
+### Application Sidebar
+
+Used when: Creating the primary vertical navigation for a dashboard.
+
+<!--
+EXAMPLE: Application Sidebar
+PURPOSE: Persistent vertical navigation
+OUTPUT: A vertical menu with an active state
+USE WHEN: Building admin panels or dashboards
+SOURCE: Common usage pattern for Menu
+-->
+```tsx
+import { Menu, MenuItem } from '@luxis-ui/core';
+import { HomeIcon, ChartIcon, UsersIcon } from '@luxis-ui/icons';
+
+export default function Sidebar() {
+  return (
+    <div style={{ width: 240, height: '100vh', borderRight: '1px solid #e5e5e5' }}>
+      <Menu width="100%">
+        <MenuItem label="Overview" icon={<HomeIcon />} active />
+        <MenuItem label="Analytics" icon={<ChartIcon />} />
+        <MenuItem label="Team Members" icon={<UsersIcon />} />
+      </Menu>
+    </div>
+  );
+}
+```
+
+### User Profile Dropdown
+
+Used when: Providing account-level actions in a global application header.
+
+<!--
+EXAMPLE: User Profile Dropdown
+PURPOSE: ActionMenu acting as a profile widget
+OUTPUT: A dropdown triggered by user info
+USE WHEN: Standard application top bar
+SOURCE: Common usage pattern for ActionMenu
+-->
+```tsx
+import { ActionMenu } from '@luxis-ui/core';
+import { SettingsIcon, CreditCardIcon, LogoutIcon } from '@luxis-ui/icons';
+
+export default function ProfileDropdown() {
+  return (
+    <ActionMenu
+      triggerLabel="Jane Doe"
+      position="bottom-end"
+      items={[
+        { label: 'Account Settings', icon: <SettingsIcon /> },
+        { label: 'Billing & Plans', icon: <CreditCardIcon /> },
+        { divider: true },
+        { label: 'Sign Out', icon: <LogoutIcon />, variant: 'danger' }
+      ]}
+    />
+  );
+}
+```
+
+## Troubleshooting Menu
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Dropdown goes off-screen | `position="bottom-end"` near right edge | `position="bottom-start"` or adapt based on layout |
+| Mobile menu doesn't appear | Missing `<meta name="viewport">` | Ensure standard responsive meta tag is present |
+| ActionMenu won't close on click | Missing `onClick` in item | Ensure `onClick: () => {...}` is defined |
+| Submenu icons don't align | Mixing items with/without icons | Pass an empty/transparent icon to align text |
+
+### Frequently Asked Questions
+
+**Q: How do I route to a new page using a MenuItem?**
+A: Provide an `onClick` handler that calls your router's navigation method (e.g., `router.push('/page')`), or wrap the MenuItem text in a standard Link component if appropriate for your setup.
+
+**Q: Can I keep the ActionMenu open after clicking an item?**
+A: By default, `ActionMenu` closes when an item with an `onClick` handler is clicked. To prevent this, you would need to implement a fully custom trigger using the render function pattern and manage the `isOpen` state manually if necessary, though this goes against typical dropdown UX.
+
+**Q: How do I change the width of the ActionMenu dropdown?**
+A: Use standard CSS targeting the class passed to `className` on the `ActionMenu`, e.g., `.my-menu { width: 300px; }`.
+
+**Q: Does Menu support dark mode?**
+A: Yes. All Menu components listen for the `data-theme="dark"` attribute on the document root and adjust their colors, borders, and hover states automatically.
+
+## Related Components
+
+<RelatedComponent
+  name="Button"
+  description="Used to trigger actions directly, or can be used as a custom trigger for ActionMenu."
+  href="/docs/components/button"
+/>
+<RelatedComponent
+  name="Header"
+  description="Often contains horizontal Menus or ActionMenus for navigation and profiles."
+  href="/docs/components/header"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Menu
+
+> Menu is a Components React component in Luxis UI for creating structural navigation sidebars and contextual dropdown menus (ActionMenu).
+
+## Source
+packages/luxis-ui/src/Menu/Menu.tsx
+packages/luxis-ui/src/Menu/ActionMenu.tsx
+
+## Story
+app/storybook/src/stories/Menu.stories.ts
+
+## Install
+\`\`\`bash
+npm install @luxis-ui/core
+\`\`\`
+
+## Import
+\`\`\`tsx
+import { Menu, MenuItem, ActionMenu } from '@luxis-ui/core';
+\`\`\`
+
+## Minimal usage
+\`\`\`tsx
+import { ActionMenu } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <ActionMenu
+      triggerLabel="Options"
+      items={[
+        { label: 'Edit Profile' },
+        { label: 'Delete Account', variant: 'danger' }
+      ]}
+    />
+  );
+}
+\`\`\`
+
+## Key props
+- `items` (MenuItemProps[], default=`undefined`): Menu items configuration
+- `orientation` (string, default=`'vertical'`): Menu orientation
+- `trigger` (ReactNode | function, default=`undefined`): Trigger element for ActionMenu
+- `position` (string, default=`'bottom-start'`): Position of the ActionMenu
+- `responsive` (boolean, default=`true`): Converts horizontal menus to hamburgers on mobile
+
+## When to use
+Use Menu for static sidebar navigation. Use ActionMenu for context menus and profile dropdowns.
+
+## When NOT to use
+Do not use Menu for selecting form values; use a Select component instead.
+
+## Accessibility
+WCAG: AA
+ARIA: Menu Button
+Keyboard: Tab, Enter, Space, ArrowDown, ArrowUp, Escape
+
+## Docs
+https://luxis-ui.dev/docs/components/menu
+LLMS_TXT_ENTRY_END
+*/}

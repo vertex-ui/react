@@ -1,0 +1,898 @@
+---
+title: "Input — Luxis UI React Component"
+description: "A comprehensive text input field featuring built-in labels, helper text, validation states, icons, and character counting."
+status: stable
+since: "1.0.0"
+category: "Components"
+npm: "@luxis-ui/core"
+import: "import { Input } from '@luxis-ui/core'"
+component: "Input"
+keywords:
+  - input
+  - text input
+  - textfield
+  - react input
+  - input component
+  - form field
+  - luxis ui input
+  - typescript input
+  - accessible input
+  - react design system
+slug: /components/input
+canonical: "https://luxis-ui.dev/docs/components/input"
+og_image: "/img/og/input.png"
+llm_summary: >
+  Input renders an advanced wrapper around a native `<input>` element. It supports labels, helper text, error/success validation messages, left/right icons, prefix/suffix text add-ons, a clear button, and character counting.
+  Props: `label` (string), `helperText` (string), `error` (string), `success` (string), `size` ('sm' | 'md' | 'lg', default=theme.defaultSize), `fullWidth` (boolean, default=false), `leftIcon` (ReactNode), `rightIcon` (ReactNode), `clearable` (boolean, default=false), `onClear` (function), `showCount` (boolean, default=false), `prefix` (string), `suffix` (string), `wrapperClassName` (string), `labelClassName` (string), `inputClassName` (string). Standard input props like `value`, `onChange`, `disabled`, and `required` are forwarded to the native input.
+  Primary use cases: Form data entry, search bars, and complex data fields (URLs, prices) requiring prefixes. Do NOT use it for multi-line text; use Textarea instead.
+  Accessibility: Automatically links labels, error messages, and helper text to the input using generated IDs and `aria-describedby` / `aria-invalid`.
+  Import exactly like this: `import { Input } from '@luxis-ui/core'`.
+---
+
+{/*
+LLM_CONTEXT
+  component    : Input
+  source       : packages/luxis-ui/src/Input/Input.tsx, Input.types.ts
+  story        : app/storybook/src/stories/Input.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components
+  status       : stable
+  aria-pattern : Form Field
+
+  What it renders:
+  Input renders a wrapper `<div>` containing a `<label>` (if provided), a container `<div>` that visually acts as the input border, the native `<input>` element itself, and `<p>` tags for helper/error/success text below.
+
+  When to use:
+  - Any single-line text data entry in a form.
+  - Search fields.
+  - Numeric inputs requiring units (using suffix) or currency symbols (using prefix).
+
+  When NOT to use:
+  - Multi-line text entry (use Textarea).
+  - Selecting from a list of options (use Select or Autocomplete).
+
+  Ecosystem equivalents:
+  - MUI        : <TextField>
+  - Chakra UI  : <Input>, <InputGroup>, <FormControl>
+  - shadcn/ui  : <Input>, <FormItem>
+  - Radix UI   : [N/A, primitive elements only]
+  - HTML native: <input type="text">
+
+  Props (must match source exactly — every single prop):
+  label (string, default=undefined) — Label text displayed above the input
+  helperText (string, default=undefined) — Helper text displayed below the input
+  error (string, default=undefined) — Error message - when provided, input is shown in error state
+  success (string, default=undefined) — Success message - when provided, input is shown in success state
+  size (Size, default=theme.defaultSize) — Size of the input
+  fullWidth (boolean, default=false) — If true, input will take full width of its container
+  leftIcon (ReactNode, default=undefined) — Icon or element to display at the start of the input
+  rightIcon (ReactNode, default=undefined) — Icon or element to display at the end of the input
+  clearable (boolean, default=false) — If true, shows a clear button when input has value
+  onClear (function, default=undefined) — Callback fired when clear button is clicked
+  showCount (boolean, default=false) — If true, adds a character counter below the input
+  wrapperClassName (string, default=undefined) — Custom class name for the wrapper element
+  labelClassName (string, default=undefined) — Custom class name for the label element
+  inputClassName (string, default=undefined) — Custom class name for the input element itself
+  prefix (string, default=undefined) — Prefix text to display before input value
+  suffix (string, default=undefined) — Suffix text to display after input value
+  ...plus all standard React InputHTMLAttributes
+
+  Accessibility:
+  WCAG: AA
+  Keyboard: Standard input behavior. Clear button is focusable via Tab (unless disabled) or intentionally removed from tab order (tabIndex={-1} in source to keep focus in input).
+  Screen reader: Automatically wires `aria-describedby` to the helper, error, and success text elements. Sets `aria-invalid` automatically when `error` is present.
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Input React Component — Luxis UI",
+  "description": "A comprehensive text input field featuring built-in labels, helper text, validation states, icons, and character counting.",
+  "keywords": "input, text input, textfield, react input, input component, form field, luxis ui input, typescript input, accessible input, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use Input in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { Input } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI Input accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Key props include label, error, helperText, leftIcon, rightIcon, prefix, suffix, fullWidth, clearable, and showCount."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I show an error state on the Input?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pass an error message string to the error prop (e.g., error=\"This field is required\"). The component will automatically style the border red and display the message below the input."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI Input different from MUI TextField?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Luxis UI Input provides built-in support for prefix/suffix strings, character counting, and a clear button directly via simple boolean/string props, without requiring complex InputAdornment wrapper components."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Input
+
+<ComponentStatus status="stable" version="1.0.0" aria="WAI-ARIA Form Field" />
+
+The Input component is a comprehensive wrapper around the native HTML `<input>` element. It abstracts away the complexity of wiring labels, error states, icons, and accessible descriptions, allowing you to build robust forms quickly.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for Input
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding Input to any file
+SOURCE: packages/luxis-ui/src/components/Input/index.ts
+-->
+```tsx
+import { Input } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI `Input` acts like Chakra UI's `FormControl` + `Input` combined, or MUI's `TextField`. You do not need separate components for labels or error messages.
+</Callout>
+
+## Before You Start
+
+Input replaces the native `<input type="text">` (and similar types like email, number, password). It manages its own visual container to support icons and prefixes while maintaining native accessibility. The Quick Start example will produce a standard input field with a label and helper text.
+
+<Callout type="tip" title="New to Luxis UI?">
+  The `fullWidth` prop is very useful in forms to make the input span its container's entire width.
+</Callout>
+
+## How to Use Input in React
+
+The minimum code to render a working Input:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of Input
+OUTPUT: A clean input field with a label and helper text
+USE WHEN: Standard form data collection
+SOURCE: Derived from Input.tsx defaults
+-->
+```tsx
+import { Input } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Input
+      label="Email address"
+      type="email"
+      example="you@example.com"
+      helperText="We'll never share your email."
+    />
+  );
+}
+```
+
+This creates an input field linked to its label, with descriptive text underneath.
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of Input with key props
+OUTPUT: An input with an icon, prefix, and clear button
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/Input.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { useState } from 'react';
+import { Input } from '@luxis-ui/core';
+import { UserIcon } from '@luxis-ui/icons';
+
+export default function LiveExample() {
+  const [username, setUsername] = useState('johndoe');
+
+  return (
+    <div style={{ width: 320 }}>
+      <Input
+        label="Account Username"
+        leftIcon={<UserIcon />}
+        prefix="@"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        clearable
+        onClear={() => setUsername('')}
+        fullWidth
+      />
+    </div>
+  );
+}
+```
+
+## Input Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### Validation States
+
+Easily communicate form validation results using the `error` and `success` props. Passing a string automatically changes the border color and renders the text below.
+
+<!--
+EXAMPLE: Validation States
+PURPOSE: Demonstrates error and success visual states
+OUTPUT: Two inputs, one with a red error border and one with a green success border
+USE WHEN: Validating form submissions or blur events
+SOURCE: app/storybook/src/stories/Input.stories.ts -> ValidationStates
+-->
+```tsx
+import { Input } from '@luxis-ui/core';
+
+export default function ValidationStatesExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 400 }}>
+      <Input
+        label="Username"
+        error="Username is already taken."
+        value="john.doe"
+      />
+      <Input
+        label="Email address"
+        success="Email is available."
+        value="available@company.com"
+      />
+    </div>
+  );
+}
+```
+
+The error state also sets `aria-invalid="true"` for screen readers.
+
+---
+
+### With Icons
+
+Enhance the visual context of your inputs by adding leading or trailing icons.
+
+<!--
+EXAMPLE: With Icons
+PURPOSE: Shows how to add visual context via icons
+OUTPUT: Inputs containing search and calendar icons
+USE WHEN: Improving scannability of common fields (search, dates, emails)
+SOURCE: app/storybook/src/stories/Input.stories.ts -> WithIcons
+-->
+```tsx
+import { Input } from '@luxis-ui/core';
+import { SearchIcon, CalendarIcon } from '@luxis-ui/icons';
+
+export default function WithIconsExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 400 }}>
+      <Input
+        label="Search"
+        leftIcon={<SearchIcon />}
+        example="Search documents..."
+      />
+      <Input
+        label="Schedule"
+        rightIcon={<CalendarIcon />}
+        example="DD / MM / YYYY"
+      />
+    </div>
+  );
+}
+```
+
+Icons are automatically sized correctly relative to the input's size prop.
+
+---
+
+### Prefix & Suffix
+
+Add fixed text blocks before or after the user's input, separated by a border.
+
+<!--
+EXAMPLE: Prefix and Suffix
+PURPOSE: Demonstrating text addons
+OUTPUT: Inputs structured for currency and domain entry
+USE WHEN: Collecting structured data where units are implied
+SOURCE: app/storybook/src/stories/Input.stories.ts -> WithPrefixSuffix
+-->
+```tsx
+import { Input } from '@luxis-ui/core';
+
+export default function WithPrefixSuffixExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 400 }}>
+      <Input
+        label="Price (USD)"
+        prefix="$"
+        example="0.00"
+        type="number"
+      />
+      <Input
+        label="Domain"
+        prefix="www."
+        suffix=".com"
+        example="yourdomain"
+      />
+    </div>
+  );
+}
+```
+
+This prevents users from typing the prefix themselves and simplifies validation.
+
+---
+
+### With Counter
+
+Enforce limits visually by enabling the character counter. This requires providing the `maxLength` prop alongside `showCount`.
+
+<!--
+EXAMPLE: With Counter
+PURPOSE: Showing live character count
+OUTPUT: An input that tracks typing progress against a limit
+USE WHEN: Imposing strict length limits on short text
+SOURCE: app/storybook/src/stories/Input.stories.ts -> WithCounter
+-->
+```tsx
+import { useState } from 'react';
+import { Input } from '@luxis-ui/core';
+
+export default function WithCounterExample() {
+  const [bio, setBio] = useState('');
+
+  return (
+    <Input
+      label="Short Title"
+      value={bio}
+      onChange={(e) => setBio(e.target.value)}
+      maxLength={80}
+      showCount
+      fullWidth
+      style={{ maxWidth: 400 }}
+    />
+  );
+}
+```
+
+The counter is announced politely to screen readers as the user types.
+
+---
+
+### Sizes
+
+Input supports three distinct sizes to fit different layout densities.
+
+<!--
+EXAMPLE: Sizes
+PURPOSE: Displaying size variants
+OUTPUT: Small, medium, and large inputs
+USE WHEN: Matching input scale to surrounding UI components like Buttons
+SOURCE: app/storybook/src/stories/Input.stories.ts -> Sizes
+-->
+```tsx
+import { Input } from '@luxis-ui/core';
+
+export default function SizesExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 400 }}>
+      <Input label="Small" size="sm" example="Small (32px)" />
+      <Input label="Medium" size="md" example="Medium (40px)" />
+      <Input label="Large" size="lg" example="Large (48px)" />
+    </div>
+  );
+}
+```
+
+The size prop affects the height, font size, padding, and icon sizing.
+
+---
+
+### Controlled Input
+
+When to use: When a parent component needs to read or drive the state.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  By default Input acts identically to a native React input. Use the controlled pattern when validating, clearing, or formatting the value on the fly.
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: useState-driven Input with external state management and clearability
+OUTPUT: Input whose state is owned by the parent and can be cleared
+USE WHEN: Programmatically reading or setting component state
+SOURCE: Derived from Input.stories.ts -> Clearable
+-->
+```tsx
+import { useState } from 'react';
+import { Input } from '@luxis-ui/core';
+import { SearchIcon } from '@luxis-ui/icons';
+
+export default function ControlledExample() {
+  const [value, setValue] = useState('Clear me');
+
+  return (
+    <Input
+      label="Search query"
+      leftIcon={<SearchIcon />}
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      clearable
+      onClear={() => setValue('')}
+      style={{ maxWidth: 300 }}
+    />
+  );
+}
+```
+
+## Input Best Practices
+
+Use these practices to ensure user data entry is as smooth as possible.
+
+<DoAndDont
+  good={`// ✅ Provide a label prop instead of building your own
+<Input label="First Name" />`}
+  bad={`// ❌ Don't decouple labels from the component
+<div>
+  <label>First Name</label>
+  <Input />
+</div>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use specific input types
+<Input type="email" label="Email" />`}
+  bad={`// ❌ Don't rely on validation alone for generic text fields
+<Input type="text" label="Email" />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use helperText for formatting instructions
+<Input label="Password" helperText="Must contain 8+ characters." />`}
+  bad={`// ❌ Don't hide important instructions in the example
+<Input label="Password" example="Must contain 8+ characters." />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Pass the error string directly
+<Input error="Invalid zip code" />`}
+  bad={`// ❌ Don't build custom error messages outside the component
+<Input />
+<span style={{ color: 'red' }}>Invalid zip code</span>`}
+/>
+
+## Input Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly from `packages/luxis-ui/src/Input/Input.types.ts`.
+
+### Input Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `clearable` | `boolean` | `false` | false | If true, shows a clear button when input has value |
+| `error` | `string` | `undefined` | false | Error message - shows error state and text |
+| `fullWidth` | `boolean` | `false` | false | If true, input takes full width of container |
+| `helperText` | `string` | `undefined` | false | Helper text displayed below the input |
+| `inputClassName` | `string` | `undefined` | false | Custom class name for the native input element |
+| `label` | `string` | `undefined` | false | Label text displayed above the input |
+| `labelClassName` | `string` | `undefined` | false | Custom class name for the label element |
+| `leftIcon` | `ReactNode` | `undefined` | false | Icon to display at the start |
+| `onClear` | `() => void` | `undefined` | false | Callback fired when clear button is clicked |
+| `prefix` | `string` | `undefined` | false | Prefix text attached before input value |
+| `rightIcon` | `ReactNode` | `undefined` | false | Icon to display at the end |
+| `showCount` | `boolean` | `false` | false | Shows character counter (requires `maxLength`) |
+| `size` | `'sm' \| 'md' \| 'lg'` | `theme default` | false | Size variant |
+| `success` | `string` | `undefined` | false | Success message - shows success state and text |
+| `suffix` | `string` | `undefined` | false | Suffix text attached after input value |
+| `wrapperClassName` | `string` | `undefined` | false | Custom class name for the outer wrapper |
+
+### HTML Native Props
+
+Input forwards rest props to its underlying `<input>`, so all standard HTML input attributes are also accepted.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `value` | Controlled state value | `"Hello"` |
+| `onChange` | Input change handler | `(e) => setValue(e.target.value)` |
+| `disabled` | Disables interaction | `true` |
+| `required` | Marks field as mandatory | `true` |
+| `type` | Input type | `"password"`, `"email"`, `"number"` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for Input
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/Input/Input.types.ts
+-->
+```ts
+import type { InputHTMLAttributes, ReactNode } from 'react';
+import type { Size } from '../../theme';
+
+export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
+  label?: string;
+  helperText?: string;
+  error?: string;
+  success?: string;
+  size?: Size;
+  fullWidth?: boolean;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
+  clearable?: boolean;
+  onClear?: () => void;
+  showCount?: boolean;
+  wrapperClassName?: string;
+  labelClassName?: string;
+  inputClassName?: string;
+  prefix?: string;
+  suffix?: string;
+}
+```
+
+</details>
+
+## Input Accessibility Guide
+
+Input adheres to standard Form Field WAI-ARIA patterns and meets WCAG AA.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| <KeyboardKey>Tab</KeyboardKey> | Focuses the input element |
+
+### ARIA Attributes
+
+| Attribute | Value | When |
+|-----------|-------|------|
+| `aria-invalid` | `"true"` | When `error` prop is provided |
+| `aria-describedby` | `"{id}"` | Automatically links to `helperText`, `error`, or `success` text nodes |
+| `aria-hidden` | `"true"` | Placed on decorative icons, prefixes, and suffixes |
+| `aria-label` | `"required"` | Placed on the visual red asterisk |
+
+### Screen Reader Behavior
+
+When focused, the screen reader announces the input type, the `label`, and any connected `aria-describedby` text (like error messages or helper text). If `error` is present, it will announce that the field is invalid. The character counter uses `aria-live="polite"` to announce updates. The clear button has an `aria-label` of "Clear input" but is purposely removed from the tab sequence (`tabIndex={-1}`) so users don't have to tab twice to get out of the field; it remains clickable.
+
+### Accessibility Checklist
+
+- [ ] Always provide a `label` (if visual label is omitted, ensure `aria-label` is passed via native props).
+- [ ] Use `error` text to explain *why* validation failed, not just that it did.
+- [ ] Ensure example text has sufficient color contrast if overriding the default.
+- [ ] Always verify with keyboard-only navigation before shipping
+
+## Input Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions like colors, spacing, and radius. Override them to restyle Input without fighting CSS specificity.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-background-primary` | Dynamic | Input background color |
+| `--lxs-color-primary-500` | Dynamic | Focus ring and border color |
+| `--lxs-color-error-500` | Dynamic | Error state border color |
+| `--lxs-color-success-500` | Dynamic | Success state border color |
+| `--lxs-radius-md` | Dynamic | Border radius for medium input |
+
+**Override globally:**
+```css
+:root {
+  --lxs-color-primary-500: #8b5cf6; /* Change focus ring to purple */
+}
+```
+
+## Customizing Input
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to Input
+OUTPUT: Input with additional styling
+USE WHEN: Quick one-off style overrides
+SOURCE: N/A
+-->
+```tsx
+<Input
+  label="Custom Field"
+  wrapperClassName="my-wrapper-margin"
+  inputClassName="my-custom-font"
+/>
+```
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: Input with custom token values
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+```tsx
+<Input
+  label="Themed Field"
+  style={{ '--lxs-radius-md': '2px' } as React.CSSProperties}
+/>
+```
+
+### Using with forwardRef
+
+<!--
+EXAMPLE: forwardRef
+PURPOSE: Accessing the underlying DOM node
+OUTPUT: Input with attached ref
+USE WHEN: Automatically focusing a field on mount
+SOURCE: N/A
+-->
+```tsx
+import { useRef, useEffect } from 'react';
+import { Input } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    // Focus the input when the component mounts
+    inputRef.current?.focus();
+  }, []);
+
+  return <Input label="Auto-focused field" ref={inputRef} />;
+}
+```
+
+## Common Input Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Secure Password Field
+
+Used when: Asking users for passwords.
+
+<!--
+EXAMPLE: Password Field
+PURPOSE: Creating a secure input
+OUTPUT: A standard password field
+USE WHEN: Login and registration forms
+SOURCE: Common usage pattern for Input
+-->
+```tsx
+import { Input } from '@luxis-ui/core';
+
+export default function PasswordField() {
+  return (
+    <div style={{ maxWidth: 300 }}>
+      <Input
+        label="Password"
+        type="password"
+        required
+        fullWidth
+        helperText="We recommend using a password manager."
+      />
+    </div>
+  );
+}
+```
+
+### Payment Input
+
+Used when: Requesting exact amounts of currency.
+
+<!--
+EXAMPLE: Currency Input
+PURPOSE: Utilizing prefix for numeric inputs
+OUTPUT: An input optimized for monetary values
+USE WHEN: Checkout flows or pricing forms
+SOURCE: Common usage pattern for Input
+-->
+```tsx
+import { Input } from '@luxis-ui/core';
+
+export default function PaymentInput() {
+  return (
+    <div style={{ maxWidth: 200 }}>
+      <Input
+        label="Donation Amount"
+        type="number"
+        prefix="$"
+        example="50.00"
+        fullWidth
+        min="1"
+        step="0.01"
+      />
+    </div>
+  );
+}
+```
+
+### URL Collector
+
+Used when: Asking users for websites, social profiles, or domains.
+
+<!--
+EXAMPLE: URL Input
+PURPOSE: Using prefix and suffix to guide formatting
+OUTPUT: An input that visually enforces a specific domain format
+USE WHEN: Collecting specialized URLs
+SOURCE: Common usage pattern for Input
+-->
+```tsx
+import { useState } from 'react';
+import { Input } from '@luxis-ui/core';
+
+export default function UrlCollector() {
+  const [handle, setHandle] = useState('');
+
+  return (
+    <div style={{ maxWidth: 350 }}>
+      <Input
+        label="Twitter Profile"
+        prefix="twitter.com/"
+        example="username"
+        value={handle}
+        onChange={(e) => setHandle(e.target.value)}
+        fullWidth
+      />
+    </div>
+  );
+}
+```
+
+## Troubleshooting Input
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Clear button doesn't empty field | Relying on `clearable` without state | Provide `value` and handle `onClear={() => setValue('')}` |
+| Counter doesn't show | Passing `showCount` without limit | Must provide both `showCount` AND `maxLength={50}` |
+| Width doesn't match container | Setting `style={{ width: '100%' }}` | Use the `fullWidth` prop |
+| Prefix text is cut off | Trying to use `leftIcon` for text | Use the `prefix` prop for text, `leftIcon` for SVGs |
+
+### Frequently Asked Questions
+
+**Q: How do I make a textarea instead?**
+A: Use the separate `<Textarea>` component, as `<Input>` is strictly for single-line text fields.
+
+**Q: Why doesn't the clear button gain focus when I press Tab?**
+A: By design, the clear button has `tabIndex={-1}`. This prevents users who are navigating a long form from having to press Tab twice to move to the next logical field. They can clear the input by selecting all and deleting, or clicking the button with a mouse.
+
+**Q: Can I put a dropdown inside the input, like a country code selector?**
+A: No, the `prefix` and `leftIcon` props are meant for static visual aids. For complex compound inputs, build a custom row using `<Flex>` wrapping an `<Autocomplete>` and an `<Input>`.
+
+
+**Q: How do I get a reference to the actual input element?**
+A: Pass a `ref` prop as you would with a standard input. The component uses `forwardRef` to pass it down directly to the native element.
+
+## Related Components
+
+<RelatedComponent
+  name="Checkbox"
+  description="Use Checkbox for boolean or multi-select form fields."
+  href="/docs/components/checkbox"
+/>
+<RelatedComponent
+  name="Radio"
+  description="Use Radio for mutually exclusive single-selection form fields."
+  href="/docs/components/radio"
+/>
+<RelatedComponent
+  name="Button"
+  description="Typically paired with Inputs to submit form data."
+  href="/docs/components/button"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Input
+
+> Input is a Components React component in Luxis UI for collecting single-line text data in forms, with built-in labels and validation.
+
+## Source
+packages/luxis-ui/src/Input/Input.tsx
+
+## Story
+app/storybook/src/stories/Input.stories.ts
+
+## Install
+\`\`\`bash
+npm install @luxis-ui/core
+\`\`\`
+
+## Import
+\`\`\`tsx
+import { Input } from '@luxis-ui/core';
+\`\`\`
+
+## Minimal usage
+\`\`\`tsx
+import { Input } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Input
+      label="Email address"
+      type="email"
+      example="you@example.com"
+      required
+    />
+  );
+}
+\`\`\`
+
+## Key props
+- `label` (string, default=`undefined`): Label text displayed above the input
+- `error` (string, default=`undefined`): Error message - shows error state
+- `fullWidth` (boolean, default=`false`): Takes full width of container
+- `prefix` (string, default=`undefined`): Text attached before input value
+- `clearable` (boolean, default=`false`): Shows a clear button when input has value
+
+## When to use
+Use for standard form data entry, search bars, and collecting text, numbers, or emails.
+
+## When NOT to use
+Do not use for multi-line text (use Textarea) or dropdown selections (use Select).
+
+## Accessibility
+WCAG: AA
+ARIA: Form Field
+Keyboard: Tab
+
+## Docs
+https://luxis-ui.dev/docs/components/input
+LLMS_TXT_ENTRY_END
+*/}

@@ -1,0 +1,927 @@
+---
+title: "Link — Luxis UI React Component"
+description: "A flexible link component that works with native anchors, React Router, Next.js, or any custom routing library. Supports text variants, icons, and theming."
+status: stable
+since: "1.0.0"
+category: "Components"
+npm: "@luxis-ui/core"
+import: "import { Link } from '@luxis-ui/core'"
+component: "Link"
+keywords:
+  - link
+  - react link
+  - link component
+  - luxis ui link
+  - typescript link
+  - accessible link
+  - react design system
+  - next link
+  - react router link
+slug: /components/link
+canonical: "https://luxis-ui.dev/docs/components/link"
+og_image: "/img/og/link.png"
+llm_summary: >
+  Link renders an HTML `<a>` element or delegates to a custom routing component (like Next.js Link or React Router Link).
+  Props: `href` (string, default=undefined), `component` (React.ElementType, default=undefined), `componentProps` (Record<string, unknown>, default={}), `variant` ('h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body1' | 'body2' | 'caption' | 'small', default='body1'), `noUnderline` (boolean, default=true), `disabled` (boolean, default=false), `color` ('primary' | 'secondary' | 'neutral' | 'inherit', default='inherit'), `hoverColor` ('primary' | 'secondary' | 'neutral' | 'inherit' | string, default=undefined), `leftIcon` (ReactNode, default=undefined), `rightIcon` (ReactNode, default=undefined), `external` (boolean, default=false), `download` (boolean | string, default=undefined).
+  Primary use cases include standard hyperlinks, internal app navigation via routing libraries, and downloadable resources. Do NOT use it for actions that change data or state on the current page—use a Button instead.
+  Accessibility: It natively acts as a standard link, receiving focus. When `disabled` is true, it omits the `href` attribute, making it inert, and sets `aria-disabled="true"`.
+  Import exactly like this: `import { Link } from '@luxis-ui/core'`.
+---
+
+{/*
+LLM_CONTEXT
+  component    : Link
+  source       : packages/luxis-ui/src/Link/Link.tsx
+  story        : app/storybook/src/stories/Link.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components
+  status       : stable
+  aria-pattern : Link
+
+  What it renders:
+  Link renders an `<a>` element natively, or it renders the element provided by the `component` prop (e.g., `<NextLink>`). It can include child content as well as optional left/right icons wrapped in spans.
+
+  When to use:
+  - Navigating to internal pages (e.g., using React Router or Next.js).
+  - Navigating to external sites.
+  - Triggering file downloads.
+
+  When NOT to use:
+  - Performing actions on the current page (submitting a form, opening a modal) - use a Button instead.
+  - Interactive elements inside a form or complex widget that don't involve navigation.
+
+  Ecosystem equivalents:
+  - MUI        : <Link>
+  - Chakra UI  : <Link>
+  - shadcn/ui  : [N/A, standard <a> often used or styled-components]
+  - Radix UI   : [N/A]
+  - HTML native: <a>
+
+  Props (must match source exactly — every single prop):
+  href (string, default=undefined) — URL to navigate to
+  component (React.ElementType, default=undefined) — Custom Link component to use (e.g., Next.js Link or React Router Link)
+  componentProps (Record<string, unknown>, default={}) — Props to pass to the custom component
+  variant ('h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body1' | 'body2' | 'caption' | 'small', default='body1') — Text variant (size/style)
+  noUnderline (boolean, default=true) — If true, removes underline decoration
+  disabled (boolean, default=false) — If true, link is disabled
+  color ('primary' | 'secondary' | 'neutral' | 'inherit', default='inherit') — Link color variant
+  leftIcon (ReactNode, default=undefined) — Icon to display before link text
+  rightIcon (ReactNode, default=undefined) — Icon to display after link text
+  external (boolean, default=false) — If true, opens link in new tab
+  download (boolean | string, default=undefined) — If true or string, triggers browser download
+  hoverColor ('primary' | 'secondary' | 'neutral' | 'inherit' | string, default=undefined) — Hover color variant or custom color string
+
+  Accessibility:
+  WCAG: AA
+  Keyboard: Focusable via Tab key. Can be activated via Enter key.
+  Screen reader: Announced as a link. If disabled, announced as a disabled element (inert due to missing href).
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Link React Component — Luxis UI",
+  "description": "A flexible link component that works with native anchors, React Router, Next.js, or any custom routing library. Supports text variants, icons, and theming.",
+  "keywords": "link, react link, link component, luxis ui link, typescript link, accessible link, react design system, next link, react router link",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use Link in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { Link } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI Link accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Key props include href (string, default=undefined), component (React.ElementType, default=undefined), variant (string, default='body1'), color (string, default='inherit'), and external (boolean, default=false)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I use Link with Next.js or React Router?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pass the routing component to the component prop. For example: <Link component={NextLink} href=\"/about\">About</Link>."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI Link different from MUI Link?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Luxis UI Link offers seamless integration with custom routing libraries via the component prop out of the box. It also provides built-in icon support and specific variant sizing."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Link
+
+<ComponentStatus status="stable" version="1.0.0" aria="WAI-ARIA Link" />
+
+The Link component creates hyperlinks for navigation. It acts as a standard HTML anchor tag by default, but seamlessly integrates with routing libraries like React Router and Next.js.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for Link
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding Link to any file
+SOURCE: packages/luxis-ui/src/components/Link/index.ts
+-->
+```tsx
+import { Link } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI `Link` is equivalent to MUI's `<Link>`, Chakra UI's `<Link>`, and shadcn/ui's standard anchor tags or tailored navigation components. It simplifies integrating external routing frameworks.
+</Callout>
+
+## Before You Start
+
+Link provides a stylized standard hyperlink or a wrapper for framework-specific routing components. It is based on the native HTML `<a>` element and adheres to the standard Link ARIA pattern. The Quick Start example will produce a basic internal link styled according to your theme.
+
+<Callout type="tip" title="New to Luxis UI?">
+  Check out the Getting Started guide for setting up your provider and theme.
+</Callout>
+
+## How to Use Link in React
+
+The minimum code to render a working Link:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of Link
+OUTPUT: A clickable link styled according to the default body1 variant
+USE WHEN: Standard internal navigation
+SOURCE: Derived from Link.tsx defaults and simplest Story
+-->
+```tsx
+import { Link } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Link href="/dashboard" color="primary">
+      Go to Dashboard
+    </Link>
+  );
+}
+```
+
+This renders a primary-colored link pointing to the "/dashboard" route.
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of Link with key props
+OUTPUT: A primary-colored link with an external icon opening in a new tab
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/Link.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { Link } from '@luxis-ui/core';
+import { ExternalIcon } from '@luxis-ui/icons';
+
+export default function LiveExample() {
+  return (
+    <Link
+      href="https://luxis-ui.dev"
+      color="primary"
+      external
+      rightIcon={<ExternalIcon />}
+    >
+      Read Documentation
+    </Link>
+  );
+}
+```
+
+## Link Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### External
+
+When you need to link to a third-party website, setting `external` to `true` will automatically add `target="_blank"` and `rel="noopener noreferrer"`.
+
+<!--
+EXAMPLE: External
+PURPOSE: Demonstrates a link opening in a new tab securely
+OUTPUT: A link with an external icon
+USE WHEN: Linking to an outside domain
+SOURCE: app/storybook/src/stories/Link.stories.ts -> External
+-->
+```tsx
+import { Link } from '@luxis-ui/core';
+import { ExternalIcon } from '@luxis-ui/icons';
+
+export default function ExternalExample() {
+  return (
+    <Link
+      href="https://example.com"
+      external
+      color="primary"
+      rightIcon={<ExternalIcon />}
+    >
+      Open in new tab
+    </Link>
+  );
+}
+```
+
+This ensures external links open safely without exposing your application.
+
+---
+
+### Download
+
+You can trigger a browser download by using the `download` prop.
+
+<!--
+EXAMPLE: Download
+PURPOSE: Shows how to create a download link
+OUTPUT: A link that initiates a file download
+USE WHEN: Linking to a file that should be saved rather than viewed
+SOURCE: app/storybook/src/stories/Link.stories.ts -> Download
+-->
+```tsx
+import { Link } from '@luxis-ui/core';
+import { DownloadIcon } from '@luxis-ui/icons';
+
+export default function DownloadExample() {
+  return (
+    <Link
+      href="/assets/report.pdf"
+      download
+      color="primary"
+      leftIcon={<DownloadIcon />}
+    >
+      Download PDF
+    </Link>
+  );
+}
+```
+
+This uses the native HTML `download` attribute functionality.
+
+---
+
+### Disabled
+
+When a link needs to be visible but inert, use the `disabled` prop.
+
+<!--
+EXAMPLE: Disabled
+PURPOSE: Demonstrates an unclickable link
+OUTPUT: A faded link that does not respond to clicks
+USE WHEN: A destination is currently unavailable or the user lacks permission
+SOURCE: app/storybook/src/stories/Link.stories.ts -> Disabled
+-->
+```tsx
+import { Link } from '@luxis-ui/core';
+
+export default function DisabledExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <Link disabled href="/should-not-navigate" color="primary">
+        Disabled primary link
+      </Link>
+      <Link disabled href="/should-not-navigate" color="secondary">
+        Disabled secondary link
+      </Link>
+    </div>
+  );
+}
+```
+
+Disabled links strip their `href` to prevent programmatic or keyboard navigation.
+
+---
+
+### NoUnderline
+
+By default, links have no underline, but they will show one on hover. You can enforce a persistent underline or completely disable it.
+
+<!--
+EXAMPLE: NoUnderline
+PURPOSE: Shows control over the text underline
+OUTPUT: Two links, one with and one without underline effects
+USE WHEN: Adapting link styles to specific layouts like navbars
+SOURCE: app/storybook/src/stories/Link.stories.ts -> NoUnderline
+-->
+```tsx
+import { Link } from '@luxis-ui/core';
+
+export default function NoUnderlineExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <Link href="#" noUnderline={false} color="primary">
+        With underline (noUnderline=false)
+      </Link>
+      <Link href="#" noUnderline={true} color="primary">
+        Without underline (noUnderline=true)
+      </Link>
+    </div>
+  );
+}
+```
+
+This is particularly useful when links are used as prominent UI elements rather than inline text.
+
+---
+
+### HoverColors
+
+You can customize the color the link changes to when hovered.
+
+<!--
+EXAMPLE: HoverColors
+PURPOSE: Demonstrates setting custom hover colors
+OUTPUT: Links that change to specified colors on hover
+USE WHEN: Needing specific visual feedback on interaction
+SOURCE: app/storybook/src/stories/Link.stories.ts -> HoverColors
+-->
+```tsx
+import { Link } from '@luxis-ui/core';
+
+export default function HoverColorsExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <Link href="#" color="neutral" hoverColor="primary">
+        Hover to turn primary
+      </Link>
+      <Link href="#" color="neutral" hoverColor="secondary">
+        Hover to turn secondary
+      </Link>
+      <Link href="#" color="neutral" hoverColor="#e11d48">
+        Hover to turn custom #e11d48
+      </Link>
+    </div>
+  );
+}
+```
+
+This accepts both theme tokens and exact CSS color values.
+
+---
+
+### ReactRouterPattern
+
+When using React Router, you can pass its Link component into the `component` prop.
+
+<!--
+EXAMPLE: ReactRouterPattern
+PURPOSE: Shows integration with React Router
+OUTPUT: Links that perform client-side navigation via React Router
+USE WHEN: Working in a standard React application using react-router-dom
+SOURCE: app/storybook/src/stories/Link.stories.ts -> ReactRouterPattern
+-->
+```tsx
+import { Link } from '@luxis-ui/core';
+import { Link as RouterLink } from 'react-router-dom';
+
+export default function ReactRouterPatternExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <Link
+        component={RouterLink}
+        componentProps={{ to: '/dashboard' }}
+        color="primary"
+      >
+        React Router — /dashboard
+      </Link>
+      <Link
+        component={RouterLink}
+        componentProps={{ to: '/settings' }}
+        color="secondary"
+      >
+        React Router — /settings
+      </Link>
+    </div>
+  );
+}
+```
+
+Note that React Router uses the `to` prop, which is passed via `componentProps`.
+
+---
+
+### NextJsPattern
+
+When using Next.js, you can easily wrap its Link component.
+
+<!--
+EXAMPLE: NextJsPattern
+PURPOSE: Shows integration with Next.js
+OUTPUT: Links that perform optimized client-side navigation via Next.js
+USE WHEN: Building applications with the Next.js framework
+SOURCE: app/storybook/src/stories/Link.stories.ts -> NextJsPattern
+-->
+```tsx
+import { Link } from '@luxis-ui/core';
+import NextLink from 'next/link';
+
+export default function NextJsPatternExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <Link
+        component={NextLink}
+        href="/about"
+        color="primary"
+      >
+        Next.js — /about
+      </Link>
+      <Link
+        component={NextLink}
+        href="/blog"
+        color="secondary"
+      >
+        Next.js — /blog
+      </Link>
+    </div>
+  );
+}
+```
+
+Next.js natively supports the `href` prop on its Link component.
+
+---
+
+### Controlled Link
+
+When to use: When a parent component needs to read or drive the state.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  By default Link manages its own state (uncontrolled). Use the controlled pattern when syncing with a URL param, form library, or another component.
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: useState-driven Link with external state management
+OUTPUT: Link whose state is owned by the parent
+USE WHEN: Programmatically reading or setting component state
+SOURCE: Derived from Link.tsx controlled/uncontrolled pattern
+-->
+```tsx
+import { useState } from 'react';
+import { Link } from '@luxis-ui/core';
+
+export default function ControlledExample() {
+  const [activeUrl, setActiveUrl] = useState('/dashboard');
+
+  return (
+    <Link href={activeUrl} onClick={() => setActiveUrl('/settings')}>
+      Navigate to current destination
+    </Link>
+  );
+}
+```
+
+## Link Best Practices
+
+Use these practices to ensure navigation is predictable and accessible.
+
+<DoAndDont
+  good={`// ✅ Use links for navigation
+<Link href="/settings">Settings</Link>`}
+  bad={`// ❌ Don't use links for actions
+<Link onClick={saveData}>Save</Link>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use the external prop for outside URLs
+<Link href="https://google.com" external>Search</Link>`}
+  bad={`// ❌ Don't set target manually for external links
+<Link href="https://google.com" target="_blank">Search</Link>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Pass router links via the component prop
+<Link component={NextLink} href="/profile">Profile</Link>`}
+  bad={`// ❌ Don't nest anchor tags
+<NextLink href="/profile"><Link>Profile</Link></NextLink>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Give clear text indicating the destination
+<Link href="/docs/api">Read the API documentation</Link>`}
+  bad={`// ❌ Don't use vague link text
+<Link href="/docs/api">Click here</Link>`}
+/>
+
+## Link Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly from `packages/luxis-ui/src/Link/Link.tsx`.
+
+### Link Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `color` | `'primary' \| 'secondary' \| 'neutral' \| 'inherit'` | `'inherit'` | false | Link color variant |
+| `component` | `React.ElementType` | `undefined` | false | Custom Link component to use |
+| `componentProps` | `Record<string, unknown>` | `{}` | false | Props to pass to the custom component |
+| `disabled` | `boolean` | `false` | false | If true, link is disabled |
+| `download` | `boolean \| string` | `undefined` | false | If true or string, triggers browser download |
+| `external` | `boolean` | `false` | false | If true, opens link in new tab |
+| `hoverColor` | `'primary' \| 'secondary' \| 'neutral' \| 'inherit' \| string` | `undefined` | false | Hover color variant or custom color string |
+| `href` | `string` | `undefined` | false | URL to navigate to |
+| `leftIcon` | `ReactNode` | `undefined` | false | Icon to display before link text |
+| `noUnderline` | `boolean` | `true` | false | If true, removes underline decoration |
+| `rightIcon` | `ReactNode` | `undefined` | false | Icon to display after link text |
+| `variant` | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6' \| 'body1' \| 'body2' \| 'caption' \| 'small'` | `'body1'` | false | Text variant (size/style) |
+
+### HTML Native Props
+
+Link forwards rest props to its underlying `<a>`, so all standard HTML anchor attributes are also accepted.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `onClick` | Click handler | `(e) => handleClick(e)` |
+| `className` | Additional CSS class names | `"custom-class"` |
+| `style` | Inline CSS styles | `{{ marginTop: '8px' }}` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for Link
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/Link/Link.tsx
+-->
+```ts
+export interface LinkProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> {
+  href?: string;
+  component?: React.ElementType;
+  componentProps?: Record<string, unknown>;
+  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body1' | 'body2' | 'caption' | 'small';
+  noUnderline?: boolean;
+  disabled?: boolean;
+  color?: 'primary' | 'secondary' | 'neutral' | 'inherit';
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+  external?: boolean;
+  download?: boolean | string;
+  hoverColor?: 'primary' | 'secondary' | 'neutral' | 'inherit' | (string & {});
+  children?: React.ReactNode;
+}
+```
+
+</details>
+
+## Link Accessibility Guide
+
+Link follows the Link WAI-ARIA pattern and meets WCAG AA.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| <KeyboardKey>Tab</KeyboardKey> | Focuses the link |
+| <KeyboardKey>Enter</KeyboardKey> | Activates the link and navigates to the destination |
+
+### ARIA Attributes
+
+| Attribute | Value | When |
+|-----------|-------|------|
+| `aria-disabled` | `"true"` | When `disabled` prop is true |
+| `target` | `"_blank"` | When `external` prop is true |
+| `rel` | `"noopener noreferrer"` | When `external` prop is true |
+
+### Screen Reader Behavior
+
+When a screen reader encounters a Link, it will announce it as a "link" along with the text content. If the `external` prop is used, it often announces that the link opens in a new window. If the `disabled` prop is set, the `href` attribute is removed, causing the screen reader to treat it as inert plain text, or announce it as a disabled element, preventing confusion.
+
+### Accessibility Checklist
+
+- [ ] Ensure link text clearly describes the destination (avoid "click here").
+- [ ] Use the `external` prop when linking off-site.
+- [ ] Do not use links for actions; use buttons instead.
+- [ ] Always verify with keyboard-only navigation before shipping
+
+## Link Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions like colors, spacing, and radius. Override them to restyle Link without fighting CSS specificity.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-link-hover-color` | Dynamic | Controls the custom hover color when a specific hex/string is passed to `hoverColor` |
+
+**Override globally:**
+```css
+:root {
+  --lxs-link-hover-color: #ff0000;
+}
+```
+
+**Override for one section:**
+```css
+.my-section {
+  --lxs-link-hover-color: #ff0000;
+}
+```
+
+**Override on one instance:**
+```tsx
+<Link
+  style={{ '--lxs-link-hover-color': '#ff0000' } as React.CSSProperties}
+/>
+```
+
+## Customizing Link
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to Link
+OUTPUT: Link with additional styling
+USE WHEN: Quick one-off style overrides
+SOURCE: N/A
+-->
+```tsx
+<Link href="/home" className="my-custom-link">
+  Home
+</Link>
+```
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: Link with custom token values
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+```tsx
+<Link
+  href="/home"
+  hoverColor="#3b82f6"
+>
+  Home
+</Link>
+```
+
+### Using with forwardRef
+
+<!--
+EXAMPLE: forwardRef
+PURPOSE: Accessing the underlying DOM node
+OUTPUT: Link with attached ref
+USE WHEN: Calling native DOM methods like .focus()
+SOURCE: N/A
+-->
+```tsx
+import { useRef, useEffect } from 'react';
+import { Link } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const ref = useRef<HTMLAnchorElement>(null);
+
+  useEffect(() => {
+    ref.current?.focus();
+  }, []);
+
+  return <Link href="/focus-target" ref={ref}>Focused link</Link>;
+}
+```
+
+## Common Link Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Global Router Setup
+
+Used when: You want to configure the router component globally once rather than on every link.
+
+<!--
+EXAMPLE: Global Router Setup
+PURPOSE: Setting the router globally via ThemeProvider
+OUTPUT: Links that automatically use the global router
+USE WHEN: Setting up the root layout of your application
+SOURCE: Common usage pattern for Link
+-->
+```tsx
+import { ThemeProvider, Link } from '@luxis-ui/core';
+import NextLink from 'next/link';
+
+export default function App() {
+  return (
+    <ThemeProvider linkComponent={NextLink}>
+      <nav>
+        <Link href="/dashboard" color="primary">Dashboard</Link>
+        <Link href="/settings" color="secondary">Settings</Link>
+      </nav>
+    </ThemeProvider>
+  );
+}
+```
+
+### Navigation Bar
+
+Used when: Building a standard horizontal site header or navigation menu.
+
+<!--
+EXAMPLE: Navigation Bar
+PURPOSE: Constructing a nav bar using Links
+OUTPUT: A styled row of navigation links
+USE WHEN: Creating an application header
+SOURCE: Common usage pattern for Link
+-->
+```tsx
+import { Link } from '@luxis-ui/core';
+
+export default function NavigationBar() {
+  return (
+    <nav style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+      <Link href="/" variant="h6" color="primary">
+        Brand
+      </Link>
+      <Link href="/features" color="neutral">Features</Link>
+      <Link href="/pricing" color="neutral">Pricing</Link>
+      <Link href="/docs" color="neutral">Documentation</Link>
+    </nav>
+  );
+}
+```
+
+### Action Prompt
+
+Used when: Presenting a prompt inline, typically for login or signup flows.
+
+<!--
+EXAMPLE: Action Prompt
+PURPOSE: Placing a link inline with text
+OUTPUT: A sentence with a clickable link
+USE WHEN: Guiding a user to a related action or page
+SOURCE: Common usage pattern for Link
+-->
+```tsx
+import { Link } from '@luxis-ui/core';
+
+export default function ActionPrompt() {
+  return (
+    <p style={{ fontSize: '14px', color: '#525252' }}>
+      Don't have an account?{' '}
+      <Link href="/signup" color="primary" noUnderline={false}>
+        Sign up now
+      </Link>
+    </p>
+  );
+}
+```
+
+## Troubleshooting Link
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Next.js error: "Hydration failed" | `<Link><NextLink>Home</NextLink></Link>` | `<Link component={NextLink} href="/">Home</Link>` |
+| Keyboard can still navigate | `<Link onClick={(e) => e.preventDefault()}>` | `<Link disabled>` |
+| Open in new tab issues | `<Link target="_blank">` | `<Link external>` |
+| Click event fires but changes URL | `<Link onClick={myAction} href="#">` | Use a `<Button>` instead |
+
+<Callout type="warning" title="Next.js / SSR">
+  When passing `NextLink` to the `component` prop, ensure you are using Next.js 13+. Earlier versions may require handling `passHref` and `legacyBehavior` wrappers differently.
+</Callout>
+
+### Frequently Asked Questions
+
+**Q: Why doesn't my React Router link navigate without reloading?**
+A: Make sure you are passing the router component via the `component` prop (e.g., `<Link component={RouterLink} ... />`) instead of just rendering a native anchor tag.
+
+**Q: Can I put a Button inside a Link?**
+A: No, nesting interactive elements is invalid HTML and causes accessibility issues. Use the `component` prop on the Button itself to make it act as a link if needed, or style the Link to look like a Button.
+
+**Q: How do I change the link color?**
+A: Use the `color` prop for predefined theme colors (e.g., `color="primary"`), or apply standard CSS classes.
+
+**Q: Why is my disabled link still visible?**
+A: The `disabled` prop removes interactivity and sets appropriate ARIA attributes, but it maintains visibility (often with reduced opacity) so users know the option exists.
+
+## Related Components
+
+<RelatedComponent
+  name="Button"
+  description="Use Button instead of Link for actions that change data or state on the current page."
+  href="/docs/components/button"
+/>
+<RelatedComponent
+  name="Typography"
+  description="Use Typography for standard text that does not require navigation."
+  href="/docs/components/typography"
+/>
+<RelatedComponent
+  name="Breadcrumb"
+  description="Use Breadcrumb for hierarchical navigation paths."
+  href="/docs/components/breadcrumb"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Link
+
+> Link is a Components React component in Luxis UI for creating hyperlinks for navigation, integrating easily with frameworks like Next.js and React Router.
+
+## Source
+packages/luxis-ui/src/Link/Link.tsx
+
+## Story
+app/storybook/src/stories/Link.stories.ts
+
+## Install
+\`\`\`bash
+npm install @luxis-ui/core
+\`\`\`
+
+## Import
+\`\`\`tsx
+import { Link } from '@luxis-ui/core';
+\`\`\`
+
+## Minimal usage
+\`\`\`tsx
+import { Link } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Link href="/dashboard" color="primary">
+      Go to Dashboard
+    </Link>
+  );
+}
+\`\`\`
+
+## Key props
+- `href` (string, default=`undefined`): URL to navigate to
+- `component` (React.ElementType, default=`undefined`): Custom Link component to use
+- `variant` (string, default=`'body1'`): Text variant (size/style)
+- `color` (string, default=`'inherit'`): Link color variant
+- `external` (boolean, default=`false`): If true, opens link in new tab
+
+## When to use
+Use for standard internal navigation or linking to external sites. Use when triggering file downloads.
+
+## When NOT to use
+Do not use for performing actions on the current page. Do not use for form submissions.
+
+## Accessibility
+WCAG: AA
+ARIA: Link
+Keyboard: Tab, Enter
+
+## Docs
+https://luxis-ui.dev/docs/components/link
+LLMS_TXT_ENTRY_END
+*/}

@@ -1,0 +1,837 @@
+---
+title: "Header — Luxis UI React Component"
+description: "A professional admin panel header component featuring built-in support for notifications, user menus, and custom actions."
+status: stable
+since: "1.0.0"
+category: "Components"
+npm: "@luxis-ui/core"
+import: "import { Header } from '@luxis-ui/core'"
+component: "Header"
+keywords:
+  - header
+  - react header
+  - header component
+  - admin header
+  - topbar
+  - app bar
+  - luxis ui header
+  - typescript header
+  - react design system
+slug: /components/header
+canonical: "https://luxis-ui.dev/docs/components/header"
+og_image: "/img/og/header.png"
+llm_summary: >
+  Header renders a `<header>` element configured as a top application bar. It natively supports a sidebar toggle, logo, title, custom actions, a notifications dropdown, and a user profile dropdown.
+  Props: `logo` (ReactNode, default=undefined), `title` (string, default=undefined), `onToggleSidebar` (function, default=undefined), `showToggle` (boolean, default=true), `notifications` (NotificationItem[], default=[]), `onNotificationClick` (function, default=undefined), `onMarkAllAsRead` (function, default=undefined), `userName` (string, default=undefined), `userSubtitle` (string, default=undefined), `userAvatar` (string, default=undefined), `userMenuItems` (array, default=[]), `actions` (ReactNode, default=undefined), `className` (string, default=''), `sticky` (boolean, default=true).
+  Primary use cases: Application shells, admin dashboard top bars, and main site headers. Do NOT use it for minor section headers; use Typography instead.
+  Accessibility: Uses semantic `<header>` and ARIA labels for icon buttons and dropdowns.
+  Import exactly like this: `import { Header } from '@luxis-ui/core'`.
+---
+
+{/*
+LLM_CONTEXT
+  component    : Header
+  source       : packages/luxis-ui/src/Header/Header.tsx
+  story        : app/storybook/src/stories/Header.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components
+  status       : stable
+  aria-pattern : Application Region
+
+  What it renders:
+  Header renders a semantic `<header>` HTML element containing flexbox layouts. It encapsulates complex logic for a notification dropdown panel and a user profile menu dropdown (using the Menu component internally).
+
+  When to use:
+  - The main top bar of an admin dashboard or application shell.
+  - Providing a consistent place for user profile actions and global notifications.
+
+  When NOT to use:
+  - As a header for a specific card or section within a page (use standard Typography or Flex).
+  - When you need a completely custom, non-standard navigation bar (build it from scratch using Flex and Link).
+
+  Ecosystem equivalents:
+  - MUI        : <AppBar>, <Toolbar>
+  - Chakra UI  : [Built manually with <Flex as="header">]
+  - shadcn/ui  : [Built manually]
+  - Radix UI   : [N/A]
+  - HTML native: <header>
+
+  Props (must match source exactly — every single prop):
+  logo (ReactNode, default=undefined) — Logo or brand element
+  title (string, default=undefined) — Title text
+  onToggleSidebar (function, default=undefined) — Toggle button click handler (for sidebar)
+  showToggle (boolean, default=true) — Whether to show toggle button
+  notifications (NotificationItem[], default=[]) — Notifications list
+  onNotificationClick (function, default=undefined) — Notification click handler
+  onMarkAllAsRead (function, default=undefined) — Mark all as read handler
+  userName (string, default=undefined) — User name
+  userSubtitle (string, default=undefined) — User email or role
+  userAvatar (string, default=undefined) — User avatar image URL
+  userMenuItems (Array<{ label: string; icon?: ReactNode; onClick?: () => void; variant?: 'default' | 'danger'; divider?: boolean }>, default=[]) — User menu items
+  actions (ReactNode, default=undefined) — Custom actions (buttons, search, etc.)
+  className (string, default='') — Custom className
+  sticky (boolean, default=true) — Whether header is sticky
+
+  Accessibility:
+  WCAG: AA
+  Keyboard: Toggle button, notification button, and user menu button are focusable and activatable.
+  Screen reader: Uses generic <header> semantics. Icon buttons have aria-label attributes.
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Header React Component — Luxis UI",
+  "description": "A professional admin panel header component featuring built-in support for notifications, user menus, and custom actions.",
+  "keywords": "header, react header, header component, admin header, topbar, app bar, luxis ui header, typescript header, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use Header in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { Header } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI Header accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Key props include title, showToggle, notifications (array of items), userName, userMenuItems, and actions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I add a notification dropdown to the Header?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Simply pass an array of notification objects to the notifications prop. The Header automatically handles the bell icon, badge count, and dropdown panel."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI Header different from MUI AppBar?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Luxis UI Header is highly opinionated and comes pre-wired with complex functionality like notification panels and user menus out of the box, whereas MUI AppBar requires you to build these from scratch."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Header
+
+<ComponentStatus status="stable" version="1.0.0" aria="Application Region" />
+
+The Header component provides a standardized top application bar, commonly used in dashboards. It encapsulates complex UI patterns like notification panels and user profile dropdowns into a simple, declarative API.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for Header
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding Header to any file
+SOURCE: packages/luxis-ui/src/components/Header/index.ts
+-->
+```tsx
+import { Header } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Unlike general-purpose containers like MUI's `AppBar`, Luxis UI's `Header` is an opinionated, feature-rich component. It provides built-in state management for user and notification dropdowns.
+</Callout>
+
+## Before You Start
+
+Header is designed to sit at the top of your application shell. It expects a `title` and optionally a `logo`. If you provide `notifications` or `userName`, it will automatically render the corresponding interactive elements. The Quick Start example below will produce a complete admin header.
+
+<Callout type="tip" title="New to Luxis UI?">
+  The Header automatically becomes sticky by default (`sticky={true}`), staying fixed at the top of the viewport as the user scrolls.
+</Callout>
+
+## How to Use Header in React
+
+The minimum code to render a working Header:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of Header
+OUTPUT: A clean header with a title and sidebar toggle
+USE WHEN: Setting up the base layout for an admin panel
+SOURCE: Derived from Header.tsx defaults and simplest Story
+-->
+```tsx
+import { Header } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Header
+      title="Admin Dashboard"
+      onToggleSidebar={() => console.log('Toggle clicked')}
+    />
+  );
+}
+```
+
+This renders a sticky top bar with a hamburger menu icon (if `onToggleSidebar` is provided) and the title "Admin Dashboard".
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of Header with key props
+OUTPUT: A fully featured header with notifications and user profile
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/Header.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { Header } from '@luxis-ui/core';
+
+export default function LiveExample() {
+  return (
+    <Header
+      title="Application Shell"
+      userName="Sarah Chen"
+      userSubtitle="Administrator"
+      notifications={[
+        { id: '1', title: 'System update available', time: '5m ago', type: 'info', read: false },
+        { id: '2', title: 'Backup completed', time: '1h ago', type: 'success', read: true }
+      ]}
+      userMenuItems={[
+        { label: 'Profile' },
+        { label: 'Settings' },
+        { label: 'Logout', variant: 'danger', divider: true }
+      ]}
+    />
+  );
+}
+```
+
+## Header Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### WithLogo
+
+You can replace or accompany the title with a custom brand logo.
+
+<!--
+EXAMPLE: WithLogo
+PURPOSE: Demonstrates adding a custom logo
+OUTPUT: A header displaying an image next to the title
+USE WHEN: Applying company branding to the application shell
+SOURCE: app/storybook/src/stories/Header.stories.ts -> WithLogo
+-->
+```tsx
+import { Header } from '@luxis-ui/core';
+
+export default function WithLogoExample() {
+  const customLogo = (
+    <div style={{ width: 32, height: 32, background: '#3b82f6', borderRadius: 8 }} />
+  );
+
+  return (
+    <Header
+      logo={customLogo}
+      title="BrandName"
+      userName="John Doe"
+    />
+  );
+}
+```
+
+The logo is vertically centered alongside the title and toggle button.
+
+---
+
+### WithActions
+
+Insert custom components, such as a "Create" button or a search bar, into the center/right area of the header.
+
+<!--
+EXAMPLE: WithActions
+PURPOSE: Shows how to inject custom elements
+OUTPUT: A header containing a primary action button
+USE WHEN: Providing global actions accessible from anywhere
+SOURCE: app/storybook/src/stories/Header.stories.ts -> WithActions
+-->
+```tsx
+import { Header, Button } from '@luxis-ui/core';
+
+export default function WithActionsExample() {
+  return (
+    <Header
+      title="Inventory"
+      actions={<Button variant="primary" size="sm">Add Item</Button>}
+      userName="Marcus Williams"
+    />
+  );
+}
+```
+
+Actions are placed neatly before the notification and user menu sections.
+
+---
+
+### NoToggle
+
+Disable the sidebar toggle button if your layout doesn't use a collapsible sidebar.
+
+<!--
+EXAMPLE: NoToggle
+PURPOSE: Hiding the default hamburger menu
+OUTPUT: A header without a toggle button
+USE WHEN: Building single-column layouts without sidebars
+SOURCE: app/storybook/src/stories/Header.stories.ts -> NoToggle
+-->
+```tsx
+import { Header } from '@luxis-ui/core';
+
+export default function NoToggleExample() {
+  return (
+    <Header
+      title="Settings Panel"
+      showToggle={false}
+      userName="Jane Doe"
+    />
+  );
+}
+```
+
+Setting `showToggle={false}` completely removes the element from the DOM.
+
+---
+
+### StickyOff
+
+By default, the header uses `position: sticky`. You can turn this off if you prefer it to scroll with the page.
+
+<!--
+EXAMPLE: StickyOff
+PURPOSE: Disabling sticky positioning
+OUTPUT: A header that scrolls out of view
+USE WHEN: Building landing pages or specific layouts where the header shouldn't stick
+SOURCE: app/storybook/src/stories/Header.stories.ts -> StickyOff
+-->
+```tsx
+import { Header } from '@luxis-ui/core';
+
+export default function StickyOffExample() {
+  return (
+    <Header
+      title="Scrolling Header"
+      sticky={false}
+    />
+  );
+}
+```
+
+This changes the header's positioning logic, affecting how subsequent content is laid out.
+
+---
+
+### Controlled Notifications
+
+When to use: When a parent component needs to read or drive the state.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  The Header internally manages the open/closed state of the dropdowns. However, the data for notifications must be passed in and updated by the parent component (e.g., marking items as read).
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: State-driven Header notifications
+OUTPUT: A header where clicking notifications marks them as read
+USE WHEN: Syncing read/unread state with a backend
+SOURCE: Derived from Header.tsx and NotificationItem structure
+-->
+```tsx
+import { useState } from 'react';
+import { Header } from '@luxis-ui/core';
+
+export default function ControlledExample() {
+  const [notifs, setNotifs] = useState([
+    { id: '1', title: 'Server alert', time: 'Just now', type: 'error' as const, read: false },
+    { id: '2', title: 'New user joined', time: '10m ago', type: 'info' as const, read: false }
+  ]);
+
+  const handleMarkAllAsRead = () => {
+    setNotifs(notifs.map(n => ({ ...n, read: true })));
+  };
+
+  const handleNotificationClick = (item: any) => {
+    setNotifs(notifs.map(n => n.id === item.id ? { ...n, read: true } : n));
+  };
+
+  return (
+    <Header
+      title="Alert Center"
+      notifications={notifs}
+      onMarkAllAsRead={handleMarkAllAsRead}
+      onNotificationClick={handleNotificationClick}
+    />
+  );
+}
+```
+
+## Header Best Practices
+
+Use these practices to maintain a clean application shell.
+
+<DoAndDont
+  good={`// ✅ Pass structured data to notifications
+<Header notifications={[{ id: '1', title: 'Alert', read: false, time: '1h' }]} />`}
+  bad={`// ❌ Don't try to build the notification panel manually inside actions
+<Header actions={<MyCustomNotificationDropdown />} />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Provide a meaningful title
+<Header title="Customer Analytics" />`}
+  bad={`// ❌ Don't leave the header empty if there's no logo
+<Header />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use actions for global commands
+<Header actions={<GlobalSearch />} />`}
+  bad={`// ❌ Don't clutter actions with page-specific buttons
+<Header actions={<SaveCurrentFormButton />} />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Let Header handle the avatar fallback
+<Header userName="Sarah Chen" />`}
+  bad={`// ❌ Don't pass a custom avatar component to actions just for the profile
+<Header actions={<Avatar name="Sarah Chen" />} />`}
+/>
+
+## Header Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly from `packages/luxis-ui/src/Header/Header.tsx`.
+
+### Header Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `actions` | `ReactNode` | `undefined` | false | Custom actions (buttons, search, etc.) |
+| `className` | `string` | `''` | false | Custom className |
+| `logo` | `ReactNode` | `undefined` | false | Logo or brand element |
+| `notifications` | `NotificationItem[]` | `[]` | false | Notifications list |
+| `onMarkAllAsRead` | `() => void` | `undefined` | false | Mark all as read handler |
+| `onNotificationClick` | `(notification: NotificationItem) => void` | `undefined` | false | Notification click handler |
+| `onToggleSidebar` | `() => void` | `undefined` | false | Toggle button click handler |
+| `showToggle` | `boolean` | `true` | false | Whether to show toggle button |
+| `sticky` | `boolean` | `true` | false | Whether header is sticky |
+| `title` | `string` | `undefined` | false | Title text |
+| `userAvatar` | `string` | `undefined` | false | User avatar image URL |
+| `userMenuItems` | `Array<{ label: string; icon?: ReactNode; onClick?: () => void; variant?: 'default' \| 'danger'; divider?: boolean }>` | `[]` | false | User menu items |
+| `userName` | `string` | `undefined` | false | User name |
+| `userSubtitle` | `string` | `undefined` | false | User email or role |
+
+### HTML Native Props
+
+Header forwards rest props to its underlying `<header>`, so standard attributes are accepted.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `style` | Inline CSS styles | `{{ zIndex: 50 }}` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for Header
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/Header/Header.tsx
+-->
+```ts
+export interface NotificationItem {
+  id: string;
+  title: string;
+  description?: string;
+  time: string;
+  read?: boolean;
+  icon?: React.ReactNode;
+  onClick?: () => void;
+  type?: 'info' | 'success' | 'warning' | 'error';
+}
+
+export interface HeaderProps {
+  logo?: React.ReactNode;
+  title?: string;
+  onToggleSidebar?: () => void;
+  showToggle?: boolean;
+  notifications?: NotificationItem[];
+  onNotificationClick?: (notification: NotificationItem) => void;
+  onMarkAllAsRead?: () => void;
+  userName?: string;
+  userSubtitle?: string;
+  userAvatar?: string;
+  userMenuItems?: Array<{
+    label: string;
+    icon?: React.ReactNode;
+    onClick?: () => void;
+    variant?: 'default' | 'danger';
+    divider?: boolean;
+  }>;
+  actions?: React.ReactNode;
+  className?: string;
+  sticky?: boolean;
+}
+```
+
+</details>
+
+## Header Accessibility Guide
+
+Header renders a semantic `<header>` tag.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| <KeyboardKey>Tab</KeyboardKey> | Focuses interactive elements (toggle, actions, buttons) |
+| <KeyboardKey>Enter</KeyboardKey> | Opens dropdowns or triggers actions |
+| <KeyboardKey>Escape</KeyboardKey> | Closes open dropdown panels |
+
+### ARIA Attributes
+
+| Attribute | Value | When |
+|-----------|-------|------|
+| `aria-label` | `"Toggle sidebar"` | On the hamburger menu button |
+| `aria-label` | `"Notifications"` | On the bell icon button |
+| `aria-label` | `"User menu"` | On the user profile trigger |
+
+### Screen Reader Behavior
+
+Screen readers will announce the header region. The internal icon buttons have appropriate aria-labels so a user will hear "Toggle sidebar button", "Notifications button", etc. Unread notification counts are visually hidden but generally read out contextually if they receive focus or aria-live is implemented externally.
+
+### Accessibility Checklist
+
+- [ ] Provide a `title` or `logo` that helps identify the application.
+- [ ] If using custom icons in `actions`, ensure they have `aria-label` properties.
+- [ ] Always verify with keyboard-only navigation before shipping
+
+## Header Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions like colors, spacing, and radius. Override them to restyle Header without fighting CSS specificity.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-header-bg` | `var(--lxs-background-primary)` | The background color of the header |
+| `--lxs-header-height` | `64px` | Standard height of the header (adjusts on mobile automatically) |
+| `--lxs-z-header` | `100` | The z-index applied when sticky |
+
+**Override globally:**
+```css
+:root {
+  --lxs-header-bg: #1e293b;
+}
+```
+
+**Override for one instance:**
+```tsx
+<Header
+  title="Dark Header"
+  style={{ '--lxs-header-bg': '#000' } as React.CSSProperties}
+/>
+```
+
+## Customizing Header
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to Header
+OUTPUT: Header with additional styling
+USE WHEN: Quick one-off style overrides
+SOURCE: N/A
+-->
+```tsx
+<Header title="Dashboard" className="my-custom-header" />
+```
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: Header with custom token values
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+```tsx
+<Header title="Dashboard" style={{ '--lxs-header-height': '80px' } as React.CSSProperties} />
+```
+
+### Using with forwardRef
+
+<!--
+EXAMPLE: forwardRef
+PURPOSE: Accessing the underlying DOM node
+OUTPUT: Header with attached ref
+USE WHEN: Measuring the header height dynamically
+SOURCE: N/A
+-->
+```tsx
+import { useRef, useEffect } from 'react';
+import { Header } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    console.log('Header height:', ref.current?.offsetHeight);
+  }, []);
+
+  return <Header ref={ref} title="Measured Header" />;
+}
+```
+
+## Common Header Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Global Search Header
+
+Used when: The primary action in the header is a global search bar.
+
+<!--
+EXAMPLE: Global Search
+PURPOSE: Adding an input to the actions area
+OUTPUT: A header featuring a search input prominently
+USE WHEN: Building applications heavily reliant on search
+SOURCE: Common usage pattern for Header
+-->
+```tsx
+import { Header, Input } from '@luxis-ui/core';
+import { SearchIcon } from '@luxis-ui/icons';
+
+export default function GlobalSearchHeader() {
+  const searchInput = (
+    <div style={{ width: '300px' }}>
+      <Input
+        example="Search everything..."
+        leftIcon={<SearchIcon />}
+        size="sm"
+      />
+    </div>
+  );
+
+  return (
+    <Header
+      title="Knowledge Base"
+      actions={searchInput}
+      userName="Admin"
+    />
+  );
+}
+```
+
+### Minimal Application Shell
+
+Used when: You need a clean top bar without sidebars or complex menus.
+
+<!--
+EXAMPLE: Minimal Shell
+PURPOSE: A stripped-down header
+OUTPUT: Just a title and a user menu
+USE WHEN: Building simple utilities or wizards
+SOURCE: Common usage pattern for Header
+-->
+```tsx
+import { Header } from '@luxis-ui/core';
+
+export default function MinimalHeader() {
+  return (
+    <Header
+      title="Setup Wizard"
+      showToggle={false}
+      userName="Guest User"
+      userMenuItems={[{ label: 'Exit Wizard', variant: 'danger' }]}
+    />
+  );
+}
+```
+
+### Marketing Navigation Integration
+
+Used when: Adapting the admin header for a logged-in marketing view.
+
+<!--
+EXAMPLE: Marketing Nav
+PURPOSE: Mixing static links with the user profile
+OUTPUT: A header with navigation links in the actions area
+USE WHEN: Unified logged-in site navigation
+SOURCE: Common usage pattern for Header
+-->
+```tsx
+import { Header, Link } from '@luxis-ui/core';
+
+export default function MarketingHeader() {
+  const navLinks = (
+    <div style={{ display: 'flex', gap: '24px', alignItems: 'center', marginRight: '16px' }}>
+      <Link href="/products" color="neutral" noUnderline>Products</Link>
+      <Link href="/pricing" color="neutral" noUnderline>Pricing</Link>
+      <Link href="/docs" color="neutral" noUnderline>Docs</Link>
+    </div>
+  );
+
+  return (
+    <Header
+      logo={<div style={{ width: 24, height: 24, background: 'black', borderRadius: '50%' }} />}
+      title="SaaS Platform"
+      showToggle={false}
+      actions={navLinks}
+      userName="User Profile"
+    />
+  );
+}
+```
+
+## Troubleshooting Header
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Toggle button doesn't show | Not providing `onToggleSidebar` | `<Header onToggleSidebar={() => {}} />` |
+| Notifications don't update | Mutating state directly | Use `setNotifs` to pass a new array |
+| Header overlaps content | Missing padding on main content area | Add `paddingTop: 64px` to your `<main>` element if not using a layout wrapper |
+| Z-index issues with modals | Custom CSS breaking stacking | Leave default z-index or adjust tokens carefully |
+
+### Frequently Asked Questions
+
+**Q: How do I change the user menu dropdown position?**
+A: The user menu position is managed internally by the Header to ensure it aligns correctly with the right edge. Customizing it requires overriding internal CSS, which is not recommended.
+
+**Q: Can I use my own notification dropdown instead of the built-in one?**
+A: Yes, you can omit the `notifications` prop and instead pass your custom component into the `actions` prop.
+
+**Q: How do I get the user's initials to show if they don't have an avatar?**
+A: If you pass `userName="John Doe"` but omit `userAvatar`, the component automatically extracts "JD" and displays it as a fallback.
+
+
+**Q: How do I style the mobile sidebar toggle button?**
+A: You can target it with the class `.lxs-header-toggle` in your custom CSS, or pass custom icons if supported by your application layout.
+
+## Related Components
+
+<RelatedComponent
+  name="Avatar"
+  description="Used internally by the Header for the user profile."
+  href="/docs/components/avatar"
+/>
+<RelatedComponent
+  name="Menu"
+  description="The underlying component that powers the user profile dropdown."
+  href="/docs/components/menu"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Header
+
+> Header is a Components React component in Luxis UI providing a standardized top application bar with notification and user profile features.
+
+## Source
+packages/luxis-ui/src/Header/Header.tsx
+
+## Story
+app/storybook/src/stories/Header.stories.ts
+
+## Install
+\`\`\`bash
+npm install @luxis-ui/core
+\`\`\`
+
+## Import
+\`\`\`tsx
+import { Header } from '@luxis-ui/core';
+\`\`\`
+
+## Minimal usage
+\`\`\`tsx
+import { Header } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Header
+      title="Dashboard"
+      userName="Admin User"
+      onToggleSidebar={() => console.log('Toggle')}
+    />
+  );
+}
+\`\`\`
+
+## Key props
+- `title` (string, default=`undefined`): Title text
+- `showToggle` (boolean, default=`true`): Whether to show toggle button
+- `notifications` (array, default=`[]`): Notifications list
+- `userName` (string, default=`undefined`): User name (triggers profile dropdown)
+- `actions` (ReactNode, default=`undefined`): Custom elements placed in the header
+
+## When to use
+Use as the main top bar of an admin dashboard or application shell.
+
+## When NOT to use
+Do not use as a minor section header; use Typography or Flex instead.
+
+## Accessibility
+WCAG: AA
+ARIA: Application Region
+Keyboard: Tab, Enter
+
+## Docs
+https://luxis-ui.dev/docs/components/header
+LLMS_TXT_ENTRY_END
+*/}
