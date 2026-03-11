@@ -4,7 +4,6 @@
   justify-content: center;
   position: relative;
   flex-shrink: 0;
-  border-radius: var(--lxs-radius-full);
 }
 
 .lxs-avatar-inner {
@@ -34,24 +33,24 @@
 /* Sizes */
 
 .lxs-avatar--sm {
-  width: var(--lxs-spacing-8);
-  height: var(--lxs-spacing-8);
+  width: 32px;
+  height: 32px;
 }
 .lxs-avatar--sm .lxs-avatar-fallback {
   font-size: var(--lxs-font-size-xs);
 }
 
 .lxs-avatar--md {
-  width: var(--lxs-spacing-10);
-  height: var(--lxs-spacing-10);
+  width: 40px;
+  height: 40px;
 }
 .lxs-avatar--md .lxs-avatar-fallback {
   font-size: var(--lxs-font-size-sm);
 }
 
 .lxs-avatar--lg {
-  width: var(--lxs-spacing-14);
-  height: var(--lxs-spacing-14);
+  width: 56px;
+  height: 56px;
 }
 .lxs-avatar--lg .lxs-avatar-fallback {
   font-size: var(--lxs-font-size-lg);
@@ -63,7 +62,7 @@
 }
 
 .lxs-avatar--rounded {
-  border-radius: var(--lxs-radius-md);
+  border-radius: var(--lxs-radius-lg);
 }
 
 .lxs-avatar--square {

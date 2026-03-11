@@ -1,8 +1,8 @@
-import type { ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 export interface AccordionItemProps {
   /** Unique identifier for the accordion item */
-  id?: string;
+  id: string;
   /** The header content for the accordion item */
   header: ReactNode;
   /** The body content for the accordion item */
@@ -17,8 +17,8 @@ export interface AccordionItemProps {
   status?: 'default' | 'success' | 'warning' | 'error' | 'featured';
   /** Custom icon for this specific item (overrides accordion-level icons) */
   icon?: {
-    expanded?: ReactNode;
-    collapsed?: ReactNode;
+    expanded?: React.ReactNode;
+    collapsed?: React.ReactNode;
   };
   /** Additional data attributes for testing or analytics */
   dataTestId?: string;
@@ -26,15 +26,15 @@ export interface AccordionItemProps {
 
 export interface AccordionProps {
   /** Array of accordion items */
-  items?: readonly AccordionItemProps[];
+  items?: AccordionItemProps[];
   /** Children accordion items (alternative to items prop) */
   children?: ReactNode;
   /** Whether multiple items can be open at once */
   allowMultiple?: boolean;
   /** Default open items (controlled) */
-  defaultOpenItems?: readonly string[];
+  defaultOpenItems?: string[];
   /** Open items (uncontrolled) */
-  openItems?: readonly string[];
+  openItems?: string[];
   /** Callback when items are toggled */
   onToggle?: (openItems: string[]) => void;
   /** Visual variant style of the accordion */
@@ -50,9 +50,9 @@ export interface AccordionProps {
   /** Position of the chevron icon */
   chevronPosition?: 'left' | 'right';
   /** Custom icon for expanded state */
-  expandedIcon?: ReactNode;
+  expandedIcon?: React.ReactNode;
   /** Custom icon for collapsed state */
-  collapsedIcon?: ReactNode;
+  collapsedIcon?: React.ReactNode;
   /** Icon type preset */
   iconType?: 'chevron' | 'plus-minus' | 'custom';
   /** Whether to show divider lines between items */
@@ -72,12 +72,10 @@ export interface AccordionProps {
 export interface AccordionItemComponentProps {
   /** The accordion item data */
   item: AccordionItemProps;
-  /** Unique identifier for the item */
-  id: string;
   /** Whether this item is open */
   isOpen: boolean;
   /** Function to toggle this item */
-  onToggle: (id: string) => void;
+  onToggle: () => void;
   /** Variant from parent accordion */
   variant: AccordionProps['variant'];
   /** Size from parent accordion */
@@ -87,9 +85,9 @@ export interface AccordionItemComponentProps {
   /** Chevron position */
   chevronPosition: AccordionProps['chevronPosition'];
   /** Custom icon for expanded state */
-  expandedIcon?: ReactNode;
+  expandedIcon?: React.ReactNode;
   /** Custom icon for collapsed state */
-  collapsedIcon?: ReactNode;
+  collapsedIcon?: React.ReactNode;
   /** Icon type preset */
   iconType?: AccordionProps['iconType'];
   /** Loading state from parent accordion */

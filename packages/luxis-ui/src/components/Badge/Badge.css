@@ -74,8 +74,8 @@
 
 /* Dot indicator */
 .lxs-badge-dot {
-  width: var(--lxs-spacing-2);
-  height: var(--lxs-spacing-2);
+  width: 6px;
+  height: 6px;
   border-radius: var(--lxs-radius-full);
   flex-shrink: 0;
 }
@@ -111,81 +111,37 @@
 /* Solid mode (lightMode=false) - uses full variant color with contrast text */
 .lxs-badge--solid.lxs-badge--neutral {
   background-color: var(--lxs-color-neutral-600);
-  color: var(--lxs-color-white);
 }
 
 .lxs-badge--solid.lxs-badge--primary {
   background-color: var(--lxs-color-primary-600);
-  color: var(--lxs-color-white);
 }
 
 .lxs-badge--solid.lxs-badge--secondary {
   background-color: var(--lxs-color-secondary-600);
-  color: var(--lxs-color-white);
 }
 
 .lxs-badge--solid.lxs-badge--success {
   background-color: var(--lxs-color-success-600);
-  color: var(--lxs-color-white);
 }
 
 .lxs-badge--solid.lxs-badge--warning {
   background-color: var(--lxs-color-warning-600);
-  color: var(--lxs-color-white);
 }
 
 .lxs-badge--solid.lxs-badge--error {
   background-color: var(--lxs-color-error-600);
-  color: var(--lxs-color-white);
 }
 
 .lxs-badge--solid.lxs-badge--info {
   background-color: var(--lxs-color-info-600);
-  color: var(--lxs-color-white);
 }
 
-/* Text contrast classes (overrides) */
-.lxs-badge--dark-text, .lxs-badge--solid.lxs-badge--dark-text {
-  color: var(--lxs-color-neutral-900);
+/* Text contrast classes */
+.lxs-badge--dark-text {
+  color: var(--lxs-color-neutral-900) !important;
 }
 
-.lxs-badge--light-text, .lxs-badge--solid.lxs-badge--light-text {
-  color: var(--lxs-color-neutral-50);
-}
-
-/* Removable */
-.lxs-badge-remove {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  margin-left: var(--lxs-spacing-1);
-  margin-right: calc(var(--lxs-spacing-1) * -1);
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: inherit;
-  opacity: 0.6;
-  border-radius: var(--lxs-radius-full);
-  transition: all var(--lxs-transition-fast);
-}
-
-.lxs-badge-remove:hover {
-  opacity: 1;
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-.lxs-badge--light-text .lxs-badge-remove:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-.lxs-badge-remove:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 2px;
-  opacity: 1;
-}
-
-.lxs-badge-remove svg {
-  width: 14px;
-  height: 14px;
+.lxs-badge--light-text {
+  color: var(--lxs-color-neutral-50) !important;
 }

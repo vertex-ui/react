@@ -1,7 +1,7 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import '@luxis-ui/react/theme/base.css';
 import { Autocomplete, ThemeProvider } from '@luxis-ui/react';
-import React from 'react';
 
 const meta: Meta<typeof Autocomplete> = {
   title: 'Components/Autocomplete',
@@ -9,7 +9,7 @@ const meta: Meta<typeof Autocomplete> = {
   decorators: [
     (Story) => (
       <ThemeProvider>
-        <div style={{ minHeight: '350px' }}>
+        <div style={{ minHeight: 320 }}>
           <Story />
         </div>
       </ThemeProvider>
@@ -27,187 +27,369 @@ const meta: Meta<typeof Autocomplete> = {
     },
     label: {
       control: 'text',
-      description: 'Label text',
+      description: 'Label displayed above the input',
     },
     helperText: {
       control: 'text',
-      description: 'Helper text displayed below input',
+      description: 'Helper text displayed below the input',
     },
     error: {
       control: 'text',
-      description: 'Error message (sets error state)',
+      description: 'Error message — puts the input in an error state',
     },
     success: {
       control: 'text',
-      description: 'Success message (sets success state)',
+      description: 'Success message — puts the input in a success state',
+    },
+    placeholder: {
+      control: 'text',
+      description: 'Input placeholder text',
+    },
+    noOptionsMessage: {
+      control: 'text',
+      description: 'Message shown when no options match',
+    },
+    loadingMessage: {
+      control: 'text',
+      description: 'Message shown when loading is true',
+    },
+    fullWidth: {
+      control: 'boolean',
+      description: 'Stretches the input to fill its container',
     },
     disabled: {
       control: 'boolean',
       description: 'Disables the input',
     },
-    fullWidth: {
-      control: 'boolean',
-      description: 'Takes full width of container',
-    },
     loading: {
       control: 'boolean',
-      description: 'Shows loading spinner',
+      description: 'Shows a loading spinner',
+    },
+    required: {
+      control: 'boolean',
+      description: 'Marks the field as required',
     },
     showSearchIcon: {
       control: 'boolean',
-      description: 'Shows search icon on the left',
+      description: 'Shows a search icon on the left',
     },
     clearable: {
       control: 'boolean',
-      description: 'Shows clear button when input has value',
+      description: 'Shows a clear button when the input has a value',
     },
     openOnFocus: {
       control: 'boolean',
-      description: 'Opens dropdown immediately on focus',
+      description: 'Opens the dropdown immediately on focus',
+    },
+    minSearchLength: {
+      control: 'number',
+      description: 'Minimum characters required before showing options',
     },
   },
   args: {
     size: 'md',
+    label: 'Search',
+    placeholder: 'Type to search...',
+    helperText: '',
+    error: '',
+    success: '',
+    noOptionsMessage: 'No options',
+    loadingMessage: 'Loading...',
     fullWidth: false,
     disabled: false,
     loading: false,
-    showSearchIcon: true,
-    clearable: true,
+    required: false,
+    showSearchIcon: false,
+    clearable: false,
     openOnFocus: true,
+    minSearchLength: 0,
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof Autocomplete>;
 
-// Sample data
+// ─── Shared datasets ─────────────────────────────────────────────────────────
+
 const fruits = [
-  { value: 'apple', label: 'Apple', description: 'A red fruit' },
-  { value: 'banana', label: 'Banana', description: 'A yellow fruit' },
-  { value: 'cherry', label: 'Cherry', description: 'A small red fruit' },
-  { value: 'grape', label: 'Grape', description: 'A purple fruit' },
-  { value: 'orange', label: 'Orange', description: 'An orange citrus fruit' },
-  { value: 'pear', label: 'Pear', description: 'A green fruit' },
-  { value: 'strawberry', label: 'Strawberry', description: 'A sweet red berry' },
-  { value: 'watermelon', label: 'Watermelon', description: 'A large green fruit' },
-  { value: 'disabled-fruit', label: 'Not available', disabled: true },
+  { value: 'apple', label: 'Apple', description: 'A sweet red or green fruit' },
+  { value: 'banana', label: 'Banana', description: 'A yellow tropical fruit' },
+  { value: 'cherry', label: 'Cherry', description: 'A small red stone fruit' },
+  { value: 'durian', label: 'Durian', description: 'The king of fruits', disabled: true },
+  { value: 'elderberry', label: 'Elderberry', description: 'A dark purple berry' },
+  { value: 'fig', label: 'Fig', description: 'A sweet Mediterranean fruit' },
+  { value: 'grape', label: 'Grape', description: 'Small clustered berries' },
+  { value: 'honeydew', label: 'Honeydew', description: 'A smooth green melon' },
 ];
 
+const countries = [
+  { value: 'us', label: 'United States' },
+  { value: 'gb', label: 'United Kingdom' },
+  { value: 'de', label: 'Germany' },
+  { value: 'fr', label: 'France' },
+  { value: 'jp', label: 'Japan' },
+  { value: 'au', label: 'Australia' },
+  { value: 'ca', label: 'Canada' },
+  { value: 'br', label: 'Brazil' },
+];
+
+// ─── Stories ─────────────────────────────────────────────────────────────────
+
+/** Fully interactive — tweak every prop from the Controls panel. */
+export const Playground: Story = {
+  args: {
+    options: fruits,
+  },
+};
+
+/** Basic autocomplete with a label and placeholder. */
 export const Default: Story = {
   args: {
-    label: 'Select a fruit',
-    placeholder: 'Type to search...',
+    label: 'Fruit',
+    placeholder: 'Search fruits...',
     options: fruits,
-    helperText: 'Choose your favorite fruit from the list',
   },
 };
 
+/** Search icon shown on the left side of the input. */
+export const WithSearchIcon: Story = {
+  args: {
+    label: 'Country',
+    placeholder: 'Search countries...',
+    options: countries,
+    showSearchIcon: true,
+  },
+};
+
+/** Clear button appears when the input has a value. */
+export const Clearable: Story = {
+  args: {
+    label: 'Fruit',
+    placeholder: 'Search fruits...',
+    options: fruits,
+    clearable: true,
+    showSearchIcon: true,
+  },
+};
+
+/** Options include a description line below the label. */
+export const WithDescriptions: Story = {
+  args: {
+    label: 'Fruit',
+    placeholder: 'Search fruits...',
+    options: fruits,
+    showSearchIcon: true,
+    clearable: true,
+  },
+};
+
+/** Small size variant. */
+export const Small: Story = {
+  args: {
+    label: 'Fruit',
+    placeholder: 'Search...',
+    options: fruits,
+    size: 'sm',
+  },
+};
+
+/** Large size variant. */
+export const Large: Story = {
+  args: {
+    label: 'Fruit',
+    placeholder: 'Search...',
+    options: fruits,
+    size: 'lg',
+  },
+};
+
+/** Full-width input stretches to fill its container. */
+export const FullWidth: Story = {
+  args: {
+    label: 'Country',
+    placeholder: 'Search countries...',
+    options: countries,
+    fullWidth: true,
+    showSearchIcon: true,
+    clearable: true,
+  },
+};
+
+/** Required field — shows an asterisk next to the label. */
+export const Required: Story = {
+  args: {
+    label: 'Country',
+    placeholder: 'Select a country...',
+    options: countries,
+    required: true,
+    helperText: 'Please select your country of residence.',
+  },
+};
+
+/** Helper text displayed below the input for guidance. */
+export const WithHelperText: Story = {
+  args: {
+    label: 'Fruit',
+    placeholder: 'Search fruits...',
+    options: fruits,
+    helperText: 'Start typing to filter the list.',
+  },
+};
+
+/** Error state with a validation message. */
+export const WithError: Story = {
+  args: {
+    label: 'Fruit',
+    placeholder: 'Search fruits...',
+    options: fruits,
+    error: 'Please select a valid fruit.',
+  },
+};
+
+/** Success state after a valid selection. */
+export const WithSuccess: Story = {
+  args: {
+    label: 'Fruit',
+    placeholder: 'Search fruits...',
+    options: fruits,
+    success: 'Great choice!',
+  },
+};
+
+/** Loading state — shows a spinner and loading message in the dropdown. */
+export const Loading: Story = {
+  args: {
+    label: 'Search',
+    placeholder: 'Type to search...',
+    options: [],
+    loading: true,
+    loadingMessage: 'Fetching results...',
+    showSearchIcon: true,
+  },
+};
+
+/** No options available — shows the empty message. */
+export const NoOptions: Story = {
+  args: {
+    label: 'Search',
+    placeholder: 'Type something...',
+    options: [],
+    noOptionsMessage: 'No results found.',
+    showSearchIcon: true,
+  },
+};
+
+/** Disabled state — input cannot be interacted with. */
+export const Disabled: Story = {
+  args: {
+    label: 'Fruit',
+    placeholder: 'Disabled',
+    options: fruits,
+    disabled: true,
+  },
+};
+
+/** Options with one disabled entry — Durian cannot be selected. */
+export const WithDisabledOption: Story = {
+  args: {
+    label: 'Fruit',
+    placeholder: 'Search fruits...',
+    options: fruits,
+    helperText: '"Durian" is disabled and cannot be selected.',
+  },
+};
+
+/** Only opens the dropdown after at least 2 characters are typed. */
+export const MinSearchLength: Story = {
+  args: {
+    label: 'Country',
+    placeholder: 'Type at least 2 characters...',
+    options: countries,
+    minSearchLength: 2,
+    showSearchIcon: true,
+    helperText: 'Dropdown appears after 2 characters.',
+  },
+};
+
+/** Custom option renderer — bold label with a coloured badge for the value. */
+export const CustomRenderOption: Story = {
+  args: {
+    label: 'Fruit',
+    placeholder: 'Search fruits...',
+    options: fruits,
+    renderOption: (option, index) => (
+      <div
+        key={option.value}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '8px 12px',
+          cursor: 'pointer',
+          borderBottom: index < fruits.length - 1 ? '1px solid #f0f0f0' : 'none',
+        }}
+        onClick={() => {}}
+      >
+        <strong>{option.label}</strong>
+        <span
+          style={{
+            fontSize: 11,
+            background: '#e0f2fe',
+            color: '#0369a1',
+            borderRadius: 4,
+            padding: '2px 6px',
+          }}
+        >
+          {option.value}
+        </span>
+      </div>
+    ),
+  },
+};
+
+/** All three sizes compared side-by-side. */
 export const Sizes: Story = {
   render: (args) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '400px' }}>
-      <Autocomplete {...args} size="sm" label="Small (sm)" placeholder="Small autocomplete" />
-      <Autocomplete {...args} size="md" label="Medium (md)" placeholder="Medium autocomplete" />
-      <Autocomplete {...args} size="lg" label="Large (lg)" placeholder="Large autocomplete" />
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      {(['sm', 'md', 'lg'] as const).map((s) => (
+        <Autocomplete
+          key={s}
+          {...args}
+          size={s}
+          label={`Size: ${s}`}
+          placeholder={`${s} autocomplete`}
+          options={fruits}
+        />
+      ))}
     </div>
   ),
-  args: {
-    options: fruits,
-  },
 };
 
-export const States: Story = {
+/** Error, success, and helper text states together. */
+export const ValidationStates: Story = {
   render: (args) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '400px' }}>
-      <Autocomplete {...args} label="Default state" placeholder="Search..." />
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
       <Autocomplete
         {...args}
-        label="Success state"
+        label="Helper text"
         placeholder="Search..."
-        success="Value is valid!"
+        options={fruits}
+        helperText="Start typing to filter options."
       />
       <Autocomplete
         {...args}
         label="Error state"
         placeholder="Search..."
-        error="This field is required"
+        options={fruits}
+        error="This field is required."
       />
       <Autocomplete
         {...args}
-        label="Disabled state"
-        placeholder="Cannot interact..."
-        disabled
+        label="Success state"
+        placeholder="Search..."
+        options={fruits}
+        success="Valid selection!"
       />
     </div>
   ),
-  args: {
-    options: fruits,
-  },
-};
-
-export const AsyncLoading: Story = {
-  render: function AsyncDemo(args) {
-    const [loading, setLoading] = React.useState(false);
-    const [options, setOptions] = React.useState<typeof fruits>([]);
-
-    const handleSearch = (value: string) => {
-      if (!value) {
-        setOptions([]);
-        return;
-      }
-
-      setLoading(true);
-
-      // Simulate API call
-      setTimeout(() => {
-        const filtered = fruits.filter(f =>
-          f.label.toLowerCase().includes(value.toLowerCase())
-        );
-        setOptions(filtered);
-        setLoading(false);
-      }, 1000);
-    };
-
-    return (
-      <Autocomplete
-        {...args}
-        label="Async search"
-        placeholder="Type to fetch results..."
-        options={options}
-        loading={loading}
-        onChange={handleSearch}
-        disableClientFilter
-        helperText="Type 'a' to see async loading simulation"
-      />
-    );
-  },
-  args: {
-    options: [],
-  },
-};
-
-const users = [
-  { id: '1', name: 'John Doe', role: 'Admin', avatar: 'JD' },
-  { id: '2', name: 'Jane Smith', role: 'Editor', avatar: 'JS' },
-  { id: '3', name: 'Bob Johnson', role: 'Viewer', avatar: 'BJ' },
-];
-
-export const CustomMapping: Story = {
-  args: {
-    label: 'Search users',
-    placeholder: 'Find by name...',
-    options: users,
-    getOptionLabel: 'name',
-    getOptionValue: 'id',
-    getOptionDescription: 'role',
-    getOptionIcon: (opt) => (
-      <div style={{
-        width: 24, height: 24, borderRadius: '50%',
-        background: 'var(--lxs-color-primary-100)', color: 'var(--lxs-color-primary-700)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        fontSize: '10px', fontWeight: 'bold'
-      }}>
-        {opt.avatar}
-      </div>
-    ),
-  },
 };

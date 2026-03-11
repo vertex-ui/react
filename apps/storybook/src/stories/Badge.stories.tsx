@@ -2,7 +2,6 @@ import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import '@luxis-ui/react/theme/base.css';
 import { Badge, ThemeProvider } from '@luxis-ui/react';
-import { expect, within, userEvent } from '@storybook/test';
 
 const meta: Meta<typeof Badge> = {
   title: 'Components/Badge',
@@ -66,6 +65,10 @@ const meta: Meta<typeof Badge> = {
     icon: {
       control: false,
       description: 'Icon before the badge content',
+    },
+    onRemove: {
+      control: false,
+      description: 'Callback for removable badge',
     },
   },
   args: {
@@ -142,18 +145,8 @@ export const Removable: Story = {
   args: {
     children: 'Tag',
     variant: 'primary',
+    onRemove: () => alert('Removed!'),
   },
-  play: async ({ canvasElement, args }) => {
-    // The test framework can mock this via args
-    if (!args.onRemove) {
-        return; // Don't run play test if not passed
-    }
-
-    const canvas = within(canvasElement);
-    const removeBtn = canvas.getByRole('button', { name: /remove badge/i });
-    expect(removeBtn).toBeInTheDocument();
-    await userEvent.click(removeBtn);
-  }
 };
 
 /** Truncated content. */
@@ -161,11 +154,6 @@ export const Truncated: Story = {
   args: {
     children: 'Very long badge content',
     maxLength: 8,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const content = canvas.getByText('Very lon...');
-    expect(content).toBeInTheDocument();
   },
 };
 

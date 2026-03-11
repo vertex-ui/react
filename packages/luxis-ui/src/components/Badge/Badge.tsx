@@ -1,10 +1,71 @@
 "use client";
 
 import { CloseSmallIcon } from '../../icons/IconComponents';
-import React, { useMemo } from 'react';
-import { useThemeContext } from '../../theme';
-import type { BadgeProps } from './Badge.types';
+import React, { useMemo, HTMLAttributes } from 'react';
+import { Size, useThemeContext } from '../../theme';
 import './Badge.css';
+
+export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
+  /**
+   * Visual variant of the badge
+   * @default 'neutral'
+   */
+  variant?: 'neutral' | 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info';
+  /**
+   * Size of the badge
+   * @default theme.defaultSize
+   */
+  size?: Size;
+  /**
+   * If true, badge will be pill-shaped with rounded ends
+   * @default false
+   */
+  pill?: boolean;
+  /**
+   * If true, applies larger border radius for rounded appearance
+   * @default false
+   */
+  rounded?: boolean;
+  /**
+   * If true, displays a dot indicator before the content
+   * Useful for status indicators
+   * @default false
+   */
+  dot?: boolean;
+  /**
+   * If true, displays the badge with an outline style instead of filled
+   * @default false
+   */
+  outline?: boolean;
+  /**
+   * If false, uses solid variant color as background with contrasting text
+   * If true, uses light variant color with darker text
+   * @default true
+   */
+  lightMode?: boolean;
+  /**
+   * If true/false, applies dark or light text color class
+   * Overrides automatic contrast color selection
+   */
+  darkText?: boolean;
+  /**
+   * Maximum content length before truncation
+   * Useful for limiting badge text length
+   */
+  maxLength?: number;
+  /**
+   * Icon to display before the badge content
+   */
+  icon?: React.ReactNode;
+  /**
+   * Badge content - text, numbers, or custom elements
+   */
+  children: React.ReactNode;
+  /**
+   * Callback fired when badge is clicked
+   */
+  onRemove?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}
 
 /**
  * Badge component - Small labels and indicators for status, counts, or categories
@@ -13,7 +74,28 @@ import './Badge.css';
  * with various visual styles and customization options.
  *
  * @example
+ * Basic status badges
+ * ```tsx
  * <Badge variant="success">Active</Badge>
+ * <Badge variant="error" dot>Error</Badge>
+ * <Badge variant="primary" pill>NEW</Badge>
+ * ```
+ *
+ * @example
+ * With icon and outline
+ * ```tsx
+ * <Badge variant="info" icon={<InfoIcon />} outline>
+ *   Information
+ * </Badge>
+ * ```
+ *
+ * @example
+ * Removable badge
+ * ```tsx
+ * <Badge variant="primary" onRemove={(e) => handleRemove()}>
+ *   Tag 1
+ * </Badge>
+ * ```
  */
 const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
   (
@@ -39,7 +121,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
     const badgeSize = size || theme.defaultSize;
 
     // Determine text color based on theme's color contrast configuration
-    const textColorClass = useMemo(() => {
+    const getTextColorClass = () => {
       // Skip contrast logic if outline mode or lightMode is true
       if (outline || lightMode) return null;
 
@@ -55,7 +137,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
       }
 
       return null;
-    }, [outline, lightMode, darkText, variant, theme.colorContrast]);
+    };
 
     const classNames = [
       'lxs-badge',
@@ -67,7 +149,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
       outline && 'lxs-badge--outline',
       !lightMode && !outline && 'lxs-badge--solid',
       onRemove && 'lxs-badge--removable',
-      textColorClass,
+      getTextColorClass(),
       className,
     ]
       .filter(Boolean)
@@ -97,7 +179,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
             onClick={onRemove}
             aria-label="Remove badge"
           >
-            <CloseSmallIcon aria-hidden="true" />
+            <CloseSmallIcon />
           </button>
         )}
       </span>
@@ -107,4 +189,5 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
 
 Badge.displayName = 'Badge';
 
+export default Badge as React.FC<BadgeProps & React.RefAttributes<HTMLSpanElement>>;
 export { Badge };
