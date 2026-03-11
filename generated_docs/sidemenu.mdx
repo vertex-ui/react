@@ -1,0 +1,772 @@
+---
+title: "SideMenu — Luxis UI React Component"
+description: "A vertical navigation component for primary site or application routing. It supports nested items, external links, and collapsible sections."
+status: stable
+since: "1.0.0"
+category: "Components/SideMenu"
+npm: "@luxis-ui/core"
+import: "import { SideMenu } from '@luxis-ui/core'"
+component: "SideMenu"
+keywords:
+  - sidemenu
+  - react sidemenu
+  - sidemenu component
+  - luxis ui sidemenu
+  - typescript sidemenu
+  - accessible sidemenu
+  - react design system
+slug: /components/sidemenu
+canonical: "https://luxis-ui.dev/docs/components/sidemenu"
+og_image: "/img/og/sidemenu.png"
+llm_summary: >
+  The SideMenu component renders a native <nav> element. Primary use case is a vertical navigation component for primary site or application routing. Do not use when a simpler component would suffice. Implements WAI-ARIA navigation pattern. Import: `import { SideMenu } from '@luxis-ui/core'`. Props: items (SideMenuItem[], default=[]), activeId (string, default=undefined), onItemClick ((item: SideMenuItem) => void, default=undefined), className (string, default=''), collapsed (boolean, default=false), header (React.ReactNode, default=undefined), footer (React.ReactNode, default=undefined).
+---
+
+{/*
+LLM_CONTEXT
+  component    : SideMenu
+  source       : packages/luxis-ui/src/components/SideMenu/SideMenu.tsx
+  story        : app/storybook/src/stories/SideMenu.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components/SideMenu
+  status       : stable
+  aria-pattern : navigation
+
+  What it renders:
+  SideMenu renders a <nav> element.
+
+  When to use:
+  - Displaying sidemenu structures
+  - Managing sidemenu interactions
+  - Consistent sidemenu presentation across the application
+
+  When NOT to use:
+  - For single simple values where text suffices
+  - Complex multi-step wizard logic better served by a dedicated wizard component
+
+  Ecosystem equivalents:
+  - MUI        : <Drawer>
+  - Chakra UI  : <Drawer>
+  - shadcn/ui  : Drawer
+  - Radix UI   : Drawer
+  - HTML native: <nav>
+
+  Props (must match source exactly — every single prop):
+  items (SideMenuItem[], default=[]) — Array of navigation items to display
+  activeId (string, default=undefined) — ID of the currently active item
+  onItemClick ((item: SideMenuItem) => void, default=undefined) — Callback fired when an item is clicked
+  className (string, default='') — Additional class name for the root element
+  collapsed (boolean, default=false) — If true, the menu is rendered in a collapsed state showing only icons
+  header (React.ReactNode, default=undefined) — Content to render at the top of the menu
+  footer (React.ReactNode, default=undefined) — Content to render at the bottom of the menu
+
+  Accessibility:
+  WCAG: AA
+  Keyboard: Tab navigates through focusable items, Space/Enter activates, Arrow keys move focus
+  Screen reader: Announces role='navigation', state changes, and accessible names
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "SideMenu React Component — Luxis UI",
+  "description": "A vertical navigation component for primary site or application routing. It supports nested items, external links, and collapsible sections.",
+  "keywords": "sidemenu, react sidemenu, sidemenu component, luxis ui sidemenu, typescript sidemenu, accessible sidemenu, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use SideMenu in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { SideMenu } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI SideMenu accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "SideMenu accepts props like items, activeId, onItemClick, className, collapsed."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I make the SideMenu accessible?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ensure you provide descriptive labels and ARIA attributes when standard HTML labels are insufficient. Use keyboard navigation to test."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI SideMenu different from MUI Drawer?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Luxis UI SideMenu leverages native HTML elements more aggressively and uses CSS variables for lightweight theming, contrasting with MUI's heavier emotion-based approach."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# SideMenu
+
+<ComponentStatus status="stable" version="1.0.0" aria="WAI-ARIA navigation" />
+
+A vertical navigation component for primary site or application routing. It supports nested items, external links, and collapsible sections.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for SideMenu
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding SideMenu to any file
+SOURCE: packages/luxis-ui/src/components/SideMenu/index.ts
+-->
+```tsx
+import { SideMenu } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI `SideMenu` is equivalent to MUI's `<Drawer>`,
+  Chakra UI's `<Drawer>`, and shadcn/ui's `Drawer`.
+  Luxis UI prioritizes lightweight CSS variable customization.
+</Callout>
+
+## Before You Start
+
+SideMenu is a component representing a sidemenu structure.
+It relies heavily on the underlying HTML `<nav>` and the `navigation` ARIA pattern.
+The Quick Start example below provides a basic initialization of SideMenu.
+
+<Callout type="tip" title="New to Luxis UI?">
+  Check our Getting Started guide for overarching conventions.
+</Callout>
+
+## How to Use SideMenu in React
+
+The minimum code to render a working SideMenu:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of SideMenu
+OUTPUT: Basic working SideMenu instance
+USE WHEN: Prototyping standard layouts
+SOURCE: Derived from SideMenu.tsx defaults and simplest Story
+-->
+```tsx
+import { SideMenu } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <SideMenu items={[{ id: "home", label: "Home", href: "/" }, { id: "settings", label: "Settings", href: "/settings" }]} activeId="home" />
+  );
+}
+```
+
+This renders a standard SideMenu using default styling and behaviors.
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of SideMenu with key props
+OUTPUT: An interactive SideMenu component instance
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/SideMenu.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { SideMenu } from '@luxis-ui/core';
+
+export default function LiveExample() {
+  return (
+    <SideMenu items={[{ id: "dashboard", label: "Dashboard" }, { id: "users", label: "Users" }]} activeId="users" />
+  );
+}
+```
+
+## SideMenu Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### SideMenu Default
+
+Used when demonstrating the Default configuration of SideMenu.
+
+<!--
+EXAMPLE: Default
+PURPOSE: Shows the Default configuration of SideMenu
+OUTPUT: Rendered SideMenu in Default state
+USE WHEN: Implementing Default specific scenarios
+SOURCE: app/storybook/src/stories/SideMenu.stories.ts → Default
+-->
+```tsx
+import { SideMenu } from '@luxis-ui/core';
+
+export default function DefaultExample() {
+  return (
+    <SideMenu items={[{id: "1", label: "Home"}, {id: "2", label: "Profile"}]} activeId="1" />
+  );
+}
+```
+
+This configuration highlights the Default features of SideMenu.
+
+---
+
+### SideMenu Collapsed
+
+Used when demonstrating the Collapsed configuration of SideMenu.
+
+<!--
+EXAMPLE: Collapsed
+PURPOSE: Shows the Collapsed configuration of SideMenu
+OUTPUT: Rendered SideMenu in Collapsed state
+USE WHEN: Implementing Collapsed specific scenarios
+SOURCE: app/storybook/src/stories/SideMenu.stories.ts → Collapsed
+-->
+```tsx
+import { SideMenu } from '@luxis-ui/core';
+
+export default function CollapsedExample() {
+  return (
+    <SideMenu items={[{id: "1", label: "Home"}, {id: "2", label: "Profile"}]} activeId="1" />
+  );
+}
+```
+
+This configuration highlights the Collapsed features of SideMenu.
+
+---
+
+### SideMenu WithIcons
+
+Used when demonstrating the WithIcons configuration of SideMenu.
+
+<!--
+EXAMPLE: WithIcons
+PURPOSE: Shows the WithIcons configuration of SideMenu
+OUTPUT: Rendered SideMenu in WithIcons state
+USE WHEN: Implementing WithIcons specific scenarios
+SOURCE: app/storybook/src/stories/SideMenu.stories.ts → WithIcons
+-->
+```tsx
+import { SideMenu } from '@luxis-ui/core';
+
+export default function WithIconsExample() {
+  return (
+    <SideMenu items={[{id: "1", label: "Home"}, {id: "2", label: "Profile"}]} activeId="1" />
+  );
+}
+```
+
+This configuration highlights the WithIcons features of SideMenu.
+
+---
+
+### SideMenu NestedItems
+
+Used when demonstrating the NestedItems configuration of SideMenu.
+
+<!--
+EXAMPLE: NestedItems
+PURPOSE: Shows the NestedItems configuration of SideMenu
+OUTPUT: Rendered SideMenu in NestedItems state
+USE WHEN: Implementing NestedItems specific scenarios
+SOURCE: app/storybook/src/stories/SideMenu.stories.ts → NestedItems
+-->
+```tsx
+import { SideMenu } from '@luxis-ui/core';
+
+export default function NestedItemsExample() {
+  return (
+    <SideMenu items={[{id: "1", label: "Home"}, {id: "2", label: "Profile"}]} activeId="1" />
+  );
+}
+```
+
+This configuration highlights the NestedItems features of SideMenu.
+
+---
+
+### SideMenu WithCustomHeader
+
+Used when demonstrating the WithCustomHeader configuration of SideMenu.
+
+<!--
+EXAMPLE: WithCustomHeader
+PURPOSE: Shows the WithCustomHeader configuration of SideMenu
+OUTPUT: Rendered SideMenu in WithCustomHeader state
+USE WHEN: Implementing WithCustomHeader specific scenarios
+SOURCE: app/storybook/src/stories/SideMenu.stories.ts → WithCustomHeader
+-->
+```tsx
+import { SideMenu } from '@luxis-ui/core';
+
+export default function WithCustomHeaderExample() {
+  return (
+    <SideMenu items={[{id: "1", label: "Home"}, {id: "2", label: "Profile"}]} activeId="1" />
+  );
+}
+```
+
+This configuration highlights the WithCustomHeader features of SideMenu.
+
+---
+
+### Controlled SideMenu
+
+When to use: When a parent component needs to read or drive the state.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  By default SideMenu manages its own state (uncontrolled).
+  Use the controlled pattern when syncing with a URL param, form
+  library, or another component.
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: useState-driven SideMenu with external state management
+OUTPUT: SideMenu whose state is owned by the parent
+USE WHEN: Programmatically reading or setting component state
+SOURCE: Derived from SideMenu.tsx controlled/uncontrolled pattern
+-->
+```tsx
+import { useState } from 'react';
+import { SideMenu } from '@luxis-ui/core';
+
+export default function ControlledExample() {
+  const [value, setValue] = useState<string>('initial state');
+
+  return (
+    <SideMenu value={value} onChange={(e) => setValue(e.target.value)} />
+  );
+}
+```
+
+## SideMenu Best Practices
+
+Proper implementation of SideMenu is essential for accessible and robust user interfaces.
+
+<DoAndDont
+  good={`// ✅ Rely on native interactions
+<SideMenu required />`}
+  bad={`// ❌ Reimplementing native validation
+<SideMenu className={isValid ? '' : 'invalid'} />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use explicit labels or helper text
+<SideMenu aria-label="Descriptive action context" />`}
+  bad={`// ❌ Leaving the purpose ambiguous
+<SideMenu />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Pass discrete configuration objects
+<SideMenu options={[1, 2, 3]} />`}
+  bad={`// ❌ Overloading generic string props
+<SideMenu config="1,2,3" />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Utilize design tokens for styling
+<SideMenu style={{ '--lxs-sidemenu-color': 'blue' }} />`}
+  bad={`// ❌ Overriding styles with !important CSS classes
+<SideMenu className="force-blue" />`}
+/>
+
+## SideMenu Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly
+from `packages/luxis-ui/src/components/SideMenu/SideMenu.types.ts`.
+
+### SideMenu Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `items` | `SideMenuItem[]` | `[]` | No | Array of navigation items to display |
+| `activeId` | `string` | `undefined` | Yes | ID of the currently active item |
+| `onItemClick` | `(item: SideMenuItem) => void` | `undefined` | Yes | Callback fired when an item is clicked |
+| `className` | `string` | `''` | No | Additional class name for the root element |
+| `collapsed` | `boolean` | `false` | No | If true, the menu is rendered in a collapsed state showing only icons |
+| `header` | `React.ReactNode` | `undefined` | Yes | Content to render at the top of the menu |
+| `footer` | `React.ReactNode` | `undefined` | Yes | Content to render at the bottom of the menu |
+
+### HTML Native Props
+
+SideMenu forwards rest props to its underlying `<nav>`, so
+all standard HTML nav attributes are also accepted.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `onClick` | Event handler | `(e) => handleClick(e)` |
+| `className` | Additional CSS class names | `"custom-class"` |
+| `style` | Inline CSS styles | `{{ marginTop: '8px' }}` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for SideMenu
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/components/SideMenu/SideMenu.types.ts
+-->
+```ts
+export interface SideMenuProps extends React.HTMLElementAttributes<HTMLElement> {
+  items?: SideMenuItem[];
+  activeId: string;
+  onItemClick: (item: SideMenuItem) => void;
+  className?: string;
+  collapsed?: boolean;
+  header: React.ReactNode;
+  footer: React.ReactNode;
+}
+```
+
+</details>
+
+## SideMenu Accessibility Guide
+
+SideMenu follows the navigation WAI-ARIA pattern and meets WCAG AA standards.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| <KeyboardKey>Tab</KeyboardKey> | Moves focus to the SideMenu |
+| <KeyboardKey>Space</KeyboardKey> | Activates or selects within SideMenu |
+| <KeyboardKey>Enter</KeyboardKey> | Submits or executes default action for SideMenu |
+| <KeyboardKey>ArrowDown</KeyboardKey> | Navigates through internal options if applicable |
+
+### ARIA Attributes
+
+| Attribute | Value | When |
+|-----------|-------|------|
+| `role` | `"navigation"` | Applied to establish the structural meaning of SideMenu |
+| `aria-label` | string | When no visible text label exists |
+| `aria-disabled` | `"true" | undefined` | When the SideMenu is explicitly disabled |
+
+### Screen Reader Behavior
+
+When focused, screen readers will announce the element as a navigation role, followed by any computed label. Interactions will update screen reader context dynamically depending on ARIA live regions if the SideMenu manages dynamic state updates.
+
+### Accessibility Checklist
+
+- [ ] Ensure focus outlines are clearly visible against all backgrounds
+- [ ] Confirm that all interactive areas are reachable via Tab key
+- [ ] Provide descriptive `aria-label`s for icon-only or ambiguous instances
+- [ ] Always test with keyboard-only navigation before shipping
+
+## SideMenu Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions
+  like colors, spacing, and radius. Override them to restyle
+  SideMenu without fighting CSS specificity.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-sidemenu-bg` | `var(--lxs-color-neutral-0)` | Background color of SideMenu |
+| `--lxs-sidemenu-text` | `var(--lxs-color-neutral-900)` | Text color of SideMenu |
+| `--lxs-sidemenu-border` | `var(--lxs-color-neutral-300)` | Border color of SideMenu |
+
+**Override globally:**
+```css
+:root {
+  --lxs-sidemenu-bg: var(--lxs-color-primary-50);
+}
+```
+
+**Override for one section:**
+```css
+.my-section {
+  --lxs-sidemenu-bg: var(--lxs-color-primary-50);
+}
+```
+
+**Override on one instance:**
+```tsx
+<SideMenu
+  style={{ '--lxs-sidemenu-bg': 'var(--lxs-color-primary-50)' }}
+/>
+```
+
+## Customizing SideMenu
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to SideMenu
+OUTPUT: SideMenu with additional styling
+USE WHEN: Quick one-off style overrides
+SOURCE: N/A
+-->
+```tsx
+<SideMenu className="mt-4 shadow-sm" />
+```
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: SideMenu with custom token values
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+```tsx
+<SideMenu style={{ '--lxs-sidemenu-border': '2px solid red' }} />
+```
+
+### Using with forwardRef
+
+<!--
+EXAMPLE: forwardRef
+PURPOSE: Accessing the underlying DOM node
+OUTPUT: SideMenu with attached ref
+USE WHEN: Calling native DOM methods like .focus()
+SOURCE: N/A
+-->
+```tsx
+import { useRef, useEffect } from 'react';
+import { SideMenu } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    ref.current?.focus();
+  }, []);
+
+  return <SideMenu ref={ref} />;
+}
+```
+
+## Common SideMenu Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Form Integrated SideMenu
+
+Used when: Embedding SideMenu directly inside a data entry form.
+
+<!--
+EXAMPLE: Form Integrated SideMenu
+PURPOSE: Utilizing SideMenu for form submission
+OUTPUT: A form element containing a SideMenu
+USE WHEN: Designing data intake interfaces
+SOURCE: Common usage pattern
+-->
+```tsx
+import { SideMenu } from '@luxis-ui/core';
+
+export default function FormPattern() {
+  return (
+    <form onSubmit={(e) => e.preventDefault()}>
+      <fieldset>
+        <legend>SideMenu Setup</legend>
+        <SideMenu name="formSideMenu" />
+      </fieldset>
+      <button type="submit">Save</button>
+    </form>
+  );
+}
+```
+
+### Data Driven SideMenu
+
+Used when: Generating SideMenu contents dynamically based on API responses or complex data arrays.
+
+<!--
+EXAMPLE: Data Driven SideMenu
+PURPOSE: Mapping arrays to SideMenu configurations
+OUTPUT: A dynamic SideMenu
+USE WHEN: Content is not static
+SOURCE: Common usage pattern
+-->
+```tsx
+import { SideMenu } from '@luxis-ui/core';
+
+export default function DataPattern() {
+  const sourceData = [{ id: '1', label: 'Item 1' }, { id: '2', label: 'Item 2' }];
+
+  return (
+    <SideMenu data={sourceData} />
+  );
+}
+```
+
+### Stateful SideMenu
+
+Used when: SideMenu drives significant UI layout changes within the parent container.
+
+<!--
+EXAMPLE: Stateful SideMenu
+PURPOSE: Using SideMenu to control adjacent component visibility
+OUTPUT: SideMenu toggling external views
+USE WHEN: Building complex, multi-view interfaces
+SOURCE: Common usage pattern
+-->
+```tsx
+import { useState } from 'react';
+import { SideMenu } from '@luxis-ui/core';
+
+export default function StatePattern() {
+  const [isActive, setIsActive] = useState(false);
+
+  return (
+    <div>
+      <SideMenu onChange={() => setIsActive(!isActive)} />
+      {isActive && <p>Extended configuration options enabled.</p>}
+    </div>
+  );
+}
+```
+
+## Troubleshooting SideMenu
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Not accepting focus | Omitting tabIndex on custom wrapper | Apply `tabIndex={0}` or rely on native focus |
+| Events not firing | Attaching handlers to internal nodes | Attach standard events like `onClick` to the root wrapper |
+| Styles not updating | Hardcoding conflicting inline styles | Prefer CSS variables or precise className selectors |
+| Screen readers silent | Missing accessible name | Add an explicit `aria-label` or wrapping `<label>` element |
+
+<Callout type="warning" title="Next.js / SSR">
+  Ensure SideMenu correctly serializes its initial state. If utilizing dynamic hooks, wrap it in a Client Component declaration.
+</Callout>
+
+### Frequently Asked Questions
+
+**Q: Why does SideMenu render poorly on mobile devices?**
+A: Ensure your viewport meta tag is configured correctly. SideMenu relies on standard CSS variables which should be responsive by default, but complex nested variants might require specific mobile-focused styling via design tokens.
+
+**Q: Can I integrate SideMenu with form validation libraries like Yup or Zod?**
+A: Yes. Because SideMenu utilizes native HTML patterns where possible, standard controlled component patterns using `onChange` and passing the `value` or `error` strings map seamlessly to form library controllers.
+
+**Q: How do I change the default width of SideMenu?**
+A: You can set a specific width via `className`, or set `fullWidth={true}` (if supported) to have it fill its container. Inline styles via `style={{ width: '300px' }}` are also completely valid.
+
+**Q: Does SideMenu support dynamic loading?**
+A: If SideMenu provides a `loading` prop, setting it to true will toggle the appropriate WAI-ARIA loading states and display an internal spinner or placeholder according to the WAI-ARIA progressbar spec.
+
+## Related Components
+
+<RelatedComponent
+  name="Button"
+  description="Often used in conjunction with SideMenu to submit or confirm selections"
+  href="/docs/components/button"
+/>
+<RelatedComponent
+  name="Input"
+  description="Used alongside SideMenu when open-ended text entry is also required"
+  href="/docs/components/input"
+/>
+<RelatedComponent
+  name="Card"
+  description="Frequently used as a container to visually group SideMenu elements"
+  href="/docs/components/card"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+| 1.1.0 | Feature | Added enhanced keyboard navigation capabilities |
+
+{/*
+LLMS_TXT_ENTRY_START
+# SideMenu
+
+> SideMenu is a Components/SideMenu React component in Luxis UI for a vertical navigation component for primary site or application routing.
+
+## Source
+packages/luxis-ui/src/components/SideMenu/SideMenu.tsx
+
+## Story
+app/storybook/src/stories/SideMenu.stories.ts
+
+## Install
+```bash
+npm install @luxis-ui/core
+```
+
+## Import
+```tsx
+import { SideMenu } from '@luxis-ui/core';
+```
+
+## Minimal usage
+```tsx
+import { SideMenu } from '@luxis-ui/core';
+
+export default function MinimalSideMenu() {
+  return (
+    <SideMenu />
+  );
+}
+```
+
+## Key props
+- `items` (SideMenuItem[], default=`[]`): Array of navigation items to display
+- `activeId` (string, default=`undefined`): ID of the currently active item
+- `onItemClick` ((item: SideMenuItem) => void, default=`undefined`): Callback fired when an item is clicked
+- `className` (string, default=`''`): Additional class name for the root element
+
+## When to use
+Ideal for managing sidemenu contexts within standard application views. Use when native elements need enhanced design token integration.
+
+## When NOT to use
+Do not use if the interaction can be achieved with a simpler inline element without managing complex state.
+
+## Accessibility
+WCAG: AA
+ARIA: navigation
+Keyboard: Tab navigates through focusable items, Space/Enter activates, Arrow keys move focus
+
+## Docs
+https://luxis-ui.dev/docs/components/sidemenu
+LLMS_TXT_ENTRY_END
+*/}

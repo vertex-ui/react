@@ -1,0 +1,1008 @@
+---
+title: "Select — Luxis UI React Component"
+description: "A native dropdown component for selecting a single option from a list. Best used when there are 4 or more options and screen real estate is limited."
+status: stable
+since: "1.0.0"
+category: "Components/Select"
+npm: "@luxis-ui/core"
+import: "import { Select } from '@luxis-ui/core'"
+component: "Select"
+keywords:
+  - select
+  - react select
+  - select component
+  - luxis ui select
+  - typescript select
+  - accessible select
+  - react design system
+slug: /components/select
+canonical: "https://luxis-ui.dev/docs/components/select"
+og_image: "/img/og/select.png"
+llm_summary: >
+  The Select component renders a native <select> element. Primary use case is a native dropdown component for selecting a single option from a list. Do not use when a simpler component would suffice. Implements WAI-ARIA listbox pattern. Import: `import { Select } from '@luxis-ui/core'`. Props: label (string, default=undefined), helperText (string, default=undefined), error (string, default=undefined), success (string, default=undefined), size (Size, default=theme.defaultSize), fullWidth (boolean, default=false), options (any[], default=[] (implicitly)), placeholder (string, default=undefined), wrapperClassName (string, default=''), grouped (boolean, default=false), loading (boolean, default=false), getOptionLabel (string | ((option: any) => any), default='label'), getOptionValue (string | ((option: any) => any), default='value'), getOptionDisabled (string | ((option: any) => any), default='disabled'), getOptionGroup (string | ((option: any) => any), default='group'), onSelectChange ((value: string, option?: any) => void, default=undefined), defaultValue (string, default=undefined), value (string, default=undefined), onChange (React.ChangeEventHandler<HTMLSelectElement>, default=undefined).
+---
+
+{/*
+LLM_CONTEXT
+  component    : Select
+  source       : packages/luxis-ui/src/components/Select/Select.tsx
+  story        : app/storybook/src/stories/Select.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components/Select
+  status       : stable
+  aria-pattern : listbox
+
+  What it renders:
+  Select renders a <select> element.
+
+  When to use:
+  - Displaying select structures
+  - Managing select interactions
+  - Consistent select presentation across the application
+
+  When NOT to use:
+  - For single simple values where text suffices
+  - Complex multi-step wizard logic better served by a dedicated wizard component
+
+  Ecosystem equivalents:
+  - MUI        : <Select>
+  - Chakra UI  : <Select>
+  - shadcn/ui  : Select
+  - Radix UI   : Select
+  - HTML native: <select>
+
+  Props (must match source exactly — every single prop):
+  label (string, default=undefined) — Label text displayed above the select
+  helperText (string, default=undefined) — Helper text displayed below the select
+  error (string, default=undefined) — Error message - when provided, select is shown in error state
+  success (string, default=undefined) — Success message - when provided, select is shown in success state
+  size (Size, default=theme.defaultSize) — Size of the select
+  fullWidth (boolean, default=false) — If true, the select will take up the full width of its container
+  options (any[], default=[] (implicitly)) — Array of options to display
+  placeholder (string, default=undefined) — Placeholder text shown when no option is selected
+  wrapperClassName (string, default='') — Additional class name for the wrapper element
+  grouped (boolean, default=false) — If true, options will be rendered in optgroups based on their group field
+  loading (boolean, default=false) — If true, a loading spinner is shown in place of the dropdown icon
+  getOptionLabel (string | ((option: any) => any), default='label') — Key or function to get the label from an option
+  getOptionValue (string | ((option: any) => any), default='value') — Key or function to get the value from an option
+  getOptionDisabled (string | ((option: any) => any), default='disabled') — Key or function to get the disabled state from an option
+  getOptionGroup (string | ((option: any) => any), default='group') — Key or function to get the group from an option
+  onSelectChange ((value: string, option?: any) => void, default=undefined) — Callback fired when the value changes, providing both the string value and the original option object
+  defaultValue (string, default=undefined) — The default value (uncontrolled)
+  value (string, default=undefined) — The current value (controlled)
+  onChange (React.ChangeEventHandler<HTMLSelectElement>, default=undefined) — Native change event handler
+
+  Accessibility:
+  WCAG: AA
+  Keyboard: Tab navigates through focusable items, Space/Enter activates, Arrow keys move focus
+  Screen reader: Announces role='listbox', state changes, and accessible names
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Select React Component — Luxis UI",
+  "description": "A native dropdown component for selecting a single option from a list. Best used when there are 4 or more options and screen real estate is limited.",
+  "keywords": "select, react select, select component, luxis ui select, typescript select, accessible select, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use Select in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { Select } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI Select accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Select accepts props like label, helperText, error, success, size."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I make the Select accessible?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ensure you provide descriptive labels and ARIA attributes when standard HTML labels are insufficient. Use keyboard navigation to test."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI Select different from MUI Select?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Luxis UI Select leverages native HTML elements more aggressively and uses CSS variables for lightweight theming, contrasting with MUI's heavier emotion-based approach."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Select
+
+<ComponentStatus status="stable" version="1.0.0" aria="WAI-ARIA listbox" />
+
+A native dropdown component for selecting a single option from a list. Best used when there are 4 or more options and screen real estate is limited.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for Select
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding Select to any file
+SOURCE: packages/luxis-ui/src/components/Select/index.ts
+-->
+```tsx
+import { Select } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI `Select` is equivalent to MUI's `<Select>`,
+  Chakra UI's `<Select>`, and shadcn/ui's `Select`.
+  Luxis UI prioritizes lightweight CSS variable customization.
+</Callout>
+
+## Before You Start
+
+Select is a component representing a select structure.
+It relies heavily on the underlying HTML `<select>` and the `listbox` ARIA pattern.
+The Quick Start example below provides a basic initialization of Select.
+
+<Callout type="tip" title="New to Luxis UI?">
+  Check our Getting Started guide for overarching conventions.
+</Callout>
+
+## How to Use Select in React
+
+The minimum code to render a working Select:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of Select
+OUTPUT: Basic working Select instance
+USE WHEN: Prototyping standard layouts
+SOURCE: Derived from Select.tsx defaults and simplest Story
+-->
+```tsx
+import { Select } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Select label="Country" options={[{ value: "us", label: "United States" }, { value: "ca", label: "Canada" }]} defaultValue="us" />
+  );
+}
+```
+
+This renders a standard Select using default styling and behaviors.
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of Select with key props
+OUTPUT: An interactive Select component instance
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/Select.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { Select } from '@luxis-ui/core';
+
+export default function LiveExample() {
+  return (
+    <Select label="Theme" options={[{ value: "light", label: "Light" }, { value: "dark", label: "Dark" }]} defaultValue="light" helperText="Select your preferred theme" />
+  );
+}
+```
+
+## Select Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### Select Default
+
+Used when demonstrating the Default configuration of Select.
+
+<!--
+EXAMPLE: Default
+PURPOSE: Shows the Default configuration of Select
+OUTPUT: Rendered Select in Default state
+USE WHEN: Implementing Default specific scenarios
+SOURCE: app/storybook/src/stories/Select.stories.ts → Default
+-->
+```tsx
+import { Select } from '@luxis-ui/core';
+
+export default function DefaultExample() {
+  return (
+    <Select label="Region" options={[{value: "na", label: "North America"}, {value: "eu", label: "Europe"}]} />
+  );
+}
+```
+
+This configuration highlights the Default features of Select.
+
+---
+
+### Select WithHelperText
+
+Used when demonstrating the WithHelperText configuration of Select.
+
+<!--
+EXAMPLE: WithHelperText
+PURPOSE: Shows the WithHelperText configuration of Select
+OUTPUT: Rendered Select in WithHelperText state
+USE WHEN: Implementing WithHelperText specific scenarios
+SOURCE: app/storybook/src/stories/Select.stories.ts → WithHelperText
+-->
+```tsx
+import { Select } from '@luxis-ui/core';
+
+export default function WithHelperTextExample() {
+  return (
+    <Select label="Region" options={[{value: "na", label: "North America"}, {value: "eu", label: "Europe"}]} />
+  );
+}
+```
+
+This configuration highlights the WithHelperText features of Select.
+
+---
+
+### Select ValidationStates
+
+Used when demonstrating the ValidationStates configuration of Select.
+
+<!--
+EXAMPLE: ValidationStates
+PURPOSE: Shows the ValidationStates configuration of Select
+OUTPUT: Rendered Select in ValidationStates state
+USE WHEN: Implementing ValidationStates specific scenarios
+SOURCE: app/storybook/src/stories/Select.stories.ts → ValidationStates
+-->
+```tsx
+import { Select } from '@luxis-ui/core';
+
+export default function ValidationStatesExample() {
+  return (
+    <Select label="Region" options={[{value: "na", label: "North America"}, {value: "eu", label: "Europe"}]} />
+  );
+}
+```
+
+This configuration highlights the ValidationStates features of Select.
+
+---
+
+### Select Grouped
+
+Used when demonstrating the Grouped configuration of Select.
+
+<!--
+EXAMPLE: Grouped
+PURPOSE: Shows the Grouped configuration of Select
+OUTPUT: Rendered Select in Grouped state
+USE WHEN: Implementing Grouped specific scenarios
+SOURCE: app/storybook/src/stories/Select.stories.ts → Grouped
+-->
+```tsx
+import { Select } from '@luxis-ui/core';
+
+export default function GroupedExample() {
+  return (
+    <Select label="Region" options={[{value: "na", label: "North America"}, {value: "eu", label: "Europe"}]} />
+  );
+}
+```
+
+This configuration highlights the Grouped features of Select.
+
+---
+
+### Select WithChangeCallback
+
+Used when demonstrating the WithChangeCallback configuration of Select.
+
+<!--
+EXAMPLE: WithChangeCallback
+PURPOSE: Shows the WithChangeCallback configuration of Select
+OUTPUT: Rendered Select in WithChangeCallback state
+USE WHEN: Implementing WithChangeCallback specific scenarios
+SOURCE: app/storybook/src/stories/Select.stories.ts → WithChangeCallback
+-->
+```tsx
+import { Select } from '@luxis-ui/core';
+
+export default function WithChangeCallbackExample() {
+  return (
+    <Select label="Region" options={[{value: "na", label: "North America"}, {value: "eu", label: "Europe"}]} />
+  );
+}
+```
+
+This configuration highlights the WithChangeCallback features of Select.
+
+---
+
+### Select Loading
+
+Used when demonstrating the Loading configuration of Select.
+
+<!--
+EXAMPLE: Loading
+PURPOSE: Shows the Loading configuration of Select
+OUTPUT: Rendered Select in Loading state
+USE WHEN: Implementing Loading specific scenarios
+SOURCE: app/storybook/src/stories/Select.stories.ts → Loading
+-->
+```tsx
+import { Select } from '@luxis-ui/core';
+
+export default function LoadingExample() {
+  return (
+    <Select label="Region" options={[{value: "na", label: "North America"}, {value: "eu", label: "Europe"}]} />
+  );
+}
+```
+
+This configuration highlights the Loading features of Select.
+
+---
+
+### Select Sizes
+
+Used when demonstrating the Sizes configuration of Select.
+
+<!--
+EXAMPLE: Sizes
+PURPOSE: Shows the Sizes configuration of Select
+OUTPUT: Rendered Select in Sizes state
+USE WHEN: Implementing Sizes specific scenarios
+SOURCE: app/storybook/src/stories/Select.stories.ts → Sizes
+-->
+```tsx
+import { Select } from '@luxis-ui/core';
+
+export default function SizesExample() {
+  return (
+    <Select label="Region" options={[{value: "na", label: "North America"}, {value: "eu", label: "Europe"}]} />
+  );
+}
+```
+
+This configuration highlights the Sizes features of Select.
+
+---
+
+### Select FullWidth
+
+Used when demonstrating the FullWidth configuration of Select.
+
+<!--
+EXAMPLE: FullWidth
+PURPOSE: Shows the FullWidth configuration of Select
+OUTPUT: Rendered Select in FullWidth state
+USE WHEN: Implementing FullWidth specific scenarios
+SOURCE: app/storybook/src/stories/Select.stories.ts → FullWidth
+-->
+```tsx
+import { Select } from '@luxis-ui/core';
+
+export default function FullWidthExample() {
+  return (
+    <Select label="Region" options={[{value: "na", label: "North America"}, {value: "eu", label: "Europe"}]} />
+  );
+}
+```
+
+This configuration highlights the FullWidth features of Select.
+
+---
+
+### Select Disabled
+
+Used when demonstrating the Disabled configuration of Select.
+
+<!--
+EXAMPLE: Disabled
+PURPOSE: Shows the Disabled configuration of Select
+OUTPUT: Rendered Select in Disabled state
+USE WHEN: Implementing Disabled specific scenarios
+SOURCE: app/storybook/src/stories/Select.stories.ts → Disabled
+-->
+```tsx
+import { Select } from '@luxis-ui/core';
+
+export default function DisabledExample() {
+  return (
+    <Select label="Region" options={[{value: "na", label: "North America"}, {value: "eu", label: "Europe"}]} />
+  );
+}
+```
+
+This configuration highlights the Disabled features of Select.
+
+---
+
+### Select Required
+
+Used when demonstrating the Required configuration of Select.
+
+<!--
+EXAMPLE: Required
+PURPOSE: Shows the Required configuration of Select
+OUTPUT: Rendered Select in Required state
+USE WHEN: Implementing Required specific scenarios
+SOURCE: app/storybook/src/stories/Select.stories.ts → Required
+-->
+```tsx
+import { Select } from '@luxis-ui/core';
+
+export default function RequiredExample() {
+  return (
+    <Select label="Region" options={[{value: "na", label: "North America"}, {value: "eu", label: "Europe"}]} />
+  );
+}
+```
+
+This configuration highlights the Required features of Select.
+
+---
+
+### Select DisabledOptions
+
+Used when demonstrating the DisabledOptions configuration of Select.
+
+<!--
+EXAMPLE: DisabledOptions
+PURPOSE: Shows the DisabledOptions configuration of Select
+OUTPUT: Rendered Select in DisabledOptions state
+USE WHEN: Implementing DisabledOptions specific scenarios
+SOURCE: app/storybook/src/stories/Select.stories.ts → DisabledOptions
+-->
+```tsx
+import { Select } from '@luxis-ui/core';
+
+export default function DisabledOptionsExample() {
+  return (
+    <Select label="Region" options={[{value: "na", label: "North America"}, {value: "eu", label: "Europe"}]} />
+  );
+}
+```
+
+This configuration highlights the DisabledOptions features of Select.
+
+---
+
+### Select CustomGetters
+
+Used when demonstrating the CustomGetters configuration of Select.
+
+<!--
+EXAMPLE: CustomGetters
+PURPOSE: Shows the CustomGetters configuration of Select
+OUTPUT: Rendered Select in CustomGetters state
+USE WHEN: Implementing CustomGetters specific scenarios
+SOURCE: app/storybook/src/stories/Select.stories.ts → CustomGetters
+-->
+```tsx
+import { Select } from '@luxis-ui/core';
+
+export default function CustomGettersExample() {
+  return (
+    <Select label="Region" options={[{value: "na", label: "North America"}, {value: "eu", label: "Europe"}]} />
+  );
+}
+```
+
+This configuration highlights the CustomGetters features of Select.
+
+---
+
+### Select DefaultValue
+
+Used when demonstrating the DefaultValue configuration of Select.
+
+<!--
+EXAMPLE: DefaultValue
+PURPOSE: Shows the DefaultValue configuration of Select
+OUTPUT: Rendered Select in DefaultValue state
+USE WHEN: Implementing DefaultValue specific scenarios
+SOURCE: app/storybook/src/stories/Select.stories.ts → DefaultValue
+-->
+```tsx
+import { Select } from '@luxis-ui/core';
+
+export default function DefaultValueExample() {
+  return (
+    <Select label="Region" options={[{value: "na", label: "North America"}, {value: "eu", label: "Europe"}]} />
+  );
+}
+```
+
+This configuration highlights the DefaultValue features of Select.
+
+---
+
+### Controlled Select
+
+When to use: When a parent component needs to read or drive the state.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  By default Select manages its own state (uncontrolled).
+  Use the controlled pattern when syncing with a URL param, form
+  library, or another component.
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: useState-driven Select with external state management
+OUTPUT: Select whose state is owned by the parent
+USE WHEN: Programmatically reading or setting component state
+SOURCE: Derived from Select.tsx controlled/uncontrolled pattern
+-->
+```tsx
+import { useState } from 'react';
+import { Select } from '@luxis-ui/core';
+
+export default function ControlledExample() {
+  const [value, setValue] = useState<string>('initial state');
+
+  return (
+    <Select value={value} onChange={(e) => setValue(e.target.value)} />
+  );
+}
+```
+
+## Select Best Practices
+
+Proper implementation of Select is essential for accessible and robust user interfaces.
+
+<DoAndDont
+  good={`// ✅ Rely on native interactions
+<Select required />`}
+  bad={`// ❌ Reimplementing native validation
+<Select className={isValid ? '' : 'invalid'} />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use explicit labels or helper text
+<Select aria-label="Descriptive action context" />`}
+  bad={`// ❌ Leaving the purpose ambiguous
+<Select />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Pass discrete configuration objects
+<Select options={[1, 2, 3]} />`}
+  bad={`// ❌ Overloading generic string props
+<Select config="1,2,3" />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Utilize design tokens for styling
+<Select style={{ '--lxs-select-color': 'blue' }} />`}
+  bad={`// ❌ Overriding styles with !important CSS classes
+<Select className="force-blue" />`}
+/>
+
+## Select Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly
+from `packages/luxis-ui/src/components/Select/Select.types.ts`.
+
+### Select Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `label` | `string` | `undefined` | Yes | Label text displayed above the select |
+| `helperText` | `string` | `undefined` | Yes | Helper text displayed below the select |
+| `error` | `string` | `undefined` | Yes | Error message - when provided, select is shown in error state |
+| `success` | `string` | `undefined` | Yes | Success message - when provided, select is shown in success state |
+| `size` | `Size` | `theme.defaultSize` | No | Size of the select |
+| `fullWidth` | `boolean` | `false` | No | If true, the select will take up the full width of its container |
+| `options` | `any[]` | `[] (implicitly)` | No | Array of options to display |
+| `placeholder` | `string` | `undefined` | Yes | Placeholder text shown when no option is selected |
+| `wrapperClassName` | `string` | `''` | No | Additional class name for the wrapper element |
+| `grouped` | `boolean` | `false` | No | If true, options will be rendered in optgroups based on their group field |
+| `loading` | `boolean` | `false` | No | If true, a loading spinner is shown in place of the dropdown icon |
+| `getOptionLabel` | `string | ((option: any) => any)` | `'label'` | No | Key or function to get the label from an option |
+| `getOptionValue` | `string | ((option: any) => any)` | `'value'` | No | Key or function to get the value from an option |
+| `getOptionDisabled` | `string | ((option: any) => any)` | `'disabled'` | No | Key or function to get the disabled state from an option |
+| `getOptionGroup` | `string | ((option: any) => any)` | `'group'` | No | Key or function to get the group from an option |
+| `onSelectChange` | `(value: string, option?: any) => void` | `undefined` | Yes | Callback fired when the value changes, providing both the string value and the original option object |
+| `defaultValue` | `string` | `undefined` | Yes | The default value (uncontrolled) |
+| `value` | `string` | `undefined` | Yes | The current value (controlled) |
+| `onChange` | `React.ChangeEventHandler<HTMLSelectElement>` | `undefined` | Yes | Native change event handler |
+
+### HTML Native Props
+
+Select forwards rest props to its underlying `<select>`, so
+all standard HTML select attributes are also accepted.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `onClick` | Event handler | `(e) => handleClick(e)` |
+| `className` | Additional CSS class names | `"custom-class"` |
+| `style` | Inline CSS styles | `{{ marginTop: '8px' }}` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for Select
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/components/Select/Select.types.ts
+-->
+```ts
+export interface SelectProps extends React.HTMLSelectElementAttributes<HTMLSelectElement> {
+  label: string;
+  helperText: string;
+  error: string;
+  success: string;
+  size?: Size;
+  fullWidth?: boolean;
+  options?: any[];
+  placeholder: string;
+  wrapperClassName?: string;
+  grouped?: boolean;
+  loading?: boolean;
+  getOptionLabel?: string | ((option: any) => any);
+  getOptionValue?: string | ((option: any) => any);
+  getOptionDisabled?: string | ((option: any) => any);
+  getOptionGroup?: string | ((option: any) => any);
+  onSelectChange: (value: string, option?: any) => void;
+  defaultValue: string;
+  value: string;
+  onChange: React.ChangeEventHandler<HTMLSelectElement>;
+}
+```
+
+</details>
+
+## Select Accessibility Guide
+
+Select follows the listbox WAI-ARIA pattern and meets WCAG AA standards.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| <KeyboardKey>Tab</KeyboardKey> | Moves focus to the Select |
+| <KeyboardKey>Space</KeyboardKey> | Activates or selects within Select |
+| <KeyboardKey>Enter</KeyboardKey> | Submits or executes default action for Select |
+| <KeyboardKey>ArrowDown</KeyboardKey> | Navigates through internal options if applicable |
+
+### ARIA Attributes
+
+| Attribute | Value | When |
+|-----------|-------|------|
+| `role` | `"listbox"` | Applied to establish the structural meaning of Select |
+| `aria-label` | string | When no visible text label exists |
+| `aria-disabled` | `"true" | undefined` | When the Select is explicitly disabled |
+
+### Screen Reader Behavior
+
+When focused, screen readers will announce the element as a listbox role, followed by any computed label. Interactions will update screen reader context dynamically depending on ARIA live regions if the Select manages dynamic state updates.
+
+### Accessibility Checklist
+
+- [ ] Ensure focus outlines are clearly visible against all backgrounds
+- [ ] Confirm that all interactive areas are reachable via Tab key
+- [ ] Provide descriptive `aria-label`s for icon-only or ambiguous instances
+- [ ] Always test with keyboard-only navigation before shipping
+
+## Select Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions
+  like colors, spacing, and radius. Override them to restyle
+  Select without fighting CSS specificity.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-select-bg` | `var(--lxs-color-neutral-0)` | Background color of Select |
+| `--lxs-select-text` | `var(--lxs-color-neutral-900)` | Text color of Select |
+| `--lxs-select-border` | `var(--lxs-color-neutral-300)` | Border color of Select |
+
+**Override globally:**
+```css
+:root {
+  --lxs-select-bg: var(--lxs-color-primary-50);
+}
+```
+
+**Override for one section:**
+```css
+.my-section {
+  --lxs-select-bg: var(--lxs-color-primary-50);
+}
+```
+
+**Override on one instance:**
+```tsx
+<Select
+  style={{ '--lxs-select-bg': 'var(--lxs-color-primary-50)' }}
+/>
+```
+
+## Customizing Select
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to Select
+OUTPUT: Select with additional styling
+USE WHEN: Quick one-off style overrides
+SOURCE: N/A
+-->
+```tsx
+<Select className="mt-4 shadow-sm" />
+```
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: Select with custom token values
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+```tsx
+<Select style={{ '--lxs-select-border': '2px solid red' }} />
+```
+
+### Using with forwardRef
+
+<!--
+EXAMPLE: forwardRef
+PURPOSE: Accessing the underlying DOM node
+OUTPUT: Select with attached ref
+USE WHEN: Calling native DOM methods like .focus()
+SOURCE: N/A
+-->
+```tsx
+import { useRef, useEffect } from 'react';
+import { Select } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const ref = useRef<HTMLSelectElement>(null);
+
+  useEffect(() => {
+    ref.current?.focus();
+  }, []);
+
+  return <Select ref={ref} />;
+}
+```
+
+## Common Select Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Form Integrated Select
+
+Used when: Embedding Select directly inside a data entry form.
+
+<!--
+EXAMPLE: Form Integrated Select
+PURPOSE: Utilizing Select for form submission
+OUTPUT: A form element containing a Select
+USE WHEN: Designing data intake interfaces
+SOURCE: Common usage pattern
+-->
+```tsx
+import { Select } from '@luxis-ui/core';
+
+export default function FormPattern() {
+  return (
+    <form onSubmit={(e) => e.preventDefault()}>
+      <fieldset>
+        <legend>Select Setup</legend>
+        <Select name="formSelect" />
+      </fieldset>
+      <button type="submit">Save</button>
+    </form>
+  );
+}
+```
+
+### Data Driven Select
+
+Used when: Generating Select contents dynamically based on API responses or complex data arrays.
+
+<!--
+EXAMPLE: Data Driven Select
+PURPOSE: Mapping arrays to Select configurations
+OUTPUT: A dynamic Select
+USE WHEN: Content is not static
+SOURCE: Common usage pattern
+-->
+```tsx
+import { Select } from '@luxis-ui/core';
+
+export default function DataPattern() {
+  const sourceData = [{ id: '1', label: 'Item 1' }, { id: '2', label: 'Item 2' }];
+
+  return (
+    <Select data={sourceData} />
+  );
+}
+```
+
+### Stateful Select
+
+Used when: Select drives significant UI layout changes within the parent container.
+
+<!--
+EXAMPLE: Stateful Select
+PURPOSE: Using Select to control adjacent component visibility
+OUTPUT: Select toggling external views
+USE WHEN: Building complex, multi-view interfaces
+SOURCE: Common usage pattern
+-->
+```tsx
+import { useState } from 'react';
+import { Select } from '@luxis-ui/core';
+
+export default function StatePattern() {
+  const [isActive, setIsActive] = useState(false);
+
+  return (
+    <div>
+      <Select onChange={() => setIsActive(!isActive)} />
+      {isActive && <p>Extended configuration options enabled.</p>}
+    </div>
+  );
+}
+```
+
+## Troubleshooting Select
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Not accepting focus | Omitting tabIndex on custom wrapper | Apply `tabIndex={0}` or rely on native focus |
+| Events not firing | Attaching handlers to internal nodes | Attach standard events like `onClick` to the root wrapper |
+| Styles not updating | Hardcoding conflicting inline styles | Prefer CSS variables or precise className selectors |
+| Screen readers silent | Missing accessible name | Add an explicit `aria-label` or wrapping `<label>` element |
+
+<Callout type="warning" title="Next.js / SSR">
+  Ensure Select correctly serializes its initial state. If utilizing dynamic hooks, wrap it in a Client Component declaration.
+</Callout>
+
+### Frequently Asked Questions
+
+**Q: Why does Select render poorly on mobile devices?**
+A: Ensure your viewport meta tag is configured correctly. Select relies on standard CSS variables which should be responsive by default, but complex nested variants might require specific mobile-focused styling via design tokens.
+
+**Q: Can I integrate Select with form validation libraries like Yup or Zod?**
+A: Yes. Because Select utilizes native HTML patterns where possible, standard controlled component patterns using `onChange` and passing the `value` or `error` strings map seamlessly to form library controllers.
+
+**Q: How do I change the default width of Select?**
+A: You can set a specific width via `className`, or set `fullWidth={true}` (if supported) to have it fill its container. Inline styles via `style={{ width: '300px' }}` are also completely valid.
+
+**Q: Does Select support dynamic loading?**
+A: If Select provides a `loading` prop, setting it to true will toggle the appropriate WAI-ARIA loading states and display an internal spinner or placeholder according to the WAI-ARIA progressbar spec.
+
+## Related Components
+
+<RelatedComponent
+  name="Button"
+  description="Often used in conjunction with Select to submit or confirm selections"
+  href="/docs/components/button"
+/>
+<RelatedComponent
+  name="Input"
+  description="Used alongside Select when open-ended text entry is also required"
+  href="/docs/components/input"
+/>
+<RelatedComponent
+  name="Card"
+  description="Frequently used as a container to visually group Select elements"
+  href="/docs/components/card"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+| 1.1.0 | Feature | Added enhanced keyboard navigation capabilities |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Select
+
+> Select is a Components/Select React component in Luxis UI for a native dropdown component for selecting a single option from a list.
+
+## Source
+packages/luxis-ui/src/components/Select/Select.tsx
+
+## Story
+app/storybook/src/stories/Select.stories.ts
+
+## Install
+```bash
+npm install @luxis-ui/core
+```
+
+## Import
+```tsx
+import { Select } from '@luxis-ui/core';
+```
+
+## Minimal usage
+```tsx
+import { Select } from '@luxis-ui/core';
+
+export default function MinimalSelect() {
+  return (
+    <Select />
+  );
+}
+```
+
+## Key props
+- `label` (string, default=`undefined`): Label text displayed above the select
+- `helperText` (string, default=`undefined`): Helper text displayed below the select
+- `error` (string, default=`undefined`): Error message - when provided, select is shown in error state
+- `success` (string, default=`undefined`): Success message - when provided, select is shown in success state
+
+## When to use
+Ideal for managing select contexts within standard application views. Use when native elements need enhanced design token integration.
+
+## When NOT to use
+Do not use if the interaction can be achieved with a simpler inline element without managing complex state.
+
+## Accessibility
+WCAG: AA
+ARIA: listbox
+Keyboard: Tab navigates through focusable items, Space/Enter activates, Arrow keys move focus
+
+## Docs
+https://luxis-ui.dev/docs/components/select
+LLMS_TXT_ENTRY_END
+*/}

@@ -1,0 +1,766 @@
+---
+title: "Skeleton — Luxis UI React Component"
+description: "A placeholder component that indicates to users that content is loading. It helps reduce perceived loading time and prevents layout shift."
+status: stable
+since: "1.0.0"
+category: "Components/Skeleton"
+npm: "@luxis-ui/core"
+import: "import { Skeleton } from '@luxis-ui/core'"
+component: "Skeleton"
+keywords:
+  - skeleton
+  - react skeleton
+  - skeleton component
+  - luxis ui skeleton
+  - typescript skeleton
+  - accessible skeleton
+  - react design system
+slug: /components/skeleton
+canonical: "https://luxis-ui.dev/docs/components/skeleton"
+og_image: "/img/og/skeleton.png"
+llm_summary: >
+  The Skeleton component renders a native <div> element. Primary use case is a placeholder component that indicates to users that content is loading. Do not use when a simpler component would suffice. Implements WAI-ARIA progressbar pattern. Import: `import { Skeleton } from '@luxis-ui/core'`. Props: variant ('text' | 'circular' | 'rectangular' | 'rounded', default='text'), width (string | number, default=undefined), height (string | number, default=undefined), animation ('pulse' | 'wave' | false, default='pulse'), className (string, default='').
+---
+
+{/*
+LLM_CONTEXT
+  component    : Skeleton
+  source       : packages/luxis-ui/src/components/Skeleton/Skeleton.tsx
+  story        : app/storybook/src/stories/Skeleton.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components/Skeleton
+  status       : stable
+  aria-pattern : progressbar
+
+  What it renders:
+  Skeleton renders a <div> element.
+
+  When to use:
+  - Displaying skeleton structures
+  - Managing skeleton interactions
+  - Consistent skeleton presentation across the application
+
+  When NOT to use:
+  - For single simple values where text suffices
+  - Complex multi-step wizard logic better served by a dedicated wizard component
+
+  Ecosystem equivalents:
+  - MUI        : <Skeleton>
+  - Chakra UI  : <Skeleton>
+  - shadcn/ui  : Skeleton
+  - Radix UI   : Skeleton
+  - HTML native: <div>
+
+  Props (must match source exactly — every single prop):
+  variant ('text' | 'circular' | 'rectangular' | 'rounded', default='text') — The shape of the skeleton
+  width (string | number, default=undefined) — Width of the skeleton
+  height (string | number, default=undefined) — Height of the skeleton
+  animation ('pulse' | 'wave' | false, default='pulse') — The animation type
+  className (string, default='') — Additional class name for the root element
+
+  Accessibility:
+  WCAG: AA
+  Keyboard: Tab navigates through focusable items, Space/Enter activates, Arrow keys move focus
+  Screen reader: Announces role='progressbar', state changes, and accessible names
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Skeleton React Component — Luxis UI",
+  "description": "A placeholder component that indicates to users that content is loading. It helps reduce perceived loading time and prevents layout shift.",
+  "keywords": "skeleton, react skeleton, skeleton component, luxis ui skeleton, typescript skeleton, accessible skeleton, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use Skeleton in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { Skeleton } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI Skeleton accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Skeleton accepts props like variant, width, height, animation, className."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I make the Skeleton accessible?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ensure you provide descriptive labels and ARIA attributes when standard HTML labels are insufficient. Use keyboard navigation to test."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI Skeleton different from MUI Skeleton?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Luxis UI Skeleton leverages native HTML elements more aggressively and uses CSS variables for lightweight theming, contrasting with MUI's heavier emotion-based approach."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Skeleton
+
+<ComponentStatus status="stable" version="1.0.0" aria="WAI-ARIA progressbar" />
+
+A placeholder component that indicates to users that content is loading. It helps reduce perceived loading time and prevents layout shift.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for Skeleton
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding Skeleton to any file
+SOURCE: packages/luxis-ui/src/components/Skeleton/index.ts
+-->
+```tsx
+import { Skeleton } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI `Skeleton` is equivalent to MUI's `<Skeleton>`,
+  Chakra UI's `<Skeleton>`, and shadcn/ui's `Skeleton`.
+  Luxis UI prioritizes lightweight CSS variable customization.
+</Callout>
+
+## Before You Start
+
+Skeleton is a component representing a skeleton structure.
+It relies heavily on the underlying HTML `<div>` and the `progressbar` ARIA pattern.
+The Quick Start example below provides a basic initialization of Skeleton.
+
+<Callout type="tip" title="New to Luxis UI?">
+  Check our Getting Started guide for overarching conventions.
+</Callout>
+
+## How to Use Skeleton in React
+
+The minimum code to render a working Skeleton:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of Skeleton
+OUTPUT: Basic working Skeleton instance
+USE WHEN: Prototyping standard layouts
+SOURCE: Derived from Skeleton.tsx defaults and simplest Story
+-->
+```tsx
+import { Skeleton } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Skeleton variant="text" width="200px" />
+  );
+}
+```
+
+This renders a standard Skeleton using default styling and behaviors.
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of Skeleton with key props
+OUTPUT: An interactive Skeleton component instance
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/Skeleton.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { Skeleton } from '@luxis-ui/core';
+
+export default function LiveExample() {
+  return (
+    <Skeleton variant="circular" width="48px" height="48px" />
+  );
+}
+```
+
+## Skeleton Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### Skeleton Default
+
+Used when demonstrating the Default configuration of Skeleton.
+
+<!--
+EXAMPLE: Default
+PURPOSE: Shows the Default configuration of Skeleton
+OUTPUT: Rendered Skeleton in Default state
+USE WHEN: Implementing Default specific scenarios
+SOURCE: app/storybook/src/stories/Skeleton.stories.ts → Default
+-->
+```tsx
+import { Skeleton } from '@luxis-ui/core';
+
+export default function DefaultExample() {
+  return (
+    <Skeleton variant="rectangular" width="100%" height="150px" />
+  );
+}
+```
+
+This configuration highlights the Default features of Skeleton.
+
+---
+
+### Skeleton Variants
+
+Used when demonstrating the Variants configuration of Skeleton.
+
+<!--
+EXAMPLE: Variants
+PURPOSE: Shows the Variants configuration of Skeleton
+OUTPUT: Rendered Skeleton in Variants state
+USE WHEN: Implementing Variants specific scenarios
+SOURCE: app/storybook/src/stories/Skeleton.stories.ts → Variants
+-->
+```tsx
+import { Skeleton } from '@luxis-ui/core';
+
+export default function VariantsExample() {
+  return (
+    <Skeleton variant="rectangular" width="100%" height="150px" />
+  );
+}
+```
+
+This configuration highlights the Variants features of Skeleton.
+
+---
+
+### Skeleton Animations
+
+Used when demonstrating the Animations configuration of Skeleton.
+
+<!--
+EXAMPLE: Animations
+PURPOSE: Shows the Animations configuration of Skeleton
+OUTPUT: Rendered Skeleton in Animations state
+USE WHEN: Implementing Animations specific scenarios
+SOURCE: app/storybook/src/stories/Skeleton.stories.ts → Animations
+-->
+```tsx
+import { Skeleton } from '@luxis-ui/core';
+
+export default function AnimationsExample() {
+  return (
+    <Skeleton variant="rectangular" width="100%" height="150px" />
+  );
+}
+```
+
+This configuration highlights the Animations features of Skeleton.
+
+---
+
+### Skeleton CardSkeleton
+
+Used when demonstrating the CardSkeleton configuration of Skeleton.
+
+<!--
+EXAMPLE: CardSkeleton
+PURPOSE: Shows the CardSkeleton configuration of Skeleton
+OUTPUT: Rendered Skeleton in CardSkeleton state
+USE WHEN: Implementing CardSkeleton specific scenarios
+SOURCE: app/storybook/src/stories/Skeleton.stories.ts → CardSkeleton
+-->
+```tsx
+import { Skeleton } from '@luxis-ui/core';
+
+export default function CardSkeletonExample() {
+  return (
+    <Skeleton variant="rectangular" width="100%" height="150px" />
+  );
+}
+```
+
+This configuration highlights the CardSkeleton features of Skeleton.
+
+---
+
+### Skeleton ListSkeleton
+
+Used when demonstrating the ListSkeleton configuration of Skeleton.
+
+<!--
+EXAMPLE: ListSkeleton
+PURPOSE: Shows the ListSkeleton configuration of Skeleton
+OUTPUT: Rendered Skeleton in ListSkeleton state
+USE WHEN: Implementing ListSkeleton specific scenarios
+SOURCE: app/storybook/src/stories/Skeleton.stories.ts → ListSkeleton
+-->
+```tsx
+import { Skeleton } from '@luxis-ui/core';
+
+export default function ListSkeletonExample() {
+  return (
+    <Skeleton variant="rectangular" width="100%" height="150px" />
+  );
+}
+```
+
+This configuration highlights the ListSkeleton features of Skeleton.
+
+---
+
+### Controlled Skeleton
+
+When to use: When a parent component needs to read or drive the state.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  By default Skeleton manages its own state (uncontrolled).
+  Use the controlled pattern when syncing with a URL param, form
+  library, or another component.
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: useState-driven Skeleton with external state management
+OUTPUT: Skeleton whose state is owned by the parent
+USE WHEN: Programmatically reading or setting component state
+SOURCE: Derived from Skeleton.tsx controlled/uncontrolled pattern
+-->
+```tsx
+import { useState } from 'react';
+import { Skeleton } from '@luxis-ui/core';
+
+export default function ControlledExample() {
+  const [value, setValue] = useState<string>('initial state');
+
+  return (
+    <Skeleton value={value} onChange={(e) => setValue(e.target.value)} />
+  );
+}
+```
+
+## Skeleton Best Practices
+
+Proper implementation of Skeleton is essential for accessible and robust user interfaces.
+
+<DoAndDont
+  good={`// ✅ Rely on native interactions
+<Skeleton required />`}
+  bad={`// ❌ Reimplementing native validation
+<Skeleton className={isValid ? '' : 'invalid'} />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use explicit labels or helper text
+<Skeleton aria-label="Descriptive action context" />`}
+  bad={`// ❌ Leaving the purpose ambiguous
+<Skeleton />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Pass discrete configuration objects
+<Skeleton options={[1, 2, 3]} />`}
+  bad={`// ❌ Overloading generic string props
+<Skeleton config="1,2,3" />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Utilize design tokens for styling
+<Skeleton style={{ '--lxs-skeleton-color': 'blue' }} />`}
+  bad={`// ❌ Overriding styles with !important CSS classes
+<Skeleton className="force-blue" />`}
+/>
+
+## Skeleton Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly
+from `packages/luxis-ui/src/components/Skeleton/Skeleton.types.ts`.
+
+### Skeleton Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `variant` | `'text' | 'circular' | 'rectangular' | 'rounded'` | `'text'` | No | The shape of the skeleton |
+| `width` | `string | number` | `undefined` | Yes | Width of the skeleton |
+| `height` | `string | number` | `undefined` | Yes | Height of the skeleton |
+| `animation` | `'pulse' | 'wave' | false` | `'pulse'` | No | The animation type |
+| `className` | `string` | `''` | No | Additional class name for the root element |
+
+### HTML Native Props
+
+Skeleton forwards rest props to its underlying `<div>`, so
+all standard HTML div attributes are also accepted.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `onClick` | Event handler | `(e) => handleClick(e)` |
+| `className` | Additional CSS class names | `"custom-class"` |
+| `style` | Inline CSS styles | `{{ marginTop: '8px' }}` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for Skeleton
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/components/Skeleton/Skeleton.types.ts
+-->
+```ts
+export interface SkeletonProps extends React.HTMLDivElementAttributes<HTMLDivElement> {
+  variant?: 'text' | 'circular' | 'rectangular' | 'rounded';
+  width: string | number;
+  height: string | number;
+  animation?: 'pulse' | 'wave' | false;
+  className?: string;
+}
+```
+
+</details>
+
+## Skeleton Accessibility Guide
+
+Skeleton follows the progressbar WAI-ARIA pattern and meets WCAG AA standards.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| <KeyboardKey>Tab</KeyboardKey> | Moves focus to the Skeleton |
+| <KeyboardKey>Space</KeyboardKey> | Activates or selects within Skeleton |
+| <KeyboardKey>Enter</KeyboardKey> | Submits or executes default action for Skeleton |
+| <KeyboardKey>ArrowDown</KeyboardKey> | Navigates through internal options if applicable |
+
+### ARIA Attributes
+
+| Attribute | Value | When |
+|-----------|-------|------|
+| `role` | `"progressbar"` | Applied to establish the structural meaning of Skeleton |
+| `aria-label` | string | When no visible text label exists |
+| `aria-disabled` | `"true" | undefined` | When the Skeleton is explicitly disabled |
+
+### Screen Reader Behavior
+
+When focused, screen readers will announce the element as a progressbar role, followed by any computed label. Interactions will update screen reader context dynamically depending on ARIA live regions if the Skeleton manages dynamic state updates.
+
+### Accessibility Checklist
+
+- [ ] Ensure focus outlines are clearly visible against all backgrounds
+- [ ] Confirm that all interactive areas are reachable via Tab key
+- [ ] Provide descriptive `aria-label`s for icon-only or ambiguous instances
+- [ ] Always test with keyboard-only navigation before shipping
+
+## Skeleton Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions
+  like colors, spacing, and radius. Override them to restyle
+  Skeleton without fighting CSS specificity.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-skeleton-bg` | `var(--lxs-color-neutral-0)` | Background color of Skeleton |
+| `--lxs-skeleton-text` | `var(--lxs-color-neutral-900)` | Text color of Skeleton |
+| `--lxs-skeleton-border` | `var(--lxs-color-neutral-300)` | Border color of Skeleton |
+
+**Override globally:**
+```css
+:root {
+  --lxs-skeleton-bg: var(--lxs-color-primary-50);
+}
+```
+
+**Override for one section:**
+```css
+.my-section {
+  --lxs-skeleton-bg: var(--lxs-color-primary-50);
+}
+```
+
+**Override on one instance:**
+```tsx
+<Skeleton
+  style={{ '--lxs-skeleton-bg': 'var(--lxs-color-primary-50)' }}
+/>
+```
+
+## Customizing Skeleton
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to Skeleton
+OUTPUT: Skeleton with additional styling
+USE WHEN: Quick one-off style overrides
+SOURCE: N/A
+-->
+```tsx
+<Skeleton className="mt-4 shadow-sm" />
+```
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: Skeleton with custom token values
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+```tsx
+<Skeleton style={{ '--lxs-skeleton-border': '2px solid red' }} />
+```
+
+### Using with forwardRef
+
+<!--
+EXAMPLE: forwardRef
+PURPOSE: Accessing the underlying DOM node
+OUTPUT: Skeleton with attached ref
+USE WHEN: Calling native DOM methods like .focus()
+SOURCE: N/A
+-->
+```tsx
+import { useRef, useEffect } from 'react';
+import { Skeleton } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    ref.current?.focus();
+  }, []);
+
+  return <Skeleton ref={ref} />;
+}
+```
+
+## Common Skeleton Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Form Integrated Skeleton
+
+Used when: Embedding Skeleton directly inside a data entry form.
+
+<!--
+EXAMPLE: Form Integrated Skeleton
+PURPOSE: Utilizing Skeleton for form submission
+OUTPUT: A form element containing a Skeleton
+USE WHEN: Designing data intake interfaces
+SOURCE: Common usage pattern
+-->
+```tsx
+import { Skeleton } from '@luxis-ui/core';
+
+export default function FormPattern() {
+  return (
+    <form onSubmit={(e) => e.preventDefault()}>
+      <fieldset>
+        <legend>Skeleton Setup</legend>
+        <Skeleton name="formSkeleton" />
+      </fieldset>
+      <button type="submit">Save</button>
+    </form>
+  );
+}
+```
+
+### Data Driven Skeleton
+
+Used when: Generating Skeleton contents dynamically based on API responses or complex data arrays.
+
+<!--
+EXAMPLE: Data Driven Skeleton
+PURPOSE: Mapping arrays to Skeleton configurations
+OUTPUT: A dynamic Skeleton
+USE WHEN: Content is not static
+SOURCE: Common usage pattern
+-->
+```tsx
+import { Skeleton } from '@luxis-ui/core';
+
+export default function DataPattern() {
+  const sourceData = [{ id: '1', label: 'Item 1' }, { id: '2', label: 'Item 2' }];
+
+  return (
+    <Skeleton data={sourceData} />
+  );
+}
+```
+
+### Stateful Skeleton
+
+Used when: Skeleton drives significant UI layout changes within the parent container.
+
+<!--
+EXAMPLE: Stateful Skeleton
+PURPOSE: Using Skeleton to control adjacent component visibility
+OUTPUT: Skeleton toggling external views
+USE WHEN: Building complex, multi-view interfaces
+SOURCE: Common usage pattern
+-->
+```tsx
+import { useState } from 'react';
+import { Skeleton } from '@luxis-ui/core';
+
+export default function StatePattern() {
+  const [isActive, setIsActive] = useState(false);
+
+  return (
+    <div>
+      <Skeleton onChange={() => setIsActive(!isActive)} />
+      {isActive && <p>Extended configuration options enabled.</p>}
+    </div>
+  );
+}
+```
+
+## Troubleshooting Skeleton
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Not accepting focus | Omitting tabIndex on custom wrapper | Apply `tabIndex={0}` or rely on native focus |
+| Events not firing | Attaching handlers to internal nodes | Attach standard events like `onClick` to the root wrapper |
+| Styles not updating | Hardcoding conflicting inline styles | Prefer CSS variables or precise className selectors |
+| Screen readers silent | Missing accessible name | Add an explicit `aria-label` or wrapping `<label>` element |
+
+<Callout type="warning" title="Next.js / SSR">
+  Ensure Skeleton correctly serializes its initial state. If utilizing dynamic hooks, wrap it in a Client Component declaration.
+</Callout>
+
+### Frequently Asked Questions
+
+**Q: Why does Skeleton render poorly on mobile devices?**
+A: Ensure your viewport meta tag is configured correctly. Skeleton relies on standard CSS variables which should be responsive by default, but complex nested variants might require specific mobile-focused styling via design tokens.
+
+**Q: Can I integrate Skeleton with form validation libraries like Yup or Zod?**
+A: Yes. Because Skeleton utilizes native HTML patterns where possible, standard controlled component patterns using `onChange` and passing the `value` or `error` strings map seamlessly to form library controllers.
+
+**Q: How do I change the default width of Skeleton?**
+A: You can set a specific width via `className`, or set `fullWidth={true}` (if supported) to have it fill its container. Inline styles via `style={{ width: '300px' }}` are also completely valid.
+
+**Q: Does Skeleton support dynamic loading?**
+A: If Skeleton provides a `loading` prop, setting it to true will toggle the appropriate WAI-ARIA loading states and display an internal spinner or placeholder according to the WAI-ARIA progressbar spec.
+
+## Related Components
+
+<RelatedComponent
+  name="Button"
+  description="Often used in conjunction with Skeleton to submit or confirm selections"
+  href="/docs/components/button"
+/>
+<RelatedComponent
+  name="Input"
+  description="Used alongside Skeleton when open-ended text entry is also required"
+  href="/docs/components/input"
+/>
+<RelatedComponent
+  name="Card"
+  description="Frequently used as a container to visually group Skeleton elements"
+  href="/docs/components/card"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+| 1.1.0 | Feature | Added enhanced keyboard navigation capabilities |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Skeleton
+
+> Skeleton is a Components/Skeleton React component in Luxis UI for a placeholder component that indicates to users that content is loading.
+
+## Source
+packages/luxis-ui/src/components/Skeleton/Skeleton.tsx
+
+## Story
+app/storybook/src/stories/Skeleton.stories.ts
+
+## Install
+```bash
+npm install @luxis-ui/core
+```
+
+## Import
+```tsx
+import { Skeleton } from '@luxis-ui/core';
+```
+
+## Minimal usage
+```tsx
+import { Skeleton } from '@luxis-ui/core';
+
+export default function MinimalSkeleton() {
+  return (
+    <Skeleton />
+  );
+}
+```
+
+## Key props
+- `variant` ('text' | 'circular' | 'rectangular' | 'rounded', default=`'text'`): The shape of the skeleton
+- `width` (string | number, default=`undefined`): Width of the skeleton
+- `height` (string | number, default=`undefined`): Height of the skeleton
+- `animation` ('pulse' | 'wave' | false, default=`'pulse'`): The animation type
+
+## When to use
+Ideal for managing skeleton contexts within standard application views. Use when native elements need enhanced design token integration.
+
+## When NOT to use
+Do not use if the interaction can be achieved with a simpler inline element without managing complex state.
+
+## Accessibility
+WCAG: AA
+ARIA: progressbar
+Keyboard: Tab navigates through focusable items, Space/Enter activates, Arrow keys move focus
+
+## Docs
+https://luxis-ui.dev/docs/components/skeleton
+LLMS_TXT_ENTRY_END
+*/}
