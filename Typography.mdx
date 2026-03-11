@@ -1,0 +1,1292 @@
+---
+title: "Typography — Luxis UI React Component"
+description: "A versatile text component that provides consistent typography with full theming support and extensive customization options."
+status: stable
+since: "1.0.0"
+category: "Components/Typography"
+npm: "@luxis-ui/core"
+import: "import { Typography } from '@luxis-ui/core'"
+component: "Typography"
+keywords:
+  - typography
+  - react typography
+  - typography component
+  - text component
+  - luxis ui typography
+  - typescript typography
+  - react design system
+slug: /components/typography
+canonical: "https://luxis-ui.dev/docs/components/typography"
+og_image: "/img/og/typography.png"
+llm_summary: >
+  Typography renders a semantic HTML text element (e.g., h1, p, span, label) based on the `as` or `variant` prop. It accepts: variant ('h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body1' | 'body2' | 'subtitle1' | 'subtitle2' | 'caption' | 'overline' | 'button' | 'label', default='body1'), as ('h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'div' | 'label' | 'strong' | 'em' | 'small'), align ('left' | 'center' | 'right' | 'justify'), color ('primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info' | 'muted' | 'disabled' | 'inherit'), textColor (string), weight ('thin' | 'extralight' | 'light' | 'normal' | 'medium' | 'semibold' | 'bold' | 'extrabold' | 'black' | number), transform ('none' | 'uppercase' | 'lowercase' | 'capitalize'), decoration ('none' | 'underline' | 'line-through' | 'overline'), truncate (boolean, default=false), lineClamp (number), breakWord (boolean, default=false), italic (boolean, default=false), underline (boolean, default=false), strikethrough (boolean, default=false), gradient (string[]), noSelect (boolean, default=false), size (string | number), lineHeight (string | number), letterSpacing (string | number), noMargin (boolean, default=false), noPadding (boolean, default=false), children (ReactNode), htmlFor (string). Use when establishing typographic hierarchy or styling text according to the design tokens. Do not use for generic container layout. Import: import { Typography } from '@luxis-ui/core'.
+---
+
+{/*
+LLM_CONTEXT
+  component    : Typography
+  source       : packages/luxis-ui/src/components/Typography/Typography.tsx
+  story        : app/storybook/src/stories/Typography.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components/Typography
+  status       : stable
+  aria-pattern : N/A (Semantic HTML mapping)
+
+  What it renders:
+  Typography renders a specific HTML element based on the `as` prop, or intelligently infers the element based on the `variant` prop (e.g., variant="h1" renders an <h1>, variant="body1" renders a <p>, variant="caption" renders a <span>). It applies utility classes for variants, alignment, color, weight, transforms, decorations, and text manipulation. It directly handles `style` overrides for precise numerical values.
+
+  When to use:
+  - Establishing visual hierarchy with headings (h1-h6).
+  - Rendering standard body copy and paragraphs.
+  - Applying semantic text colors (success, error, muted) without writing custom CSS.
+  - Truncating text or applying line-clamps to overflowing content.
+
+  When NOT to use:
+  - As a generic wrapper div for complex layouts (use Box or a native div).
+  - Inside components that already enforce their own strict typography rules (like some specialized buttons or badges) unless overriding is explicitly intended.
+
+  Ecosystem equivalents:
+  - MUI        : <Typography>
+  - Chakra UI  : <Text> / <Heading>
+  - shadcn/ui  : Native HTML with utility classes
+  - Radix UI   : <Text> / <Heading>
+  - HTML native: <h1>...<h6>, <p>, <span>, <label>
+
+  Props (must match source exactly — every single prop):
+  variant ('h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body1' | 'body2' | 'subtitle1' | 'subtitle2' | 'caption' | 'overline' | 'button' | 'label', default='body1') — Typography variant that applies preset styles.
+  as ('h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'div' | 'label' | 'strong' | 'em' | 'small', default=undefined) — HTML element to render as. Automatically inferred from variant if not specified.
+  align ('left' | 'center' | 'right' | 'justify', default=undefined) — Typography alignment.
+  color ('primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info' | 'muted' | 'disabled' | 'inherit', default=undefined) — Semantic text color.
+  textColor (string, default=undefined) — Direct text color override.
+  weight ('thin' | 'extralight' | 'light' | 'normal' | 'medium' | 'semibold' | 'bold' | 'extrabold' | 'black' | number, default=undefined) — Font weight override.
+  transform ('none' | 'uppercase' | 'lowercase' | 'capitalize', default=undefined) — Typography transform.
+  decoration ('none' | 'underline' | 'line-through' | 'overline', default=undefined) — Typography decoration.
+  truncate (boolean, default=false) — Enable text truncation with ellipsis.
+  lineClamp (number, default=undefined) — Number of lines to show before truncating.
+  breakWord (boolean, default=false) — Enable word break for long words.
+  italic (boolean, default=false) — Enable italic style.
+  underline (boolean, default=false) — Enable underline.
+  strikethrough (boolean, default=false) — Enable strikethrough.
+  gradient (string[], default=undefined) — Make text gradient with specified colors.
+  noSelect (boolean, default=false) — Disable user selection.
+  size (string | number, default=undefined) — Custom font size (overrides variant).
+  lineHeight (string | number, default=undefined) — Custom line height (overrides variant).
+  letterSpacing (string | number, default=undefined) — Custom letter spacing (overrides variant).
+  noMargin (boolean, default=false) — Remove default margin.
+  noPadding (boolean, default=false) — Remove default padding.
+  children (ReactNode, default=undefined) — Children content to render.
+  htmlFor (string, default=undefined) — For usage when rendered as a label.
+
+  Accessibility:
+  WCAG: AA
+  Keyboard: None inherent, receives focus only if a focusable element is passed to `as` or standard HTML props like `tabIndex`.
+  Screen reader: Semantic mapping ensures headings are announced correctly for structural navigation. `htmlFor` prop properly links label variants to inputs.
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Typography React Component — Luxis UI",
+  "description": "A versatile text component that provides consistent typography with full theming support and extensive customization options.",
+  "keywords": "typography, react typography, typography component, text component, luxis ui typography, typescript typography, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use Typography in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { Typography } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI Typography accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The top props are variant (default 'body1'), as, color, align, and weight."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I truncate text to a specific number of lines?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the lineClamp prop with a number value, for example, lineClamp={3} to limit text to three lines."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI Typography different from Chakra UI Text?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Luxis UI consolidates Headings and Text into a single Typography component governed by the variant prop, mimicking MUI's API structure while maintaining smart semantic element inference."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Typography
+
+<ComponentStatus status="stable" version="1.0.0" aria="WAI-ARIA N/A (Semantic HTML mapping)" />
+
+A versatile text component that provides consistent typography with full theming support and extensive customization options.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for Typography
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding Typography to any file
+SOURCE: packages/luxis-ui/src/components/Typography/index.ts
+-->
+```tsx
+import { Typography } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI `Typography` is equivalent to MUI's `<Typography>`,
+  Chakra UI's `<Text>` and `<Heading>`, and shadcn/ui's raw typography classes.
+  Unlike Chakra, headings and body text share the same base component here.
+</Callout>
+
+## Before You Start
+
+Typography is the foundational building block for all text in your application.
+It automatically maps the `variant` prop to the most appropriate semantic HTML element (e.g., `h1` variant renders an `<h1>`).
+The Quick Start example below will produce standard paragraph text using the default `body1` variant.
+
+<Callout type="tip" title="New to Luxis UI?">
+  Check out our Getting Started guide to learn about our design principles and theme configuration.
+</Callout>
+
+## How to Use Typography in React
+
+The minimum code to render working Typography:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of Typography
+OUTPUT: A standard paragraph of text
+USE WHEN: Rendering basic body copy
+SOURCE: Derived from Typography.tsx defaults and simplest Story
+-->
+```tsx
+import { Typography } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Typography>
+      The quick brown fox jumps over the lazy dog.
+    </Typography>
+  );
+}
+```
+
+This renders a `<p>` tag styled with the `body1` default parameters, including proper font size, line height, and margin.
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of Typography with key props
+OUTPUT: A blue, centered, bold heading 2
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/Typography.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { Typography } from '@luxis-ui/core';
+
+export default function LiveExample() {
+  return (
+    <Typography
+      variant="h2"
+      color="info"
+      align="center"
+      weight="bold"
+    >
+      Welcome to the Dashboard
+    </Typography>
+  );
+}
+```
+
+## Typography Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### Typography Playground
+
+Use the playground to interactively tweak the Typography props.
+
+<!--
+EXAMPLE: Playground
+PURPOSE: Demonstrates a customizable text block
+OUTPUT: A paragraph showing the default body1 style
+USE WHEN: Prototyping typography behaviors
+SOURCE: app/storybook/src/stories/Typography.stories.ts → Playground
+-->
+```tsx
+import { Typography } from '@luxis-ui/core';
+
+export default function PlaygroundExample() {
+  return (
+    <Typography variant="body1">
+      The quick brown fox jumps over the lazy dog.
+    </Typography>
+  );
+}
+```
+
+This renders a standard string using the default component arguments.
+
+---
+
+### Typography AllVariants
+
+Explore the entire typographic scale.
+
+<!--
+EXAMPLE: AllVariants
+PURPOSE: Shows all built-in text styles side-by-side
+OUTPUT: A vertical list of every text variant from h1 to label
+USE WHEN: Selecting the appropriate scale for a new page design
+SOURCE: app/storybook/src/stories/Typography.stories.ts → AllVariants
+-->
+```tsx
+import { Typography } from '@luxis-ui/core';
+
+export default function AllVariantsExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <Typography variant="h1">Heading 1 — h1</Typography>
+      <Typography variant="h2">Heading 2 — h2</Typography>
+      <Typography variant="h3">Heading 3 — h3</Typography>
+      <Typography variant="h4">Heading 4 — h4</Typography>
+      <Typography variant="h5">Heading 5 — h5</Typography>
+      <Typography variant="h6">Heading 6 — h6</Typography>
+      <Typography variant="subtitle1">Subtitle 1 — subtitle1</Typography>
+      <Typography variant="subtitle2">Subtitle 2 — subtitle2</Typography>
+      <Typography variant="body1">
+        Body 1 (default) — The quick brown fox jumps over the lazy dog.
+      </Typography>
+      <Typography variant="body2">
+        Body 2 — The quick brown fox jumps over the lazy dog.
+      </Typography>
+      <Typography variant="caption">Caption — supplemental text</Typography>
+      <Typography variant="overline">Overline — section label</Typography>
+      <Typography variant="button">Button Label</Typography>
+      <Typography variant="label">Form Label</Typography>
+    </div>
+  );
+}
+```
+
+This renders the full hierarchy, automatically using the correct semantic tags (`h1`-`h6`, `p`, `span`, `label`).
+
+---
+
+### Typography SemanticColors
+
+Apply theme colors directly without writing CSS.
+
+<!--
+EXAMPLE: SemanticColors
+PURPOSE: Demonstrates the color and textColor props
+OUTPUT: Text lines in various semantic and hardcoded colors
+USE WHEN: Emphasizing success/error states or muting secondary information
+SOURCE: app/storybook/src/stories/Typography.stories.ts → SemanticColors
+-->
+```tsx
+import { Typography } from '@luxis-ui/core';
+
+export default function SemanticColorsExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <Typography variant="body1" color="primary">color="primary"</Typography>
+      <Typography variant="body1" color="success">color="success"</Typography>
+      <Typography variant="body1" color="error">color="error"</Typography>
+      <Typography variant="body1" color="muted">color="muted"</Typography>
+      <Typography variant="body1" color="disabled">color="disabled"</Typography>
+      <Typography variant="body1" textColor="#e11d48">
+        textColor="#e11d48" — direct CSS colour override
+      </Typography>
+    </div>
+  );
+}
+```
+
+This renders paragraphs formatted with brand, status, and custom text colors.
+
+---
+
+### Typography FontWeights
+
+Override the default font weight of any variant.
+
+<!--
+EXAMPLE: FontWeights
+PURPOSE: Shows the complete font-weight scale
+OUTPUT: Nine text lines demonstrating weights from thin to black
+USE WHEN: You need to increase or decrease emphasis without changing font size
+SOURCE: app/storybook/src/stories/Typography.stories.ts → FontWeights
+-->
+```tsx
+import { Typography } from '@luxis-ui/core';
+
+export default function FontWeightsExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+      <Typography variant="body1" weight="thin" noMargin>weight="thin"</Typography>
+      <Typography variant="body1" weight="normal" noMargin>weight="normal"</Typography>
+      <Typography variant="body1" weight="bold" noMargin>weight="bold"</Typography>
+      <Typography variant="body1" weight="black" noMargin>weight="black"</Typography>
+    </div>
+  );
+}
+```
+
+This renders body text ranging from extremely light to extremely heavy typography weights.
+
+---
+
+### Typography TransformsAndDecorations
+
+Apply CSS text-transforms and decorations directly via props.
+
+<!--
+EXAMPLE: TransformsAndDecorations
+PURPOSE: Demonstrates text modification utilities
+OUTPUT: Uppercase, underlined, and strikethrough text
+USE WHEN: Formatting table headers, links, or deleted items
+SOURCE: app/storybook/src/stories/Typography.stories.ts → TransformsAndDecorations
+-->
+```tsx
+import { Typography } from '@luxis-ui/core';
+
+export default function TransformsAndDecorationsExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <Typography variant="body1" transform="uppercase" noMargin>transform: uppercase</Typography>
+      <Typography variant="body1" transform="capitalize" noMargin>transform: capitalize each word</Typography>
+      <Typography variant="body1" decoration="underline" noMargin>decoration: underline</Typography>
+      <Typography variant="body1" strikethrough noMargin>strikethrough: true</Typography>
+    </div>
+  );
+}
+```
+
+This renders text with various structural modifications applied via utility classes.
+
+---
+
+### Typography Alignment
+
+Control the alignment of text blocks within their containers.
+
+<!--
+EXAMPLE: Alignment
+PURPOSE: Shows text alignment options
+OUTPUT: Left, center, right, and justified paragraphs
+USE WHEN: Positioning text inside cards, heroes, or articles
+SOURCE: app/storybook/src/stories/Typography.stories.ts → Alignment
+-->
+```tsx
+import { Typography } from '@luxis-ui/core';
+
+export default function AlignmentExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <Typography variant="body1" align="left" noMargin>
+        align="left" — The quick brown fox jumps over the lazy dog.
+      </Typography>
+      <Typography variant="body1" align="center" noMargin>
+        align="center" — The quick brown fox jumps over the lazy dog.
+      </Typography>
+      <Typography variant="body1" align="right" noMargin>
+        align="right" — The quick brown fox jumps over the lazy dog.
+      </Typography>
+    </div>
+  );
+}
+```
+
+This renders blocks of text aligned according to the specified prop.
+
+---
+
+### Typography Truncate
+
+Use the `truncate` prop to clip overflowing text to a single line with an ellipsis.
+
+<!--
+EXAMPLE: Truncate
+PURPOSE: Demonstrates single-line truncation
+OUTPUT: A paragraph clipped to one line ending with '...'
+USE WHEN: Displaying long titles in tight grid layouts or table cells
+SOURCE: app/storybook/src/stories/Typography.stories.ts → Truncate
+-->
+```tsx
+import { Typography } from '@luxis-ui/core';
+
+export default function TruncateExample() {
+  return (
+    <div style={{ maxWidth: 320, border: '1px dashed #d4d4d4', padding: 12 }}>
+      <Typography variant="body1" truncate noMargin>
+        This is a very long sentence that should be clipped to a single line and terminated with an ellipsis character when it overflows.
+      </Typography>
+    </div>
+  );
+}
+```
+
+This renders text that never breaks onto a second line, using CSS to cut off excess gracefully.
+
+---
+
+### Typography LineClamp
+
+Use `lineClamp` to clip text after a specific number of lines.
+
+<!--
+EXAMPLE: LineClamp
+PURPOSE: Shows multi-line truncation
+OUTPUT: A paragraph clamped to exactly 3 lines with an ellipsis
+USE WHEN: Building blog post cards, review summaries, or dense dashboards
+SOURCE: app/storybook/src/stories/Typography.stories.ts → LineClamp
+-->
+```tsx
+import { Typography } from '@luxis-ui/core';
+
+export default function LineClampExample() {
+  return (
+    <div style={{ maxWidth: 400, border: '1px dashed #d4d4d4', padding: 12 }}>
+      <Typography variant="body1" lineClamp={3} noMargin>
+        This paragraph is clamped to exactly three visible lines of text. Everything beyond the third line is clipped and replaced by an ellipsis. You can use any numeric value with the lineClamp prop to control how many lines are shown before the truncation occurs.
+      </Typography>
+    </div>
+  );
+}
+```
+
+This renders text that wraps normally until the 3rd line, at which point it is truncated.
+
+---
+
+### Typography LineClampWithTruncateFallback
+
+Ensure multi-line clamping behavior takes precedence.
+
+<!--
+EXAMPLE: LineClampWithTruncateFallback
+PURPOSE: Demonstrates lineClamp overriding truncate
+OUTPUT: A 2-line clamped paragraph despite the truncate prop being passed
+USE WHEN: Understanding component precedence when passing conflicting props
+SOURCE: app/storybook/src/stories/Typography.stories.ts → LineClampWithTruncateFallback
+-->
+```tsx
+import { Typography } from '@luxis-ui/core';
+
+export default function LineClampWithTruncateFallbackExample() {
+  return (
+    <div style={{ maxWidth: 400, padding: 12, border: '1px dashed #d4d4d4' }}>
+      <Typography variant="body1" lineClamp={2} truncate noMargin>
+        When both lineClamp and truncate are passed, lineClamp wins because the CSS
+        overrides white-space: nowrap. This sentence should wrap to a second line before
+        being clipped with an ellipsis — it must NOT be cut to a single line.
+      </Typography>
+    </div>
+  );
+}
+```
+
+This renders a 2-line clamped block, proving `lineClamp` overrides the `truncate` prop's `white-space: nowrap` rule.
+
+---
+
+### Typography GradientText
+
+Pass an array of colors to the `gradient` prop to create vibrant text.
+
+<!--
+EXAMPLE: GradientText
+PURPOSE: Shows linear gradient application to text
+OUTPUT: Large headings featuring colorful text gradients
+USE WHEN: Designing hero sections, marketing callouts, or primary brand messaging
+SOURCE: app/storybook/src/stories/Typography.stories.ts → GradientText
+-->
+```tsx
+import { Typography } from '@luxis-ui/core';
+
+export default function GradientTextExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <Typography variant="h2" gradient={['#667eea', '#764ba2']} noMargin>
+        Purple → Violet gradient
+      </Typography>
+      <Typography variant="h3" gradient={['#f093fb', '#f5576c']} noMargin>
+        Pink → Red gradient
+      </Typography>
+    </div>
+  );
+}
+```
+
+This renders text where the fill color is replaced by a CSS linear gradient using `background-clip`.
+
+---
+
+### Typography CustomTypography
+
+Override exact sizing and spacing values directly via props.
+
+<!--
+EXAMPLE: CustomTypography
+PURPOSE: Demonstrates the size, lineHeight, and letterSpacing props
+OUTPUT: Text with precise, non-standard styling applied
+USE WHEN: You need to break the scale for a specific one-off design requirement
+SOURCE: app/storybook/src/stories/Typography.stories.ts → CustomTypography
+-->
+```tsx
+import { Typography } from '@luxis-ui/core';
+
+export default function CustomTypographyExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <Typography variant="body1" size="1.5rem" lineHeight={1.8} letterSpacing="0.05em" noMargin>
+        size=1.5rem · lineHeight=1.8 · letterSpacing=0.05em
+      </Typography>
+      <Typography variant="body1" size={13} noMargin>
+        size=13 (number, treated as px)
+      </Typography>
+    </div>
+  );
+}
+```
+
+This renders text with exact numerical values applied as inline styles.
+
+---
+
+### Typography WordBreak
+
+Force long strings without spaces to wrap instead of overflowing.
+
+<!--
+EXAMPLE: WordBreak
+PURPOSE: Demonstrates the breakWord prop
+OUTPUT: A long URL wrapping across multiple lines inside a small container
+USE WHEN: Displaying user-generated content, URLs, or long file names
+SOURCE: app/storybook/src/stories/Typography.stories.ts → WordBreak
+-->
+```tsx
+import { Typography } from '@luxis-ui/core';
+
+export default function WordBreakExample() {
+  return (
+    <div style={{ maxWidth: 280, border: '1px dashed #d4d4d4', padding: 12 }}>
+      <Typography variant="body2" breakWord noMargin>
+        https://www.example.com/very/long/url/path/that/would/normally/overflow/its/container/without/word-break
+      </Typography>
+    </div>
+  );
+}
+```
+
+This renders a continuous string that breaks cleanly at the edge of its bounding box.
+
+---
+
+### Typography PolymorphicAs
+
+Decouple the visual style from the semantic HTML element.
+
+<!--
+EXAMPLE: PolymorphicAs
+PURPOSE: Shows the 'as' prop in action
+OUTPUT: Text styled as a heading but rendered as a paragraph tag
+USE WHEN: Maintaining visual consistency while preserving strict document outline semantics
+SOURCE: app/storybook/src/stories/Typography.stories.ts → PolymorphicAs
+-->
+```tsx
+import { Typography } from '@luxis-ui/core';
+
+export default function PolymorphicAsExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <Typography variant="h2" as="p" noMargin>
+        variant=h2 rendered as &lt;p&gt; — same visual style, different DOM element
+      </Typography>
+      <Typography variant="body1" as="span" noMargin>
+        variant=body1 rendered as &lt;span&gt;
+      </Typography>
+    </div>
+  );
+}
+```
+
+This renders elements that look like their variant but output the HTML tag specified by the `as` prop.
+
+---
+
+### Typography ResponsiveHeadings
+
+Heading variants automatically scale based on the viewport size.
+
+<!--
+EXAMPLE: ResponsiveHeadings
+PURPOSE: Explains fluid typography scaling
+OUTPUT: A set of headings that resize when the browser width changes
+USE WHEN: Designing layouts that must look good on both mobile and desktop
+SOURCE: app/storybook/src/stories/Typography.stories.ts → ResponsiveHeadings
+-->
+```tsx
+import { Typography } from '@luxis-ui/core';
+
+export default function ResponsiveHeadingsExample() {
+  return (
+    <div style={{ padding: '2rem' }}>
+      <Typography variant="overline" noMargin>
+        Resize the viewport to see fluid scaling
+      </Typography>
+      <Typography variant="h1">Heading 1</Typography>
+      <Typography variant="body1" noMargin>
+        Body text remains constant — only headings scale with the viewport.
+      </Typography>
+    </div>
+  );
+}
+```
+
+This renders typography powered by CSS custom properties that respond to media queries under the hood.
+
+---
+
+### Typography DarkMode
+
+Typography automatically adjusts to dark themes.
+
+<!--
+EXAMPLE: DarkMode
+PURPOSE: Demonstrates automatic dark mode text coloring
+OUTPUT: Light text rendered against a dark background
+USE WHEN: Testing or explicitly forcing dark mode sections
+SOURCE: app/storybook/src/stories/Typography.stories.ts → DarkMode
+-->
+```tsx
+import { Typography } from '@luxis-ui/core';
+
+export default function DarkModeExample() {
+  return (
+    <div
+      data-theme="dark"
+      style={{ background: '#0a0a0a', padding: '2rem', borderRadius: 8 }}
+    >
+      <Typography variant="h2">Dark Mode Headings</Typography>
+      <Typography variant="body1">
+        Body text inherits the dark theme text colour automatically via CSS custom properties.
+      </Typography>
+      <Typography variant="caption">Caption — muted secondary text in dark mode</Typography>
+    </div>
+  );
+}
+```
+
+This renders text elements that invert or adapt their colors based on the data attribute of their container.
+
+---
+
+### Typography FormField
+
+Compose multiple typography variants to build complex UI patterns.
+
+<!--
+EXAMPLE: FormField
+PURPOSE: Realistic usage of typography in a form context
+OUTPUT: A form field with a label, required asterisk, and helper text
+USE WHEN: Building form inputs that need consistent typographic spacing
+SOURCE: app/storybook/src/stories/Typography.stories.ts → FormField
+-->
+```tsx
+import { Typography } from '@luxis-ui/core';
+
+export default function FormFieldExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 4, maxWidth: 360 }}>
+      <Typography variant="label" htmlFor="email-field">
+        Email address <Typography as="span" variant="caption" color="error" noMargin>*</Typography>
+      </Typography>
+      <input
+        id="email-field"
+        type="email"
+        placeholder="you@company.com"
+        style={{
+          padding: '8px 12px',
+          border: '1px solid #d4d4d4',
+          borderRadius: 6,
+          fontSize: '0.875rem',
+        }}
+      />
+      <Typography variant="caption" color="muted" noMargin>
+        We will never share your email with third parties.
+      </Typography>
+    </div>
+  );
+}
+```
+
+This renders a cohesive form grouping using the `label`, `caption`, and semantic `error`/`muted` color props.
+
+---
+
+### Controlled Typography
+
+When to use: When a parent component needs to read or drive the state.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  By default Typography manages its own state (uncontrolled).
+  Use the controlled pattern when syncing with a URL param, form
+  library, or another component.
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: useState-driven Typography with external state management
+OUTPUT: Typography whose state is owned by the parent
+USE WHEN: Programmatically reading or setting component state
+SOURCE: Derived from Typography.tsx controlled/uncontrolled pattern
+-->
+```tsx
+import { useState } from 'react';
+import { Typography } from '@luxis-ui/core';
+
+export default function ControlledExample() {
+  const [text, setText] = useState('Dynamic Text');
+
+  return (
+    <div>
+      <input
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        style={{ marginBottom: '16px', display: 'block' }}
+      />
+      <Typography variant="h3">{text}</Typography>
+    </div>
+  );
+}
+```
+
+## Typography Best Practices
+
+Typography is the most used component in the system. Use it semantically and consistently.
+
+<DoAndDont
+  good={`// ✅ Use the 'as' prop to fix document outline issues
+<Typography variant="h3" as="h2">Section Header</Typography>`}
+  bad={`// ❌ Don't skip heading levels just because you like the size
+<Typography variant="h5">Skipped from h2 to h5</Typography>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use lineClamp for predictable card heights
+<Typography variant="body2" lineClamp={3}>
+  Very long description text...
+</Typography>`}
+  bad={`// ❌ Don't use truncate for large paragraphs
+<Typography variant="body2" truncate>
+  Very long description text that gets cut off immediately...
+</Typography>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use semantic colors for feedback
+<Typography color="error">Invalid email address</Typography>`}
+  bad={`// ❌ Don't hardcode hex values when a token exists
+<Typography textColor="#ef4444">Invalid email address</Typography>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use the label variant with htmlFor
+<Typography variant="label" htmlFor="first-name">First Name</Typography>`}
+  bad={`// ❌ Don't use a standard body variant for form labels
+<Typography variant="body1">First Name</Typography>`}
+/>
+
+## Typography Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly
+from `packages/luxis-ui/src/components/Typography/Typography.tsx`.
+
+### Typography Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `align` | `'left' \| 'center' \| 'right' \| 'justify'` | - | No | Typography alignment |
+| `as` | `TypographyAs` | - | No | HTML element to render as. Automatically inferred from variant |
+| `breakWord` | `boolean` | `false` | No | Enable word break for long words |
+| `children` | `ReactNode` | - | No | Children content to render |
+| `color` | `'primary' \| 'secondary' \| 'success' \| 'error' \| 'warning' \| 'info' \| 'muted' \| 'disabled' \| 'inherit'` | - | No | Semantic text color |
+| `decoration` | `'none' \| 'underline' \| 'line-through' \| 'overline'` | - | No | Typography decoration |
+| `gradient` | `string[]` | - | No | Make text gradient with specified colors |
+| `htmlFor` | `string` | - | No | For usage when rendered as a label |
+| `italic` | `boolean` | `false` | No | Enable italic style |
+| `letterSpacing` | `string \| number` | - | No | Custom letter spacing (overrides variant) |
+| `lineClamp` | `number` | - | No | Number of lines to show before truncating |
+| `lineHeight` | `string \| number` | - | No | Custom line height (overrides variant) |
+| `noMargin` | `boolean` | `false` | No | Remove default margin |
+| `noPadding` | `boolean` | `false` | No | Remove default padding |
+| `noSelect` | `boolean` | `false` | No | Disable user selection |
+| `size` | `string \| number` | - | No | Custom font size (overrides variant) |
+| `strikethrough` | `boolean` | `false` | No | Enable strikethrough |
+| `textColor` | `string` | - | No | Direct text color override |
+| `transform` | `'none' \| 'uppercase' \| 'lowercase' \| 'capitalize'` | - | No | Typography transform |
+| `truncate` | `boolean` | `false` | No | Enable text truncation with ellipsis |
+| `underline` | `boolean` | `false` | No | Enable underline |
+| `variant` | `TypographyVariant` | `'body1'` | No | Typography variant that applies preset styles |
+| `weight` | `TypographyWeight \| number` | - | No | Font weight override |
+
+### HTML Native Props
+
+Typography forwards rest props to its underlying HTML element, so
+all standard HTML attributes are also accepted.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `onClick` | Click handler | `(e) => handleClick(e)` |
+| `className` | Additional CSS class names | `"custom-class"` |
+| `style` | Inline CSS styles | `{{ marginTop: '8px' }}` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for Typography
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/components/Typography/Typography.tsx
+-->
+```ts
+export type TypographyVariant =
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6'
+  | 'body1'
+  | 'body2'
+  | 'subtitle1'
+  | 'subtitle2'
+  | 'caption'
+  | 'overline'
+  | 'button'
+  | 'label';
+
+export type TypographyAlign = 'left' | 'center' | 'right' | 'justify';
+export type TypographyTransform = 'none' | 'uppercase' | 'lowercase' | 'capitalize';
+export type TypographyDecoration = 'none' | 'underline' | 'line-through' | 'overline';
+export type TypographyWeight =
+  | 'thin'
+  | 'extralight'
+  | 'light'
+  | 'normal'
+  | 'medium'
+  | 'semibold'
+  | 'bold'
+  | 'extrabold'
+  | 'black';
+export type TypographyAs =
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6'
+  | 'p'
+  | 'span'
+  | 'div'
+  | 'label'
+  | 'strong'
+  | 'em'
+  | 'small';
+
+export interface TypographyProps extends Omit<React.HTMLAttributes<HTMLElement>, 'color'> {
+  variant?: TypographyVariant;
+  as?: TypographyAs;
+  align?: TypographyAlign;
+  color?: 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info' | 'muted' | 'disabled' | 'inherit';
+  textColor?: string;
+  weight?: TypographyWeight | number;
+  transform?: TypographyTransform;
+  decoration?: TypographyDecoration;
+  truncate?: boolean;
+  lineClamp?: number;
+  breakWord?: boolean;
+  italic?: boolean;
+  underline?: boolean;
+  strikethrough?: boolean;
+  gradient?: string[];
+  noSelect?: boolean;
+  size?: string | number;
+  lineHeight?: string | number;
+  letterSpacing?: string | number;
+  noMargin?: boolean;
+  noPadding?: boolean;
+  children?: React.ReactNode;
+  htmlFor?: string;
+}
+```
+
+</details>
+
+## Typography Accessibility Guide
+
+Typography follows standard HTML patterns and meets WCAG AA text contrast requirements when using default tokens.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| <KeyboardKey>Tab</KeyboardKey> | No specific action. Typography elements are non-interactive unless wrapped in or rendered as links/buttons. |
+
+### ARIA Attributes
+
+| Attribute | Value | When |
+|-----------|-------|------|
+| `role` | N/A | Typography relies on semantic HTML tags (`h1`-`h6`, `p`, etc.) rather than explicit ARIA roles. |
+
+### Screen Reader Behavior
+
+Because Typography automatically maps the `variant` prop to the correct semantic HTML tag (e.g., `<p>` for body copy, `<h1>` for page titles), screen readers will naturally interpret the document structure. Headings are critical for screen reader users to jump between sections of a page.
+
+### Accessibility Checklist
+
+- [ ] Ensure heading levels do not skip (e.g., don't jump from h2 to h4). Use the \`as\` prop to decouple visual size from semantic level if needed.
+- [ ] Ensure custom \`textColor\` values meet WCAG 4.5:1 contrast ratios against their background.
+- [ ] Use \`variant="label"\` and the \`htmlFor\` prop to properly link labels to form inputs.
+- [ ] Avoid relying purely on color to convey meaning (e.g., error states).
+
+## Typography Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions
+  like colors, spacing, and radius. Override them to restyle
+  Typography without fighting CSS specificity.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-text-h1-font-size` | `var(--lxs-font-size-4xl)` | Base size for h1 variant |
+| `--lxs-text-h1-font-weight` | `var(--lxs-font-weight-extrabold)` | Base weight for h1 variant |
+| `--lxs-text-body1-font-size` | `var(--lxs-font-size-base)` | Base size for body1 variant |
+| `--lxs-text-secondary` | `#6b7280` | Muted color (used by caption and overline) |
+
+**Override globally:**
+```css
+:root {
+  --lxs-text-h1-font-size: 3rem;
+}
+```
+
+**Override for one section:**
+```css
+.hero-section {
+  --lxs-text-h1-font-size: 4.5rem;
+}
+```
+
+**Override on one instance:**
+```tsx
+<Typography
+  style={{ '--lxs-text-secondary': '#9ca3af' } as React.CSSProperties}
+  variant="caption"
+>
+  Custom token color
+</Typography>
+```
+
+## Customizing Typography
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to Typography
+OUTPUT: Typography with additional styling
+USE WHEN: Quick one-off style overrides
+SOURCE: N/A
+-->
+```tsx
+<Typography className="mb-8 indent-4">Custom body text</Typography>
+```
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: Typography with custom token values
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+```tsx
+<Typography
+  variant="h2"
+  style={{ '--lxs-text-h2-letter-spacing': '-0.05em' } as React.CSSProperties}
+>
+  Tighter heading
+</Typography>
+```
+
+### Using with forwardRef
+
+<!--
+EXAMPLE: forwardRef
+PURPOSE: Accessing the underlying DOM node
+OUTPUT: Typography with attached ref
+USE WHEN: Calling native DOM methods or measuring elements
+SOURCE: N/A
+-->
+```tsx
+import { useRef, useEffect } from 'react';
+import { Typography } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const ref = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    console.log('Heading height:', ref.current?.offsetHeight);
+  }, []);
+
+  return <Typography ref={ref} variant="h1">Measured Title</Typography>;
+}
+```
+
+## Common Typography Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Page Header with Subtitle
+
+Used when: Structuring the top of a page layout.
+
+<!--
+EXAMPLE: Page Header with Subtitle
+PURPOSE: Demonstrates hierarchy composition
+OUTPUT: An h1 title followed by a muted subtitle
+USE WHEN: Starting a new dashboard page or detail view
+SOURCE: Common usage pattern for Typography
+-->
+```tsx
+import { Typography } from '@luxis-ui/core';
+
+export default function PageHeaderExample() {
+  return (
+    <div style={{ marginBottom: '32px' }}>
+      <Typography variant="h1" noMargin>Account Settings</Typography>
+      <Typography variant="subtitle1" color="muted">
+        Manage your profile, security preferences, and billing information.
+      </Typography>
+    </div>
+  );
+}
+```
+
+### Financial Metric
+
+Used when: Displaying large KPI numbers in a dashboard context.
+
+<!--
+EXAMPLE: Financial Metric
+PURPOSE: Shows numerical data emphasis
+OUTPUT: A large styled number with a small label
+USE WHEN: Building stats cards or financial summaries
+SOURCE: Common usage pattern for Typography
+-->
+```tsx
+import { Typography } from '@luxis-ui/core';
+
+export default function FinancialMetricExample() {
+  return (
+    <div style={{ padding: '24px', border: '1px solid #e5e7eb', borderRadius: '12px', width: '200px' }}>
+      <Typography variant="overline" color="muted" noMargin>Monthly Revenue</Typography>
+      <Typography variant="h2" noMargin>$45,231.89</Typography>
+      <Typography variant="caption" color="success" weight="bold">
+        +12.5% from last month
+      </Typography>
+    </div>
+  );
+}
+```
+
+### Legal Disclaimers
+
+Used when: Rendering fine print at the bottom of forms or footers.
+
+<!--
+EXAMPLE: Legal Disclaimers
+PURPOSE: Shows small, muted text styling
+OUTPUT: A tiny, gray paragraph
+USE WHEN: Complying with legal requirements without distracting the user
+SOURCE: Common usage pattern for Typography
+-->
+```tsx
+import { Typography } from '@luxis-ui/core';
+
+export default function LegalDisclaimerExample() {
+  return (
+    <div style={{ padding: '16px', background: '#f9fafb', borderTop: '1px solid #e5e7eb' }}>
+      <Typography variant="caption" color="muted" align="center" noMargin>
+        By using this service, you agree to our Terms of Service and Privacy Policy.
+        Information provided on this platform does not constitute financial advice.
+      </Typography>
+    </div>
+  );
+}
+```
+
+## Troubleshooting Typography
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Screen reader says "heading level 5" but visually it's huge | \`variant="h1" as="h5"\` | \`variant="h1"\` or \`variant="h5" as="h1"\` (ensure semantics match layout hierarchy) |
+| \`truncate\` doesn't work on multi-line text | Using \`truncate\` for paragraphs | Use \`lineClamp={3}\` instead |
+| Semantic colors don't apply | Overriding with inline \`style={{ color: 'red' }}\` | Remove inline style or use the \`textColor\` prop |
+| Form label click doesn't focus input | Missing \`htmlFor\` prop | \`<Typography variant="label" htmlFor="inputId">\` |
+
+<Callout type="warning" title="Next.js / SSR">
+  Typography relies heavily on CSS custom properties for responsive scaling. If you see FOUC (Flash of Unstyled Content) regarding font sizes, ensure your base theme CSS is loaded in the \`_app.tsx\` or root layout file.
+</Callout>
+
+### Frequently Asked Questions
+
+**Q: Should I use Typography for buttons?**
+A: No, use the Button component. However, the Button component uses the \`button\` typography variant internally for text styling.
+
+**Q: Can I add custom fonts?**
+A: Yes, you can override the \`--lxs-font-family-sans\` CSS variable globally to change the font family across all Typography instances.
+
+**Q: How does the gradient prop work?**
+A: It applies a \`linear-gradient(135deg, ...)\` as a background image, and uses \`-webkit-background-clip: text\` with transparent text fill color to create the gradient effect.
+
+**Q: Why does my text not break when I use \`breakWord\`?**
+A: Ensure the container has a defined width or \`max-width\`. If the container grows infinitely, the text will never need to break.
+
+## Related Components
+
+<RelatedComponent
+  name="Box"
+  description="Use Box for generic structural divs or complex layout positioning."
+  href="/docs/components/box"
+/>
+<RelatedComponent
+  name="Label"
+  description="A dedicated component that builds on Typography for form field labels."
+  href="/docs/components/label"
+/>
+<RelatedComponent
+  name="Alert"
+  description="Use when highlighting important text blocks rather than relying purely on text color."
+  href="/docs/components/alert"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Typography
+
+> Typography is a Components/Typography React component in Luxis UI for rendering consistent, themed text elements.
+
+## Source
+packages/luxis-ui/src/components/Typography/Typography.tsx
+
+## Story
+app/storybook/src/stories/Typography.stories.ts
+
+## Install
+\`\`\`bash
+npm install @luxis-ui/core
+\`\`\`
+
+## Import
+\`\`\`tsx
+import { Typography } from '@luxis-ui/core';
+\`\`\`
+
+## Minimal usage
+\`\`\`tsx
+import { Typography } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Typography variant="h1" color="primary">
+      Page Title
+    </Typography>
+  );
+}
+\`\`\`
+
+## Key props
+- \`variant\` ('h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body1' | 'body2' | 'subtitle1' | 'subtitle2' | 'caption' | 'overline' | 'button' | 'label', default=\`'body1'\`): Typography variant that applies preset styles
+- \`as\` ('h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'div' | 'label' | 'strong' | 'em' | 'small', default=\`undefined\`): HTML element to render as. Automatically inferred from variant
+- \`color\` ('primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info' | 'muted' | 'disabled' | 'inherit', default=\`undefined\`): Semantic text color
+- \`align\` ('left' | 'center' | 'right' | 'justify', default=\`undefined\`): Typography alignment
+- \`weight\` ('thin' | 'extralight' | 'light' | 'normal' | 'medium' | 'semibold' | 'bold' | 'extrabold' | 'black' | number, default=\`undefined\`): Font weight override
+
+## When to use
+Establishing visual hierarchy with headings (h1-h6). Rendering standard body copy and paragraphs. Applying semantic text colors without writing custom CSS.
+
+## When NOT to use
+As a generic wrapper div for complex layouts (use Box). Inside components that already enforce their own strict typography rules.
+
+## Accessibility
+WCAG: AA
+ARIA: N/A (Semantic HTML mapping)
+Keyboard: None
+
+## Docs
+https://luxis-ui.dev/docs/components/typography
+LLMS_TXT_ENTRY_END
+*/}

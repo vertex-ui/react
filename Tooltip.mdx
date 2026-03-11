@@ -1,0 +1,1044 @@
+---
+title: "Tooltip — Luxis UI React Component"
+description: "A small popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it."
+status: stable
+since: "1.0.0"
+category: "Components/Tooltip"
+npm: "@luxis-ui/core"
+import: "import { Tooltip } from '@luxis-ui/core'"
+component: "Tooltip"
+keywords:
+  - tooltip
+  - react tooltip
+  - tooltip component
+  - luxis ui tooltip
+  - typescript tooltip
+  - accessible tooltip
+  - react design system
+slug: /components/tooltip
+canonical: "https://luxis-ui.dev/docs/components/tooltip"
+og_image: "/img/og/tooltip.png"
+llm_summary: >
+  Tooltip renders a portal containing a div with role="tooltip". It accepts: content (ReactNode), placement ('top' | 'top-start' | 'top-end' | 'right' | 'right-start' | 'right-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end', default='top'), delay (number, default=200), hideDelay (number, default=0), children (React.ReactElement), open (boolean), disabled (boolean, default=false), arrow (boolean, default=false), maxWidth (string, default='300px'), variant ('dark' | 'light' | 'error' | 'warning' | 'success' | 'info', default='dark'), dismissible (boolean, default=false), onShow (() => void), onHide (() => void), onDismiss (() => void). Use when providing context or descriptions to icon-only buttons or ambiguous UI elements. Do not use for essential information needed to complete a task. Accessible via screen readers announcing the aria-describedby linkage. Import: import { Tooltip } from '@luxis-ui/core'.
+---
+
+{/*
+LLM_CONTEXT
+  component    : Tooltip
+  source       : packages/luxis-ui/src/components/Tooltip/Tooltip.tsx
+  story        : app/storybook/src/stories/Tooltip.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components/Tooltip
+  status       : stable
+  aria-pattern : Tooltip
+
+  What it renders:
+  Tooltip renders its children directly, cloning them to attach mouse/focus event listeners and an aria-describedby attribute. When triggered, it renders a React portal appended to document.body containing a div with role="tooltip", positioned absolutely via CSS transforms based on viewport coordinates.
+
+  When to use:
+  - Explaining the purpose of an icon-only button (e.g., a trash can icon).
+  - Showing the full text of a truncated string on hover.
+  - Providing brief keyboard shortcut hints.
+
+  When NOT to use:
+  - Displaying critical error messages (use Alert or form validation messages instead).
+  - Placing interactive form controls or complex menus (use Popover or Dropdown instead).
+
+  Ecosystem equivalents:
+  - MUI        : <Tooltip>
+  - Chakra UI  : <Tooltip>
+  - shadcn/ui  : <Tooltip>
+  - Radix UI   : <Tooltip.Root>
+  - HTML native: <div title="...">
+
+  Props (must match source exactly — every single prop):
+  content (ReactNode) — Content to display in the tooltip.
+  placement ('top' | 'top-start' | 'top-end' | 'right' | 'right-start' | 'right-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end', default='top') — Placement of the tooltip relative to the trigger element.
+  delay (number, default=200) — Delay before showing tooltip in milliseconds.
+  hideDelay (number, default=0) — Delay before hiding tooltip in milliseconds.
+  children (React.ReactElement<Record<string, unknown>>) — Element that triggers the tooltip.
+  open (boolean, default=undefined) — If true, tooltip is always visible.
+  disabled (boolean, default=false) — If true, tooltip is disabled and won't show.
+  arrow (boolean, default=false) — If true, shows an arrow pointing to the trigger element.
+  maxWidth (string, default='300px') — Maximum width of the tooltip.
+  variant ('dark' | 'light' | 'error' | 'warning' | 'success' | 'info', default='dark') — Tooltip variant for different visual styles.
+  dismissible (boolean, default=false) — If true, shows a close button to manually dismiss the tooltip.
+  onShow (() => void, default=undefined) — Callback fired when tooltip is shown.
+  onHide (() => void, default=undefined) — Callback fired when tooltip is hidden.
+  onDismiss (() => void, default=undefined) — Callback fired when dismiss button is clicked.
+
+  Accessibility:
+  WCAG: AA
+  Keyboard: Tab to focus trigger, Escape to dismiss tooltip.
+  Screen reader: Appends an aria-describedby ID to the trigger pointing to the tooltip content, which screen readers announce when the trigger receives focus.
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Tooltip React Component — Luxis UI",
+  "description": "A small popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
+  "keywords": "tooltip, react tooltip, tooltip component, luxis ui tooltip, typescript tooltip, accessible tooltip, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use Tooltip in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { Tooltip } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI Tooltip accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The top props are content, placement (default 'top'), delay (default 200), arrow (default false), and variant (default 'dark')."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I add an arrow pointing to the trigger?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Simply set the arrow prop to true. It will automatically align based on the current placement."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI Tooltip different from MUI Tooltip?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Luxis UI Tooltip handles portal rendering globally to document.body by default and provides built-in manual dismissibility for complex text blocks."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Tooltip
+
+<ComponentStatus status="stable" version="1.0.0" aria="WAI-ARIA Tooltip" />
+
+A small popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for Tooltip
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding Tooltip to any file
+SOURCE: packages/luxis-ui/src/components/Tooltip/index.ts
+-->
+```tsx
+import { Tooltip } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI `Tooltip` is equivalent to MUI's `<Tooltip>`,
+  Chakra UI's `<Tooltip>`, and shadcn/ui's `Tooltip`.
+  It avoids strict wrapper constraints by cloning its child element to inject aria attributes automatically.
+</Callout>
+
+## Before You Start
+
+Tooltip represents contextual, supplementary information.
+It is based on the HTML `role="tooltip"` and `aria-describedby` pattern.
+The Quick Start example below will produce a dark tooltip hovering above a button.
+
+<Callout type="tip" title="New to Luxis UI?">
+  Check out our Getting Started guide to learn about our design principles and theme configuration.
+</Callout>
+
+## How to Use Tooltip in React
+
+The minimum code to render a working Tooltip:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of Tooltip
+OUTPUT: A dark tooltip hovering above a primary button
+USE WHEN: Showing brief text on hover
+SOURCE: Derived from Tooltip.tsx defaults and simplest Story
+-->
+```tsx
+import { Tooltip } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Tooltip content="This is a helpful tooltip">
+      <button>Hover me</button>
+    </Tooltip>
+  );
+}
+```
+
+This renders a dark tooltip containing the text "This is a helpful tooltip" after a 200ms delay when the user hovers over or focuses the button.
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of Tooltip with key props
+OUTPUT: An informational tooltip with an arrow
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/Tooltip.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { Tooltip } from '@luxis-ui/core';
+
+export default function LiveExample() {
+  return (
+    <Tooltip
+      content="Saves the current document (⌘S)"
+      placement="right"
+      arrow
+      variant="info"
+    >
+      <button style={{ padding: '8px 16px', borderRadius: '6px' }}>
+        Save Changes
+      </button>
+    </Tooltip>
+  );
+}
+```
+
+## Tooltip Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### Tooltip AllPlacements
+
+Tooltip supports 12 different placement configurations around the trigger element.
+
+<!--
+EXAMPLE: AllPlacements
+PURPOSE: Demonstrates all 12 positional placements
+OUTPUT: A grid of tooltips pointing in various directions
+USE WHEN: You need to avoid obscuring adjacent UI elements
+SOURCE: app/storybook/src/stories/Tooltip.stories.ts → AllPlacements
+-->
+```tsx
+import { Tooltip } from '@luxis-ui/core';
+
+export default function AllPlacementsExample() {
+  return (
+    <div style={{ display: 'flex', gap: 16 }}>
+      <Tooltip content="top-start" placement="top-start" arrow>
+        <button>top-start</button>
+      </Tooltip>
+      <Tooltip content="top" placement="top" arrow>
+        <button>top</button>
+      </Tooltip>
+      <Tooltip content="top-end" placement="top-end" arrow>
+        <button>top-end</button>
+      </Tooltip>
+    </div>
+  );
+}
+```
+
+This renders tooltips demonstrating alignment variations along the top edge of the trigger.
+
+---
+
+### Tooltip Variants
+
+Choose from 6 visual variants to convey semantic meaning.
+
+<!--
+EXAMPLE: Variants
+PURPOSE: Shows the color variants of tooltips
+OUTPUT: Tooltips in dark, light, error, warning, success, and info colors
+USE WHEN: Matching the tooltip style to the severity of the action
+SOURCE: app/storybook/src/stories/Tooltip.stories.ts → Variants
+-->
+```tsx
+import { Tooltip } from '@luxis-ui/core';
+
+export default function VariantsExample() {
+  return (
+    <div style={{ display: 'flex', gap: 16 }}>
+      <Tooltip content="Delete permanently" variant="error" arrow>
+        <button>Delete</button>
+      </Tooltip>
+      <Tooltip content="Changes saved automatically" variant="success" arrow>
+        <button>Status</button>
+      </Tooltip>
+    </div>
+  );
+}
+```
+
+This renders an error (red) tooltip and a success (green) tooltip.
+
+---
+
+### Tooltip WithArrow
+
+Add an arrow indicator to clearly point out the trigger element.
+
+<!--
+EXAMPLE: WithArrow
+PURPOSE: Demonstrates tooltips featuring an arrow
+OUTPUT: Tooltips containing a small triangular pointer
+USE WHEN: The UI is dense and the tooltip origin might be ambiguous
+SOURCE: app/storybook/src/stories/Tooltip.stories.ts → WithArrow
+-->
+```tsx
+import { Tooltip } from '@luxis-ui/core';
+
+export default function WithArrowExample() {
+  return (
+    <Tooltip content="Look here!" placement="top" arrow>
+      <button>With Arrow</button>
+    </Tooltip>
+  );
+}
+```
+
+This renders a tooltip with a small triangle extending from its base toward the button.
+
+---
+
+### Tooltip RichContentTooltip
+
+Provide complex layout and text formatting by passing JSX into the `content` prop.
+
+<!--
+EXAMPLE: RichContentTooltip
+PURPOSE: Shows how to render JSX inside a tooltip
+OUTPUT: A tooltip containing bold text, paragraphs, and styling
+USE WHEN: Explaining complex concepts or showing keyboard shortcuts
+SOURCE: app/storybook/src/stories/Tooltip.stories.ts → RichContentTooltip
+-->
+```tsx
+import { Tooltip } from '@luxis-ui/core';
+
+const RichContent = () => (
+  <div>
+    <strong style={{ display: 'block', marginBottom: 4 }}>Keyboard shortcut</strong>
+    <p style={{ margin: 0, opacity: 0.8, fontSize: 12 }}>
+      Press <kbd>⌘S</kbd> to save your work.
+    </p>
+  </div>
+);
+
+export default function RichContentTooltipExample() {
+  return (
+    <Tooltip content={<RichContent />} placement="bottom" arrow maxWidth="220px">
+      <button>Hover for shortcut</button>
+    </Tooltip>
+  );
+}
+```
+
+This renders a multiline tooltip with bold headings and specialized elements.
+
+---
+
+### Tooltip Delays
+
+Configure custom entrance and exit delays for smoother user experiences.
+
+<!--
+EXAMPLE: Delays
+PURPOSE: Demonstrates custom delay props
+OUTPUT: Tooltips that wait longer to appear or disappear
+USE WHEN: Preventing accidental flashes of tooltips while scrubbing the mouse across the page
+SOURCE: app/storybook/src/stories/Tooltip.stories.ts → Delays
+-->
+```tsx
+import { Tooltip } from '@luxis-ui/core';
+
+export default function DelaysExample() {
+  return (
+    <div style={{ display: 'flex', gap: 16 }}>
+      <Tooltip content="No delay" delay={0}>
+        <button>Instant</button>
+      </Tooltip>
+      <Tooltip content="Slow to appear" delay={800}>
+        <button>Slow (800ms)</button>
+      </Tooltip>
+    </div>
+  );
+}
+```
+
+This renders one tooltip that shows instantly and another that waits nearly a second.
+
+---
+
+### Tooltip Dismissible
+
+Enable a manual close button within the tooltip for reading long content.
+
+<!--
+EXAMPLE: Dismissible
+PURPOSE: Shows a tooltip with a close button
+OUTPUT: A tooltip containing a small 'X' button
+USE WHEN: Providing lengthy information that the user might need time to read
+SOURCE: app/storybook/src/stories/Tooltip.stories.ts → Dismissible
+-->
+```tsx
+import { Tooltip } from '@luxis-ui/core';
+
+export default function DismissibleExample() {
+  return (
+    <Tooltip
+      content="This can be closed with the × button"
+      placement="top"
+      arrow
+      dismissible
+    >
+      <button>Hover — then click ×</button>
+    </Tooltip>
+  );
+}
+```
+
+This renders a tooltip that stays open until explicitly dismissed by the user clicking the internal close button.
+
+---
+
+### Tooltip AlwaysVisible
+
+Force the tooltip to remain open regardless of hover state.
+
+<!--
+EXAMPLE: AlwaysVisible
+PURPOSE: Demonstrates the controlled open prop
+OUTPUT: A tooltip that never closes
+USE WHEN: Guiding users during a product tour or onboarding sequence
+SOURCE: app/storybook/src/stories/Tooltip.stories.ts → AlwaysVisible
+-->
+```tsx
+import { Tooltip } from '@luxis-ui/core';
+
+export default function AlwaysVisibleExample() {
+  return (
+    <Tooltip content="I am always visible" placement="top" arrow open={true} variant="info">
+      <button>Tooltip locked</button>
+    </Tooltip>
+  );
+}
+```
+
+This renders a tooltip permanently anchored to its trigger.
+
+---
+
+### Tooltip DisabledTooltip
+
+Temporarily disable a tooltip based on application state.
+
+<!--
+EXAMPLE: DisabledTooltip
+PURPOSE: Shows how to disable tooltip behavior
+OUTPUT: A trigger button that does not show a tooltip
+USE WHEN: The information is no longer relevant due to user actions
+SOURCE: app/storybook/src/stories/Tooltip.stories.ts → DisabledTooltip
+-->
+```tsx
+import { Tooltip } from '@luxis-ui/core';
+
+export default function DisabledTooltipExample() {
+  return (
+    <Tooltip content="You will never see this" disabled>
+      <button>Disabled tooltip</button>
+    </Tooltip>
+  );
+}
+```
+
+This renders a standard button; hovering it triggers nothing.
+
+---
+
+### Tooltip ActionToolbar
+
+A real-world composition showing tooltips acting as hints for a formatting toolbar.
+
+<!--
+EXAMPLE: ActionToolbar
+PURPOSE: Demonstrates tooltips applied to icon-only buttons
+OUTPUT: A row of buttons showing keyboard shortcuts on hover
+USE WHEN: Building rich text editors or dense control panels
+SOURCE: app/storybook/src/stories/Tooltip.stories.ts → ActionToolbar
+-->
+```tsx
+import { Tooltip } from '@luxis-ui/core';
+
+export default function ActionToolbarExample() {
+  return (
+    <div style={{ display: 'flex', gap: 4 }}>
+      <Tooltip content="Bold (⌘B)" placement="top" delay={150}>
+        <button style={{ fontWeight: 'bold' }}>B</button>
+      </Tooltip>
+      <Tooltip content="Italic (⌘I)" placement="top" delay={150}>
+        <button style={{ fontStyle: 'italic' }}>I</button>
+      </Tooltip>
+      <Tooltip content="Underline (⌘U)" placement="top" delay={150}>
+        <button style={{ textDecoration: 'underline' }}>U</button>
+      </Tooltip>
+    </div>
+  );
+}
+```
+
+This renders a miniature text-formatting bar where each button explains its purpose via a tooltip.
+
+---
+
+### Controlled Tooltip
+
+When to use: When a parent component needs to read or drive the state.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  By default Tooltip manages its own state (uncontrolled).
+  Use the controlled pattern when syncing with a URL param, form
+  library, or another component.
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: useState-driven Tooltip with external state management
+OUTPUT: Tooltip whose state is owned by the parent
+USE WHEN: Programmatically reading or setting component state
+SOURCE: Derived from Tooltip.tsx controlled/uncontrolled pattern
+-->
+```tsx
+import { useState } from 'react';
+import { Tooltip } from '@luxis-ui/core';
+
+export default function ControlledExample() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 12 }}>
+      <button onClick={() => setIsOpen(!isOpen)}>Toggle Open State</button>
+
+      <Tooltip content="Controlled tooltip" open={isOpen} placement="right">
+        <div style={{ padding: '8px', border: '1px solid #ccc' }}>
+          Target Element
+        </div>
+      </Tooltip>
+    </div>
+  );
+}
+```
+
+## Tooltip Best Practices
+
+Always ensure tooltips contain supplementary text, not essential functionality.
+
+<DoAndDont
+  good={`// ✅ Use brief, descriptive text
+<Tooltip content="Mark as unread">
+  <IconButton icon={<MailIcon />} />
+</Tooltip>`}
+  bad={`// ❌ Don't include interactive forms inside tooltips
+<Tooltip content={<SignupForm />}>
+  <Button>Join Now</Button>
+</Tooltip>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Wait before showing to prevent flashing
+<Tooltip content="Settings" delay={300}>
+  <IconButton icon={<SettingsIcon />} />
+</Tooltip>`}
+  bad={`// ❌ Don't set zero delay for everything
+<Tooltip content="Settings" delay={0}>
+  <IconButton icon={<SettingsIcon />} />
+</Tooltip>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Set maximum widths for long text
+<Tooltip content="A very long explanation that requires wrapping to be legible." maxWidth="250px">
+  <InfoIcon />
+</Tooltip>`}
+  bad={`// ❌ Don't allow text to stretch endlessly
+<Tooltip content="A very long explanation that requires wrapping to be legible.">
+  <InfoIcon />
+</Tooltip>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Make sure the trigger accepts focus
+<Tooltip content="Submit form">
+  <button>Submit</button>
+</Tooltip>`}
+  bad={`// ❌ Don't wrap non-focusable elements without adding tabindex
+<Tooltip content="This is a div">
+  <div>Static text</div>
+</Tooltip>`}
+/>
+
+## Tooltip Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly
+from `packages/luxis-ui/src/components/Tooltip/Tooltip.types.ts`.
+
+### Tooltip Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `children` | `React.ReactElement<Record<string, unknown>>` | - | Yes | Element that triggers the tooltip |
+| `content` | `React.ReactNode` | - | Yes | Content to display in the tooltip |
+| `arrow` | `boolean` | `false` | No | If true, shows an arrow pointing to the trigger element |
+| `delay` | `number` | `200` | No | Delay before showing tooltip in milliseconds |
+| `disabled` | `boolean` | `false` | No | If true, tooltip is disabled and won't show |
+| `dismissible` | `boolean` | `false` | No | If true, shows a close button to manually dismiss the tooltip |
+| `hideDelay` | `number` | `0` | No | Delay before hiding tooltip in milliseconds |
+| `maxWidth` | `string` | `'300px'` | No | Maximum width of the tooltip |
+| `onDismiss` | `() => void` | - | No | Callback fired when dismiss button is clicked |
+| `onHide` | `() => void` | - | No | Callback fired when tooltip is hidden |
+| `onShow` | `() => void` | - | No | Callback fired when tooltip is shown |
+| `open` | `boolean` | - | No | If true, tooltip is always visible |
+| `placement` | `TooltipPlacement` | `'top'` | No | Placement of the tooltip relative to the trigger element |
+| `variant` | `'dark' \| 'light' \| 'error' \| 'warning' \| 'success' \| 'info'` | `'dark'` | No | Tooltip variant for different visual styles |
+
+### HTML Native Props
+
+Tooltip forwards rest props to its underlying `<div>`, so
+all standard HTML div attributes are also accepted.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `className` | Additional CSS class names | `"custom-class"` |
+| `style` | Inline CSS styles | `{{ zIndex: 9999 }}` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for Tooltip
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/components/Tooltip/Tooltip.types.ts
+-->
+```ts
+export type TooltipPlacement =
+  | 'top'
+  | 'top-start'
+  | 'top-end'
+  | 'right'
+  | 'right-start'
+  | 'right-end'
+  | 'bottom'
+  | 'bottom-start'
+  | 'bottom-end'
+  | 'left'
+  | 'left-start'
+  | 'left-end';
+
+export interface TooltipProps extends Omit<HTMLAttributes<HTMLDivElement>, 'content'> {
+  content: React.ReactNode;
+  placement?: TooltipPlacement;
+  delay?: number;
+  hideDelay?: number;
+  children: React.ReactElement<Record<string, unknown>>;
+  open?: boolean;
+  disabled?: boolean;
+  arrow?: boolean;
+  maxWidth?: string;
+  variant?: 'dark' | 'light' | 'error' | 'warning' | 'success' | 'info';
+  dismissible?: boolean;
+  onShow?: () => void;
+  onHide?: () => void;
+  onDismiss?: () => void;
+}
+```
+
+</details>
+
+## Tooltip Accessibility Guide
+
+Tooltip follows the WAI-ARIA Tooltip pattern and meets WCAG AA.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| <KeyboardKey>Tab</KeyboardKey> | Focuses the trigger element, which opens the tooltip |
+| <KeyboardKey>Escape</KeyboardKey> | Closes the open tooltip and returns focus to the trigger |
+
+### ARIA Attributes
+
+| Attribute | Value | When |
+|-----------|-------|------|
+| `role` | `"tooltip"` | Always on the portal container |
+| `aria-describedby` | `"[id]"` | Added to the trigger element when the tooltip is visible |
+| `aria-hidden` | `"true"` | On the visual arrow element |
+
+### Screen Reader Behavior
+
+When the user tabs to the trigger element, the tooltip opens automatically. Because the trigger receives the `aria-describedby` attribute linking it to the tooltip's ID, the screen reader will pause briefly after reading the trigger's label, then read the tooltip content. This provides contextual help without stealing focus.
+
+### Accessibility Checklist
+
+- [ ] Provide tooltips ONLY for non-essential information
+- [ ] Ensure the \`children\` element can receive focus natively (e.g., \`<button>\` or \`<a>\`)
+- [ ] Check color contrast if using the \`light\` variant
+- [ ] Always test with keyboard-only navigation before shipping
+
+## Tooltip Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions
+  like colors, spacing, and radius. Override them to restyle
+  Tooltip without fighting CSS specificity.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-tooltip-bg` | `var(--lxs-color-neutral-900)` | Background color of the dark tooltip |
+| `--lxs-tooltip-color` | `var(--lxs-color-neutral-50)` | Text color of the dark tooltip |
+| `--lxs-tooltip-border` | `transparent` | Border color |
+
+**Override globally:**
+```css
+:root {
+  --lxs-tooltip-bg: #1e293b;
+}
+```
+
+**Override for one section:**
+```css
+.custom-theme {
+  --lxs-tooltip-bg: #334155;
+  --lxs-tooltip-color: #f8fafc;
+}
+```
+
+**Override on one instance:**
+```tsx
+<Tooltip
+  style={{ '--lxs-tooltip-bg': '#7e22ce' } as React.CSSProperties}
+  content="Purple tooltip"
+>
+  <button>Hover</button>
+</Tooltip>
+```
+
+## Customizing Tooltip
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to Tooltip
+OUTPUT: Tooltip with additional styling
+USE WHEN: Quick one-off style overrides
+SOURCE: N/A
+-->
+```tsx
+<Tooltip className="custom-shadow tooltip-lg" content="Hello">
+  <button>Trigger</button>
+</Tooltip>
+```
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: Tooltip with custom token values
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+```tsx
+<Tooltip
+  style={{ '--lxs-tooltip-color': '#ffed4a' } as React.CSSProperties}
+  content="Yellow text"
+>
+  <button>Trigger</button>
+</Tooltip>
+```
+
+### Using with forwardRef
+
+<!--
+EXAMPLE: forwardRef
+PURPOSE: Accessing the underlying DOM node
+OUTPUT: Tooltip with attached ref
+USE WHEN: Calling native DOM methods
+SOURCE: N/A
+-->
+```tsx
+import { useRef, useEffect } from 'react';
+import { Tooltip } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    console.log('Tooltip portal node:', ref.current);
+  }, []);
+
+  return (
+    <Tooltip ref={ref} content="I have a ref" open>
+      <button>Trigger</button>
+    </Tooltip>
+  );
+}
+```
+
+## Common Tooltip Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Truncated Table Cell
+
+Used when: Displaying long strings (like IDs or URLs) inside tight grid columns.
+
+<!--
+EXAMPLE: Truncated Table Cell
+PURPOSE: Shows a tooltip revealing hidden text
+OUTPUT: A tooltip displaying the full string of a truncated element
+USE WHEN: You must save horizontal space but keep data accessible
+SOURCE: Common usage pattern for Tooltip
+-->
+```tsx
+import { Tooltip } from '@luxis-ui/core';
+
+export default function TruncatedCellExample() {
+  const fullId = "usr_01H9X3YKZQ7B2F6C9P8M4N5V1J";
+
+  return (
+    <div style={{ width: '150px', border: '1px solid #ccc', padding: '8px' }}>
+      <Tooltip content={fullId} placement="bottom-start" delay={400}>
+        <div style={{
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          cursor: 'default'
+        }}>
+          {fullId}
+        </div>
+      </Tooltip>
+    </div>
+  );
+}
+```
+
+### Info Icon Hint
+
+Used when: A form label requires additional clarification without cluttering the UI.
+
+<!--
+EXAMPLE: Info Icon Hint
+PURPOSE: Demonstrates a tooltip attached to an inline icon
+OUTPUT: A small '?' icon revealing an explanation on hover
+USE WHEN: Explaining complex form fields or financial terms
+SOURCE: Common usage pattern for Tooltip
+-->
+```tsx
+import { Tooltip } from '@luxis-ui/core';
+
+export default function InfoIconExample() {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+      <label>Annual Percentage Rate (APR)</label>
+      <Tooltip
+        content="The yearly rate charged for borrowing or earned through an investment."
+        variant="light"
+        arrow
+        maxWidth="200px"
+      >
+        <button style={{
+          borderRadius: '50%',
+          width: '20px',
+          height: '20px',
+          padding: 0,
+          background: '#e5e7eb',
+          border: 'none',
+          cursor: 'help'
+        }}>
+          ?
+        </button>
+      </Tooltip>
+    </div>
+  );
+}
+```
+
+### Status Indicator
+
+Used when: Explaining a colored status dot or badge.
+
+<!--
+EXAMPLE: Status Indicator
+PURPOSE: Explaining a visual status marker
+OUTPUT: A tooltip describing the meaning of a green dot
+USE WHEN: System health dashboards or user online status
+SOURCE: Common usage pattern for Tooltip
+-->
+```tsx
+import { Tooltip } from '@luxis-ui/core';
+
+export default function StatusIndicatorExample() {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+      <span>API Gateway</span>
+      <Tooltip content="All systems operational" variant="success" placement="right">
+        <div style={{
+          width: '12px',
+          height: '12px',
+          borderRadius: '50%',
+          background: '#10b981',
+          cursor: 'pointer'
+        }} tabIndex={0} />
+      </Tooltip>
+    </div>
+  );
+}
+```
+
+## Troubleshooting Tooltip
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Tooltip doesn't appear | Wrapping a custom component that doesn't forward `onMouseEnter`/`onFocus` | Wrap a native DOM element or ensure your component forwards events |
+| Tooltip gets cut off | Parent has `overflow: hidden` | Ensure the portal renders to `document.body` (default behavior) |
+| Position is wrong when scrolling | Parent container transforms context | Tooltips use fixed positioning; ensure `document.body` is relative |
+| Cannot tab to trigger | Wrapping a `<div>` or `<span>` without a `tabIndex` | Use `<button>` or add `tabIndex={0}` to static wrappers |
+
+<Callout type="warning" title="Next.js / SSR">
+  Tooltip uses \`createPortal\`. Ensure the component only renders its tooltip contents after the component has mounted on the client to avoid hydration mismatches.
+</Callout>
+
+### Frequently Asked Questions
+
+**Q: Can I put a button inside the tooltip?**
+A: No, tooltips should not contain interactive elements. If you need buttons or links, use a Popover component instead.
+
+**Q: Why isn't my Tooltip closing when I move my mouse away quickly?**
+A: Check the \`hideDelay\` prop. If it's set to a high number, the tooltip will persist briefly after the mouse leaves.
+
+**Q: Can I trigger the tooltip on click instead of hover?**
+A: Tooltip is designed for hover/focus interactions. For click-triggered popups, use a Popover or Dropdown menu.
+
+**Q: How do I change the tooltip width?**
+A: Pass the \`maxWidth\` prop (e.g., \`maxWidth="400px"\`). The tooltip will expand to fit its content up to that limit before wrapping text.
+
+## Related Components
+
+<RelatedComponent
+  name="Popover"
+  description="Use for rich, interactive popups that trigger on click."
+  href="/docs/components/popover"
+/>
+<RelatedComponent
+  name="Button"
+  description="The most common trigger element for tooltips."
+  href="/docs/components/button"
+/>
+<RelatedComponent
+  name="Dropdown"
+  description="Use for contextual menus rather than informational tooltips."
+  href="/docs/components/dropdown"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Tooltip
+
+> Tooltip is a Components/Tooltip React component in Luxis UI for displaying small popup information on hover or focus.
+
+## Source
+packages/luxis-ui/src/components/Tooltip/Tooltip.tsx
+
+## Story
+app/storybook/src/stories/Tooltip.stories.ts
+
+## Install
+\`\`\`bash
+npm install @luxis-ui/core
+\`\`\`
+
+## Import
+\`\`\`tsx
+import { Tooltip } from '@luxis-ui/core';
+\`\`\`
+
+## Minimal usage
+\`\`\`tsx
+import { Tooltip } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Tooltip content="Provides extra context">
+      <button>Hover Me</button>
+    </Tooltip>
+  );
+}
+\`\`\`
+
+## Key props
+- \`content\` (ReactNode, default=\`undefined\`): Content to display in the tooltip
+- \`placement\` ('top' | 'top-start' | 'top-end' | 'right' | 'right-start' | 'right-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end', default=\`'top'\`): Placement of the tooltip relative to the trigger element
+- \`delay\` (number, default=\`200\`): Delay before showing tooltip in milliseconds
+- \`arrow\` (boolean, default=\`false\`): If true, shows an arrow pointing to the trigger element
+- \`variant\` ('dark' | 'light' | 'error' | 'warning' | 'success' | 'info', default=\`'dark'\`): Tooltip variant for different visual styles
+
+## When to use
+Explaining the purpose of an icon-only button. Showing the full text of a truncated string on hover.
+
+## When NOT to use
+Displaying critical error messages. Placing interactive form controls or complex menus.
+
+## Accessibility
+WCAG: AA
+ARIA: Tooltip
+Keyboard: Tab, Escape
+
+## Docs
+https://luxis-ui.dev/docs/components/tooltip
+LLMS_TXT_ENTRY_END
+*/}
