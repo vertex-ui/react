@@ -1,0 +1,1335 @@
+---
+title: "Alert — Luxis UI React Component"
+description: "Displays important messages and notifications. Alert draws attention to state changes, warnings, and success messages without disrupting the user flow."
+status: stable
+since: "1.0.0"
+category: "Components/Alert"
+npm: "@luxis-ui/core"
+import: "import { Alert } from '@luxis-ui/core'"
+component: "Alert"
+keywords:
+  - alert
+  - react alert
+  - alert component
+  - luxis ui alert
+  - typescript alert
+  - accessible alert
+  - react design system
+slug: /components/alert
+canonical: "https://luxis-ui.dev/docs/components/alert"
+og_image: "/img/og/alert.png"
+llm_summary: >
+  Alert renders a `div` with `role="alert"` containing an icon, message, and optional actions. Props: `children` (`ReactNode`, default=undefined), `title` (`string`, default=undefined), `description` (`string`, default=undefined), `variant` (`'success' | 'error' | 'warning' | 'info' | 'neutral'`, default='info'), `alertStyle` (`'filled' | 'outlined' | 'subtle' | 'left-accent'`, default='subtle'), `size` (`Size`, default='md'), `icon` (`React.ReactNode | false`, default=undefined), `dismissible` (`boolean`, default=false), `onClose` (`() => void`, default=undefined), `action` (`React.ReactNode`, default=undefined), `fullWidth` (`boolean`, default=false), `className` (`string`, default=''), `style` (`React.CSSProperties`, default=undefined), `role` (`string`, default='alert'). Used for inline notifications. Do not use for highly disruptive blocks like modals. Follows the standard WAI-ARIA alert pattern. Import with `import { Alert } from '@luxis-ui/core'`.
+---
+
+{/*
+LLM_CONTEXT
+  component    : Alert
+  source       : packages/luxis-ui/src/components/Alert/Alert.tsx
+  story        : app/storybook/src/stories/Alert.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components/Alert
+  status       : stable
+  aria-pattern : Alert
+
+  What it renders:
+  Alert renders a `div` wrapper with `role="alert"` (configurable), containing optional icon and action nodes alongside a title and description inside an inner `.alert-content` div. If `dismissible` is true, a `button` is rendered to close the alert.
+
+  When to use:
+  - Displaying form validation errors
+  - Confirming successful actions (e.g., "Profile updated")
+  - Highlighting system maintenance or warnings inline
+
+  When NOT to use:
+  - For toast notifications (use the Toast component instead)
+  - As a modal or dialog that completely interrupts user flow
+
+  Ecosystem equivalents:
+  - MUI        : <Alert>
+  - Chakra UI  : <Alert>
+  - shadcn/ui  : Alert
+  - Radix UI   : Alert
+  - HTML native: <div role="alert">
+
+  Props (must match source exactly — every single prop):
+  children (ReactNode, default=undefined) — Content of the alert (primary message, can be any ReactNode)
+  title (string, default=undefined) — Alert title
+  description (string, default=undefined) — Alert description - alternative to children for simple text
+  variant ('success' | 'error' | 'warning' | 'info' | 'neutral', default='info') — Visual variant of the alert
+  alertStyle ('filled' | 'outlined' | 'subtle' | 'left-accent', default='subtle') — Visual style of the alert
+  size (Size, default='md') — Size of the alert. Defaults to theme defaultSize or 'md'.
+  icon (React.ReactNode | false, default=undefined) — Custom icon or false to hide icon
+  dismissible (boolean, default=false) — If true, shows close button
+  onClose (() => void, default=undefined) — Callback fired when alert is dismissed
+  action (React.ReactNode, default=undefined) — Action element (button or link) displayed on the right
+  fullWidth (boolean, default=false) — If true, alert takes full width of container
+  className (string, default='') — Custom class name
+  style (React.CSSProperties, default=undefined) — Custom inline styles
+  role (string, default='alert') — Role attribute for accessibility
+
+  Accessibility:
+  WCAG: AA
+  Keyboard: Focuses on the close button (if present) and any interactive actions.
+  Screen reader: The `role="alert"` causes screen readers to immediately announce the content when rendered.
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Alert React Component — Luxis UI",
+  "description": "Displays important messages and notifications. Alert draws attention to state changes, warnings, and success messages without disrupting the user flow.",
+  "keywords": "alert, react alert, alert component, luxis ui alert, typescript alert, accessible alert, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use Alert in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { Alert } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI Alert accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Alert accepts a variant (success, error, warning, info, neutral), alertStyle (filled, outlined, subtle, left-accent), title, description, and dismissible."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I add a close button to the Alert?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Set the dismissible prop to true. This renders a close icon that handles hiding the alert internally, and fires the onClose callback."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI Alert different from MUI Alert?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Luxis UI Alert provides built-in internal state management for the close action, reducing the boilerplate needed compared to manually controlled MUI alerts. It also offers a dedicated `alertStyle` prop for flexible theming."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Alert
+
+<ComponentStatus status="stable" version="1.0.0" aria="WAI-ARIA Alert" />
+
+Displays important messages and notifications. Alert draws attention to state changes, warnings, and success messages inline within the page layout without disrupting the user flow.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for Alert
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding Alert to any file
+SOURCE: packages/luxis-ui/src/components/Alert/index.ts
+-->
+```tsx
+import { Alert } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI `Alert` is equivalent to MUI's `<Alert>`,
+  Chakra UI's `<Alert>`, and shadcn/ui's `Alert`.
+  Our Alert handles its own dismissible state internally by default, reducing boilerplate in your views.
+</Callout>
+
+## Before You Start
+
+An alert provides contextual feedback for typical user actions.
+It uses the WAI-ARIA `role="alert"` pattern to immediately notify screen readers.
+The Quick Start example creates a subtle informational alert.
+
+<Callout type="tip" title="New to Luxis UI?">
+  Check out the Getting Started guide to ensure your application root has the proper theme provider.
+</Callout>
+
+## How to Use Alert in React
+
+The minimum code to render a working Alert:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of Alert
+OUTPUT: An informational alert with a title and text
+USE WHEN: Displaying a simple static notification
+SOURCE: Derived from Alert.tsx defaults and simplest Story
+-->
+```tsx
+import { Alert } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Alert
+      title="System Update"
+      description="Maintenance is scheduled for tonight at 2 AM UTC."
+    />
+  );
+}
+```
+
+This renders a subtle blue informational alert with an icon and the provided text.
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of Alert with key props
+OUTPUT: An interactive warning alert with a close button
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/Alert.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { Alert } from '@luxis-ui/core';
+
+export default function LiveExample() {
+  return (
+    <Alert
+      variant="warning"
+      alertStyle="left-accent"
+      title="Session Expiring"
+      description="Your session will expire in 5 minutes due to inactivity. Please save your work to avoid losing progress."
+      dismissible={true}
+      onClose={() => console.log('Alert dismissed')}
+    />
+  );
+}
+```
+
+## Alert Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### Alert Default
+
+The default informational alert style.
+
+<!--
+EXAMPLE: Default
+PURPOSE: Shows the default variant
+OUTPUT: Standard info alert
+USE WHEN: Providing general information to the user
+SOURCE: app/storybook/src/stories/Alert.stories.ts → Default
+-->
+```tsx
+import { Alert } from '@luxis-ui/core';
+
+export default function DefaultExample() {
+  return (
+    <Alert
+      title="Information"
+      description="This is an informational alert message."
+    />
+  );
+}
+```
+
+This uses the `info` variant and `subtle` style by default.
+
+---
+
+### Alert Success
+
+Indicates a successful or positive action.
+
+<!--
+EXAMPLE: Success
+PURPOSE: Shows the success variant
+OUTPUT: Green success alert
+USE WHEN: Confirming a form submission or action completed
+SOURCE: app/storybook/src/stories/Alert.stories.ts → Success
+-->
+```tsx
+import { Alert } from '@luxis-ui/core';
+
+export default function SuccessExample() {
+  return (
+    <Alert
+      variant="success"
+      title="Success"
+      description="Your changes have been saved successfully."
+    />
+  );
+}
+```
+
+The success variant uses a green checkmark icon.
+
+---
+
+### Alert ErrorAlert
+
+Indicates an error or critical failure.
+
+<!--
+EXAMPLE: ErrorAlert
+PURPOSE: Shows the error variant
+OUTPUT: Red error alert
+USE WHEN: Displaying validation errors or failed requests
+SOURCE: app/storybook/src/stories/Alert.stories.ts → ErrorAlert
+-->
+```tsx
+import { Alert } from '@luxis-ui/core';
+
+export default function ErrorAlertExample() {
+  return (
+    <Alert
+      variant="error"
+      title="Error"
+      description="Something went wrong. Please try again."
+    />
+  );
+}
+```
+
+Error alerts use a high-contrast red design to grab attention.
+
+---
+
+### Alert Warning
+
+Warns the user about a potentially undesirable situation.
+
+<!--
+EXAMPLE: Warning
+PURPOSE: Shows the warning variant
+OUTPUT: Yellow/orange warning alert
+USE WHEN: Warning users before destructive actions or notifying about upcoming expirations
+SOURCE: app/storybook/src/stories/Alert.stories.ts → Warning
+-->
+```tsx
+import { Alert } from '@luxis-ui/core';
+
+export default function WarningExample() {
+  return (
+    <Alert
+      variant="warning"
+      title="Warning"
+      description="This action cannot be undone."
+    />
+  );
+}
+```
+
+The warning variant stands out against typical white backgrounds.
+
+---
+
+### Alert Info
+
+Explicitly sets the informational variant.
+
+<!--
+EXAMPLE: Info
+PURPOSE: Shows the info variant
+OUTPUT: Blue info alert
+USE WHEN: Highlighting helpful context
+SOURCE: app/storybook/src/stories/Alert.stories.ts → Info
+-->
+```tsx
+import { Alert } from '@luxis-ui/core';
+
+export default function InfoExample() {
+  return (
+    <Alert
+      variant="info"
+      title="Info"
+      description="Here is some useful information for you."
+    />
+  );
+}
+```
+
+Identical to the default behavior but explicit in the code.
+
+---
+
+### Alert Neutral
+
+Provides a neutral grey style that doesn't convey severity.
+
+<!--
+EXAMPLE: Neutral
+PURPOSE: Shows the neutral variant
+OUTPUT: Grey alert
+USE WHEN: Displaying standard notes or secondary information
+SOURCE: app/storybook/src/stories/Alert.stories.ts → Neutral
+-->
+```tsx
+import { Alert } from '@luxis-ui/core';
+
+export default function NeutralExample() {
+  return (
+    <Alert
+      variant="neutral"
+      title="Note"
+      description="This is a neutral alert with no specific severity."
+    />
+  );
+}
+```
+
+Useful when placing multiple alerts on a page where colorful variants would be overwhelming.
+
+---
+
+### Alert Filled
+
+Uses a solid background color matching the variant severity.
+
+<!--
+EXAMPLE: Filled
+PURPOSE: Shows the filled style
+OUTPUT: Solid background alert
+USE WHEN: A critical alert needs maximum visibility
+SOURCE: app/storybook/src/stories/Alert.stories.ts → Filled
+-->
+```tsx
+import { Alert } from '@luxis-ui/core';
+
+export default function FilledExample() {
+  return (
+    <Alert
+      variant="success"
+      alertStyle="filled"
+      title="Filled Style"
+      description="This alert uses the filled style."
+    />
+  );
+}
+```
+
+Filled alerts invert the text color to maintain accessibility.
+
+---
+
+### Alert Outlined
+
+Applies a colored border with a transparent background.
+
+<!--
+EXAMPLE: Outlined
+PURPOSE: Shows the outlined style
+OUTPUT: Alert with a border but no background fill
+USE WHEN: Integrating into a busy layout or dashboard
+SOURCE: app/storybook/src/stories/Alert.stories.ts → Outlined
+-->
+```tsx
+import { Alert } from '@luxis-ui/core';
+
+export default function OutlinedExample() {
+  return (
+    <Alert
+      variant="info"
+      alertStyle="outlined"
+      title="Outlined Style"
+      description="This alert uses the outlined style."
+    />
+  );
+}
+```
+
+Outlined alerts feel lighter and less imposing.
+
+---
+
+### Alert Subtle
+
+The default style — a soft background tint with a matching thin border.
+
+<!--
+EXAMPLE: Subtle
+PURPOSE: Shows the subtle style
+OUTPUT: Softly tinted alert
+USE WHEN: The default aesthetic is desired
+SOURCE: app/storybook/src/stories/Alert.stories.ts → Subtle
+-->
+```tsx
+import { Alert } from '@luxis-ui/core';
+
+export default function SubtleExample() {
+  return (
+    <Alert
+      variant="warning"
+      alertStyle="subtle"
+      title="Subtle Style"
+      description="This alert uses the subtle style."
+    />
+  );
+}
+```
+
+Subtle is the standard choice for most applications.
+
+---
+
+### Alert LeftAccent
+
+Adds a thick vertical border accent on the left edge.
+
+<!--
+EXAMPLE: LeftAccent
+PURPOSE: Shows the left-accent style
+OUTPUT: Alert with a thick left border stripe
+USE WHEN: Drawing attention to an alert in a vertical list
+SOURCE: app/storybook/src/stories/Alert.stories.ts → LeftAccent
+-->
+```tsx
+import { Alert } from '@luxis-ui/core';
+
+export default function LeftAccentExample() {
+  return (
+    <Alert
+      variant="error"
+      alertStyle="left-accent"
+      title="Left Accent Style"
+      description="This alert uses the left-accent style."
+    />
+  );
+}
+```
+
+The left accent provides a strong visual anchor for scanning.
+
+---
+
+### Alert SmallSize
+
+Renders a compact alert with reduced padding.
+
+<!--
+EXAMPLE: SmallSize
+PURPOSE: Shows the small size variant
+OUTPUT: Compact alert
+USE WHEN: Displaying alerts inside narrow sidebars or modals
+SOURCE: app/storybook/src/stories/Alert.stories.ts → SmallSize
+-->
+```tsx
+import { Alert } from '@luxis-ui/core';
+
+export default function SmallSizeExample() {
+  return (
+    <Alert
+      size="sm"
+      title="Small Alert"
+      description="This is a small-sized alert."
+    />
+  );
+}
+```
+
+Reduces icon and text sizes as well.
+
+---
+
+### Alert MediumSize
+
+The default standard size.
+
+<!--
+EXAMPLE: MediumSize
+PURPOSE: Shows the medium size variant
+OUTPUT: Standard sized alert
+USE WHEN: Standard page layouts
+SOURCE: app/storybook/src/stories/Alert.stories.ts → MediumSize
+-->
+```tsx
+import { Alert } from '@luxis-ui/core';
+
+export default function MediumSizeExample() {
+  return (
+    <Alert
+      size="md"
+      title="Medium Alert"
+      description="This is a medium-sized alert."
+    />
+  );
+}
+```
+
+This represents the typical proportions of the component.
+
+---
+
+### Alert LargeSize
+
+Increases padding, icon size, and text scaling for prominent display.
+
+<!--
+EXAMPLE: LargeSize
+PURPOSE: Shows the large size variant
+OUTPUT: Spaced out, larger alert
+USE WHEN: An alert requires the entire width of a main content area
+SOURCE: app/storybook/src/stories/Alert.stories.ts → LargeSize
+-->
+```tsx
+import { Alert } from '@luxis-ui/core';
+
+export default function LargeSizeExample() {
+  return (
+    <Alert
+      size="lg"
+      title="Large Alert"
+      description="This is a large-sized alert."
+    />
+  );
+}
+```
+
+Ideal for system-wide banners.
+
+---
+
+### Alert Dismissible
+
+Includes a close button that handles hiding the alert internally.
+
+<!--
+EXAMPLE: Dismissible
+PURPOSE: Makes the alert closable
+OUTPUT: Alert with an X button on the right
+USE WHEN: The user should be able to acknowledge and clear the message
+SOURCE: app/storybook/src/stories/Alert.stories.ts → Dismissible
+-->
+```tsx
+import { Alert } from '@luxis-ui/core';
+
+export default function DismissibleExample() {
+  return (
+    <Alert
+      variant="info"
+      title="Dismissible Alert"
+      description="Click the close button to dismiss this alert."
+      dismissible={true}
+      onClose={() => console.log('Alert closed')}
+    />
+  );
+}
+```
+
+The `onClose` callback fires when the close button is clicked, immediately after the alert hides itself.
+
+---
+
+### Alert NoIcon
+
+Removes the default icon.
+
+<!--
+EXAMPLE: NoIcon
+PURPOSE: Hides the alert icon
+OUTPUT: Alert displaying only text
+USE WHEN: Space is limited or the icon is redundant to the content
+SOURCE: app/storybook/src/stories/Alert.stories.ts → NoIcon
+-->
+```tsx
+import { Alert } from '@luxis-ui/core';
+
+export default function NoIconExample() {
+  return (
+    <Alert
+      variant="success"
+      title="No Icon"
+      description="This alert is shown without an icon."
+      icon={false}
+    />
+  );
+}
+```
+
+Pass `false` to the `icon` prop to prevent rendering.
+
+---
+
+### Alert WithChildren
+
+Allows complex React nodes as the message content.
+
+<!--
+EXAMPLE: WithChildren
+PURPOSE: Using the children prop instead of description
+OUTPUT: Alert rendering rich text elements
+USE WHEN: The message needs bold text, links, or multiple paragraphs
+SOURCE: app/storybook/src/stories/Alert.stories.ts → WithChildren
+-->
+```tsx
+import { Alert } from '@luxis-ui/core';
+
+export default function WithChildrenExample() {
+  return (
+    <Alert
+      variant="warning"
+      title="Session Expiring Soon"
+    >
+      <span>
+        Your session will expire in <strong>5 minutes</strong>. Please save your work.
+      </span>
+    </Alert>
+  );
+}
+```
+
+The `children` prop overrides `description` if both are provided.
+
+---
+
+### Alert WithAction
+
+Adds custom interactive elements to the right side of the alert.
+
+<!--
+EXAMPLE: WithAction
+PURPOSE: Rendering a custom action node
+OUTPUT: Alert with a button on the right
+USE WHEN: The alert requires the user to perform an immediate task
+SOURCE: app/storybook/src/stories/Alert.stories.ts → WithAction
+-->
+```tsx
+import { Alert } from '@luxis-ui/core';
+
+export default function WithActionExample() {
+  return (
+    <Alert
+      variant="warning"
+      alertStyle="left-accent"
+      title="Update Available"
+      description="A new version is available. Update to get the latest features."
+      action={
+        <button
+          style={{
+            padding: '4px 12px',
+            borderRadius: '4px',
+            border: '1px solid currentColor',
+            background: 'transparent',
+            cursor: 'pointer',
+            fontWeight: 600,
+            whiteSpace: 'nowrap',
+          }}
+        >
+          Update Now
+        </button>
+      }
+    />
+  );
+}
+```
+
+The action area aligns properly regardless of whether `dismissible` is true or false.
+
+---
+
+### Alert FullWidth
+
+Forces the alert to fill 100% of its container's width.
+
+<!--
+EXAMPLE: FullWidth
+PURPOSE: Stretches the alert block
+OUTPUT: Full width alert
+USE WHEN: Placing an alert inside a flex container or grid that dictates sizing
+SOURCE: app/storybook/src/stories/Alert.stories.ts → FullWidth
+-->
+```tsx
+import { Alert } from '@luxis-ui/core';
+
+export default function FullWidthExample() {
+  return (
+    <Alert
+      variant="info"
+      title="Full Width Alert"
+      description="This alert stretches to fill the full width of its container."
+      fullWidth={true}
+    />
+  );
+}
+```
+
+This adds `width: 100%` to the base component styling.
+
+---
+
+### Controlled Alert
+
+When to use: When a parent component needs to read or drive the state.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  By default Alert manages its own state (uncontrolled).
+  Use the controlled pattern when syncing with a URL param, form
+  library, or another component.
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: useState-driven Alert with external state management
+OUTPUT: Alert whose state is owned by the parent
+USE WHEN: Programmatically reading or setting component state
+SOURCE: Derived from Alert.tsx controlled/uncontrolled pattern
+-->
+```tsx
+import { useState } from 'react';
+import { Alert } from '@luxis-ui/core';
+
+export default function ControlledExample() {
+  const [isVisible, setIsVisible] = useState(true);
+
+  if (!isVisible) {
+    return (
+      <button onClick={() => setIsVisible(true)} style={{ padding: '8px 16px' }}>
+        Show Alert Again
+      </button>
+    );
+  }
+
+  return (
+    <Alert
+      title="Controlled Alert"
+      description="This alert's visibility is tied to the parent state."
+      dismissible={true}
+      onClose={() => setIsVisible(false)}
+    />
+  );
+}
+```
+
+## Alert Best Practices
+
+Effective alerts use appropriate severity variants and concise messaging.
+
+<DoAndDont
+  good={`// ✅ Match variant to severity
+<Alert variant="error" title="Payment Failed" />`}
+  bad={`// ❌ Use info for critical failures
+<Alert variant="info" title="Payment Failed" />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Keep messages brief and actionable
+<Alert title="File uploaded" description="Your document has been processed." />`}
+  bad={`// ❌ Write long paragraphs inside alerts
+<Alert title="Upload status" description="We received your file at 10:45 AM. It was processed through our system and scanned for viruses. No viruses were found. The file is now available in your dashboard." />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Provide an action for resolutions
+<Alert variant="warning" title="Storage full" action={<Button>Upgrade</Button>} />`}
+  bad={`// ❌ Describe the action but offer no link
+<Alert variant="warning" title="Storage full" description="Go to the settings page, click billing, and upgrade your plan." />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use the title prop for quick scanning
+<Alert title="Network Error" description="Reconnecting..." />`}
+  bad={`// ❌ Put everything in the description
+<Alert description="Network Error: Reconnecting..." />`}
+/>
+
+## Alert Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly
+from `packages/luxis-ui/src/components/Alert/types.ts` (inline in Alert.tsx).
+
+### Alert Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `action` | `React.ReactNode` | `undefined` | No | Action element (button or link) displayed on the right |
+| `alertStyle` | `'filled' \| 'outlined' \| 'subtle' \| 'left-accent'` | `'subtle'` | No | Visual style of the alert |
+| `children` | `React.ReactNode` | `undefined` | No | Content of the alert (primary message, can be any ReactNode) |
+| `className` | `string` | `""` | No | Custom class name |
+| `description` | `string` | `undefined` | No | Alert description - alternative to children for simple text |
+| `dismissible` | `boolean` | `false` | No | If true, shows close button |
+| `fullWidth` | `boolean` | `false` | No | If true, alert takes full width of container |
+| `icon` | `React.ReactNode \| false` | `undefined` | No | Custom icon or false to hide icon |
+| `onClose` | `() => void` | `undefined` | No | Callback fired when alert is dismissed |
+| `role` | `string` | `'alert'` | No | Role attribute for accessibility |
+| `size` | `Size` | `'md'` | No | Size of the alert. Defaults to theme defaultSize or 'md'. |
+| `style` | `React.CSSProperties` | `undefined` | No | Custom inline styles |
+| `title` | `string` | `undefined` | No | Alert title |
+| `variant` | `'success' \| 'error' \| 'warning' \| 'info' \| 'neutral'` | `'info'` | No | Visual variant of the alert |
+
+### HTML Native Props
+
+Alert forwards rest props to its underlying `<div>`, so
+all standard HTML div attributes are also accepted.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `onClick` | Click handler for the container | `(e) => handleClick(e)` |
+| `id` | Unique identifier | `"error-banner"` |
+| `aria-live` | Politeness setting for screen readers | `"assertive"` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for Alert
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/components/Alert/Alert.tsx
+-->
+```ts
+export interface AlertProps {
+  /**
+   * Content of the alert (primary message, can be any ReactNode)
+   */
+  children?: React.ReactNode;
+  /**
+   * Alert title
+   */
+  title?: string;
+  /**
+   * Alert description - alternative to children for simple text
+   */
+  description?: string;
+  /**
+   * Visual variant of the alert
+   * @default 'info'
+   */
+  variant?: 'success' | 'error' | 'warning' | 'info' | 'neutral';
+  /**
+   * Visual style of the alert
+   * @default 'subtle'
+   */
+  alertStyle?: 'filled' | 'outlined' | 'subtle' | 'left-accent';
+  /** Size of the alert. Defaults to theme defaultSize or 'md'. */
+  size?: Size;
+  /**
+   * Custom icon or false to hide icon
+   * If not provided, shows default icon based on variant
+   */
+  icon?: React.ReactNode | false;
+  /**
+   * If true, shows close button
+   * @default false
+   */
+  dismissible?: boolean;
+  /**
+   * Callback fired when alert is dismissed
+   */
+  onClose?: () => void;
+  /**
+   * Action element (button or link) displayed on the right
+   */
+  action?: React.ReactNode;
+  /**
+   * If true, alert takes full width of container
+   * @default false
+   */
+  fullWidth?: boolean;
+  /**
+   * Custom class name
+   */
+  className?: string;
+  /**
+   * Custom inline styles
+   */
+  style?: React.CSSProperties;
+  /**
+   * Role attribute for accessibility
+   * @default 'alert'
+   */
+  role?: string;
+}
+```
+
+</details>
+
+## Alert Accessibility Guide
+
+Alert follows the WAI-ARIA alert pattern and meets WCAG AA.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| <KeyboardKey>Tab</KeyboardKey> | Moves focus to the action button or the close button inside the alert. |
+| <KeyboardKey>Enter</KeyboardKey> | Triggers the close button if focused. |
+
+### ARIA Attributes
+
+| Attribute | Value | When |
+|-----------|-------|------|
+| `role` | `"alert"` | Always applied to the outer wrapper container. |
+| `aria-label` | `"Close alert"` | Always applied to the dismiss button when present. |
+
+### Screen Reader Behavior
+
+Because the component uses `role="alert"`, when an alert renders dynamically on the page, the screen reader will interrupt its current announcement and immediately read the text inside the alert. It reads the title and then the description.
+
+### Accessibility Checklist
+
+- [ ] Do not use `role="alert"` for non-critical information that doesn't require immediate interruption. Override the role prop to `status` for polite announcements.
+- [ ] If using custom icons, ensure they are purely decorative or their meaning is described in the text.
+- [ ] Ensure any interactive elements inside the `action` prop have accessible labels.
+- [ ] Always test with keyboard-only navigation before shipping.
+
+## Alert Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions
+  like colors, spacing, and radius. Override them to restyle
+  Alert without fighting CSS specificity.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-spacing-3` | `12px` | Gap between icon and content |
+| `--lxs-spacing-4` | `16px` | Default padding (md) |
+| `--lxs-radius-md` | `6px` | Border radius |
+| `--lxs-font-family-sans` | `system-ui, sans-serif` | Font family |
+| `--lxs-transition-base` | `0.2s ease` | Transition timing for hover states |
+| `--lxs-color-success-50` | `#f0fdf4` | Background for subtle success variant |
+| `--lxs-color-success-700` | `#15803d` | Text color for subtle success variant |
+
+**Override globally:**
+```css
+:root {
+  --lxs-color-warning-200: #fde68a;
+}
+```
+
+**Override for one section:**
+```css
+.my-dashboard {
+  --lxs-radius-md: 12px;
+}
+```
+
+**Override on one instance:**
+```tsx
+<Alert
+  style={{ borderRadius: '0px' } as React.CSSProperties}
+  title="Square Alert"
+/>
+```
+
+## Customizing Alert
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to Alert
+OUTPUT: Alert with additional styling
+USE WHEN: Quick one-off style overrides
+SOURCE: N/A
+-->
+```tsx
+<Alert
+  className="my-custom-shadow mb-4"
+  title="Shadowed Alert"
+/>
+```
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: Alert with custom token values
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+```tsx
+<Alert
+  style={{ '--lxs-color-info-50': '#e0f2fe' } as React.CSSProperties}
+  title="Custom Colored Alert"
+/>
+```
+
+### Using with forwardRef
+
+<!--
+EXAMPLE: forwardRef
+PURPOSE: Accessing the underlying DOM node
+OUTPUT: Alert with attached ref
+USE WHEN: Calling native DOM methods like .scrollIntoView()
+SOURCE: N/A
+-->
+```tsx
+import { useRef, useEffect } from 'react';
+import { Alert } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Scroll the alert into view when it mounts
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
+  return <Alert ref={ref} variant="success" title="Created!" />;
+}
+```
+
+## Common Alert Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Form Validation Banner
+
+Used when: A user submits a form with multiple errors that need highlighting at the top.
+
+<!--
+EXAMPLE: Form Validation Banner
+PURPOSE: Shows an alert used to summarize form errors
+OUTPUT: Error alert with a list of specific issues
+USE WHEN: Managing complex form states
+SOURCE: Common usage pattern for Alert
+-->
+```tsx
+import { Alert } from '@luxis-ui/core';
+
+export default function FormValidationAlert() {
+  const errors = [
+    'Password must be at least 8 characters.',
+    'Email address is already in use.',
+  ];
+
+  return (
+    <Alert variant="error" alertStyle="filled" title="Please fix the following errors:">
+      <ul style={{ margin: '8px 0 0 0', paddingLeft: '20px' }}>
+        {errors.map((error, idx) => (
+          <li key={idx}>{error}</li>
+        ))}
+      </ul>
+    </Alert>
+  );
+}
+```
+
+### Offline Status Indicator
+
+Used when: The application loses network connectivity.
+
+<!--
+EXAMPLE: Offline Status Indicator
+PURPOSE: Notifying users of network loss
+OUTPUT: Warning alert fixed to the top or inline
+USE WHEN: Building PWAs or robust web apps
+SOURCE: Common usage pattern for Alert
+-->
+```tsx
+import { Alert } from '@luxis-ui/core';
+import { useState, useEffect } from 'react';
+
+export default function OfflineAlert() {
+  const [isOffline, setIsOffline] = useState(false);
+
+  useEffect(() => {
+    const handleOffline = () => setIsOffline(true);
+    const handleOnline = () => setIsOffline(false);
+
+    window.addEventListener('offline', handleOffline);
+    window.addEventListener('online', handleOnline);
+
+    return () => {
+      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener('online', handleOnline);
+    };
+  }, []);
+
+  if (!isOffline) return null;
+
+  return (
+    <Alert
+      variant="warning"
+      alertStyle="left-accent"
+      fullWidth={true}
+      title="You are offline"
+      description="Changes made will be synced when your connection is restored."
+    />
+  );
+}
+```
+
+### Action Required Banner
+
+Used when: A critical task needs completion before proceeding.
+
+<!--
+EXAMPLE: Action Required Banner
+PURPOSE: Prompting immediate user interaction
+OUTPUT: Neutral alert with an action button
+USE WHEN: The user needs to verify email, add a payment method, etc.
+SOURCE: Common usage pattern for Alert
+-->
+```tsx
+import { Alert } from '@luxis-ui/core';
+
+export default function ActionRequiredAlert() {
+  return (
+    <Alert
+      variant="neutral"
+      alertStyle="outlined"
+      title="Verify your email"
+      description="Check your inbox to activate your account features."
+      action={
+        <button
+          style={{
+            backgroundColor: '#111827',
+            color: 'white',
+            border: 'none',
+            padding: '6px 12px',
+            borderRadius: '4px',
+            cursor: 'pointer'
+          }}
+          onClick={() => alert('Sending email...')}
+        >
+          Resend Link
+        </button>
+      }
+    />
+  );
+}
+```
+
+## Troubleshooting Alert
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Alert doesn't show up after clicking close | Trying to control it externally without reading state | It manages state internally; remount with a key if you need it back. |
+| Icons are blurry or misaligned | Passing text instead of SVG nodes to `icon` | `icon={<CheckCircleIcon />}` |
+| Screen reader says nothing | Overriding `role` to empty string | Leave `role="alert"` (the default) for immediate announcements. |
+| Action button looks strange | Expecting the Alert to style your custom button | Style the button passed to `action` explicitly. |
+
+### Frequently Asked Questions
+
+**Q: Can I restore a dismissed alert?**
+A: Because the component hides itself using internal state when dismissed, you must either unmount and remount it using a React `key`, or control it fully from the parent instead of relying on the built-in `dismissible` behavior.
+
+**Q: Does it use a Portal to render on top of everything?**
+A: No, the Alert renders exactly where you place it in the DOM flow. If you want a floating notification, use the `Toast` component instead.
+
+**Q: How do I change the default icon to my own SVG?**
+A: Pass your custom SVG element directly to the `icon` prop.
+
+**Q: Can I put a link in the description?**
+A: Yes! Use the `children` prop instead of `description` to pass a full React fragment containing links or other HTML.
+
+## Related Components
+
+<RelatedComponent
+  name="Toast"
+  description="Use Toast for temporary, floating notifications that dismiss automatically."
+  href="/docs/components/toast"
+/>
+<RelatedComponent
+  name="Badge"
+  description="Use Badge for small status indicators attached to text or icons."
+  href="/docs/components/badge"
+/>
+<RelatedComponent
+  name="Callout"
+  description="Use Callout for block-level content highlights within documentation."
+  href="/docs/components/callout"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Alert
+
+> Alert is a Components/Alert React component in Luxis UI for displaying important messages and notifications.
+
+## Source
+packages/luxis-ui/src/components/Alert/Alert.tsx
+
+## Story
+app/storybook/src/stories/Alert.stories.ts
+
+## Install
+\`\`\`bash
+npm install @luxis-ui/core
+\`\`\`
+
+## Import
+\`\`\`tsx
+import { Alert } from '@luxis-ui/core';
+\`\`\`
+
+## Minimal usage
+\`\`\`tsx
+import { Alert } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Alert
+      variant="warning"
+      title="Session Expiring"
+      description="Please save your work."
+    />
+  );
+}
+\`\`\`
+
+## Key props
+- `title` (`string`, default=`undefined`): Alert title
+- `description` (`string`, default=`undefined`): Alert description
+- `variant` (`'success' | 'error' | 'warning' | 'info' | 'neutral'`, default=`'info'`): Visual variant of the alert
+- `alertStyle` (`'filled' | 'outlined' | 'subtle' | 'left-accent'`, default=`'subtle'`): Visual style of the alert
+- `dismissible` (`boolean`, default=`false`): If true, shows close button
+
+## When to use
+Displaying form validation errors. Confirming successful actions. Highlighting system maintenance.
+
+## When NOT to use
+For toast notifications (use Toast). As a modal or dialog that completely interrupts user flow.
+
+## Accessibility
+WCAG: AA
+ARIA: Alert
+Keyboard: Tab, Enter
+
+## Docs
+https://luxis-ui.dev/docs/components/alert
+LLMS_TXT_ENTRY_END
+*/}
