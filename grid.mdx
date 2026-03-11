@@ -1,0 +1,816 @@
+---
+title: "Grid — Luxis UI React Component"
+description: "A responsive 12-column grid layout system. Build structured and responsive page layouts easily using a flexible container and item model."
+status: stable
+since: "1.0.0"
+category: "Components"
+npm: "@luxis-ui/core"
+import: "import { Grid } from '@luxis-ui/core'"
+component: "Grid"
+keywords:
+  - grid
+  - react grid
+  - grid component
+  - layout
+  - flexbox grid
+  - responsive grid
+  - luxis ui grid
+  - typescript grid
+  - react design system
+slug: /components/grid
+canonical: "https://luxis-ui.dev/docs/components/grid"
+og_image: "/img/og/grid.png"
+llm_summary: >
+  Grid renders a responsive 12-column layout using standard `<div>` elements configured via flexbox. It functions as both a container and an item depending on the props passed.
+  Props: `container` (boolean, default=false), `item` (boolean, default=false), `spacing` (number 0-10, default=undefined), `rowSpacing` (number 0-10, default=undefined), `columnSpacing` (number 0-10, default=undefined), `xs` (boolean | 'auto' | 1-12, default=undefined), `sm` (boolean | 'auto' | 1-12, default=undefined), `md` (boolean | 'auto' | 1-12, default=undefined), `lg` (boolean | 'auto' | 1-12, default=undefined), `xl` (boolean | 'auto' | 1-12, default=undefined), `justifyContent` (string, default=undefined), `alignItems` (string, default=undefined), `alignContent` (string, default=undefined), `direction` ('row' | 'row-reverse' | 'column' | 'column-reverse', default='row'), `wrap` ('nowrap' | 'wrap' | 'wrap-reverse', default='wrap'), `className` (string, default='').
+  Primary use cases: Structuring page layouts, creating responsive columns that stack on smaller screens, and aligning groups of components.
+  Accessibility: Grid is purely structural and uses standard generic containers. Ensure internal content is accessible.
+  Import exactly like this: `import { Grid } from '@luxis-ui/core'`.
+---
+
+{/*
+LLM_CONTEXT
+  component    : Grid
+  source       : packages/luxis-ui/src/Grid/Grid.tsx
+  story        : app/storybook/src/stories/Grid.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components
+  status       : stable
+  aria-pattern : None (Structural)
+
+  What it renders:
+  Grid renders a standard `<div>` configured to use CSS flexbox for structural layout.
+
+  When to use:
+  - Creating main page layouts.
+  - Creating responsive columns that change widths at specific breakpoints.
+  - Distributing space evenly among items.
+
+  When NOT to use:
+  - For simple 1-dimensional spacing between sequential elements (use Flex or Box instead).
+  - When CSS Grid is strictly required (this component uses a Flexbox-based 12-column system).
+
+  Ecosystem equivalents:
+  - MUI        : <Grid>
+  - Chakra UI  : <SimpleGrid>, <Grid>
+  - shadcn/ui  : [Often handled directly via Tailwind classes like grid grid-cols-12]
+  - Radix UI   : <Grid>
+  - HTML native: <div style="display: flex">
+
+  Props (must match source exactly — every single prop):
+  container (boolean, default=false) — If true, the component will have the flex container behavior
+  item (boolean, default=false) — If true, the component will have the flex item behavior
+  spacing (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10, default=undefined) — Defines the space between items (applies to container)
+  rowSpacing (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10, default=undefined) — Defines the row gap between items (applies to container)
+  columnSpacing (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10, default=undefined) — Defines the column gap between items (applies to container)
+  xs (boolean | 'auto' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12, default=undefined) — Number of columns (1-12) for extra small devices
+  sm (boolean | 'auto' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12, default=undefined) — Number of columns (1-12) for small devices (≥600px)
+  md (boolean | 'auto' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12, default=undefined) — Number of columns (1-12) for medium devices (≥960px)
+  lg (boolean | 'auto' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12, default=undefined) — Number of columns (1-12) for large devices (≥1280px)
+  xl (boolean | 'auto' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12, default=undefined) — Number of columns (1-12) for extra large devices (≥1920px)
+  justifyContent ('flex-start' | 'center' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly', default=undefined) — Defines the justify-content style property
+  alignItems ('flex-start' | 'center' | 'flex-end' | 'stretch' | 'baseline', default=undefined) — Defines the align-items style property
+  alignContent ('flex-start' | 'center' | 'flex-end' | 'space-between' | 'space-around' | 'stretch', default=undefined) — Defines the align-content style property
+  direction ('row' | 'row-reverse' | 'column' | 'column-reverse', default='row') — Defines the flex-direction style property
+  wrap ('nowrap' | 'wrap' | 'wrap-reverse', default='wrap') — Defines the flex-wrap style property
+  className (string, default='') — Additional CSS class name
+
+  Accessibility:
+  WCAG: N/A (Structural element)
+  Keyboard: Focus relies on internal children.
+  Screen reader: Screen readers process the layout as standard divs. Use semantic HTML elements inside the grid when appropriate.
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Grid React Component — Luxis UI",
+  "description": "A responsive 12-column grid layout system. Build structured and responsive page layouts easily using a flexible container and item model.",
+  "keywords": "grid, react grid, grid component, layout, flexbox grid, responsive grid, luxis ui grid, typescript grid, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use Grid in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { Grid } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI Grid accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Key props include container (boolean), item (boolean), spacing (0-10), and breakpoint sizes like xs, sm, md, lg, xl (1-12, 'auto', or boolean)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I make a grid responsive?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pass different column counts to the breakpoint props on your Grid items. For example, <Grid item xs={12} md={6}> will take full width on mobile and half width on medium screens."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI Grid different from MUI Grid?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Luxis UI Grid uses an almost identical API to MUI's v5 Grid, utilizing a 12-column Flexbox system with container/item booleans, making migration seamless while remaining lightweight."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Grid
+
+<ComponentStatus status="stable" version="1.0.0" aria="N/A" />
+
+Grid is a responsive 12-column layout system based on Flexbox. It helps you build complex structural layouts that adapt cleanly across different screen sizes.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for Grid
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding Grid to any file
+SOURCE: packages/luxis-ui/src/components/Grid/index.ts
+-->
+```tsx
+import { Grid } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI `Grid` is functionally equivalent to MUI's `<Grid>` and Radix UI's `<Grid>`. It uses the familiar `container` and `item` pattern.
+</Callout>
+
+## Before You Start
+
+Grid operates on a 12-column grid system using CSS Flexbox. It requires two types of components: a wrapper with the `container` prop, and children with the `item` prop. The Quick Start example below will render three equally spaced columns.
+
+<Callout type="tip" title="New to Luxis UI?">
+  The spacing system uses units. A spacing of `2` typically equals `16px` (2 * 8px base unit).
+</Callout>
+
+## How to Use Grid in React
+
+The minimum code to render a working Grid:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of Grid
+OUTPUT: A row of three equal-width columns
+USE WHEN: Building a simple evenly distributed row
+SOURCE: Derived from Grid.tsx defaults and simplest Story
+-->
+```tsx
+import { Grid } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs={4}>Column 1</Grid>
+      <Grid item xs={4}>Column 2</Grid>
+      <Grid item xs={4}>Column 3</Grid>
+    </Grid>
+  );
+}
+```
+
+This creates a Flexbox container with a gap (spacing=2), containing three items that each take up 4 out of 12 columns (33.3%).
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of Grid with key props
+OUTPUT: A responsive grid layout with styled blocks
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/Grid.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { Grid } from '@luxis-ui/core';
+
+export default function LiveExample() {
+  const boxStyle = { padding: '16px', background: '#e3e6ea', borderRadius: '4px', textAlign: 'center' };
+
+  return (
+    <Grid container spacing={3} justifyContent="center">
+      <Grid item xs={12} sm={6} md={4}>
+        <div style={boxStyle}>xs=12 sm=6 md=4</div>
+      </Grid>
+      <Grid item xs={12} sm={6} md={4}>
+        <div style={boxStyle}>xs=12 sm=6 md=4</div>
+      </Grid>
+      <Grid item xs={12} sm={12} md={4}>
+        <div style={boxStyle}>xs=12 sm=12 md=4</div>
+      </Grid>
+    </Grid>
+  );
+}
+```
+
+## Grid Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### Basic
+
+A basic layout using fixed column widths.
+
+<!--
+EXAMPLE: Basic
+PURPOSE: Shows standard 12-column division
+OUTPUT: Three blocks taking exactly 4 columns each
+USE WHEN: Creating fixed layouts that don't need to respond to screen size
+SOURCE: app/storybook/src/stories/Grid.stories.ts -> Basic
+-->
+```tsx
+import { Grid } from '@luxis-ui/core';
+
+export default function BasicExample() {
+  const boxStyle = { padding: '16px', borderRadius: '4px' };
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs={4}>
+        <div style={{ ...boxStyle, background: '#e3e6ea' }}>Overview</div>
+      </Grid>
+      <Grid item xs={4}>
+        <div style={{ ...boxStyle, background: '#c5cae9' }}>Statistics</div>
+      </Grid>
+      <Grid item xs={4}>
+        <div style={{ ...boxStyle, background: '#b2dfdb' }}>Recent Activity</div>
+      </Grid>
+    </Grid>
+  );
+}
+```
+
+Because only the `xs` breakpoint is specified, these items will always consume 4 columns regardless of screen size.
+
+---
+
+### Responsive
+
+Fluidly change column widths based on viewport size breakpoints.
+
+<!--
+EXAMPLE: Responsive
+PURPOSE: Demonstrates breakpoint-based widths
+OUTPUT: Blocks that stack on mobile and sit side-by-side on desktop
+USE WHEN: Building adaptive dashboard layouts or card grids
+SOURCE: app/storybook/src/stories/Grid.stories.ts -> Responsive
+-->
+```tsx
+import { Grid } from '@luxis-ui/core';
+
+export default function ResponsiveExample() {
+  const boxStyle = { padding: '16px', borderRadius: '4px' };
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs={12} sm={6} md={4}>
+        <div style={{ ...boxStyle, background: '#e3e6ea' }}>xs=12 sm=6 md=4</div>
+      </Grid>
+      <Grid item xs={12} sm={6} md={4}>
+        <div style={{ ...boxStyle, background: '#c5cae9' }}>xs=12 sm=6 md=4</div>
+      </Grid>
+      <Grid item xs={12} sm={12} md={4}>
+        <div style={{ ...boxStyle, background: '#b2dfdb' }}>xs=12 sm=12 md=4</div>
+      </Grid>
+    </Grid>
+  );
+}
+```
+
+These items take full width on mobile (`xs={12}`), half width on small tablets (`sm={6}`), and one-third width on desktop (`md={4}`).
+
+---
+
+### RowAndColumnSpacing
+
+Control vertical and horizontal spacing independently.
+
+<!--
+EXAMPLE: RowAndColumnSpacing
+PURPOSE: Shows independent axis spacing
+OUTPUT: A grid with a wide horizontal gap and narrow vertical gap
+USE WHEN: Form layouts or dense data displays
+SOURCE: app/storybook/src/stories/Grid.stories.ts -> RowAndColumnSpacing
+-->
+```tsx
+import { Grid } from '@luxis-ui/core';
+
+export default function RowAndColumnSpacingExample() {
+  const boxStyle = { padding: '16px', borderRadius: '4px' };
+  return (
+    <Grid container rowSpacing={2} columnSpacing={4}>
+      <Grid item xs={6}>
+        <div style={{ ...boxStyle, background: '#e3e6ea' }}>Overview</div>
+      </Grid>
+      <Grid item xs={6}>
+        <div style={{ ...boxStyle, background: '#c5cae9' }}>Statistics</div>
+      </Grid>
+      <Grid item xs={6}>
+        <div style={{ ...boxStyle, background: '#b2dfdb' }}>Recent Activity</div>
+      </Grid>
+      <Grid item xs={6}>
+        <div style={{ ...boxStyle, background: '#ffe082' }}>Settings</div>
+      </Grid>
+    </Grid>
+  );
+}
+```
+
+This applies a spacing unit of 2 vertically and 4 horizontally between the grid items.
+
+---
+
+### Controlled Grid
+
+When to use: When a parent component needs to read or drive the layout state.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  Grid is entirely stateless and declarative. However, you can pass state variables to its layout props to dynamically change the grid structure based on user interactions.
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: State-driven Grid layout
+OUTPUT: A grid whose spacing changes via a button click
+USE WHEN: Building customizable layout engines or responsive toggles
+SOURCE: Derived from Grid.tsx
+-->
+```tsx
+import { useState } from 'react';
+import { Grid, Button } from '@luxis-ui/core';
+
+export default function ControlledExample() {
+  const [spacing, setSpacing] = useState<0 | 1 | 2 | 3 | 4>(2);
+
+  return (
+    <div>
+      <button onClick={() => setSpacing(spacing === 4 ? 0 : (spacing + 1) as any)}>
+        Toggle Spacing (Current: {spacing})
+      </button>
+      <div style={{ marginTop: '16px' }}>
+        <Grid container spacing={spacing}>
+          <Grid item xs={6}><div style={{ background: '#eee', padding: '16px' }}>Left</div></Grid>
+          <Grid item xs={6}><div style={{ background: '#ddd', padding: '16px' }}>Right</div></Grid>
+        </Grid>
+      </div>
+    </div>
+  );
+}
+```
+
+## Grid Best Practices
+
+Use these practices to build maintainable, bug-free layouts.
+
+<DoAndDont
+  good={`// ✅ Use items directly inside containers
+<Grid container>
+  <Grid item xs={6}>Content</Grid>
+</Grid>`}
+  bad={`// ❌ Don't place non-item elements directly inside containers
+<Grid container>
+  <div>Content</div>
+</Grid>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Define mobile (xs) layout first
+<Grid item xs={12} md={6}>Content</Grid>`}
+  bad={`// ❌ Don't skip defining a base layout
+<Grid item md={6}>Content</Grid>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use 'auto' for shrink-to-fit sizing
+<Grid item xs="auto">Fixed width content</Grid>`}
+  bad={`// ❌ Don't hardcode fixed widths on items
+<Grid item style={{ width: '200px' }}>Content</Grid>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Wrap container around items
+<Grid container spacing={2}>
+  <Grid item xs={12}>...</Grid>
+</Grid>`}
+  bad={`// ❌ Don't combine container and item on the same node
+<Grid container item xs={12}>...</Grid>`}
+/>
+
+## Grid Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly from `packages/luxis-ui/src/Grid/Grid.tsx`.
+
+### Grid Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `alignContent` | `'flex-start' \| 'center' \| 'flex-end' \| 'space-between' \| 'space-around' \| 'stretch'` | `undefined` | false | Defines the align-content style property |
+| `alignItems` | `'flex-start' \| 'center' \| 'flex-end' \| 'stretch' \| 'baseline'` | `undefined` | false | Defines the align-items style property |
+| `columnSpacing` | `0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 \| 9 \| 10` | `undefined` | false | Defines the column gap between items |
+| `container` | `boolean` | `false` | false | If true, applies flex container behavior |
+| `direction` | `'row' \| 'row-reverse' \| 'column' \| 'column-reverse'` | `'row'` | false | Defines the flex-direction style property |
+| `item` | `boolean` | `false` | false | If true, applies flex item behavior |
+| `justifyContent` | `'flex-start' \| 'center' \| 'flex-end' \| 'space-between' \| 'space-around' \| 'space-evenly'` | `undefined` | false | Defines the justify-content style property |
+| `lg` | `boolean \| 'auto' \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 \| 9 \| 10 \| 11 \| 12` | `undefined` | false | Columns for large devices (≥1280px) |
+| `md` | `boolean \| 'auto' \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 \| 9 \| 10 \| 11 \| 12` | `undefined` | false | Columns for medium devices (≥960px) |
+| `rowSpacing` | `0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 \| 9 \| 10` | `undefined` | false | Defines the row gap between items |
+| `sm` | `boolean \| 'auto' \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 \| 9 \| 10 \| 11 \| 12` | `undefined` | false | Columns for small devices (≥600px) |
+| `spacing` | `0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 \| 9 \| 10` | `undefined` | false | Space between items (applies to both axes) |
+| `wrap` | `'nowrap' \| 'wrap' \| 'wrap-reverse'` | `'wrap'` | false | Defines the flex-wrap style property |
+| `xl` | `boolean \| 'auto' \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 \| 9 \| 10 \| 11 \| 12` | `undefined` | false | Columns for extra large devices (≥1920px) |
+| `xs` | `boolean \| 'auto' \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 \| 9 \| 10 \| 11 \| 12` | `undefined` | false | Columns for extra small devices (≥0px) |
+
+### HTML Native Props
+
+Grid forwards rest props to its underlying `<div>`, so all standard HTML div attributes are also accepted.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `className` | Additional CSS class names | `"custom-grid"` |
+| `style` | Inline CSS styles | `{{ marginTop: '8px' }}` |
+| `onClick` | Click handler | `(e) => handleClick(e)` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for Grid
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/Grid/Grid.tsx
+-->
+```ts
+type GridSize = boolean | 'auto' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+type GridSpacing = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+
+export interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
+  container?: boolean;
+  item?: boolean;
+  spacing?: GridSpacing;
+  rowSpacing?: GridSpacing;
+  columnSpacing?: GridSpacing;
+  xs?: GridSize;
+  sm?: GridSize;
+  md?: GridSize;
+  lg?: GridSize;
+  xl?: GridSize;
+  justifyContent?: 'flex-start' | 'center' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly';
+  alignItems?: 'flex-start' | 'center' | 'flex-end' | 'stretch' | 'baseline';
+  alignContent?: 'flex-start' | 'center' | 'flex-end' | 'space-between' | 'space-around' | 'stretch';
+  direction?: 'row' | 'row-reverse' | 'column' | 'column-reverse';
+  wrap?: 'nowrap' | 'wrap' | 'wrap-reverse';
+  className?: string;
+  children?: React.ReactNode;
+}
+```
+
+</details>
+
+## Grid Accessibility Guide
+
+Grid relies entirely on Flexbox and standard `<div>` elements. It is structurally neutral.
+
+### Screen Reader Behavior
+
+Because Grid uses generic `<div>` tags, screen readers will interpret it purely as container elements without special semantic meaning. If the content of your grid represents a logical list or a specific landmark area, you should manually add semantic tags (like `<nav>`, `<ul>`, `<main>`) inside the grid items.
+
+### Accessibility Checklist
+
+- [ ] Do not rely solely on visual layout to convey meaningful order; ensure DOM order makes sense.
+- [ ] Add semantic HTML tags inside grid items when grouping related content.
+- [ ] Always verify with keyboard-only navigation before shipping
+
+## Grid Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions like colors, spacing, and radius. Override them to restyle Grid without fighting CSS specificity.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-grid-spacing-unit` | `8px` | The base multiplier for all spacing props |
+
+**Override globally:**
+```css
+:root {
+  --lxs-grid-spacing-unit: 10px;
+}
+```
+
+**Override for one section:**
+```css
+.my-custom-layout {
+  --lxs-grid-spacing-unit: 4px;
+}
+```
+
+**Override on one instance:**
+```tsx
+<Grid
+  container
+  style={{ '--lxs-grid-spacing-unit': '12px' } as React.CSSProperties}
+>
+  ...
+</Grid>
+```
+
+## Customizing Grid
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to Grid
+OUTPUT: Grid with additional styling
+USE WHEN: Quick one-off style overrides
+SOURCE: N/A
+-->
+```tsx
+<Grid container className="my-page-layout">
+  ...
+</Grid>
+```
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: Grid with custom token values
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+```tsx
+<Grid container style={{ '--lxs-grid-spacing-unit': '16px' } as React.CSSProperties}>
+  ...
+</Grid>
+```
+
+### Using with forwardRef
+
+<!--
+EXAMPLE: forwardRef
+PURPOSE: Accessing the underlying DOM node
+OUTPUT: Grid with attached ref
+USE WHEN: Measuring DOM dimensions or running animations
+SOURCE: N/A
+-->
+```tsx
+import { useRef, useEffect } from 'react';
+import { Grid } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    console.log('Grid width:', ref.current?.offsetWidth);
+  }, []);
+
+  return <Grid container ref={ref}>...</Grid>;
+}
+```
+
+## Common Grid Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Form Layout
+
+Used when: Structuring inputs in a data-entry form.
+
+<!--
+EXAMPLE: Form Layout
+PURPOSE: Aligning form fields in rows
+OUTPUT: A grid layout organizing input fields
+USE WHEN: Creating complex forms like checkout or registration
+SOURCE: Common usage pattern for Grid
+-->
+```tsx
+import { Grid } from '@luxis-ui/core';
+
+export default function FormLayout() {
+  return (
+    <Grid container spacing={3}>
+      <Grid item xs={12} sm={6}>
+        <input type="text" example="First Name" style={{ width: '100%', padding: 8 }} />
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <input type="text" example="Last Name" style={{ width: '100%', padding: 8 }} />
+      </Grid>
+      <Grid item xs={12}>
+        <input type="email" example="Email Address" style={{ width: '100%', padding: 8 }} />
+      </Grid>
+    </Grid>
+  );
+}
+```
+
+### Auto-Width Sidebar Layout
+
+Used when: You need a fixed-width sidebar and a content area that fills the remaining space.
+
+<!--
+EXAMPLE: Auto-Width Sidebar Layout
+PURPOSE: Creating a main layout with a sidebar
+OUTPUT: A grid where the left item fits its content and the right item expands
+USE WHEN: Building application shells
+SOURCE: Common usage pattern for Grid
+-->
+```tsx
+import { Grid } from '@luxis-ui/core';
+
+export default function SidebarLayout() {
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs="auto">
+        <div style={{ width: '250px', background: '#f5f5f5', height: '100vh', padding: 16 }}>
+          Sidebar Navigation
+        </div>
+      </Grid>
+      <Grid item xs>
+        <div style={{ padding: 16 }}>
+          Main Content Area (takes remaining width)
+        </div>
+      </Grid>
+    </Grid>
+  );
+}
+```
+
+### Centered Content Container
+
+Used when: You need to center a single block of content in the viewport.
+
+<!--
+EXAMPLE: Centered Content
+PURPOSE: Centering items vertically and horizontally
+OUTPUT: A full-height container with a centered box
+USE WHEN: Creating login pages or centered empty states
+SOURCE: Common usage pattern for Grid
+-->
+```tsx
+import { Grid } from '@luxis-ui/core';
+
+export default function CenteredLayout() {
+  return (
+    <Grid
+      container
+      justifyContent="center"
+      alignItems="center"
+      style={{ minHeight: '100vh', background: '#fafafa' }}
+    >
+      <Grid item xs={10} sm={6} md={4}>
+        <div style={{ padding: 32, background: 'white', borderRadius: 8, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+          Centered Form Panel
+        </div>
+      </Grid>
+    </Grid>
+  );
+}
+```
+
+## Troubleshooting Grid
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Items don't wrap correctly | Forgetting `<Grid container>` wrapper | `<Grid container><Grid item>...</Grid></Grid>` |
+| Spacing creates horizontal scrollbar | Adding padding directly to the container | Use the `spacing` prop and `overflow: hidden` on parent if needed |
+| Columns don't stack on mobile | Setting fixed `width` CSS | Use `xs={12}` on the Grid item |
+| Nested grids act weirdly | Not using `item` and `container` together | `<Grid item xs={12} container spacing={2}>` |
+
+### Frequently Asked Questions
+
+**Q: Can a Grid be both a container and an item?**
+A: Yes. You can pass both `container` and `item` props to nest grids. This is useful for grouping sub-layouts within a parent grid.
+
+**Q: How do I remove the negative margins created by spacing?**
+A: The Grid container uses negative margins to align items properly. If this causes horizontal scrolling on the root of your page, wrap the entire grid in a standard `<div>` with `overflow: hidden;` or ensure your `<body>` doesn't have `margin: 0;` conflicts.
+
+**Q: Does Grid use CSS Grid under the hood?**
+A: No. Despite the name, this component is built using CSS Flexbox for broader compatibility and predictable layout degradation. It behaves identically to the Material-UI grid system.
+
+
+**Q: How do I make columns equal width?**
+A: If you don't specify a breakpoint value (like `xs={4}`), passing just `xs` or `md` without a number will distribute the remaining space evenly among all items.
+
+## Related Components
+
+<RelatedComponent
+  name="Flex"
+  description="A simpler layout component meant for 1-dimensional stacks and rows without the 12-column constraint."
+  href="/docs/components/flex"
+/>
+<RelatedComponent
+  name="Box"
+  description="A generic utility container for applying styling, margins, and paddings."
+  href="/docs/components/box"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Grid
+
+> Grid is a Components React component in Luxis UI for building responsive 12-column flexbox layouts.
+
+## Source
+packages/luxis-ui/src/Grid/Grid.tsx
+
+## Story
+app/storybook/src/stories/Grid.stories.ts
+
+## Install
+\`\`\`bash
+npm install @luxis-ui/core
+\`\`\`
+
+## Import
+\`\`\`tsx
+import { Grid } from '@luxis-ui/core';
+\`\`\`
+
+## Minimal usage
+\`\`\`tsx
+import { Grid } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs={6}>Left Half</Grid>
+      <Grid item xs={6}>Right Half</Grid>
+    </Grid>
+  );
+}
+\`\`\`
+
+## Key props
+- `container` (boolean, default=`false`): If true, applies flex container behavior
+- `item` (boolean, default=`false`): If true, applies flex item behavior
+- `spacing` (number, default=`undefined`): Space between items (applies to container)
+- `xs` (number|string|boolean, default=`undefined`): Columns for extra small devices (≥0px)
+- `md` (number|string|boolean, default=`undefined`): Columns for medium devices (≥960px)
+
+## When to use
+Use for structuring page layouts and creating responsive columns that stack on smaller screens.
+
+## When NOT to use
+Do not use for simple 1-dimensional spacing between elements; use Flex or Box instead.
+
+## Accessibility
+WCAG: N/A
+ARIA: N/A
+Keyboard: N/A
+
+## Docs
+https://luxis-ui.dev/docs/components/grid
+LLMS_TXT_ENTRY_END
+*/}

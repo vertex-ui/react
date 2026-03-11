@@ -1,0 +1,713 @@
+---
+title: "Image — Luxis UI React Component"
+description: "An intelligent image component that handles loading states, fallbacks, and supports custom framework components like Next.js Image."
+status: stable
+since: "1.0.0"
+category: "Components"
+npm: "@luxis-ui/core"
+import: "import { Image } from '@luxis-ui/core'"
+component: "Image"
+keywords:
+  - image
+  - react image
+  - image component
+  - fallback image
+  - lazy load image
+  - luxis ui image
+  - typescript image
+  - accessible image
+  - react design system
+slug: /components/image
+canonical: "https://luxis-ui.dev/docs/components/image"
+og_image: "/img/og/image.png"
+llm_summary: >
+  Image renders an intelligent image wrapper (`<div>` containing `<img>` elements). It displays a low-res or generic fallback image while the main `src` loads, crossfading them upon completion. If an error occurs, it shows the fallback or nothing.
+  Props: `src` (string, required), `alt` (string, required), `fallback` (string, default=undefined), `component` (React.ElementType, default='img'), `priority` (boolean, default=false), `fetchPriority` ('high' | 'low' | 'auto', default=undefined), `className` (string, default=''), `style` (React.CSSProperties, default=undefined), `imageProps` (Record<string, any>, default={}).
+  Primary use cases: displaying product images, hero banners, or user content where loading states need to be smooth and broken images avoided. Do NOT use it for tiny icons; use SVG icon components instead.
+  Accessibility: Enforces an `alt` prop for screen readers. Fallback images are given an appended " example" alt text or treated appropriately.
+  Import exactly like this: `import { Image } from '@luxis-ui/core'`.
+---
+
+{/*
+LLM_CONTEXT
+  component    : Image
+  source       : packages/luxis-ui/src/Image/Image.tsx
+  story        : app/storybook/src/stories/Image.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components
+  status       : stable
+  aria-pattern : Image
+
+  What it renders:
+  Image renders a wrapper `<div>` with `position: relative` and `overflow: hidden`. Inside, it renders a fallback `<img>` (if provided) and the main image component (default `<img>`, or a custom component like Next.js `<Image>`). It manages opacity transitions between the two based on load events.
+
+  When to use:
+  - Loading large images that might take a moment over slow connections.
+  - Ensuring broken image links don't show the browser's ugly broken image icon (by using a fallback).
+  - Wrapping framework-specific optimized image components to add a unified loading skeleton/fallback UI.
+
+  When NOT to use:
+  - For small, instantly loading vector graphics or UI icons (use standard <img> or SVG components).
+  - If you need a background image using CSS `background-image` (use a Box with styles instead).
+
+  Ecosystem equivalents:
+  - MUI        : [N/A, no dedicated complex image component]
+  - Chakra UI  : <Image>, <FallbackImage>
+  - shadcn/ui  : [N/A]
+  - Radix UI   : <Avatar.Image> (for avatars specifically)
+  - HTML native: <img>
+
+  Props (must match source exactly — every single prop):
+  src (string, required) — Source URL of the image
+  alt (string, required) — Alternate text for the image
+  fallback (string, default=undefined) — Fallback image source to show while loading or on error
+  component (React.ElementType, default='img') — Custom component to render the image
+  priority (boolean, default=false) — Whether to eager load the image
+  fetchPriority ('high' | 'low' | 'auto', default=undefined) — Hint to the browser to prioritize the fetch of the image
+  className (string, default='') — Additional CSS class name for the wrapper
+  style (React.CSSProperties, default=undefined) — Additional CSS styles for the wrapper
+  imageProps (Record<string, any>, default={}) — Props to pass to the underlying image component
+
+  Accessibility:
+  WCAG: A
+  Keyboard: N/A (Images are not typically focusable unless wrapped in a link).
+  Screen reader: Reads the `alt` text. Automatically generates a descriptive alt for the fallback to avoid duplicate confusing announcements while loading.
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Image React Component — Luxis UI",
+  "description": "An intelligent image component that handles loading states, fallbacks, and supports custom framework components like Next.js Image.",
+  "keywords": "image, react image, image component, fallback image, lazy load image, luxis ui image, typescript image, accessible image, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use Image in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { Image } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI Image accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Key props include src (string), alt (string), fallback (string), priority (boolean), and component (React element)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I use a fallback image if the source fails to load?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Provide a URL to the fallback prop. The Image component will display this while the main source loads or if the main source fails (e.g., a broken link)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI Image different from standard HTML img?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It provides built-in state management for loading and errors, allowing smooth crossfades from examples to high-res images, and easily wraps framework-specific components like Next.js Image."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Image
+
+<ComponentStatus status="stable" version="1.0.0" aria="WAI-ARIA Image" />
+
+The Image component intelligently handles the lifecycle of an image. It displays a fallback or example while loading, crossfades smoothly to the final image, and gracefully handles broken links.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for Image
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding Image to any file
+SOURCE: packages/luxis-ui/src/components/Image/index.ts
+-->
+```tsx
+import { Image } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI `Image` is functionally similar to Chakra UI's `Image` with fallback support. It acts as a smart wrapper around native `<img>` tags or framework specifics like `next/image`.
+</Callout>
+
+## Before You Start
+
+Image represents a standard HTML `<img>` with added JavaScript state management. It renders a wrapper `<div>` that contains both the main image and an optional fallback image, swapping their opacity based on load events. The Quick Start example below will render an image that defaults to native lazy loading.
+
+<Callout type="tip" title="New to Luxis UI?">
+  The `Image` component wrapper defaults to `width: 100%` and `height: 100%`. Ensure you place it inside a sized container.
+</Callout>
+
+## How to Use Image in React
+
+The minimum code to render a working Image:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of Image
+OUTPUT: A standard image that fades in when loaded
+USE WHEN: Displaying standard pictures
+SOURCE: Derived from Image.tsx defaults and simplest Story
+-->
+```tsx
+import { Image } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <div style={{ width: 400, height: 300 }}>
+      <Image
+        src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400"
+        alt="Mountain landscape"
+      />
+    </div>
+  );
+}
+```
+
+This renders a 400x300 image that uses the browser's native lazy loading.
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of Image with key props
+OUTPUT: An image with a visible loading example
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/Image.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { Image } from '@luxis-ui/core';
+
+export default function LiveExample() {
+  return (
+    <div style={{ width: 400, height: 300, borderRadius: 8, overflow: 'hidden' }}>
+      <Image
+        src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800"
+        alt="Forest"
+        fallback="https://via.example.com/400x300?text=Loading..."
+      />
+    </div>
+  );
+}
+```
+
+## Image Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### WithFallback
+
+Provide a fallback URL to handle slow connections or broken links gracefully.
+
+<!--
+EXAMPLE: WithFallback
+PURPOSE: Demonstrates error handling with a fallback image
+OUTPUT: A example image shown because the main source is broken
+USE WHEN: You cannot guarantee the main image URL is valid
+SOURCE: app/storybook/src/stories/Image.stories.ts -> WithFallback
+-->
+```tsx
+import { Image } from '@luxis-ui/core';
+
+export default function WithFallbackExample() {
+  return (
+    <div style={{ width: 400, height: 300, border: '1px solid #e5e5e5' }}>
+      <Image
+        src="https://example.com/broken-url-that-does-not-exist.jpg"
+        alt="Broken image handled gracefully"
+        fallback="https://via.example.com/400x300?text=Image+Unavailable"
+      />
+    </div>
+  );
+}
+```
+
+Because the `src` fails to load, the component hides the broken `<img>` element and leaves the `fallback` image visible.
+
+---
+
+### NoFallback
+
+If no fallback is provided and the image fails to load, the component will hide the broken icon entirely to avoid ugly UI artifacts.
+
+<!--
+EXAMPLE: NoFallback
+PURPOSE: Shows behavior when no fallback is provided for a broken link
+OUTPUT: An empty space instead of a broken browser image icon
+USE WHEN: You prefer blank space over examples for missing non-critical assets
+SOURCE: app/storybook/src/stories/Image.stories.ts -> NoFallback
+-->
+```tsx
+import { Image } from '@luxis-ui/core';
+
+export default function NoFallbackExample() {
+  return (
+    <div style={{ width: 400, height: 300, background: '#f5f5f5' }}>
+      <Image
+        src="broken-url-again.jpg"
+        alt="Broken image with no fallback"
+        fallback={undefined}
+      />
+    </div>
+  );
+}
+```
+
+This ensures your layout remains clean even if user-generated content goes missing.
+
+---
+
+### EagerLoad
+
+By default, images are lazy-loaded. Use the `priority` prop to eager load images that are "above the fold" to improve LCP (Largest Contentful Paint).
+
+<!--
+EXAMPLE: EagerLoad
+PURPOSE: Disabling lazy loading for critical images
+OUTPUT: An image that loads immediately with the document
+USE WHEN: Rendering hero images at the top of the viewport
+SOURCE: app/storybook/src/stories/Image.stories.ts -> EagerLoad
+-->
+```tsx
+import { Image } from '@luxis-ui/core';
+
+export default function EagerLoadExample() {
+  return (
+    <div style={{ width: 400, height: 300 }}>
+      <Image
+        src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400"
+        alt="Hero image"
+        priority
+        fetchPriority="high"
+      />
+    </div>
+  );
+}
+```
+
+This applies `loading="eager"` and `fetchPriority="high"` to the underlying DOM node.
+
+---
+
+### Controlled Image
+
+When to use: When a parent component needs to read or drive the state based on image load events.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  Image manages its own loaded/error state internally. You can listen to these events using `onLoad` and `onError` via standard HTML props, which are forwarded to the underlying image.
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: Responding to image load states externally
+OUTPUT: Text that updates when the image finishes loading
+USE WHEN: Triggering layout recalculations or removing loaders
+SOURCE: Derived from Image.tsx
+-->
+```tsx
+import { useState } from 'react';
+import { Image } from '@luxis-ui/core';
+
+export default function ControlledExample() {
+  const [status, setStatus] = useState('Loading...');
+
+  return (
+    <div style={{ width: 400 }}>
+      <p style={{ marginBottom: 8, fontWeight: 'bold' }}>Status: {status}</p>
+      <div style={{ width: 400, height: 300, background: '#f5f5f5' }}>
+        <Image
+          src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600"
+          alt="Controlled example"
+          onLoad={() => setStatus('Loaded successfully!')}
+          onError={() => setStatus('Failed to load')}
+        />
+      </div>
+    </div>
+  );
+}
+```
+
+## Image Best Practices
+
+Use these practices to optimize performance and visual stability.
+
+<DoAndDont
+  good={`// ✅ Provide meaningful alt text
+<Image src="/dog.jpg" alt="Golden Retriever playing in grass" />`}
+  bad={`// ❌ Don't use redundant words in alt text
+<Image src="/dog.jpg" alt="Image of a dog" />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use priority for hero images
+<Image src="/hero.jpg" alt="Sale banner" priority fetchPriority="high" />`}
+  bad={`// ❌ Don't use priority on images below the fold
+<Image src="/footer-logo.jpg" alt="Logo" priority />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Put the Image inside a sized container
+<div style={{ width: 300, height: 200 }}><Image src="..." alt="..." /></div>`}
+  bad={`// ❌ Don't let Image dictate layout shifts
+<Image src="..." alt="..." />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use low-res blurry versions as fallbacks
+<Image src="high-res.jpg" alt="View" fallback="low-res.jpg" />`}
+  bad={`// ❌ Don't use heavy generic images as fallbacks
+<Image src="high-res.jpg" alt="View" fallback="4mb-gray-box.png" />`}
+/>
+
+## Image Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly from `packages/luxis-ui/src/Image/Image.tsx`.
+
+### Image Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `alt` | `string` | - | true | Alternate text for the image |
+| `src` | `string` | - | true | Source URL of the image |
+| `className` | `string` | `''` | false | Additional CSS class name for the wrapper |
+| `component` | `React.ElementType` | `'img'` | false | Custom component to render the image |
+| `fallback` | `string` | `undefined` | false | Fallback image source to show while loading or on error |
+| `fetchPriority` | `'high' \| 'low' \| 'auto'` | `undefined` | false | Hint to the browser to prioritize the fetch of the image |
+| `imageProps` | `Record<string, any>` | `{}` | false | Props to pass to the underlying image component |
+| `priority` | `boolean` | `false` | false | Whether to eager load the image |
+| `style` | `React.CSSProperties` | `undefined` | false | Additional CSS styles for the wrapper |
+
+### HTML Native Props
+
+Image accepts standard `React.ImgHTMLAttributes`, forwarding them either to the wrapper or the underlying image depending on the prop type. Events like `onLoad` and `onError` are forwarded to the underlying image.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `onLoad` | Load success callback | `(e) => handleLoad(e)` |
+| `onError` | Load failure callback | `(e) => handleError(e)` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for Image
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/Image/Image.tsx
+-->
+```ts
+export interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+    src: string;
+    alt: string;
+    fallback?: string;
+    component?: React.ElementType;
+    priority?: boolean;
+    fetchPriority?: "high" | "low" | "auto";
+    className?: string;
+    style?: React.CSSProperties;
+    imageProps?: Record<string, any>;
+}
+```
+
+</details>
+
+## Image Accessibility Guide
+
+Image enforces standard `img` accessibility patterns.
+
+### Screen Reader Behavior
+
+The screen reader will read the `alt` text attribute of the main image. The `fallback` image automatically receives an `alt` attribute of `"{alt} loading image"` to provide context while loading, but it is visually and programmatically hidden once the main image loads successfully.
+
+### Accessibility Checklist
+
+- [ ] Always provide descriptive `alt` text.
+- [ ] If an image is purely decorative, provide an empty string `alt=""`. (Note: TypeScript might require it, so be intentional).
+- [ ] Do not include words like "image of" or "picture of" in the `alt` text.
+
+## Customizing Image
+
+Two levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to Image wrapper
+OUTPUT: Image with additional styling
+USE WHEN: Quick one-off style overrides for the container
+SOURCE: N/A
+-->
+```tsx
+<Image
+  src="/photo.jpg"
+  alt="Photo"
+  className="my-rounded-image-container"
+/>
+```
+
+### Using with Framework Components
+
+<!--
+EXAMPLE: Next.js Integration
+PURPOSE: Wrapping Next.js Image
+OUTPUT: A Next.js optimized image with Luxis UI fallback logic
+USE WHEN: Building applications with Next.js
+SOURCE: N/A
+-->
+```tsx
+import { Image as LuxisImage } from '@luxis-ui/core';
+import NextImage from 'next/image';
+
+export default function NextJsExample() {
+  return (
+    <div style={{ position: 'relative', width: 400, height: 300 }}>
+      <LuxisImage
+        component={NextImage}
+        src="/assets/heavy-photo.jpg"
+        alt="Heavy photo"
+        fallback="/assets/blur-data.jpg"
+        imageProps={{
+          fill: true,
+          sizes: "(max-width: 768px) 100vw, 400px"
+        }}
+      />
+    </div>
+  );
+}
+```
+
+## Common Image Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Avatar Fallback
+
+Used when: Displaying a user profile picture that might fail to load.
+
+<!--
+EXAMPLE: Avatar Fallback
+PURPOSE: Using Image for user profiles
+OUTPUT: A circular image with a generic avatar fallback
+USE WHEN: Rendering lists of users
+SOURCE: Common usage pattern for Image
+-->
+```tsx
+import { Image } from '@luxis-ui/core';
+
+export default function AvatarImage() {
+  return (
+    <div style={{ width: 48, height: 48, borderRadius: '50%', overflow: 'hidden' }}>
+      <Image
+        src="https://example.com/user-does-not-exist.jpg"
+        alt="User Profile"
+        fallback="https://ui-avatars.com/api/?name=User&background=random"
+      />
+    </div>
+  );
+}
+```
+
+### Product Gallery Skeleton
+
+Used when: Displaying a grid of products where a generic skeleton should show while loading.
+
+<!--
+EXAMPLE: Product Skeleton
+PURPOSE: Using a skeleton image as a fallback
+OUTPUT: An image that shows a gray box until loaded
+USE WHEN: Building e-commerce product grids
+SOURCE: Common usage pattern for Image
+-->
+```tsx
+import { Image } from '@luxis-ui/core';
+
+export default function ProductImage() {
+  return (
+    <div style={{ width: 300, height: 300, background: '#f5f5f5' }}>
+      <Image
+        src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300"
+        alt="Red running shoe"
+        fallback="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" // 1x1 gray pixel
+      />
+    </div>
+  );
+}
+```
+
+### Hero Banner Optimization
+
+Used when: The image is critical to the first paint of the page.
+
+<!--
+EXAMPLE: Hero Banner
+PURPOSE: Configuring Image for maximum LCP performance
+OUTPUT: An eager-loaded image
+USE WHEN: At the top of landing pages
+SOURCE: Common usage pattern for Image
+-->
+```tsx
+import { Image } from '@luxis-ui/core';
+
+export default function HeroBanner() {
+  return (
+    <div style={{ width: '100%', height: 400 }}>
+      <Image
+        src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200"
+        alt="Earth from space"
+        priority
+        fetchPriority="high"
+      />
+    </div>
+  );
+}
+```
+
+## Troubleshooting Image
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Image overflows container | Container lacks `overflow: hidden` | Add `overflow: hidden` to parent if using `borderRadius` |
+| Image looks stretched | Container lacks dimensions | Define width and height on the parent `<div>` |
+| Fallback flashes on fast networks | Fallback is too heavy | Use tiny base64 strings or low-res JPEGs for fallbacks |
+| Next.js Image throws errors | Forgetting `imageProps` | Pass `fill` or `width`/`height` inside `imageProps` |
+
+### Frequently Asked Questions
+
+**Q: Why do I need to wrap the Image component in a div to set its size?**
+A: The Luxis UI Image component uses `width: 100%` and `height: 100%` internally along with absolute positioning to manage the crossfade between the fallback and main image. Setting fixed dimensions on a parent wrapper ensures both layers stack and size correctly.
+
+**Q: Does it support `srcset`?**
+A: Yes. You can pass `srcSet` and `sizes` via the `imageProps` object, which passes them down to the underlying `<img>` tag.
+
+
+**Q: How do I handle lazy loading?**
+A: Image uses the browser's native `loading="lazy"` by default. You do not need to configure anything unless you specifically want to disable it using `priority`.
+
+**Q: Can I use this with SVG files?**
+A: Yes, but for purely decorative UI icons, it is better to render SVGs directly as inline components to avoid network overhead.
+
+## Related Components
+
+<RelatedComponent
+  name="Avatar"
+  description="A higher-level component specifically for user profiles, which includes text fallbacks."
+  href="/docs/components/avatar"
+/>
+<RelatedComponent
+  name="Box"
+  description="Use Box if you need CSS background-images instead of inline semantic images."
+  href="/docs/components/box"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Image
+
+> Image is a Components React component in Luxis UI for rendering images with fallback states and eager/lazy loading support.
+
+## Source
+packages/luxis-ui/src/Image/Image.tsx
+
+## Story
+app/storybook/src/stories/Image.stories.ts
+
+## Install
+\`\`\`bash
+npm install @luxis-ui/core
+\`\`\`
+
+## Import
+\`\`\`tsx
+import { Image } from '@luxis-ui/core';
+\`\`\`
+
+## Minimal usage
+\`\`\`tsx
+import { Image } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <div style={{ width: 400, height: 300 }}>
+      <Image
+        src="https://example.com/photo.jpg"
+        alt="A description"
+        fallback="https://example.com/fallback-image.jpg"
+      />
+    </div>
+  );
+}
+\`\`\`
+
+## Key props
+- `src` (string, required): Source URL of the image
+- `alt` (string, required): Alternate text for the image
+- `fallback` (string, default=`undefined`): Fallback image source
+- `component` (React.ElementType, default=`'img'`): Custom component to render the image
+- `priority` (boolean, default=`false`): Whether to eager load the image
+
+## When to use
+Use for all semantic images, especially those that load over the network and might fail or take time.
+
+## When NOT to use
+Do not use for CSS background images or tiny UI vector icons.
+
+## Accessibility
+WCAG: A
+ARIA: Image
+Keyboard: N/A
+
+## Docs
+https://luxis-ui.dev/docs/components/image
+LLMS_TXT_ENTRY_END
+*/}
