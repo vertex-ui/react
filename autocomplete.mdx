@@ -1,0 +1,1377 @@
+---
+title: "Autocomplete — Luxis UI React Component"
+description: "Text input with dropdown suggestions. Use Autocomplete to help users select from a large list of options by filtering as they type."
+status: stable
+since: "1.0.0"
+category: "Components/Autocomplete"
+npm: "@luxis-ui/core"
+import: "import { Autocomplete } from '@luxis-ui/core'"
+component: "Autocomplete"
+keywords:
+  - autocomplete
+  - react autocomplete
+  - autocomplete component
+  - luxis ui autocomplete
+  - typescript autocomplete
+  - accessible autocomplete
+  - react design system
+slug: /components/autocomplete
+canonical: "https://luxis-ui.dev/docs/components/autocomplete"
+og_image: "/img/og/autocomplete.png"
+llm_summary: >
+  Autocomplete renders a combined text `input` with `role="combobox"` and a dropdown `div` containing `role="listbox"`. Props: `options` (`any[]`, required), `label` (`string`, default=undefined), `helperText` (`string`, default=undefined), `error` (`string`, default=undefined), `success` (`string`, default=undefined), `size` (`Size`, default='md'), `fullWidth` (`boolean`, default=false), `getOptionLabel` (`string | ((option: any) => string)`, default='label'), `getOptionValue` (`string | ((option: any) => string)`, default='value'), `getOptionDisabled` (`string | ((option: any) => boolean)`, default='disabled'), `getOptionDescription` (`string | ((option: any) => string | undefined)`, default='description'), `getOptionIcon` (`string | ((option: any) => React.ReactNode)`, default='icon'), `noOptionsMessage` (`string`, default='No options'), `loading` (`boolean`, default=false), `loadingMessage` (`string`, default='Loading...'), `onChange` (`(value: string) => void`, default=undefined), `onSelect` (`(value: string, option: any) => void`, default=undefined), `showSearchIcon` (`boolean`, default=false), `clearable` (`boolean`, default=false), `onClear` (`() => void`, default=undefined), `wrapperClassName` (`string`, default=undefined), `labelClassName` (`string`, default=undefined), `inputClassName` (`string`, default=undefined), `dropdownClassName` (`string`, default=undefined), `renderOption` (`(option: any, index: number) => React.ReactNode`, default=undefined), `value` (`string`, default=undefined), `openOnFocus` (`boolean`, default=true), `minSearchLength` (`number`, default=0), `disableClientFilter` (`boolean`, default=false). Used for selecting from large datasets like countries or tags. Do not use for small static lists (use Select instead). Follows WAI-ARIA combobox pattern. Import with `import { Autocomplete } from '@luxis-ui/core'`.
+---
+
+{/*
+LLM_CONTEXT
+  component    : Autocomplete
+  source       : packages/luxis-ui/src/components/Autocomplete/Autocomplete.tsx
+  story        : app/storybook/src/stories/Autocomplete.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components/Autocomplete
+  status       : stable
+  aria-pattern : Combobox
+
+  What it renders:
+  Autocomplete renders a complex structure: a label (if provided), a container `div` holding an `input` with `role="combobox"`, optional search and clear icons, a conditionally rendered dropdown `div` with `role="listbox"`, and helper/error text below. Options inside the listbox use `role="option"`.
+
+  When to use:
+  - Selecting from a very large dataset (e.g., countries, cities, users)
+  - When the user knows roughly what they want but needs suggestions
+  - Implementing async server-side search
+
+  When NOT to use:
+  - For small static lists of under 10 items (use Select instead)
+  - When the user must enter arbitrary text that isn't in the list (use a standard Input)
+
+  Ecosystem equivalents:
+  - MUI        : <Autocomplete>
+  - Chakra UI  : <AutoComplete> (via third-party or custom build)
+  - shadcn/ui  : Combobox
+  - Radix UI   : Combobox (or Select with search)
+  - HTML native: <input type="text" list="datalist-id"> + <datalist>
+
+  Props (must match source exactly — every single prop):
+  options (any[], required) — Options to display in the autocomplete dropdown
+  label (string, default=undefined) — Label text displayed above the input
+  helperText (string, default=undefined) — Helper text displayed below the input
+  error (string, default=undefined) — Error message - puts input in error state
+  success (string, default=undefined) — Success message - puts input in success state
+  size (Size, default='md') — Size of the input
+  fullWidth (boolean, default=false) — If true, input takes full width of container
+  getOptionLabel (string | ((option: any) => string), default='label') — Extractor for option display text
+  getOptionValue (string | ((option: any) => string), default='value') — Extractor for option value
+  getOptionDisabled (string | ((option: any) => boolean), default='disabled') — Extractor for disabled state
+  getOptionDescription (string | ((option: any) => string | undefined), default='description') — Extractor for secondary text
+  getOptionIcon (string | ((option: any) => React.ReactNode), default='icon') — Extractor for left icon
+  noOptionsMessage (string, default='No options') — Message when list is empty
+  loading (boolean, default=false) — Shows loading spinner
+  loadingMessage (string, default='Loading...') — Text shown while loading
+  onChange ((value: string) => void, default=undefined) — Callback on text change
+  onSelect ((value: string, option: any) => void, default=undefined) — Callback on option click
+  showSearchIcon (boolean, default=false) — Shows magnifying glass
+  clearable (boolean, default=false) — Shows X button to clear input
+  onClear (() => void, default=undefined) — Callback on clear
+  wrapperClassName (string, default=undefined) — CSS class for wrapper
+  labelClassName (string, default=undefined) — CSS class for label
+  inputClassName (string, default=undefined) — CSS class for input
+  dropdownClassName (string, default=undefined) — CSS class for dropdown
+  renderOption ((option: any, index: number) => React.ReactNode, default=undefined) — Custom list item render function
+  value (string, default=undefined) — Controlled value
+  openOnFocus (boolean, default=true) — Opens dropdown when input focused
+  minSearchLength (number, default=0) — Minimum chars before showing dropdown
+  disableClientFilter (boolean, default=false) — Disables internal string matching (for async search)
+
+  Accessibility:
+  WCAG: AA
+  Keyboard: Up/Down arrow to navigate list, Enter to select, Escape to close.
+  Screen reader: Implements combobox pattern with aria-expanded, aria-controls, aria-activedescendant.
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Autocomplete React Component — Luxis UI",
+  "description": "Text input with dropdown suggestions. Use Autocomplete to help users select from a large list of options by filtering as they type.",
+  "keywords": "autocomplete, react autocomplete, autocomplete component, luxis ui autocomplete, typescript autocomplete, accessible autocomplete, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use Autocomplete in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { Autocomplete } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI Autocomplete accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Autocomplete requires an options array. Common props include label, placeholder, onSelect, onChange, loading, and custom data extractors like getOptionLabel."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I handle async server-side search in Autocomplete?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pass disableClientFilter={true} so the component stops filtering the list itself. Hook up your API call to the onChange prop, update your local options state when results return, and toggle the loading prop while fetching."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI Autocomplete different from MUI Autocomplete?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Luxis UI Autocomplete automatically extracts descriptions and icons from your data objects via simple string props (e.g., getOptionDescription='subtitle'), removing the need to write complex renderOption callbacks just to show secondary text."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Autocomplete
+
+<ComponentStatus status="stable" version="1.0.0" aria="WAI-ARIA Combobox" />
+
+Text input with dropdown suggestions. Use Autocomplete to help users select from a large list of options by filtering as they type, improving data entry speed and accuracy.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for Autocomplete
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding Autocomplete to any file
+SOURCE: packages/luxis-ui/src/components/Autocomplete/index.ts
+-->
+```tsx
+import { Autocomplete } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI `Autocomplete` is equivalent to MUI's `<Autocomplete>`,
+  Chakra UI's `<AutoComplete>`, and shadcn/ui's `Combobox`.
+  Unlike standard `Select` components, Autocomplete allows free-text typing to instantly filter thousands of records without crashing the browser.
+</Callout>
+
+## Before You Start
+
+Autocomplete is a controlled text input merged with an interactive dropdown listbox.
+It manages keyboard navigation internally, ensuring screen readers understand the relationship between what the user types and what appears in the popup.
+The Quick Start below expects an array of objects containing at least `label` and `value` keys.
+
+<Callout type="tip" title="New to Luxis UI?">
+  Ensure your project includes the base CSS file as described in the Getting Started guide for dropdown positioning to work correctly.
+</Callout>
+
+## How to Use Autocomplete in React
+
+The minimum code to render a working Autocomplete:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of Autocomplete
+OUTPUT: A functional autocomplete input with three options
+USE WHEN: Providing a basic search experience
+SOURCE: Derived from Autocomplete.tsx defaults and simplest Story
+-->
+```tsx
+import { Autocomplete } from '@luxis-ui/core';
+
+export default function Example() {
+  const frameworks = [
+    { value: 'react', label: 'React' },
+    { value: 'vue', label: 'Vue.js' },
+    { value: 'angular', label: 'Angular' },
+  ];
+
+  return (
+    <Autocomplete
+      label="Framework"
+      placeholder="Type to search..."
+      options={frameworks}
+      onSelect={(value, option) => console.log('Selected:', value)}
+    />
+  );
+}
+```
+
+This renders a standard input that, when focused, opens a dropdown showing the options. Typing filters the list automatically.
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of Autocomplete with key props
+OUTPUT: An interactive autocomplete showing descriptions and icons
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/Autocomplete.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { Autocomplete } from '@luxis-ui/core';
+
+export default function LiveExample() {
+  const cities = [
+    { value: 'ldn', label: 'London', description: 'United Kingdom' },
+    { value: 'par', label: 'Paris', description: 'France' },
+    { value: 'tok', label: 'Tokyo', description: 'Japan' },
+  ];
+
+  return (
+    <Autocomplete
+      label="Destination"
+      placeholder="Where to next?"
+      options={cities}
+      showSearchIcon={true}
+      clearable={true}
+      helperText="Select a major city to view flight options."
+      onSelect={(val) => alert(`Going to ${val}!`)}
+    />
+  );
+}
+```
+
+## Autocomplete Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### Autocomplete WithSearchIcon
+
+Displays a magnifying glass icon inside the input.
+
+<!--
+EXAMPLE: WithSearchIcon
+PURPOSE: Adds a visual cue for search functionality
+OUTPUT: Input with a left-aligned search icon
+USE WHEN: The input is primarily used for searching rather than strict form entry
+SOURCE: app/storybook/src/stories/Autocomplete.stories.ts → WithSearchIcon
+-->
+```tsx
+import { Autocomplete } from '@luxis-ui/core';
+
+export default function SearchIconExample() {
+  const countries = [
+    { value: 'us', label: 'United States' },
+    { value: 'gb', label: 'United Kingdom' },
+  ];
+
+  return (
+    <Autocomplete
+      label="Country"
+      placeholder="Search countries..."
+      options={countries}
+      showSearchIcon={true}
+    />
+  );
+}
+```
+
+The icon helps distinguish the autocomplete from standard text inputs.
+
+---
+
+### Autocomplete Clearable
+
+Adds a clear button when the input contains text.
+
+<!--
+EXAMPLE: Clearable
+PURPOSE: Allows quick clearing of the input
+OUTPUT: Input with an X button on the right when populated
+USE WHEN: Users frequently need to clear their selection to search again
+SOURCE: app/storybook/src/stories/Autocomplete.stories.ts → Clearable
+-->
+```tsx
+import { Autocomplete } from '@luxis-ui/core';
+
+export default function ClearableExample() {
+  const fruits = [
+    { value: 'apple', label: 'Apple' },
+    { value: 'banana', label: 'Banana' },
+  ];
+
+  return (
+    <Autocomplete
+      label="Fruit"
+      placeholder="Search fruits..."
+      options={fruits}
+      clearable={true}
+      showSearchIcon={true}
+      onClear={() => console.log('Input cleared')}
+    />
+  );
+}
+```
+
+Clicking the clear button empties the input and resets the internal search query.
+
+---
+
+### Autocomplete WithDescriptions
+
+Renders secondary text below the main option label.
+
+<!--
+EXAMPLE: WithDescriptions
+PURPOSE: Displays additional context for options
+OUTPUT: Dropdown items with two lines of text
+USE WHEN: Labels alone are not descriptive enough to distinguish options
+SOURCE: app/storybook/src/stories/Autocomplete.stories.ts → WithDescriptions
+-->
+```tsx
+import { Autocomplete } from '@luxis-ui/core';
+
+export default function DescriptionsExample() {
+  const fruits = [
+    { value: 'apple', label: 'Apple', description: 'A sweet red or green fruit' },
+    { value: 'banana', label: 'Banana', description: 'A yellow tropical fruit' },
+  ];
+
+  return (
+    <Autocomplete
+      label="Fruit"
+      placeholder="Search fruits..."
+      options={fruits}
+      clearable={true}
+    />
+  );
+}
+```
+
+By default, the component looks for a `description` key on the objects passed to `options`.
+
+---
+
+### Autocomplete Small
+
+Reduces the height, padding, and font size of the input.
+
+<!--
+EXAMPLE: Small
+PURPOSE: Shows the small size variant
+OUTPUT: Compact autocomplete input
+USE WHEN: Space is limited, such as in dense data tables or headers
+SOURCE: app/storybook/src/stories/Autocomplete.stories.ts → Small
+-->
+```tsx
+import { Autocomplete } from '@luxis-ui/core';
+
+export default function SmallExample() {
+  return (
+    <Autocomplete
+      size="sm"
+      label="Fruit"
+      placeholder="Search..."
+      options={[{ value: 'apple', label: 'Apple' }]}
+    />
+  );
+}
+```
+
+The dropdown options also scale down slightly to match the input proportion.
+
+---
+
+### Autocomplete Large
+
+Increases the input dimensions for higher visibility.
+
+<!--
+EXAMPLE: Large
+PURPOSE: Shows the large size variant
+OUTPUT: Prominent autocomplete input
+USE WHEN: The search bar is the primary focal point of the page
+SOURCE: app/storybook/src/stories/Autocomplete.stories.ts → Large
+-->
+```tsx
+import { Autocomplete } from '@luxis-ui/core';
+
+export default function LargeExample() {
+  return (
+    <Autocomplete
+      size="lg"
+      label="Fruit"
+      placeholder="Search..."
+      options={[{ value: 'apple', label: 'Apple' }]}
+    />
+  );
+}
+```
+
+Large inputs are commonly used on landing pages or hero sections.
+
+---
+
+### Autocomplete FullWidth
+
+Stretches the component to fill its parent container.
+
+<!--
+EXAMPLE: FullWidth
+PURPOSE: Expands the input horizontally
+OUTPUT: 100% width autocomplete
+USE WHEN: Placing the input inside a form grid layout
+SOURCE: app/storybook/src/stories/Autocomplete.stories.ts → FullWidth
+-->
+```tsx
+import { Autocomplete } from '@luxis-ui/core';
+
+export default function FullWidthExample() {
+  return (
+    <div style={{ padding: '20px', background: '#f8fafc', width: '400px' }}>
+      <Autocomplete
+        label="Country"
+        placeholder="Search countries..."
+        options={[{ value: 'us', label: 'United States' }]}
+        fullWidth={true}
+      />
+    </div>
+  );
+}
+```
+
+This prevents the input from wrapping awkwardly on smaller screens.
+
+---
+
+### Autocomplete Required
+
+Marks the field as mandatory with an asterisk and sets HTML validation attributes.
+
+<!--
+EXAMPLE: Required
+PURPOSE: Adds required field indicators
+OUTPUT: Input with a red asterisk next to the label
+USE WHEN: The user must select an option before submitting a form
+SOURCE: app/storybook/src/stories/Autocomplete.stories.ts → Required
+-->
+```tsx
+import { Autocomplete } from '@luxis-ui/core';
+
+export default function RequiredExample() {
+  return (
+    <Autocomplete
+      label="Country"
+      placeholder="Select a country..."
+      options={[{ value: 'us', label: 'United States' }]}
+      required={true}
+      helperText="Please select your country of residence."
+    />
+  );
+}
+```
+
+The asterisk is styled in red to draw attention.
+
+---
+
+### Autocomplete WithHelperText
+
+Provides instructional text below the input.
+
+<!--
+EXAMPLE: WithHelperText
+PURPOSE: Shows guidance messaging
+OUTPUT: Input with grey text below it
+USE WHEN: Explaining formatting rules or providing hints
+SOURCE: app/storybook/src/stories/Autocomplete.stories.ts → WithHelperText
+-->
+```tsx
+import { Autocomplete } from '@luxis-ui/core';
+
+export default function HelperTextExample() {
+  return (
+    <Autocomplete
+      label="Fruit"
+      placeholder="Search fruits..."
+      options={[{ value: 'apple', label: 'Apple' }]}
+      helperText="Start typing to filter the list."
+    />
+  );
+}
+```
+
+Helper text is automatically linked to the input via `aria-describedby`.
+
+---
+
+### Autocomplete WithError
+
+Displays an error state with red borders and messaging.
+
+<!--
+EXAMPLE: WithError
+PURPOSE: Shows validation failure
+OUTPUT: Red-bordered input with error text
+USE WHEN: Form submission fails validation for this field
+SOURCE: app/storybook/src/stories/Autocomplete.stories.ts → WithError
+-->
+```tsx
+import { Autocomplete } from '@luxis-ui/core';
+
+export default function ErrorExample() {
+  return (
+    <Autocomplete
+      label="Fruit"
+      placeholder="Search fruits..."
+      options={[{ value: 'apple', label: 'Apple' }]}
+      error="Please select a valid fruit."
+    />
+  );
+}
+```
+
+The `error` prop takes precedence over `helperText` if both are provided.
+
+---
+
+### Autocomplete WithSuccess
+
+Displays a success state with green borders and messaging.
+
+<!--
+EXAMPLE: WithSuccess
+PURPOSE: Shows positive validation
+OUTPUT: Green-bordered input with success text
+USE WHEN: Providing real-time positive feedback during form entry
+SOURCE: app/storybook/src/stories/Autocomplete.stories.ts → WithSuccess
+-->
+```tsx
+import { Autocomplete } from '@luxis-ui/core';
+
+export default function SuccessExample() {
+  return (
+    <Autocomplete
+      label="Fruit"
+      placeholder="Search fruits..."
+      options={[{ value: 'apple', label: 'Apple' }]}
+      success="Great choice!"
+    />
+  );
+}
+```
+
+Useful for highlighting verified inputs like usernames or codes.
+
+---
+
+### Autocomplete Loading
+
+Displays an animated spinner inside the input and dropdown.
+
+<!--
+EXAMPLE: Loading
+PURPOSE: Indicates a background process is fetching data
+OUTPUT: Input and dropdown with spinning loading indicators
+USE WHEN: Waiting for async server responses
+SOURCE: app/storybook/src/stories/Autocomplete.stories.ts → Loading
+-->
+```tsx
+import { Autocomplete } from '@luxis-ui/core';
+
+export default function LoadingExample() {
+  return (
+    <Autocomplete
+      label="Search"
+      placeholder="Type to search..."
+      options={[]}
+      loading={true}
+      loadingMessage="Fetching results..."
+      showSearchIcon={true}
+    />
+  );
+}
+```
+
+The dropdown stays open and shows the loading message until `loading` is set back to false.
+
+---
+
+### Autocomplete NoOptions
+
+Customizes the message shown when the search yields no results.
+
+<!--
+EXAMPLE: NoOptions
+PURPOSE: Handles empty states gracefully
+OUTPUT: Dropdown showing custom fallback text
+USE WHEN: Improving UX when a user searches for something that doesn't exist
+SOURCE: app/storybook/src/stories/Autocomplete.stories.ts → NoOptions
+-->
+```tsx
+import { Autocomplete } from '@luxis-ui/core';
+
+export default function NoOptionsExample() {
+  return (
+    <Autocomplete
+      label="Search"
+      placeholder="Type something..."
+      options={[]}
+      noOptionsMessage="No results found."
+    />
+  );
+}
+```
+
+The default message is simply "No options".
+
+---
+
+### Autocomplete Disabled
+
+Prevents all interaction with the input.
+
+<!--
+EXAMPLE: Disabled
+PURPOSE: Shows the disabled input state
+OUTPUT: Grayed out, non-interactive input
+USE WHEN: The field is locked based on user permissions or previous form answers
+SOURCE: app/storybook/src/stories/Autocomplete.stories.ts → Disabled
+-->
+```tsx
+import { Autocomplete } from '@luxis-ui/core';
+
+export default function DisabledExample() {
+  return (
+    <Autocomplete
+      label="Fruit"
+      placeholder="Disabled field"
+      options={[{ value: 'apple', label: 'Apple' }]}
+      disabled={true}
+    />
+  );
+}
+```
+
+Disabled inputs will not open the dropdown on click.
+
+---
+
+### Autocomplete WithDisabledOption
+
+Renders specific options as unselectable in the dropdown list.
+
+<!--
+EXAMPLE: WithDisabledOption
+PURPOSE: Disables individual items within the list
+OUTPUT: Dropdown with grayed out, unclickable options
+USE WHEN: Items are out of stock, unavailable, or locked
+SOURCE: app/storybook/src/stories/Autocomplete.stories.ts → WithDisabledOption
+-->
+```tsx
+import { Autocomplete } from '@luxis-ui/core';
+
+export default function DisabledOptionExample() {
+  const fruits = [
+    { value: 'apple', label: 'Apple' },
+    { value: 'durian', label: 'Durian', disabled: true },
+    { value: 'banana', label: 'Banana' },
+  ];
+
+  return (
+    <Autocomplete
+      label="Fruit"
+      placeholder="Search fruits..."
+      options={fruits}
+      helperText='"Durian" is disabled and cannot be selected.'
+    />
+  );
+}
+```
+
+By default, the component looks for a `disabled: true` boolean on the option object.
+
+---
+
+### Autocomplete MinSearchLength
+
+Delays opening the dropdown until a certain number of characters are typed.
+
+<!--
+EXAMPLE: MinSearchLength
+PURPOSE: Prevents showing massive lists immediately
+OUTPUT: Input that remains closed until 2 characters are entered
+USE WHEN: Querying a huge database where short searches would be too broad
+SOURCE: app/storybook/src/stories/Autocomplete.stories.ts → MinSearchLength
+-->
+```tsx
+import { Autocomplete } from '@luxis-ui/core';
+
+export default function MinSearchLengthExample() {
+  return (
+    <Autocomplete
+      label="Country"
+      placeholder="Type at least 2 characters..."
+      options={[
+        { value: 'us', label: 'United States' },
+        { value: 'gb', label: 'United Kingdom' }
+      ]}
+      minSearchLength={2}
+      helperText="Dropdown appears after 2 characters."
+    />
+  );
+}
+```
+
+This is highly recommended for async searches to save API calls.
+
+---
+
+### Autocomplete CustomRenderOption
+
+Provides full control over how each option looks in the dropdown.
+
+<!--
+EXAMPLE: CustomRenderOption
+PURPOSE: Replaces the default list item UI
+OUTPUT: Highly styled dropdown items with badges
+USE WHEN: You need complex layouts like user avatars or stock tickers inside options
+SOURCE: app/storybook/src/stories/Autocomplete.stories.ts → CustomRenderOption
+-->
+```tsx
+import { Autocomplete } from '@luxis-ui/core';
+
+export default function CustomRenderExample() {
+  const options = [{ value: 'APP', label: 'Apple Inc.' }, { value: 'MSFT', label: 'Microsoft' }];
+
+  return (
+    <Autocomplete
+      label="Stock Ticker"
+      placeholder="Search stocks..."
+      options={options}
+      renderOption={(option, index) => (
+        <div
+          key={option.value}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '8px 12px',
+            cursor: 'pointer',
+            borderBottom: index < options.length - 1 ? '1px solid #f0f0f0' : 'none',
+          }}
+        >
+          <strong>{option.label}</strong>
+          <span style={{ fontSize: 11, background: '#e0f2fe', color: '#0369a1', padding: '2px 6px', borderRadius: 4 }}>
+            {option.value}
+          </span>
+        </div>
+      )}
+    />
+  );
+}
+```
+
+When using `renderOption`, you are responsible for handling the click event inside your custom markup, though the component handles keyboard selection.
+
+---
+
+### Controlled Autocomplete
+
+When to use: When a parent component needs to read or drive the state.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  By default Autocomplete manages its own input value (uncontrolled).
+  Use the controlled pattern when syncing with a form library or resetting values externally.
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: useState-driven Autocomplete with external state management
+OUTPUT: Autocomplete whose value is owned by the parent
+USE WHEN: Programmatically reading or setting component state
+SOURCE: Derived from Autocomplete.tsx controlled/uncontrolled pattern
+-->
+```tsx
+import { useState } from 'react';
+import { Autocomplete } from '@luxis-ui/core';
+
+export default function ControlledExample() {
+  const [value, setValue] = useState('');
+
+  return (
+    <div>
+      <Autocomplete
+        label="Controlled Input"
+        value={value}
+        onChange={(newValue) => setValue(newValue)}
+        onSelect={(val) => setValue(val)}
+        options={[{ value: 'opt1', label: 'Option 1' }]}
+        clearable={true}
+        onClear={() => setValue('')}
+      />
+      <div style={{ marginTop: '12px', fontSize: '14px', color: '#666' }}>
+        Current state: <strong>{value || 'empty'}</strong>
+      </div>
+    </div>
+  );
+}
+```
+
+## Autocomplete Best Practices
+
+Autocompletes are complex inputs. Following best practices prevents user frustration.
+
+<DoAndDont
+  good={`// ✅ Use minSearchLength for huge datasets to prevent lag
+<Autocomplete options={hugeArray} minSearchLength={3} />`}
+  bad={`// ❌ Load thousands of records immediately on focus
+<Autocomplete options={hugeArray} openOnFocus={true} />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Provide clear error messages
+<Autocomplete error="Please select a valid destination city from the list." />`}
+  bad={`// ❌ Leave the user guessing why their input was rejected
+<Autocomplete error="Invalid" />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use the built-in description extractor
+<Autocomplete options={data} getOptionDescription="subtitle" />`}
+  bad={`// ❌ Write complex renderOption functions just to show a subtitle
+<Autocomplete options={data} renderOption={(opt) => <div>{opt.label}<br/>{opt.subtitle}</div>} />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use Autocomplete for filtering large lists (10+ items)
+<Autocomplete options={countries} />`}
+  bad={`// ❌ Use Autocomplete when the user only has 3 choices
+<Autocomplete options={['Yes', 'No', 'Maybe']} />`}
+/>
+
+## Autocomplete Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly
+from `packages/luxis-ui/src/components/Autocomplete/Autocomplete.tsx`.
+
+### Autocomplete Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `options` | `any[]` | — | Yes | Options to display in the autocomplete dropdown |
+| `clearable` | `boolean` | `false` | No | If true, shows a clear button when input has value |
+| `disableClientFilter` | `boolean` | `false` | No | Disables built-in client-side filtering |
+| `dropdownClassName` | `string` | `undefined` | No | Custom class name for the dropdown element |
+| `error` | `string` | `undefined` | No | Error message - puts input in error state |
+| `fullWidth` | `boolean` | `false` | No | If true, input takes full width of container |
+| `getOptionDescription` | `string \| ((option: any) => string \| undefined)` | `'description'` | No | Extractor for secondary text |
+| `getOptionDisabled` | `string \| ((option: any) => boolean)` | `'disabled'` | No | Extractor for disabled state |
+| `getOptionIcon` | `string \| ((option: any) => React.ReactNode)` | `'icon'` | No | Extractor for left icon |
+| `getOptionLabel` | `string \| ((option: any) => string)` | `'label'` | No | Extractor for option display text |
+| `getOptionValue` | `string \| ((option: any) => string)` | `'value'` | No | Extractor for option value |
+| `helperText` | `string` | `undefined` | No | Helper text displayed below the input |
+| `inputClassName` | `string` | `undefined` | No | Custom class name for the input element itself |
+| `label` | `string` | `undefined` | No | Label text displayed above the input |
+| `labelClassName` | `string` | `undefined` | No | Custom class name for the label element |
+| `loading` | `boolean` | `false` | No | Shows loading spinner |
+| `loadingMessage` | `string` | `'Loading...'` | No | Loading message to display |
+| `minSearchLength` | `number` | `0` | No | Minimum chars before showing dropdown |
+| `noOptionsMessage` | `string` | `'No options'` | No | Message when list is empty |
+| `onChange` | `(value: string) => void` | `undefined` | No | Callback on text change |
+| `onClear` | `() => void` | `undefined` | No | Callback on clear |
+| `onSelect` | `(value: string, option: any) => void` | `undefined` | No | Callback on option click |
+| `openOnFocus` | `boolean` | `true` | No | Opens dropdown when input focused |
+| `renderOption` | `(option: any, index: number) => React.ReactNode` | `undefined` | No | Custom list item render function |
+| `showSearchIcon` | `boolean` | `false` | No | Shows magnifying glass |
+| `size` | `Size` | `'md'` | No | Size of the input |
+| `success` | `string` | `undefined` | No | Success message - puts input in success state |
+| `value` | `string` | `undefined` | No | Controlled value |
+| `wrapperClassName` | `string` | `undefined` | No | Custom class name for wrapper |
+
+### HTML Native Props
+
+Autocomplete forwards rest props to its underlying `<input>`, so
+all standard HTML input attributes are also accepted.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `placeholder` | Placeholder text inside the input | `"Type to search..."` |
+| `disabled` | Disables the entire component | `true` |
+| `required` | Marks the field as mandatory | `true` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for Autocomplete
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/components/Autocomplete/Autocomplete.tsx
+-->
+```ts
+export interface AutocompleteOption {
+  value: string;
+  label: string;
+  description?: string;
+  disabled?: boolean;
+  icon?: React.ReactNode;
+}
+
+export interface AutocompleteProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'onChange' | 'onSelect'> {
+  label?: string;
+  helperText?: string;
+  error?: string;
+  success?: string;
+  size?: Size;
+  fullWidth?: boolean;
+  options: any[];
+  getOptionLabel?: string | ((option: any) => string);
+  getOptionValue?: string | ((option: any) => string);
+  getOptionDisabled?: string | ((option: any) => boolean);
+  getOptionDescription?: string | ((option: any) => string | undefined);
+  getOptionIcon?: string | ((option: any) => React.ReactNode);
+  noOptionsMessage?: string;
+  loading?: boolean;
+  loadingMessage?: string;
+  onChange?: (value: string) => void;
+  onSelect?: (value: string, option: any) => void;
+  showSearchIcon?: boolean;
+  clearable?: boolean;
+  onClear?: () => void;
+  wrapperClassName?: string;
+  labelClassName?: string;
+  inputClassName?: string;
+  dropdownClassName?: string;
+  renderOption?: (option: any, index: number) => React.ReactNode;
+  value?: string;
+  openOnFocus?: boolean;
+  minSearchLength?: number;
+  disableClientFilter?: boolean;
+}
+```
+
+</details>
+
+## Autocomplete Accessibility Guide
+
+Autocomplete follows the WAI-ARIA Combobox pattern and meets WCAG AA.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| <KeyboardKey>ArrowDown</KeyboardKey> | Highlights the next option in the list. Skips disabled options. |
+| <KeyboardKey>ArrowUp</KeyboardKey> | Highlights the previous option in the list. Skips disabled options. |
+| <KeyboardKey>Enter</KeyboardKey> | Selects the currently highlighted option and closes the dropdown. |
+| <KeyboardKey>Escape</KeyboardKey> | Closes the dropdown without selecting an option. |
+
+### ARIA Attributes
+
+| Attribute | Value | When |
+|-----------|-------|------|
+| `role` | `"combobox"` | Always applied to the input element. |
+| `role` | `"listbox"` | Always applied to the dropdown container. |
+| `role` | `"option"` | Always applied to individual list items. |
+| `aria-expanded` | `"true" \| "false"` | Applied to input, reflecting the dropdown's visibility state. |
+| `aria-controls` | `string` | Applied to input when dropdown is open, linking to listbox ID. |
+| `aria-selected` | `"true" \| "false"` | Applied to the currently highlighted list item via arrow keys. |
+| `aria-invalid` | `"true" \| "false"` | Set to true when the `error` prop is provided. |
+
+### Screen Reader Behavior
+
+When the user types, the list filters. The screen reader will announce the state of the combobox. As the user navigates with Up/Down arrows, the screen reader uses `aria-activedescendant` (or focus management) to read out the currently highlighted `role="option"`, including its label and description. When an error is present, `aria-invalid` alerts the user.
+
+### Accessibility Checklist
+
+- [ ] Ensure the `label` prop is always provided (or use `aria-label` via standard HTML props).
+- [ ] Do not trap focus inside the dropdown; Escape must always return to standard flow.
+- [ ] If fetching async data, ensure `loadingMessage` is descriptive so screen readers can announce it.
+- [ ] Always test with keyboard-only navigation before shipping.
+
+## Autocomplete Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions
+  like colors, spacing, and radius. Override them to restyle
+  Autocomplete without fighting CSS specificity.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-border-color` | `#e2e8f0` | Input border color |
+| `--lxs-border-hover` | `#cbd5e0` | Border color on hover |
+| `--lxs-primary-500` | `#3182ce` | Focus ring color |
+| `--lxs-bg-primary` | `#ffffff` | Background of input and dropdown |
+| `--lxs-text-primary` | `#1a202c` | Main text color |
+| `--lxs-text-muted` | `#a0aec0` | Placeholder and description text |
+| `--lxs-bg-hover` | `#f7fafc` | Hover background for options |
+| `--lxs-primary-50` | `#ebf8ff` | Background for highlighted option |
+| `--lxs-danger-500` | `#e53e3e` | Error state color |
+
+**Override globally:**
+```css
+:root {
+  --lxs-bg-hover: #f1f5f9;
+}
+```
+
+**Override for one section:**
+```css
+.my-form {
+  --lxs-border-radius: 8px;
+}
+```
+
+**Override on one instance:**
+```tsx
+<div style={{ '--lxs-primary-500': '#10b981' } as React.CSSProperties}>
+  <Autocomplete options={data} />
+</div>
+```
+
+## Customizing Autocomplete
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to Autocomplete
+OUTPUT: Autocomplete with additional styling wrappers
+USE WHEN: Quick one-off style overrides
+SOURCE: N/A
+-->
+```tsx
+<Autocomplete
+  wrapperClassName="my-wrapper-margin"
+  inputClassName="font-bold-input"
+  options={[{ value: '1', label: 'Item 1' }]}
+/>
+```
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: Autocomplete with custom token values
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+```tsx
+<div style={{ '--lxs-text-primary': '#4338ca' } as React.CSSProperties}>
+  <Autocomplete options={[{ value: '1', label: 'Indigo Text' }]} />
+</div>
+```
+
+### Using with forwardRef
+
+<!--
+EXAMPLE: forwardRef
+PURPOSE: Accessing the underlying input DOM node
+OUTPUT: Autocomplete with attached ref to the input element
+USE WHEN: Calling native DOM methods like .focus() programmatically
+SOURCE: N/A
+-->
+```tsx
+import { useRef, useEffect } from 'react';
+import { Autocomplete } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    // Automatically focus the input when the component mounts
+    inputRef.current?.focus();
+  }, []);
+
+  return (
+    <Autocomplete
+      ref={inputRef}
+      label="Auto-focused Search"
+      options={[{ value: '1', label: 'Test' }]}
+    />
+  );
+}
+```
+
+## Common Autocomplete Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Async Server-Side Search
+
+Used when: You are querying an external API based on user input, rather than filtering a static array locally.
+
+<!--
+EXAMPLE: Async Server-Side Search
+PURPOSE: Demonstrates fetching data dynamically
+OUTPUT: Autocomplete that queries an API as you type
+USE WHEN: The dataset is too large to load into memory
+SOURCE: Common usage pattern for Autocomplete
+-->
+```tsx
+import { useState, useEffect } from 'react';
+import { Autocomplete } from '@luxis-ui/core';
+
+export default function AsyncAutocomplete() {
+  const [options, setOptions] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [query, setQuery] = useState('');
+
+  useEffect(() => {
+    if (query.length < 2) {
+      setOptions([]);
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setLoading(true);
+      // Simulate API call
+      fetch(`https://api.example.com/search?q=${query}`)
+        .then(res => res.json())
+        .then(data => setOptions(data))
+        .catch(() => setOptions([]))
+        .finally(() => setLoading(false));
+    }, 500); // debounce
+
+    return () => clearTimeout(timer);
+  }, [query]);
+
+  return (
+    <Autocomplete
+      label="Async Search"
+      placeholder="Type at least 2 chars..."
+      options={options}
+      loading={loading}
+      disableClientFilter={true} // IMPORTANT: Stops React from filtering the API results locally
+      onChange={(val) => setQuery(val)}
+      onSelect={(val, obj) => console.log('Selected API item:', obj)}
+    />
+  );
+}
+```
+
+### Custom Data Extractors
+
+Used when: Your backend returns a complex object array, and you don't want to map over it to reshape it before passing it to the component.
+
+<!--
+EXAMPLE: Custom Data Extractors
+PURPOSE: Using getOption props to parse complex data
+OUTPUT: Autocomplete that understands a custom data schema
+USE WHEN: Feeding raw API responses directly into the component
+SOURCE: Common usage pattern for Autocomplete
+-->
+```tsx
+import { Autocomplete } from '@luxis-ui/core';
+
+export default function CustomExtractorExample() {
+  // Raw API response shape
+  const users = [
+    { uuid: '123-abc', profile: { firstName: 'Alice', lastName: 'Smith', title: 'Engineer' } },
+    { uuid: '456-def', profile: { firstName: 'Bob', lastName: 'Jones', title: 'Designer' } },
+  ];
+
+  return (
+    <Autocomplete
+      label="Team Member"
+      options={users}
+      getOptionValue="uuid"
+      getOptionLabel={(opt) => `${opt.profile.firstName} ${opt.profile.lastName}`}
+      getOptionDescription={(opt) => opt.profile.title}
+      onSelect={(val) => console.log('Selected UUID:', val)}
+    />
+  );
+}
+```
+
+### Form Integration
+
+Used when: Binding the component to a form library state.
+
+<!--
+EXAMPLE: Form Integration
+PURPOSE: Managing state alongside a form submission
+OUTPUT: Autocomplete working within a form context
+USE WHEN: Building registration, checkout, or settings forms
+SOURCE: Common usage pattern for Autocomplete
+-->
+```tsx
+import { useState } from 'react';
+import { Autocomplete } from '@luxis-ui/core';
+
+export default function FormExample() {
+  const [formData, setFormData] = useState({ city: '' });
+  const [error, setError] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.city) {
+      setError('City is required');
+      return;
+    }
+    alert(`Form submitted with city code: ${formData.city}`);
+  };
+
+  return (
+    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '300px' }}>
+      <Autocomplete
+        label="City"
+        options={[
+          { value: 'nyc', label: 'New York' },
+          { value: 'lax', label: 'Los Angeles' }
+        ]}
+        error={error}
+        onChange={() => setError('')} // clear error on type
+        onSelect={(val) => {
+          setFormData({ ...formData, city: val });
+          setError('');
+        }}
+      />
+      <button type="submit" style={{ padding: '8px', background: '#3182ce', color: 'white', border: 'none', borderRadius: '4px' }}>
+        Submit
+      </button>
+    </form>
+  );
+}
+```
+
+## Troubleshooting Autocomplete
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Filtering doesn't work for async API responses | Relying on default behavior | Set `disableClientFilter={true}` so the component shows exactly what you pass it. |
+| Dropdown shows empty when text doesn't match | Missing labels on data objects | Ensure your array objects have a `label` key, or use `getOptionLabel`. |
+| Value isn't registering correctly in `onSelect` | Objects don't have a `value` key | Ensure your objects have a `value` key, or use `getOptionValue`. |
+| Click event doesn't fire when using `renderOption` | Forgetting `onClick` in your custom markup | You must attach `onClick={() => handleOptionClick(option)}` (handled internally if you don't override). |
+
+### Frequently Asked Questions
+
+**Q: Can I allow the user to submit text that isn't in the options list?**
+A: Autocomplete is designed for selection from a list. You can listen to the `onChange` event to capture free text, but `onSelect` only fires when an actual option is clicked or entered.
+
+**Q: Why does the dropdown close immediately when I click a custom `renderOption`?**
+A: When building custom options, ensure you use `onMouseDown={(e) => e.preventDefault()}` on your wrapper. Otherwise, the input's `onBlur` event fires before the click registers, closing the list immediately.
+
+**Q: How do I load options asynchronously only when the user opens the dropdown?**
+A: You can attach an `onFocus` handler via native props to trigger your API call when the input receives focus.
+
+**Q: Does it support multi-select?**
+A: No, the `Autocomplete` component is strictly for single selection. For multiple selections, use the `MultiSelect` component.
+
+## Related Components
+
+<RelatedComponent
+  name="Select"
+  description="Use Select for smaller, static lists where search functionality is not required."
+  href="/docs/components/select"
+/>
+<RelatedComponent
+  name="MultiSelect"
+  description="Use MultiSelect when users need to pick several items from a list."
+  href="/docs/components/multiselect"
+/>
+<RelatedComponent
+  name="Input"
+  description="Use standard Input for completely free-form text entry."
+  href="/docs/components/input"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Autocomplete
+
+> Autocomplete is a Components/Autocomplete React component in Luxis UI for helping users select from a large list of options by filtering as they type.
+
+## Source
+packages/luxis-ui/src/components/Autocomplete/Autocomplete.tsx
+
+## Story
+app/storybook/src/stories/Autocomplete.stories.ts
+
+## Install
+\`\`\`bash
+npm install @luxis-ui/core
+\`\`\`
+
+## Import
+\`\`\`tsx
+import { Autocomplete } from '@luxis-ui/core';
+\`\`\`
+
+## Minimal usage
+\`\`\`tsx
+import { Autocomplete } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Autocomplete
+      label="Framework"
+      options={[
+        { value: 'react', label: 'React' },
+        { value: 'vue', label: 'Vue' },
+      ]}
+      onSelect={(val) => console.log(val)}
+    />
+  );
+}
+\`\`\`
+
+## Key props
+- `options` (`any[]`, default=`undefined`): Options to display in the autocomplete dropdown
+- `label` (`string`, default=`undefined`): Label text displayed above the input
+- `loading` (`boolean`, default=`false`): Shows loading spinner
+- `onSelect` (`(value: string, option: any) => void`, default=`undefined`): Callback on option click
+- `disableClientFilter` (`boolean`, default=`false`): Disables built-in client-side filtering
+
+## When to use
+Selecting from a very large dataset (e.g., countries, cities, users). Implementing async server-side search.
+
+## When NOT to use
+For small static lists of under 10 items (use Select instead). When the user must enter arbitrary text that isn't in the list.
+
+## Accessibility
+WCAG: AA
+ARIA: Combobox
+Keyboard: ArrowDown, ArrowUp, Enter, Escape
+
+## Docs
+https://luxis-ui.dev/docs/components/autocomplete
+LLMS_TXT_ENTRY_END
+*/}

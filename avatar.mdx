@@ -1,0 +1,986 @@
+---
+title: "Avatar — Luxis UI React Component"
+description: "Displays a user profile image, initials, or fallback icon. Avatars provide an immediate visual identity for users or entities."
+status: stable
+since: "1.0.0"
+category: "Components/Avatar"
+npm: "@luxis-ui/core"
+import: "import { Avatar } from '@luxis-ui/core'"
+component: "Avatar"
+keywords:
+  - avatar
+  - react avatar
+  - avatar component
+  - luxis ui avatar
+  - typescript avatar
+  - accessible avatar
+  - react design system
+slug: /components/avatar
+canonical: "https://luxis-ui.dev/docs/components/avatar"
+og_image: "/img/og/avatar.png"
+llm_summary: >
+  Avatar renders a wrapper `div` with `role="img"` containing either an `img` tag or a fallback text/icon `span`. Props: `src` (`string`, default=undefined), `alt` (`string`, default=''), `size` (`'sm' | 'md' | 'lg'`, default='md'), `shape` (`'circular' | 'rounded' | 'square'`, default='circular'), `fallback` (`string`, default='?'), `onImageError` (`(error: React.SyntheticEvent<HTMLImageElement, Event>) => void`, default=undefined), `onImageLoad` (`(event: React.SyntheticEvent<HTMLImageElement, Event>) => void`, default=undefined), `imgProps` (`Omit<ImgHTMLAttributes<HTMLImageElement>, 'src' | 'alt' | 'className' | 'onError' | 'onLoad'>`, default=undefined), `statusIndicator` (`React.ReactNode`, default=undefined), `statusPosition` (`'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'`, default='bottom-right'), `priority` (`boolean`, default=false). Used for displaying user profiles or entities. Automatically calculates initials if image fails and `fallback` isn't provided. Import with `import { Avatar } from '@luxis-ui/core'`.
+---
+
+{/*
+LLM_CONTEXT
+  component    : Avatar
+  source       : packages/luxis-ui/src/components/Avatar/Avatar.tsx
+  story        : app/storybook/src/stories/Avatar.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components/Avatar
+  status       : stable
+  aria-pattern : Img
+
+  What it renders:
+  Avatar renders a `div` wrapper with `role="img"` and an `aria-label` derived from `alt` or `fallback`. Inside, it renders an `img` element if `src` is provided and hasn't errored. Otherwise, it renders a `span` with `aria-hidden="true"` containing calculated initials or an SVG icon. An optional status indicator is rendered absolutely positioned.
+
+  When to use:
+  - Displaying a user's profile picture in a header or sidebar
+  - Showing participants in a list or table
+  - Representing entities like teams or organizations with logos
+
+  When NOT to use:
+  - For large hero images or article thumbnails (use the Image component)
+  - When the image must dictate the layout flow (Avatars are strictly sized)
+
+  Ecosystem equivalents:
+  - MUI        : <Avatar>
+  - Chakra UI  : <Avatar>
+  - shadcn/ui  : Avatar
+  - Radix UI   : Avatar
+  - HTML native: <img src="..." alt="..." style="border-radius: 50%">
+
+  Props (must match source exactly — every single prop):
+  src (string, default=undefined) — Image URL for the avatar
+  alt (string, default='') — Alt text for the image
+  size ('sm' | 'md' | 'lg', default='md') — Size of the avatar
+  shape ('circular' | 'rounded' | 'square', default='circular') — Shape of the avatar
+  fallback (string, default='?') — Fallback text (up to 2 chars) shown when no image is provided or fails to load
+  onImageError ((error: React.SyntheticEvent<HTMLImageElement, Event>) => void, default=undefined) — Callback when image fails
+  onImageLoad ((event: React.SyntheticEvent<HTMLImageElement, Event>) => void, default=undefined) — Callback when image loads
+  imgProps (Omit<ImgHTMLAttributes<HTMLImageElement>, 'src' | 'alt' | 'className' | 'onError' | 'onLoad'>, default=undefined) — Additional props passed directly to the img element
+  statusIndicator (React.ReactNode, default=undefined) — Custom node for online/offline status
+  statusPosition ('top-left' | 'top-right' | 'bottom-left' | 'bottom-right', default='bottom-right') — Position of status indicator
+  priority (boolean, default=false) — Eager-loads the image with high fetchPriority
+
+  Accessibility:
+  WCAG: AA
+  Keyboard: None directly (unless wrapped in a button/link)
+  Screen reader: The wrapper acts as an image, reading the `aria-label` (built from `alt` or `fallback`). The internal `img` or `span` is hidden from the accessibility tree to avoid duplication.
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Avatar React Component — Luxis UI",
+  "description": "Displays a user profile image, initials, or fallback icon. Avatars provide an immediate visual identity for users or entities.",
+  "keywords": "avatar, react avatar, avatar component, luxis ui avatar, typescript avatar, accessible avatar, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use Avatar in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { Avatar } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI Avatar accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Avatar accepts src, alt, size (sm, md, lg), shape (circular, rounded, square), fallback, priority, and statusIndicator props."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does Avatar handle broken images?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "If the image URL is broken or fails to load, Avatar automatically falls back to displaying the string passed to the fallback prop, or calculates initials from the alt text."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI Avatar different from standard HTML images?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Avatar enforces a strict aspect ratio, handles broken URLs gracefully without showing the browser's broken image icon, and guarantees accessible naming through its wrapper role."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Avatar
+
+<ComponentStatus status="stable" version="1.0.0" aria="WAI-ARIA Img" />
+
+Displays a user profile image, initials, or fallback icon. Avatars provide an immediate visual identity for users or entities within your application, gracefully handling broken links or missing data.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for Avatar
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding Avatar to any file
+SOURCE: packages/luxis-ui/src/components/Avatar/index.ts
+-->
+```tsx
+import { Avatar } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI `Avatar` is equivalent to MUI's `<Avatar>`,
+  Chakra UI's `<Avatar>`, and shadcn/ui's `Avatar`.
+  Our component calculates initials directly from the `alt` string if no explicit fallback is given.
+</Callout>
+
+## Before You Start
+
+An Avatar is fundamentally a styled image container. It uses `object-fit: cover` to ensure images fill the space regardless of their original aspect ratio.
+The component handles its own error state, switching to a text or icon fallback if the `src` URL fails to load.
+
+<Callout type="tip" title="New to Luxis UI?">
+  The Avatar component inherits sizes from your Theme Provider, defaulting to `md` if not specified.
+</Callout>
+
+## How to Use Avatar in React
+
+The minimum code to render a working Avatar:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of Avatar
+OUTPUT: A circular avatar displaying an image
+USE WHEN: Showing a profile picture alongside user data
+SOURCE: Derived from Avatar.tsx defaults and simplest Story
+-->
+```tsx
+import { Avatar } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Avatar
+      src="https://i.pravatar.cc/150?u=sarah"
+      alt="Sarah Chen"
+    />
+  );
+}
+```
+
+This renders a medium, circular avatar. If the image fails to load, it will automatically extract "SC" from the `alt` text to display as a fallback.
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of Avatar with key props
+OUTPUT: An interactive avatar with shape and status props
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/Avatar.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { Avatar } from '@luxis-ui/core';
+
+export default function LiveExample() {
+  return (
+    <Avatar
+      src="https://i.pravatar.cc/150?u=marcus"
+      alt="Marcus Williams"
+      size="lg"
+      shape="rounded"
+      statusIndicator={
+        <span
+          style={{
+            display: 'block',
+            width: 14,
+            height: 14,
+            borderRadius: '50%',
+            background: '#22c55e',
+            border: '2px solid white',
+          }}
+        />
+      }
+      statusPosition="bottom-right"
+    />
+  );
+}
+```
+
+## Avatar Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### Avatar WithImage
+
+The default usage when a valid image URL is available.
+
+<!--
+EXAMPLE: WithImage
+PURPOSE: Shows an image avatar
+OUTPUT: Standard image avatar
+USE WHEN: A user has uploaded a profile photo
+SOURCE: app/storybook/src/stories/Avatar.stories.ts → WithImage
+-->
+```tsx
+import { Avatar } from '@luxis-ui/core';
+
+export default function ImageExample() {
+  return (
+    <Avatar
+      src="https://i.pravatar.cc/150?u=jane"
+      alt="Jane Doe"
+    />
+  );
+}
+```
+
+The image automatically fills the circle without stretching.
+
+---
+
+### Avatar WithFallbackText
+
+Explicitly passing a string to show when no image is present.
+
+<!--
+EXAMPLE: WithFallbackText
+PURPOSE: Forces a specific text fallback
+OUTPUT: Avatar displaying the letters 'JD'
+USE WHEN: Overriding the auto-calculated initials, or when no src is known
+SOURCE: app/storybook/src/stories/Avatar.stories.ts → WithFallbackText
+-->
+```tsx
+import { Avatar } from '@luxis-ui/core';
+
+export default function FallbackTextExample() {
+  return (
+    <Avatar
+      fallback="JD"
+      alt="Jane Doe"
+    />
+  );
+}
+```
+
+The component accepts up to two characters and automatically capitalizes them.
+
+---
+
+### Avatar WithFallbackIcon
+
+Using the generic user icon when identity is unknown.
+
+<!--
+EXAMPLE: WithFallbackIcon
+PURPOSE: Shows the default icon
+OUTPUT: Avatar displaying a silhouette SVG
+USE WHEN: Displaying anonymous users or placeholders
+SOURCE: app/storybook/src/stories/Avatar.stories.ts → WithFallbackIcon
+-->
+```tsx
+import { Avatar } from '@luxis-ui/core';
+
+export default function FallbackIconExample() {
+  return (
+    <Avatar
+      fallback="?"
+      alt="Unknown user"
+    />
+  );
+}
+```
+
+Passing `"?"` triggers the built-in default UserIcon.
+
+---
+
+### Avatar ImageError
+
+Demonstrating the automatic error recovery.
+
+<!--
+EXAMPLE: ImageError
+PURPOSE: Shows how broken URLs are handled
+OUTPUT: Avatar displaying fallback text instead of a broken image icon
+USE WHEN: Loading images from third-party APIs that might fail
+SOURCE: app/storybook/src/stories/Avatar.stories.ts → ImageError
+-->
+```tsx
+import { Avatar } from '@luxis-ui/core';
+
+export default function ImageErrorExample() {
+  return (
+    <Avatar
+      src="https://this-url-does-not-exist.example/broken.jpg"
+      fallback="ER"
+      alt="Broken image"
+    />
+  );
+}
+```
+
+When the browser fires the `onError` event for the image, Avatar seamlessly swaps to the fallback state.
+
+---
+
+### Avatar Sizes
+
+Comparing the three predefined sizes.
+
+<!--
+EXAMPLE: Sizes
+PURPOSE: Shows the size variants
+OUTPUT: Three avatars of increasing size
+USE WHEN: Matching avatar size to surrounding typography or layout
+SOURCE: app/storybook/src/stories/Avatar.stories.ts → Sizes
+-->
+```tsx
+import { Avatar } from '@luxis-ui/core';
+
+export default function SizesExample() {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+      <Avatar size="sm" fallback="SM" />
+      <Avatar size="md" fallback="MD" />
+      <Avatar size="lg" fallback="LG" />
+    </div>
+  );
+}
+```
+
+Sizes determine both the container dimensions and the fallback text font size.
+
+---
+
+### Avatar Shapes
+
+Comparing the three container shapes.
+
+<!--
+EXAMPLE: Shapes
+PURPOSE: Shows the shape variants
+OUTPUT: Circular, rounded, and square avatars
+USE WHEN: Differentiating between user types (e.g., circular for people, square for companies)
+SOURCE: app/storybook/src/stories/Avatar.stories.ts → Shapes
+-->
+```tsx
+import { Avatar } from '@luxis-ui/core';
+
+export default function ShapesExample() {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+      <Avatar shape="circular" fallback="O" />
+      <Avatar shape="rounded" fallback="R" />
+      <Avatar shape="square" fallback="[]" />
+    </div>
+  );
+}
+```
+
+`circular` uses `border-radius: 50%`, while `rounded` uses the theme's default radius.
+
+---
+
+### Avatar StatusPositions
+
+Placing the optional status indicator node at different corners.
+
+<!--
+EXAMPLE: StatusPositions
+PURPOSE: Demonstrates positioning of the status indicator
+OUTPUT: Four avatars with dots in different corners
+USE WHEN: Integrating into complex layouts where certain corners might be obscured
+SOURCE: app/storybook/src/stories/Avatar.stories.ts → StatusPositions
+-->
+```tsx
+import { Avatar } from '@luxis-ui/core';
+
+export default function StatusPositionsExample() {
+  const Dot = () => (
+    <span style={{ display: 'block', width: 10, height: 10, borderRadius: '50%', background: '#22c55e', border: '2px solid white' }} />
+  );
+
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+      <Avatar statusIndicator={<Dot />} statusPosition="top-left" fallback="TL" />
+      <Avatar statusIndicator={<Dot />} statusPosition="top-right" fallback="TR" />
+      <Avatar statusIndicator={<Dot />} statusPosition="bottom-left" fallback="BL" />
+      <Avatar statusIndicator={<Dot />} statusPosition="bottom-right" fallback="BR" />
+    </div>
+  );
+}
+```
+
+The component accepts any valid React node for the indicator, allowing you to pass highly customized badges.
+
+---
+
+### Avatar StatusColors
+
+Mapping standard UI colors to semantic meanings.
+
+<!--
+EXAMPLE: StatusColors
+PURPOSE: Shows typical status dot usage
+OUTPUT: Avatars with colored dots indicating presence
+USE WHEN: Building chat applications or activity dashboards
+SOURCE: app/storybook/src/stories/Avatar.stories.ts → StatusColors
+-->
+```tsx
+import { Avatar } from '@luxis-ui/core';
+
+export default function StatusColorsExample() {
+  const Status = ({ color }: { color: string }) => (
+    <span style={{ display: 'block', width: 10, height: 10, borderRadius: '50%', background: color, border: '2px solid white' }} />
+  );
+
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+      <Avatar statusIndicator={<Status color="#22c55e" />} fallback="ON" />
+      <Avatar statusIndicator={<Status color="#f59e0b" />} fallback="AW" />
+      <Avatar statusIndicator={<Status color="#ef4444" />} fallback="BZ" />
+      <Avatar statusIndicator={<Status color="#94a3b8" />} fallback="OF" />
+    </div>
+  );
+}
+```
+
+The dot components are styled independently from the Avatar itself.
+
+---
+
+### Avatar AvatarGroup
+
+A pattern for displaying a list of participants.
+
+<!--
+EXAMPLE: AvatarGroup
+PURPOSE: Stacking avatars to imply a collection
+OUTPUT: Overlapping avatars with white borders
+USE WHEN: Showing who is currently viewing a document or members of a team
+SOURCE: app/storybook/src/stories/Avatar.stories.ts → AvatarGroup
+-->
+```tsx
+import { Avatar } from '@luxis-ui/core';
+
+export default function GroupExample() {
+  const users = [
+    { src: 'https://i.pravatar.cc/150?u=1', fallback: 'A1' },
+    { src: 'https://i.pravatar.cc/150?u=2', fallback: 'A2' },
+    { src: undefined, fallback: 'JD' },
+  ];
+
+  return (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      {users.map((u, i) => (
+        <div key={i} style={{ marginLeft: i === 0 ? 0 : '-10px', position: 'relative', zIndex: users.length - i }}>
+          <Avatar
+            src={u.src}
+            fallback={u.fallback}
+            style={{ border: '2px solid white' }}
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+A negative left margin combined with a white border creates the standard overlapping effect.
+
+---
+
+### Controlled Avatar
+
+When to use: When a parent component needs to react to the image loading state.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  Avatar manages its own error state, but you can hook into `onImageLoad` and `onImageError` if the parent UI needs to adjust.
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: Using callbacks to sync parent state with image load events
+OUTPUT: Avatar with a parent component tracking its status
+USE WHEN: Firing analytics events or removing external spinners
+SOURCE: Derived from Avatar.tsx controlled/uncontrolled pattern
+-->
+```tsx
+import { useState } from 'react';
+import { Avatar } from '@luxis-ui/core';
+
+export default function ControlledExample() {
+  const [status, setStatus] = useState('Loading...');
+
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+      <Avatar
+        src="https://i.pravatar.cc/150?u=test"
+        alt="Test User"
+        onImageLoad={() => setStatus('Loaded successfully')}
+        onImageError={() => setStatus('Failed to load')}
+      />
+      <span style={{ fontSize: '14px', color: '#666' }}>{status}</span>
+    </div>
+  );
+}
+```
+
+## Avatar Best Practices
+
+Ensure avatars remain accessible and semantically correct.
+
+<DoAndDont
+  good={`// ✅ Always provide descriptive alt text
+<Avatar src="user.jpg" alt="Sarah Chen profile picture" />`}
+  bad={`// ❌ Leave alt text blank for meaningful images
+<Avatar src="user.jpg" alt="" />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use the priority prop if the avatar is the largest image on the page
+<Avatar src="hero-user.jpg" priority={true} size="lg" />`}
+  bad={`// ❌ Let large hero avatars load lazily, causing LCP issues
+<Avatar src="hero-user.jpg" size="lg" />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use shapes consistently to distinguish entity types
+<Avatar src="org.png" shape="rounded" /> // Companies
+<Avatar src="user.jpg" shape="circular" /> // People`}
+  bad={`// ❌ Mix shapes randomly
+<Avatar src="user.jpg" shape="square" />
+<Avatar src="user2.jpg" shape="circular" />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Let the component calculate initials automatically
+<Avatar src="user.jpg" alt="Jonathan Davis" />`}
+  bad={`// ❌ Hardcode complex initials logic in the template
+<Avatar src="user.jpg" fallback={userName.split(' ').map(n => n[0]).join('')} />`}
+/>
+
+## Avatar Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly
+from `packages/luxis-ui/src/components/Avatar/Avatar.tsx`.
+
+### Avatar Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `alt` | `string` | `""` | No | Alt text for the image |
+| `fallback` | `string` | `'?'` | No | Fallback text shown when no image is provided or fails to load |
+| `imgProps` | `Omit<ImgHTMLAttributes<HTMLImageElement>, ...>` | `undefined` | No | Additional props passed directly to the img element |
+| `onImageError` | `(error: React.SyntheticEvent<...>) => void` | `undefined` | No | Callback when image fails |
+| `onImageLoad` | `(event: React.SyntheticEvent<...>) => void` | `undefined` | No | Callback when image loads |
+| `priority` | `boolean` | `false` | No | Eager-loads the image with high fetchPriority |
+| `shape` | `'circular' \| 'rounded' \| 'square'` | `'circular'` | No | Shape of the avatar |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | No | Size of the avatar |
+| `src` | `string` | `undefined` | No | Image URL for the avatar |
+| `statusIndicator` | `React.ReactNode` | `undefined` | No | Custom node for online/offline status |
+| `statusPosition` | `'top-left' \| 'top-right' \| 'bottom-left' \| 'bottom-right'` | `'bottom-right'` | No | Position of status indicator |
+
+### HTML Native Props
+
+Avatar forwards rest props to its underlying `<div>` wrapper, so
+all standard HTML div attributes are also accepted.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `className` | Additional CSS class names | `"my-avatar-shadow"` |
+| `style` | Inline CSS styles | `{{ border: '2px solid white' }}` |
+| `aria-hidden` | Hide from screen readers if purely decorative | `true` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for Avatar
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/components/Avatar/Avatar.tsx
+-->
+```ts
+export interface AvatarProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+  src?: string;
+  alt?: string;
+  size?: 'sm' | 'md' | 'lg';
+  shape?: 'circular' | 'rounded' | 'square';
+  fallback?: string;
+  onImageError?: (error: React.SyntheticEvent<HTMLImageElement, Event>) => void;
+  onImageLoad?: (event: React.SyntheticEvent<HTMLImageElement, Event>) => void;
+  imgProps?: Omit<ImgHTMLAttributes<HTMLImageElement>, 'src' | 'alt' | 'className' | 'onError' | 'onLoad'>;
+  statusIndicator?: React.ReactNode;
+  statusPosition?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+  priority?: boolean;
+}
+```
+
+</details>
+
+## Avatar Accessibility Guide
+
+Avatar is structured to act as a single semantic image, regardless of whether it currently renders an actual `<img>` tag or fallback text.
+
+### ARIA Attributes
+
+| Attribute | Value | When |
+|-----------|-------|------|
+| `role` | `"img"` | Always applied to the outer wrapper `div`. |
+| `aria-label` | `string` | Always applied to the wrapper, populated from `alt` or `fallback`. |
+| `aria-hidden` | `"true"` | Applied to the internal fallback `span` to prevent double-announcements. |
+
+### Screen Reader Behavior
+
+Because the outer `div` has `role="img"` and an `aria-label`, screen readers treat the entire component as a standard image element. The internal `img` tag relies on standard behavior, while the internal `span` fallback is explicitly hidden from the tree. If the avatar is inside a link or button, the screen reader will announce it as part of the actionable element's name.
+
+### Accessibility Checklist
+
+- [ ] Ensure `alt` text describes the *purpose* or *identity* (e.g., "Sarah Chen"), not the image content (e.g., "Woman smiling").
+- [ ] If the Avatar is purely decorative (e.g., next to a name that is already printed in text), add `aria-hidden="true"` to the Avatar component to avoid redundant screen reader announcements.
+- [ ] Ensure any custom icons passed to `fallback` have `aria-hidden="true"` applied.
+
+## Avatar Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions
+  like colors, spacing, and radius. Override them to restyle
+  Avatar without fighting CSS specificity.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-color-neutral-200` | `#e5e7eb` | Background color for fallbacks |
+| `--lxs-color-neutral-700` | `#374151` | Text color for fallbacks |
+| `--lxs-font-family-sans` | `system-ui, sans-serif` | Font family for initials |
+| `--lxs-font-weight-medium` | `500` | Font weight for initials |
+| `--lxs-radius-full` | `9999px` | Border radius for circular shape |
+| `--lxs-radius-lg` | `8px` | Border radius for rounded shape |
+
+**Override globally:**
+```css
+:root {
+  --lxs-color-neutral-200: #e0f2fe; /* Light blue fallbacks */
+}
+```
+
+**Override for one section:**
+```css
+.admin-list {
+  --lxs-color-neutral-700: #0369a1; /* Dark blue text */
+}
+```
+
+**Override on one instance:**
+```tsx
+<Avatar
+  style={{ '--lxs-color-neutral-200': '#fce7f3' } as React.CSSProperties}
+  fallback="JD"
+/>
+```
+
+## Customizing Avatar
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to Avatar
+OUTPUT: Avatar with additional styling
+USE WHEN: Quick one-off style overrides like margins
+SOURCE: N/A
+-->
+```tsx
+<Avatar
+  className="mr-4"
+  src="user.jpg"
+/>
+```
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: Avatar with custom token values
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+```tsx
+<Avatar
+  style={{ '--lxs-font-weight-medium': '700' } as React.CSSProperties}
+  fallback="Bold Text"
+/>
+```
+
+### Using with forwardRef
+
+<!--
+EXAMPLE: forwardRef
+PURPOSE: Accessing the underlying DOM node
+OUTPUT: Avatar with attached ref
+USE WHEN: Required by third-party positioning libraries (e.g., Tooltip)
+SOURCE: N/A
+-->
+```tsx
+import { useRef, useEffect } from 'react';
+import { Avatar } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // You can measure the rendered DOM node
+    console.log(ref.current?.getBoundingClientRect());
+  }, []);
+
+  return <Avatar ref={ref} fallback="JD" />;
+}
+```
+
+## Common Avatar Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Clickable Profile Link
+
+Used when: The avatar navigates to a user's profile page.
+
+<!--
+EXAMPLE: Clickable Profile Link
+PURPOSE: Shows an Avatar acting as a link
+OUTPUT: Avatar wrapped in an anchor tag
+USE WHEN: Linking from a feed or comment section to a profile
+SOURCE: Common usage pattern for Avatar
+-->
+```tsx
+import { Avatar } from '@luxis-ui/core';
+
+export default function ProfileLink() {
+  return (
+    <a
+      href="/profile/sarah"
+      style={{ display: 'inline-block', borderRadius: '50%', outlineOffset: '2px' }}
+      aria-label="View Sarah's profile"
+    >
+      <Avatar
+        src="https://i.pravatar.cc/150?u=sarah"
+        alt="" // Empty alt because the wrapper link provides context
+        style={{ cursor: 'pointer' }}
+      />
+    </a>
+  );
+}
+```
+
+### Table Cell Identity
+
+Used when: Listing users in an administrative table.
+
+<!--
+EXAMPLE: Table Cell Identity
+PURPOSE: Displaying avatar alongside name and email
+OUTPUT: A flex row with an Avatar and text block
+USE WHEN: Building data grids or user directories
+SOURCE: Common usage pattern for Avatar
+-->
+```tsx
+import { Avatar } from '@luxis-ui/core';
+
+export default function UserCell() {
+  const user = { name: 'Alex Johnson', email: 'alex@example.com', avatar: 'https://i.pravatar.cc/150?u=alex' };
+
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+      <Avatar src={user.avatar} alt={user.name} size="sm" />
+      <div>
+        <div style={{ fontWeight: 600, fontSize: '14px', lineHeight: 1.2 }}>{user.name}</div>
+        <div style={{ color: '#666', fontSize: '12px' }}>{user.email}</div>
+      </div>
+    </div>
+  );
+}
+```
+
+### Custom Notification Badge
+
+Used when: Providing complex status overlays.
+
+<!--
+EXAMPLE: Custom Notification Badge
+PURPOSE: Using the statusIndicator for a numeric badge
+OUTPUT: Avatar with a red numbered badge
+USE WHEN: Showing unread messages or notifications
+SOURCE: Common usage pattern for Avatar
+-->
+```tsx
+import { Avatar } from '@luxis-ui/core';
+
+export default function NotificationBadge() {
+  const Badge = () => (
+    <div style={{
+      background: '#ef4444',
+      color: 'white',
+      fontSize: '10px',
+      fontWeight: 'bold',
+      padding: '2px 4px',
+      borderRadius: '8px',
+      border: '2px solid white',
+      transform: 'translate(25%, -25%)'
+    }}>
+      3
+    </div>
+  );
+
+  return (
+    <Avatar
+      src="https://i.pravatar.cc/150?u=system"
+      alt="System Messages"
+      statusIndicator={<Badge />}
+      statusPosition="top-right"
+    />
+  );
+}
+```
+
+## Troubleshooting Avatar
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Image is distorted or stretched | Modifying `object-fit` manually | Let the component use its default `object-fit: cover`. |
+| Browser shows broken image icon | Forcing a src that 404s without `onError` | The component handles errors automatically if you don't interfere with the `img` tag. |
+| Fallback text is too long | `fallback="Alexander"` | `fallback="AL"` (keep it to 1-2 characters). |
+| Screen reader says "image" twice | Leaving `alt="avatar"` on purely decorative avatars next to names | Add `aria-hidden="true"` to decorative avatars. |
+
+### Frequently Asked Questions
+
+**Q: Can I use `next/image` or another custom image component?**
+A: Currently, Avatar renders a standard HTML `img` element internally. If you need optimized Next.js images, use the `next/image` component directly and apply your own border-radius styling.
+
+**Q: Why is my `onImageError` callback firing immediately?**
+A: Ensure the `src` URL is valid and accessible from the browser. CORS issues or blocked mixed-content requests will trigger an error instantly.
+
+**Q: How does the priority prop work?**
+A: Setting `priority={true}` applies `fetchPriority="high"` and `loading="eager"` to the underlying `img` tag, instructing the browser to prioritize the download over lazy-loaded elements.
+
+**Q: Is the status indicator interactive?**
+A: No, the `statusIndicator` is rendered inside the non-interactive `div` wrapper. If you need an interactive badge, position a button absolutely over the Avatar from the parent component.
+
+## Related Components
+
+<RelatedComponent
+  name="Badge"
+  description="Use Badge for standalone text-based status indicators."
+  href="/docs/components/badge"
+/>
+<RelatedComponent
+  name="Card"
+  description="Use Card for complex layouts where an Avatar serves as the header image."
+  href="/docs/components/card"
+/>
+<RelatedComponent
+  name="Image"
+  description="Use Image for standard rectangular photographs that require responsive loading."
+  href="/docs/components/image"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Avatar
+
+> Avatar is a Components/Avatar React component in Luxis UI for displaying a user profile image, initials, or fallback icon.
+
+## Source
+packages/luxis-ui/src/components/Avatar/Avatar.tsx
+
+## Story
+app/storybook/src/stories/Avatar.stories.ts
+
+## Install
+\`\`\`bash
+npm install @luxis-ui/core
+\`\`\`
+
+## Import
+\`\`\`tsx
+import { Avatar } from '@luxis-ui/core';
+\`\`\`
+
+## Minimal usage
+\`\`\`tsx
+import { Avatar } from '@luxis-ui/core';
+
+export default function Example() {
+  return <Avatar src="https://i.pravatar.cc/150" alt="Sarah Chen" />;
+}
+\`\`\`
+
+## Key props
+- `src` (`string`, default=`undefined`): Image URL for the avatar
+- `alt` (`string`, default=`''`): Alt text for the image
+- `size` (`'sm' | 'md' | 'lg'`, default=`'md'`): Size of the avatar
+- `shape` (`'circular' | 'rounded' | 'square'`, default=`'circular'`): Shape of the avatar
+- `fallback` (`string`, default=`'?'`): Fallback text shown when no image is provided
+
+## When to use
+Displaying a user's profile picture in a header or sidebar. Showing participants in a list.
+
+## When NOT to use
+For large hero images (use Image). When the image must dictate layout flow.
+
+## Accessibility
+WCAG: AA
+ARIA: Img
+Keyboard: None directly
+
+## Docs
+https://luxis-ui.dev/docs/components/avatar
+LLMS_TXT_ENTRY_END
+*/}

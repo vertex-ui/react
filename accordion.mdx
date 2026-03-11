@@ -1,0 +1,1329 @@
+---
+title: "Accordion — Luxis UI React Component"
+description: "Collapsible content panels for presenting information in a limited space. Use Accordion to organize dense content into digestible, expanding sections."
+status: stable
+since: "1.0.0"
+category: "Components/Accordion"
+npm: "@luxis-ui/core"
+import: "import { Accordion } from '@luxis-ui/core'"
+component: "Accordion"
+keywords:
+  - accordion
+  - react accordion
+  - accordion component
+  - luxis ui accordion
+  - typescript accordion
+  - accessible accordion
+  - react design system
+slug: /components/accordion
+canonical: "https://luxis-ui.dev/docs/components/accordion"
+og_image: "/img/og/accordion.png"
+llm_summary: >
+  Accordion renders a wrapper `div` containing `AccordionItem` components, which render as `div` elements with `role="region"` for content and a `button` for the header. Props for Accordion: `items` (`AccordionItemProps[]`, default=undefined), `children` (`ReactNode`, default=undefined), `allowMultiple` (`boolean`, default=false), `defaultOpenItems` (`string[]`, default=[]), `openItems` (`string[]`, default=undefined), `onToggle` (`(openItems: string[]) => void`, default=undefined), `variant` (`'default' | 'bordered' | 'separated' | 'flush'`, default='default'), `size` (`'sm' | 'md' | 'lg'`, default=undefined), `className` (`string`, default=''), `style` (`React.CSSProperties`, default=undefined), `showChevron` (`boolean`, default=true), `chevronPosition` (`'left' | 'right'`, default='right'), `expandedIcon` (`React.ReactNode`, default=undefined), `collapsedIcon` (`React.ReactNode`, default=undefined), `iconType` (`'chevron' | 'plus-minus' | 'custom'`, default='chevron'), `showDivider` (`boolean`, default=true), `collapsible` (`boolean`, default=true), `loading` (`boolean`, default=false), `disabled` (`boolean`, default=false), `spacing` (`'compact' | 'default' | 'spacious'`, default='default'), `disableAnimations` (`boolean`, default=false). Used for organizing FAQs, settings, or dense details. Do not use for primary navigation. Follows standard disclosure ARIA patterns. Import with `import { Accordion } from '@luxis-ui/core'`.
+---
+
+{/*
+LLM_CONTEXT
+  component    : Accordion
+  source       : packages/luxis-ui/src/components/Accordion/Accordion.tsx
+  story        : app/storybook/src/stories/Accordion.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components/Accordion
+  status       : stable
+  aria-pattern : Accordion
+
+  What it renders:
+  Accordion renders a standard `div` wrapper containing `AccordionItem` components. Each item renders a `div` wrapper, a `div` header acting as a `button` (with proper roles and tabIndex), and a `div` content area with `role="region"`.
+
+  When to use:
+  - Organizing frequently asked questions (FAQs)
+  - Grouping settings or preferences in a side panel
+  - Hiding secondary details in complex forms or data views
+
+  When NOT to use:
+  - As primary site navigation
+  - For critical information that all users must see immediately
+
+  Ecosystem equivalents:
+  - MUI        : <Accordion>
+  - Chakra UI  : <Accordion>
+  - shadcn/ui  : Accordion
+  - Radix UI   : Accordion
+  - HTML native: <details>
+
+  Props (must match source exactly — every single prop):
+  items (AccordionItemProps[], default=undefined) — Array of accordion items
+  children (ReactNode, default=undefined) — Children accordion items (alternative to items prop)
+  allowMultiple (boolean, default=false) — Whether multiple items can be open at once
+  defaultOpenItems (string[], default=[]) — Default open items (controlled)
+  openItems (string[], default=undefined) — Open items (uncontrolled)
+  onToggle ((openItems: string[]) => void, default=undefined) — Callback when items are toggled
+  variant ('default' | 'bordered' | 'separated' | 'flush', default='default') — Visual variant style of the accordion
+  size ('sm' | 'md' | 'lg', default=undefined) — Size variant of the accordion
+  className (string, default='') — Custom class name
+  style (React.CSSProperties, default=undefined) — Custom styles
+  showChevron (boolean, default=true) — Whether to show chevron icons
+  chevronPosition ('left' | 'right', default='right') — Position of the chevron icon
+  expandedIcon (React.ReactNode, default=undefined) — Custom icon for expanded state
+  collapsedIcon (React.ReactNode, default=undefined) — Custom icon for collapsed state
+  iconType ('chevron' | 'plus-minus' | 'custom', default='chevron') — Icon type preset
+  showDivider (boolean, default=true) — Whether to show divider lines between items
+  collapsible (boolean, default=true) — Whether items are collapsible (can all be closed)
+  loading (boolean, default=false) — Loading state for the entire accordion
+  disabled (boolean, default=false) — Disable all accordion interactions
+  spacing ('compact' | 'default' | 'spacious', default='default') — Spacing variant for compact or spacious layouts
+  disableAnimations (boolean, default=false) — Disable animations for better performance or accessibility
+
+  Accessibility:
+  WCAG: AA
+  Keyboard: Tab to focus header, Enter/Space to toggle expanded state
+  Screen reader: Announces expanded/collapsed state via aria-expanded on the header button, relates header to content region via aria-controls and aria-labelledby.
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Accordion React Component — Luxis UI",
+  "description": "Collapsible content panels for presenting information in a limited space. Use Accordion to organize dense content into digestible, expanding sections.",
+  "keywords": "accordion, react accordion, accordion component, luxis ui accordion, typescript accordion, accessible accordion, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use Accordion in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { Accordion } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI Accordion accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Accordion accepts items for data-driven rendering, variant for visual style (default, bordered, separated, flush), allowMultiple to open multiple panels, and size (sm, md, lg)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I make multiple Accordion panels open at once?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Set the allowMultiple prop to true on the Accordion component."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI Accordion different from MUI Accordion?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Luxis UI provides a simplified data-driven API via the `items` prop, allowing you to pass an array of objects directly instead of mapping over wrapper components manually. It also includes built-in loading skeletons and explicit animation controls."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Accordion
+
+<ComponentStatus status="stable" version="1.0.0" aria="WAI-ARIA Accordion" />
+
+Collapsible content panels for presenting information in a limited space. Use Accordion to organize dense content into digestible, expanding sections, keeping the user interface clean and focused.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for Accordion
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding Accordion to any file
+SOURCE: packages/luxis-ui/src/components/Accordion/index.ts
+-->
+```tsx
+import { Accordion } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI `Accordion` is equivalent to MUI's `<Accordion>`,
+  Chakra UI's `<Accordion>`, and shadcn/ui's `Accordion`.
+  Our component allows you to pass an array of objects to the `items` prop for cleaner, data-driven code.
+</Callout>
+
+## Before You Start
+
+An accordion consists of a list of items where each item has a header and an expandable content area.
+It implements the standard WAI-ARIA disclosure pattern with full keyboard and screen reader support.
+The Quick Start below renders a standard accordion using the data-driven `items` prop.
+
+<Callout type="tip" title="New to Luxis UI?">
+  Check out the Getting Started guide to ensure your theme provider and base CSS are properly configured.
+</Callout>
+
+## How to Use Accordion in React
+
+The minimum code to render a working Accordion:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of Accordion
+OUTPUT: A functional accordion with two panels
+USE WHEN: Rendering a simple FAQ or list of details
+SOURCE: Derived from Accordion.tsx defaults and simplest Story
+-->
+```tsx
+import { Accordion } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Accordion
+      items={[
+        {
+          id: 'shipping',
+          header: 'Shipping Policy',
+          children: <p>Orders are processed within 2-3 business days.</p>,
+        },
+        {
+          id: 'returns',
+          header: 'Returns',
+          children: <p>You have 30 days to return unused items.</p>,
+        },
+      ]}
+    />
+  );
+}
+```
+
+This renders a standard accordion with a chevron icon on the right. By default, only one panel can be open at a time.
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of Accordion with key props
+OUTPUT: An interactive accordion showing multiple configurations
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/Accordion.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { Accordion } from '@luxis-ui/core';
+
+export default function LiveExample() {
+  return (
+    <Accordion
+      variant="bordered"
+      allowMultiple={true}
+      defaultOpenItems={['privacy']}
+      items={[
+        {
+          id: 'privacy',
+          header: 'Privacy Policy',
+          children: <p>We never sell your data to third parties. We use industry-standard encryption to protect your account details.</p>,
+        },
+        {
+          id: 'cookies',
+          header: 'Cookie Settings',
+          children: <p>Essential cookies are required for the site to function. You can manage optional analytics cookies in your browser settings.</p>,
+        },
+      ]}
+    />
+  );
+}
+```
+
+## Accordion Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### Accordion Default
+
+The default visual style, typically used against lighter backgrounds.
+
+<!--
+EXAMPLE: Default
+PURPOSE: Shows the default variant
+OUTPUT: Standard accordion
+USE WHEN: General purpose collapsible content
+SOURCE: app/storybook/src/stories/Accordion.stories.ts → Default
+-->
+```tsx
+import { Accordion } from '@luxis-ui/core';
+
+export default function DefaultExample() {
+  return (
+    <Accordion
+      items={[
+        {
+          id: 'item1',
+          header: 'What is Luxis UI?',
+          children: <p>Luxis UI is a modern React component library with full TypeScript support.</p>,
+        },
+        {
+          id: 'item2',
+          header: 'How do I install it?',
+          children: <p>Install via your preferred package manager and import the base CSS.</p>,
+        },
+      ]}
+    />
+  );
+}
+```
+
+This creates a standard stacked accordion with subtle divider lines.
+
+---
+
+### Accordion Bordered
+
+Adds an external border around the entire accordion container.
+
+<!--
+EXAMPLE: Bordered
+PURPOSE: Shows the bordered variant
+OUTPUT: Accordion with an outer border
+USE WHEN: The accordion needs clear visual separation from surrounding content
+SOURCE: app/storybook/src/stories/Accordion.stories.ts → Bordered
+-->
+```tsx
+import { Accordion } from '@luxis-ui/core';
+
+export default function BorderedExample() {
+  return (
+    <Accordion
+      variant="bordered"
+      items={[
+        {
+          id: 'billing',
+          header: 'Billing Cycle',
+          children: <p>Your subscription renews automatically on the 1st of every month.</p>,
+        },
+        {
+          id: 'payment',
+          header: 'Payment Methods',
+          children: <p>We accept all major credit cards and PayPal.</p>,
+        },
+      ]}
+    />
+  );
+}
+```
+
+The bordered variant is helpful when placing an accordion on a complex page background.
+
+---
+
+### Accordion Separated
+
+Renders each accordion item as a distinct, separated card.
+
+<!--
+EXAMPLE: Separated
+PURPOSE: Shows the separated variant
+OUTPUT: Accordion items with gaps between them
+USE WHEN: Items represent distinct, standalone concepts rather than a continuous list
+SOURCE: app/storybook/src/stories/Accordion.stories.ts → Separated
+-->
+```tsx
+import { Accordion } from '@luxis-ui/core';
+
+export default function SeparatedExample() {
+  return (
+    <Accordion
+      variant="separated"
+      items={[
+        {
+          id: 'feature1',
+          header: 'Advanced Analytics',
+          children: <p>Track user engagement with detailed charts and exportable reports.</p>,
+        },
+        {
+          id: 'feature2',
+          header: 'Team Collaboration',
+          children: <p>Invite up to 10 team members with role-based access control.</p>,
+        },
+      ]}
+    />
+  );
+}
+```
+
+This style provides the strongest visual separation between panels.
+
+---
+
+### Accordion Flush
+
+Removes outer borders and background colors, blending into the parent container.
+
+<!--
+EXAMPLE: Flush
+PURPOSE: Shows the flush variant
+OUTPUT: Edge-to-edge accordion items without borders
+USE WHEN: Placing an accordion inside a card, modal, or side drawer
+SOURCE: app/storybook/src/stories/Accordion.stories.ts → Flush
+-->
+```tsx
+import { Accordion } from '@luxis-ui/core';
+
+export default function FlushExample() {
+  return (
+    <Accordion
+      variant="flush"
+      items={[
+        {
+          id: 'settings-profile',
+          header: 'Profile Information',
+          children: <p>Update your name, email address, and avatar.</p>,
+        },
+        {
+          id: 'settings-security',
+          header: 'Security Settings',
+          children: <p>Manage two-factor authentication and active sessions.</p>,
+        },
+      ]}
+    />
+  );
+}
+```
+
+Flush styling is ideal when you want the accordion to feel like a native part of its container.
+
+---
+
+### Accordion AllowMultiple
+
+Permits more than one panel to remain open simultaneously.
+
+<!--
+EXAMPLE: AllowMultiple
+PURPOSE: Allows multiple items to be open at once
+OUTPUT: Accordion where panels do not auto-close
+USE WHEN: Users need to compare information across multiple sections
+SOURCE: app/storybook/src/stories/Accordion.stories.ts → AllowMultiple
+-->
+```tsx
+import { Accordion } from '@luxis-ui/core';
+
+export default function AllowMultipleExample() {
+  return (
+    <Accordion
+      allowMultiple={true}
+      defaultOpenItems={['step1', 'step2']}
+      items={[
+        {
+          id: 'step1',
+          header: 'Step 1: Account Setup',
+          children: <p>Create your username and verify your email.</p>,
+        },
+        {
+          id: 'step2',
+          header: 'Step 2: Profile Details',
+          children: <p>Add your full name and upload a profile picture.</p>,
+        },
+      ]}
+    />
+  );
+}
+```
+
+Use `defaultOpenItems` to specify which panels should be expanded on initial render.
+
+---
+
+### Accordion PlusMinus
+
+Changes the expand/collapse indicator from a chevron to a plus/minus symbol.
+
+<!--
+EXAMPLE: PlusMinus
+PURPOSE: Uses plus/minus icons instead of chevrons
+OUTPUT: Accordion with different toggle icons
+USE WHEN: Creating mathematical interfaces or when design calls for an alternative indicator
+SOURCE: app/storybook/src/stories/Accordion.stories.ts → PlusMinus
+-->
+```tsx
+import { Accordion } from '@luxis-ui/core';
+
+export default function PlusMinusExample() {
+  return (
+    <Accordion
+      iconType="plus-minus"
+      items={[
+        {
+          id: 'math1',
+          header: 'Addition Rules',
+          children: <p>The order of numbers does not change the sum.</p>,
+        },
+        {
+          id: 'math2',
+          header: 'Subtraction Rules',
+          children: <p>Subtracting a negative number is the same as adding.</p>,
+        },
+      ]}
+    />
+  );
+}
+```
+
+This provides a subtle visual change often preferred in enterprise software.
+
+---
+
+### Accordion SmallSize
+
+Reduces padding and typography size for dense interfaces.
+
+<!--
+EXAMPLE: SmallSize
+PURPOSE: Shows the small size variant
+OUTPUT: Compact accordion suitable for tight spaces
+USE WHEN: Displaying collapsible content inside small sidebars or popovers
+SOURCE: app/storybook/src/stories/Accordion.stories.ts → SmallSize
+-->
+```tsx
+import { Accordion } from '@luxis-ui/core';
+
+export default function SmallSizeExample() {
+  return (
+    <Accordion
+      size="sm"
+      items={[
+        {
+          id: 'filter-color',
+          header: 'Color',
+          children: <p>Red, Blue, Green</p>,
+        },
+        {
+          id: 'filter-size',
+          header: 'Size',
+          children: <p>S, M, L, XL</p>,
+        },
+      ]}
+    />
+  );
+}
+```
+
+The small size reduces whitespace significantly to fit more content on screen.
+
+---
+
+### Accordion LargeSize
+
+Increases padding and typography size for prominent displays.
+
+<!--
+EXAMPLE: LargeSize
+PURPOSE: Shows the large size variant
+OUTPUT: Spaced out accordion with larger text
+USE WHEN: The accordion is the primary content on a landing page
+SOURCE: app/storybook/src/stories/Accordion.stories.ts → LargeSize
+-->
+```tsx
+import { Accordion } from '@luxis-ui/core';
+
+export default function LargeSizeExample() {
+  return (
+    <Accordion
+      size="lg"
+      items={[
+        {
+          id: 'faq1',
+          header: 'Enterprise Licensing',
+          children: <p>Contact our sales team for custom volume pricing and dedicated support.</p>,
+        },
+        {
+          id: 'faq2',
+          header: 'Service Level Agreement',
+          children: <p>We guarantee 99.9% uptime for all enterprise plans.</p>,
+        },
+      ]}
+    />
+  );
+}
+```
+
+The large size is perfect for marketing pages and knowledge base articles.
+
+---
+
+### Accordion Compact
+
+Reduces vertical spacing between items without changing the text size.
+
+<!--
+EXAMPLE: Compact
+PURPOSE: Uses the compact spacing variant
+OUTPUT: Tighter vertical layout
+USE WHEN: You need to show many items without shrinking the text
+SOURCE: app/storybook/src/stories/Accordion.stories.ts → Compact
+-->
+```tsx
+import { Accordion } from '@luxis-ui/core';
+
+export default function CompactExample() {
+  return (
+    <Accordion
+      spacing="compact"
+      items={[
+        {
+          id: 'log1',
+          header: 'Deployment Started',
+          children: <p>Build pipeline triggered at 10:45 AM.</p>,
+        },
+        {
+          id: 'log2',
+          header: 'Dependencies Installed',
+          children: <p>Successfully resolved 145 packages.</p>,
+        },
+      ]}
+    />
+  );
+}
+```
+
+Compact spacing allows for higher information density.
+
+---
+
+### Accordion Disabled
+
+Disables all interaction with the accordion.
+
+<!--
+EXAMPLE: Disabled
+PURPOSE: Shows the disabled state
+OUTPUT: Grayed out, non-interactive accordion
+USE WHEN: Content is currently unavailable due to permissions or ongoing processes
+SOURCE: app/storybook/src/stories/Accordion.stories.ts → Disabled
+-->
+```tsx
+import { Accordion } from '@luxis-ui/core';
+
+export default function DisabledExample() {
+  return (
+    <Accordion
+      disabled={true}
+      items={[
+        {
+          id: 'admin-only',
+          header: 'Advanced Configuration',
+          children: <p>This section is restricted to administrators.</p>,
+        },
+      ]}
+    />
+  );
+}
+```
+
+A disabled accordion prevents opening or closing panels and removes focus outlines.
+
+---
+
+### Accordion Loading
+
+Displays a skeleton loading state.
+
+<!--
+EXAMPLE: Loading
+PURPOSE: Shows the loading state
+OUTPUT: Animated skeleton placeholders
+USE WHEN: Waiting for accordion data to load from an API
+SOURCE: app/storybook/src/stories/Accordion.stories.ts → Loading
+-->
+```tsx
+import { Accordion } from '@luxis-ui/core';
+
+export default function LoadingExample() {
+  return (
+    <Accordion
+      loading={true}
+      items={[
+        { id: '1', header: 'Loading', children: <p>Loading...</p> },
+        { id: '2', header: 'Loading', children: <p>Loading...</p> },
+        { id: '3', header: 'Loading', children: <p>Loading...</p> },
+      ]}
+    />
+  );
+}
+```
+
+The loading state automatically calculates skeleton sizes based on the accordion's `size` prop.
+
+---
+
+### Accordion ChevronLeft
+
+Moves the expand/collapse indicator to the left side of the header.
+
+<!--
+EXAMPLE: ChevronLeft
+PURPOSE: Positions the chevron on the left
+OUTPUT: Accordion with left-aligned icons
+USE WHEN: Aligning with a specific visual language or right-to-left layout preference
+SOURCE: app/storybook/src/stories/Accordion.stories.ts → ChevronLeft
+-->
+```tsx
+import { Accordion } from '@luxis-ui/core';
+
+export default function ChevronLeftExample() {
+  return (
+    <Accordion
+      chevronPosition="left"
+      items={[
+        {
+          id: 'menu1',
+          header: 'Products',
+          children: <p>Software, Hardware, Services</p>,
+        },
+        {
+          id: 'menu2',
+          header: 'Solutions',
+          children: <p>Enterprise, Small Business, Education</p>,
+        },
+      ]}
+    />
+  );
+}
+```
+
+This positions the icon before the header text.
+
+---
+
+### Controlled Accordion
+
+When to use: When a parent component needs to read or drive the state.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  By default Accordion manages its own state (uncontrolled).
+  Use the controlled pattern when syncing with a URL param, form
+  library, or another component.
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: useState-driven Accordion with external state management
+OUTPUT: Accordion whose state is owned by the parent
+USE WHEN: Programmatically reading or setting component state
+SOURCE: Derived from Accordion.tsx controlled/uncontrolled pattern
+-->
+```tsx
+import { useState } from 'react';
+import { Accordion } from '@luxis-ui/core';
+
+export default function ControlledExample() {
+  const [openItems, setOpenItems] = useState<string[]>([]);
+
+  return (
+    <div>
+      <div style={{ marginBottom: '16px' }}>
+        <button onClick={() => setOpenItems(['controlled1'])}>Open First</button>
+        <button onClick={() => setOpenItems([])}>Close All</button>
+      </div>
+      <Accordion
+        openItems={openItems}
+        onToggle={(newOpenItems) => setOpenItems(newOpenItems)}
+        items={[
+          {
+            id: 'controlled1',
+            header: 'Controlled Panel 1',
+            children: <p>This panel is managed by React state.</p>,
+          },
+          {
+            id: 'controlled2',
+            header: 'Controlled Panel 2',
+            children: <p>State changes trigger the onToggle callback.</p>,
+          },
+        ]}
+      />
+    </div>
+  );
+}
+```
+
+## Accordion Best Practices
+
+Using accordions correctly ensures content remains accessible and logical.
+
+<DoAndDont
+  good={`// ✅ Use clear, descriptive headers
+<Accordion
+  items={[
+    { id: '1', header: 'How do I reset my password?', children: <p>...</p> }
+  ]}
+/>`}
+  bad={`// ❌ Avoid vague headers requiring users to click to understand
+<Accordion
+  items={[
+    { id: '1', header: 'More info', children: <p>...</p> }
+  ]}
+/>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Set allowMultiple=true when comparing information
+<Accordion
+  allowMultiple={true}
+  items={[
+    { id: 'plan-a', header: 'Basic Plan Details', children: <p>...</p> },
+    { id: 'plan-b', header: 'Pro Plan Details', children: <p>...</p> }
+  ]}
+/>`}
+  bad={`// ❌ Force users to memorize details from a closed panel
+<Accordion
+  allowMultiple={false}
+  items={[
+    { id: 'plan-a', header: 'Basic Plan Details', children: <p>...</p> },
+    { id: 'plan-b', header: 'Pro Plan Details', children: <p>...</p> }
+  ]}
+/>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use the items prop for data-driven rendering
+<Accordion items={data.map(item => ({ id: item.id, header: item.title, children: item.content }))} />`}
+  bad={`// ❌ Manually map over wrapper components when items prop is available
+<Accordion>
+  {data.map(item => (
+    <AccordionItem key={item.id} id={item.id} header={item.title}>
+      {item.content}
+    </AccordionItem>
+  ))}
+</Accordion>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Provide a defaultOpenItem if content is important
+<Accordion defaultOpenItems={['welcome']} items={[{ id: 'welcome', header: 'Welcome', children: <p>Start here</p> }]} />`}
+  bad={`// ❌ Hide critical onboarding steps inside closed accordions
+<Accordion items={[{ id: 'welcome', header: 'Welcome', children: <p>Start here</p> }]} />`}
+/>
+
+## Accordion Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly
+from `packages/luxis-ui/src/components/Accordion/types.ts`.
+
+### Accordion Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `allowMultiple` | `boolean` | `false` | No | Whether multiple items can be open at once |
+| `chevronPosition` | `'left' \| 'right'` | `'right'` | No | Position of the chevron icon |
+| `children` | `ReactNode` | `undefined` | No | Children accordion items (alternative to items prop) |
+| `className` | `string` | `""` | No | Custom class name |
+| `collapsedIcon` | `React.ReactNode` | `undefined` | No | Custom icon for collapsed state |
+| `collapsible` | `boolean` | `true` | No | Whether items are collapsible (can all be closed) |
+| `defaultOpenItems` | `string[]` | `[]` | No | Default open items (controlled) |
+| `disableAnimations` | `boolean` | `false` | No | Disable animations for better performance or accessibility |
+| `disabled` | `boolean` | `false` | No | Disable all accordion interactions |
+| `expandedIcon` | `React.ReactNode` | `undefined` | No | Custom icon for expanded state |
+| `iconType` | `'chevron' \| 'plus-minus' \| 'custom'` | `'chevron'` | No | Icon type preset |
+| `items` | `AccordionItemProps[]` | `undefined` | No | Array of accordion items |
+| `loading` | `boolean` | `false` | No | Loading state for the entire accordion |
+| `onToggle` | `(openItems: string[]) => void` | `undefined` | No | Callback when items are toggled |
+| `openItems` | `string[]` | `undefined` | No | Open items (uncontrolled) |
+| `showChevron` | `boolean` | `true` | No | Whether to show chevron icons |
+| `showDivider` | `boolean` | `true` | No | Whether to show divider lines between items |
+| `size` | `'sm' \| 'md' \| 'lg'` | `undefined` | No | Size variant of the accordion |
+| `spacing` | `'compact' \| 'default' \| 'spacious'` | `'default'` | No | Spacing variant for compact or spacious layouts |
+| `style` | `React.CSSProperties` | `undefined` | No | Custom styles |
+| `variant` | `'default' \| 'bordered' \| 'separated' \| 'flush'` | `'default'` | No | Visual variant style of the accordion |
+
+### HTML Native Props
+
+Accordion forwards rest props to its underlying `<div>`, so
+all standard HTML div attributes are also accepted.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `onClick` | Click handler for the wrapper | `(e) => handleClick(e)` |
+| `id` | Unique identifier | `"faq-accordion"` |
+| `aria-label` | Accessibility label | `"Frequently Asked Questions"` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for Accordion
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/components/Accordion/types.ts
+-->
+```ts
+export interface AccordionProps {
+  /** Array of accordion items */
+  items?: AccordionItemProps[];
+  /** Children accordion items (alternative to items prop) */
+  children?: ReactNode;
+  /** Whether multiple items can be open at once */
+  allowMultiple?: boolean;
+  /** Default open items (controlled) */
+  defaultOpenItems?: string[];
+  /** Open items (uncontrolled) */
+  openItems?: string[];
+  /** Callback when items are toggled */
+  onToggle?: (openItems: string[]) => void;
+  /** Visual variant style of the accordion */
+  variant?: 'default' | 'bordered' | 'separated' | 'flush';
+  /** Size variant of the accordion */
+  size?: 'sm' | 'md' | 'lg';
+  /** Custom class name */
+  className?: string;
+  /** Custom styles */
+  style?: React.CSSProperties;
+  /** Whether to show chevron icons */
+  showChevron?: boolean;
+  /** Position of the chevron icon */
+  chevronPosition?: 'left' | 'right';
+  /** Custom icon for expanded state */
+  expandedIcon?: React.ReactNode;
+  /** Custom icon for collapsed state */
+  collapsedIcon?: React.ReactNode;
+  /** Icon type preset */
+  iconType?: 'chevron' | 'plus-minus' | 'custom';
+  /** Whether to show divider lines between items */
+  showDivider?: boolean;
+  /** Whether items are collapsible (can all be closed) */
+  collapsible?: boolean;
+  /** Loading state for the entire accordion */
+  loading?: boolean;
+  /** Disable all accordion interactions */
+  disabled?: boolean;
+  /** Spacing variant for compact or spacious layouts */
+  spacing?: 'compact' | 'default' | 'spacious';
+  /** Disable animations for better performance or accessibility */
+  disableAnimations?: boolean;
+}
+
+export interface AccordionItemProps {
+  /** Unique identifier for the accordion item */
+  id: string;
+  /** The header content for the accordion item */
+  header: ReactNode;
+  /** The body content for the accordion item */
+  children: ReactNode;
+  /** Whether this item is disabled */
+  disabled?: boolean;
+  /** Custom class name for the accordion item */
+  className?: string;
+  /** Loading state for this specific item */
+  loading?: boolean;
+  /** Status indicator for the item */
+  status?: 'default' | 'success' | 'warning' | 'error' | 'featured';
+  /** Custom icon for this specific item (overrides accordion-level icons) */
+  icon?: {
+    expanded?: React.ReactNode;
+    collapsed?: React.ReactNode;
+  };
+  /** Additional data attributes for testing or analytics */
+  dataTestId?: string;
+}
+```
+
+</details>
+
+## Accordion Accessibility Guide
+
+Accordion follows the WAI-ARIA Accordion pattern and meets WCAG AA.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| <KeyboardKey>Tab</KeyboardKey> | Moves focus to the next accordion header. |
+| <KeyboardKey>Enter</KeyboardKey> | Toggles the expanded/collapsed state of the focused header. |
+| <KeyboardKey>Space</KeyboardKey> | Toggles the expanded/collapsed state of the focused header. |
+
+### ARIA Attributes
+
+| Attribute | Value | When |
+|-----------|-------|------|
+| `role` | `"button"` | Always applied to the accordion header. |
+| `role` | `"region"` | Always applied to the content panel. |
+| `aria-expanded` | `"true" \| "false"` | Applied to header and reflects current state. |
+| `aria-controls` | `string` | Links the header to its respective content panel ID. |
+| `aria-labelledby` | `string` | Links the content panel to its respective header ID. |
+| `aria-disabled` | `"true" \| "false"` | Set to true when the item or entire accordion is disabled. |
+
+### Screen Reader Behavior
+
+When navigating to an accordion header, the screen reader announces the header text, its role as a button, and its current state (expanded or collapsed). Pressing Enter toggles the state, and the screen reader announces the new state. When expanded, navigating forward moves focus into the content region, which is properly labelled by the header.
+
+### Accessibility Checklist
+
+- [ ] Ensure headers are descriptive and indicate what content will be revealed.
+- [ ] Do not put critical actions solely inside collapsed accordion panels.
+- [ ] Do not nest focusable interactive elements directly within the clickable area of the header.
+- [ ] Always test with keyboard-only navigation before shipping.
+
+## Accordion Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions
+  like colors, spacing, and radius. Override them to restyle
+  Accordion without fighting CSS specificity.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--accordion-bg` | `var(--color-background, transparent)` | Background color of items |
+| `--accordion-border-color` | `var(--color-border, #e5e7eb)` | Default border color |
+| `--accordion-border-radius` | `var(--radius-md, 6px)` | Border radius for variants |
+| `--accordion-header-color` | `var(--color-text-primary, #111827)` | Header text color |
+| `--accordion-header-hover-bg` | `var(--color-neutral-50, #f9fafb)` | Header background on hover |
+| `--accordion-header-active-bg` | `var(--color-neutral-100, #f3f4f6)` | Header background when open |
+| `--accordion-icon-color` | `var(--color-text-secondary, #6b7280)` | Chevron color |
+| `--accordion-icon-active-color` | `var(--color-primary-600, #2563eb)` | Chevron color when open |
+| `--accordion-content-bg` | `var(--color-background, transparent)` | Content panel background |
+| `--accordion-content-border` | `var(--color-border, #e5e7eb)` | Content panel top border |
+| `--accordion-body-color` | `var(--color-text-secondary, #4b5563)` | Content text color |
+
+**Override globally:**
+```css
+:root {
+  --accordion-header-active-bg: #e0f2fe;
+}
+```
+
+**Override for one section:**
+```css
+.my-section {
+  --accordion-icon-active-color: #0ea5e9;
+}
+```
+
+**Override on one instance:**
+```tsx
+<Accordion
+  style={{ '--accordion-bg': '#f8fafc' } as React.CSSProperties}
+  items={data}
+/>
+```
+
+## Customizing Accordion
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to Accordion
+OUTPUT: Accordion with additional styling
+USE WHEN: Quick one-off style overrides
+SOURCE: N/A
+-->
+```tsx
+<Accordion
+  className="my-custom-accordion"
+  items={[{ id: '1', header: 'Custom Class', children: <p>Content</p> }]}
+/>
+```
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: Accordion with custom token values
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+```tsx
+<Accordion
+  style={{ '--accordion-header-color': '#0369a1' } as React.CSSProperties}
+  items={[{ id: '1', header: 'Blue Header', children: <p>Content</p> }]}
+/>
+```
+
+### Using with forwardRef
+
+<!--
+EXAMPLE: forwardRef
+PURPOSE: Accessing the underlying DOM node
+OUTPUT: Accordion with attached ref
+USE WHEN: Calling native DOM methods like .focus()
+SOURCE: N/A
+-->
+```tsx
+import { useRef, useEffect } from 'react';
+import { Accordion } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // You can access the container element via ref
+    console.log(ref.current);
+  }, []);
+
+  return (
+    <Accordion
+      ref={ref}
+      items={[{ id: '1', header: 'Ref Example', children: <p>Content</p> }]}
+    />
+  );
+}
+```
+
+## Common Accordion Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### FAQ Section with Schema
+
+Used when: Creating an SEO-friendly Frequently Asked Questions page.
+
+<!--
+EXAMPLE: FAQ Section
+PURPOSE: Shows an accordion tailored for FAQs
+OUTPUT: An accordion with allowMultiple enabled
+USE WHEN: Building support or documentation pages
+SOURCE: Common usage pattern for Accordion
+-->
+```tsx
+import { Accordion } from '@luxis-ui/core';
+
+export default function FAQAccordion() {
+  const faqs = [
+    {
+      id: 'faq-1',
+      header: 'How long does shipping take?',
+      children: <p>Domestic orders arrive in 3-5 days. International shipping varies by region.</p>,
+    },
+    {
+      id: 'faq-2',
+      header: 'Do you offer a student discount?',
+      children: <p>Yes, students receive 20% off with a valid university email address.</p>,
+    },
+    {
+      id: 'faq-3',
+      header: 'Can I cancel my subscription?',
+      children: <p>You can cancel at any time from your account settings page.</p>,
+    },
+  ];
+
+  return <Accordion items={faqs} allowMultiple={true} size="lg" />;
+}
+```
+
+### Item Status Indicators
+
+Used when: You need to highlight specific panels based on their state (e.g., error, success).
+
+<!--
+EXAMPLE: Status Indicators
+PURPOSE: Demonstrates item-level status styling
+OUTPUT: Accordion items with colored borders indicating status
+USE WHEN: Displaying validation errors in a complex form split across panels
+SOURCE: Common usage pattern for Accordion
+-->
+```tsx
+import { Accordion } from '@luxis-ui/core';
+
+export default function StatusAccordion() {
+  return (
+    <Accordion
+      items={[
+        {
+          id: 'step-1',
+          header: 'Personal Details',
+          status: 'success',
+          children: <p>Information saved successfully.</p>,
+        },
+        {
+          id: 'step-2',
+          header: 'Payment Information',
+          status: 'error',
+          children: <p>Credit card expired. Please update your details.</p>,
+        },
+        {
+          id: 'step-3',
+          header: 'Review Order',
+          status: 'default',
+          children: <p>Please complete previous steps.</p>,
+        },
+      ]}
+    />
+  );
+}
+```
+
+### Custom Item Icons
+
+Used when: The standard chevron or plus/minus icons do not fit the design requirements.
+
+<!--
+EXAMPLE: Custom Icons
+PURPOSE: Overriding default icons
+OUTPUT: Accordion with specific icons for open/close states
+USE WHEN: Matching a specific brand icon set
+SOURCE: Common usage pattern for Accordion
+-->
+```tsx
+import { Accordion } from '@luxis-ui/core';
+
+export default function CustomIconsAccordion() {
+  return (
+    <Accordion
+      iconType="custom"
+      expandedIcon={<span aria-hidden="true">🔼</span>}
+      collapsedIcon={<span aria-hidden="true">🔽</span>}
+      items={[
+        {
+          id: 'custom-1',
+          header: 'Custom Icons Provided',
+          children: <p>This accordion uses emojis instead of standard SVG icons.</p>,
+        },
+        {
+          id: 'custom-2',
+          header: 'Consistent Styling',
+          children: <p>The custom icons respect the accordion animation settings.</p>,
+        },
+      ]}
+    />
+  );
+}
+```
+
+## Troubleshooting Accordion
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Passing elements directly as children breaks data props | `<Accordion><div>...</div></Accordion>` | `<Accordion items={[{...}]} />` |
+| Multiple panels won't open | `allowMultiple={false}` | `allowMultiple={true}` |
+| Animations feel sluggish | Leaving default animations on heavy content | `disableAnimations={true}` |
+| Interactive element in header causes hydration errors | `header={<button>Click</button>}` | `header={<span>Click</span>}` |
+
+### Frequently Asked Questions
+
+**Q: Can I use nested components inside the header?**
+A: Yes, the `header` prop accepts React nodes. However, avoid nesting buttons or links inside the header, as the header itself is an interactive button.
+
+**Q: How do I disable animation completely?**
+A: Set the `disableAnimations` prop to `true` on the `Accordion` component.
+
+**Q: Can I control which panels are open from a parent component?**
+A: Yes, provide an array of IDs to the `openItems` prop and pass a function to `onToggle` to manage the state externally.
+
+**Q: Does it support server-side rendering (SSR)?**
+A: Yes, Accordion works flawlessly with SSR frameworks like Next.js and Remix.
+
+## Related Components
+
+<RelatedComponent
+  name="Tabs"
+  description="Use Tabs to organize content into distinct views without vertical scrolling."
+  href="/docs/components/tabs"
+/>
+<RelatedComponent
+  name="Card"
+  description="Use Card for grouped content that does not need to be collapsible."
+  href="/docs/components/card"
+/>
+<RelatedComponent
+  name="Modal"
+  description="Use Modal for content that requires immediate focus outside the normal document flow."
+  href="/docs/components/modal"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Accordion
+
+> Accordion is a Components/Accordion React component in Luxis UI for organizing dense content into digestible, expanding sections.
+
+## Source
+packages/luxis-ui/src/components/Accordion/Accordion.tsx
+
+## Story
+app/storybook/src/stories/Accordion.stories.ts
+
+## Install
+\`\`\`bash
+npm install @luxis-ui/core
+\`\`\`
+
+## Import
+\`\`\`tsx
+import { Accordion } from '@luxis-ui/core';
+\`\`\`
+
+## Minimal usage
+\`\`\`tsx
+import { Accordion } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Accordion
+      items={[
+        { id: '1', header: 'Section 1', children: <p>Content 1</p> },
+        { id: '2', header: 'Section 2', children: <p>Content 2</p> },
+      ]}
+    />
+  );
+}
+\`\`\`
+
+## Key props
+- `items` (`AccordionItemProps[]`, default=`undefined`): Array of accordion items
+- `allowMultiple` (`boolean`, default=`false`): Whether multiple items can be open at once
+- `variant` (`'default' | 'bordered' | 'separated' | 'flush'`, default=`'default'`): Visual variant style of the accordion
+- `size` (`'sm' | 'md' | 'lg'`, default=`undefined`): Size variant of the accordion
+- `disabled` (`boolean`, default=`false`): Disable all accordion interactions
+
+## When to use
+Organizing frequently asked questions (FAQs). Grouping settings or preferences in a side panel.
+
+## When NOT to use
+As primary site navigation. For critical information that all users must see immediately.
+
+## Accessibility
+WCAG: AA
+ARIA: Accordion
+Keyboard: Tab, Enter, Space
+
+## Docs
+https://luxis-ui.dev/docs/components/accordion
+LLMS_TXT_ENTRY_END
+*/}
