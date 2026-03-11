@@ -4,62 +4,9 @@ import { CloseSmallIcon } from '../../icons/IconComponents';
 import React, { ReactNode, MouseEvent, KeyboardEvent } from 'react';
 import { Size } from '../../theme';
 import './Chip.css';
+import type { ChipProps } from './Chip.types';
 
-export interface ChipProps {
-  /**
-   * The label text to display inside the chip
-   */
-  label: string;
-  /**
-   * Size of the chip
-   * @default 'md'
-   */
-  size?: Size;
-  /**
-   * Visual style variant
-   * @default 'filled'
-   */
-  variant?: 'filled' | 'outlined' | 'light';
-  /**
-   * Color theme of the chip
-   * @default 'default'
-   */
-  color?: 'default' | 'primary' | 'success' | 'error' | 'warning' | 'info';
-  /**
-   * Icon to display at the start of the chip
-   */
-  icon?: ReactNode;
-  /**
-   * Avatar image URL to display at the start
-   */
-  avatar?: string;
-  /**
-   * If true, shows a delete/close button
-   * @default false
-   */
-  onDelete?: (event: MouseEvent<HTMLButtonElement>) => void;
-  /**
-   * Callback when chip is clicked
-   */
-  onClick?: (event: MouseEvent<HTMLDivElement>) => void;
-  /**
-   * If true, chip cannot be interacted with
-   * @default false
-   */
-  disabled?: boolean;
-  /**
-   * Additional CSS class names
-   */
-  className?: string;
-  /**
-   * Custom aria-label for accessibility
-   */
-  'aria-label'?: string;
-  /**
-   * Data attribute for testing
-   */
-  'data-testid'?: string;
-}
+
 
 /**
  * Chip component - Compact element for displaying tags, labels, or selections
@@ -198,5 +145,4 @@ const Chip = React.forwardRef<HTMLDivElement, ChipProps>(
 
 Chip.displayName = 'Chip';
 
-export default Chip as React.FC<ChipProps & React.RefAttributes<HTMLDivElement>>;
 export { Chip };

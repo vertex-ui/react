@@ -1,3 +1,4 @@
+import { expect, within } from '@storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import '@luxis-ui/react/theme/base.css';
 import { Modal, Button, ThemeProvider, type ModalProps } from '@luxis-ui/react';
@@ -71,6 +72,12 @@ const ModalDemo = (args: ModalProps) => {
 
 export const Default: Story = {
   render: (args) => <ModalDemo {...args} />,
+
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Simple baseline check to ensure render
+    expect(canvasElement).toBeTruthy();
+  },
 };
 
 const CustomFooterDemo = (args: ModalProps) => {

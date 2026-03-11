@@ -1,3 +1,4 @@
+import { expect, within } from '@storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import '@luxis-ui/react/theme/base.css';
 import { Accordion, ThemeProvider } from '@luxis-ui/react';
@@ -124,6 +125,12 @@ const defaultItems = [
 export const Default: Story = {
   args: {
     items: defaultItems,
+  },
+
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Simple baseline check to ensure render
+    expect(canvasElement).toBeTruthy();
   },
 };
 

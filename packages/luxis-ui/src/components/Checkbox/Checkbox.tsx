@@ -3,58 +3,9 @@
 import React, { useId, useRef, useImperativeHandle, useEffect } from 'react';
 import { useThemeContext } from '../../theme/ThemeProvider';
 import './Checkbox.css';
+import type { CheckboxProps } from './Checkbox.types';
 
-export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
-  /**
-   * If true, the checkbox is checked
-   */
-  checked?: boolean;
-  /**
-   * If true, the checkbox appears indeterminate
-   * @default false
-   */
-  indeterminate?: boolean;
-  /**
-   * If true, the checkbox is disabled
-   * @default false
-   */
-  disabled?: boolean;
-  /**
-   * The label for the checkbox
-   */
-  label?: React.ReactNode;
-  /**
-   * The size of the checkbox
-   * @default 'md'
-   */
-  size?: 'sm' | 'md' | 'lg';
-  /**
-   * The variant of the checkbox
-   * @default 'primary'
-   */
-  variant?: 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info';
-  /**
-   * If true, displays error styling
-   * @default false
-   */
-  error?: boolean;
-  /**
-   * Helper text displayed below the checkbox
-   */
-  helperText?: React.ReactNode;
-  /**
-   * Callback fired when the state is changed
-   */
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  /**
-   * Additional CSS class name for the container
-   */
-  className?: string;
-  /**
-   * Additional CSS class name for the visual checkbox box
-   */
-  boxClassName?: string;
-}
+
 
 /**
  * Checkbox component - Allows users to select one or more items from a set
@@ -213,5 +164,4 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
 
 Checkbox.displayName = 'Checkbox';
 
-export default Checkbox as React.FC<CheckboxProps & React.RefAttributes<HTMLInputElement>>;
 export { Checkbox };

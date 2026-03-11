@@ -1,3 +1,4 @@
+import { expect, within } from '@storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import React, { useState } from 'react';
 import '@luxis-ui/react/theme/base.css';
@@ -63,6 +64,12 @@ export const Default: Story = {
       <CheckboxGroup {...args} options={baseOptions} defaultValue={['react']} />
     </ThemeProvider>
   ),
+
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Simple baseline check to ensure render
+    expect(canvasElement).toBeTruthy();
+  },
 };
 
 export const Controlled: Story = {

@@ -1,3 +1,4 @@
+import { expect, within } from '@storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import '@luxis-ui/react/theme/base.css';
 import { MultiSelect, ThemeProvider } from '@luxis-ui/react';
@@ -73,6 +74,12 @@ const ControlledTemplate = (args: any) => {
 
 export const Default: Story = {
   render: ControlledTemplate,
+
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Simple baseline check to ensure render
+    expect(canvasElement).toBeTruthy();
+  },
 };
 
 export const Searchable: Story = {

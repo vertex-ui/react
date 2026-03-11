@@ -1,5 +1,5 @@
 import './Radio.css';
 
-export { default as Radio } from './Radio';
-export type { RadioProps } from './Radio';
+export { Radio } from './Radio';
+export type { RadioProps } from './Radio.types';
 export { Radio as RadioComponent } from './Radio';

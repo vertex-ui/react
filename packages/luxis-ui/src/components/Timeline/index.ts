@@ -1,4 +1,4 @@
 import './Timeline.css';
 
-export { default as Timeline } from './Timeline';
-export type { TimelineProps, TimelineStep } from './Timeline';
+export { Timeline } from './Timeline';
+export type { TimelineStep, TimelineProps } from './Timeline.types';
