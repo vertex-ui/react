@@ -1,0 +1,1237 @@
+---
+title: "Toast — Luxis UI React Component"
+description: "A brief, non-interruptive notification for providing feedback to the user. Use Toast to display success, error, or informational messages."
+status: stable
+since: "1.0.0"
+category: "Components/Toast"
+npm: "@luxis-ui/core"
+import: "import { Toast } from '@luxis-ui/core'"
+component: "Toast"
+keywords:
+  - toast
+  - react toast
+  - toast component
+  - luxis ui toast
+  - typescript toast
+  - accessible toast
+  - react design system
+slug: /components/toast
+canonical: "https://luxis-ui.dev/docs/components/toast"
+og_image: "/img/og/toast.png"
+llm_summary: >
+  Toast renders a div with role="alert" and aria-live="polite". It accepts: autoClose (number | false, default=5000), closeButton (boolean, default=true), progressBar (boolean, default=true), pauseOnHover (boolean, default=true), pauseOnFocusLoss (boolean, default=true), variant ('success' | 'error' | 'warning' | 'info' | 'default' | 'primary', default='default'), icon (ReactNode | false), action ({ label: string, onClick: () => void }), className (string), style (React.CSSProperties), toastId (string | number), onClose (() => void), onOpen (() => void), title (string), description (string), animationDuration (number, default=300), children (ReactNode), isVisible (boolean), onDismiss (() => void), id (string | number), createdAt (number). Use when confirming an action, displaying errors, or providing system feedback. Do not use for critical information that requires user interaction. Accessible via screen readers announcing the alert content. Import: import { Toast } from '@luxis-ui/core'.
+---
+
+{/*
+LLM_CONTEXT
+  component    : Toast
+  source       : packages/luxis-ui/src/components/Toast/Toast.tsx
+  story        : app/storybook/src/stories/Toast.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components/Toast
+  status       : stable
+  aria-pattern : Alert
+
+  What it renders:
+  Toast renders a div with role="alert", aria-live="polite", and data-toast-id. It contains a wrapper for the icon, content (title, description, body), actions (action button, close button), and optionally a progress bar div.
+
+  When to use:
+  - Displaying a success message after a form submission.
+  - Alerting the user of a system error.
+  - Providing informational updates that do not require action.
+
+  When NOT to use:
+  - Complex dialogues needing user input.
+  - Critical warnings that must interrupt the user workflow.
+
+  Ecosystem equivalents:
+  - MUI        : <Snackbar>
+  - Chakra UI  : <Toast>
+  - shadcn/ui  : <Toast>
+  - Radix UI   : <Toast.Root>
+  - HTML native: <output role="alert">
+
+  Props (must match source exactly — every single prop):
+  autoClose (number | false, default=5000) — Auto close duration in milliseconds. Set to false to disable auto close.
+  closeButton (boolean, default=true) — Show close button.
+  progressBar (boolean, default=true) — Show progress bar.
+  pauseOnHover (boolean, default=true) — Pause on hover.
+  pauseOnFocusLoss (boolean, default=true) — Pause on focus loss.
+  variant ('success' | 'error' | 'warning' | 'info' | 'default' | 'primary', default='default') — Toast variant/type.
+  icon (ReactNode | false, default=undefined) — Custom icon or false to hide icon.
+  action ({ label: string, onClick: () => void }, default=undefined) — Custom action button.
+  className (string, default='') — Custom className.
+  style (React.CSSProperties, default=undefined) — Custom styles.
+  toastId (string | number, default=undefined) — Toast ID for updates/dismissal.
+  onClose (() => void, default=undefined) — Callback when toast is closed.
+  onOpen (() => void, default=undefined) — Callback when toast is opened.
+  title (string, default=undefined) — Rich content title.
+  description (string, default=undefined) — Rich content description.
+  animationDuration (number, default=300) — Animation duration in milliseconds.
+  children (ReactNode, default=undefined) — Toast content.
+  isVisible (boolean, default=undefined) — Whether toast is visible.
+  onDismiss (() => void, default=undefined) — Function to close the toast.
+  id (string | number, default=undefined) — Unique toast ID.
+  createdAt (number, default=undefined) — Creation timestamp.
+
+  Accessibility:
+  WCAG: AA
+  Keyboard: Tab to focus action/close buttons, Enter/Space to activate.
+  Screen reader: Alert role with polite live region ensures announcements without interrupting the user's current task.
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Toast React Component — Luxis UI",
+  "description": "A brief, non-interruptive notification for providing feedback to the user. Use Toast to display success, error, or informational messages.",
+  "keywords": "toast, react toast, toast component, luxis ui toast, typescript toast, accessible toast, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use Toast in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { Toast } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI Toast accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The top props are variant (default 'default'), autoClose (default 5000), closeButton (default true), progressBar (default true), and pauseOnHover (default true)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How to make a toast stay open indefinitely?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Set the autoClose prop to false."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI Toast different from MUI Snackbar?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Luxis UI Toast comes with built-in progress bars and variant icons out of the box without requiring extra composition. MUI's Snackbar requires importing and combining an Alert component to achieve the same visual result."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Toast
+
+<ComponentStatus status="stable" version="1.0.0" aria="WAI-ARIA Alert" />
+
+A brief, non-interruptive notification for providing feedback to the user. Use Toast to display success, error, or informational messages.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for Toast
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding Toast to any file
+SOURCE: packages/luxis-ui/src/components/Toast/index.ts
+-->
+```tsx
+import { Toast } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI \`Toast\` is equivalent to MUI's \`<Snackbar>\`,
+  Chakra UI's \`<Toast>\`, and shadcn/ui's \`Toast\`.
+  Luxis UI provides built-in progress bars and pause-on-hover logic by default.
+</Callout>
+
+## Before You Start
+
+Toast represents a transient message alerting the user of an event.
+It is based on the HTML `role="alert"` and `aria-live="polite"` patterns.
+The Quick Start example below will produce a basic notification that dismisses itself after 5 seconds.
+
+<Callout type="tip" title="New to Luxis UI?">
+  Check out our Getting Started guide to learn about our design principles and theme configuration.
+</Callout>
+
+## How to Use Toast in React
+
+The minimum code to render a working Toast:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of Toast
+OUTPUT: A simple default toast message
+USE WHEN: Showing a standard notification
+SOURCE: Derived from Toast.tsx defaults and simplest Story
+-->
+```tsx
+import { Toast } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    // Note: In a real app, you would typically use useToast() to trigger this
+    // The Toast component requires id, isVisible, createdAt, and onDismiss props
+    <Toast
+      id="toast-1"
+      isVisible={true}
+      createdAt={Date.now()}
+      onDismiss={() => {}}
+      variant="default"
+    >
+      This is a toast notification.
+    </Toast>
+  );
+}
+```
+
+This renders a default-styled toast with a blue left border, an icon, and a progress bar that drains over 5 seconds.
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of Toast with key props
+OUTPUT: A success toast with title and description
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/Toast.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { Toast } from '@luxis-ui/core';
+
+export default function LiveExample() {
+  return (
+    <Toast
+      id="live-demo"
+      isVisible={true}
+      createdAt={Date.now()}
+      onDismiss={() => {}}
+      variant="success"
+      title="Payment Successful"
+      description="Your payment of $49.00 has been processed."
+      autoClose={false}
+    >
+      Payment processed.
+    </Toast>
+  );
+}
+```
+
+## Toast Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### Toast Default
+
+Use the default variant for general, non-critical notifications.
+
+<!--
+EXAMPLE: Default
+PURPOSE: Shows the default toast style
+OUTPUT: A primary-colored toast with default icon
+USE WHEN: Standard system messages
+SOURCE: app/storybook/src/stories/Toast.stories.ts → Default
+-->
+```tsx
+import { Toast } from '@luxis-ui/core';
+
+export default function DefaultExample() {
+  return (
+    <Toast
+      id="toast-default"
+      isVisible={true}
+      createdAt={Date.now()}
+      onDismiss={() => {}}
+      variant="default"
+    >
+      This is a default notification.
+    </Toast>
+  );
+}
+```
+
+This renders the standard toast with primary coloring.
+
+---
+
+### Toast Success
+
+Use the success variant when an action completes successfully.
+
+<!--
+EXAMPLE: Success
+PURPOSE: Shows a success message
+OUTPUT: A green success toast
+USE WHEN: Confirming successful saves, updates, or actions
+SOURCE: app/storybook/src/stories/Toast.stories.ts → Success
+-->
+```tsx
+import { Toast } from '@luxis-ui/core';
+
+export default function SuccessExample() {
+  return (
+    <Toast
+      id="toast-success"
+      isVisible={true}
+      createdAt={Date.now()}
+      onDismiss={() => {}}
+      variant="success"
+    >
+      Your changes have been saved successfully.
+    </Toast>
+  );
+}
+```
+
+This renders a toast with a green border and checkmark icon.
+
+---
+
+### Toast ErrorToast
+
+Use the error variant for critical failures that need the user's attention.
+
+<!--
+EXAMPLE: ErrorToast
+PURPOSE: Shows an error message
+OUTPUT: A red error toast
+USE WHEN: Reporting failed requests or invalid actions
+SOURCE: app/storybook/src/stories/Toast.stories.ts → ErrorToast
+-->
+```tsx
+import { Toast } from '@luxis-ui/core';
+
+export default function ErrorToastExample() {
+  return (
+    <Toast
+      id="toast-error"
+      isVisible={true}
+      createdAt={Date.now()}
+      onDismiss={() => {}}
+      variant="error"
+    >
+      Something went wrong. Please try again.
+    </Toast>
+  );
+}
+```
+
+This renders a toast with a red border and an error icon.
+
+---
+
+### Toast Warning
+
+Use the warning variant to caution the user about potential issues.
+
+<!--
+EXAMPLE: Warning
+PURPOSE: Shows a warning message
+OUTPUT: An orange warning toast
+USE WHEN: Cautioning users about destructive actions
+SOURCE: app/storybook/src/stories/Toast.stories.ts → Warning
+-->
+```tsx
+import { Toast } from '@luxis-ui/core';
+
+export default function WarningExample() {
+  return (
+    <Toast
+      id="toast-warning"
+      isVisible={true}
+      createdAt={Date.now()}
+      onDismiss={() => {}}
+      variant="warning"
+    >
+      This action cannot be undone.
+    </Toast>
+  );
+}
+```
+
+This renders a toast with an orange border and a warning triangle icon.
+
+---
+
+### Toast Info
+
+Use the info variant for neutral but important information.
+
+<!--
+EXAMPLE: Info
+PURPOSE: Shows an informational message
+OUTPUT: A blue info toast
+USE WHEN: Providing helpful context or updates
+SOURCE: app/storybook/src/stories/Toast.stories.ts → Info
+-->
+```tsx
+import { Toast } from '@luxis-ui/core';
+
+export default function InfoExample() {
+  return (
+    <Toast
+      id="toast-info"
+      isVisible={true}
+      createdAt={Date.now()}
+      onDismiss={() => {}}
+      variant="info"
+    >
+      Here is some useful information for you.
+    </Toast>
+  );
+}
+```
+
+This renders a toast with a blue border and an information icon.
+
+---
+
+### Toast Primary
+
+Use the primary variant for brand-centric or prominent feature announcements.
+
+<!--
+EXAMPLE: Primary
+PURPOSE: Shows a primary styled message
+OUTPUT: A fully primary-colored toast
+USE WHEN: Announcing new features or important brand updates
+SOURCE: app/storybook/src/stories/Toast.stories.ts → Primary
+-->
+```tsx
+import { Toast } from '@luxis-ui/core';
+
+export default function PrimaryExample() {
+  return (
+    <Toast
+      id="toast-primary"
+      isVisible={true}
+      createdAt={Date.now()}
+      onDismiss={() => {}}
+      variant="primary"
+    >
+      New feature available — check it out!
+    </Toast>
+  );
+}
+```
+
+This renders a toast with a primary background and text color styling.
+
+---
+
+### Toast WithTitle
+
+Use the `title` prop to add a prominent heading to the toast.
+
+<!--
+EXAMPLE: WithTitle
+PURPOSE: Shows a toast with a title
+OUTPUT: A toast with bold title text above the message
+USE WHEN: Messages need a clear, concise headline
+SOURCE: app/storybook/src/stories/Toast.stories.ts → WithTitle
+-->
+```tsx
+import { Toast } from '@luxis-ui/core';
+
+export default function WithTitleExample() {
+  return (
+    <Toast
+      id="toast-with-title"
+      isVisible={true}
+      createdAt={Date.now()}
+      onDismiss={() => {}}
+      variant="info"
+      title="Update Available"
+    >
+      A new version is ready to install.
+    </Toast>
+  );
+}
+```
+
+This renders a toast containing both a bold title and a body message.
+
+---
+
+### Toast WithTitleAndDescription
+
+Use both `title` and `description` for detailed notifications.
+
+<!--
+EXAMPLE: WithTitleAndDescription
+PURPOSE: Shows a toast with title and description
+OUTPUT: A rich toast with structured text layout
+USE WHEN: Providing detailed, multi-part information
+SOURCE: app/storybook/src/stories/Toast.stories.ts → WithTitleAndDescription
+-->
+```tsx
+import { Toast } from '@luxis-ui/core';
+
+export default function WithTitleAndDescriptionExample() {
+  return (
+    <Toast
+      id="toast-complex"
+      isVisible={true}
+      createdAt={Date.now()}
+      onDismiss={() => {}}
+      variant="success"
+      title="Payment Successful"
+      description="Your payment of $49.00 has been processed."
+    >
+      Payment processed.
+    </Toast>
+  );
+}
+```
+
+This renders a complex toast with a title, a secondary description, and the main body content.
+
+---
+
+### Toast NoAutoClose
+
+Set `autoClose={false}` to require manual dismissal by the user.
+
+<!--
+EXAMPLE: NoAutoClose
+PURPOSE: Shows a persistent toast
+OUTPUT: A toast with no progress bar that stays open
+USE WHEN: Critical information that the user must explicitly acknowledge
+SOURCE: app/storybook/src/stories/Toast.stories.ts → NoAutoClose
+-->
+```tsx
+import { Toast } from '@luxis-ui/core';
+
+export default function NoAutoCloseExample() {
+  return (
+    <Toast
+      id="toast-persistent"
+      isVisible={true}
+      createdAt={Date.now()}
+      onDismiss={() => {}}
+      variant="warning"
+      autoClose={false}
+    >
+      This toast stays until you close it.
+    </Toast>
+  );
+}
+```
+
+This renders a toast that does not disappear automatically.
+
+---
+
+### Toast LongDuration
+
+Configure the `autoClose` prop to extend the viewing time for longer messages.
+
+<!--
+EXAMPLE: LongDuration
+PURPOSE: Shows a toast with extended duration
+OUTPUT: A toast with a slow progress bar
+USE WHEN: Displaying lengthy text that takes more time to read
+SOURCE: app/storybook/src/stories/Toast.stories.ts → LongDuration
+-->
+```tsx
+import { Toast } from '@luxis-ui/core';
+
+export default function LongDurationExample() {
+  return (
+    <Toast
+      id="toast-long"
+      isVisible={true}
+      createdAt={Date.now()}
+      onDismiss={() => {}}
+      variant="info"
+      autoClose={10000}
+    >
+      This toast stays for 10 seconds.
+    </Toast>
+  );
+}
+```
+
+This renders a toast where the progress bar takes 10 seconds to complete.
+
+---
+
+### Toast NoProgressBar
+
+Set `progressBar={false}` for a cleaner look without the visual timer.
+
+<!--
+EXAMPLE: NoProgressBar
+PURPOSE: Shows a toast without a progress indicator
+OUTPUT: A toast lacking the bottom progress bar
+USE WHEN: The visual timer is distracting or unnecessary
+SOURCE: app/storybook/src/stories/Toast.stories.ts → NoProgressBar
+-->
+```tsx
+import { Toast } from '@luxis-ui/core';
+
+export default function NoProgressBarExample() {
+  return (
+    <Toast
+      id="toast-no-progress"
+      isVisible={true}
+      createdAt={Date.now()}
+      onDismiss={() => {}}
+      variant="default"
+      progressBar={false}
+    >
+      No progress bar.
+    </Toast>
+  );
+}
+```
+
+This renders a toast that auto-closes but hides the progress animation.
+
+---
+
+### Toast NoCloseButton
+
+Set `closeButton={false}` to prevent manual dismissal.
+
+<!--
+EXAMPLE: NoCloseButton
+PURPOSE: Shows a toast without a close button
+OUTPUT: A toast with no "x" button
+USE WHEN: The notification is purely informational and shouldn't be dismissed early
+SOURCE: app/storybook/src/stories/Toast.stories.ts → NoCloseButton
+-->
+```tsx
+import { Toast } from '@luxis-ui/core';
+
+export default function NoCloseButtonExample() {
+  return (
+    <Toast
+      id="toast-no-close"
+      isVisible={true}
+      createdAt={Date.now()}
+      onDismiss={() => {}}
+      variant="default"
+      closeButton={false}
+    >
+      No close button — auto-dismisses.
+    </Toast>
+  );
+}
+```
+
+This renders a toast relying entirely on its autoClose timer.
+
+---
+
+### Toast NoPauseOnHover
+
+Set `pauseOnHover={false}` to ensure the timer continues even when the mouse is over the toast.
+
+<!--
+EXAMPLE: NoPauseOnHover
+PURPOSE: Shows a toast that doesn't pause its timer
+OUTPUT: A toast whose progress bar keeps moving when hovered
+USE WHEN: Strict timing is required for the notification
+SOURCE: app/storybook/src/stories/Toast.stories.ts → NoPauseOnHover
+-->
+```tsx
+import { Toast } from '@luxis-ui/core';
+
+export default function NoPauseOnHoverExample() {
+  return (
+    <Toast
+      id="toast-no-pause"
+      isVisible={true}
+      createdAt={Date.now()}
+      onDismiss={() => {}}
+      variant="info"
+      pauseOnHover={false}
+    >
+      Timer continues even when you hover.
+    </Toast>
+  );
+}
+```
+
+This renders a toast that will dismiss reliably after its duration regardless of user interaction.
+
+---
+
+### Controlled Toast
+
+When to use: When a parent component needs to read or drive the state.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  By default Toast manages its own state (uncontrolled).
+  Use the controlled pattern when syncing with a URL param, form
+  library, or another component.
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: useState-driven Toast with external state management
+OUTPUT: Toast whose state is owned by the parent
+USE WHEN: Programmatically reading or setting component state
+SOURCE: Derived from Toast.tsx controlled/uncontrolled pattern
+-->
+```tsx
+import { useState } from 'react';
+import { Toast } from '@luxis-ui/core';
+
+export default function ControlledExample() {
+  const [isVisible, setIsVisible] = useState(true);
+
+  if (!isVisible) return null;
+
+  return (
+    <Toast
+      id="controlled-toast"
+      isVisible={isVisible}
+      createdAt={Date.now()}
+      onDismiss={() => setIsVisible(false)}
+      variant="default"
+    >
+      This is a controlled toast.
+    </Toast>
+  );
+}
+```
+
+## Toast Best Practices
+
+Following best practices ensures your notifications are helpful rather than annoying.
+
+<DoAndDont
+  good={`// ✅ Keep messages concise
+<Toast variant="success">
+  Profile updated.
+</Toast>`}
+  bad={`// ❌ Avoid long paragraphs in toasts
+<Toast variant="success">
+  Your profile has been successfully updated in our database. You can now navigate to the dashboard to see the changes applied.
+</Toast>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Provide an action for undoing mistakes
+<Toast
+  variant="warning"
+  action={{ label: 'Undo', onClick: handleUndo }}
+  autoClose={8000}
+>
+  Conversation deleted
+</Toast>`}
+  bad={`// ❌ Don't auto-close toasts that require complex actions quickly
+<Toast
+  variant="warning"
+  action={{ label: 'Undo', onClick: handleUndo }}
+  autoClose={2000}
+>
+  Conversation deleted
+</Toast>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use the correct semantic variant
+<Toast variant="error">
+  Failed to connect to the server.
+</Toast>`}
+  bad={`// ❌ Don't use default/success for errors
+<Toast variant="success">
+  Failed to connect to the server.
+</Toast>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Disable autoClose for critical errors
+<Toast variant="error" autoClose={false}>
+  Your session has expired. Please log in again.
+</Toast>`}
+  bad={`// ❌ Don't auto-close critical information
+<Toast variant="error" autoClose={3000}>
+  Your payment failed.
+</Toast>`}
+/>
+
+## Toast Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly
+from \`packages/luxis-ui/src/components/Toast/types.ts\`.
+
+### Toast Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| \`children\` | \`ReactNode\` | - | Yes | Toast content |
+| \`createdAt\` | \`number\` | - | Yes | Creation timestamp |
+| \`id\` | \`string \| number\` | - | Yes | Unique toast ID |
+| \`isVisible\` | \`boolean\` | - | Yes | Whether toast is visible |
+| \`onDismiss\` | \`() => void\` | - | Yes | Function to close the toast |
+| \`action\` | \`{ label: string; onClick: () => void }\` | - | No | Custom action button |
+| \`animationDuration\` | \`number\` | \`300\` | No | Animation duration in milliseconds |
+| \`autoClose\` | \`number \| false\` | \`5000\` | No | Auto close duration in milliseconds. Set to false to disable |
+| \`className\` | \`string\` | \`''\` | No | Custom className |
+| \`closeButton\` | \`boolean\` | \`true\` | No | Show close button |
+| \`description\` | \`string\` | - | No | Rich content description |
+| \`icon\` | \`ReactNode \| false\` | - | No | Custom icon or false to hide icon |
+| \`onClose\` | \`() => void\` | - | No | Callback when toast is closed |
+| \`onOpen\` | \`() => void\` | - | No | Callback when toast is opened |
+| \`pauseOnFocusLoss\` | \`boolean\` | \`true\` | No | Pause on focus loss |
+| \`pauseOnHover\` | \`boolean\` | \`true\` | No | Pause on hover |
+| \`progressBar\` | \`boolean\` | \`true\` | No | Show progress bar |
+| \`style\` | \`React.CSSProperties\` | - | No | Custom styles |
+| \`title\` | \`string\` | - | No | Rich content title |
+| \`toastId\` | \`string \| number\` | - | No | Toast ID for updates/dismissal |
+| \`variant\` | \`ToastVariant\` | \`'default'\` | No | Toast variant/type |
+
+### HTML Native Props
+
+Toast forwards rest props to its underlying \`<div>\`, so
+all standard HTML div attributes are also accepted.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| \`onClick\` | Click handler | \`(e) => handleClick(e)\` |
+| \`className\` | Additional CSS class names | \`"custom-class"\` |
+| \`style\` | Inline CSS styles | \`{{ marginTop: '8px' }}\` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for Toast
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/components/Toast/types.ts
+-->
+\`\`\`ts
+export type ToastVariant = 'success' | 'error' | 'warning' | 'info' | 'default' | 'primary';
+
+export interface ToastOptions {
+  autoClose?: number | false;
+  closeButton?: boolean;
+  progressBar?: boolean;
+  pauseOnHover?: boolean;
+  pauseOnFocusLoss?: boolean;
+  variant?: ToastVariant;
+  icon?: ReactNode | false;
+  action?: {
+    label: string;
+    onClick: () => void;
+  };
+  className?: string;
+  style?: React.CSSProperties;
+  toastId?: string | number;
+  onClose?: () => void;
+  onOpen?: () => void;
+  title?: string;
+  description?: string;
+  animationDuration?: number;
+}
+
+export interface ToastProps extends ToastOptions {
+  children: ReactNode;
+  isVisible: boolean;
+  onDismiss: () => void;
+  id: string | number;
+  createdAt: number;
+}
+\`\`\`
+
+</details>
+
+## Toast Accessibility Guide
+
+Toast follows the WAI-ARIA Alert pattern and meets WCAG AA.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| <KeyboardKey>Tab</KeyboardKey> | Moves focus to the action button or close button within the toast |
+| <KeyboardKey>Enter</KeyboardKey> | Activates the focused button |
+| <KeyboardKey>Space</KeyboardKey> | Activates the focused button |
+
+### ARIA Attributes
+
+| Attribute | Value | When |
+|-----------|-------|------|
+| \`role\` | \`"alert"\` | Always on the container |
+| \`aria-live\` | \`"polite"\` | Always on the container |
+| \`aria-label\` | \`"Close notification"\` | On the close button |
+
+### Screen Reader Behavior
+
+When a toast is rendered, screen readers will immediately announce its contents because of the `role="alert"` and `aria-live="polite"` attributes. The polite setting ensures that the screen reader waits until the user finishes their current task or typing before speaking the notification, preventing interruption while still guaranteeing delivery.
+
+### Accessibility Checklist
+
+- [ ] Ensure critical messages use \`autoClose={false}\` so users have time to read them
+- [ ] Provide clear, actionable text if an \`action\` button is included
+- [ ] Test that screen readers announce the toast content when it appears
+- [ ] Always test with keyboard-only navigation before shipping
+
+## Toast Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions
+  like colors, spacing, and radius. Override them to restyle
+  Toast without fighting CSS specificity.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| \`--lxs-toast-animation-duration\` | \`300ms\` | Controls the enter/exit animation speed |
+
+**Override globally:**
+\`\`\`css
+:root {
+  --lxs-toast-animation-duration: 500ms;
+}
+\`\`\`
+
+**Override for one section:**
+\`\`\`css
+.my-section {
+  --lxs-toast-animation-duration: 500ms;
+}
+\`\`\`
+
+**Override on one instance:**
+\`\`\`tsx
+<Toast
+  style={{ '--lxs-toast-animation-duration': '500ms' } as React.CSSProperties}
+  id="override" isVisible={true} createdAt={Date.now()} onDismiss={() => {}}
+>
+  Custom animated toast
+</Toast>
+\`\`\`
+
+## Customizing Toast
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to Toast
+OUTPUT: Toast with additional styling
+USE WHEN: Quick one-off style overrides
+SOURCE: N/A
+-->
+\`\`\`tsx
+<Toast
+  className="my-custom-toast-class"
+  id="level1" isVisible={true} createdAt={Date.now()} onDismiss={() => {}}
+>
+  Custom class applied
+</Toast>
+\`\`\`
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: Toast with custom token values
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+\`\`\`tsx
+<Toast
+  style={{ '--lxs-toast-animation-duration': '150ms' } as React.CSSProperties}
+  id="level2" isVisible={true} createdAt={Date.now()} onDismiss={() => {}}
+>
+  Faster animation
+</Toast>
+\`\`\`
+
+### Using with forwardRef
+
+<!--
+EXAMPLE: forwardRef
+PURPOSE: Accessing the underlying DOM node
+OUTPUT: Toast with attached ref
+USE WHEN: Calling native DOM methods
+SOURCE: N/A
+-->
+\`\`\`tsx
+import { useRef, useEffect } from 'react';
+import { Toast } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (ref.current) {
+      console.log('Toast mounted:', ref.current);
+    }
+  }, []);
+
+  return (
+    <Toast ref={ref} id="ref-demo" isVisible={true} createdAt={Date.now()} onDismiss={() => {}}>
+      Toast with a ref attached
+    </Toast>
+  );
+}
+\`\`\`
+
+## Common Toast Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Undo Action
+
+Used when: Allowing users to quickly reverse a destructive action.
+
+<!--
+EXAMPLE: Undo Action
+PURPOSE: Demonstrates a toast with an action button
+OUTPUT: A warning toast with an Undo button
+USE WHEN: Deleting records or moving items to trash
+SOURCE: Common usage pattern for Toast
+-->
+\`\`\`tsx
+import { Toast } from '@luxis-ui/core';
+
+export default function UndoActionExample() {
+  const handleUndo = () => {
+    // Logic to restore the item
+    console.log('Action reversed');
+  };
+
+  return (
+    <Toast
+      id="undo-toast"
+      isVisible={true}
+      createdAt={Date.now()}
+      onDismiss={() => {}}
+      variant="warning"
+      autoClose={8000}
+      action={{ label: 'Undo', onClick: handleUndo }}
+    >
+      File "Q3_Report.pdf" moved to trash.
+    </Toast>
+  );
+}
+\`\`\`
+
+### Custom Icon
+
+Used when: You need to display a brand-specific or non-standard icon.
+
+<!--
+EXAMPLE: Custom Icon
+PURPOSE: Overriding the default variant icon
+OUTPUT: A toast featuring a custom SVG icon
+USE WHEN: Brand requirements dictate specific iconography
+SOURCE: Common usage pattern for Toast
+-->
+\`\`\`tsx
+import { Toast } from '@luxis-ui/core';
+
+const CheckCircleIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+  </svg>
+);
+
+export default function CustomIconExample() {
+  return (
+    <Toast
+      id="custom-icon"
+      isVisible={true}
+      createdAt={Date.now()}
+      onDismiss={() => {}}
+      variant="success"
+      icon={<CheckCircleIcon />}
+    >
+      Document successfully verified.
+    </Toast>
+  );
+}
+\`\`\`
+
+### Persistant Error Message
+
+Used when: The user must explicitly acknowledge an error before continuing.
+
+<!--
+EXAMPLE: Persistent Error
+PURPOSE: Showing a non-dismissing error toast
+OUTPUT: An error toast with no progress bar and autoClose disabled
+USE WHEN: Critical system failures
+SOURCE: Common usage pattern for Toast
+-->
+\`\`\`tsx
+import { Toast } from '@luxis-ui/core';
+
+export default function PersistentErrorExample() {
+  return (
+    <Toast
+      id="persistent-error"
+      isVisible={true}
+      createdAt={Date.now()}
+      onDismiss={() => {}}
+      variant="error"
+      title="Connection Lost"
+      description="We are unable to reach the server. Please check your internet connection."
+      autoClose={false}
+      progressBar={false}
+      pauseOnHover={false}
+    >
+      Reconnecting in 30 seconds...
+    </Toast>
+  );
+}
+\`\`\`
+
+## Troubleshooting Toast
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Toast vanishes too quickly for users to read | \`autoClose={1000}\` | \`autoClose={5000}\` or higher |
+| Toast obscures important UI and won't close | \`closeButton={false}\` with \`autoClose={false}\` | Provide a close button or auto close |
+| Screen readers announce toast multiple times | Multiple \`aria-live\` regions nested | Rely on the component's internal \`aria-live\` |
+| Action button click event bubbles unexpectedly | \`onClick\` without \`e.stopPropagation()\` (if bubbling is an issue) | Handle events carefully within the action callback |
+
+<Callout type="warning" title="Next.js / SSR">
+  Toast relies on \`Date.now()\` and timers. Ensure you only render toasts on the client side, typically by triggering them via user interaction or within a \`useEffect\`.
+</Callout>
+
+### Frequently Asked Questions
+
+**Q: How do I trigger a toast from anywhere in my app?**
+A: You should use the \`useToast\` hook and \`ToastProvider\` instead of rendering the \`Toast\` component directly.
+
+**Q: Can I change the position of the toasts?**
+A: Yes, position is managed by the \`ToastContainer\`/Provider, usually set via a \`position\` prop (e.g., \`'top-right'\`).
+
+**Q: Why doesn't my toast auto-close when I hover over it?**
+A: By default, \`pauseOnHover\` is \`true\`. If you want it to close regardless of mouse position, set \`pauseOnHover={false}\`.
+
+**Q: How do I remove the icon completely?**
+A: Pass \`icon={false}\` to the Toast component.
+
+## Related Components
+
+<RelatedComponent
+  name="Alert"
+  description="For inline messages within the page flow rather than floating notifications."
+  href="/docs/components/alert"
+/>
+<RelatedComponent
+  name="Button"
+  description="Used within toasts for custom actions."
+  href="/docs/components/button"
+/>
+<RelatedComponent
+  name="Typography"
+  description="For formatting rich content within toast descriptions."
+  href="/docs/components/typography"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Toast
+
+> Toast is a Components/Toast React component in Luxis UI for providing brief feedback notifications.
+
+## Source
+packages/luxis-ui/src/components/Toast/Toast.tsx
+
+## Story
+app/storybook/src/stories/Toast.stories.ts
+
+## Install
+\`\`\`bash
+npm install @luxis-ui/core
+\`\`\`
+
+## Import
+\`\`\`tsx
+import { Toast } from '@luxis-ui/core';
+\`\`\`
+
+## Minimal usage
+\`\`\`tsx
+import { Toast } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Toast id="1" isVisible={true} createdAt={Date.now()} onDismiss={() => {}}>
+      Profile updated successfully.
+    </Toast>
+  );
+}
+\`\`\`
+
+## Key props
+- \`variant\` ('success' | 'error' | 'warning' | 'info' | 'default' | 'primary', default=\`'default'\`): Toast variant/type
+- \`autoClose\` (number | false, default=\`5000\`): Auto close duration in milliseconds. Set to false to disable
+- \`closeButton\` (boolean, default=\`true\`): Show close button
+- \`progressBar\` (boolean, default=\`true\`): Show progress bar
+- \`pauseOnHover\` (boolean, default=\`true\`): Pause on hover
+
+## When to use
+Displaying a success message after a form submission. Alerting the user of a system error.
+
+## When NOT to use
+Complex dialogues needing user input. Critical warnings that must interrupt the user workflow.
+
+## Accessibility
+WCAG: AA
+ARIA: Alert
+Keyboard: Tab, Enter, Space
+
+## Docs
+https://luxis-ui.dev/docs/components/toast
+LLMS_TXT_ENTRY_END
+*/}

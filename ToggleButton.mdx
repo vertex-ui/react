@@ -1,0 +1,1162 @@
+---
+title: "ToggleButton — Luxis UI React Component"
+description: "A customizable switch component for toggling a binary state on or off. Supports labels, multiple sizes, states, and inline icons."
+status: stable
+since: "1.0.0"
+category: "Components/ToggleButton"
+npm: "@luxis-ui/core"
+import: "import { ToggleButton } from '@luxis-ui/core'"
+component: "ToggleButton"
+keywords:
+  - togglebutton
+  - react togglebutton
+  - togglebutton component
+  - luxis ui togglebutton
+  - typescript togglebutton
+  - accessible togglebutton
+  - react design system
+slug: /components/togglebutton
+canonical: "https://luxis-ui.dev/docs/components/togglebutton"
+og_image: "/img/og/togglebutton.png"
+llm_summary: >
+  ToggleButton renders a div containing a label and an input[type="checkbox"] with role="switch". It accepts: checked (boolean), disabled (boolean, default=false), label (ReactNode), labelPlacement ('start' | 'end' | 'top' | 'bottom', default='end'), size ('sm' | 'md' | 'lg', default='md'), variant ('primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info', default='primary'), error (boolean, default=false), helperText (ReactNode), onChange ((event: React.ChangeEvent<HTMLInputElement>) => void), className (string), inputClassName (string), icon (ReactNode), checkedIcon (ReactNode). Use when letting users immediately activate or deactivate a setting. Do not use for forms requiring a submit button (use Checkbox instead). Accessible via screen readers announcing the switch role and checked state. Import: import { ToggleButton } from '@luxis-ui/core'.
+---
+
+{/*
+LLM_CONTEXT
+  component    : ToggleButton
+  source       : packages/luxis-ui/src/components/ToggleButton/ToggleButton.tsx
+  story        : app/storybook/src/stories/ToggleButton.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components/ToggleButton
+  status       : stable
+  aria-pattern : Switch
+
+  What it renders:
+  ToggleButton renders a div container wrapping a label element. Inside the label is an invisible native <input type="checkbox" role="switch"> and a custom visual track/thumb element. It may also render a helper text div below the label.
+
+  When to use:
+  - Allowing users to instantly turn a setting on or off (e.g., Dark Mode).
+  - Toggling binary options in a settings panel.
+  - Enabling/disabling features without requiring a form submission.
+
+  When NOT to use:
+  - Inside long forms where options are only applied when clicking "Submit" (use Checkbox instead).
+  - Selecting from a list of multiple related options (use Radio or Checkbox Group).
+
+  Ecosystem equivalents:
+  - MUI        : <Switch>
+  - Chakra UI  : <Switch>
+  - shadcn/ui  : <Switch>
+  - Radix UI   : <Switch>
+  - HTML native: <input type="checkbox" role="switch">
+
+  Props (must match source exactly — every single prop):
+  checked (boolean, default=undefined) — If true, the toggle button is checked.
+  disabled (boolean, default=false) — If true, the toggle button is disabled.
+  label (ReactNode, default=undefined) — The label for the toggle button.
+  labelPlacement ('start' | 'end' | 'top' | 'bottom', default='end') — Placement of the label relative to the toggle switch.
+  size ('sm' | 'md' | 'lg', default='md') — The size of the toggle button.
+  variant ('primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info', default='primary') — The variant of the toggle button.
+  error (boolean, default=false) — If true, displays error styling.
+  helperText (ReactNode, default=undefined) — Helper text displayed below the toggle button.
+  onChange ((event: React.ChangeEvent<HTMLInputElement>) => void, default=undefined) — Callback fired when the state is changed.
+  className (string, default='') — Additional CSS class name for the container.
+  inputClassName (string, default='') — Additional CSS class name for the input element.
+  icon (ReactNode, default=undefined) — Icon to display inside the toggle knob (thumb).
+  checkedIcon (ReactNode, default=undefined) — Icon to display inside the toggle knob when checked. Overrides `icon` when checked.
+
+  Accessibility:
+  WCAG: AA
+  Keyboard: Tab to focus the input, Space to toggle the state.
+  Screen reader: Announces the input as a switch and its current checked/unchecked state. Reads the label and helper text.
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "ToggleButton React Component — Luxis UI",
+  "description": "A customizable switch component for toggling a binary state on or off. Supports labels, multiple sizes, states, and inline icons.",
+  "keywords": "togglebutton, react togglebutton, togglebutton component, luxis ui togglebutton, typescript togglebutton, accessible togglebutton, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use ToggleButton in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { ToggleButton } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI ToggleButton accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The top props are checked, label, disabled (default false), size (default 'md'), and variant (default 'primary')."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I add an icon to the ToggleButton thumb?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the icon and checkedIcon props to pass React components that will render inside the toggle knob."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI ToggleButton different from MUI Switch?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Luxis UI ToggleButton provides built-in label and helperText support without requiring an external FormControlLabel wrapper, simplifying common implementations."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# ToggleButton
+
+<ComponentStatus status="stable" version="1.0.0" aria="WAI-ARIA Switch" />
+
+A customizable switch component for toggling a binary state on or off. Supports labels, multiple sizes, states, and inline icons.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for ToggleButton
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding ToggleButton to any file
+SOURCE: packages/luxis-ui/src/components/ToggleButton/index.ts
+-->
+```tsx
+import { ToggleButton } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI `ToggleButton` is equivalent to MUI's `<Switch>`,
+  Chakra UI's `<Switch>`, and shadcn/ui's `Switch`.
+  Unlike MUI, it includes built-in label and helper text layout without an external wrapper.
+</Callout>
+
+## Before You Start
+
+ToggleButton represents a setting that takes immediate effect when changed.
+It is based on the HTML `input type="checkbox"` with `role="switch"`.
+The Quick Start example below will produce a basic uncontrolled switch with a label.
+
+<Callout type="tip" title="New to Luxis UI?">
+  Check out our Getting Started guide to learn about our design principles and theme configuration.
+</Callout>
+
+## How to Use ToggleButton in React
+
+The minimum code to render a working ToggleButton:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of ToggleButton
+OUTPUT: A toggle button with an 'Enable notifications' label
+USE WHEN: Standard settings switch
+SOURCE: Derived from ToggleButton.tsx defaults and simplest Story
+-->
+```tsx
+import { ToggleButton } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <ToggleButton label="Enable notifications" />
+  );
+}
+```
+
+This renders a medium, primary-colored toggle switch next to the provided label. It manages its own internal state.
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of ToggleButton with key props
+OUTPUT: A controlled toggle button with label, size, and variant
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/ToggleButton.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { useState } from 'react';
+import { ToggleButton } from '@luxis-ui/core';
+
+export default function LiveExample() {
+  const [checked, setChecked] = useState(false);
+
+  return (
+    <ToggleButton
+      checked={checked}
+      onChange={(e) => setChecked(e.target.checked)}
+      label={checked ? "Dark Mode Enabled" : "Dark Mode Disabled"}
+      size="lg"
+      variant="secondary"
+      helperText="Switch to a darker theme for better night viewing."
+    />
+  );
+}
+```
+
+## ToggleButton Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### ToggleButton Playground
+
+Use the playground to interactively tweak the ToggleButton props.
+
+<!--
+EXAMPLE: Playground
+PURPOSE: Demonstrates a fully interactive toggle button
+OUTPUT: A controlled toggle button
+USE WHEN: Prototyping toggle button behaviors
+SOURCE: app/storybook/src/stories/ToggleButton.stories.ts → Playground
+-->
+```tsx
+import { useState } from 'react';
+import { ToggleButton } from '@luxis-ui/core';
+
+export default function PlaygroundExample() {
+  const [checked, setChecked] = useState(false);
+  return (
+    <ToggleButton
+      checked={checked}
+      onChange={(e) => setChecked(e.target.checked)}
+      label="Interactive Toggle"
+    />
+  );
+}
+```
+
+This renders a toggle whose state is synced with the component's internal state.
+
+---
+
+### ToggleButton Controlled
+
+Use controlled state when a parent component must read or update the toggle value.
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: Shows a parent component controlling the toggle
+OUTPUT: A success variant toggle button with state feedback
+USE WHEN: Building forms or settings pages where state lives above the toggle
+SOURCE: app/storybook/src/stories/ToggleButton.stories.ts → Controlled
+-->
+```tsx
+import { useState } from 'react';
+import { ToggleButton } from '@luxis-ui/core';
+
+export default function ControlledExample() {
+  const [checked, setChecked] = useState(false);
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+      <ToggleButton
+        label={checked ? 'On' : 'Off'}
+        checked={checked}
+        onChange={(e) => setChecked(e.target.checked)}
+        variant="success"
+      />
+      <span style={{ fontSize: 13, color: '#6b7280' }}>
+        State: <strong style={{ color: checked ? '#16a34a' : '#374151' }}>{checked ? 'checked' : 'unchecked'}</strong>
+      </span>
+    </div>
+  );
+}
+```
+
+This renders a green success toggle that updates nearby text when changed.
+
+---
+
+### ToggleButton Uncontrolled
+
+Use uncontrolled components when you only need the value during form submission.
+
+<!--
+EXAMPLE: Uncontrolled
+PURPOSE: Shows a toggle managing its own state
+OUTPUT: A simple toggle button
+USE WHEN: State management by a parent is unnecessary
+SOURCE: app/storybook/src/stories/ToggleButton.stories.ts → Uncontrolled
+-->
+```tsx
+import { ToggleButton } from '@luxis-ui/core';
+
+export default function UncontrolledExample() {
+  return (
+    <ToggleButton label="Uncontrolled toggle" />
+  );
+}
+```
+
+This renders a toggle that automatically changes its visual state without an `onChange` handler.
+
+---
+
+### ToggleButton Sizes
+
+Choose between small, medium, and large sizes depending on UI density.
+
+<!--
+EXAMPLE: Sizes
+PURPOSE: Demonstrates the sm, md, and lg size variants
+OUTPUT: Three toggle buttons of increasing size
+USE WHEN: Adapting the switch to different UI contexts
+SOURCE: app/storybook/src/stories/ToggleButton.stories.ts → Sizes
+-->
+```tsx
+import { ToggleButton } from '@luxis-ui/core';
+
+export default function SizesExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+      <ToggleButton size="sm" label="Size: sm" />
+      <ToggleButton size="md" label="Size: md" defaultChecked />
+      <ToggleButton size="lg" label="Size: lg" />
+    </div>
+  );
+}
+```
+
+This renders three switches showing the relative scaling of the track, thumb, and label text.
+
+---
+
+### ToggleButton Variants
+
+Select a variant to apply semantic coloring when the switch is active.
+
+<!--
+EXAMPLE: Variants
+PURPOSE: Displays all color variants
+OUTPUT: Six checked toggle buttons in different colors
+USE WHEN: Matching the switch to semantic meanings (e.g., destructive actions)
+SOURCE: app/storybook/src/stories/ToggleButton.stories.ts → Variants
+-->
+```tsx
+import { ToggleButton } from '@luxis-ui/core';
+
+export default function VariantsExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+      <ToggleButton variant="primary" label="Primary" defaultChecked />
+      <ToggleButton variant="secondary" label="Secondary" defaultChecked />
+      <ToggleButton variant="success" label="Success" defaultChecked />
+      <ToggleButton variant="error" label="Error" defaultChecked />
+      <ToggleButton variant="warning" label="Warning" defaultChecked />
+      <ToggleButton variant="info" label="Info" defaultChecked />
+    </div>
+  );
+}
+```
+
+This renders the full palette of available toggle colors.
+
+---
+
+### ToggleButton LabelPlacements
+
+Position the label around the switch track to match your layout.
+
+<!--
+EXAMPLE: LabelPlacements
+PURPOSE: Shows the label positioning options
+OUTPUT: Four toggle buttons with labels on different sides
+USE WHEN: Aligning toggles in specific grid or flex layouts
+SOURCE: app/storybook/src/stories/ToggleButton.stories.ts → LabelPlacements
+-->
+```tsx
+import { ToggleButton } from '@luxis-ui/core';
+
+export default function LabelPlacementsExample() {
+  return (
+    <div style={{ display: 'flex', gap: 32, alignItems: 'flex-start' }}>
+      <ToggleButton label="Label start" labelPlacement="start" defaultChecked />
+      <ToggleButton label="Label end" labelPlacement="end" defaultChecked />
+      <ToggleButton label="Label top" labelPlacement="top" defaultChecked />
+      <ToggleButton label="Label bottom" labelPlacement="bottom" defaultChecked />
+    </div>
+  );
+}
+```
+
+This renders switches demonstrating flex direction adjustments for the label.
+
+---
+
+### ToggleButton Disabled
+
+Use the disabled state when a setting cannot currently be changed.
+
+<!--
+EXAMPLE: Disabled
+PURPOSE: Shows unchecked and checked disabled toggles
+OUTPUT: Faded, non-interactive toggle buttons
+USE WHEN: Options require a higher permission level or prerequisite setting
+SOURCE: app/storybook/src/stories/ToggleButton.stories.ts → Disabled
+-->
+```tsx
+import { ToggleButton } from '@luxis-ui/core';
+
+export default function DisabledExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <ToggleButton label="Disabled (unchecked)" disabled />
+      <ToggleButton label="Disabled (checked)" disabled defaultChecked />
+    </div>
+  );
+}
+```
+
+This renders greyed-out toggles that do not respond to clicks.
+
+---
+
+### ToggleButton ErrorState
+
+Use the error state to highlight when a toggle setting causes an issue.
+
+<!--
+EXAMPLE: ErrorState
+PURPOSE: Demonstrates the error prop
+OUTPUT: Toggle buttons outlined in red
+USE WHEN: A user must toggle a switch to resolve a form validation error
+SOURCE: app/storybook/src/stories/ToggleButton.stories.ts → ErrorState
+-->
+```tsx
+import { ToggleButton } from '@luxis-ui/core';
+
+export default function ErrorStateExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+      <ToggleButton
+        label="Accept terms"
+        error
+        helperText="You must accept the terms to continue."
+      />
+      <ToggleButton
+        label="Accept terms"
+        error
+        defaultChecked
+        helperText="Terms accepted."
+      />
+    </div>
+  );
+}
+```
+
+This renders toggles with red borders and red helper text.
+
+---
+
+### ToggleButton WithHelperText
+
+Provide context directly below the switch using helper text.
+
+<!--
+EXAMPLE: WithHelperText
+PURPOSE: Shows toggles with descriptive text below
+OUTPUT: Toggle buttons accompanied by subtext
+USE WHEN: The label alone doesn't fully explain the setting's impact
+SOURCE: app/storybook/src/stories/ToggleButton.stories.ts → WithHelperText
+-->
+```tsx
+import { ToggleButton } from '@luxis-ui/core';
+
+export default function WithHelperTextExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+      <ToggleButton
+        label="Email notifications"
+        helperText="Receive updates via email."
+        defaultChecked
+      />
+      <ToggleButton
+        label="SMS notifications"
+        helperText="Standard message rates may apply."
+        variant="secondary"
+      />
+    </div>
+  );
+}
+```
+
+This renders switches with smaller, muted text indented beneath them.
+
+---
+
+### ToggleButton WithIcons
+
+Embed SVG icons inside the thumb for stronger visual feedback.
+
+<!--
+EXAMPLE: WithIcons
+PURPOSE: Demonstrates thumb icons
+OUTPUT: Toggles with moon/sun and wifi icons in the switch handle
+USE WHEN: Providing quick visual metaphors for the setting state
+SOURCE: app/storybook/src/stories/ToggleButton.stories.ts → WithIcons
+-->
+```tsx
+import { useState } from 'react';
+import { ToggleButton } from '@luxis-ui/core';
+
+const SunIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" width="100%" height="100%">
+    <path d="M12 7a5 5 0 1 0 0 10A5 5 0 0 0 12 7zm0-5a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1zm0 18a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1zM4.22 4.22a1 1 0 0 1 1.42 0l.7.71a1 1 0 1 1-1.41 1.41l-.71-.7a1 1 0 0 1 0-1.42zm13.36 13.36a1 1 0 0 1 1.42 0l.7.71a1 1 0 0 1-1.41 1.41l-.71-.7a1 1 0 0 1 0-1.42zM3 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1zm16 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1zM4.22 19.78a1 1 0 0 1 0-1.42l.71-.7a1 1 0 0 1 1.41 1.41l-.7.71a1 1 0 0 1-1.42 0zm13.36-13.36a1 1 0 0 1 0-1.42l.71-.7a1 1 0 1 1 1.41 1.41l-.7.71a1 1 0 0 1-1.42 0z" />
+  </svg>
+);
+
+const MoonIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" width="100%" height="100%">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" />
+  </svg>
+);
+
+export default function WithIconsExample() {
+  const [darkMode, setDarkMode] = useState(false);
+
+  return (
+    <ToggleButton
+      label="Dark Mode"
+      checked={darkMode}
+      onChange={(e) => setDarkMode(e.target.checked)}
+      icon={<SunIcon />}
+      checkedIcon={<MoonIcon />}
+      variant="secondary"
+      size="lg"
+    />
+  );
+}
+```
+
+This renders a large toggle that swaps a sun icon for a moon icon when active.
+
+---
+
+### ToggleButton SettingsPanel
+
+Group multiple toggles to form a settings interface.
+
+<!--
+EXAMPLE: SettingsPanel
+PURPOSE: Demonstrates a real-world settings layout
+OUTPUT: A card containing multiple toggle button rows
+USE WHEN: Building user preference pages
+SOURCE: app/storybook/src/stories/ToggleButton.stories.ts → SettingsPanel
+-->
+```tsx
+import { useState } from 'react';
+import { ToggleButton } from '@luxis-ui/core';
+
+export default function SettingsPanelExample() {
+  const [settings, setSettings] = useState({
+    notifications: true,
+    emails: false,
+    analytics: true
+  });
+
+  const toggle = (key: keyof typeof settings, on: boolean) =>
+    setSettings((prev) => ({ ...prev, [key]: on }));
+
+  return (
+    <div style={{ border: '1px solid #e5e7eb', borderRadius: 12, padding: 16 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div>
+            <p style={{ margin: 0, fontWeight: 500 }}>Push notifications</p>
+            <p style={{ margin: 0, fontSize: 12, color: '#6b7280' }}>Get alerts for new activity.</p>
+          </div>
+          <ToggleButton
+            checked={settings.notifications}
+            onChange={(e) => toggle('notifications', e.target.checked)}
+          />
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div>
+            <p style={{ margin: 0, fontWeight: 500 }}>Marketing emails</p>
+            <p style={{ margin: 0, fontSize: 12, color: '#6b7280' }}>Weekly digest and product updates.</p>
+          </div>
+          <ToggleButton
+            checked={settings.emails}
+            onChange={(e) => toggle('emails', e.target.checked)}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+This renders a structured list where toggles sit to the right of their descriptions.
+
+---
+
+### ToggleButton BulkToggle
+
+Implement a master toggle to control a group of related settings.
+
+<!--
+EXAMPLE: BulkToggle
+PURPOSE: Shows a master toggle overriding children
+OUTPUT: A large main switch and smaller sub-switches
+USE WHEN: Providing an easy way to enable/disable an entire category of features
+SOURCE: app/storybook/src/stories/ToggleButton.stories.ts → BulkToggle
+-->
+```tsx
+import { useState } from 'react';
+import { ToggleButton } from '@luxis-ui/core';
+
+const FEATURES = ['Dark mode', 'Compact layout', 'Animations'];
+
+export default function BulkToggleExample() {
+  const [checks, setChecks] = useState([true, false, true]);
+
+  const allOn = checks.every(Boolean);
+  const someOn = checks.some(Boolean);
+
+  const toggleAll = (on: boolean) => setChecks(checks.map(() => on));
+  const toggleOne = (i: number, on: boolean) =>
+    setChecks((prev) => prev.map((v, idx) => (idx === i ? on : v)));
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <ToggleButton
+        label={allOn ? 'Disable all' : someOn ? 'Enable remaining' : 'Enable all'}
+        checked={allOn}
+        onChange={(e) => toggleAll(e.target.checked)}
+        variant="secondary"
+        size="lg"
+      />
+      <hr style={{ border: 'none', borderTop: '1px solid #e5e7eb' }} />
+      {FEATURES.map((feature, i) => (
+        <ToggleButton
+          key={feature}
+          label={feature}
+          checked={checks[i]}
+          onChange={(e) => toggleOne(i, e.target.checked)}
+          size="sm"
+        />
+      ))}
+    </div>
+  );
+}
+```
+
+This renders a group where the top toggle controls the state of all items below it.
+
+---
+
+### Controlled ToggleButton
+
+When to use: When a parent component needs to read or drive the state.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  By default ToggleButton manages its own state (uncontrolled).
+  Use the controlled pattern when syncing with a URL param, form
+  library, or another component.
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: useState-driven ToggleButton with external state management
+OUTPUT: ToggleButton whose state is owned by the parent
+USE WHEN: Programmatically reading or setting component state
+SOURCE: Derived from ToggleButton.tsx controlled/uncontrolled pattern
+-->
+```tsx
+import { useState } from 'react';
+import { ToggleButton } from '@luxis-ui/core';
+
+export default function ControlledExample() {
+  const [value, setValue] = useState(false);
+
+  return (
+    <ToggleButton
+      checked={value}
+      onChange={(e) => setValue(e.target.checked)}
+      label="Controlled by React state"
+    />
+  );
+}
+```
+
+## ToggleButton Best Practices
+
+Use toggles correctly to avoid user confusion about form submissions.
+
+<DoAndDont
+  good={`// ✅ Use for settings that apply instantly
+<ToggleButton label="Airplane Mode" onChange={updateNetworkSetting} />`}
+  bad={`// ❌ Don't use inside forms requiring a "Save" button
+<form>
+  <ToggleButton label="Subscribe to newsletter" />
+  <Button type="submit">Save</Button>
+</form>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Write positive, declarative labels
+<ToggleButton label="Enable Auto-Save" />`}
+  bad={`// ❌ Don't use negative language that creates double-negatives
+<ToggleButton label="Disable Auto-Save" />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use checkboxes for lists of multiple items
+<CheckboxGroup>
+  <Checkbox label="Admin" />
+  <Checkbox label="Editor" />
+</CheckboxGroup>`}
+  bad={`// ❌ Don't use a list of toggles for selecting roles
+<div>
+  <ToggleButton label="Admin" />
+  <ToggleButton label="Editor" />
+</div>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Change variant to indicate impact
+<ToggleButton variant="error" label="Allow external file sharing" />`}
+  bad={`// ❌ Don't rely solely on color to convey meaning
+<ToggleButton variant="success" label="Action" />`}
+/>
+
+## ToggleButton Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly
+from `packages/luxis-ui/src/components/ToggleButton/ToggleButton.tsx`.
+
+### ToggleButton Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `checked` | `boolean` | - | No | If true, the toggle button is checked |
+| `checkedIcon` | `ReactNode` | - | No | Icon to display inside the toggle knob when checked. Overrides `icon` when checked. |
+| `className` | `string` | `''` | No | Additional CSS class name for the container |
+| `disabled` | `boolean` | `false` | No | If true, the toggle button is disabled |
+| `error` | `boolean` | `false` | No | If true, displays error styling |
+| `helperText` | `ReactNode` | - | No | Helper text displayed below the toggle button |
+| `icon` | `ReactNode` | - | No | Icon to display inside the toggle knob (thumb) |
+| `inputClassName` | `string` | `''` | No | Additional CSS class name for the input element |
+| `label` | `ReactNode` | - | No | The label for the toggle button |
+| `labelPlacement` | `'start' \| 'end' \| 'top' \| 'bottom'` | `'end'` | No | Placement of the label relative to the toggle switch |
+| `onChange` | `(event: React.ChangeEvent<HTMLInputElement>) => void` | - | No | Callback fired when the state is changed |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | No | The size of the toggle button |
+| `variant` | `'primary' \| 'secondary' \| 'success' \| 'error' \| 'warning' \| 'info'` | `'primary'` | No | The variant of the toggle button |
+
+### HTML Native Props
+
+ToggleButton forwards rest props to its underlying `<input>`, so
+all standard HTML input attributes are also accepted.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `onClick` | Click handler | `(e) => handleClick(e)` |
+| `id` | Element ID | `"dark-mode-toggle"` |
+| `name` | Input name | `"theme"` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for ToggleButton
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/components/ToggleButton/ToggleButton.tsx
+-->
+```ts
+export interface ToggleButtonProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+  checked?: boolean;
+  disabled?: boolean;
+  label?: React.ReactNode;
+  labelPlacement?: 'start' | 'end' | 'top' | 'bottom';
+  size?: 'sm' | 'md' | 'lg';
+  variant?: 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info';
+  error?: boolean;
+  helperText?: React.ReactNode;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  className?: string;
+  inputClassName?: string;
+  icon?: React.ReactNode;
+  checkedIcon?: React.ReactNode;
+}
+```
+
+</details>
+
+## ToggleButton Accessibility Guide
+
+ToggleButton follows the WAI-ARIA Switch pattern and meets WCAG AA.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| <KeyboardKey>Tab</KeyboardKey> | Focuses the toggle switch |
+| <KeyboardKey>Space</KeyboardKey> | Toggles the checked state |
+
+### ARIA Attributes
+
+| Attribute | Value | When |
+|-----------|-------|------|
+| `role` | `"switch"` | Always on the input |
+| `id` | `[string]` | Always generated and linked to the label via `htmlFor` |
+
+### Screen Reader Behavior
+
+When focused, screen readers will announce the input as a "switch", read the text of the connected `<label>`, and announce whether it is currently "on" or "off" (checked/unchecked). The semantic `role="switch"` conveys that this control takes immediate action.
+
+### Accessibility Checklist
+
+- [ ] Provide a descriptive \`label\` prop or visibly hide it via CSS if the layout implies the meaning
+- [ ] Ensure any \`helperText\` clearly explains the consequences of toggling the switch
+- [ ] Do not nest interactive elements inside the label
+- [ ] Always test with keyboard-only navigation before shipping
+
+## ToggleButton Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions
+  like colors, spacing, and radius. Override them to restyle
+  ToggleButton without fighting CSS specificity.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-toggle-color` | `var(--lxs-color-primary-600)` | Active track color |
+| `--lxs-toggle-width` | `40px` | Track width (md) |
+| `--lxs-toggle-height` | `24px` | Track height (md) |
+| `--lxs-toggle-thumb-size` | `20px` | Thumb dimensions (md) |
+
+**Override globally:**
+```css
+:root {
+  --lxs-toggle-color: #1976d2;
+}
+```
+
+**Override for one section:**
+```css
+.my-settings-page {
+  --lxs-toggle-width: 44px;
+  --lxs-toggle-height: 24px;
+}
+```
+
+**Override on one instance:**
+```tsx
+<ToggleButton
+  style={{ '--lxs-toggle-color': '#10b981' } as React.CSSProperties}
+  label="Custom Color Toggle"
+  defaultChecked
+/>
+```
+
+## Customizing ToggleButton
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to ToggleButton
+OUTPUT: ToggleButton with additional styling
+USE WHEN: Quick one-off style overrides
+SOURCE: N/A
+-->
+```tsx
+<ToggleButton className="mb-4 my-custom-switch" label="Styled Toggle" />
+```
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: ToggleButton with custom token values
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+```tsx
+<ToggleButton
+  style={{ '--lxs-toggle-thumb-size': '22px' } as React.CSSProperties}
+  label="Large Thumb"
+/>
+```
+
+### Using with forwardRef
+
+<!--
+EXAMPLE: forwardRef
+PURPOSE: Accessing the underlying DOM node
+OUTPUT: ToggleButton with attached ref
+USE WHEN: Calling native DOM methods like .focus()
+SOURCE: N/A
+-->
+```tsx
+import { useRef, useEffect } from 'react';
+import { ToggleButton } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const ref = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    ref.current?.focus();
+  }, []);
+
+  return <ToggleButton ref={ref} label="Autofocused Toggle" />;
+}
+```
+
+## Common ToggleButton Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Setting with Status Text
+
+Used when: You want to explicitly state the "On/Off" status next to the label.
+
+<!--
+EXAMPLE: Setting with Status Text
+PURPOSE: Showing dynamic text alongside the toggle
+OUTPUT: A toggle button that displays 'Enabled' or 'Disabled'
+USE WHEN: Clarifying the state of critical system settings
+SOURCE: Common usage pattern for ToggleButton
+-->
+```tsx
+import { useState } from 'react';
+import { ToggleButton } from '@luxis-ui/core';
+
+export default function StatusTextExample() {
+  const [active, setActive] = useState(false);
+
+  return (
+    <div style={{ display: 'flex', justifyContent: 'space-between', width: '300px' }}>
+      <div>
+        <strong>Two-Factor Auth</strong>
+        <p style={{ margin: 0, fontSize: '12px', color: active ? '#16a34a' : '#6b7280' }}>
+          {active ? 'Currently Enabled' : 'Currently Disabled'}
+        </p>
+      </div>
+      <ToggleButton checked={active} onChange={(e) => setActive(e.target.checked)} />
+    </div>
+  );
+}
+```
+
+### Data Collection Opt-In
+
+Used when: Presenting privacy or tracking settings during an onboarding flow.
+
+<!--
+EXAMPLE: Data Collection Opt-In
+PURPOSE: Grouping a toggle with legal or privacy text
+OUTPUT: A toggle switch with detailed helper text
+USE WHEN: Asking for user consent for analytics or telemetry
+SOURCE: Common usage pattern for ToggleButton
+-->
+```tsx
+import { useState } from 'react';
+import { ToggleButton } from '@luxis-ui/core';
+
+export default function OptInExample() {
+  const [telemetry, setTelemetry] = useState(true);
+
+  return (
+    <div style={{ padding: '16px', border: '1px solid #e5e7eb', borderRadius: '8px', maxWidth: '400px' }}>
+      <ToggleButton
+        checked={telemetry}
+        onChange={(e) => setTelemetry(e.target.checked)}
+        variant="info"
+        label="Share Usage Data"
+        helperText="Help us improve the product by sharing anonymous crash reports and usage statistics. You can change this later in Settings."
+      />
+    </div>
+  );
+}
+```
+
+### Compact Table Action
+
+Used when: Placing toggles inside dense data grids or tables.
+
+<!--
+EXAMPLE: Compact Table Action
+PURPOSE: Using the 'sm' size variant without a label
+OUTPUT: A small toggle button suitable for table cells
+USE WHEN: Activating or deactivating users/items in an admin dashboard
+SOURCE: Common usage pattern for ToggleButton
+-->
+```tsx
+import { useState } from 'react';
+import { ToggleButton } from '@luxis-ui/core';
+
+export default function CompactActionExample() {
+  const [isActive, setIsActive] = useState(true);
+
+  return (
+    <div style={{ padding: '8px', background: '#f9fafb', width: 'fit-content' }}>
+      <ToggleButton
+        size="sm"
+        checked={isActive}
+        onChange={(e) => setIsActive(e.target.checked)}
+        aria-label="Toggle user status"
+      />
+    </div>
+  );
+}
+```
+
+## Troubleshooting ToggleButton
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Label click doesn't toggle | Missing or invalid \`id\` when manually linking external label | Let ToggleButton handle the internal \`<label>\` rendering automatically |
+| Toggle state resets unexpectedly | Missing \`onChange\` handler on a controlled component | Sync \`checked\` state with a React \`useState\` setter |
+| Icon is distorted | Supplying a non-square SVG | Ensure the passed SVG has a \`0 0 24 24\` viewBox |
+| Switch doesn't align with text | Wrapping in a flex container with wrong \`align-items\` | Use \`labelPlacement="start"\` or standard flex properties |
+
+<Callout type="warning" title="Next.js / SSR">
+  Ensure the \`id\` prop is stable during SSR hydration to avoid mismatch warnings between the \`label\` and \`input\`.
+</Callout>
+
+### Frequently Asked Questions
+
+**Q: Can I change the color of the thumb instead of the track?**
+A: Yes, you can override the thumb's background color via CSS targeting \`.lxs-toggle-button-thumb\`.
+
+**Q: How do I submit the toggle value in a native HTML form?**
+A: Ensure you pass a \`name\` prop. The input will submit its value ("on") if it is checked. However, remember Checkboxes are usually better for forms.
+
+**Q: Why isn't my icon showing?**
+A: The icon must fit inside the thumb area. Ensure your SVG uses \`width="100%"\` and \`height="100%"\` so it scales down to the thumb size.
+
+**Q: Can I use ToggleButton instead of Checkbox everywhere?**
+A: No. ToggleButtons should only be used when the action takes effect immediately (like a light switch). Checkboxes are for selecting options that require a final "Submit" button to save.
+
+## Related Components
+
+<RelatedComponent
+  name="Checkbox"
+  description="Use for form inputs requiring a submit button, or for selecting multiple items from a list."
+  href="/docs/components/checkbox"
+/>
+<RelatedComponent
+  name="Radio"
+  description="Use when selecting exactly one option from a list of mutually exclusive choices."
+  href="/docs/components/radio"
+/>
+<RelatedComponent
+  name="Label"
+  description="For standalone text labels used in custom form compositions."
+  href="/docs/components/label"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+
+{/*
+LLMS_TXT_ENTRY_START
+# ToggleButton
+
+> ToggleButton is a Components/ToggleButton React component in Luxis UI for toggling a binary state on or off.
+
+## Source
+packages/luxis-ui/src/components/ToggleButton/ToggleButton.tsx
+
+## Story
+app/storybook/src/stories/ToggleButton.stories.ts
+
+## Install
+\`\`\`bash
+npm install @luxis-ui/core
+\`\`\`
+
+## Import
+\`\`\`tsx
+import { ToggleButton } from '@luxis-ui/core';
+\`\`\`
+
+## Minimal usage
+\`\`\`tsx
+import { useState } from 'react';
+import { ToggleButton } from '@luxis-ui/core';
+
+export default function Example() {
+  const [on, setOn] = useState(false);
+  return (
+    <ToggleButton
+      checked={on}
+      onChange={(e) => setOn(e.target.checked)}
+      label="Dark Mode"
+    />
+  );
+}
+\`\`\`
+
+## Key props
+- \`checked\` (boolean, default=\`undefined\`): If true, the toggle button is checked
+- \`disabled\` (boolean, default=\`false\`): If true, the toggle button is disabled
+- \`label\` (ReactNode, default=\`undefined\`): The label for the toggle button
+- \`size\` ('sm' | 'md' | 'lg', default=\`'md'\`): The size of the toggle button
+- \`variant\` ('primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info', default=\`'primary'\`): The variant of the toggle button
+
+## When to use
+Allowing users to instantly turn a setting on or off (e.g., Dark Mode). Toggling binary options in a settings panel.
+
+## When NOT to use
+Inside long forms where options are only applied when clicking "Submit" (use Checkbox instead). Selecting from a list of multiple related options.
+
+## Accessibility
+WCAG: AA
+ARIA: Switch
+Keyboard: Tab, Space
+
+## Docs
+https://luxis-ui.dev/docs/components/togglebutton
+LLMS_TXT_ENTRY_END
+*/}
