@@ -1,0 +1,965 @@
+---
+title: "Card — Luxis UI React Component"
+description: "A flexible container for grouping related content and actions. Perfect for dashboards, product displays, and data summaries."
+status: stable
+since: "1.0.0"
+category: "Components"
+npm: "@luxis-ui/core"
+import: "import { Card } from '@luxis-ui/core'"
+component: "Card"
+keywords:
+  - card
+  - react card
+  - card component
+  - luxis ui card
+  - typescript card
+  - accessible card
+  - react design system
+slug: /components/card
+canonical: "https://luxis-ui.dev/docs/components/card"
+og_image: "/img/og/card.png"
+llm_summary: >
+  Card renders a standard HTML div element structured to group related content.
+  Props: children (ReactNode, required), variant ('elevated' | 'outlined' | 'filled', default='elevated'), size (Size, default='md'), noPadding (boolean, default=false), padding (string), hoverable (boolean, default=false), clickable (boolean, default=false), header (ReactNode), footer (ReactNode), divider (boolean, default=false).
+  Use cases: Product cards, data summaries, dashboard widgets.
+  Do not use for layout containers (use Container or Box instead).
+  WAI-ARIA pattern: N/A natively, acts as a presentation container.
+  Import: import { Card } from '@luxis-ui/core'.
+---
+
+{/*
+LLM_CONTEXT
+  component    : Card
+  source       : packages/luxis-ui/src/components/Card/Card.tsx
+  story        : app/storybook/src/stories/Card.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components
+  status       : stable
+  aria-pattern : N/A
+
+  What it renders:
+  Card renders a `<div class="lxs-card lxs-card--[variant] lxs-card--[size]">` containing header, content, and footer sections based on props.
+
+  When to use:
+  - Grouping related information (e.g., product details).
+  - Highlighting actionable chunks of data on a dashboard.
+  - Creating interactive summary tiles.
+
+  When NOT to use:
+  - As a main page layout wrapper.
+  - For long, continuous text blocks.
+
+  Ecosystem equivalents:
+  - MUI        : <Card>
+  - Chakra UI  : <Card>
+  - shadcn/ui  : Card
+  - Radix UI   : N/A
+  - HTML native: <div>
+
+  Props:
+  children (React.ReactNode) — The content of the card
+  variant ('elevated' | 'outlined' | 'filled', default='elevated') — The variant of the card
+  size (Size, default='md') — Size of the card
+  noPadding (boolean, default=false) — If true, removes padding from the card
+  padding (string) — Custom padding value
+  hoverable (boolean, default=false) — If true, makes the card hoverable with interaction effects
+  clickable (boolean, default=false) — If true, makes the card clickable (adds cursor pointer)
+  className (string) — Additional CSS class name
+  header (React.ReactNode) — Header content for the card
+  footer (React.ReactNode) — Footer content for the card
+  divider (boolean, default=false) — If true, adds dividers between header, content, and footer
+
+  Accessibility:
+  WCAG: AA
+  Keyboard: Focusable if clickable=true (via tabindex or native click handler)
+  Screen reader: Reads content sequentially. Use aria-labels on interactive elements inside.
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Card React Component — Luxis UI",
+  "description": "A flexible container for grouping related content and actions. Perfect for dashboards, product displays, and data summaries.",
+  "keywords": "card, react card, card component, luxis ui card, typescript card, accessible card, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use Card in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { Card } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI Card accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Card accepts children (the content), variant ('elevated', 'outlined', or 'filled', defaulting to 'elevated'), size ('sm', 'md', or 'lg', defaulting to 'md'), hoverable (adds hover effects, defaults to false), and clickable (adds pointer, defaults to false)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I remove padding from a Card?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pass the noPadding={true} prop to the Card component to remove all internal padding."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI Card different from MUI Card?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Luxis UI Card combines header, content, and footer regions into a single component API via props, whereas MUI requires importing and nesting separate subcomponents like CardHeader and CardContent."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Card
+
+<ComponentStatus status="stable" version="1.0.0" aria="N/A" />
+
+Cards are versatile containers used to group related information and actions together. They provide a clear visual boundary and hierarchy, making them ideal for dashboards, product listings, and summary views.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for Card
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding Card to any file
+SOURCE: packages/luxis-ui/src/components/Card/index.ts
+-->
+```tsx
+import { Card } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI `Card` is equivalent to MUI's `<Card>`,
+  Chakra UI's `<Card>`, and shadcn/ui's `Card`.
+  It simplifies the API by using props for headers and footers instead of requiring multiple nested child components.
+</Callout>
+
+## Before You Start
+
+A Card is a block-level container element that visually isolates chunks of content.
+It renders as a standard `div` but provides built-in spacing, shadows, and borders.
+The Quick Start example below will produce a simple, elevated white box containing text.
+
+<Callout type="tip" title="New to Luxis UI?">
+  Check out our Getting Started guide to learn about theme setup and design tokens before diving into specific components.
+</Callout>
+
+## How to Use Card in React
+
+The minimum code to render a working Card:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of Card
+OUTPUT: A basic elevated card containing text
+USE WHEN: Displaying simple standalone content
+SOURCE: Derived from Card.tsx defaults and simplest Story
+-->
+```tsx
+import { Card } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Card>
+      This is a basic card. You can put any content here.
+    </Card>
+  );
+}
+```
+
+This renders a white `div` with rounded corners, a subtle shadow, and default padding around the text.
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of Card with key props
+OUTPUT: A detailed card with a header, footer, and dividers
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/Card.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { Card } from '@luxis-ui/core';
+
+export default function LiveExample() {
+  return (
+    <Card
+      variant="outlined"
+      size="md"
+      divider
+      header={<h3 style={{ margin: 0, fontSize: '1.25rem' }}>Project Status</h3>}
+      footer={
+        <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end', width: '100%' }}>
+          <button style={{ padding: '6px 12px' }}>Details</button>
+        </div>
+      }
+    >
+      <p style={{ margin: 0 }}>
+        The Q3 migration project is currently on track. All systems are operational and performing within expected parameters.
+      </p>
+    </Card>
+  );
+}
+```
+
+## Card Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### Card Variants
+
+Use variants to establish visual hierarchy. Elevated is best for primary content, outlined for secondary content, and filled for grouping related data on a white background.
+
+<!--
+EXAMPLE: Variants
+PURPOSE: Demonstrates the three visual styles of cards
+OUTPUT: Three cards showing elevated, outlined, and filled styles
+USE WHEN: Choosing the right visual weight for your UI
+SOURCE: app/storybook/src/stories/Card.stories.ts → Variants
+-->
+```tsx
+import { Card } from '@luxis-ui/core';
+
+export default function VariantsExample() {
+  return (
+    <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
+      <Card variant="elevated">Elevated</Card>
+      <Card variant="outlined">Outlined</Card>
+      <Card variant="filled">Filled</Card>
+    </div>
+  );
+}
+```
+
+This renders three side-by-side cards highlighting the shadow, border, and background color differences.
+
+---
+
+### Card Sizes
+
+Use sizes to adjust internal padding and corner radius based on the amount of content and available space.
+
+<!--
+EXAMPLE: Sizes
+PURPOSE: Demonstrates small, medium, and large card dimensions
+OUTPUT: Three cards with different padding and radius values
+USE WHEN: Fitting cards into tight layouts or featuring hero content
+SOURCE: app/storybook/src/stories/Card.stories.ts → Sizes
+-->
+```tsx
+import { Card } from '@luxis-ui/core';
+
+export default function SizesExample() {
+  return (
+    <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'flex-start' }}>
+      <Card size="sm">Small</Card>
+      <Card size="md">Medium</Card>
+      <Card size="lg">Large</Card>
+    </div>
+  );
+}
+```
+
+This renders three cards, clearly showing the scaling of spacing from `sm` to `lg`.
+
+---
+
+### Card NoPadding
+
+Use `noPadding` when rendering full-bleed images, maps, or data tables inside a card.
+
+<!--
+EXAMPLE: NoPadding
+PURPOSE: Demonstrates a card without internal padding
+OUTPUT: A card whose content touches the borders
+USE WHEN: Displaying full-bleed media or custom layouts
+SOURCE: app/storybook/src/stories/Card.stories.ts → NoPadding
+-->
+```tsx
+import { Card } from '@luxis-ui/core';
+
+export default function NoPaddingExample() {
+  return (
+    <Card noPadding>
+      <img src="https://placehold.co/320x120" alt="Full bleed" style={{ width: '100%', display: 'block' }} />
+    </Card>
+  );
+}
+```
+
+This renders a card where the image stretches fully from edge to edge without any white space.
+
+---
+
+### Card CustomPadding
+
+Use `padding` to explicitly set a specific spacing value when standard sizes don't fit your design needs.
+
+<!--
+EXAMPLE: CustomPadding
+PURPOSE: Demonstrates applying a specific padding string
+OUTPUT: A card with 32px padding
+USE WHEN: Matching specific grid or layout requirements
+SOURCE: app/storybook/src/stories/Card.stories.ts → CustomPadding
+-->
+```tsx
+import { Card } from '@luxis-ui/core';
+
+export default function CustomPaddingExample() {
+  return (
+    <Card padding="32px">
+      Card with custom padding (32px)
+    </Card>
+  );
+}
+```
+
+This overrides the default padding token with a hardcoded CSS value.
+
+---
+
+### Card WithHeaderFooter
+
+Use the `header` and `footer` props alongside `divider` to create clearly structured information panels.
+
+<!--
+EXAMPLE: WithHeaderFooter
+PURPOSE: Demonstrates a structured card with distinct sections
+OUTPUT: A card with separated header, content, and footer areas
+USE WHEN: Displaying complex widgets or summary tiles
+SOURCE: app/storybook/src/stories/Card.stories.ts → WithHeaderFooter
+-->
+```tsx
+import { Card } from '@luxis-ui/core';
+
+export default function WithHeaderFooterExample() {
+  return (
+    <Card
+      header={<h3 style={{ margin: 0 }}>Card Header</h3>}
+      footer={<button>Action</button>}
+      divider
+    >
+      Card with header, content, and footer.
+    </Card>
+  );
+}
+```
+
+This renders a card split into three vertical sections, separated by horizontal lines.
+
+---
+
+### Card Interactive
+
+Use `hoverable` and `clickable` to create cards that act as large buttons or links, providing visual feedback on interaction.
+
+<!--
+EXAMPLE: Interactive
+PURPOSE: Demonstrates interaction states for cards
+OUTPUT: A card that lifts on hover and scales down on click
+USE WHEN: Using a card as a navigational element or action trigger
+SOURCE: app/storybook/src/stories/Card.stories.ts → Interactive
+-->
+```tsx
+import { Card } from '@luxis-ui/core';
+
+export default function InteractiveExample() {
+  return (
+    <Card hoverable clickable onClick={() => alert('Card clicked!')}>
+      Clickable & hoverable card
+    </Card>
+  );
+}
+```
+
+This creates a card that responds dynamically to mouse movements and clicks.
+
+---
+
+### Controlled Card
+
+When to use: When a parent component needs to read or drive the state.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  By default Card manages its own state (uncontrolled).
+  Use the controlled pattern when syncing with a URL param, form
+  library, or another component.
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: useState-driven Card with external state management
+OUTPUT: Card whose state is owned by the parent
+USE WHEN: Programmatically reading or setting component state
+SOURCE: Derived from Card.tsx controlled/uncontrolled pattern
+-->
+```tsx
+import { useState } from 'react';
+import { Card } from '@luxis-ui/core';
+
+export default function ControlledExample() {
+  // Cards don't have intrinsic dynamic value state, but we can control their variant
+  const [isActive, setIsActive] = useState(false);
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <button onClick={() => setIsActive(!isActive)}>
+        Toggle Active State
+      </button>
+      <Card variant={isActive ? 'elevated' : 'outlined'}>
+        Status: {isActive ? 'Active (Elevated)' : 'Inactive (Outlined)'}
+      </Card>
+    </div>
+  );
+}
+```
+
+## Card Best Practices
+
+Cards are layout workhorses, but they must be used carefully to avoid cluttered and confusing interfaces.
+
+<DoAndDont
+  good={`// ✅ Use specific content zones
+<Card header={<h2>Title</h2>} footer={<button>Save</button>}>
+  <p>Main content here.</p>
+</Card>`}
+  bad={`// ❌ Put everything in the body manually
+<Card>
+  <h2>Title</h2>
+  <hr />
+  <p>Main content here.</p>
+  <hr />
+  <button>Save</button>
+</Card>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Make the whole card clickable for a single action
+<Card clickable onClick={() => navigate('/details')}>
+  <h3>View Details</h3>
+</Card>`}
+  bad={`// ❌ Nest multiple conflicting interactive elements
+<Card clickable onClick={() => navigate('/details')}>
+  <h3>View Details</h3>
+  <button onClick={(e) => { e.stopPropagation(); deleteItem(); }}>Delete</button>
+</Card>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use full-bleed images with noPadding
+<Card noPadding>
+  <img src="banner.jpg" alt="Campaign banner" />
+  <div style={{ padding: '16px' }}>Content below image</div>
+</Card>`}
+  bad={`// ❌ Try to override padding manually with negative margins
+<Card>
+  <img src="banner.jpg" alt="Campaign banner" style={{ margin: '-16px' }} />
+</Card>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Choose a semantic variant
+<Card variant="filled">
+  Secondary info here
+</Card>`}
+  bad={`// ❌ Hardcode colors that break themes
+<Card style={{ backgroundColor: '#fafafa' }}>
+  Secondary info here
+</Card>`}
+/>
+
+## Card Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly
+from `packages/luxis-ui/src/components/Card/Card.types.ts`.
+
+### Card Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `children` | `React.ReactNode` | | Yes | The content of the card |
+| `className` | `string` | | No | Additional CSS class name |
+| `clickable` | `boolean` | `false` | No | If true, makes the card clickable (adds cursor pointer) |
+| `divider` | `boolean` | `false` | No | If true, adds dividers between header, content, and footer |
+| `footer` | `React.ReactNode` | | No | Footer content for the card |
+| `header` | `React.ReactNode` | | No | Header content for the card |
+| `hoverable` | `boolean` | `false` | No | If true, makes the card hoverable with interaction effects |
+| `noPadding` | `boolean` | `false` | No | If true, removes padding from the card |
+| `padding` | `string` | | No | Custom padding value (e.g., '16px', '1rem', '0'). Overrides noPadding when provided |
+| `size` | `Size` | `'md'` | No | Size of the card |
+| `variant` | `'elevated' \| 'outlined' \| 'filled'` | `'elevated'` | No | The variant of the card |
+
+### HTML Native Props
+
+Card forwards rest props to its underlying `<div>`, so
+all standard HTML div attributes are also accepted.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `onClick` | Called when the card is clicked | `(e) => handleClick(e)` |
+| `className` | Additional CSS class names | `"custom-class"` |
+| `style` | Inline CSS styles | `{{ marginTop: '8px' }}` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for Card
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/components/Card/Card.types.ts
+-->
+```ts
+import type { ReactNode, CSSProperties, HTMLAttributes, InputHTMLAttributes, ButtonHTMLAttributes, AnchorHTMLAttributes, ImgHTMLAttributes, RefObject, SyntheticEvent, MouseEvent, KeyboardEvent, ChangeEvent, FocusEvent } from 'react';
+import type { Size } from '../../theme';
+
+export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+  /**
+   * The content of the card
+   */
+  children: React.ReactNode;
+  /**
+   * The variant of the card
+   * @default 'elevated'
+   */
+  variant?: 'elevated' | 'outlined' | 'filled';
+  /**
+   * Size of the card
+   * @default 'md'
+   */
+  size?: Size;
+  /**
+   * If true, removes padding from the card
+   * @default false
+   */
+  noPadding?: boolean;
+  /**
+   * Custom padding value (e.g., '16px', '1rem', '0')
+   * Overrides noPadding when provided
+   */
+  padding?: string;
+  /**
+   * If true, makes the card hoverable with interaction effects
+   * @default false
+   */
+  hoverable?: boolean;
+  /**
+   * If true, makes the card clickable (adds cursor pointer)
+   * @default false
+   */
+  clickable?: boolean;
+  /**
+   * Additional CSS class name
+   */
+  className?: string;
+  /**
+   * Header content for the card
+   */
+  header?: React.ReactNode;
+  /**
+   * Footer content for the card
+   */
+  footer?: React.ReactNode;
+  /**
+   * If true, adds dividers between header, content, and footer
+   * @default false
+   */
+  divider?: boolean;
+}
+```
+
+</details>
+
+## Card Accessibility Guide
+
+Card acts primarily as a visual container and doesn't inherently enforce a specific ARIA role unless made interactive.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| <KeyboardKey>Tab</KeyboardKey> | Moves focus to the card (if `clickable` or natively focusable) or its interactive children |
+| <KeyboardKey>Enter</KeyboardKey> | Activates `onClick` if the card has focus |
+
+### ARIA Attributes
+
+| Attribute | Value | When |
+|-----------|-------|------|
+| `role` | implicitly `group` or none | Depends on how it is used; by default it's a structural `div` |
+
+### Screen Reader Behavior
+
+A screen reader will read the contents of the card sequentially from top to bottom.
+If you use the `header` prop, it's good practice to provide a heading element (e.g., `<h3>`) inside it so users can navigate by headings. If the card is purely decorative, ensure any interactive children are properly labeled.
+
+### Accessibility Checklist
+
+- [ ] Ensure focusable elements inside the card have clear focus states.
+- [ ] If `clickable` is true, avoid nesting other focusable elements inside the card.
+- [ ] Provide semantic headings within the `header` prop for structure.
+- [ ] Always test with keyboard-only navigation before shipping
+
+## Card Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions
+  like colors, spacing, and radius. Override them to restyle
+  Card without fighting CSS specificity.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-card-bg` | `var(--lxs-color-white)` | Background color of the card body |
+| `--lxs-card-padding` | `16px` (varies by size) | Internal padding for content, header, and footer |
+
+**Override globally:**
+```css
+:root {
+  --lxs-card-bg: var(--lxs-color-surface-elevated);
+}
+```
+
+**Override for one section:**
+```css
+.dark-section {
+  --lxs-card-bg: #1a1a1a;
+}
+```
+
+**Override on one instance:**
+```tsx
+<Card
+  style={{ '--lxs-card-bg': '#f0f8ff' } as React.CSSProperties}
+>
+  Content
+</Card>
+```
+
+## Customizing Card
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to Card
+OUTPUT: Card with additional styling
+USE WHEN: Quick one-off style overrides
+SOURCE: N/A
+-->
+```tsx
+<Card className="my-custom-shadow">
+  Special offer content
+</Card>
+```
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: Card with custom token values
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+```tsx
+<Card style={{ '--lxs-card-bg': 'var(--lxs-color-warning-50)' } as React.CSSProperties}>
+  Warning note
+</Card>
+```
+
+### Using with forwardRef
+
+<!--
+EXAMPLE: forwardRef
+PURPOSE: Accessing the underlying DOM node
+OUTPUT: Card with attached ref
+USE WHEN: Calling native DOM methods like .focus()
+SOURCE: N/A
+-->
+```tsx
+import { useRef, useEffect } from 'react';
+import { Card } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Access the raw div element
+    console.log(ref.current?.getBoundingClientRect());
+  }, []);
+
+  return <Card ref={ref}>Measured content</Card>;
+}
+```
+
+## Common Card Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Profile Summary Card
+
+Used when: Displaying user information with quick actions in a dashboard sidebar.
+
+<!--
+EXAMPLE: Profile Summary Card
+PURPOSE: Demonstrates a structured user profile layout
+OUTPUT: A card containing avatar, details, and action buttons
+USE WHEN: Showing user or contact information
+SOURCE: Common usage pattern for Card
+-->
+```tsx
+import { Card } from '@luxis-ui/core';
+
+export default function ProfileCard() {
+  return (
+    <Card
+      variant="elevated"
+      header={
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <img
+            src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah"
+            alt="Sarah Chen"
+            style={{ width: '48px', height: '48px', borderRadius: '50%' }}
+          />
+          <div>
+            <h3 style={{ margin: 0, fontSize: '1.125rem' }}>Sarah Chen</h3>
+            <span style={{ color: 'var(--lxs-color-neutral-600)', fontSize: '0.875rem' }}>Senior Engineer</span>
+          </div>
+        </div>
+      }
+      footer={
+        <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
+          <button style={{ flex: 1, padding: '8px' }}>Message</button>
+          <button style={{ flex: 1, padding: '8px' }}>View Profile</button>
+        </div>
+      }
+      divider
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.875rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <span style={{ color: 'var(--lxs-color-neutral-600)' }}>Location:</span>
+          <span>San Francisco, CA</span>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <span style={{ color: 'var(--lxs-color-neutral-600)' }}>Department:</span>
+          <span>Platform Team</span>
+        </div>
+      </div>
+    </Card>
+  );
+}
+```
+
+### Analytics Metric Card
+
+Used when: Showing key performance indicators (KPIs) in a grid layout.
+
+<!--
+EXAMPLE: Analytics Metric Card
+PURPOSE: Demonstrates a small, data-focused display
+OUTPUT: A clean card showing a number and trend
+USE WHEN: Building data dashboards
+SOURCE: Common usage pattern for Card
+-->
+```tsx
+import { Card } from '@luxis-ui/core';
+
+export default function MetricCard() {
+  return (
+    <Card variant="outlined" size="sm" hoverable>
+      <h4 style={{ margin: '0 0 8px 0', color: 'var(--lxs-color-neutral-600)', fontSize: '0.875rem', fontWeight: 500 }}>
+        Total Revenue
+      </h4>
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
+        <span style={{ fontSize: '1.5rem', fontWeight: 700, margin: 0 }}>$45,231.89</span>
+        <span style={{ color: 'var(--lxs-color-success-600)', fontSize: '0.875rem', fontWeight: 600 }}>
+          +20.1%
+        </span>
+      </div>
+      <p style={{ margin: '4px 0 0 0', fontSize: '0.75rem', color: 'var(--lxs-color-neutral-500)' }}>
+        Compared to last month
+      </p>
+    </Card>
+  );
+}
+```
+
+### Media Product Card
+
+Used when: Listing items in an e-commerce catalog with an image and buy button.
+
+<!--
+EXAMPLE: Media Product Card
+PURPOSE: Demonstrates combining noPadding with standard padding
+OUTPUT: A card with a full-width image at the top and content below
+USE WHEN: Displaying products or blog post previews
+SOURCE: Common usage pattern for Card
+-->
+```tsx
+import { Card } from '@luxis-ui/core';
+
+export default function ProductCard() {
+  return (
+    <Card noPadding hoverable>
+      <img
+        src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=200&fit=crop"
+        alt="Smart Watch"
+        style={{ width: '100%', display: 'block', objectFit: 'cover' }}
+      />
+      <div style={{ padding: '16px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+          <h3 style={{ margin: 0, fontSize: '1.125rem' }}>Titanium Smart Watch</h3>
+          <span style={{ fontWeight: 600, fontSize: '1.125rem' }}>$299</span>
+        </div>
+        <p style={{ margin: '0 0 16px 0', color: 'var(--lxs-color-neutral-600)', fontSize: '0.875rem', lineHeight: 1.5 }}>
+          Advanced health tracking and 5-day battery life in a premium aerospace-grade titanium case.
+        </p>
+        <button style={{ width: '100%', padding: '8px', background: 'var(--lxs-color-primary-600)', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+          Add to Cart
+        </button>
+      </div>
+    </Card>
+  );
+}
+```
+
+## Troubleshooting Card
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Margins look broken on headers | Manually adding `<hr>` | Using the `divider` prop |
+| Full-bleed image has white borders | Forgetting `noPadding` | Using `<Card noPadding>` |
+| Interactive children cause double-clicks | Setting `clickable` on a card with buttons | Avoid `clickable` if card has actions |
+| Hard to distinguish background | Using 'filled' on a gray page | Use 'elevated' or 'outlined' |
+
+### Frequently Asked Questions
+
+**Q: How do I change the border radius of a single Card?**
+A: Use the inline style object to override the internal variable: `style={{ borderRadius: '4px' }}`. The CSS class ensures the variable applies locally without fighting specificity.
+
+**Q: Why doesn't the clickable prop make my card an `<a>` tag?**
+A: The `clickable` prop applies CSS and visual states (like pointer cursor and active scaling) but does not change the HTML element from a `div`. Wrap the card content in a semantic link or use `onClick` for client-side routing.
+
+**Q: Can I use multiple cards in a grid?**
+A: Yes, cards are naturally fluid and stretch to fit their container. Wrap them in a CSS Grid or Flexbox layout parent to manage columns.
+
+**Q: How do I remove the shadow entirely?**
+A: Set the `variant` prop to `"outlined"` or `"filled"`.
+
+## Related Components
+
+<RelatedComponent
+  name="Container"
+  description="Use for main page layout constraints instead of Card."
+  href="/docs/components/container"
+/>
+<RelatedComponent
+  name="Box"
+  description="Use for generic customized layouts without Card's opinionated styling."
+  href="/docs/components/box"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Card
+
+> Card is a Components React component in Luxis UI for visually grouping related content.
+
+## Source
+packages/luxis-ui/src/components/Card/Card.tsx
+
+## Story
+app/storybook/src/stories/Card.stories.ts
+
+## Install
+```bash
+npm install @luxis-ui/core
+```
+
+## Import
+```tsx
+import { Card } from '@luxis-ui/core';
+```
+
+## Minimal usage
+```tsx
+<Card variant="elevated" size="md">
+  <h3>Metrics Overview</h3>
+  <p>System performance is optimal.</p>
+</Card>
+```
+
+## Key props
+- `children` (React.ReactNode, default=`undefined`): The content of the card
+- `variant` ('elevated' | 'outlined' | 'filled', default=`'elevated'`): The variant of the card
+- `size` (Size, default=`'md'`): Size of the card
+- `noPadding` (boolean, default=`false`): If true, removes padding from the card
+- `hoverable` (boolean, default=`false`): If true, makes the card hoverable with interaction effects
+
+## When to use
+Grouping related data, such as product details or user profiles.
+Creating dashboard widgets or summary tiles.
+
+## When NOT to use
+Do not use as a primary page layout container. Use Container instead.
+
+## Accessibility
+WCAG: AA
+ARIA: N/A
+Keyboard: Focusable via tabindex if interactive
+
+## Docs
+https://luxis-ui.dev/docs/components/card
+LLMS_TXT_ENTRY_END
+*/}
