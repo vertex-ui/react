@@ -1,0 +1,861 @@
+---
+title: "Container — Luxis UI React Component"
+description: "A responsive layout wrapper that constrains content width and centers it on the page. Essential for main page structures."
+status: stable
+since: "1.0.0"
+category: "Components"
+npm: "@luxis-ui/core"
+import: "import { Container } from '@luxis-ui/core'"
+component: "Container"
+keywords:
+  - container
+  - react container
+  - layout component
+  - wrapper component
+  - luxis ui container
+  - typescript container
+  - accessible layout
+  - react design system
+slug: /components/container
+canonical: "https://luxis-ui.dev/docs/components/container"
+og_image: "/img/og/container.png"
+llm_summary: >
+  Container renders a responsive layout wrapper, polymorphic via the 'as' prop (e.g., div, section, main).
+  Props: as ('div' | 'section' | 'article' | 'aside' | 'main' | 'header' | 'footer' | 'nav', default='div'), maxWidth ('xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'full' | 'none' | 'responsive', default='responsive'), fluid (boolean, default=false), gutter ('none' | 'sm' | 'md' | 'lg', default='md'), centered (boolean, default=true), className (string), children (ReactNode).
+  Use cases: Wrapping main page content, creating constrained centered columns, building full-width fluid headers.
+  When NOT to use: For grouping small chunks of UI like an individual widget (use Card or Box).
+  WAI-ARIA pattern: N/A (acts as structural HTML).
+  Import: import { Container } from '@luxis-ui/core'.
+---
+
+{/*
+LLM_CONTEXT
+  component    : Container
+  source       : packages/luxis-ui/src/components/Container/Container.tsx
+  story        : app/storybook/src/stories/Container.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components
+  status       : stable
+  aria-pattern : Structural
+
+  What it renders:
+  Container renders a polymorphic HTML element (defaulting to `<div>`) with CSS classes that enforce a max-width, horizontal auto margins (centering), and horizontal padding (gutters).
+
+  When to use:
+  - Wrapping the main content area of a page.
+  - Creating constrained sections within a fluid layout.
+  - Enforcing consistent outer margins (gutters) across different screen sizes.
+
+  When NOT to use:
+  - To group small UI components (use Card).
+  - To apply arbitrary padding to a random element (use Box).
+
+  Ecosystem equivalents:
+  - MUI        : <Container>
+  - Chakra UI  : <Container>
+  - Bootstrap  : .container / .container-fluid
+  - Radix UI   : N/A
+  - HTML native: <div>
+
+  Props:
+  as (ContainerAs, default='div') — HTML element to render as
+  maxWidth (ContainerMaxWidth, default='responsive') — Maximum width of the container. `responsive` mirrors Bootstrap `.container`
+  fluid (boolean, default=false) — When true, container always spans the full width (overrides `maxWidth`)
+  gutter (ContainerGutter, default='md') — Horizontal padding (gutter) applied inside the container
+  centered (boolean, default=true) — When true, centers the container with `margin: auto`
+  className (string) — Additional CSS class names
+  children (React.ReactNode) — Container children
+
+  Accessibility:
+  WCAG: N/A (Presentation)
+  Keyboard: N/A
+  Screen reader: Transparent. If 'as' is changed to 'main' or 'nav', it provides landmark navigation.
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Container React Component — Luxis UI",
+  "description": "A responsive layout wrapper that constrains content width and centers it on the page. Essential for main page structures.",
+  "keywords": "container, react container, layout component, wrapper component, luxis ui container, typescript container, accessible layout, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use Container in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { Container } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI Container accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Container accepts 'as' (to change the HTML tag), 'maxWidth' (e.g., 'sm', 'xl', 'responsive'), 'fluid' (boolean), 'gutter' (horizontal padding), and 'centered' (boolean)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the responsive Container work in Luxis UI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "By default, maxWidth is set to 'responsive', which behaves like Bootstrap's .container: it steps up to specific fixed widths at specific media query breakpoints, keeping content centered and legible."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI Container different from Box?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Container is strictly for macro-layout: it applies horizontal centering, max-widths, and specific breakpoint gutters. Box is a generic style primitive for micro-layout, accepting any CSS property as a prop."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Container
+
+<ComponentStatus status="stable" version="1.0.0" aria="Structural" />
+
+Container is the most fundamental layout element. It centers your content horizontally, pads it from the edges of the screen, and constrains its maximum width so text remains legible on massive monitors.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for Container
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding Container to any file
+SOURCE: packages/luxis-ui/src/components/Container/index.ts
+-->
+```tsx
+import { Container } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI `Container` is equivalent to MUI's `<Container>`,
+  and Bootstrap's `.container`.
+  It defaults to a stepping responsive width (`maxWidth="responsive"`) but can easily be locked to a single fluid or fixed size.
+</Callout>
+
+## Before You Start
+
+Container is a macro-layout component. You should usually have only a few Containers per page (often mapping to semantic sections like `<header>`, `<main>`, and `<footer>`).
+The Quick Start example below will produce a centered column of text that won't stretch endlessly on large screens.
+
+<Callout type="tip" title="New to Luxis UI?">
+  Check out our Getting Started guide to learn about theme setup and design tokens before diving into specific components.
+</Callout>
+
+## How to Use Container in React
+
+The minimum code to render a working Container:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of Container
+OUTPUT: A centered block of text
+USE WHEN: Wrapping the main content of a view
+SOURCE: Derived from Container.tsx defaults and simplest Story
+-->
+```tsx
+import { Container } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Container>
+      <h1>Page Title</h1>
+      <p>This content is centered and constrained to a reasonable reading width.</p>
+    </Container>
+  );
+}
+```
+
+This renders a `div` that automatically adjusts its `max-width` based on the user's screen size, always staying centered.
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of Container with key props
+OUTPUT: A narrow, centered container acting as an article wrapper
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/Container.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { Container } from '@luxis-ui/core';
+
+export default function LiveExample() {
+  return (
+    <div style={{ background: '#f5f5f5', padding: '2rem 0' }}>
+      <Container
+        as="article"
+        maxWidth="md"
+        gutter="lg"
+        style={{ background: 'white', padding: '2rem', borderRadius: '8px' }}
+      >
+        <h2 style={{ marginTop: 0 }}>Reading Width</h2>
+        <p>
+          By setting <code>maxWidth="md"</code>, this container never grows wider than 720px,
+          which keeps line lengths comfortable for reading.
+        </p>
+      </Container>
+    </div>
+  );
+}
+```
+
+## Container Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### Container Responsive
+
+The default behavior. The container steps up to specific fixed widths at specific media query breakpoints (like Bootstrap).
+
+<!--
+EXAMPLE: Responsive
+PURPOSE: Demonstrates the default stepping behavior
+OUTPUT: A container that jumps in width as the window resizes
+USE WHEN: Building standard web pages that need predictable grid alignment
+SOURCE: app/storybook/src/stories/Container.stories.ts → Responsive
+-->
+```tsx
+import { Container } from '@luxis-ui/core';
+
+export default function ResponsiveExample() {
+  return (
+    <Container maxWidth="responsive" gutter="md">
+      <div style={{ padding: '20px', background: '#e0e7ff', border: '1px dashed #6366f1' }}>
+        Resize your browser window. This container will "step" in width at specific breakpoints.
+      </div>
+    </Container>
+  );
+}
+```
+
+This is the most common setting for standard pages, ensuring content always aligns to a predictable grid.
+
+---
+
+### Container MaxWidths
+
+Use specific max widths to lock a container from growing past a certain size, regardless of the screen.
+
+<!--
+EXAMPLE: MaxWidths
+PURPOSE: Demonstrates locking a container to a fixed maximum size
+OUTPUT: Several containers of varying locked widths
+USE WHEN: Creating narrow login forms or wide dashboard views
+SOURCE: app/storybook/src/stories/Container.stories.ts → MaxWidths
+-->
+```tsx
+import { Container } from '@luxis-ui/core';
+
+export default function MaxWidthsExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <Container maxWidth="sm">
+        <div style={{ padding: '10px', background: '#f1f5f9' }}>maxWidth: "sm" (540px)</div>
+      </Container>
+      <Container maxWidth="md">
+        <div style={{ padding: '10px', background: '#f1f5f9' }}>maxWidth: "md" (720px)</div>
+      </Container>
+      <Container maxWidth="lg">
+        <div style={{ padding: '10px', background: '#f1f5f9' }}>maxWidth: "lg" (960px)</div>
+      </Container>
+    </div>
+  );
+}
+```
+
+This is useful for article bodies (`md`), authentication forms (`sm`), or wide data tables (`xl`).
+
+---
+
+### Container Fluid
+
+Use `fluid` to force the container to span 100% of the viewport width at all times, but still retain the standard horizontal `gutter` padding.
+
+<!--
+EXAMPLE: Fluid
+PURPOSE: Demonstrates a 100% width container
+OUTPUT: A container that stretches to the screen edges, minus gutters
+USE WHEN: Building full-width hero sections or dense dashboards
+SOURCE: app/storybook/src/stories/Container.stories.ts → Fluid
+-->
+```tsx
+import { Container } from '@luxis-ui/core';
+
+export default function FluidExample() {
+  return (
+    <Container fluid gutter="md">
+      <div style={{ padding: '20px', background: '#dcfce7', border: '1px dashed #22c55e' }}>
+        This container is 100% wide at all breakpoints, but retains the standard horizontal padding (gutters) so content doesn't touch the exact edge of the screen.
+      </div>
+    </Container>
+  );
+}
+```
+
+This overrides any `maxWidth` setting.
+
+---
+
+### Container SemanticElements
+
+Use the `as` prop to render semantically correct HTML tags while retaining the layout logic of the container.
+
+<!--
+EXAMPLE: SemanticElements
+PURPOSE: Demonstrates polymorphism in the Container
+OUTPUT: Visually identical containers that render different HTML tags
+USE WHEN: Structuring a page for screen readers and SEO
+SOURCE: app/storybook/src/stories/Container.stories.ts → SemanticElements
+-->
+```tsx
+import { Container } from '@luxis-ui/core';
+
+export default function SemanticElementsExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <Container as="header">
+        <div style={{ padding: '10px', borderBottom: '2px solid black' }}>Header Content</div>
+      </Container>
+
+      <Container as="main">
+        <div style={{ padding: '10px' }}>Main Page Content</div>
+      </Container>
+
+      <Container as="footer">
+        <div style={{ padding: '10px', color: '#666' }}>Footer Content</div>
+      </Container>
+    </div>
+  );
+}
+```
+
+This ensures screen readers can locate the main landmarks of your page while keeping the CSS layout incredibly simple.
+
+---
+
+### Controlled Container
+
+When to use: When a parent component needs to read or drive the state.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  Container does not hold state. However, you can dynamically control its props based on application state (e.g., toggling a sidebar).
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: Dynamically altering the container width based on state
+OUTPUT: A container that shrinks when a "sidebar" is active
+USE WHEN: Changing layout modes on the fly
+SOURCE: Derived from Container.tsx props
+-->
+```tsx
+import { useState } from 'react';
+import { Container } from '@luxis-ui/core';
+
+export default function ControlledExample() {
+  const [isFocusMode, setIsFocusMode] = useState(false);
+
+  return (
+    <div style={{ background: '#f8fafc', padding: '2rem 0', minHeight: '200px' }}>
+      <Container maxWidth={isFocusMode ? "md" : "xl"}>
+        <div style={{ background: 'white', padding: '2rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+          <button
+            onClick={() => setIsFocusMode(!isFocusMode)}
+            style={{ marginBottom: '1rem' }}
+          >
+            Toggle Focus Mode
+          </button>
+          <p>
+            When focus mode is active, the container shrinks to a medium width to aid reading.
+            Otherwise, it expands to extra large to show more data.
+          </p>
+        </div>
+      </Container>
+    </div>
+  );
+}
+```
+
+## Container Best Practices
+
+Containers are structural. Misusing them leads to weird horizontal scrolling and broken alignments.
+
+<DoAndDont
+  good={`// ✅ Use the 'as' prop for semantic landmarks
+<Container as="main" maxWidth="lg">
+  Content
+</Container>`}
+  bad={`// ❌ Nest a main inside a div unnecessarily
+<main>
+  <Container maxWidth="lg">
+    Content
+  </Container>
+</main>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use one container for a whole page section
+<Container>
+  <h1>Title</h1>
+  <p>Body</p>
+</Container>`}
+  bad={`// ❌ Wrap every individual element in its own container
+<Container><h1>Title</h1></Container>
+<Container><p>Body</p></Container>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use standard gutters for alignment
+<Container gutter="md">`}
+  bad={`// ❌ Hardcode inline padding that breaks on mobile
+<Container style={{ paddingLeft: '50px', paddingRight: '50px' }}>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Stack full-width background sections, putting containers inside
+<section style={{ background: 'blue' }}>
+  <Container>Content</Container>
+</section>`}
+  bad={`// ❌ Try to force a background out of a constrained container
+<Container>
+  <section style={{ background: 'blue', width: '100vw', marginLeft: 'calc(-50vw + 50%)' }}>
+    Hack
+  </section>
+</Container>`}
+/>
+
+## Container Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly
+from `packages/luxis-ui/src/components/Container/Container.tsx`.
+
+### Container Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `as` | `'div' \| 'section' \| 'article' \| 'aside' \| 'main' \| 'header' \| 'footer' \| 'nav'` | `'div'` | No | HTML element to render as |
+| `centered` | `boolean` | `true` | No | When true, centers the container with `margin: auto` |
+| `className` | `string` | | No | Additional CSS class names |
+| `fluid` | `boolean` | `false` | No | When true, container always spans the full width (overrides `maxWidth`) |
+| `gutter` | `'none' \| 'sm' \| 'md' \| 'lg'` | `'md'` | No | Horizontal padding applied inside the container |
+| `maxWidth` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'xxl' \| 'full' \| 'none' \| 'responsive'` | `'responsive'` | No | Maximum width of the container |
+
+### HTML Native Props
+
+Container forwards rest props to its underlying HTML tag, so
+all standard HTML attributes are also accepted.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `id` | Element ID | `"main-content"` |
+| `style` | Inline CSS styles | `{{ minHeight: '100vh' }}` |
+| `role` | ARIA Role | `"presentation"` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for Container
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/components/Container/Container.tsx
+-->
+```ts
+export type ContainerAs =
+  | 'div'
+  | 'section'
+  | 'article'
+  | 'aside'
+  | 'main'
+  | 'header'
+  | 'footer'
+  | 'nav';
+
+export type ContainerMaxWidth =
+  | 'xs'
+  | 'sm'
+  | 'md'
+  | 'lg'
+  | 'xl'
+  | 'xxl'
+  | 'full'
+  | 'none'
+  | 'responsive';
+
+export type ContainerGutter = 'none' | 'sm' | 'md' | 'lg';
+
+export interface ContainerProps extends React.HTMLAttributes<HTMLElement> {
+  as?: ContainerAs;
+  maxWidth?: ContainerMaxWidth;
+  fluid?: boolean;
+  gutter?: ContainerGutter;
+  centered?: boolean;
+  className?: string;
+  children?: React.ReactNode;
+}
+```
+
+</details>
+
+## Container Accessibility Guide
+
+Container is purely a presentation element unless you alter the `as` prop.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| None | Container itself is not interactive |
+
+### ARIA Attributes
+
+| Attribute | Value | When |
+|-----------|-------|------|
+| None | natively added | N/A |
+
+### Screen Reader Behavior
+
+If rendered as a `<div>`, it is entirely invisible to the screen reader hierarchy. If rendered as a semantic tag like `<main>`, the screen reader will announce "main landmark" when the user navigates into it, allowing for quick "skip to main content" functionality.
+
+### Accessibility Checklist
+
+- [ ] Use `as="main"` for the primary content container on a page.
+- [ ] Ensure only one `<main>` exists per page.
+- [ ] If using `as="section"`, consider adding an `aria-labelledby` pointing to an internal `<h2>`.
+- [ ] Always test with keyboard-only navigation before shipping
+
+## Container Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions
+  like colors, spacing, and radius. Override them to restyle
+  Container without fighting CSS specificity.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-container-sm` | `540px` | Max width for sm breakpoint |
+| `--lxs-container-md` | `720px` | Max width for md breakpoint |
+| `--lxs-container-lg` | `960px` | Max width for lg breakpoint |
+| `--lxs-container-xl` | `1140px` | Max width for xl breakpoint |
+| `--lxs-container-xxl` | `1320px` | Max width for xxl breakpoint |
+
+**Override globally:**
+```css
+:root {
+  /* Make the xl container wider for data-heavy apps */
+  --lxs-container-xl: 1280px;
+}
+```
+
+## Customizing Container
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to Container
+OUTPUT: Container with additional styling
+USE WHEN: Quick one-off style overrides
+SOURCE: N/A
+-->
+```tsx
+<Container className="my-print-layout">
+  Content
+</Container>
+```
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: Container with custom token values
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+```tsx
+<Container style={{ '--lxs-container-md': '800px' } as React.CSSProperties} maxWidth="md">
+  Content
+</Container>
+```
+
+### Using with forwardRef
+
+<!--
+EXAMPLE: forwardRef
+PURPOSE: Accessing the underlying DOM node
+OUTPUT: Container with attached ref
+USE WHEN: Passing refs for scrolling or intersection observers
+SOURCE: N/A
+-->
+```tsx
+import { useRef, useEffect } from 'react';
+import { Container } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const containerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    // Scroll to top of main content on load
+    containerRef.current?.scrollIntoView();
+  }, []);
+
+  return <Container as="main" ref={containerRef}>Main Content</Container>;
+}
+```
+
+## Common Container Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Standard Page Layout
+
+Used when: Building a typical web page with a header, main body, and footer.
+
+<!--
+EXAMPLE: Standard Page Layout
+PURPOSE: Demonstrates composing multiple containers to build a page
+OUTPUT: A header, body, and footer with appropriate widths
+USE WHEN: Setting up root layouts in Next.js or React Router
+SOURCE: Common usage pattern for Container
+-->
+```tsx
+import { Container } from '@luxis-ui/core';
+
+export default function PageLayout() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <header style={{ borderBottom: '1px solid #e5e5e5', background: 'white' }}>
+        <Container as="div" maxWidth="xl" gutter="md">
+          <div style={{ display: 'flex', justifyContent: 'space-between', padding: '16px 0' }}>
+            <span style={{ fontWeight: 700 }}>Logo</span>
+            <nav>Menu</nav>
+          </div>
+        </Container>
+      </header>
+
+      <Container as="main" maxWidth="md" style={{ flexGrow: 1, padding: '40px 0' }}>
+        <article>
+          <h1 style={{ marginTop: 0 }}>Blog Post Title</h1>
+          <p>
+            This container is specifically restricted to 'md' to ensure the text
+            doesn't become too wide and hard to read on large monitors, even though
+            the header above it is 'xl'.
+          </p>
+        </article>
+      </Container>
+
+      <footer style={{ background: '#f9fafb', padding: '40px 0' }}>
+        <Container maxWidth="xl">
+          <p style={{ color: '#666', margin: 0, textAlign: 'center' }}>
+            © 2024 My Company
+          </p>
+        </Container>
+      </footer>
+    </div>
+  );
+}
+```
+
+### Full Bleed Hero Section
+
+Used when: You want a background color to stretch across the whole screen, but the text inside to align with the rest of the page.
+
+<!--
+EXAMPLE: Full Bleed Hero Section
+PURPOSE: Demonstrates a background wrapper with an inner container
+OUTPUT: A blue banner spanning the screen with text constrained to the middle
+USE WHEN: Landing pages and marketing sites
+SOURCE: Common usage pattern for Container
+-->
+```tsx
+import { Container } from '@luxis-ui/core';
+
+export default function HeroSection() {
+  return (
+    <section style={{ background: 'var(--lxs-color-primary-600)', color: 'white' }}>
+      {/* The background stretches 100%, but this Container aligns the text */}
+      <Container maxWidth="lg" style={{ padding: '80px 0' }}>
+        <h1 style={{ fontSize: '3rem', margin: '0 0 16px' }}>Build Faster</h1>
+        <p style={{ fontSize: '1.25rem', opacity: 0.9, maxWidth: '600px' }}>
+          Stop wrestling with CSS. Use standard containers to align your content perfectly every time.
+        </p>
+      </Container>
+    </section>
+  );
+}
+```
+
+### Sidebar Layout
+
+Used when: Creating a dashboard with a fixed sidebar and a scrolling main area.
+
+<!--
+EXAMPLE: Sidebar Layout
+PURPOSE: Demonstrates using fluid containers next to fixed elements
+OUTPUT: A two-column layout where the right column stretches
+USE WHEN: Admin dashboards and web apps
+SOURCE: Common usage pattern for Container
+-->
+```tsx
+import { Container } from '@luxis-ui/core';
+
+export default function DashboardLayout() {
+  return (
+    <div style={{ display: 'flex', minHeight: '300px', border: '1px solid #e5e5e5' }}>
+      <aside style={{ width: '250px', background: '#f9fafb', borderRight: '1px solid #e5e5e5', padding: '16px' }}>
+        Navigation Sidebar
+      </aside>
+
+      <div style={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+        <header style={{ padding: '16px', borderBottom: '1px solid #e5e5e5' }}>Top Bar</header>
+
+        {/* We use fluid here because the sidebar already takes up space,
+            so we want this content to just fill whatever is left. */}
+        <Container as="main" fluid style={{ padding: '24px' }}>
+          <h2 style={{ marginTop: 0 }}>Dashboard Content</h2>
+          <div style={{ height: '100px', background: '#e0e7ff', borderRadius: '8px' }} />
+        </Container>
+      </div>
+    </div>
+  );
+}
+```
+
+## Troubleshooting Container
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Horizontal scrolling on mobile | Hardcoded `width: 1000px` | Use `maxWidth="lg"` |
+| Content touches screen edges | Missing gutters | Use default `gutter="md"` |
+| Container is flush left | `centered={false}` | Leave default `centered={true}` |
+| Screen reader complains about no landmarks | Defaulting everything to `div` | Use `as="main"` or `as="header"` |
+
+### Frequently Asked Questions
+
+**Q: Should I put a Container inside a Card?**
+A: Usually, no. Cards handle their own internal padding. Containers are for macro-page layouts. You put Cards *inside* Containers.
+
+**Q: How do I remove the left and right padding entirely?**
+A: Pass `gutter="none"`.
+
+**Q: Why is my `Container` not taking up the full height of the screen?**
+A: `Container` manages width, not height. You need to apply `min-height: 100vh` or similar to the container or its parent using the `style` or `className` prop.
+
+## Related Components
+
+<RelatedComponent
+  name="Box"
+  description="Use for generic, single-purpose styling wrappers that don't need max-width logic."
+  href="/docs/components/box"
+/>
+<RelatedComponent
+  name="Card"
+  description="Use to wrap specific widgets or chunks of data, rather than whole page layouts."
+  href="/docs/components/card"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Container
+
+> Container is a Components React component in Luxis UI for restricting content width and aligning layouts.
+
+## Source
+packages/luxis-ui/src/components/Container/Container.tsx
+
+## Story
+app/storybook/src/stories/Container.stories.ts
+
+## Install
+```bash
+npm install @luxis-ui/core
+```
+
+## Import
+```tsx
+import { Container } from '@luxis-ui/core';
+```
+
+## Minimal usage
+```tsx
+<Container as="main" maxWidth="lg">
+  <h1>Page Title</h1>
+</Container>
+```
+
+## Key props
+- `as` ('div' | 'main' | 'section' | etc, default=`'div'`): HTML element to render as
+- `maxWidth` ('sm' | 'md' | 'lg' | 'responsive' | etc, default=`'responsive'`): Maximum width of the container
+- `fluid` (boolean, default=`false`): When true, spans full width (overrides maxWidth)
+- `gutter` ('none' | 'sm' | 'md' | 'lg', default=`'md'`): Horizontal padding inside container
+- `centered` (boolean, default=`true`): Centers the container with margin: auto
+
+## When to use
+Creating the main structural boundaries of a page.
+Ensuring text doesn't span too wide on large monitors.
+
+## When NOT to use
+Do not use to group small UI components (use Card or Box).
+
+## Accessibility
+WCAG: N/A
+ARIA: Structural
+Keyboard: N/A
+Use the `as` prop to provide semantic landmarks (e.g., as="main")
+
+## Docs
+https://luxis-ui.dev/docs/components/container
+LLMS_TXT_ENTRY_END
+*/}

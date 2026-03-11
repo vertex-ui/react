@@ -1,0 +1,912 @@
+---
+title: "Chip — Luxis UI React Component"
+description: "Compact elements that represent an input, attribute, or action. Perfect for tags, filters, and dynamic selections."
+status: stable
+since: "1.0.0"
+category: "Components"
+npm: "@luxis-ui/core"
+import: "import { Chip } from '@luxis-ui/core'"
+component: "Chip"
+keywords:
+  - chip
+  - react chip
+  - tag component
+  - badge component
+  - pill component
+  - luxis ui chip
+  - typescript chip
+  - accessible chip
+  - react design system
+slug: /components/chip
+canonical: "https://luxis-ui.dev/docs/components/chip"
+og_image: "/img/og/chip.png"
+llm_summary: >
+  Chip renders a compact, interactive pill-shaped element typically used for tags, attributes, or filters.
+  Props: label (string, required), size (Size, default='md'), variant ('filled' | 'outlined' | 'light', default='filled'), color ('default' | 'primary' | 'success' | 'error' | 'warning' | 'info', default='default'), icon (ReactNode), avatar (string), onDelete ((event: MouseEvent<HTMLButtonElement>) => void), onClick ((event: MouseEvent<HTMLDivElement>) => void), disabled (boolean, default=false), className (string), 'aria-label' (string), 'data-testid' (string).
+  Use cases: Displaying selected tags, filtering search results, or showing categories.
+  When NOT to use: For primary call-to-action buttons (use Button) or static read-only numbers (use Badge).
+  WAI-ARIA pattern: button (if clickable/deletable) or presentation.
+  Import: import { Chip } from '@luxis-ui/core'.
+---
+
+{/*
+LLM_CONTEXT
+  component    : Chip
+  source       : packages/luxis-ui/src/components/Chip/Chip.tsx
+  story        : app/storybook/src/stories/Chip.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components
+  status       : stable
+  aria-pattern : Button / Presentation
+
+  What it renders:
+  Chip renders a `<div>` with rounded pill styling containing a label string, and optionally an icon, an avatar image, and a delete button SVG.
+
+  When to use:
+  - Displaying categories, tags, or statuses.
+  - Presenting active filters in a search interface.
+  - Representing complex entities (like contacts) in an input field.
+
+  When NOT to use:
+  - For primary page actions (use Button).
+  - For static notification counts (use Badge).
+  - For simple text highlighting (use Mark or standard styling).
+
+  Ecosystem equivalents:
+  - MUI        : <Chip>
+  - Chakra UI  : <Tag>
+  - shadcn/ui  : Badge
+  - Radix UI   : N/A
+  - HTML native: N/A
+
+  Props:
+  label (string) — The label text to display inside the chip
+  size (Size, default='md') — Size of the chip
+  variant ('filled' | 'outlined' | 'light', default='filled') — Visual style variant
+  color ('default' | 'primary' | 'success' | 'error' | 'warning' | 'info', default='default') — Color theme of the chip
+  icon (ReactNode) — Icon to display at the start of the chip
+  avatar (string) — Avatar image URL to display at the start
+  onDelete ((event: MouseEvent<HTMLButtonElement>) => void) — If true, shows a delete/close button
+  onClick ((event: MouseEvent<HTMLDivElement>) => void) — Callback when chip is clicked
+  disabled (boolean, default=false) — If true, chip cannot be interacted with
+  className (string) — Additional CSS class names
+  aria-label (string) — Custom aria-label for accessibility
+  data-testid (string) — Data attribute for testing
+
+  Accessibility:
+  WCAG: AA
+  Keyboard: Focusable via Tab if onClick or onDelete are provided. Pressing Enter/Space triggers click. Pressing Backspace/Delete triggers onDelete.
+  Screen reader: Announced as a button if interactive, or standard text if static. aria-labels should be provided if the text isn't descriptive enough on its own.
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Chip React Component — Luxis UI",
+  "description": "Compact elements that represent an input, attribute, or action. Perfect for tags, filters, and dynamic selections.",
+  "keywords": "chip, react chip, tag component, badge component, pill component, luxis ui chip, typescript chip, accessible chip, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use Chip in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { Chip } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI Chip accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Chip requires a label (string). Optional props include size ('sm', 'md', 'lg'), variant ('filled', 'outlined', 'light'), color, icon, avatar, onDelete, onClick, and disabled."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I make a removable tag in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pass the onDelete prop to the Chip component. This automatically renders a close icon that triggers your callback when clicked or when the user presses backspace/delete."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI Chip different from Badge?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Badges are static, read-only indicators typically used for counts or status dots. Chips are dynamic and often interactive, designed to be clicked, filtered, or deleted by the user."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Chip
+
+<ComponentStatus status="stable" version="1.0.0" aria="Button" />
+
+Chips are compact, pill-shaped elements that represent an attribute, tag, or action. They are highly versatile and often used for categorizing content, displaying active filters, or acting as removable selections in forms.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for Chip
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding Chip to any file
+SOURCE: packages/luxis-ui/src/components/Chip/index.ts
+-->
+```tsx
+import { Chip } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI `Chip` is equivalent to MUI's `<Chip>`,
+  Chakra UI's `<Tag>`, and shadcn/ui's `Badge`.
+  It natively supports keyboard interactions like deleting via Backspace.
+</Callout>
+
+## Before You Start
+
+A Chip is visually distinct due to its fully rounded pill shape.
+By default, it acts as a static label, but passing `onClick` or `onDelete` turns it into an interactive element.
+The Quick Start example below will produce a simple grey pill containing text.
+
+<Callout type="tip" title="New to Luxis UI?">
+  Check out our Getting Started guide to learn about theme setup and design tokens before diving into specific components.
+</Callout>
+
+## How to Use Chip in React
+
+The minimum code to render a working Chip:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of Chip
+OUTPUT: A basic grey pill with text
+USE WHEN: Displaying a simple static tag
+SOURCE: Derived from Chip.tsx defaults and simplest Story
+-->
+```tsx
+import { Chip } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Chip label="React Developer" />
+  );
+}
+```
+
+This renders a light grey rounded box with the provided string inside.
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of Chip with key props
+OUTPUT: A clickable chip with a primary color theme
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/Chip.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { Chip } from '@luxis-ui/core';
+
+export default function LiveExample() {
+  return (
+    <Chip
+      label="Version 2.0"
+      color="primary"
+      variant="light"
+      onDelete={() => alert('Chip dismissed')}
+    />
+  );
+}
+```
+
+## Chip Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### Chip AllColors
+
+Use colors to convey semantic meaning or to differentiate categories in a busy interface.
+
+<!--
+EXAMPLE: AllColors
+PURPOSE: Demonstrates the semantic color palette for chips
+OUTPUT: A row of six differently colored chips
+USE WHEN: Tagging items by status or category
+SOURCE: app/storybook/src/stories/Chip.stories.ts → AllColors
+-->
+```tsx
+import { Chip } from '@luxis-ui/core';
+
+export default function AllColorsExample() {
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center' }}>
+      <Chip color="default" label="Default" />
+      <Chip color="primary" label="Primary" />
+      <Chip color="success" label="Success" />
+      <Chip color="error" label="Error" />
+      <Chip color="warning" label="Warning" />
+      <Chip color="info" label="Info" />
+    </div>
+  );
+}
+```
+
+This renders a set of chips using the filled variant across all standard theme colors.
+
+---
+
+### Chip AllVariants
+
+Use variants to manage visual weight. Filled is heavy, outlined is subtle, and light provides a colorful but unobtrusive background.
+
+<!--
+EXAMPLE: AllVariants
+PURPOSE: Demonstrates visual styles across all colors
+OUTPUT: Three rows showing filled, outlined, and light styles
+USE WHEN: Adjusting the prominence of tags in your layout
+SOURCE: app/storybook/src/stories/Chip.stories.ts → AllVariants
+-->
+```tsx
+import { Chip } from '@luxis-ui/core';
+
+export default function AllVariantsExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <div style={{ display: 'flex', gap: '0.5rem' }}>
+        <Chip variant="filled" color="primary" label="Filled" />
+        <Chip variant="outlined" color="primary" label="Outlined" />
+        <Chip variant="light" color="primary" label="Light" />
+      </div>
+    </div>
+  );
+}
+```
+
+This demonstrates how the background, text, and border colors interact based on the chosen variant.
+
+---
+
+### Chip AllSizes
+
+Use sizes to align chips with surrounding text or form controls.
+
+<!--
+EXAMPLE: AllSizes
+PURPOSE: Demonstrates small, medium, and large chips
+OUTPUT: Three chips scaling in padding and font size
+USE WHEN: Fitting chips inside dense tables or large hero headers
+SOURCE: app/storybook/src/stories/Chip.stories.ts → AllSizes
+-->
+```tsx
+import { Chip } from '@luxis-ui/core';
+
+export default function AllSizesExample() {
+  return (
+    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+      <Chip size="sm" color="primary" label="Small" />
+      <Chip size="md" color="primary" label="Medium" />
+      <Chip size="lg" color="primary" label="Large" />
+    </div>
+  );
+}
+```
+
+This renders three chips side-by-side to illustrate the proportional scaling of text and padding.
+
+---
+
+### Chip WithIcon
+
+Use the `icon` prop to add visual context, making tags faster to recognize at a glance.
+
+<!--
+EXAMPLE: WithIcon
+PURPOSE: Demonstrates inserting SVGs into chips
+OUTPUT: A chip featuring a small icon next to the text
+USE WHEN: Tagging file types, statuses, or categories
+SOURCE: app/storybook/src/stories/Chip.stories.ts → WithIcon
+-->
+```tsx
+import { Chip } from '@luxis-ui/core';
+
+// Using standard HTML entity as a placeholder for an SVG icon
+const StarIcon = () => <span aria-hidden="true" style={{ fontSize: '14px' }}>★</span>;
+
+export default function WithIconExample() {
+  return (
+    <Chip
+      icon={<StarIcon />}
+      color="warning"
+      variant="light"
+      label="Featured"
+    />
+  );
+}
+```
+
+This renders a chip where the icon inherits the appropriate sizing and color based on the variant.
+
+---
+
+### Chip WithAvatar
+
+Use the `avatar` prop to represent people or users in a compact format, often used in multi-select user assignment fields.
+
+<!--
+EXAMPLE: WithAvatar
+PURPOSE: Demonstrates chips containing image assets
+OUTPUT: A chip starting with a circular user avatar
+USE WHEN: Displaying selected contacts or assigned team members
+SOURCE: app/storybook/src/stories/Chip.stories.ts → WithAvatar
+-->
+```tsx
+import { Chip } from '@luxis-ui/core';
+
+export default function WithAvatarExample() {
+  return (
+    <Chip
+      avatar="https://api.dicebear.com/7.x/avataaars/svg?seed=Alice"
+      label="Alice Freeman"
+      variant="outlined"
+      color="primary"
+    />
+  );
+}
+```
+
+This automatically rounds the image perfectly to fit the left edge of the chip.
+
+---
+
+### Controlled Chip
+
+When to use: When a parent component needs to read or drive the state.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  By default Chip manages its own state (uncontrolled).
+  Use the controlled pattern when syncing with a URL param, form
+  library, or another component.
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: useState-driven Chip with external state management
+OUTPUT: Chips that can be toggled on and off
+USE WHEN: Programmatically reading or setting component state
+SOURCE: Derived from Chip.tsx controlled/uncontrolled pattern
+-->
+```tsx
+import { useState } from 'react';
+import { Chip } from '@luxis-ui/core';
+
+export default function ControlledExample() {
+  const [isActive, setIsActive] = useState(false);
+
+  return (
+    <Chip
+      label={isActive ? "Active Filter" : "Inactive Filter"}
+      variant={isActive ? "filled" : "outlined"}
+      color={isActive ? "primary" : "default"}
+      onClick={() => setIsActive(!isActive)}
+      aria-label="Toggle filter"
+    />
+  );
+}
+```
+
+## Chip Best Practices
+
+Chips can quickly clutter an interface if overused. Keep them focused and concise.
+
+<DoAndDont
+  good={`// ✅ Keep labels short and concise
+<Chip label="Processing" />`}
+  bad={`// ❌ Use sentences inside a chip
+<Chip label="Your order is currently being processed in our facility" />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use the onDelete callback for removal
+<Chip label="React" onDelete={removeTag} />`}
+  bad={`// ❌ Pass a custom icon button into the label
+<Chip label={<>React <button>X</button></>} />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use standard color variants for status
+<Chip color="success" label="Paid" />`}
+  bad={`// ❌ Force custom background colors that break contrast
+<Chip style={{ background: '#0f0' }} label="Paid" />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Provide aria-labels when the action isn't obvious
+<Chip onClick={filter} aria-label="Filter by React" label="React" />`}
+  bad={`// ❌ Rely solely on colors to convey interactive state
+<Chip onClick={filter} color="primary" label="React" />`}
+/>
+
+## Chip Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly
+from `packages/luxis-ui/src/components/Chip/Chip.types.ts`.
+
+### Chip Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `label` | `string` | | Yes | The label text to display inside the chip |
+| `aria-label` | `string` | | No | Custom aria-label for accessibility |
+| `avatar` | `string` | | No | Avatar image URL to display at the start |
+| `className` | `string` | | No | Additional CSS class names |
+| `color` | `'default' \| 'primary' \| 'success' \| 'error' \| 'warning' \| 'info'` | `'default'` | No | Color theme of the chip |
+| `data-testid` | `string` | | No | Data attribute for testing |
+| `disabled` | `boolean` | `false` | No | If true, chip cannot be interacted with |
+| `icon` | `React.ReactNode` | | No | Icon to display at the start of the chip |
+| `onClick` | `(event: MouseEvent<HTMLDivElement>) => void` | | No | Callback when chip is clicked |
+| `onDelete` | `(event: MouseEvent<HTMLButtonElement>) => void` | | No | If true, shows a delete/close button |
+| `size` | `Size` | `'md'` | No | Size of the chip |
+| `variant` | `'filled' \| 'outlined' \| 'light'` | `'filled'` | No | Visual style variant |
+
+### HTML Native Props
+
+Chip does not forward native HTML attributes widely due to its specialized nature, but you can pass standard `style` or use wrapper elements.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `style` | Inline CSS styles | `{{ marginTop: '8px' }}` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for Chip
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/components/Chip/Chip.types.ts
+-->
+```ts
+import type { ReactNode, CSSProperties, HTMLAttributes, InputHTMLAttributes, ButtonHTMLAttributes, AnchorHTMLAttributes, ImgHTMLAttributes, RefObject, SyntheticEvent, MouseEvent, KeyboardEvent, ChangeEvent, FocusEvent } from 'react';
+import type { Size } from '../../theme';
+
+export interface ChipProps {
+  /**
+   * The label text to display inside the chip
+   */
+  label: string;
+  /**
+   * Size of the chip
+   * @default 'md'
+   */
+  size?: Size;
+  /**
+   * Visual style variant
+   * @default 'filled'
+   */
+  variant?: 'filled' | 'outlined' | 'light';
+  /**
+   * Color theme of the chip
+   * @default 'default'
+   */
+  color?: 'default' | 'primary' | 'success' | 'error' | 'warning' | 'info';
+  /**
+   * Icon to display at the start of the chip
+   */
+  icon?: ReactNode;
+  /**
+   * Avatar image URL to display at the start
+   */
+  avatar?: string;
+  /**
+   * If true, shows a delete/close button
+   * @default false
+   */
+  onDelete?: (event: MouseEvent<HTMLButtonElement>) => void;
+  /**
+   * Callback when chip is clicked
+   */
+  onClick?: (event: MouseEvent<HTMLDivElement>) => void;
+  /**
+   * If true, chip cannot be interacted with
+   * @default false
+   */
+  disabled?: boolean;
+  /**
+   * Additional CSS class names
+   */
+  className?: string;
+  /**
+   * Custom aria-label for accessibility
+   */
+  'aria-label'?: string;
+  /**
+   * Data attribute for testing
+   */
+  'data-testid'?: string;
+}
+```
+
+</details>
+
+## Chip Accessibility Guide
+
+Chip adjusts its semantics automatically based on the props provided. If `onClick` or `onDelete` are passed, it becomes a keyboard-focusable, interactive element.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| <KeyboardKey>Tab</KeyboardKey> | Focuses the chip (if interactive) |
+| <KeyboardKey>Enter</KeyboardKey> | Triggers `onClick` (if interactive) |
+| <KeyboardKey>Space</KeyboardKey> | Triggers `onClick` (if interactive) |
+| <KeyboardKey>Backspace</KeyboardKey> | Triggers `onDelete` (if focus is on the chip) |
+| <KeyboardKey>Delete</KeyboardKey> | Triggers `onDelete` (if focus is on the chip) |
+
+### ARIA Attributes
+
+| Attribute | Value | When |
+|-----------|-------|------|
+| `role` | `"button"` | When `onClick` or `onDelete` is provided |
+| `tabIndex` | `0` | When `onClick` or `onDelete` is provided (and not disabled) |
+| `aria-disabled`| `"true"` | When `disabled` is true |
+
+### Screen Reader Behavior
+
+If static, it is read as standard text. If interactive, it announces as a button along with the `label` text. The delete icon automatically has an internal `aria-label="Remove [label]"` for screen readers.
+
+### Accessibility Checklist
+
+- [ ] Use `aria-label` if the chip is a toggle button (e.g., `aria-label="Filter by React"`).
+- [ ] Ensure deleted chips immediately shift focus to a logical next element in your app logic.
+- [ ] Do not rely solely on color to convey meaning; pair with icons where appropriate.
+- [ ] Always test with keyboard-only navigation before shipping
+
+## Chip Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions
+  like colors, spacing, and radius. Override them to restyle
+  Chip without fighting CSS specificity.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-chip-bg` | varies by variant/color | Background color |
+| `--lxs-chip-color` | varies by variant/color | Text and icon color |
+| `--lxs-chip-border` | varies by variant/color | Border color |
+
+**Override globally:**
+```css
+:root {
+  --lxs-chip-bg: var(--lxs-color-neutral-100);
+}
+```
+
+**Override for one section:**
+```css
+.custom-theme {
+  --lxs-chip-bg: #f0f0f0;
+}
+```
+
+**Override on one instance:**
+```tsx
+<Chip
+  style={{ '--lxs-chip-bg': '#ffeb3b', '--lxs-chip-color': '#000' } as React.CSSProperties}
+  label="Custom Yellow"
+/>
+```
+
+## Customizing Chip
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to Chip
+OUTPUT: Chip with additional styling
+USE WHEN: Quick one-off style overrides
+SOURCE: N/A
+-->
+```tsx
+<Chip className="my-custom-shadow" label="Shadowed" />
+```
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: Chip with custom token values
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+```tsx
+<Chip
+  style={{ '--lxs-chip-border': '2px dashed blue' } as React.CSSProperties}
+  label="Dashed border"
+/>
+```
+
+### Using with forwardRef
+
+*(Note: The current Chip component does not expose a forwardRef in its type definition, but you can wrap it in a `div` with a ref if you need to measure it.)*
+
+## Common Chip Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Deletable Tag List
+
+Used when: Showing a list of applied filters or selected tags that the user can remove.
+
+<!--
+EXAMPLE: Deletable Tag List
+PURPOSE: Demonstrates managing an array of tags with removal logic
+OUTPUT: A row of chips that disappear when their X is clicked
+USE WHEN: Creating tag inputs or active filter displays
+SOURCE: app/storybook/src/stories/Chip.stories.ts → Deletable
+-->
+```tsx
+import { useState } from 'react';
+import { Chip } from '@luxis-ui/core';
+
+export default function TagList() {
+  const [tags, setTags] = useState([
+    { id: '1', label: 'React', color: 'primary' as const },
+    { id: '2', label: 'TypeScript', color: 'info' as const },
+    { id: '3', label: 'Node.js', color: 'success' as const }
+  ]);
+
+  const handleRemove = (idToRemove: string) => {
+    setTags(tags.filter(tag => tag.id !== idToRemove));
+  };
+
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+      {tags.map(tag => (
+        <Chip
+          key={tag.id}
+          label={tag.label}
+          color={tag.color}
+          variant="light"
+          onDelete={() => handleRemove(tag.id)}
+        />
+      ))}
+      {tags.length === 0 && <span style={{ color: '#666', fontSize: '14px' }}>No tags selected.</span>}
+    </div>
+  );
+}
+```
+
+### Filter Group
+
+Used when: Users need to toggle categories on and off to filter content.
+
+<!--
+EXAMPLE: Filter Group
+PURPOSE: Demonstrates chips acting as toggle buttons
+OUTPUT: A group of chips that fill with color when active
+USE WHEN: Building category selectors or search filters
+SOURCE: app/storybook/src/stories/Chip.stories.ts → Filter Group
+-->
+```tsx
+import { useState } from 'react';
+import { Chip } from '@luxis-ui/core';
+
+export default function FilterGroup() {
+  const [activeFilters, setActiveFilters] = useState<Set<string>>(new Set(['frontend']));
+
+  const filters = [
+    { id: 'frontend', label: 'Frontend' },
+    { id: 'backend', label: 'Backend' },
+    { id: 'devops', label: 'DevOps' }
+  ];
+
+  const toggleFilter = (id: string) => {
+    const next = new Set(activeFilters);
+    if (next.has(id)) {
+      next.delete(id);
+    } else {
+      next.add(id);
+    }
+    setActiveFilters(next);
+  };
+
+  return (
+    <div style={{ display: 'flex', gap: '8px' }}>
+      {filters.map(f => (
+        <Chip
+          key={f.id}
+          label={f.label}
+          variant={activeFilters.has(f.id) ? 'filled' : 'outlined'}
+          color={activeFilters.has(f.id) ? 'primary' : 'default'}
+          onClick={() => toggleFilter(f.id)}
+          aria-label={`${activeFilters.has(f.id) ? 'Remove' : 'Add'} ${f.label} filter`}
+        />
+      ))}
+    </div>
+  );
+}
+```
+
+### Status Indicator
+
+Used when: Displaying the state of an entity in a table row or card.
+
+<!--
+EXAMPLE: Status Indicator
+PURPOSE: Demonstrates using chips purely for visual status readouts
+OUTPUT: A small colored tag without interaction
+USE WHEN: Displaying order status, payment state, or user roles
+SOURCE: Common usage pattern for Chip
+-->
+```tsx
+import { Chip } from '@luxis-ui/core';
+
+export default function StatusIndicator() {
+  // Imagine this comes from your database
+  const orderStatus = 'shipped';
+
+  const getStatusConfig = (status: string) => {
+    switch(status) {
+      case 'pending': return { color: 'warning' as const, label: 'Pending Payment' };
+      case 'shipped': return { color: 'info' as const, label: 'In Transit' };
+      case 'delivered': return { color: 'success' as const, label: 'Delivered' };
+      default: return { color: 'default' as const, label: 'Unknown' };
+    }
+  };
+
+  const config = getStatusConfig(orderStatus);
+
+  return (
+    <div style={{ padding: '16px', border: '1px solid #e5e5e5', borderRadius: '8px', maxWidth: '300px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h4 style={{ margin: 0 }}>Order #49201</h4>
+        <Chip
+          label={config.label}
+          color={config.color}
+          size="sm"
+          variant="light"
+        />
+      </div>
+    </div>
+  );
+}
+```
+
+## Troubleshooting Chip
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Delete button doesn't appear | Using `onClick` only | Pass a function to `onDelete` |
+| Text overflows the chip | Passing a paragraph of text | Use short, concise strings |
+| Cannot tab to the chip | Using it without onClick/onDelete | Chips are static unless handlers are passed |
+| Avatar image looks distorted | Using a rectangular image | Images will be rounded, use square assets |
+
+### Frequently Asked Questions
+
+**Q: Why doesn't the Chip delete itself when I click the X?**
+A: Chip is a dumb component. It fires the `onDelete` callback, but you must update your parent component's state to actually remove the chip from the DOM.
+
+**Q: Can I put a ReactNode instead of a string in the label prop?**
+A: No, the `label` prop is typed strictly as a `string`. If you need custom JSX inside the pill, consider building a custom element using the `Box` primitive instead.
+
+**Q: How do I change the default delete icon?**
+A: The SVG is hardcoded for consistency, but you can hide it via CSS and inject your own using `::after`, or build a custom chip if heavy modification is required.
+
+## Related Components
+
+<RelatedComponent
+  name="Badge"
+  description="Use for numerical counts or small static dots attached to other elements."
+  href="/docs/components/badge"
+/>
+<RelatedComponent
+  name="Button"
+  description="Use for primary user actions like submitting forms or opening modals."
+  href="/docs/components/button"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Chip
+
+> Chip is a Components React component in Luxis UI for compact, interactive tags and attributes.
+
+## Source
+packages/luxis-ui/src/components/Chip/Chip.tsx
+
+## Story
+app/storybook/src/stories/Chip.stories.ts
+
+## Install
+```bash
+npm install @luxis-ui/core
+```
+
+## Import
+```tsx
+import { Chip } from '@luxis-ui/core';
+```
+
+## Minimal usage
+```tsx
+<Chip
+  label="React"
+  onDelete={() => console.log('Remove')}
+  color="primary"
+/>
+```
+
+## Key props
+- `label` (string, default=`undefined`): The label text to display inside the chip
+- `variant` ('filled' | 'outlined' | 'light', default=`'filled'`): Visual style variant
+- `color` ('default' | 'primary' | 'success' | 'error' | 'warning' | 'info', default=`'default'`): Color theme of the chip
+- `onDelete` ((event: MouseEvent<HTMLButtonElement>) => void, default=`undefined`): If true, shows a delete/close button
+- `onClick` ((event: MouseEvent<HTMLDivElement>) => void, default=`undefined`): Callback when chip is clicked
+
+## When to use
+Displaying tags or categories.
+Presenting removable filters in a search bar.
+
+## When NOT to use
+Do not use as a primary CTA button.
+Do not use for static numerical counts (use Badge).
+
+## Accessibility
+WCAG: AA
+ARIA: Button (if interactive)
+Keyboard: Tab focusable, Enter/Space to click, Backspace/Delete to trigger onDelete.
+
+## Docs
+https://luxis-ui.dev/docs/components/chip
+LLMS_TXT_ENTRY_END
+*/}

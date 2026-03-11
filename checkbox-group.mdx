@@ -1,0 +1,1008 @@
+---
+title: "CheckboxGroup — Luxis UI React Component"
+description: "A container that manages state for a collection of related checkboxes. Built for multi-select forms with shared validation."
+status: stable
+since: "1.0.0"
+category: "Components"
+npm: "@luxis-ui/core"
+import: "import { CheckboxGroup } from '@luxis-ui/core'"
+component: "CheckboxGroup"
+keywords:
+  - checkbox group
+  - react checkbox group
+  - checkboxgroup component
+  - luxis ui checkboxgroup
+  - typescript checkbox group
+  - accessible checkbox group
+  - react design system
+slug: /components/checkbox-group
+canonical: "https://luxis-ui.dev/docs/components/checkbox-group"
+og_image: "/img/og/checkbox-group.png"
+llm_summary: >
+  CheckboxGroup renders a structural `div` (acting as a fieldset) containing multiple `Checkbox` components.
+  Props: label (ReactNode), options (CheckboxOption[]: {value, label, disabled?}, required), value (string[]), defaultValue (string[]), onChange ((value: string[]) => void), disabled (boolean, default=false), error (boolean, default=false), helperText (ReactNode), orientation ('horizontal' | 'vertical', default='vertical'), size ('sm' | 'md' | 'lg', default='md'), className (string).
+  Use cases: Multi-select lists, filter panels, preferences forms.
+  When NOT to use: For mutually exclusive single selections (use RadioGroup).
+  WAI-ARIA pattern: native checkbox group (often implemented with fieldset/legend or group role).
+  Import: import { CheckboxGroup } from '@luxis-ui/core'.
+---
+
+{/*
+LLM_CONTEXT
+  component    : CheckboxGroup
+  source       : packages/luxis-ui/src/components/CheckboxGroup/CheckboxGroup.tsx
+  story        : app/storybook/src/stories/CheckboxGroup.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components
+  status       : stable
+  aria-pattern : Group
+
+  What it renders:
+  CheckboxGroup renders a wrapper `<div>` containing a label, an options container `<div>` with multiple `<Checkbox>` components, and optional helper text.
+
+  When to use:
+  - When you need to let users select multiple options from a related list.
+  - Form fields that require array outputs (e.g., tags, categories, preferences).
+  - Creating filter sidebars with multiple criteria.
+
+  When NOT to use:
+  - When users can only select exactly one option (use RadioGroup).
+  - When space is extremely tight and there are > 10 options (use MultiSelect).
+
+  Ecosystem equivalents:
+  - MUI        : <FormGroup>
+  - Chakra UI  : <CheckboxGroup>
+  - shadcn/ui  : N/A (composed manually)
+  - Radix UI   : N/A
+  - HTML native: <fieldset> + <input type="checkbox">
+
+  Props:
+  label (React.ReactNode) — The label for the checkbox group
+  options (CheckboxOption[]) — Array of checkbox options ({ value: string, label: React.ReactNode, disabled?: boolean })
+  value (string[]) — Array of selected values
+  defaultValue (string[]) — Default selected values for uncontrolled mode
+  onChange ((value: string[]) => void) — Callback fired when the selection changes
+  disabled (boolean, default=false) — If true, all checkboxes are disabled
+  error (boolean, default=false) — If true, displays error styling
+  helperText (React.ReactNode) — Helper text displayed below the group
+  orientation ('horizontal' | 'vertical', default='vertical') — The layout orientation of the checkboxes
+  size ('sm' | 'md' | 'lg', default='md') — The size of the checkboxes
+  className (string) — Additional CSS class name
+
+  Accessibility:
+  WCAG: AA
+  Keyboard: Tab navigates through each checkbox, Space toggles them.
+  Screen reader: Groups the checkboxes logically if structured properly.
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "CheckboxGroup React Component — Luxis UI",
+  "description": "A container that manages state for a collection of related checkboxes. Built for multi-select forms with shared validation.",
+  "keywords": "checkbox group, react checkbox group, checkboxgroup component, luxis ui checkboxgroup, typescript checkbox group, accessible checkbox group, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use CheckboxGroup in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { CheckboxGroup } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI CheckboxGroup accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "CheckboxGroup requires an options array ({value, label}). It also accepts label, value (string array), defaultValue, onChange, disabled, error, helperText, orientation ('vertical' or 'horizontal'), and size."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I get the selected values from a CheckboxGroup?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Provide an onChange callback prop which receives an array of strings representing the currently selected option values."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI CheckboxGroup different from using multiple Checkbox components?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "CheckboxGroup automatically manages the array state, propagates disabled and error states to all children, ensures consistent spacing, and handles vertical/horizontal layout without requiring manual Flexbox wrappers."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# CheckboxGroup
+
+<ComponentStatus status="stable" version="1.0.0" aria="Group" />
+
+CheckboxGroup manages a collection of related checkboxes. It simplifies array state management and ensures consistent layout, labeling, and error handling across the entire group.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for CheckboxGroup
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding CheckboxGroup to any file
+SOURCE: packages/luxis-ui/src/components/CheckboxGroup/index.ts
+-->
+```tsx
+import { CheckboxGroup } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI `CheckboxGroup` is equivalent to MUI's `<FormGroup>`,
+  and Chakra UI's `<CheckboxGroup>`.
+  Unlike libraries that use `children` mapping, Luxis UI uses a data-driven `options` array prop for stricter type safety and predictable rendering.
+</Callout>
+
+## Before You Start
+
+A CheckboxGroup manages multiple `Checkbox` components based on an array of data. It outputs an array of selected string values.
+The Quick Start example below will produce a vertical list of checkboxes with a shared label above them.
+
+<Callout type="tip" title="New to Luxis UI?">
+  Check out our Getting Started guide to learn about theme setup and design tokens before diving into specific components.
+</Callout>
+
+## How to Use CheckboxGroup in React
+
+The minimum code to render a working CheckboxGroup:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of CheckboxGroup
+OUTPUT: A vertical list of four framework checkboxes
+USE WHEN: Asking users to select multiple options from a short list
+SOURCE: Derived from CheckboxGroup.tsx defaults and simplest Story
+-->
+```tsx
+import { CheckboxGroup } from '@luxis-ui/core';
+
+export default function Example() {
+  const options = [
+    { value: 'react', label: 'React' },
+    { value: 'vue', label: 'Vue' },
+    { value: 'angular', label: 'Angular' },
+    { value: 'svelte', label: 'Svelte' },
+  ];
+
+  return (
+    <CheckboxGroup
+      label="Select your favorite frameworks"
+      options={options}
+      defaultValue={['react']}
+    />
+  );
+}
+```
+
+This renders a main label, followed by a stacked list of four checkboxes, where "React" is checked by default.
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of CheckboxGroup with key props
+OUTPUT: A horizontal checkbox group showing disabled states
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/CheckboxGroup.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { CheckboxGroup } from '@luxis-ui/core';
+
+export default function LiveExample() {
+  const options = [
+    { value: 'admin', label: 'Admin Access' },
+    { value: 'write', label: 'Write Access' },
+    { value: 'read', label: 'Read Access', disabled: true },
+  ];
+
+  return (
+    <CheckboxGroup
+      label="User Permissions"
+      options={options}
+      orientation="horizontal"
+      defaultValue={['read']}
+      helperText="Read access is required and cannot be disabled."
+    />
+  );
+}
+```
+
+## CheckboxGroup Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### CheckboxGroup Horizontal
+
+Use `orientation="horizontal"` to place checkboxes side-by-side, which saves vertical space for short, simple lists.
+
+<!--
+EXAMPLE: Horizontal
+PURPOSE: Demonstrates row layout
+OUTPUT: Checkboxes arranged in a wrap-able row
+USE WHEN: Displaying a short list of options on a wide screen
+SOURCE: app/storybook/src/stories/CheckboxGroup.stories.ts → Horizontal
+-->
+```tsx
+import { CheckboxGroup } from '@luxis-ui/core';
+
+export default function HorizontalExample() {
+  const options = [
+    { value: 'monday', label: 'Monday' },
+    { value: 'wednesday', label: 'Wednesday' },
+    { value: 'friday', label: 'Friday' },
+  ];
+
+  return (
+    <CheckboxGroup
+      label="Available Days"
+      options={options}
+      orientation="horizontal"
+      defaultValue={['monday', 'friday']}
+    />
+  );
+}
+```
+
+This renders the checkboxes flowing from left to right, wrapping to the next line if the container is too narrow.
+
+---
+
+### CheckboxGroup Sizes
+
+Use `size` to scale the entire group — this adjusts both the checkboxes themselves and the spacing between them.
+
+<!--
+EXAMPLE: Sizes
+PURPOSE: Demonstrates scaling the group
+OUTPUT: Three groups of increasing size
+USE WHEN: Matching group density to adjacent form fields
+SOURCE: app/storybook/src/stories/CheckboxGroup.stories.ts → Sizes
+-->
+```tsx
+import { CheckboxGroup } from '@luxis-ui/core';
+
+export default function SizesExample() {
+  const options = [
+    { value: 'opt1', label: 'Option 1' },
+    { value: 'opt2', label: 'Option 2' },
+  ];
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
+      <CheckboxGroup label="Small Group" size="sm" options={options} defaultValue={['opt1']} />
+      <CheckboxGroup label="Medium Group" size="md" options={options} defaultValue={['opt1']} />
+      <CheckboxGroup label="Large Group" size="lg" options={options} defaultValue={['opt1']} />
+    </div>
+  );
+}
+```
+
+This renders three separate groups to illustrate how the `size` prop propagates to all children and adjusts layout gaps.
+
+---
+
+### CheckboxGroup WithDisabledOptions
+
+Use the `disabled` property on individual option objects to prevent selection of specific items while leaving the rest of the group active.
+
+<!--
+EXAMPLE: WithDisabledOptions
+PURPOSE: Demonstrates disabling specific items in the list
+OUTPUT: A list where some checkboxes are faded out
+USE WHEN: Certain options are out of stock, unavailable, or locked by permissions
+SOURCE: app/storybook/src/stories/CheckboxGroup.stories.ts → WithDisabledOptions
+-->
+```tsx
+import { CheckboxGroup } from '@luxis-ui/core';
+
+export default function WithDisabledOptionsExample() {
+  const options = [
+    { value: 'react', label: 'React' },
+    { value: 'vue', label: 'Vue (unavailable)', disabled: true },
+    { value: 'angular', label: 'Angular' },
+    { value: 'svelte', label: 'Svelte (unavailable)', disabled: true },
+  ];
+
+  return (
+    <CheckboxGroup
+      label="Frameworks"
+      options={options}
+      defaultValue={['react']}
+    />
+  );
+}
+```
+
+This renders a list where the "Vue" and "Svelte" options are greyed out and unclickable.
+
+---
+
+### CheckboxGroup AllDisabled
+
+Use the `disabled` prop on the component itself to completely disable the entire group.
+
+<!--
+EXAMPLE: AllDisabled
+PURPOSE: Demonstrates disabling the entire group component
+OUTPUT: A completely greyed out form field
+USE WHEN: The form is submitting or the user lacks overall permission
+SOURCE: app/storybook/src/stories/CheckboxGroup.stories.ts → AllDisabled
+-->
+```tsx
+import { CheckboxGroup } from '@luxis-ui/core';
+
+export default function AllDisabledExample() {
+  const options = [
+    { value: 'react', label: 'React' },
+    { value: 'vue', label: 'Vue' },
+  ];
+
+  return (
+    <CheckboxGroup
+      disabled
+      label="Frameworks (Read Only)"
+      options={options}
+      defaultValue={['react', 'vue']}
+    />
+  );
+}
+```
+
+This overrides any individual option states and disables everything, including dimming the main label.
+
+---
+
+### CheckboxGroup WithError
+
+Use `error` to apply red styling to the label, the checkboxes, and the helper text simultaneously.
+
+<!--
+EXAMPLE: WithError
+PURPOSE: Demonstrates validation failure across a group
+OUTPUT: A red-themed group with an error message
+USE WHEN: Form validation fails (e.g., "Must select at least one")
+SOURCE: app/storybook/src/stories/CheckboxGroup.stories.ts → WithError
+-->
+```tsx
+import { CheckboxGroup } from '@luxis-ui/core';
+
+export default function WithErrorExample() {
+  const options = [
+    { value: 'email', label: 'Email' },
+    { value: 'sms', label: 'SMS' },
+  ];
+
+  return (
+    <CheckboxGroup
+      error
+      label="Notification Preferences"
+      helperText="Please select at least one communication method."
+      options={options}
+    />
+  );
+}
+```
+
+This renders the group clearly communicating a required state failure.
+
+---
+
+### Controlled CheckboxGroup
+
+When to use: When a parent component needs to read or drive the state.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  By default CheckboxGroup manages its own state (uncontrolled).
+  Use the controlled pattern when syncing with a URL param, form
+  library, or another component.
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: useState-driven CheckboxGroup with external state management
+OUTPUT: CheckboxGroup whose array state is owned by the parent
+USE WHEN: Programmatically reading or setting component state
+SOURCE: Derived from CheckboxGroup.tsx controlled/uncontrolled pattern
+-->
+```tsx
+import { useState } from 'react';
+import { CheckboxGroup } from '@luxis-ui/core';
+
+export default function ControlledExample() {
+  const [value, setValue] = useState<string[]>(['react']);
+  const options = [
+    { value: 'react', label: 'React' },
+    { value: 'vue', label: 'Vue' },
+  ];
+
+  return (
+    <div>
+      <CheckboxGroup
+        label="Select frameworks"
+        options={options}
+        value={value}
+        onChange={setValue}
+      />
+      <p style={{ marginTop: 12, color: '#666', fontSize: 13 }}>
+        Currently selected: {value.length ? value.join(', ') : 'none'}
+      </p>
+    </div>
+  );
+}
+```
+
+## CheckboxGroup Best Practices
+
+Groups help users process forms faster. Keep the logic clear and the layouts consistent.
+
+<DoAndDont
+  good={`// ✅ Use the options array for clean data mapping
+<CheckboxGroup options={data.map(d => ({ value: d.id, label: d.name }))} />`}
+  bad={`// ❌ Build manual groups and manually track array state
+<div>
+  <Checkbox onChange={(e) => updateState('1', e.target.checked)} />
+  <Checkbox onChange={(e) => updateState('2', e.target.checked)} />
+</div>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use horizontal orientation for 2-3 short items
+<CheckboxGroup orientation="horizontal" options={[{value: 'yes', label: 'Yes'}, {value: 'no', label: 'No'}]} />`}
+  bad={`// ❌ Use horizontal orientation for 10 long items
+<CheckboxGroup orientation="horizontal" options={longOptionsArray} />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Pass the error prop to the group so it styles the whole fieldset
+<CheckboxGroup error={hasError} helperText={errorMessage} options={options} />`}
+  bad={`// ❌ Try to map errors to individual checkboxes inside a group manually
+<CheckboxGroup options={options.map(o => ({ ...o, error: hasError }))} />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Provide a clear label for the group
+<CheckboxGroup label="Select your dietary requirements" options={options} />`}
+  bad={`// ❌ Omit the label, leaving users to guess the context
+<CheckboxGroup options={options} />`}
+/>
+
+## CheckboxGroup Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly
+from `packages/luxis-ui/src/components/CheckboxGroup/CheckboxGroup.types.ts`.
+
+### CheckboxGroup Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `options` | `CheckboxOption[]` | | Yes | Array of checkbox options |
+| `className` | `string` | | No | Additional CSS class name |
+| `defaultValue` | `string[]` | | No | Default selected values for uncontrolled mode |
+| `disabled` | `boolean` | `false` | No | If true, all checkboxes are disabled |
+| `error` | `boolean` | `false` | No | If true, displays error styling |
+| `helperText` | `React.ReactNode` | | No | Helper text displayed below the group |
+| `label` | `React.ReactNode` | | No | The label for the checkbox group |
+| `onChange` | `(value: string[]) => void` | | No | Callback fired when the selection changes |
+| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` | No | The layout orientation of the checkboxes |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | No | The size of the checkboxes |
+| `value` | `string[]` | | No | Array of selected values |
+
+### HTML Native Props
+
+CheckboxGroup forwards rest props to its underlying `<div>` container.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `id` | Standard HTML ID | `"my-group"` |
+| `role` | ARIA role | `"group"` |
+| `aria-labelledby` | Accessibility label reference | `"heading-id"` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for CheckboxGroup
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/components/CheckboxGroup/CheckboxGroup.types.ts
+-->
+```ts
+import type { ReactNode, CSSProperties, HTMLAttributes, InputHTMLAttributes, ButtonHTMLAttributes, AnchorHTMLAttributes, ImgHTMLAttributes, RefObject, SyntheticEvent, MouseEvent, KeyboardEvent, ChangeEvent, FocusEvent } from 'react';
+import type { Size } from '../../theme';
+
+export interface CheckboxOption {
+  /**
+   * The value of the checkbox
+   */
+  value: string;
+  /**
+   * The label for the checkbox
+   */
+  label: React.ReactNode;
+  /**
+   * If true, the checkbox is disabled
+   */
+  disabled?: boolean;
+}
+
+export interface CheckboxGroupProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
+  /**
+   * The label for the checkbox group
+   */
+  label?: React.ReactNode;
+  /**
+   * Array of checkbox options
+   */
+  options: CheckboxOption[];
+  /**
+   * Array of selected values
+   */
+  value?: string[];
+  /**
+   * Default selected values for uncontrolled mode
+   */
+  defaultValue?: string[];
+  /**
+   * Callback fired when the selection changes
+   */
+  onChange?: (value: string[]) => void;
+  /**
+   * If true, all checkboxes are disabled
+   * @default false
+   */
+  disabled?: boolean;
+  /**
+   * If true, displays error styling
+   * @default false
+   */
+  error?: boolean;
+  /**
+   * Helper text displayed below the group
+   */
+  helperText?: React.ReactNode;
+  /**
+   * The layout orientation of the checkboxes
+   * @default 'vertical'
+   */
+  orientation?: 'horizontal' | 'vertical';
+  /**
+   * The size of the checkboxes
+   * @default 'md'
+   */
+  size?: 'sm' | 'md' | 'lg';
+  /**
+   * Additional CSS class name
+   */
+  className?: string;
+}
+```
+
+</details>
+
+## CheckboxGroup Accessibility Guide
+
+CheckboxGroup visually groups inputs. While currently rendering a `div`, it applies proper spacing and structure. For strict adherence, ensure the containing form utilizes proper fieldsets if required by your application context.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| <KeyboardKey>Tab</KeyboardKey> | Moves focus sequentially through each enabled checkbox in the group |
+| <KeyboardKey>Space</KeyboardKey> | Toggles the checked state of the currently focused checkbox |
+
+### ARIA Attributes
+
+| Attribute | Value | When |
+|-----------|-------|------|
+| `aria-invalid` | `"true"` | (On inner checkboxes) When `error` is true |
+
+### Screen Reader Behavior
+
+Screen readers will announce the overall group label if wrapped correctly in your form. As the user tabs through the options, the screen reader announces each checkbox label individually along with its checked/unchecked status.
+
+### Accessibility Checklist
+
+- [ ] Ensure the `label` prop is clear and descriptive so users understand what the group is for.
+- [ ] If using custom DOM structure around the group, consider adding `role="group"` and `aria-labelledby` pointing to your custom heading.
+- [ ] Always provide `helperText` alongside the `error` state to explain *why* the group is invalid.
+- [ ] Always test with keyboard-only navigation before shipping
+
+## CheckboxGroup Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions
+  like colors, spacing, and radius. CheckboxGroup relies on global spacing tokens and inherits Checkbox tokens.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-spacing-1` | `4px` | Spacing between label, options, and helper text |
+| `--lxs-spacing-2` | `8px` | Gap between elements in vertical layout |
+| `--lxs-spacing-3` | `12px` | Gap between elements in horizontal layout |
+
+**Override globally:**
+```css
+:root {
+  --lxs-spacing-2: 12px; /* Increases vertical gap for all groups */
+}
+```
+
+**Override for one section:**
+```css
+.compact-form {
+  --lxs-spacing-2: 4px;
+}
+```
+
+**Override on one instance:**
+```tsx
+<CheckboxGroup
+  style={{ gap: '16px' } as React.CSSProperties}
+  options={options}
+/>
+```
+
+## Customizing CheckboxGroup
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to CheckboxGroup
+OUTPUT: CheckboxGroup with additional styling
+USE WHEN: Quick one-off style overrides
+SOURCE: N/A
+-->
+```tsx
+<CheckboxGroup className="my-custom-padding" options={options} />
+```
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: CheckboxGroup with custom token values
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+```tsx
+<CheckboxGroup
+  style={{ '--lxs-color-neutral-900': '#333' } as React.CSSProperties}
+  label="Dark grey label"
+  options={options}
+/>
+```
+
+### Using with forwardRef
+
+<!--
+EXAMPLE: forwardRef
+PURPOSE: Accessing the underlying DOM node
+OUTPUT: CheckboxGroup with attached ref
+USE WHEN: Calling native DOM methods or measuring the container
+SOURCE: N/A
+-->
+```tsx
+import { useRef, useEffect } from 'react';
+import { CheckboxGroup } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const groupRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    console.log('Group container height:', groupRef.current?.clientHeight);
+  }, []);
+
+  return <CheckboxGroup ref={groupRef} label="Measured group" options={[{value: '1', label: 'One'}]} />;
+}
+```
+
+## Common CheckboxGroup Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Filter Sidebar Group
+
+Used when: Building e-commerce or data dashboard filter panels.
+
+<!--
+EXAMPLE: Filter Sidebar Group
+PURPOSE: Demonstrates a typical e-commerce filter layout
+OUTPUT: A clean vertical list with a clear heading
+USE WHEN: Allowing users to refine search results
+SOURCE: Common usage pattern for CheckboxGroup
+-->
+```tsx
+import { useState } from 'react';
+import { CheckboxGroup } from '@luxis-ui/core';
+
+export default function FilterSidebar() {
+  const [brands, setBrands] = useState<string[]>(['apple']);
+
+  const options = [
+    { value: 'apple', label: 'Apple' },
+    { value: 'samsung', label: 'Samsung' },
+    { value: 'google', label: 'Google' },
+    { value: 'sony', label: 'Sony' }
+  ];
+
+  return (
+    <div style={{ width: '250px', padding: '16px', border: '1px solid #e5e5e5', borderRadius: '8px' }}>
+      <h3 style={{ margin: '0 0 16px', fontSize: '16px', borderBottom: '1px solid #e5e5e5', paddingBottom: '8px' }}>
+        Filters
+      </h3>
+      <CheckboxGroup
+        label={<span style={{ fontWeight: 600 }}>Brand</span>}
+        options={options}
+        value={brands}
+        onChange={setBrands}
+      />
+    </div>
+  );
+}
+```
+
+### Select All Integration
+
+Used when: Combining CheckboxGroup with a master "Select All" toggle.
+
+<!--
+EXAMPLE: Select All Integration
+PURPOSE: Demonstrates managing parent state derived from the group state
+OUTPUT: A "Select all" master checkbox above the group
+USE WHEN: Managing large lists of permissions or bulk edits
+SOURCE: app/storybook/src/stories/CheckboxGroup.stories.ts → SelectAll
+-->
+```tsx
+import { useState } from 'react';
+import { CheckboxGroup, Checkbox } from '@luxis-ui/core';
+
+export default function SelectAllIntegration() {
+  const options = [
+    { value: 'create', label: 'Create Records' },
+    { value: 'read', label: 'Read Records' },
+    { value: 'update', label: 'Update Records' },
+    { value: 'delete', label: 'Delete Records' },
+  ];
+
+  const allValues = options.map((o) => o.value);
+  const [value, setValue] = useState<string[]>(['read']);
+
+  const allChecked = value.length === allValues.length;
+  const isIndeterminate = value.length > 0 && !allChecked;
+
+  const handleSelectAll = (checked: boolean) => {
+    setValue(checked ? allValues : []);
+  };
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <Checkbox
+        label={<strong style={{ fontSize: '14px' }}>Full Access</strong>}
+        checked={allChecked}
+        indeterminate={isIndeterminate}
+        onChange={(e) => handleSelectAll(e.target.checked)}
+      />
+      <div style={{ paddingLeft: '24px', paddingTop: '8px', borderLeft: '2px solid #f0f0f0', marginLeft: '10px' }}>
+        <CheckboxGroup
+          label=""
+          options={options}
+          value={value}
+          onChange={setValue}
+        />
+      </div>
+    </div>
+  );
+}
+```
+
+### Form Validation Pattern
+
+Used when: Validating that a user has selected required minimums in a form.
+
+<!--
+EXAMPLE: Form Validation Pattern
+PURPOSE: Demonstrates external validation logic applied to the group
+OUTPUT: A group that turns red if submitted without selections
+USE WHEN: Building multi-step forms or surveys
+SOURCE: Common usage pattern for CheckboxGroup
+-->
+```tsx
+import { useState } from 'react';
+import { CheckboxGroup } from '@luxis-ui/core';
+
+export default function ValidatedForm() {
+  const [value, setValue] = useState<string[]>([]);
+  const [touched, setTouched] = useState(false);
+
+  const options = [
+    { value: 'news', label: 'Company News' },
+    { value: 'product', label: 'Product Updates' },
+    { value: 'events', label: 'Local Events' }
+  ];
+
+  const hasError = touched && value.length === 0;
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setTouched(true);
+    if (value.length > 0) {
+      alert(`Submitted: ${value.join(', ')}`);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px', maxWidth: '300px' }}>
+      <CheckboxGroup
+        label="Mailing List Topics *"
+        options={options}
+        value={value}
+        onChange={(val) => {
+          setValue(val);
+          if (touched) setTouched(true);
+        }}
+        error={hasError}
+        helperText={hasError ? "You must select at least one topic." : "Select all that apply."}
+      />
+      <button
+        type="submit"
+        style={{ padding: '8px', background: 'var(--lxs-color-primary-600)', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+      >
+        Save Preferences
+      </button>
+    </form>
+  );
+}
+```
+
+## Troubleshooting CheckboxGroup
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| My onChange function receives an event object | Typing `onChange={(e) => ...}` | Typing `onChange={(valueArray) => ...}` |
+| State doesn't update | Mutating the value array directly | Calling the setter function with a new array |
+| The group label is squished | Trying to override internal padding | Use `margin` on the parent container |
+| Child options won't disable | Passing disabled as a separate array | Put `disabled: true` inside the option object |
+
+### Frequently Asked Questions
+
+**Q: Can I use custom components as the label in the options array?**
+A: Yes, the `label` property in the `options` array accepts `React.ReactNode`, so you can pass JSX, icons, or formatted text.
+
+**Q: How do I change the color of the checkboxes inside the group?**
+A: CheckboxGroup uses the default `primary` variant of the underlying `Checkbox` component. To change it globally or locally, override the CSS variable `--lxs-checkbox-color` on the group container.
+
+**Q: Is there a way to limit the maximum number of selections?**
+A: You must handle this in your `onChange` handler by checking the array length before updating your state, and optionally passing `disabled: true` to unselected options dynamically.
+
+**Q: Why doesn't the group use standard HTML `<fieldset>` and `<legend>`?**
+A: The `div` structure provides more consistent cross-browser styling. For strict semantic requirements, you can wrap the `CheckboxGroup` in a native `fieldset` yourself.
+
+## Related Components
+
+<RelatedComponent
+  name="Checkbox"
+  description="The individual component used inside the group. Use for standalone toggles."
+  href="/docs/components/checkbox"
+/>
+<RelatedComponent
+  name="RadioGroup"
+  description="Use when users must select exactly one option from a list."
+  href="/docs/components/radio-group"
+/>
+<RelatedComponent
+  name="MultiSelect"
+  description="Use when the list of options is very long and space is limited."
+  href="/docs/components/select"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+
+{/*
+LLMS_TXT_ENTRY_START
+# CheckboxGroup
+
+> CheckboxGroup is a Components React component in Luxis UI for managing multiple related checkboxes.
+
+## Source
+packages/luxis-ui/src/components/CheckboxGroup/CheckboxGroup.tsx
+
+## Story
+app/storybook/src/stories/CheckboxGroup.stories.ts
+
+## Install
+```bash
+npm install @luxis-ui/core
+```
+
+## Import
+```tsx
+import { CheckboxGroup } from '@luxis-ui/core';
+```
+
+## Minimal usage
+```tsx
+<CheckboxGroup
+  label="Select frameworks"
+  options={[
+    { value: 'react', label: 'React' },
+    { value: 'vue', label: 'Vue' }
+  ]}
+  onChange={(values) => console.log(values)}
+/>
+```
+
+## Key props
+- `options` (CheckboxOption[], default=`undefined`): Array of checkbox options
+- `value` (string[], default=`undefined`): Array of selected values
+- `onChange` ((value: string[]) => void, default=`undefined`): Callback fired when the selection changes
+- `orientation` ('horizontal' | 'vertical', default=`'vertical'`): The layout orientation of the checkboxes
+- `error` (boolean, default=`false`): If true, displays error styling
+
+## When to use
+Selecting multiple items from a defined list.
+Filter panels and preference forms.
+
+## When NOT to use
+Do not use for mutually exclusive choices (use RadioGroup).
+
+## Accessibility
+WCAG: AA
+ARIA: Group
+Keyboard: Tab through inputs, Space to toggle
+
+## Docs
+https://luxis-ui.dev/docs/components/checkbox-group
+LLMS_TXT_ENTRY_END
+*/}
