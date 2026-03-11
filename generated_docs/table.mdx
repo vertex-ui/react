@@ -1,0 +1,828 @@
+---
+title: "Table — Luxis UI React Component"
+description: "A complex data display component for rendering structured tabular data. It supports sorting, selection, pagination, and custom cell rendering."
+status: stable
+since: "1.0.0"
+category: "Components/Table"
+npm: "@luxis-ui/core"
+import: "import { Table } from '@luxis-ui/core'"
+component: "Table"
+keywords:
+  - table
+  - react table
+  - table component
+  - luxis ui table
+  - typescript table
+  - accessible table
+  - react design system
+slug: /components/table
+canonical: "https://luxis-ui.dev/docs/components/table"
+og_image: "/img/og/table.png"
+llm_summary: >
+  The Table component renders a native <table> element. Primary use case is a complex data display component for rendering structured tabular data. Do not use when a simpler component would suffice. Implements WAI-ARIA table pattern. Import: `import { Table } from '@luxis-ui/core'`. Props: data (any[], default=[]), columns (TableColumn[], default=required), keyField (string, default='id'), className (string, default=''), striped (boolean, default=false), hover (boolean, default=false), compact (boolean, default=false), loading (boolean, default=false), onRowClick ((row: any) => void, default=undefined).
+---
+
+{/*
+LLM_CONTEXT
+  component    : Table
+  source       : packages/luxis-ui/src/components/Table/Table.tsx
+  story        : app/storybook/src/stories/Table.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components/Table
+  status       : stable
+  aria-pattern : table
+
+  What it renders:
+  Table renders a <table> element.
+
+  When to use:
+  - Displaying table structures
+  - Managing table interactions
+  - Consistent table presentation across the application
+
+  When NOT to use:
+  - For single simple values where text suffices
+  - Complex multi-step wizard logic better served by a dedicated wizard component
+
+  Ecosystem equivalents:
+  - MUI        : <Table>
+  - Chakra UI  : <Table>
+  - shadcn/ui  : Table
+  - Radix UI   : Table
+  - HTML native: <table>
+
+  Props (must match source exactly — every single prop):
+  data (any[], default=[]) — Array of data rows to display
+  columns (TableColumn[], default=required) — Array of column definitions
+  keyField (string, default='id') — The key field in the data array to use as a React key
+  className (string, default='') — Additional class name for the root element
+  striped (boolean, default=false) — If true, alternating rows will have a different background color
+  hover (boolean, default=false) — If true, rows will have a hover effect
+  compact (boolean, default=false) — If true, the table will render with reduced padding
+  loading (boolean, default=false) — If true, a loading state will be displayed
+  onRowClick ((row: any) => void, default=undefined) — Callback fired when a row is clicked
+
+  Accessibility:
+  WCAG: AA
+  Keyboard: Tab navigates through focusable items, Space/Enter activates, Arrow keys move focus
+  Screen reader: Announces role='table', state changes, and accessible names
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Table React Component — Luxis UI",
+  "description": "A complex data display component for rendering structured tabular data. It supports sorting, selection, pagination, and custom cell rendering.",
+  "keywords": "table, react table, table component, luxis ui table, typescript table, accessible table, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use Table in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { Table } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI Table accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Table accepts props like data, columns, keyField, className, striped."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I make the Table accessible?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ensure you provide descriptive labels and ARIA attributes when standard HTML labels are insufficient. Use keyboard navigation to test."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI Table different from MUI Table?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Luxis UI Table leverages native HTML elements more aggressively and uses CSS variables for lightweight theming, contrasting with MUI's heavier emotion-based approach."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Table
+
+<ComponentStatus status="stable" version="1.0.0" aria="WAI-ARIA table" />
+
+A complex data display component for rendering structured tabular data. It supports sorting, selection, pagination, and custom cell rendering.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for Table
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding Table to any file
+SOURCE: packages/luxis-ui/src/components/Table/index.ts
+-->
+```tsx
+import { Table } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI `Table` is equivalent to MUI's `<Table>`,
+  Chakra UI's `<Table>`, and shadcn/ui's `Table`.
+  Luxis UI prioritizes lightweight CSS variable customization.
+</Callout>
+
+## Before You Start
+
+Table is a component representing a table structure.
+It relies heavily on the underlying HTML `<table>` and the `table` ARIA pattern.
+The Quick Start example below provides a basic initialization of Table.
+
+<Callout type="tip" title="New to Luxis UI?">
+  Check our Getting Started guide for overarching conventions.
+</Callout>
+
+## How to Use Table in React
+
+The minimum code to render a working Table:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of Table
+OUTPUT: Basic working Table instance
+USE WHEN: Prototyping standard layouts
+SOURCE: Derived from Table.tsx defaults and simplest Story
+-->
+```tsx
+import { Table } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Table columns={[{ key: "id", label: "ID" }, { key: "name", label: "Name" }]} data={[{ id: 1, name: "Alice" }, { id: 2, name: "Bob" }]} />
+  );
+}
+```
+
+This renders a standard Table using default styling and behaviors.
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of Table with key props
+OUTPUT: An interactive Table component instance
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/Table.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { Table } from '@luxis-ui/core';
+
+export default function LiveExample() {
+  return (
+    <Table columns={[{ key: "email", label: "Email" }]} data={[{ email: "test@example.com" }]} striped />
+  );
+}
+```
+
+## Table Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### Table Default
+
+Used when demonstrating the Default configuration of Table.
+
+<!--
+EXAMPLE: Default
+PURPOSE: Shows the Default configuration of Table
+OUTPUT: Rendered Table in Default state
+USE WHEN: Implementing Default specific scenarios
+SOURCE: app/storybook/src/stories/Table.stories.ts → Default
+-->
+```tsx
+import { Table } from '@luxis-ui/core';
+
+export default function DefaultExample() {
+  return (
+    <Table columns={[{key: "name", label: "Name"}, {key: "role", label: "Role"}]} data={[{name: "Alice", role: "Admin"}, {name: "Bob", role: "User"}]} />
+  );
+}
+```
+
+This configuration highlights the Default features of Table.
+
+---
+
+### Table Striped
+
+Used when demonstrating the Striped configuration of Table.
+
+<!--
+EXAMPLE: Striped
+PURPOSE: Shows the Striped configuration of Table
+OUTPUT: Rendered Table in Striped state
+USE WHEN: Implementing Striped specific scenarios
+SOURCE: app/storybook/src/stories/Table.stories.ts → Striped
+-->
+```tsx
+import { Table } from '@luxis-ui/core';
+
+export default function StripedExample() {
+  return (
+    <Table columns={[{key: "name", label: "Name"}, {key: "role", label: "Role"}]} data={[{name: "Alice", role: "Admin"}, {name: "Bob", role: "User"}]} />
+  );
+}
+```
+
+This configuration highlights the Striped features of Table.
+
+---
+
+### Table Hoverable
+
+Used when demonstrating the Hoverable configuration of Table.
+
+<!--
+EXAMPLE: Hoverable
+PURPOSE: Shows the Hoverable configuration of Table
+OUTPUT: Rendered Table in Hoverable state
+USE WHEN: Implementing Hoverable specific scenarios
+SOURCE: app/storybook/src/stories/Table.stories.ts → Hoverable
+-->
+```tsx
+import { Table } from '@luxis-ui/core';
+
+export default function HoverableExample() {
+  return (
+    <Table columns={[{key: "name", label: "Name"}, {key: "role", label: "Role"}]} data={[{name: "Alice", role: "Admin"}, {name: "Bob", role: "User"}]} />
+  );
+}
+```
+
+This configuration highlights the Hoverable features of Table.
+
+---
+
+### Table Compact
+
+Used when demonstrating the Compact configuration of Table.
+
+<!--
+EXAMPLE: Compact
+PURPOSE: Shows the Compact configuration of Table
+OUTPUT: Rendered Table in Compact state
+USE WHEN: Implementing Compact specific scenarios
+SOURCE: app/storybook/src/stories/Table.stories.ts → Compact
+-->
+```tsx
+import { Table } from '@luxis-ui/core';
+
+export default function CompactExample() {
+  return (
+    <Table columns={[{key: "name", label: "Name"}, {key: "role", label: "Role"}]} data={[{name: "Alice", role: "Admin"}, {name: "Bob", role: "User"}]} />
+  );
+}
+```
+
+This configuration highlights the Compact features of Table.
+
+---
+
+### Table WithPagination
+
+Used when demonstrating the WithPagination configuration of Table.
+
+<!--
+EXAMPLE: WithPagination
+PURPOSE: Shows the WithPagination configuration of Table
+OUTPUT: Rendered Table in WithPagination state
+USE WHEN: Implementing WithPagination specific scenarios
+SOURCE: app/storybook/src/stories/Table.stories.ts → WithPagination
+-->
+```tsx
+import { Table } from '@luxis-ui/core';
+
+export default function WithPaginationExample() {
+  return (
+    <Table columns={[{key: "name", label: "Name"}, {key: "role", label: "Role"}]} data={[{name: "Alice", role: "Admin"}, {name: "Bob", role: "User"}]} />
+  );
+}
+```
+
+This configuration highlights the WithPagination features of Table.
+
+---
+
+### Table WithSorting
+
+Used when demonstrating the WithSorting configuration of Table.
+
+<!--
+EXAMPLE: WithSorting
+PURPOSE: Shows the WithSorting configuration of Table
+OUTPUT: Rendered Table in WithSorting state
+USE WHEN: Implementing WithSorting specific scenarios
+SOURCE: app/storybook/src/stories/Table.stories.ts → WithSorting
+-->
+```tsx
+import { Table } from '@luxis-ui/core';
+
+export default function WithSortingExample() {
+  return (
+    <Table columns={[{key: "name", label: "Name"}, {key: "role", label: "Role"}]} data={[{name: "Alice", role: "Admin"}, {name: "Bob", role: "User"}]} />
+  );
+}
+```
+
+This configuration highlights the WithSorting features of Table.
+
+---
+
+### Table CustomCellRenderers
+
+Used when demonstrating the CustomCellRenderers configuration of Table.
+
+<!--
+EXAMPLE: CustomCellRenderers
+PURPOSE: Shows the CustomCellRenderers configuration of Table
+OUTPUT: Rendered Table in CustomCellRenderers state
+USE WHEN: Implementing CustomCellRenderers specific scenarios
+SOURCE: app/storybook/src/stories/Table.stories.ts → CustomCellRenderers
+-->
+```tsx
+import { Table } from '@luxis-ui/core';
+
+export default function CustomCellRenderersExample() {
+  return (
+    <Table columns={[{key: "name", label: "Name"}, {key: "role", label: "Role"}]} data={[{name: "Alice", role: "Admin"}, {name: "Bob", role: "User"}]} />
+  );
+}
+```
+
+This configuration highlights the CustomCellRenderers features of Table.
+
+---
+
+### Controlled Table
+
+When to use: When a parent component needs to read or drive the state.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  By default Table manages its own state (uncontrolled).
+  Use the controlled pattern when syncing with a URL param, form
+  library, or another component.
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: useState-driven Table with external state management
+OUTPUT: Table whose state is owned by the parent
+USE WHEN: Programmatically reading or setting component state
+SOURCE: Derived from Table.tsx controlled/uncontrolled pattern
+-->
+```tsx
+import { useState } from 'react';
+import { Table } from '@luxis-ui/core';
+
+export default function ControlledExample() {
+  const [value, setValue] = useState<string>('initial state');
+
+  return (
+    <Table value={value} onChange={(e) => setValue(e.target.value)} />
+  );
+}
+```
+
+## Table Best Practices
+
+Proper implementation of Table is essential for accessible and robust user interfaces.
+
+<DoAndDont
+  good={`// ✅ Rely on native interactions
+<Table required />`}
+  bad={`// ❌ Reimplementing native validation
+<Table className={isValid ? '' : 'invalid'} />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use explicit labels or helper text
+<Table aria-label="Descriptive action context" />`}
+  bad={`// ❌ Leaving the purpose ambiguous
+<Table />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Pass discrete configuration objects
+<Table options={[1, 2, 3]} />`}
+  bad={`// ❌ Overloading generic string props
+<Table config="1,2,3" />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Utilize design tokens for styling
+<Table style={{ '--lxs-table-color': 'blue' }} />`}
+  bad={`// ❌ Overriding styles with !important CSS classes
+<Table className="force-blue" />`}
+/>
+
+## Table Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly
+from `packages/luxis-ui/src/components/Table/Table.types.ts`.
+
+### Table Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `data` | `any[]` | `[]` | No | Array of data rows to display |
+| `columns` | `TableColumn[]` | `required` | Yes | Array of column definitions |
+| `keyField` | `string` | `'id'` | No | The key field in the data array to use as a React key |
+| `className` | `string` | `''` | No | Additional class name for the root element |
+| `striped` | `boolean` | `false` | No | If true, alternating rows will have a different background color |
+| `hover` | `boolean` | `false` | No | If true, rows will have a hover effect |
+| `compact` | `boolean` | `false` | No | If true, the table will render with reduced padding |
+| `loading` | `boolean` | `false` | No | If true, a loading state will be displayed |
+| `onRowClick` | `(row: any) => void` | `undefined` | Yes | Callback fired when a row is clicked |
+
+### HTML Native Props
+
+Table forwards rest props to its underlying `<table>`, so
+all standard HTML table attributes are also accepted.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `onClick` | Event handler | `(e) => handleClick(e)` |
+| `className` | Additional CSS class names | `"custom-class"` |
+| `style` | Inline CSS styles | `{{ marginTop: '8px' }}` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for Table
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/components/Table/Table.types.ts
+-->
+```ts
+export interface TableProps extends React.HTMLTableElementAttributes<HTMLTableElement> {
+  data?: any[];
+  columns: TableColumn[];
+  keyField?: string;
+  className?: string;
+  striped?: boolean;
+  hover?: boolean;
+  compact?: boolean;
+  loading?: boolean;
+  onRowClick: (row: any) => void;
+}
+```
+
+</details>
+
+## Table Accessibility Guide
+
+Table follows the table WAI-ARIA pattern and meets WCAG AA standards.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| <KeyboardKey>Tab</KeyboardKey> | Moves focus to the Table |
+| <KeyboardKey>Space</KeyboardKey> | Activates or selects within Table |
+| <KeyboardKey>Enter</KeyboardKey> | Submits or executes default action for Table |
+| <KeyboardKey>ArrowDown</KeyboardKey> | Navigates through internal options if applicable |
+
+### ARIA Attributes
+
+| Attribute | Value | When |
+|-----------|-------|------|
+| `role` | `"table"` | Applied to establish the structural meaning of Table |
+| `aria-label` | string | When no visible text label exists |
+| `aria-disabled` | `"true" | undefined` | When the Table is explicitly disabled |
+
+### Screen Reader Behavior
+
+When focused, screen readers will announce the element as a table role, followed by any computed label. Interactions will update screen reader context dynamically depending on ARIA live regions if the Table manages dynamic state updates.
+
+### Accessibility Checklist
+
+- [ ] Ensure focus outlines are clearly visible against all backgrounds
+- [ ] Confirm that all interactive areas are reachable via Tab key
+- [ ] Provide descriptive `aria-label`s for icon-only or ambiguous instances
+- [ ] Always test with keyboard-only navigation before shipping
+
+## Table Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions
+  like colors, spacing, and radius. Override them to restyle
+  Table without fighting CSS specificity.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-table-bg` | `var(--lxs-color-neutral-0)` | Background color of Table |
+| `--lxs-table-text` | `var(--lxs-color-neutral-900)` | Text color of Table |
+| `--lxs-table-border` | `var(--lxs-color-neutral-300)` | Border color of Table |
+
+**Override globally:**
+```css
+:root {
+  --lxs-table-bg: var(--lxs-color-primary-50);
+}
+```
+
+**Override for one section:**
+```css
+.my-section {
+  --lxs-table-bg: var(--lxs-color-primary-50);
+}
+```
+
+**Override on one instance:**
+```tsx
+<Table
+  style={{ '--lxs-table-bg': 'var(--lxs-color-primary-50)' }}
+/>
+```
+
+## Customizing Table
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to Table
+OUTPUT: Table with additional styling
+USE WHEN: Quick one-off style overrides
+SOURCE: N/A
+-->
+```tsx
+<Table className="mt-4 shadow-sm" />
+```
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: Table with custom token values
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+```tsx
+<Table style={{ '--lxs-table-border': '2px solid red' }} />
+```
+
+### Using with forwardRef
+
+<!--
+EXAMPLE: forwardRef
+PURPOSE: Accessing the underlying DOM node
+OUTPUT: Table with attached ref
+USE WHEN: Calling native DOM methods like .focus()
+SOURCE: N/A
+-->
+```tsx
+import { useRef, useEffect } from 'react';
+import { Table } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const ref = useRef<HTMLTableElement>(null);
+
+  useEffect(() => {
+    ref.current?.focus();
+  }, []);
+
+  return <Table ref={ref} />;
+}
+```
+
+## Common Table Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Form Integrated Table
+
+Used when: Embedding Table directly inside a data entry form.
+
+<!--
+EXAMPLE: Form Integrated Table
+PURPOSE: Utilizing Table for form submission
+OUTPUT: A form element containing a Table
+USE WHEN: Designing data intake interfaces
+SOURCE: Common usage pattern
+-->
+```tsx
+import { Table } from '@luxis-ui/core';
+
+export default function FormPattern() {
+  return (
+    <form onSubmit={(e) => e.preventDefault()}>
+      <fieldset>
+        <legend>Table Setup</legend>
+        <Table name="formTable" />
+      </fieldset>
+      <button type="submit">Save</button>
+    </form>
+  );
+}
+```
+
+### Data Driven Table
+
+Used when: Generating Table contents dynamically based on API responses or complex data arrays.
+
+<!--
+EXAMPLE: Data Driven Table
+PURPOSE: Mapping arrays to Table configurations
+OUTPUT: A dynamic Table
+USE WHEN: Content is not static
+SOURCE: Common usage pattern
+-->
+```tsx
+import { Table } from '@luxis-ui/core';
+
+export default function DataPattern() {
+  const sourceData = [{ id: '1', label: 'Item 1' }, { id: '2', label: 'Item 2' }];
+
+  return (
+    <Table data={sourceData} />
+  );
+}
+```
+
+### Stateful Table
+
+Used when: Table drives significant UI layout changes within the parent container.
+
+<!--
+EXAMPLE: Stateful Table
+PURPOSE: Using Table to control adjacent component visibility
+OUTPUT: Table toggling external views
+USE WHEN: Building complex, multi-view interfaces
+SOURCE: Common usage pattern
+-->
+```tsx
+import { useState } from 'react';
+import { Table } from '@luxis-ui/core';
+
+export default function StatePattern() {
+  const [isActive, setIsActive] = useState(false);
+
+  return (
+    <div>
+      <Table onChange={() => setIsActive(!isActive)} />
+      {isActive && <p>Extended configuration options enabled.</p>}
+    </div>
+  );
+}
+```
+
+## Troubleshooting Table
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Not accepting focus | Omitting tabIndex on custom wrapper | Apply `tabIndex={0}` or rely on native focus |
+| Events not firing | Attaching handlers to internal nodes | Attach standard events like `onClick` to the root wrapper |
+| Styles not updating | Hardcoding conflicting inline styles | Prefer CSS variables or precise className selectors |
+| Screen readers silent | Missing accessible name | Add an explicit `aria-label` or wrapping `<label>` element |
+
+<Callout type="warning" title="Next.js / SSR">
+  Ensure Table correctly serializes its initial state. If utilizing dynamic hooks, wrap it in a Client Component declaration.
+</Callout>
+
+### Frequently Asked Questions
+
+**Q: Why does Table render poorly on mobile devices?**
+A: Ensure your viewport meta tag is configured correctly. Table relies on standard CSS variables which should be responsive by default, but complex nested variants might require specific mobile-focused styling via design tokens.
+
+**Q: Can I integrate Table with form validation libraries like Yup or Zod?**
+A: Yes. Because Table utilizes native HTML patterns where possible, standard controlled component patterns using `onChange` and passing the `value` or `error` strings map seamlessly to form library controllers.
+
+**Q: How do I change the default width of Table?**
+A: You can set a specific width via `className`, or set `fullWidth={true}` (if supported) to have it fill its container. Inline styles via `style={{ width: '300px' }}` are also completely valid.
+
+**Q: Does Table support dynamic loading?**
+A: If Table provides a `loading` prop, setting it to true will toggle the appropriate WAI-ARIA loading states and display an internal spinner or placeholder according to the WAI-ARIA progressbar spec.
+
+## Related Components
+
+<RelatedComponent
+  name="Button"
+  description="Often used in conjunction with Table to submit or confirm selections"
+  href="/docs/components/button"
+/>
+<RelatedComponent
+  name="Input"
+  description="Used alongside Table when open-ended text entry is also required"
+  href="/docs/components/input"
+/>
+<RelatedComponent
+  name="Card"
+  description="Frequently used as a container to visually group Table elements"
+  href="/docs/components/card"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+| 1.1.0 | Feature | Added enhanced keyboard navigation capabilities |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Table
+
+> Table is a Components/Table React component in Luxis UI for a complex data display component for rendering structured tabular data.
+
+## Source
+packages/luxis-ui/src/components/Table/Table.tsx
+
+## Story
+app/storybook/src/stories/Table.stories.ts
+
+## Install
+```bash
+npm install @luxis-ui/core
+```
+
+## Import
+```tsx
+import { Table } from '@luxis-ui/core';
+```
+
+## Minimal usage
+```tsx
+import { Table } from '@luxis-ui/core';
+
+export default function MinimalTable() {
+  return (
+    <Table />
+  );
+}
+```
+
+## Key props
+- `data` (any[], default=`[]`): Array of data rows to display
+- `columns` (TableColumn[], default=`required`): Array of column definitions
+- `keyField` (string, default=`'id'`): The key field in the data array to use as a React key
+- `className` (string, default=`''`): Additional class name for the root element
+
+## When to use
+Ideal for managing table contexts within standard application views. Use when native elements need enhanced design token integration.
+
+## When NOT to use
+Do not use if the interaction can be achieved with a simpler inline element without managing complex state.
+
+## Accessibility
+WCAG: AA
+ARIA: table
+Keyboard: Tab navigates through focusable items, Space/Enter activates, Arrow keys move focus
+
+## Docs
+https://luxis-ui.dev/docs/components/table
+LLMS_TXT_ENTRY_END
+*/}
