@@ -1,0 +1,5138 @@
+╔══════════════════════════════════════════════════════════════╗
+║ FILE: grid.mdx                                                     ║
+╚══════════════════════════════════════════════════════════════╝
+
+---
+title: "Grid — Luxis UI React Component"
+description: "A responsive 12-column grid layout system. Build structured and responsive page layouts easily using a flexible container and item model."
+status: stable
+since: "1.0.0"
+category: "Components"
+npm: "@luxis-ui/core"
+import: "import { Grid } from '@luxis-ui/core'"
+component: "Grid"
+keywords:
+  - grid
+  - react grid
+  - grid component
+  - layout
+  - flexbox grid
+  - responsive grid
+  - luxis ui grid
+  - typescript grid
+  - react design system
+slug: /components/grid
+canonical: "https://luxis-ui.dev/docs/components/grid"
+og_image: "/img/og/grid.png"
+llm_summary: >
+  Grid renders a responsive 12-column layout using standard `<div>` elements configured via flexbox. It functions as both a container and an item depending on the props passed.
+  Props: `container` (boolean, default=false), `item` (boolean, default=false), `spacing` (number 0-10, default=undefined), `rowSpacing` (number 0-10, default=undefined), `columnSpacing` (number 0-10, default=undefined), `xs` (boolean | 'auto' | 1-12, default=undefined), `sm` (boolean | 'auto' | 1-12, default=undefined), `md` (boolean | 'auto' | 1-12, default=undefined), `lg` (boolean | 'auto' | 1-12, default=undefined), `xl` (boolean | 'auto' | 1-12, default=undefined), `justifyContent` (string, default=undefined), `alignItems` (string, default=undefined), `alignContent` (string, default=undefined), `direction` ('row' | 'row-reverse' | 'column' | 'column-reverse', default='row'), `wrap` ('nowrap' | 'wrap' | 'wrap-reverse', default='wrap'), `className` (string, default='').
+  Primary use cases: Structuring page layouts, creating responsive columns that stack on smaller screens, and aligning groups of components.
+  Accessibility: Grid is purely structural and uses standard generic containers. Ensure internal content is accessible.
+  Import exactly like this: `import { Grid } from '@luxis-ui/core'`.
+---
+
+{/*
+LLM_CONTEXT
+  component    : Grid
+  source       : packages/luxis-ui/src/Grid/Grid.tsx
+  story        : app/storybook/src/stories/Grid.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components
+  status       : stable
+  aria-pattern : None (Structural)
+
+  What it renders:
+  Grid renders a standard `<div>` configured to use CSS flexbox for structural layout.
+
+  When to use:
+  - Creating main page layouts.
+  - Creating responsive columns that change widths at specific breakpoints.
+  - Distributing space evenly among items.
+
+  When NOT to use:
+  - For simple 1-dimensional spacing between sequential elements (use Flex or Box instead).
+  - When CSS Grid is strictly required (this component uses a Flexbox-based 12-column system).
+
+  Ecosystem equivalents:
+  - MUI        : <Grid>
+  - Chakra UI  : <SimpleGrid>, <Grid>
+  - shadcn/ui  : [Often handled directly via Tailwind classes like grid grid-cols-12]
+  - Radix UI   : <Grid>
+  - HTML native: <div style="display: flex">
+
+  Props (must match source exactly — every single prop):
+  container (boolean, default=false) — If true, the component will have the flex container behavior
+  item (boolean, default=false) — If true, the component will have the flex item behavior
+  spacing (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10, default=undefined) — Defines the space between items (applies to container)
+  rowSpacing (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10, default=undefined) — Defines the row gap between items (applies to container)
+  columnSpacing (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10, default=undefined) — Defines the column gap between items (applies to container)
+  xs (boolean | 'auto' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12, default=undefined) — Number of columns (1-12) for extra small devices
+  sm (boolean | 'auto' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12, default=undefined) — Number of columns (1-12) for small devices (≥600px)
+  md (boolean | 'auto' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12, default=undefined) — Number of columns (1-12) for medium devices (≥960px)
+  lg (boolean | 'auto' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12, default=undefined) — Number of columns (1-12) for large devices (≥1280px)
+  xl (boolean | 'auto' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12, default=undefined) — Number of columns (1-12) for extra large devices (≥1920px)
+  justifyContent ('flex-start' | 'center' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly', default=undefined) — Defines the justify-content style property
+  alignItems ('flex-start' | 'center' | 'flex-end' | 'stretch' | 'baseline', default=undefined) — Defines the align-items style property
+  alignContent ('flex-start' | 'center' | 'flex-end' | 'space-between' | 'space-around' | 'stretch', default=undefined) — Defines the align-content style property
+  direction ('row' | 'row-reverse' | 'column' | 'column-reverse', default='row') — Defines the flex-direction style property
+  wrap ('nowrap' | 'wrap' | 'wrap-reverse', default='wrap') — Defines the flex-wrap style property
+  className (string, default='') — Additional CSS class name
+
+  Accessibility:
+  WCAG: N/A (Structural element)
+  Keyboard: Focus relies on internal children.
+  Screen reader: Screen readers process the layout as standard divs. Use semantic HTML elements inside the grid when appropriate.
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Grid React Component — Luxis UI",
+  "description": "A responsive 12-column grid layout system. Build structured and responsive page layouts easily using a flexible container and item model.",
+  "keywords": "grid, react grid, grid component, layout, flexbox grid, responsive grid, luxis ui grid, typescript grid, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use Grid in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { Grid } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI Grid accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Key props include container (boolean), item (boolean), spacing (0-10), and breakpoint sizes like xs, sm, md, lg, xl (1-12, 'auto', or boolean)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I make a grid responsive?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pass different column counts to the breakpoint props on your Grid items. For example, <Grid item xs={12} md={6}> will take full width on mobile and half width on medium screens."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI Grid different from MUI Grid?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Luxis UI Grid uses an almost identical API to MUI's v5 Grid, utilizing a 12-column Flexbox system with container/item booleans, making migration seamless while remaining lightweight."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Grid
+
+<ComponentStatus status="stable" version="1.0.0" aria="N/A" />
+
+Grid is a responsive 12-column layout system based on Flexbox. It helps you build complex structural layouts that adapt cleanly across different screen sizes.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for Grid
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding Grid to any file
+SOURCE: packages/luxis-ui/src/components/Grid/index.ts
+-->
+```tsx
+import { Grid } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI `Grid` is functionally equivalent to MUI's `<Grid>` and Radix UI's `<Grid>`. It uses the familiar `container` and `item` pattern.
+</Callout>
+
+## Before You Start
+
+Grid operates on a 12-column grid system using CSS Flexbox. It requires two types of components: a wrapper with the `container` prop, and children with the `item` prop. The Quick Start example below will render three equally spaced columns.
+
+<Callout type="tip" title="New to Luxis UI?">
+  The spacing system uses units. A spacing of `2` typically equals `16px` (2 * 8px base unit).
+</Callout>
+
+## How to Use Grid in React
+
+The minimum code to render a working Grid:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of Grid
+OUTPUT: A row of three equal-width columns
+USE WHEN: Building a simple evenly distributed row
+SOURCE: Derived from Grid.tsx defaults and simplest Story
+-->
+```tsx
+import { Grid } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs={4}>Column 1</Grid>
+      <Grid item xs={4}>Column 2</Grid>
+      <Grid item xs={4}>Column 3</Grid>
+    </Grid>
+  );
+}
+```
+
+This creates a Flexbox container with a gap (spacing=2), containing three items that each take up 4 out of 12 columns (33.3%).
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of Grid with key props
+OUTPUT: A responsive grid layout with styled blocks
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/Grid.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { Grid } from '@luxis-ui/core';
+
+export default function LiveExample() {
+  const boxStyle = { padding: '16px', background: '#e3e6ea', borderRadius: '4px', textAlign: 'center' };
+
+  return (
+    <Grid container spacing={3} justifyContent="center">
+      <Grid item xs={12} sm={6} md={4}>
+        <div style={boxStyle}>xs=12 sm=6 md=4</div>
+      </Grid>
+      <Grid item xs={12} sm={6} md={4}>
+        <div style={boxStyle}>xs=12 sm=6 md=4</div>
+      </Grid>
+      <Grid item xs={12} sm={12} md={4}>
+        <div style={boxStyle}>xs=12 sm=12 md=4</div>
+      </Grid>
+    </Grid>
+  );
+}
+```
+
+## Grid Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### Basic
+
+A basic layout using fixed column widths.
+
+<!--
+EXAMPLE: Basic
+PURPOSE: Shows standard 12-column division
+OUTPUT: Three blocks taking exactly 4 columns each
+USE WHEN: Creating fixed layouts that don't need to respond to screen size
+SOURCE: app/storybook/src/stories/Grid.stories.ts -> Basic
+-->
+```tsx
+import { Grid } from '@luxis-ui/core';
+
+export default function BasicExample() {
+  const boxStyle = { padding: '16px', borderRadius: '4px' };
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs={4}>
+        <div style={{ ...boxStyle, background: '#e3e6ea' }}>Overview</div>
+      </Grid>
+      <Grid item xs={4}>
+        <div style={{ ...boxStyle, background: '#c5cae9' }}>Statistics</div>
+      </Grid>
+      <Grid item xs={4}>
+        <div style={{ ...boxStyle, background: '#b2dfdb' }}>Recent Activity</div>
+      </Grid>
+    </Grid>
+  );
+}
+```
+
+Because only the `xs` breakpoint is specified, these items will always consume 4 columns regardless of screen size.
+
+---
+
+### Responsive
+
+Fluidly change column widths based on viewport size breakpoints.
+
+<!--
+EXAMPLE: Responsive
+PURPOSE: Demonstrates breakpoint-based widths
+OUTPUT: Blocks that stack on mobile and sit side-by-side on desktop
+USE WHEN: Building adaptive dashboard layouts or card grids
+SOURCE: app/storybook/src/stories/Grid.stories.ts -> Responsive
+-->
+```tsx
+import { Grid } from '@luxis-ui/core';
+
+export default function ResponsiveExample() {
+  const boxStyle = { padding: '16px', borderRadius: '4px' };
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs={12} sm={6} md={4}>
+        <div style={{ ...boxStyle, background: '#e3e6ea' }}>xs=12 sm=6 md=4</div>
+      </Grid>
+      <Grid item xs={12} sm={6} md={4}>
+        <div style={{ ...boxStyle, background: '#c5cae9' }}>xs=12 sm=6 md=4</div>
+      </Grid>
+      <Grid item xs={12} sm={12} md={4}>
+        <div style={{ ...boxStyle, background: '#b2dfdb' }}>xs=12 sm=12 md=4</div>
+      </Grid>
+    </Grid>
+  );
+}
+```
+
+These items take full width on mobile (`xs={12}`), half width on small tablets (`sm={6}`), and one-third width on desktop (`md={4}`).
+
+---
+
+### RowAndColumnSpacing
+
+Control vertical and horizontal spacing independently.
+
+<!--
+EXAMPLE: RowAndColumnSpacing
+PURPOSE: Shows independent axis spacing
+OUTPUT: A grid with a wide horizontal gap and narrow vertical gap
+USE WHEN: Form layouts or dense data displays
+SOURCE: app/storybook/src/stories/Grid.stories.ts -> RowAndColumnSpacing
+-->
+```tsx
+import { Grid } from '@luxis-ui/core';
+
+export default function RowAndColumnSpacingExample() {
+  const boxStyle = { padding: '16px', borderRadius: '4px' };
+  return (
+    <Grid container rowSpacing={2} columnSpacing={4}>
+      <Grid item xs={6}>
+        <div style={{ ...boxStyle, background: '#e3e6ea' }}>Overview</div>
+      </Grid>
+      <Grid item xs={6}>
+        <div style={{ ...boxStyle, background: '#c5cae9' }}>Statistics</div>
+      </Grid>
+      <Grid item xs={6}>
+        <div style={{ ...boxStyle, background: '#b2dfdb' }}>Recent Activity</div>
+      </Grid>
+      <Grid item xs={6}>
+        <div style={{ ...boxStyle, background: '#ffe082' }}>Settings</div>
+      </Grid>
+    </Grid>
+  );
+}
+```
+
+This applies a spacing unit of 2 vertically and 4 horizontally between the grid items.
+
+---
+
+### Controlled Grid
+
+When to use: When a parent component needs to read or drive the layout state.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  Grid is entirely stateless and declarative. However, you can pass state variables to its layout props to dynamically change the grid structure based on user interactions.
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: State-driven Grid layout
+OUTPUT: A grid whose spacing changes via a button click
+USE WHEN: Building customizable layout engines or responsive toggles
+SOURCE: Derived from Grid.tsx
+-->
+```tsx
+import { useState } from 'react';
+import { Grid, Button } from '@luxis-ui/core';
+
+export default function ControlledExample() {
+  const [spacing, setSpacing] = useState<0 | 1 | 2 | 3 | 4>(2);
+
+  return (
+    <div>
+      <button onClick={() => setSpacing(spacing === 4 ? 0 : (spacing + 1) as any)}>
+        Toggle Spacing (Current: {spacing})
+      </button>
+      <div style={{ marginTop: '16px' }}>
+        <Grid container spacing={spacing}>
+          <Grid item xs={6}><div style={{ background: '#eee', padding: '16px' }}>Left</div></Grid>
+          <Grid item xs={6}><div style={{ background: '#ddd', padding: '16px' }}>Right</div></Grid>
+        </Grid>
+      </div>
+    </div>
+  );
+}
+```
+
+## Grid Best Practices
+
+Use these practices to build maintainable, bug-free layouts.
+
+<DoAndDont
+  good={`// ✅ Use items directly inside containers
+<Grid container>
+  <Grid item xs={6}>Content</Grid>
+</Grid>`}
+  bad={`// ❌ Don't place non-item elements directly inside containers
+<Grid container>
+  <div>Content</div>
+</Grid>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Define mobile (xs) layout first
+<Grid item xs={12} md={6}>Content</Grid>`}
+  bad={`// ❌ Don't skip defining a base layout
+<Grid item md={6}>Content</Grid>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use 'auto' for shrink-to-fit sizing
+<Grid item xs="auto">Fixed width content</Grid>`}
+  bad={`// ❌ Don't hardcode fixed widths on items
+<Grid item style={{ width: '200px' }}>Content</Grid>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Wrap container around items
+<Grid container spacing={2}>
+  <Grid item xs={12}>...</Grid>
+</Grid>`}
+  bad={`// ❌ Don't combine container and item on the same node
+<Grid container item xs={12}>...</Grid>`}
+/>
+
+## Grid Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly from `packages/luxis-ui/src/Grid/Grid.tsx`.
+
+### Grid Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `alignContent` | `'flex-start' \| 'center' \| 'flex-end' \| 'space-between' \| 'space-around' \| 'stretch'` | `undefined` | false | Defines the align-content style property |
+| `alignItems` | `'flex-start' \| 'center' \| 'flex-end' \| 'stretch' \| 'baseline'` | `undefined` | false | Defines the align-items style property |
+| `columnSpacing` | `0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 \| 9 \| 10` | `undefined` | false | Defines the column gap between items |
+| `container` | `boolean` | `false` | false | If true, applies flex container behavior |
+| `direction` | `'row' \| 'row-reverse' \| 'column' \| 'column-reverse'` | `'row'` | false | Defines the flex-direction style property |
+| `item` | `boolean` | `false` | false | If true, applies flex item behavior |
+| `justifyContent` | `'flex-start' \| 'center' \| 'flex-end' \| 'space-between' \| 'space-around' \| 'space-evenly'` | `undefined` | false | Defines the justify-content style property |
+| `lg` | `boolean \| 'auto' \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 \| 9 \| 10 \| 11 \| 12` | `undefined` | false | Columns for large devices (≥1280px) |
+| `md` | `boolean \| 'auto' \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 \| 9 \| 10 \| 11 \| 12` | `undefined` | false | Columns for medium devices (≥960px) |
+| `rowSpacing` | `0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 \| 9 \| 10` | `undefined` | false | Defines the row gap between items |
+| `sm` | `boolean \| 'auto' \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 \| 9 \| 10 \| 11 \| 12` | `undefined` | false | Columns for small devices (≥600px) |
+| `spacing` | `0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 \| 9 \| 10` | `undefined` | false | Space between items (applies to both axes) |
+| `wrap` | `'nowrap' \| 'wrap' \| 'wrap-reverse'` | `'wrap'` | false | Defines the flex-wrap style property |
+| `xl` | `boolean \| 'auto' \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 \| 9 \| 10 \| 11 \| 12` | `undefined` | false | Columns for extra large devices (≥1920px) |
+| `xs` | `boolean \| 'auto' \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 \| 9 \| 10 \| 11 \| 12` | `undefined` | false | Columns for extra small devices (≥0px) |
+
+### HTML Native Props
+
+Grid forwards rest props to its underlying `<div>`, so all standard HTML div attributes are also accepted.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `className` | Additional CSS class names | `"custom-grid"` |
+| `style` | Inline CSS styles | `{{ marginTop: '8px' }}` |
+| `onClick` | Click handler | `(e) => handleClick(e)` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for Grid
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/Grid/Grid.tsx
+-->
+```ts
+type GridSize = boolean | 'auto' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+type GridSpacing = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+
+export interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
+  container?: boolean;
+  item?: boolean;
+  spacing?: GridSpacing;
+  rowSpacing?: GridSpacing;
+  columnSpacing?: GridSpacing;
+  xs?: GridSize;
+  sm?: GridSize;
+  md?: GridSize;
+  lg?: GridSize;
+  xl?: GridSize;
+  justifyContent?: 'flex-start' | 'center' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly';
+  alignItems?: 'flex-start' | 'center' | 'flex-end' | 'stretch' | 'baseline';
+  alignContent?: 'flex-start' | 'center' | 'flex-end' | 'space-between' | 'space-around' | 'stretch';
+  direction?: 'row' | 'row-reverse' | 'column' | 'column-reverse';
+  wrap?: 'nowrap' | 'wrap' | 'wrap-reverse';
+  className?: string;
+  children?: React.ReactNode;
+}
+```
+
+</details>
+
+## Grid Accessibility Guide
+
+Grid relies entirely on Flexbox and standard `<div>` elements. It is structurally neutral.
+
+### Screen Reader Behavior
+
+Because Grid uses generic `<div>` tags, screen readers will interpret it purely as container elements without special semantic meaning. If the content of your grid represents a logical list or a specific landmark area, you should manually add semantic tags (like `<nav>`, `<ul>`, `<main>`) inside the grid items.
+
+### Accessibility Checklist
+
+- [ ] Do not rely solely on visual layout to convey meaningful order; ensure DOM order makes sense.
+- [ ] Add semantic HTML tags inside grid items when grouping related content.
+- [ ] Always verify with keyboard-only navigation before shipping
+
+## Grid Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions like colors, spacing, and radius. Override them to restyle Grid without fighting CSS specificity.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-grid-spacing-unit` | `8px` | The base multiplier for all spacing props |
+
+**Override globally:**
+```css
+:root {
+  --lxs-grid-spacing-unit: 10px;
+}
+```
+
+**Override for one section:**
+```css
+.my-custom-layout {
+  --lxs-grid-spacing-unit: 4px;
+}
+```
+
+**Override on one instance:**
+```tsx
+<Grid
+  container
+  style={{ '--lxs-grid-spacing-unit': '12px' } as React.CSSProperties}
+>
+  ...
+</Grid>
+```
+
+## Customizing Grid
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to Grid
+OUTPUT: Grid with additional styling
+USE WHEN: Quick one-off style overrides
+SOURCE: N/A
+-->
+```tsx
+<Grid container className="my-page-layout">
+  ...
+</Grid>
+```
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: Grid with custom token values
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+```tsx
+<Grid container style={{ '--lxs-grid-spacing-unit': '16px' } as React.CSSProperties}>
+  ...
+</Grid>
+```
+
+### Using with forwardRef
+
+<!--
+EXAMPLE: forwardRef
+PURPOSE: Accessing the underlying DOM node
+OUTPUT: Grid with attached ref
+USE WHEN: Measuring DOM dimensions or running animations
+SOURCE: N/A
+-->
+```tsx
+import { useRef, useEffect } from 'react';
+import { Grid } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    console.log('Grid width:', ref.current?.offsetWidth);
+  }, []);
+
+  return <Grid container ref={ref}>...</Grid>;
+}
+```
+
+## Common Grid Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Form Layout
+
+Used when: Structuring inputs in a data-entry form.
+
+<!--
+EXAMPLE: Form Layout
+PURPOSE: Aligning form fields in rows
+OUTPUT: A grid layout organizing input fields
+USE WHEN: Creating complex forms like checkout or registration
+SOURCE: Common usage pattern for Grid
+-->
+```tsx
+import { Grid } from '@luxis-ui/core';
+
+export default function FormLayout() {
+  return (
+    <Grid container spacing={3}>
+      <Grid item xs={12} sm={6}>
+        <input type="text" example="First Name" style={{ width: '100%', padding: 8 }} />
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <input type="text" example="Last Name" style={{ width: '100%', padding: 8 }} />
+      </Grid>
+      <Grid item xs={12}>
+        <input type="email" example="Email Address" style={{ width: '100%', padding: 8 }} />
+      </Grid>
+    </Grid>
+  );
+}
+```
+
+### Auto-Width Sidebar Layout
+
+Used when: You need a fixed-width sidebar and a content area that fills the remaining space.
+
+<!--
+EXAMPLE: Auto-Width Sidebar Layout
+PURPOSE: Creating a main layout with a sidebar
+OUTPUT: A grid where the left item fits its content and the right item expands
+USE WHEN: Building application shells
+SOURCE: Common usage pattern for Grid
+-->
+```tsx
+import { Grid } from '@luxis-ui/core';
+
+export default function SidebarLayout() {
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs="auto">
+        <div style={{ width: '250px', background: '#f5f5f5', height: '100vh', padding: 16 }}>
+          Sidebar Navigation
+        </div>
+      </Grid>
+      <Grid item xs>
+        <div style={{ padding: 16 }}>
+          Main Content Area (takes remaining width)
+        </div>
+      </Grid>
+    </Grid>
+  );
+}
+```
+
+### Centered Content Container
+
+Used when: You need to center a single block of content in the viewport.
+
+<!--
+EXAMPLE: Centered Content
+PURPOSE: Centering items vertically and horizontally
+OUTPUT: A full-height container with a centered box
+USE WHEN: Creating login pages or centered empty states
+SOURCE: Common usage pattern for Grid
+-->
+```tsx
+import { Grid } from '@luxis-ui/core';
+
+export default function CenteredLayout() {
+  return (
+    <Grid
+      container
+      justifyContent="center"
+      alignItems="center"
+      style={{ minHeight: '100vh', background: '#fafafa' }}
+    >
+      <Grid item xs={10} sm={6} md={4}>
+        <div style={{ padding: 32, background: 'white', borderRadius: 8, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+          Centered Form Panel
+        </div>
+      </Grid>
+    </Grid>
+  );
+}
+```
+
+## Troubleshooting Grid
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Items don't wrap correctly | Forgetting `<Grid container>` wrapper | `<Grid container><Grid item>...</Grid></Grid>` |
+| Spacing creates horizontal scrollbar | Adding padding directly to the container | Use the `spacing` prop and `overflow: hidden` on parent if needed |
+| Columns don't stack on mobile | Setting fixed `width` CSS | Use `xs={12}` on the Grid item |
+| Nested grids act weirdly | Not using `item` and `container` together | `<Grid item xs={12} container spacing={2}>` |
+
+### Frequently Asked Questions
+
+**Q: Can a Grid be both a container and an item?**
+A: Yes. You can pass both `container` and `item` props to nest grids. This is useful for grouping sub-layouts within a parent grid.
+
+**Q: How do I remove the negative margins created by spacing?**
+A: The Grid container uses negative margins to align items properly. If this causes horizontal scrolling on the root of your page, wrap the entire grid in a standard `<div>` with `overflow: hidden;` or ensure your `<body>` doesn't have `margin: 0;` conflicts.
+
+**Q: Does Grid use CSS Grid under the hood?**
+A: No. Despite the name, this component is built using CSS Flexbox for broader compatibility and predictable layout degradation. It behaves identically to the Material-UI grid system.
+
+
+**Q: How do I make columns equal width?**
+A: If you don't specify a breakpoint value (like `xs={4}`), passing just `xs` or `md` without a number will distribute the remaining space evenly among all items.
+
+## Related Components
+
+<RelatedComponent
+  name="Flex"
+  description="A simpler layout component meant for 1-dimensional stacks and rows without the 12-column constraint."
+  href="/docs/components/flex"
+/>
+<RelatedComponent
+  name="Box"
+  description="A generic utility container for applying styling, margins, and paddings."
+  href="/docs/components/box"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Grid
+
+> Grid is a Components React component in Luxis UI for building responsive 12-column flexbox layouts.
+
+## Source
+packages/luxis-ui/src/Grid/Grid.tsx
+
+## Story
+app/storybook/src/stories/Grid.stories.ts
+
+## Install
+\`\`\`bash
+npm install @luxis-ui/core
+\`\`\`
+
+## Import
+\`\`\`tsx
+import { Grid } from '@luxis-ui/core';
+\`\`\`
+
+## Minimal usage
+\`\`\`tsx
+import { Grid } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs={6}>Left Half</Grid>
+      <Grid item xs={6}>Right Half</Grid>
+    </Grid>
+  );
+}
+\`\`\`
+
+## Key props
+- `container` (boolean, default=`false`): If true, applies flex container behavior
+- `item` (boolean, default=`false`): If true, applies flex item behavior
+- `spacing` (number, default=`undefined`): Space between items (applies to container)
+- `xs` (number|string|boolean, default=`undefined`): Columns for extra small devices (≥0px)
+- `md` (number|string|boolean, default=`undefined`): Columns for medium devices (≥960px)
+
+## When to use
+Use for structuring page layouts and creating responsive columns that stack on smaller screens.
+
+## When NOT to use
+Do not use for simple 1-dimensional spacing between elements; use Flex or Box instead.
+
+## Accessibility
+WCAG: N/A
+ARIA: N/A
+Keyboard: N/A
+
+## Docs
+https://luxis-ui.dev/docs/components/grid
+LLMS_TXT_ENTRY_END
+*/}
+
+
+╔══════════════════════════════════════════════════════════════╗
+║ FILE: header.mdx                                                   ║
+╚══════════════════════════════════════════════════════════════╝
+
+---
+title: "Header — Luxis UI React Component"
+description: "A professional admin panel header component featuring built-in support for notifications, user menus, and custom actions."
+status: stable
+since: "1.0.0"
+category: "Components"
+npm: "@luxis-ui/core"
+import: "import { Header } from '@luxis-ui/core'"
+component: "Header"
+keywords:
+  - header
+  - react header
+  - header component
+  - admin header
+  - topbar
+  - app bar
+  - luxis ui header
+  - typescript header
+  - react design system
+slug: /components/header
+canonical: "https://luxis-ui.dev/docs/components/header"
+og_image: "/img/og/header.png"
+llm_summary: >
+  Header renders a `<header>` element configured as a top application bar. It natively supports a sidebar toggle, logo, title, custom actions, a notifications dropdown, and a user profile dropdown.
+  Props: `logo` (ReactNode, default=undefined), `title` (string, default=undefined), `onToggleSidebar` (function, default=undefined), `showToggle` (boolean, default=true), `notifications` (NotificationItem[], default=[]), `onNotificationClick` (function, default=undefined), `onMarkAllAsRead` (function, default=undefined), `userName` (string, default=undefined), `userSubtitle` (string, default=undefined), `userAvatar` (string, default=undefined), `userMenuItems` (array, default=[]), `actions` (ReactNode, default=undefined), `className` (string, default=''), `sticky` (boolean, default=true).
+  Primary use cases: Application shells, admin dashboard top bars, and main site headers. Do NOT use it for minor section headers; use Typography instead.
+  Accessibility: Uses semantic `<header>` and ARIA labels for icon buttons and dropdowns.
+  Import exactly like this: `import { Header } from '@luxis-ui/core'`.
+---
+
+{/*
+LLM_CONTEXT
+  component    : Header
+  source       : packages/luxis-ui/src/Header/Header.tsx
+  story        : app/storybook/src/stories/Header.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components
+  status       : stable
+  aria-pattern : Application Region
+
+  What it renders:
+  Header renders a semantic `<header>` HTML element containing flexbox layouts. It encapsulates complex logic for a notification dropdown panel and a user profile menu dropdown (using the Menu component internally).
+
+  When to use:
+  - The main top bar of an admin dashboard or application shell.
+  - Providing a consistent place for user profile actions and global notifications.
+
+  When NOT to use:
+  - As a header for a specific card or section within a page (use standard Typography or Flex).
+  - When you need a completely custom, non-standard navigation bar (build it from scratch using Flex and Link).
+
+  Ecosystem equivalents:
+  - MUI        : <AppBar>, <Toolbar>
+  - Chakra UI  : [Built manually with <Flex as="header">]
+  - shadcn/ui  : [Built manually]
+  - Radix UI   : [N/A]
+  - HTML native: <header>
+
+  Props (must match source exactly — every single prop):
+  logo (ReactNode, default=undefined) — Logo or brand element
+  title (string, default=undefined) — Title text
+  onToggleSidebar (function, default=undefined) — Toggle button click handler (for sidebar)
+  showToggle (boolean, default=true) — Whether to show toggle button
+  notifications (NotificationItem[], default=[]) — Notifications list
+  onNotificationClick (function, default=undefined) — Notification click handler
+  onMarkAllAsRead (function, default=undefined) — Mark all as read handler
+  userName (string, default=undefined) — User name
+  userSubtitle (string, default=undefined) — User email or role
+  userAvatar (string, default=undefined) — User avatar image URL
+  userMenuItems (Array<{ label: string; icon?: ReactNode; onClick?: () => void; variant?: 'default' | 'danger'; divider?: boolean }>, default=[]) — User menu items
+  actions (ReactNode, default=undefined) — Custom actions (buttons, search, etc.)
+  className (string, default='') — Custom className
+  sticky (boolean, default=true) — Whether header is sticky
+
+  Accessibility:
+  WCAG: AA
+  Keyboard: Toggle button, notification button, and user menu button are focusable and activatable.
+  Screen reader: Uses generic <header> semantics. Icon buttons have aria-label attributes.
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Header React Component — Luxis UI",
+  "description": "A professional admin panel header component featuring built-in support for notifications, user menus, and custom actions.",
+  "keywords": "header, react header, header component, admin header, topbar, app bar, luxis ui header, typescript header, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use Header in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { Header } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI Header accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Key props include title, showToggle, notifications (array of items), userName, userMenuItems, and actions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I add a notification dropdown to the Header?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Simply pass an array of notification objects to the notifications prop. The Header automatically handles the bell icon, badge count, and dropdown panel."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI Header different from MUI AppBar?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Luxis UI Header is highly opinionated and comes pre-wired with complex functionality like notification panels and user menus out of the box, whereas MUI AppBar requires you to build these from scratch."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Header
+
+<ComponentStatus status="stable" version="1.0.0" aria="Application Region" />
+
+The Header component provides a standardized top application bar, commonly used in dashboards. It encapsulates complex UI patterns like notification panels and user profile dropdowns into a simple, declarative API.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for Header
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding Header to any file
+SOURCE: packages/luxis-ui/src/components/Header/index.ts
+-->
+```tsx
+import { Header } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Unlike general-purpose containers like MUI's `AppBar`, Luxis UI's `Header` is an opinionated, feature-rich component. It provides built-in state management for user and notification dropdowns.
+</Callout>
+
+## Before You Start
+
+Header is designed to sit at the top of your application shell. It expects a `title` and optionally a `logo`. If you provide `notifications` or `userName`, it will automatically render the corresponding interactive elements. The Quick Start example below will produce a complete admin header.
+
+<Callout type="tip" title="New to Luxis UI?">
+  The Header automatically becomes sticky by default (`sticky={true}`), staying fixed at the top of the viewport as the user scrolls.
+</Callout>
+
+## How to Use Header in React
+
+The minimum code to render a working Header:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of Header
+OUTPUT: A clean header with a title and sidebar toggle
+USE WHEN: Setting up the base layout for an admin panel
+SOURCE: Derived from Header.tsx defaults and simplest Story
+-->
+```tsx
+import { Header } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Header
+      title="Admin Dashboard"
+      onToggleSidebar={() => console.log('Toggle clicked')}
+    />
+  );
+}
+```
+
+This renders a sticky top bar with a hamburger menu icon (if `onToggleSidebar` is provided) and the title "Admin Dashboard".
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of Header with key props
+OUTPUT: A fully featured header with notifications and user profile
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/Header.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { Header } from '@luxis-ui/core';
+
+export default function LiveExample() {
+  return (
+    <Header
+      title="Application Shell"
+      userName="Sarah Chen"
+      userSubtitle="Administrator"
+      notifications={[
+        { id: '1', title: 'System update available', time: '5m ago', type: 'info', read: false },
+        { id: '2', title: 'Backup completed', time: '1h ago', type: 'success', read: true }
+      ]}
+      userMenuItems={[
+        { label: 'Profile' },
+        { label: 'Settings' },
+        { label: 'Logout', variant: 'danger', divider: true }
+      ]}
+    />
+  );
+}
+```
+
+## Header Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### WithLogo
+
+You can replace or accompany the title with a custom brand logo.
+
+<!--
+EXAMPLE: WithLogo
+PURPOSE: Demonstrates adding a custom logo
+OUTPUT: A header displaying an image next to the title
+USE WHEN: Applying company branding to the application shell
+SOURCE: app/storybook/src/stories/Header.stories.ts -> WithLogo
+-->
+```tsx
+import { Header } from '@luxis-ui/core';
+
+export default function WithLogoExample() {
+  const customLogo = (
+    <div style={{ width: 32, height: 32, background: '#3b82f6', borderRadius: 8 }} />
+  );
+
+  return (
+    <Header
+      logo={customLogo}
+      title="BrandName"
+      userName="John Doe"
+    />
+  );
+}
+```
+
+The logo is vertically centered alongside the title and toggle button.
+
+---
+
+### WithActions
+
+Insert custom components, such as a "Create" button or a search bar, into the center/right area of the header.
+
+<!--
+EXAMPLE: WithActions
+PURPOSE: Shows how to inject custom elements
+OUTPUT: A header containing a primary action button
+USE WHEN: Providing global actions accessible from anywhere
+SOURCE: app/storybook/src/stories/Header.stories.ts -> WithActions
+-->
+```tsx
+import { Header, Button } from '@luxis-ui/core';
+
+export default function WithActionsExample() {
+  return (
+    <Header
+      title="Inventory"
+      actions={<Button variant="primary" size="sm">Add Item</Button>}
+      userName="Marcus Williams"
+    />
+  );
+}
+```
+
+Actions are placed neatly before the notification and user menu sections.
+
+---
+
+### NoToggle
+
+Disable the sidebar toggle button if your layout doesn't use a collapsible sidebar.
+
+<!--
+EXAMPLE: NoToggle
+PURPOSE: Hiding the default hamburger menu
+OUTPUT: A header without a toggle button
+USE WHEN: Building single-column layouts without sidebars
+SOURCE: app/storybook/src/stories/Header.stories.ts -> NoToggle
+-->
+```tsx
+import { Header } from '@luxis-ui/core';
+
+export default function NoToggleExample() {
+  return (
+    <Header
+      title="Settings Panel"
+      showToggle={false}
+      userName="Jane Doe"
+    />
+  );
+}
+```
+
+Setting `showToggle={false}` completely removes the element from the DOM.
+
+---
+
+### StickyOff
+
+By default, the header uses `position: sticky`. You can turn this off if you prefer it to scroll with the page.
+
+<!--
+EXAMPLE: StickyOff
+PURPOSE: Disabling sticky positioning
+OUTPUT: A header that scrolls out of view
+USE WHEN: Building landing pages or specific layouts where the header shouldn't stick
+SOURCE: app/storybook/src/stories/Header.stories.ts -> StickyOff
+-->
+```tsx
+import { Header } from '@luxis-ui/core';
+
+export default function StickyOffExample() {
+  return (
+    <Header
+      title="Scrolling Header"
+      sticky={false}
+    />
+  );
+}
+```
+
+This changes the header's positioning logic, affecting how subsequent content is laid out.
+
+---
+
+### Controlled Notifications
+
+When to use: When a parent component needs to read or drive the state.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  The Header internally manages the open/closed state of the dropdowns. However, the data for notifications must be passed in and updated by the parent component (e.g., marking items as read).
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: State-driven Header notifications
+OUTPUT: A header where clicking notifications marks them as read
+USE WHEN: Syncing read/unread state with a backend
+SOURCE: Derived from Header.tsx and NotificationItem structure
+-->
+```tsx
+import { useState } from 'react';
+import { Header } from '@luxis-ui/core';
+
+export default function ControlledExample() {
+  const [notifs, setNotifs] = useState([
+    { id: '1', title: 'Server alert', time: 'Just now', type: 'error' as const, read: false },
+    { id: '2', title: 'New user joined', time: '10m ago', type: 'info' as const, read: false }
+  ]);
+
+  const handleMarkAllAsRead = () => {
+    setNotifs(notifs.map(n => ({ ...n, read: true })));
+  };
+
+  const handleNotificationClick = (item: any) => {
+    setNotifs(notifs.map(n => n.id === item.id ? { ...n, read: true } : n));
+  };
+
+  return (
+    <Header
+      title="Alert Center"
+      notifications={notifs}
+      onMarkAllAsRead={handleMarkAllAsRead}
+      onNotificationClick={handleNotificationClick}
+    />
+  );
+}
+```
+
+## Header Best Practices
+
+Use these practices to maintain a clean application shell.
+
+<DoAndDont
+  good={`// ✅ Pass structured data to notifications
+<Header notifications={[{ id: '1', title: 'Alert', read: false, time: '1h' }]} />`}
+  bad={`// ❌ Don't try to build the notification panel manually inside actions
+<Header actions={<MyCustomNotificationDropdown />} />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Provide a meaningful title
+<Header title="Customer Analytics" />`}
+  bad={`// ❌ Don't leave the header empty if there's no logo
+<Header />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use actions for global commands
+<Header actions={<GlobalSearch />} />`}
+  bad={`// ❌ Don't clutter actions with page-specific buttons
+<Header actions={<SaveCurrentFormButton />} />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Let Header handle the avatar fallback
+<Header userName="Sarah Chen" />`}
+  bad={`// ❌ Don't pass a custom avatar component to actions just for the profile
+<Header actions={<Avatar name="Sarah Chen" />} />`}
+/>
+
+## Header Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly from `packages/luxis-ui/src/Header/Header.tsx`.
+
+### Header Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `actions` | `ReactNode` | `undefined` | false | Custom actions (buttons, search, etc.) |
+| `className` | `string` | `''` | false | Custom className |
+| `logo` | `ReactNode` | `undefined` | false | Logo or brand element |
+| `notifications` | `NotificationItem[]` | `[]` | false | Notifications list |
+| `onMarkAllAsRead` | `() => void` | `undefined` | false | Mark all as read handler |
+| `onNotificationClick` | `(notification: NotificationItem) => void` | `undefined` | false | Notification click handler |
+| `onToggleSidebar` | `() => void` | `undefined` | false | Toggle button click handler |
+| `showToggle` | `boolean` | `true` | false | Whether to show toggle button |
+| `sticky` | `boolean` | `true` | false | Whether header is sticky |
+| `title` | `string` | `undefined` | false | Title text |
+| `userAvatar` | `string` | `undefined` | false | User avatar image URL |
+| `userMenuItems` | `Array<{ label: string; icon?: ReactNode; onClick?: () => void; variant?: 'default' \| 'danger'; divider?: boolean }>` | `[]` | false | User menu items |
+| `userName` | `string` | `undefined` | false | User name |
+| `userSubtitle` | `string` | `undefined` | false | User email or role |
+
+### HTML Native Props
+
+Header forwards rest props to its underlying `<header>`, so standard attributes are accepted.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `style` | Inline CSS styles | `{{ zIndex: 50 }}` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for Header
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/Header/Header.tsx
+-->
+```ts
+export interface NotificationItem {
+  id: string;
+  title: string;
+  description?: string;
+  time: string;
+  read?: boolean;
+  icon?: React.ReactNode;
+  onClick?: () => void;
+  type?: 'info' | 'success' | 'warning' | 'error';
+}
+
+export interface HeaderProps {
+  logo?: React.ReactNode;
+  title?: string;
+  onToggleSidebar?: () => void;
+  showToggle?: boolean;
+  notifications?: NotificationItem[];
+  onNotificationClick?: (notification: NotificationItem) => void;
+  onMarkAllAsRead?: () => void;
+  userName?: string;
+  userSubtitle?: string;
+  userAvatar?: string;
+  userMenuItems?: Array<{
+    label: string;
+    icon?: React.ReactNode;
+    onClick?: () => void;
+    variant?: 'default' | 'danger';
+    divider?: boolean;
+  }>;
+  actions?: React.ReactNode;
+  className?: string;
+  sticky?: boolean;
+}
+```
+
+</details>
+
+## Header Accessibility Guide
+
+Header renders a semantic `<header>` tag.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| <KeyboardKey>Tab</KeyboardKey> | Focuses interactive elements (toggle, actions, buttons) |
+| <KeyboardKey>Enter</KeyboardKey> | Opens dropdowns or triggers actions |
+| <KeyboardKey>Escape</KeyboardKey> | Closes open dropdown panels |
+
+### ARIA Attributes
+
+| Attribute | Value | When |
+|-----------|-------|------|
+| `aria-label` | `"Toggle sidebar"` | On the hamburger menu button |
+| `aria-label` | `"Notifications"` | On the bell icon button |
+| `aria-label` | `"User menu"` | On the user profile trigger |
+
+### Screen Reader Behavior
+
+Screen readers will announce the header region. The internal icon buttons have appropriate aria-labels so a user will hear "Toggle sidebar button", "Notifications button", etc. Unread notification counts are visually hidden but generally read out contextually if they receive focus or aria-live is implemented externally.
+
+### Accessibility Checklist
+
+- [ ] Provide a `title` or `logo` that helps identify the application.
+- [ ] If using custom icons in `actions`, ensure they have `aria-label` properties.
+- [ ] Always verify with keyboard-only navigation before shipping
+
+## Header Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions like colors, spacing, and radius. Override them to restyle Header without fighting CSS specificity.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-header-bg` | `var(--lxs-background-primary)` | The background color of the header |
+| `--lxs-header-height` | `64px` | Standard height of the header (adjusts on mobile automatically) |
+| `--lxs-z-header` | `100` | The z-index applied when sticky |
+
+**Override globally:**
+```css
+:root {
+  --lxs-header-bg: #1e293b;
+}
+```
+
+**Override for one instance:**
+```tsx
+<Header
+  title="Dark Header"
+  style={{ '--lxs-header-bg': '#000' } as React.CSSProperties}
+/>
+```
+
+## Customizing Header
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to Header
+OUTPUT: Header with additional styling
+USE WHEN: Quick one-off style overrides
+SOURCE: N/A
+-->
+```tsx
+<Header title="Dashboard" className="my-custom-header" />
+```
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: Header with custom token values
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+```tsx
+<Header title="Dashboard" style={{ '--lxs-header-height': '80px' } as React.CSSProperties} />
+```
+
+### Using with forwardRef
+
+<!--
+EXAMPLE: forwardRef
+PURPOSE: Accessing the underlying DOM node
+OUTPUT: Header with attached ref
+USE WHEN: Measuring the header height dynamically
+SOURCE: N/A
+-->
+```tsx
+import { useRef, useEffect } from 'react';
+import { Header } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    console.log('Header height:', ref.current?.offsetHeight);
+  }, []);
+
+  return <Header ref={ref} title="Measured Header" />;
+}
+```
+
+## Common Header Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Global Search Header
+
+Used when: The primary action in the header is a global search bar.
+
+<!--
+EXAMPLE: Global Search
+PURPOSE: Adding an input to the actions area
+OUTPUT: A header featuring a search input prominently
+USE WHEN: Building applications heavily reliant on search
+SOURCE: Common usage pattern for Header
+-->
+```tsx
+import { Header, Input } from '@luxis-ui/core';
+import { SearchIcon } from '@luxis-ui/icons';
+
+export default function GlobalSearchHeader() {
+  const searchInput = (
+    <div style={{ width: '300px' }}>
+      <Input
+        example="Search everything..."
+        leftIcon={<SearchIcon />}
+        size="sm"
+      />
+    </div>
+  );
+
+  return (
+    <Header
+      title="Knowledge Base"
+      actions={searchInput}
+      userName="Admin"
+    />
+  );
+}
+```
+
+### Minimal Application Shell
+
+Used when: You need a clean top bar without sidebars or complex menus.
+
+<!--
+EXAMPLE: Minimal Shell
+PURPOSE: A stripped-down header
+OUTPUT: Just a title and a user menu
+USE WHEN: Building simple utilities or wizards
+SOURCE: Common usage pattern for Header
+-->
+```tsx
+import { Header } from '@luxis-ui/core';
+
+export default function MinimalHeader() {
+  return (
+    <Header
+      title="Setup Wizard"
+      showToggle={false}
+      userName="Guest User"
+      userMenuItems={[{ label: 'Exit Wizard', variant: 'danger' }]}
+    />
+  );
+}
+```
+
+### Marketing Navigation Integration
+
+Used when: Adapting the admin header for a logged-in marketing view.
+
+<!--
+EXAMPLE: Marketing Nav
+PURPOSE: Mixing static links with the user profile
+OUTPUT: A header with navigation links in the actions area
+USE WHEN: Unified logged-in site navigation
+SOURCE: Common usage pattern for Header
+-->
+```tsx
+import { Header, Link } from '@luxis-ui/core';
+
+export default function MarketingHeader() {
+  const navLinks = (
+    <div style={{ display: 'flex', gap: '24px', alignItems: 'center', marginRight: '16px' }}>
+      <Link href="/products" color="neutral" noUnderline>Products</Link>
+      <Link href="/pricing" color="neutral" noUnderline>Pricing</Link>
+      <Link href="/docs" color="neutral" noUnderline>Docs</Link>
+    </div>
+  );
+
+  return (
+    <Header
+      logo={<div style={{ width: 24, height: 24, background: 'black', borderRadius: '50%' }} />}
+      title="SaaS Platform"
+      showToggle={false}
+      actions={navLinks}
+      userName="User Profile"
+    />
+  );
+}
+```
+
+## Troubleshooting Header
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Toggle button doesn't show | Not providing `onToggleSidebar` | `<Header onToggleSidebar={() => {}} />` |
+| Notifications don't update | Mutating state directly | Use `setNotifs` to pass a new array |
+| Header overlaps content | Missing padding on main content area | Add `paddingTop: 64px` to your `<main>` element if not using a layout wrapper |
+| Z-index issues with modals | Custom CSS breaking stacking | Leave default z-index or adjust tokens carefully |
+
+### Frequently Asked Questions
+
+**Q: How do I change the user menu dropdown position?**
+A: The user menu position is managed internally by the Header to ensure it aligns correctly with the right edge. Customizing it requires overriding internal CSS, which is not recommended.
+
+**Q: Can I use my own notification dropdown instead of the built-in one?**
+A: Yes, you can omit the `notifications` prop and instead pass your custom component into the `actions` prop.
+
+**Q: How do I get the user's initials to show if they don't have an avatar?**
+A: If you pass `userName="John Doe"` but omit `userAvatar`, the component automatically extracts "JD" and displays it as a fallback.
+
+
+**Q: How do I style the mobile sidebar toggle button?**
+A: You can target it with the class `.lxs-header-toggle` in your custom CSS, or pass custom icons if supported by your application layout.
+
+## Related Components
+
+<RelatedComponent
+  name="Avatar"
+  description="Used internally by the Header for the user profile."
+  href="/docs/components/avatar"
+/>
+<RelatedComponent
+  name="Menu"
+  description="The underlying component that powers the user profile dropdown."
+  href="/docs/components/menu"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Header
+
+> Header is a Components React component in Luxis UI providing a standardized top application bar with notification and user profile features.
+
+## Source
+packages/luxis-ui/src/Header/Header.tsx
+
+## Story
+app/storybook/src/stories/Header.stories.ts
+
+## Install
+\`\`\`bash
+npm install @luxis-ui/core
+\`\`\`
+
+## Import
+\`\`\`tsx
+import { Header } from '@luxis-ui/core';
+\`\`\`
+
+## Minimal usage
+\`\`\`tsx
+import { Header } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Header
+      title="Dashboard"
+      userName="Admin User"
+      onToggleSidebar={() => console.log('Toggle')}
+    />
+  );
+}
+\`\`\`
+
+## Key props
+- `title` (string, default=`undefined`): Title text
+- `showToggle` (boolean, default=`true`): Whether to show toggle button
+- `notifications` (array, default=`[]`): Notifications list
+- `userName` (string, default=`undefined`): User name (triggers profile dropdown)
+- `actions` (ReactNode, default=`undefined`): Custom elements placed in the header
+
+## When to use
+Use as the main top bar of an admin dashboard or application shell.
+
+## When NOT to use
+Do not use as a minor section header; use Typography or Flex instead.
+
+## Accessibility
+WCAG: AA
+ARIA: Application Region
+Keyboard: Tab, Enter
+
+## Docs
+https://luxis-ui.dev/docs/components/header
+LLMS_TXT_ENTRY_END
+*/}
+
+
+╔══════════════════════════════════════════════════════════════╗
+║ FILE: image.mdx                                                    ║
+╚══════════════════════════════════════════════════════════════╝
+
+---
+title: "Image — Luxis UI React Component"
+description: "An intelligent image component that handles loading states, fallbacks, and supports custom framework components like Next.js Image."
+status: stable
+since: "1.0.0"
+category: "Components"
+npm: "@luxis-ui/core"
+import: "import { Image } from '@luxis-ui/core'"
+component: "Image"
+keywords:
+  - image
+  - react image
+  - image component
+  - fallback image
+  - lazy load image
+  - luxis ui image
+  - typescript image
+  - accessible image
+  - react design system
+slug: /components/image
+canonical: "https://luxis-ui.dev/docs/components/image"
+og_image: "/img/og/image.png"
+llm_summary: >
+  Image renders an intelligent image wrapper (`<div>` containing `<img>` elements). It displays a low-res or generic fallback image while the main `src` loads, crossfading them upon completion. If an error occurs, it shows the fallback or nothing.
+  Props: `src` (string, required), `alt` (string, required), `fallback` (string, default=undefined), `component` (React.ElementType, default='img'), `priority` (boolean, default=false), `fetchPriority` ('high' | 'low' | 'auto', default=undefined), `className` (string, default=''), `style` (React.CSSProperties, default=undefined), `imageProps` (Record<string, any>, default={}).
+  Primary use cases: displaying product images, hero banners, or user content where loading states need to be smooth and broken images avoided. Do NOT use it for tiny icons; use SVG icon components instead.
+  Accessibility: Enforces an `alt` prop for screen readers. Fallback images are given an appended " example" alt text or treated appropriately.
+  Import exactly like this: `import { Image } from '@luxis-ui/core'`.
+---
+
+{/*
+LLM_CONTEXT
+  component    : Image
+  source       : packages/luxis-ui/src/Image/Image.tsx
+  story        : app/storybook/src/stories/Image.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components
+  status       : stable
+  aria-pattern : Image
+
+  What it renders:
+  Image renders a wrapper `<div>` with `position: relative` and `overflow: hidden`. Inside, it renders a fallback `<img>` (if provided) and the main image component (default `<img>`, or a custom component like Next.js `<Image>`). It manages opacity transitions between the two based on load events.
+
+  When to use:
+  - Loading large images that might take a moment over slow connections.
+  - Ensuring broken image links don't show the browser's ugly broken image icon (by using a fallback).
+  - Wrapping framework-specific optimized image components to add a unified loading skeleton/fallback UI.
+
+  When NOT to use:
+  - For small, instantly loading vector graphics or UI icons (use standard <img> or SVG components).
+  - If you need a background image using CSS `background-image` (use a Box with styles instead).
+
+  Ecosystem equivalents:
+  - MUI        : [N/A, no dedicated complex image component]
+  - Chakra UI  : <Image>, <FallbackImage>
+  - shadcn/ui  : [N/A]
+  - Radix UI   : <Avatar.Image> (for avatars specifically)
+  - HTML native: <img>
+
+  Props (must match source exactly — every single prop):
+  src (string, required) — Source URL of the image
+  alt (string, required) — Alternate text for the image
+  fallback (string, default=undefined) — Fallback image source to show while loading or on error
+  component (React.ElementType, default='img') — Custom component to render the image
+  priority (boolean, default=false) — Whether to eager load the image
+  fetchPriority ('high' | 'low' | 'auto', default=undefined) — Hint to the browser to prioritize the fetch of the image
+  className (string, default='') — Additional CSS class name for the wrapper
+  style (React.CSSProperties, default=undefined) — Additional CSS styles for the wrapper
+  imageProps (Record<string, any>, default={}) — Props to pass to the underlying image component
+
+  Accessibility:
+  WCAG: A
+  Keyboard: N/A (Images are not typically focusable unless wrapped in a link).
+  Screen reader: Reads the `alt` text. Automatically generates a descriptive alt for the fallback to avoid duplicate confusing announcements while loading.
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Image React Component — Luxis UI",
+  "description": "An intelligent image component that handles loading states, fallbacks, and supports custom framework components like Next.js Image.",
+  "keywords": "image, react image, image component, fallback image, lazy load image, luxis ui image, typescript image, accessible image, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use Image in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { Image } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI Image accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Key props include src (string), alt (string), fallback (string), priority (boolean), and component (React element)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I use a fallback image if the source fails to load?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Provide a URL to the fallback prop. The Image component will display this while the main source loads or if the main source fails (e.g., a broken link)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI Image different from standard HTML img?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It provides built-in state management for loading and errors, allowing smooth crossfades from examples to high-res images, and easily wraps framework-specific components like Next.js Image."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Image
+
+<ComponentStatus status="stable" version="1.0.0" aria="WAI-ARIA Image" />
+
+The Image component intelligently handles the lifecycle of an image. It displays a fallback or example while loading, crossfades smoothly to the final image, and gracefully handles broken links.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for Image
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding Image to any file
+SOURCE: packages/luxis-ui/src/components/Image/index.ts
+-->
+```tsx
+import { Image } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI `Image` is functionally similar to Chakra UI's `Image` with fallback support. It acts as a smart wrapper around native `<img>` tags or framework specifics like `next/image`.
+</Callout>
+
+## Before You Start
+
+Image represents a standard HTML `<img>` with added JavaScript state management. It renders a wrapper `<div>` that contains both the main image and an optional fallback image, swapping their opacity based on load events. The Quick Start example below will render an image that defaults to native lazy loading.
+
+<Callout type="tip" title="New to Luxis UI?">
+  The `Image` component wrapper defaults to `width: 100%` and `height: 100%`. Ensure you place it inside a sized container.
+</Callout>
+
+## How to Use Image in React
+
+The minimum code to render a working Image:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of Image
+OUTPUT: A standard image that fades in when loaded
+USE WHEN: Displaying standard pictures
+SOURCE: Derived from Image.tsx defaults and simplest Story
+-->
+```tsx
+import { Image } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <div style={{ width: 400, height: 300 }}>
+      <Image
+        src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400"
+        alt="Mountain landscape"
+      />
+    </div>
+  );
+}
+```
+
+This renders a 400x300 image that uses the browser's native lazy loading.
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of Image with key props
+OUTPUT: An image with a visible loading example
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/Image.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { Image } from '@luxis-ui/core';
+
+export default function LiveExample() {
+  return (
+    <div style={{ width: 400, height: 300, borderRadius: 8, overflow: 'hidden' }}>
+      <Image
+        src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800"
+        alt="Forest"
+        fallback="https://via.example.com/400x300?text=Loading..."
+      />
+    </div>
+  );
+}
+```
+
+## Image Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### WithFallback
+
+Provide a fallback URL to handle slow connections or broken links gracefully.
+
+<!--
+EXAMPLE: WithFallback
+PURPOSE: Demonstrates error handling with a fallback image
+OUTPUT: A example image shown because the main source is broken
+USE WHEN: You cannot guarantee the main image URL is valid
+SOURCE: app/storybook/src/stories/Image.stories.ts -> WithFallback
+-->
+```tsx
+import { Image } from '@luxis-ui/core';
+
+export default function WithFallbackExample() {
+  return (
+    <div style={{ width: 400, height: 300, border: '1px solid #e5e5e5' }}>
+      <Image
+        src="https://example.com/broken-url-that-does-not-exist.jpg"
+        alt="Broken image handled gracefully"
+        fallback="https://via.example.com/400x300?text=Image+Unavailable"
+      />
+    </div>
+  );
+}
+```
+
+Because the `src` fails to load, the component hides the broken `<img>` element and leaves the `fallback` image visible.
+
+---
+
+### NoFallback
+
+If no fallback is provided and the image fails to load, the component will hide the broken icon entirely to avoid ugly UI artifacts.
+
+<!--
+EXAMPLE: NoFallback
+PURPOSE: Shows behavior when no fallback is provided for a broken link
+OUTPUT: An empty space instead of a broken browser image icon
+USE WHEN: You prefer blank space over examples for missing non-critical assets
+SOURCE: app/storybook/src/stories/Image.stories.ts -> NoFallback
+-->
+```tsx
+import { Image } from '@luxis-ui/core';
+
+export default function NoFallbackExample() {
+  return (
+    <div style={{ width: 400, height: 300, background: '#f5f5f5' }}>
+      <Image
+        src="broken-url-again.jpg"
+        alt="Broken image with no fallback"
+        fallback={undefined}
+      />
+    </div>
+  );
+}
+```
+
+This ensures your layout remains clean even if user-generated content goes missing.
+
+---
+
+### EagerLoad
+
+By default, images are lazy-loaded. Use the `priority` prop to eager load images that are "above the fold" to improve LCP (Largest Contentful Paint).
+
+<!--
+EXAMPLE: EagerLoad
+PURPOSE: Disabling lazy loading for critical images
+OUTPUT: An image that loads immediately with the document
+USE WHEN: Rendering hero images at the top of the viewport
+SOURCE: app/storybook/src/stories/Image.stories.ts -> EagerLoad
+-->
+```tsx
+import { Image } from '@luxis-ui/core';
+
+export default function EagerLoadExample() {
+  return (
+    <div style={{ width: 400, height: 300 }}>
+      <Image
+        src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400"
+        alt="Hero image"
+        priority
+        fetchPriority="high"
+      />
+    </div>
+  );
+}
+```
+
+This applies `loading="eager"` and `fetchPriority="high"` to the underlying DOM node.
+
+---
+
+### Controlled Image
+
+When to use: When a parent component needs to read or drive the state based on image load events.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  Image manages its own loaded/error state internally. You can listen to these events using `onLoad` and `onError` via standard HTML props, which are forwarded to the underlying image.
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: Responding to image load states externally
+OUTPUT: Text that updates when the image finishes loading
+USE WHEN: Triggering layout recalculations or removing loaders
+SOURCE: Derived from Image.tsx
+-->
+```tsx
+import { useState } from 'react';
+import { Image } from '@luxis-ui/core';
+
+export default function ControlledExample() {
+  const [status, setStatus] = useState('Loading...');
+
+  return (
+    <div style={{ width: 400 }}>
+      <p style={{ marginBottom: 8, fontWeight: 'bold' }}>Status: {status}</p>
+      <div style={{ width: 400, height: 300, background: '#f5f5f5' }}>
+        <Image
+          src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600"
+          alt="Controlled example"
+          onLoad={() => setStatus('Loaded successfully!')}
+          onError={() => setStatus('Failed to load')}
+        />
+      </div>
+    </div>
+  );
+}
+```
+
+## Image Best Practices
+
+Use these practices to optimize performance and visual stability.
+
+<DoAndDont
+  good={`// ✅ Provide meaningful alt text
+<Image src="/dog.jpg" alt="Golden Retriever playing in grass" />`}
+  bad={`// ❌ Don't use redundant words in alt text
+<Image src="/dog.jpg" alt="Image of a dog" />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use priority for hero images
+<Image src="/hero.jpg" alt="Sale banner" priority fetchPriority="high" />`}
+  bad={`// ❌ Don't use priority on images below the fold
+<Image src="/footer-logo.jpg" alt="Logo" priority />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Put the Image inside a sized container
+<div style={{ width: 300, height: 200 }}><Image src="..." alt="..." /></div>`}
+  bad={`// ❌ Don't let Image dictate layout shifts
+<Image src="..." alt="..." />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use low-res blurry versions as fallbacks
+<Image src="high-res.jpg" alt="View" fallback="low-res.jpg" />`}
+  bad={`// ❌ Don't use heavy generic images as fallbacks
+<Image src="high-res.jpg" alt="View" fallback="4mb-gray-box.png" />`}
+/>
+
+## Image Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly from `packages/luxis-ui/src/Image/Image.tsx`.
+
+### Image Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `alt` | `string` | - | true | Alternate text for the image |
+| `src` | `string` | - | true | Source URL of the image |
+| `className` | `string` | `''` | false | Additional CSS class name for the wrapper |
+| `component` | `React.ElementType` | `'img'` | false | Custom component to render the image |
+| `fallback` | `string` | `undefined` | false | Fallback image source to show while loading or on error |
+| `fetchPriority` | `'high' \| 'low' \| 'auto'` | `undefined` | false | Hint to the browser to prioritize the fetch of the image |
+| `imageProps` | `Record<string, any>` | `{}` | false | Props to pass to the underlying image component |
+| `priority` | `boolean` | `false` | false | Whether to eager load the image |
+| `style` | `React.CSSProperties` | `undefined` | false | Additional CSS styles for the wrapper |
+
+### HTML Native Props
+
+Image accepts standard `React.ImgHTMLAttributes`, forwarding them either to the wrapper or the underlying image depending on the prop type. Events like `onLoad` and `onError` are forwarded to the underlying image.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `onLoad` | Load success callback | `(e) => handleLoad(e)` |
+| `onError` | Load failure callback | `(e) => handleError(e)` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for Image
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/Image/Image.tsx
+-->
+```ts
+export interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+    src: string;
+    alt: string;
+    fallback?: string;
+    component?: React.ElementType;
+    priority?: boolean;
+    fetchPriority?: "high" | "low" | "auto";
+    className?: string;
+    style?: React.CSSProperties;
+    imageProps?: Record<string, any>;
+}
+```
+
+</details>
+
+## Image Accessibility Guide
+
+Image enforces standard `img` accessibility patterns.
+
+### Screen Reader Behavior
+
+The screen reader will read the `alt` text attribute of the main image. The `fallback` image automatically receives an `alt` attribute of `"{alt} loading image"` to provide context while loading, but it is visually and programmatically hidden once the main image loads successfully.
+
+### Accessibility Checklist
+
+- [ ] Always provide descriptive `alt` text.
+- [ ] If an image is purely decorative, provide an empty string `alt=""`. (Note: TypeScript might require it, so be intentional).
+- [ ] Do not include words like "image of" or "picture of" in the `alt` text.
+
+## Customizing Image
+
+Two levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to Image wrapper
+OUTPUT: Image with additional styling
+USE WHEN: Quick one-off style overrides for the container
+SOURCE: N/A
+-->
+```tsx
+<Image
+  src="/photo.jpg"
+  alt="Photo"
+  className="my-rounded-image-container"
+/>
+```
+
+### Using with Framework Components
+
+<!--
+EXAMPLE: Next.js Integration
+PURPOSE: Wrapping Next.js Image
+OUTPUT: A Next.js optimized image with Luxis UI fallback logic
+USE WHEN: Building applications with Next.js
+SOURCE: N/A
+-->
+```tsx
+import { Image as LuxisImage } from '@luxis-ui/core';
+import NextImage from 'next/image';
+
+export default function NextJsExample() {
+  return (
+    <div style={{ position: 'relative', width: 400, height: 300 }}>
+      <LuxisImage
+        component={NextImage}
+        src="/assets/heavy-photo.jpg"
+        alt="Heavy photo"
+        fallback="/assets/blur-data.jpg"
+        imageProps={{
+          fill: true,
+          sizes: "(max-width: 768px) 100vw, 400px"
+        }}
+      />
+    </div>
+  );
+}
+```
+
+## Common Image Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Avatar Fallback
+
+Used when: Displaying a user profile picture that might fail to load.
+
+<!--
+EXAMPLE: Avatar Fallback
+PURPOSE: Using Image for user profiles
+OUTPUT: A circular image with a generic avatar fallback
+USE WHEN: Rendering lists of users
+SOURCE: Common usage pattern for Image
+-->
+```tsx
+import { Image } from '@luxis-ui/core';
+
+export default function AvatarImage() {
+  return (
+    <div style={{ width: 48, height: 48, borderRadius: '50%', overflow: 'hidden' }}>
+      <Image
+        src="https://example.com/user-does-not-exist.jpg"
+        alt="User Profile"
+        fallback="https://ui-avatars.com/api/?name=User&background=random"
+      />
+    </div>
+  );
+}
+```
+
+### Product Gallery Skeleton
+
+Used when: Displaying a grid of products where a generic skeleton should show while loading.
+
+<!--
+EXAMPLE: Product Skeleton
+PURPOSE: Using a skeleton image as a fallback
+OUTPUT: An image that shows a gray box until loaded
+USE WHEN: Building e-commerce product grids
+SOURCE: Common usage pattern for Image
+-->
+```tsx
+import { Image } from '@luxis-ui/core';
+
+export default function ProductImage() {
+  return (
+    <div style={{ width: 300, height: 300, background: '#f5f5f5' }}>
+      <Image
+        src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300"
+        alt="Red running shoe"
+        fallback="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" // 1x1 gray pixel
+      />
+    </div>
+  );
+}
+```
+
+### Hero Banner Optimization
+
+Used when: The image is critical to the first paint of the page.
+
+<!--
+EXAMPLE: Hero Banner
+PURPOSE: Configuring Image for maximum LCP performance
+OUTPUT: An eager-loaded image
+USE WHEN: At the top of landing pages
+SOURCE: Common usage pattern for Image
+-->
+```tsx
+import { Image } from '@luxis-ui/core';
+
+export default function HeroBanner() {
+  return (
+    <div style={{ width: '100%', height: 400 }}>
+      <Image
+        src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200"
+        alt="Earth from space"
+        priority
+        fetchPriority="high"
+      />
+    </div>
+  );
+}
+```
+
+## Troubleshooting Image
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Image overflows container | Container lacks `overflow: hidden` | Add `overflow: hidden` to parent if using `borderRadius` |
+| Image looks stretched | Container lacks dimensions | Define width and height on the parent `<div>` |
+| Fallback flashes on fast networks | Fallback is too heavy | Use tiny base64 strings or low-res JPEGs for fallbacks |
+| Next.js Image throws errors | Forgetting `imageProps` | Pass `fill` or `width`/`height` inside `imageProps` |
+
+### Frequently Asked Questions
+
+**Q: Why do I need to wrap the Image component in a div to set its size?**
+A: The Luxis UI Image component uses `width: 100%` and `height: 100%` internally along with absolute positioning to manage the crossfade between the fallback and main image. Setting fixed dimensions on a parent wrapper ensures both layers stack and size correctly.
+
+**Q: Does it support `srcset`?**
+A: Yes. You can pass `srcSet` and `sizes` via the `imageProps` object, which passes them down to the underlying `<img>` tag.
+
+
+**Q: How do I handle lazy loading?**
+A: Image uses the browser's native `loading="lazy"` by default. You do not need to configure anything unless you specifically want to disable it using `priority`.
+
+**Q: Can I use this with SVG files?**
+A: Yes, but for purely decorative UI icons, it is better to render SVGs directly as inline components to avoid network overhead.
+
+## Related Components
+
+<RelatedComponent
+  name="Avatar"
+  description="A higher-level component specifically for user profiles, which includes text fallbacks."
+  href="/docs/components/avatar"
+/>
+<RelatedComponent
+  name="Box"
+  description="Use Box if you need CSS background-images instead of inline semantic images."
+  href="/docs/components/box"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Image
+
+> Image is a Components React component in Luxis UI for rendering images with fallback states and eager/lazy loading support.
+
+## Source
+packages/luxis-ui/src/Image/Image.tsx
+
+## Story
+app/storybook/src/stories/Image.stories.ts
+
+## Install
+\`\`\`bash
+npm install @luxis-ui/core
+\`\`\`
+
+## Import
+\`\`\`tsx
+import { Image } from '@luxis-ui/core';
+\`\`\`
+
+## Minimal usage
+\`\`\`tsx
+import { Image } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <div style={{ width: 400, height: 300 }}>
+      <Image
+        src="https://example.com/photo.jpg"
+        alt="A description"
+        fallback="https://example.com/fallback-image.jpg"
+      />
+    </div>
+  );
+}
+\`\`\`
+
+## Key props
+- `src` (string, required): Source URL of the image
+- `alt` (string, required): Alternate text for the image
+- `fallback` (string, default=`undefined`): Fallback image source
+- `component` (React.ElementType, default=`'img'`): Custom component to render the image
+- `priority` (boolean, default=`false`): Whether to eager load the image
+
+## When to use
+Use for all semantic images, especially those that load over the network and might fail or take time.
+
+## When NOT to use
+Do not use for CSS background images or tiny UI vector icons.
+
+## Accessibility
+WCAG: A
+ARIA: Image
+Keyboard: N/A
+
+## Docs
+https://luxis-ui.dev/docs/components/image
+LLMS_TXT_ENTRY_END
+*/}
+
+
+╔══════════════════════════════════════════════════════════════╗
+║ FILE: input.mdx                                                    ║
+╚══════════════════════════════════════════════════════════════╝
+
+---
+title: "Input — Luxis UI React Component"
+description: "A comprehensive text input field featuring built-in labels, helper text, validation states, icons, and character counting."
+status: stable
+since: "1.0.0"
+category: "Components"
+npm: "@luxis-ui/core"
+import: "import { Input } from '@luxis-ui/core'"
+component: "Input"
+keywords:
+  - input
+  - text input
+  - textfield
+  - react input
+  - input component
+  - form field
+  - luxis ui input
+  - typescript input
+  - accessible input
+  - react design system
+slug: /components/input
+canonical: "https://luxis-ui.dev/docs/components/input"
+og_image: "/img/og/input.png"
+llm_summary: >
+  Input renders an advanced wrapper around a native `<input>` element. It supports labels, helper text, error/success validation messages, left/right icons, prefix/suffix text add-ons, a clear button, and character counting.
+  Props: `label` (string), `helperText` (string), `error` (string), `success` (string), `size` ('sm' | 'md' | 'lg', default=theme.defaultSize), `fullWidth` (boolean, default=false), `leftIcon` (ReactNode), `rightIcon` (ReactNode), `clearable` (boolean, default=false), `onClear` (function), `showCount` (boolean, default=false), `prefix` (string), `suffix` (string), `wrapperClassName` (string), `labelClassName` (string), `inputClassName` (string). Standard input props like `value`, `onChange`, `disabled`, and `required` are forwarded to the native input.
+  Primary use cases: Form data entry, search bars, and complex data fields (URLs, prices) requiring prefixes. Do NOT use it for multi-line text; use Textarea instead.
+  Accessibility: Automatically links labels, error messages, and helper text to the input using generated IDs and `aria-describedby` / `aria-invalid`.
+  Import exactly like this: `import { Input } from '@luxis-ui/core'`.
+---
+
+{/*
+LLM_CONTEXT
+  component    : Input
+  source       : packages/luxis-ui/src/Input/Input.tsx, Input.types.ts
+  story        : app/storybook/src/stories/Input.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components
+  status       : stable
+  aria-pattern : Form Field
+
+  What it renders:
+  Input renders a wrapper `<div>` containing a `<label>` (if provided), a container `<div>` that visually acts as the input border, the native `<input>` element itself, and `<p>` tags for helper/error/success text below.
+
+  When to use:
+  - Any single-line text data entry in a form.
+  - Search fields.
+  - Numeric inputs requiring units (using suffix) or currency symbols (using prefix).
+
+  When NOT to use:
+  - Multi-line text entry (use Textarea).
+  - Selecting from a list of options (use Select or Autocomplete).
+
+  Ecosystem equivalents:
+  - MUI        : <TextField>
+  - Chakra UI  : <Input>, <InputGroup>, <FormControl>
+  - shadcn/ui  : <Input>, <FormItem>
+  - Radix UI   : [N/A, primitive elements only]
+  - HTML native: <input type="text">
+
+  Props (must match source exactly — every single prop):
+  label (string, default=undefined) — Label text displayed above the input
+  helperText (string, default=undefined) — Helper text displayed below the input
+  error (string, default=undefined) — Error message - when provided, input is shown in error state
+  success (string, default=undefined) — Success message - when provided, input is shown in success state
+  size (Size, default=theme.defaultSize) — Size of the input
+  fullWidth (boolean, default=false) — If true, input will take full width of its container
+  leftIcon (ReactNode, default=undefined) — Icon or element to display at the start of the input
+  rightIcon (ReactNode, default=undefined) — Icon or element to display at the end of the input
+  clearable (boolean, default=false) — If true, shows a clear button when input has value
+  onClear (function, default=undefined) — Callback fired when clear button is clicked
+  showCount (boolean, default=false) — If true, adds a character counter below the input
+  wrapperClassName (string, default=undefined) — Custom class name for the wrapper element
+  labelClassName (string, default=undefined) — Custom class name for the label element
+  inputClassName (string, default=undefined) — Custom class name for the input element itself
+  prefix (string, default=undefined) — Prefix text to display before input value
+  suffix (string, default=undefined) — Suffix text to display after input value
+  ...plus all standard React InputHTMLAttributes
+
+  Accessibility:
+  WCAG: AA
+  Keyboard: Standard input behavior. Clear button is focusable via Tab (unless disabled) or intentionally removed from tab order (tabIndex={-1} in source to keep focus in input).
+  Screen reader: Automatically wires `aria-describedby` to the helper, error, and success text elements. Sets `aria-invalid` automatically when `error` is present.
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Input React Component — Luxis UI",
+  "description": "A comprehensive text input field featuring built-in labels, helper text, validation states, icons, and character counting.",
+  "keywords": "input, text input, textfield, react input, input component, form field, luxis ui input, typescript input, accessible input, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use Input in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { Input } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI Input accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Key props include label, error, helperText, leftIcon, rightIcon, prefix, suffix, fullWidth, clearable, and showCount."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I show an error state on the Input?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pass an error message string to the error prop (e.g., error=\"This field is required\"). The component will automatically style the border red and display the message below the input."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI Input different from MUI TextField?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Luxis UI Input provides built-in support for prefix/suffix strings, character counting, and a clear button directly via simple boolean/string props, without requiring complex InputAdornment wrapper components."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Input
+
+<ComponentStatus status="stable" version="1.0.0" aria="WAI-ARIA Form Field" />
+
+The Input component is a comprehensive wrapper around the native HTML `<input>` element. It abstracts away the complexity of wiring labels, error states, icons, and accessible descriptions, allowing you to build robust forms quickly.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for Input
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding Input to any file
+SOURCE: packages/luxis-ui/src/components/Input/index.ts
+-->
+```tsx
+import { Input } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI `Input` acts like Chakra UI's `FormControl` + `Input` combined, or MUI's `TextField`. You do not need separate components for labels or error messages.
+</Callout>
+
+## Before You Start
+
+Input replaces the native `<input type="text">` (and similar types like email, number, password). It manages its own visual container to support icons and prefixes while maintaining native accessibility. The Quick Start example will produce a standard input field with a label and helper text.
+
+<Callout type="tip" title="New to Luxis UI?">
+  The `fullWidth` prop is very useful in forms to make the input span its container's entire width.
+</Callout>
+
+## How to Use Input in React
+
+The minimum code to render a working Input:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of Input
+OUTPUT: A clean input field with a label and helper text
+USE WHEN: Standard form data collection
+SOURCE: Derived from Input.tsx defaults
+-->
+```tsx
+import { Input } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Input
+      label="Email address"
+      type="email"
+      example="you@example.com"
+      helperText="We'll never share your email."
+    />
+  );
+}
+```
+
+This creates an input field linked to its label, with descriptive text underneath.
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of Input with key props
+OUTPUT: An input with an icon, prefix, and clear button
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/Input.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { useState } from 'react';
+import { Input } from '@luxis-ui/core';
+import { UserIcon } from '@luxis-ui/icons';
+
+export default function LiveExample() {
+  const [username, setUsername] = useState('johndoe');
+
+  return (
+    <div style={{ width: 320 }}>
+      <Input
+        label="Account Username"
+        leftIcon={<UserIcon />}
+        prefix="@"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        clearable
+        onClear={() => setUsername('')}
+        fullWidth
+      />
+    </div>
+  );
+}
+```
+
+## Input Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### Validation States
+
+Easily communicate form validation results using the `error` and `success` props. Passing a string automatically changes the border color and renders the text below.
+
+<!--
+EXAMPLE: Validation States
+PURPOSE: Demonstrates error and success visual states
+OUTPUT: Two inputs, one with a red error border and one with a green success border
+USE WHEN: Validating form submissions or blur events
+SOURCE: app/storybook/src/stories/Input.stories.ts -> ValidationStates
+-->
+```tsx
+import { Input } from '@luxis-ui/core';
+
+export default function ValidationStatesExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 400 }}>
+      <Input
+        label="Username"
+        error="Username is already taken."
+        value="john.doe"
+      />
+      <Input
+        label="Email address"
+        success="Email is available."
+        value="available@company.com"
+      />
+    </div>
+  );
+}
+```
+
+The error state also sets `aria-invalid="true"` for screen readers.
+
+---
+
+### With Icons
+
+Enhance the visual context of your inputs by adding leading or trailing icons.
+
+<!--
+EXAMPLE: With Icons
+PURPOSE: Shows how to add visual context via icons
+OUTPUT: Inputs containing search and calendar icons
+USE WHEN: Improving scannability of common fields (search, dates, emails)
+SOURCE: app/storybook/src/stories/Input.stories.ts -> WithIcons
+-->
+```tsx
+import { Input } from '@luxis-ui/core';
+import { SearchIcon, CalendarIcon } from '@luxis-ui/icons';
+
+export default function WithIconsExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 400 }}>
+      <Input
+        label="Search"
+        leftIcon={<SearchIcon />}
+        example="Search documents..."
+      />
+      <Input
+        label="Schedule"
+        rightIcon={<CalendarIcon />}
+        example="DD / MM / YYYY"
+      />
+    </div>
+  );
+}
+```
+
+Icons are automatically sized correctly relative to the input's size prop.
+
+---
+
+### Prefix & Suffix
+
+Add fixed text blocks before or after the user's input, separated by a border.
+
+<!--
+EXAMPLE: Prefix and Suffix
+PURPOSE: Demonstrating text addons
+OUTPUT: Inputs structured for currency and domain entry
+USE WHEN: Collecting structured data where units are implied
+SOURCE: app/storybook/src/stories/Input.stories.ts -> WithPrefixSuffix
+-->
+```tsx
+import { Input } from '@luxis-ui/core';
+
+export default function WithPrefixSuffixExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 400 }}>
+      <Input
+        label="Price (USD)"
+        prefix="$"
+        example="0.00"
+        type="number"
+      />
+      <Input
+        label="Domain"
+        prefix="www."
+        suffix=".com"
+        example="yourdomain"
+      />
+    </div>
+  );
+}
+```
+
+This prevents users from typing the prefix themselves and simplifies validation.
+
+---
+
+### With Counter
+
+Enforce limits visually by enabling the character counter. This requires providing the `maxLength` prop alongside `showCount`.
+
+<!--
+EXAMPLE: With Counter
+PURPOSE: Showing live character count
+OUTPUT: An input that tracks typing progress against a limit
+USE WHEN: Imposing strict length limits on short text
+SOURCE: app/storybook/src/stories/Input.stories.ts -> WithCounter
+-->
+```tsx
+import { useState } from 'react';
+import { Input } from '@luxis-ui/core';
+
+export default function WithCounterExample() {
+  const [bio, setBio] = useState('');
+
+  return (
+    <Input
+      label="Short Title"
+      value={bio}
+      onChange={(e) => setBio(e.target.value)}
+      maxLength={80}
+      showCount
+      fullWidth
+      style={{ maxWidth: 400 }}
+    />
+  );
+}
+```
+
+The counter is announced politely to screen readers as the user types.
+
+---
+
+### Sizes
+
+Input supports three distinct sizes to fit different layout densities.
+
+<!--
+EXAMPLE: Sizes
+PURPOSE: Displaying size variants
+OUTPUT: Small, medium, and large inputs
+USE WHEN: Matching input scale to surrounding UI components like Buttons
+SOURCE: app/storybook/src/stories/Input.stories.ts -> Sizes
+-->
+```tsx
+import { Input } from '@luxis-ui/core';
+
+export default function SizesExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 400 }}>
+      <Input label="Small" size="sm" example="Small (32px)" />
+      <Input label="Medium" size="md" example="Medium (40px)" />
+      <Input label="Large" size="lg" example="Large (48px)" />
+    </div>
+  );
+}
+```
+
+The size prop affects the height, font size, padding, and icon sizing.
+
+---
+
+### Controlled Input
+
+When to use: When a parent component needs to read or drive the state.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  By default Input acts identically to a native React input. Use the controlled pattern when validating, clearing, or formatting the value on the fly.
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: useState-driven Input with external state management and clearability
+OUTPUT: Input whose state is owned by the parent and can be cleared
+USE WHEN: Programmatically reading or setting component state
+SOURCE: Derived from Input.stories.ts -> Clearable
+-->
+```tsx
+import { useState } from 'react';
+import { Input } from '@luxis-ui/core';
+import { SearchIcon } from '@luxis-ui/icons';
+
+export default function ControlledExample() {
+  const [value, setValue] = useState('Clear me');
+
+  return (
+    <Input
+      label="Search query"
+      leftIcon={<SearchIcon />}
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      clearable
+      onClear={() => setValue('')}
+      style={{ maxWidth: 300 }}
+    />
+  );
+}
+```
+
+## Input Best Practices
+
+Use these practices to ensure user data entry is as smooth as possible.
+
+<DoAndDont
+  good={`// ✅ Provide a label prop instead of building your own
+<Input label="First Name" />`}
+  bad={`// ❌ Don't decouple labels from the component
+<div>
+  <label>First Name</label>
+  <Input />
+</div>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use specific input types
+<Input type="email" label="Email" />`}
+  bad={`// ❌ Don't rely on validation alone for generic text fields
+<Input type="text" label="Email" />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use helperText for formatting instructions
+<Input label="Password" helperText="Must contain 8+ characters." />`}
+  bad={`// ❌ Don't hide important instructions in the example
+<Input label="Password" example="Must contain 8+ characters." />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Pass the error string directly
+<Input error="Invalid zip code" />`}
+  bad={`// ❌ Don't build custom error messages outside the component
+<Input />
+<span style={{ color: 'red' }}>Invalid zip code</span>`}
+/>
+
+## Input Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly from `packages/luxis-ui/src/Input/Input.types.ts`.
+
+### Input Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `clearable` | `boolean` | `false` | false | If true, shows a clear button when input has value |
+| `error` | `string` | `undefined` | false | Error message - shows error state and text |
+| `fullWidth` | `boolean` | `false` | false | If true, input takes full width of container |
+| `helperText` | `string` | `undefined` | false | Helper text displayed below the input |
+| `inputClassName` | `string` | `undefined` | false | Custom class name for the native input element |
+| `label` | `string` | `undefined` | false | Label text displayed above the input |
+| `labelClassName` | `string` | `undefined` | false | Custom class name for the label element |
+| `leftIcon` | `ReactNode` | `undefined` | false | Icon to display at the start |
+| `onClear` | `() => void` | `undefined` | false | Callback fired when clear button is clicked |
+| `prefix` | `string` | `undefined` | false | Prefix text attached before input value |
+| `rightIcon` | `ReactNode` | `undefined` | false | Icon to display at the end |
+| `showCount` | `boolean` | `false` | false | Shows character counter (requires `maxLength`) |
+| `size` | `'sm' \| 'md' \| 'lg'` | `theme default` | false | Size variant |
+| `success` | `string` | `undefined` | false | Success message - shows success state and text |
+| `suffix` | `string` | `undefined` | false | Suffix text attached after input value |
+| `wrapperClassName` | `string` | `undefined` | false | Custom class name for the outer wrapper |
+
+### HTML Native Props
+
+Input forwards rest props to its underlying `<input>`, so all standard HTML input attributes are also accepted.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `value` | Controlled state value | `"Hello"` |
+| `onChange` | Input change handler | `(e) => setValue(e.target.value)` |
+| `disabled` | Disables interaction | `true` |
+| `required` | Marks field as mandatory | `true` |
+| `type` | Input type | `"password"`, `"email"`, `"number"` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for Input
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/Input/Input.types.ts
+-->
+```ts
+import type { InputHTMLAttributes, ReactNode } from 'react';
+import type { Size } from '../../theme';
+
+export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
+  label?: string;
+  helperText?: string;
+  error?: string;
+  success?: string;
+  size?: Size;
+  fullWidth?: boolean;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
+  clearable?: boolean;
+  onClear?: () => void;
+  showCount?: boolean;
+  wrapperClassName?: string;
+  labelClassName?: string;
+  inputClassName?: string;
+  prefix?: string;
+  suffix?: string;
+}
+```
+
+</details>
+
+## Input Accessibility Guide
+
+Input adheres to standard Form Field WAI-ARIA patterns and meets WCAG AA.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| <KeyboardKey>Tab</KeyboardKey> | Focuses the input element |
+
+### ARIA Attributes
+
+| Attribute | Value | When |
+|-----------|-------|------|
+| `aria-invalid` | `"true"` | When `error` prop is provided |
+| `aria-describedby` | `"{id}"` | Automatically links to `helperText`, `error`, or `success` text nodes |
+| `aria-hidden` | `"true"` | Placed on decorative icons, prefixes, and suffixes |
+| `aria-label` | `"required"` | Placed on the visual red asterisk |
+
+### Screen Reader Behavior
+
+When focused, the screen reader announces the input type, the `label`, and any connected `aria-describedby` text (like error messages or helper text). If `error` is present, it will announce that the field is invalid. The character counter uses `aria-live="polite"` to announce updates. The clear button has an `aria-label` of "Clear input" but is purposely removed from the tab sequence (`tabIndex={-1}`) so users don't have to tab twice to get out of the field; it remains clickable.
+
+### Accessibility Checklist
+
+- [ ] Always provide a `label` (if visual label is omitted, ensure `aria-label` is passed via native props).
+- [ ] Use `error` text to explain *why* validation failed, not just that it did.
+- [ ] Ensure example text has sufficient color contrast if overriding the default.
+- [ ] Always verify with keyboard-only navigation before shipping
+
+## Input Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions like colors, spacing, and radius. Override them to restyle Input without fighting CSS specificity.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-background-primary` | Dynamic | Input background color |
+| `--lxs-color-primary-500` | Dynamic | Focus ring and border color |
+| `--lxs-color-error-500` | Dynamic | Error state border color |
+| `--lxs-color-success-500` | Dynamic | Success state border color |
+| `--lxs-radius-md` | Dynamic | Border radius for medium input |
+
+**Override globally:**
+```css
+:root {
+  --lxs-color-primary-500: #8b5cf6; /* Change focus ring to purple */
+}
+```
+
+## Customizing Input
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to Input
+OUTPUT: Input with additional styling
+USE WHEN: Quick one-off style overrides
+SOURCE: N/A
+-->
+```tsx
+<Input
+  label="Custom Field"
+  wrapperClassName="my-wrapper-margin"
+  inputClassName="my-custom-font"
+/>
+```
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: Input with custom token values
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+```tsx
+<Input
+  label="Themed Field"
+  style={{ '--lxs-radius-md': '2px' } as React.CSSProperties}
+/>
+```
+
+### Using with forwardRef
+
+<!--
+EXAMPLE: forwardRef
+PURPOSE: Accessing the underlying DOM node
+OUTPUT: Input with attached ref
+USE WHEN: Automatically focusing a field on mount
+SOURCE: N/A
+-->
+```tsx
+import { useRef, useEffect } from 'react';
+import { Input } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    // Focus the input when the component mounts
+    inputRef.current?.focus();
+  }, []);
+
+  return <Input label="Auto-focused field" ref={inputRef} />;
+}
+```
+
+## Common Input Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Secure Password Field
+
+Used when: Asking users for passwords.
+
+<!--
+EXAMPLE: Password Field
+PURPOSE: Creating a secure input
+OUTPUT: A standard password field
+USE WHEN: Login and registration forms
+SOURCE: Common usage pattern for Input
+-->
+```tsx
+import { Input } from '@luxis-ui/core';
+
+export default function PasswordField() {
+  return (
+    <div style={{ maxWidth: 300 }}>
+      <Input
+        label="Password"
+        type="password"
+        required
+        fullWidth
+        helperText="We recommend using a password manager."
+      />
+    </div>
+  );
+}
+```
+
+### Payment Input
+
+Used when: Requesting exact amounts of currency.
+
+<!--
+EXAMPLE: Currency Input
+PURPOSE: Utilizing prefix for numeric inputs
+OUTPUT: An input optimized for monetary values
+USE WHEN: Checkout flows or pricing forms
+SOURCE: Common usage pattern for Input
+-->
+```tsx
+import { Input } from '@luxis-ui/core';
+
+export default function PaymentInput() {
+  return (
+    <div style={{ maxWidth: 200 }}>
+      <Input
+        label="Donation Amount"
+        type="number"
+        prefix="$"
+        example="50.00"
+        fullWidth
+        min="1"
+        step="0.01"
+      />
+    </div>
+  );
+}
+```
+
+### URL Collector
+
+Used when: Asking users for websites, social profiles, or domains.
+
+<!--
+EXAMPLE: URL Input
+PURPOSE: Using prefix and suffix to guide formatting
+OUTPUT: An input that visually enforces a specific domain format
+USE WHEN: Collecting specialized URLs
+SOURCE: Common usage pattern for Input
+-->
+```tsx
+import { useState } from 'react';
+import { Input } from '@luxis-ui/core';
+
+export default function UrlCollector() {
+  const [handle, setHandle] = useState('');
+
+  return (
+    <div style={{ maxWidth: 350 }}>
+      <Input
+        label="Twitter Profile"
+        prefix="twitter.com/"
+        example="username"
+        value={handle}
+        onChange={(e) => setHandle(e.target.value)}
+        fullWidth
+      />
+    </div>
+  );
+}
+```
+
+## Troubleshooting Input
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Clear button doesn't empty field | Relying on `clearable` without state | Provide `value` and handle `onClear={() => setValue('')}` |
+| Counter doesn't show | Passing `showCount` without limit | Must provide both `showCount` AND `maxLength={50}` |
+| Width doesn't match container | Setting `style={{ width: '100%' }}` | Use the `fullWidth` prop |
+| Prefix text is cut off | Trying to use `leftIcon` for text | Use the `prefix` prop for text, `leftIcon` for SVGs |
+
+### Frequently Asked Questions
+
+**Q: How do I make a textarea instead?**
+A: Use the separate `<Textarea>` component, as `<Input>` is strictly for single-line text fields.
+
+**Q: Why doesn't the clear button gain focus when I press Tab?**
+A: By design, the clear button has `tabIndex={-1}`. This prevents users who are navigating a long form from having to press Tab twice to move to the next logical field. They can clear the input by selecting all and deleting, or clicking the button with a mouse.
+
+**Q: Can I put a dropdown inside the input, like a country code selector?**
+A: No, the `prefix` and `leftIcon` props are meant for static visual aids. For complex compound inputs, build a custom row using `<Flex>` wrapping an `<Autocomplete>` and an `<Input>`.
+
+
+**Q: How do I get a reference to the actual input element?**
+A: Pass a `ref` prop as you would with a standard input. The component uses `forwardRef` to pass it down directly to the native element.
+
+## Related Components
+
+<RelatedComponent
+  name="Checkbox"
+  description="Use Checkbox for boolean or multi-select form fields."
+  href="/docs/components/checkbox"
+/>
+<RelatedComponent
+  name="Radio"
+  description="Use Radio for mutually exclusive single-selection form fields."
+  href="/docs/components/radio"
+/>
+<RelatedComponent
+  name="Button"
+  description="Typically paired with Inputs to submit form data."
+  href="/docs/components/button"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Input
+
+> Input is a Components React component in Luxis UI for collecting single-line text data in forms, with built-in labels and validation.
+
+## Source
+packages/luxis-ui/src/Input/Input.tsx
+
+## Story
+app/storybook/src/stories/Input.stories.ts
+
+## Install
+\`\`\`bash
+npm install @luxis-ui/core
+\`\`\`
+
+## Import
+\`\`\`tsx
+import { Input } from '@luxis-ui/core';
+\`\`\`
+
+## Minimal usage
+\`\`\`tsx
+import { Input } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Input
+      label="Email address"
+      type="email"
+      example="you@example.com"
+      required
+    />
+  );
+}
+\`\`\`
+
+## Key props
+- `label` (string, default=`undefined`): Label text displayed above the input
+- `error` (string, default=`undefined`): Error message - shows error state
+- `fullWidth` (boolean, default=`false`): Takes full width of container
+- `prefix` (string, default=`undefined`): Text attached before input value
+- `clearable` (boolean, default=`false`): Shows a clear button when input has value
+
+## When to use
+Use for standard form data entry, search bars, and collecting text, numbers, or emails.
+
+## When NOT to use
+Do not use for multi-line text (use Textarea) or dropdown selections (use Select).
+
+## Accessibility
+WCAG: AA
+ARIA: Form Field
+Keyboard: Tab
+
+## Docs
+https://luxis-ui.dev/docs/components/input
+LLMS_TXT_ENTRY_END
+*/}
+
+
+╔══════════════════════════════════════════════════════════════╗
+║ FILE: link.mdx                                                     ║
+╚══════════════════════════════════════════════════════════════╝
+
+---
+title: "Link — Luxis UI React Component"
+description: "A flexible link component that works with native anchors, React Router, Next.js, or any custom routing library. Supports text variants, icons, and theming."
+status: stable
+since: "1.0.0"
+category: "Components"
+npm: "@luxis-ui/core"
+import: "import { Link } from '@luxis-ui/core'"
+component: "Link"
+keywords:
+  - link
+  - react link
+  - link component
+  - luxis ui link
+  - typescript link
+  - accessible link
+  - react design system
+  - next link
+  - react router link
+slug: /components/link
+canonical: "https://luxis-ui.dev/docs/components/link"
+og_image: "/img/og/link.png"
+llm_summary: >
+  Link renders an HTML `<a>` element or delegates to a custom routing component (like Next.js Link or React Router Link).
+  Props: `href` (string, default=undefined), `component` (React.ElementType, default=undefined), `componentProps` (Record<string, unknown>, default={}), `variant` ('h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body1' | 'body2' | 'caption' | 'small', default='body1'), `noUnderline` (boolean, default=true), `disabled` (boolean, default=false), `color` ('primary' | 'secondary' | 'neutral' | 'inherit', default='inherit'), `hoverColor` ('primary' | 'secondary' | 'neutral' | 'inherit' | string, default=undefined), `leftIcon` (ReactNode, default=undefined), `rightIcon` (ReactNode, default=undefined), `external` (boolean, default=false), `download` (boolean | string, default=undefined).
+  Primary use cases include standard hyperlinks, internal app navigation via routing libraries, and downloadable resources. Do NOT use it for actions that change data or state on the current page—use a Button instead.
+  Accessibility: It natively acts as a standard link, receiving focus. When `disabled` is true, it omits the `href` attribute, making it inert, and sets `aria-disabled="true"`.
+  Import exactly like this: `import { Link } from '@luxis-ui/core'`.
+---
+
+{/*
+LLM_CONTEXT
+  component    : Link
+  source       : packages/luxis-ui/src/Link/Link.tsx
+  story        : app/storybook/src/stories/Link.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components
+  status       : stable
+  aria-pattern : Link
+
+  What it renders:
+  Link renders an `<a>` element natively, or it renders the element provided by the `component` prop (e.g., `<NextLink>`). It can include child content as well as optional left/right icons wrapped in spans.
+
+  When to use:
+  - Navigating to internal pages (e.g., using React Router or Next.js).
+  - Navigating to external sites.
+  - Triggering file downloads.
+
+  When NOT to use:
+  - Performing actions on the current page (submitting a form, opening a modal) - use a Button instead.
+  - Interactive elements inside a form or complex widget that don't involve navigation.
+
+  Ecosystem equivalents:
+  - MUI        : <Link>
+  - Chakra UI  : <Link>
+  - shadcn/ui  : [N/A, standard <a> often used or styled-components]
+  - Radix UI   : [N/A]
+  - HTML native: <a>
+
+  Props (must match source exactly — every single prop):
+  href (string, default=undefined) — URL to navigate to
+  component (React.ElementType, default=undefined) — Custom Link component to use (e.g., Next.js Link or React Router Link)
+  componentProps (Record<string, unknown>, default={}) — Props to pass to the custom component
+  variant ('h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body1' | 'body2' | 'caption' | 'small', default='body1') — Text variant (size/style)
+  noUnderline (boolean, default=true) — If true, removes underline decoration
+  disabled (boolean, default=false) — If true, link is disabled
+  color ('primary' | 'secondary' | 'neutral' | 'inherit', default='inherit') — Link color variant
+  leftIcon (ReactNode, default=undefined) — Icon to display before link text
+  rightIcon (ReactNode, default=undefined) — Icon to display after link text
+  external (boolean, default=false) — If true, opens link in new tab
+  download (boolean | string, default=undefined) — If true or string, triggers browser download
+  hoverColor ('primary' | 'secondary' | 'neutral' | 'inherit' | string, default=undefined) — Hover color variant or custom color string
+
+  Accessibility:
+  WCAG: AA
+  Keyboard: Focusable via Tab key. Can be activated via Enter key.
+  Screen reader: Announced as a link. If disabled, announced as a disabled element (inert due to missing href).
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Link React Component — Luxis UI",
+  "description": "A flexible link component that works with native anchors, React Router, Next.js, or any custom routing library. Supports text variants, icons, and theming.",
+  "keywords": "link, react link, link component, luxis ui link, typescript link, accessible link, react design system, next link, react router link",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use Link in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { Link } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI Link accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Key props include href (string, default=undefined), component (React.ElementType, default=undefined), variant (string, default='body1'), color (string, default='inherit'), and external (boolean, default=false)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I use Link with Next.js or React Router?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pass the routing component to the component prop. For example: <Link component={NextLink} href=\"/about\">About</Link>."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI Link different from MUI Link?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Luxis UI Link offers seamless integration with custom routing libraries via the component prop out of the box. It also provides built-in icon support and specific variant sizing."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Link
+
+<ComponentStatus status="stable" version="1.0.0" aria="WAI-ARIA Link" />
+
+The Link component creates hyperlinks for navigation. It acts as a standard HTML anchor tag by default, but seamlessly integrates with routing libraries like React Router and Next.js.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for Link
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding Link to any file
+SOURCE: packages/luxis-ui/src/components/Link/index.ts
+-->
+```tsx
+import { Link } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI `Link` is equivalent to MUI's `<Link>`, Chakra UI's `<Link>`, and shadcn/ui's standard anchor tags or tailored navigation components. It simplifies integrating external routing frameworks.
+</Callout>
+
+## Before You Start
+
+Link provides a stylized standard hyperlink or a wrapper for framework-specific routing components. It is based on the native HTML `<a>` element and adheres to the standard Link ARIA pattern. The Quick Start example will produce a basic internal link styled according to your theme.
+
+<Callout type="tip" title="New to Luxis UI?">
+  Check out the Getting Started guide for setting up your provider and theme.
+</Callout>
+
+## How to Use Link in React
+
+The minimum code to render a working Link:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of Link
+OUTPUT: A clickable link styled according to the default body1 variant
+USE WHEN: Standard internal navigation
+SOURCE: Derived from Link.tsx defaults and simplest Story
+-->
+```tsx
+import { Link } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Link href="/dashboard" color="primary">
+      Go to Dashboard
+    </Link>
+  );
+}
+```
+
+This renders a primary-colored link pointing to the "/dashboard" route.
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of Link with key props
+OUTPUT: A primary-colored link with an external icon opening in a new tab
+USE WHEN: Exploring props before copying to your project
+SOURCE: app/storybook/src/stories/Link.stories.ts
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { Link } from '@luxis-ui/core';
+import { ExternalIcon } from '@luxis-ui/icons';
+
+export default function LiveExample() {
+  return (
+    <Link
+      href="https://luxis-ui.dev"
+      color="primary"
+      external
+      rightIcon={<ExternalIcon />}
+    >
+      Read Documentation
+    </Link>
+  );
+}
+```
+
+## Link Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### External
+
+When you need to link to a third-party website, setting `external` to `true` will automatically add `target="_blank"` and `rel="noopener noreferrer"`.
+
+<!--
+EXAMPLE: External
+PURPOSE: Demonstrates a link opening in a new tab securely
+OUTPUT: A link with an external icon
+USE WHEN: Linking to an outside domain
+SOURCE: app/storybook/src/stories/Link.stories.ts -> External
+-->
+```tsx
+import { Link } from '@luxis-ui/core';
+import { ExternalIcon } from '@luxis-ui/icons';
+
+export default function ExternalExample() {
+  return (
+    <Link
+      href="https://example.com"
+      external
+      color="primary"
+      rightIcon={<ExternalIcon />}
+    >
+      Open in new tab
+    </Link>
+  );
+}
+```
+
+This ensures external links open safely without exposing your application.
+
+---
+
+### Download
+
+You can trigger a browser download by using the `download` prop.
+
+<!--
+EXAMPLE: Download
+PURPOSE: Shows how to create a download link
+OUTPUT: A link that initiates a file download
+USE WHEN: Linking to a file that should be saved rather than viewed
+SOURCE: app/storybook/src/stories/Link.stories.ts -> Download
+-->
+```tsx
+import { Link } from '@luxis-ui/core';
+import { DownloadIcon } from '@luxis-ui/icons';
+
+export default function DownloadExample() {
+  return (
+    <Link
+      href="/assets/report.pdf"
+      download
+      color="primary"
+      leftIcon={<DownloadIcon />}
+    >
+      Download PDF
+    </Link>
+  );
+}
+```
+
+This uses the native HTML `download` attribute functionality.
+
+---
+
+### Disabled
+
+When a link needs to be visible but inert, use the `disabled` prop.
+
+<!--
+EXAMPLE: Disabled
+PURPOSE: Demonstrates an unclickable link
+OUTPUT: A faded link that does not respond to clicks
+USE WHEN: A destination is currently unavailable or the user lacks permission
+SOURCE: app/storybook/src/stories/Link.stories.ts -> Disabled
+-->
+```tsx
+import { Link } from '@luxis-ui/core';
+
+export default function DisabledExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <Link disabled href="/should-not-navigate" color="primary">
+        Disabled primary link
+      </Link>
+      <Link disabled href="/should-not-navigate" color="secondary">
+        Disabled secondary link
+      </Link>
+    </div>
+  );
+}
+```
+
+Disabled links strip their `href` to prevent programmatic or keyboard navigation.
+
+---
+
+### NoUnderline
+
+By default, links have no underline, but they will show one on hover. You can enforce a persistent underline or completely disable it.
+
+<!--
+EXAMPLE: NoUnderline
+PURPOSE: Shows control over the text underline
+OUTPUT: Two links, one with and one without underline effects
+USE WHEN: Adapting link styles to specific layouts like navbars
+SOURCE: app/storybook/src/stories/Link.stories.ts -> NoUnderline
+-->
+```tsx
+import { Link } from '@luxis-ui/core';
+
+export default function NoUnderlineExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <Link href="#" noUnderline={false} color="primary">
+        With underline (noUnderline=false)
+      </Link>
+      <Link href="#" noUnderline={true} color="primary">
+        Without underline (noUnderline=true)
+      </Link>
+    </div>
+  );
+}
+```
+
+This is particularly useful when links are used as prominent UI elements rather than inline text.
+
+---
+
+### HoverColors
+
+You can customize the color the link changes to when hovered.
+
+<!--
+EXAMPLE: HoverColors
+PURPOSE: Demonstrates setting custom hover colors
+OUTPUT: Links that change to specified colors on hover
+USE WHEN: Needing specific visual feedback on interaction
+SOURCE: app/storybook/src/stories/Link.stories.ts -> HoverColors
+-->
+```tsx
+import { Link } from '@luxis-ui/core';
+
+export default function HoverColorsExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <Link href="#" color="neutral" hoverColor="primary">
+        Hover to turn primary
+      </Link>
+      <Link href="#" color="neutral" hoverColor="secondary">
+        Hover to turn secondary
+      </Link>
+      <Link href="#" color="neutral" hoverColor="#e11d48">
+        Hover to turn custom #e11d48
+      </Link>
+    </div>
+  );
+}
+```
+
+This accepts both theme tokens and exact CSS color values.
+
+---
+
+### ReactRouterPattern
+
+When using React Router, you can pass its Link component into the `component` prop.
+
+<!--
+EXAMPLE: ReactRouterPattern
+PURPOSE: Shows integration with React Router
+OUTPUT: Links that perform client-side navigation via React Router
+USE WHEN: Working in a standard React application using react-router-dom
+SOURCE: app/storybook/src/stories/Link.stories.ts -> ReactRouterPattern
+-->
+```tsx
+import { Link } from '@luxis-ui/core';
+import { Link as RouterLink } from 'react-router-dom';
+
+export default function ReactRouterPatternExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <Link
+        component={RouterLink}
+        componentProps={{ to: '/dashboard' }}
+        color="primary"
+      >
+        React Router — /dashboard
+      </Link>
+      <Link
+        component={RouterLink}
+        componentProps={{ to: '/settings' }}
+        color="secondary"
+      >
+        React Router — /settings
+      </Link>
+    </div>
+  );
+}
+```
+
+Note that React Router uses the `to` prop, which is passed via `componentProps`.
+
+---
+
+### NextJsPattern
+
+When using Next.js, you can easily wrap its Link component.
+
+<!--
+EXAMPLE: NextJsPattern
+PURPOSE: Shows integration with Next.js
+OUTPUT: Links that perform optimized client-side navigation via Next.js
+USE WHEN: Building applications with the Next.js framework
+SOURCE: app/storybook/src/stories/Link.stories.ts -> NextJsPattern
+-->
+```tsx
+import { Link } from '@luxis-ui/core';
+import NextLink from 'next/link';
+
+export default function NextJsPatternExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <Link
+        component={NextLink}
+        href="/about"
+        color="primary"
+      >
+        Next.js — /about
+      </Link>
+      <Link
+        component={NextLink}
+        href="/blog"
+        color="secondary"
+      >
+        Next.js — /blog
+      </Link>
+    </div>
+  );
+}
+```
+
+Next.js natively supports the `href` prop on its Link component.
+
+---
+
+### Controlled Link
+
+When to use: When a parent component needs to read or drive the state.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  By default Link manages its own state (uncontrolled). Use the controlled pattern when syncing with a URL param, form library, or another component.
+</Callout>
+
+<!--
+EXAMPLE: Controlled
+PURPOSE: useState-driven Link with external state management
+OUTPUT: Link whose state is owned by the parent
+USE WHEN: Programmatically reading or setting component state
+SOURCE: Derived from Link.tsx controlled/uncontrolled pattern
+-->
+```tsx
+import { useState } from 'react';
+import { Link } from '@luxis-ui/core';
+
+export default function ControlledExample() {
+  const [activeUrl, setActiveUrl] = useState('/dashboard');
+
+  return (
+    <Link href={activeUrl} onClick={() => setActiveUrl('/settings')}>
+      Navigate to current destination
+    </Link>
+  );
+}
+```
+
+## Link Best Practices
+
+Use these practices to ensure navigation is predictable and accessible.
+
+<DoAndDont
+  good={`// ✅ Use links for navigation
+<Link href="/settings">Settings</Link>`}
+  bad={`// ❌ Don't use links for actions
+<Link onClick={saveData}>Save</Link>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use the external prop for outside URLs
+<Link href="https://google.com" external>Search</Link>`}
+  bad={`// ❌ Don't set target manually for external links
+<Link href="https://google.com" target="_blank">Search</Link>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Pass router links via the component prop
+<Link component={NextLink} href="/profile">Profile</Link>`}
+  bad={`// ❌ Don't nest anchor tags
+<NextLink href="/profile"><Link>Profile</Link></NextLink>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Give clear text indicating the destination
+<Link href="/docs/api">Read the API documentation</Link>`}
+  bad={`// ❌ Don't use vague link text
+<Link href="/docs/api">Click here</Link>`}
+/>
+
+## Link Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly from `packages/luxis-ui/src/Link/Link.tsx`.
+
+### Link Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `color` | `'primary' \| 'secondary' \| 'neutral' \| 'inherit'` | `'inherit'` | false | Link color variant |
+| `component` | `React.ElementType` | `undefined` | false | Custom Link component to use |
+| `componentProps` | `Record<string, unknown>` | `{}` | false | Props to pass to the custom component |
+| `disabled` | `boolean` | `false` | false | If true, link is disabled |
+| `download` | `boolean \| string` | `undefined` | false | If true or string, triggers browser download |
+| `external` | `boolean` | `false` | false | If true, opens link in new tab |
+| `hoverColor` | `'primary' \| 'secondary' \| 'neutral' \| 'inherit' \| string` | `undefined` | false | Hover color variant or custom color string |
+| `href` | `string` | `undefined` | false | URL to navigate to |
+| `leftIcon` | `ReactNode` | `undefined` | false | Icon to display before link text |
+| `noUnderline` | `boolean` | `true` | false | If true, removes underline decoration |
+| `rightIcon` | `ReactNode` | `undefined` | false | Icon to display after link text |
+| `variant` | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6' \| 'body1' \| 'body2' \| 'caption' \| 'small'` | `'body1'` | false | Text variant (size/style) |
+
+### HTML Native Props
+
+Link forwards rest props to its underlying `<a>`, so all standard HTML anchor attributes are also accepted.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `onClick` | Click handler | `(e) => handleClick(e)` |
+| `className` | Additional CSS class names | `"custom-class"` |
+| `style` | Inline CSS styles | `{{ marginTop: '8px' }}` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for Link
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/Link/Link.tsx
+-->
+```ts
+export interface LinkProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> {
+  href?: string;
+  component?: React.ElementType;
+  componentProps?: Record<string, unknown>;
+  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body1' | 'body2' | 'caption' | 'small';
+  noUnderline?: boolean;
+  disabled?: boolean;
+  color?: 'primary' | 'secondary' | 'neutral' | 'inherit';
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+  external?: boolean;
+  download?: boolean | string;
+  hoverColor?: 'primary' | 'secondary' | 'neutral' | 'inherit' | (string & {});
+  children?: React.ReactNode;
+}
+```
+
+</details>
+
+## Link Accessibility Guide
+
+Link follows the Link WAI-ARIA pattern and meets WCAG AA.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| <KeyboardKey>Tab</KeyboardKey> | Focuses the link |
+| <KeyboardKey>Enter</KeyboardKey> | Activates the link and navigates to the destination |
+
+### ARIA Attributes
+
+| Attribute | Value | When |
+|-----------|-------|------|
+| `aria-disabled` | `"true"` | When `disabled` prop is true |
+| `target` | `"_blank"` | When `external` prop is true |
+| `rel` | `"noopener noreferrer"` | When `external` prop is true |
+
+### Screen Reader Behavior
+
+When a screen reader encounters a Link, it will announce it as a "link" along with the text content. If the `external` prop is used, it often announces that the link opens in a new window. If the `disabled` prop is set, the `href` attribute is removed, causing the screen reader to treat it as inert plain text, or announce it as a disabled element, preventing confusion.
+
+### Accessibility Checklist
+
+- [ ] Ensure link text clearly describes the destination (avoid "click here").
+- [ ] Use the `external` prop when linking off-site.
+- [ ] Do not use links for actions; use buttons instead.
+- [ ] Always verify with keyboard-only navigation before shipping
+
+## Link Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions like colors, spacing, and radius. Override them to restyle Link without fighting CSS specificity.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-link-hover-color` | Dynamic | Controls the custom hover color when a specific hex/string is passed to `hoverColor` |
+
+**Override globally:**
+```css
+:root {
+  --lxs-link-hover-color: #ff0000;
+}
+```
+
+**Override for one section:**
+```css
+.my-section {
+  --lxs-link-hover-color: #ff0000;
+}
+```
+
+**Override on one instance:**
+```tsx
+<Link
+  style={{ '--lxs-link-hover-color': '#ff0000' } as React.CSSProperties}
+/>
+```
+
+## Customizing Link
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to Link
+OUTPUT: Link with additional styling
+USE WHEN: Quick one-off style overrides
+SOURCE: N/A
+-->
+```tsx
+<Link href="/home" className="my-custom-link">
+  Home
+</Link>
+```
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: Link with custom token values
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+```tsx
+<Link
+  href="/home"
+  hoverColor="#3b82f6"
+>
+  Home
+</Link>
+```
+
+### Using with forwardRef
+
+<!--
+EXAMPLE: forwardRef
+PURPOSE: Accessing the underlying DOM node
+OUTPUT: Link with attached ref
+USE WHEN: Calling native DOM methods like .focus()
+SOURCE: N/A
+-->
+```tsx
+import { useRef, useEffect } from 'react';
+import { Link } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const ref = useRef<HTMLAnchorElement>(null);
+
+  useEffect(() => {
+    ref.current?.focus();
+  }, []);
+
+  return <Link href="/focus-target" ref={ref}>Focused link</Link>;
+}
+```
+
+## Common Link Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Global Router Setup
+
+Used when: You want to configure the router component globally once rather than on every link.
+
+<!--
+EXAMPLE: Global Router Setup
+PURPOSE: Setting the router globally via ThemeProvider
+OUTPUT: Links that automatically use the global router
+USE WHEN: Setting up the root layout of your application
+SOURCE: Common usage pattern for Link
+-->
+```tsx
+import { ThemeProvider, Link } from '@luxis-ui/core';
+import NextLink from 'next/link';
+
+export default function App() {
+  return (
+    <ThemeProvider linkComponent={NextLink}>
+      <nav>
+        <Link href="/dashboard" color="primary">Dashboard</Link>
+        <Link href="/settings" color="secondary">Settings</Link>
+      </nav>
+    </ThemeProvider>
+  );
+}
+```
+
+### Navigation Bar
+
+Used when: Building a standard horizontal site header or navigation menu.
+
+<!--
+EXAMPLE: Navigation Bar
+PURPOSE: Constructing a nav bar using Links
+OUTPUT: A styled row of navigation links
+USE WHEN: Creating an application header
+SOURCE: Common usage pattern for Link
+-->
+```tsx
+import { Link } from '@luxis-ui/core';
+
+export default function NavigationBar() {
+  return (
+    <nav style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+      <Link href="/" variant="h6" color="primary">
+        Brand
+      </Link>
+      <Link href="/features" color="neutral">Features</Link>
+      <Link href="/pricing" color="neutral">Pricing</Link>
+      <Link href="/docs" color="neutral">Documentation</Link>
+    </nav>
+  );
+}
+```
+
+### Action Prompt
+
+Used when: Presenting a prompt inline, typically for login or signup flows.
+
+<!--
+EXAMPLE: Action Prompt
+PURPOSE: Placing a link inline with text
+OUTPUT: A sentence with a clickable link
+USE WHEN: Guiding a user to a related action or page
+SOURCE: Common usage pattern for Link
+-->
+```tsx
+import { Link } from '@luxis-ui/core';
+
+export default function ActionPrompt() {
+  return (
+    <p style={{ fontSize: '14px', color: '#525252' }}>
+      Don't have an account?{' '}
+      <Link href="/signup" color="primary" noUnderline={false}>
+        Sign up now
+      </Link>
+    </p>
+  );
+}
+```
+
+## Troubleshooting Link
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Next.js error: "Hydration failed" | `<Link><NextLink>Home</NextLink></Link>` | `<Link component={NextLink} href="/">Home</Link>` |
+| Keyboard can still navigate | `<Link onClick={(e) => e.preventDefault()}>` | `<Link disabled>` |
+| Open in new tab issues | `<Link target="_blank">` | `<Link external>` |
+| Click event fires but changes URL | `<Link onClick={myAction} href="#">` | Use a `<Button>` instead |
+
+<Callout type="warning" title="Next.js / SSR">
+  When passing `NextLink` to the `component` prop, ensure you are using Next.js 13+. Earlier versions may require handling `passHref` and `legacyBehavior` wrappers differently.
+</Callout>
+
+### Frequently Asked Questions
+
+**Q: Why doesn't my React Router link navigate without reloading?**
+A: Make sure you are passing the router component via the `component` prop (e.g., `<Link component={RouterLink} ... />`) instead of just rendering a native anchor tag.
+
+**Q: Can I put a Button inside a Link?**
+A: No, nesting interactive elements is invalid HTML and causes accessibility issues. Use the `component` prop on the Button itself to make it act as a link if needed, or style the Link to look like a Button.
+
+**Q: How do I change the link color?**
+A: Use the `color` prop for predefined theme colors (e.g., `color="primary"`), or apply standard CSS classes.
+
+**Q: Why is my disabled link still visible?**
+A: The `disabled` prop removes interactivity and sets appropriate ARIA attributes, but it maintains visibility (often with reduced opacity) so users know the option exists.
+
+## Related Components
+
+<RelatedComponent
+  name="Button"
+  description="Use Button instead of Link for actions that change data or state on the current page."
+  href="/docs/components/button"
+/>
+<RelatedComponent
+  name="Typography"
+  description="Use Typography for standard text that does not require navigation."
+  href="/docs/components/typography"
+/>
+<RelatedComponent
+  name="Breadcrumb"
+  description="Use Breadcrumb for hierarchical navigation paths."
+  href="/docs/components/breadcrumb"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Link
+
+> Link is a Components React component in Luxis UI for creating hyperlinks for navigation, integrating easily with frameworks like Next.js and React Router.
+
+## Source
+packages/luxis-ui/src/Link/Link.tsx
+
+## Story
+app/storybook/src/stories/Link.stories.ts
+
+## Install
+\`\`\`bash
+npm install @luxis-ui/core
+\`\`\`
+
+## Import
+\`\`\`tsx
+import { Link } from '@luxis-ui/core';
+\`\`\`
+
+## Minimal usage
+\`\`\`tsx
+import { Link } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Link href="/dashboard" color="primary">
+      Go to Dashboard
+    </Link>
+  );
+}
+\`\`\`
+
+## Key props
+- `href` (string, default=`undefined`): URL to navigate to
+- `component` (React.ElementType, default=`undefined`): Custom Link component to use
+- `variant` (string, default=`'body1'`): Text variant (size/style)
+- `color` (string, default=`'inherit'`): Link color variant
+- `external` (boolean, default=`false`): If true, opens link in new tab
+
+## When to use
+Use for standard internal navigation or linking to external sites. Use when triggering file downloads.
+
+## When NOT to use
+Do not use for performing actions on the current page. Do not use for form submissions.
+
+## Accessibility
+WCAG: AA
+ARIA: Link
+Keyboard: Tab, Enter
+
+## Docs
+https://luxis-ui.dev/docs/components/link
+LLMS_TXT_ENTRY_END
+*/}
+
+
+╔══════════════════════════════════════════════════════════════╗
+║ FILE: menu.mdx                                                     ║
+╚══════════════════════════════════════════════════════════════╝
+
+---
+title: "Menu — Luxis UI React Component"
+description: "A flexible menu system including vertical/horizontal navigation menus and dropdown action menus. Supports nested submenus and responsive mobile views."
+status: stable
+since: "1.0.0"
+category: "Components"
+npm: "@luxis-ui/core"
+import: "import { Menu, MenuItem, ActionMenu } from '@luxis-ui/core'"
+component: "Menu"
+keywords:
+  - menu
+  - react menu
+  - menu component
+  - dropdown menu
+  - action menu
+  - navigation menu
+  - luxis ui menu
+  - typescript menu
+  - accessible menu
+  - react design system
+slug: /components/menu
+canonical: "https://luxis-ui.dev/docs/components/menu"
+og_image: "/img/og/menu.png"
+llm_summary: >
+  Menu renders a navigation list (`<div role="menu">`) containing MenuItem elements (`<div role="menuitem">`). ActionMenu renders a trigger button that toggles a dropdown Menu.
+  Menu Props: `items` (MenuItemProps[], default=undefined), `children` (ReactNode, default=undefined), `orientation` ('vertical' | 'horizontal', default='vertical'), `responsive` (boolean, default=true), `width` (string | number, default=undefined), `className` (string, default='').
+  MenuItem Props: `label` (string, required), `onClick` (function, default=undefined), `icon` (ReactNode, default=undefined), `rightIcon` (ReactNode, default=undefined), `disabled` (boolean, default=false), `active` (boolean, default=false), `variant` ('default' | 'danger', default='default'), `shortcut` (string, default=undefined), `divider` (boolean, default=false), `items` (MenuItemProps[], default=undefined).
+  ActionMenu Props: `items` (MenuItemProps[], required), `trigger` (ReactNode | function, default=undefined), `triggerLabel` (string, default='Actions'), `triggerIcon` (ReactNode, default=undefined), `position` ('bottom-start' | 'bottom-end' | 'top-start' | 'top-end', default='bottom-start'), `className` (string, default=''), `triggerClassName` (string, default=''), `disabled` (boolean, default=false), `onOpen` (function, default=undefined), `onClose` (function, default=undefined).
+  Primary use cases: sidebar navigation, top navigation bars, and contextual dropdown actions. Do NOT use it for complex form inputs; use Select instead.
+  Accessibility: Uses `role="menu"` and `role="menuitem"`. Supports keyboard navigation (Enter, Space, ArrowDown, ArrowUp).
+  Import: `import { Menu, MenuItem, ActionMenu } from '@luxis-ui/core'`.
+---
+
+{/*
+LLM_CONTEXT
+  component    : Menu
+  source       : packages/luxis-ui/src/Menu/Menu.tsx, ActionMenu.tsx
+  story        : app/storybook/src/stories/Menu.stories.ts
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components
+  status       : stable
+  aria-pattern : Menu Button
+
+  What it renders:
+  Menu renders a `<div>` with `role="menu"`. MenuItem renders a `<div>` with `role="menuitem"` (and `aria-haspopup`/`aria-expanded` if it contains submenus). ActionMenu renders a trigger element (often a button) that controls the visibility of an associated Menu.
+
+  When to use:
+  - Sidebar navigation links.
+  - Contextual dropdown menus (e.g., "More actions" button on a table row).
+  - User profile dropdowns in a header.
+
+  When NOT to use:
+  - Selecting a value in a form. Use Select or Combobox instead.
+  - Simple routing links that don't need a menu structure. Use Link instead.
+
+  Ecosystem equivalents:
+  - MUI        : <Menu>, <MenuItem>
+  - Chakra UI  : <Menu>, <MenuButton>, <MenuList>, <MenuItem>
+  - shadcn/ui  : DropdownMenu, NavigationMenu
+  - Radix UI   : DropdownMenu, NavigationMenu
+  - HTML native: <select> (for forms, not exact), <details>/<summary> (for disclosure, not exact)
+
+  Props (must match source exactly — every single prop):
+  Menu Props:
+  items (MenuItemProps[], default=undefined) — Menu items configuration
+  children (ReactNode, default=undefined) — Custom children (MenuItem components)
+  orientation ('vertical' | 'horizontal', default='vertical') — Menu orientation
+  responsive (boolean, default=true) — Whether menu is responsive (converts to hamburger on mobile)
+  width (string | number, default=undefined) — Menu width (for vertical menus)
+  className (string, default='') — Custom className
+
+  MenuItem Props:
+  label (string) — Menu item label
+  onClick (function, default=undefined) — Click handler
+  icon (ReactNode, default=undefined) — Icon to display before label
+  rightIcon (ReactNode, default=undefined) — Icon to display after label
+  disabled (boolean, default=false) — Whether the item is disabled
+  active (boolean, default=false) — Whether the item is active/selected
+  variant ('default' | 'danger', default='default') — Item variant
+  shortcut (string, default=undefined) — Keyboard shortcut to display
+  divider (boolean, default=false) — Divider after this item
+  items (MenuItemProps[], default=undefined) — Submenu items for multi-level menus
+
+  ActionMenu Props:
+  items (MenuItemProps[]) — Menu items to display in dropdown
+  trigger (ReactNode | function, default=undefined) — Trigger element (button, icon, etc.) or render function
+  triggerLabel (string, default='Actions') — Trigger label text (used if trigger is not provided)
+  triggerIcon (ReactNode, default=undefined) — Trigger icon (used if trigger is not provided)
+  position ('bottom-start' | 'bottom-end' | 'top-start' | 'top-end', default='bottom-start') — Position of the menu relative to trigger
+  className (string, default='') — Custom className for the menu
+  triggerClassName (string, default='') — Custom className for the trigger
+  disabled (boolean, default=false) — Whether the menu is disabled
+  onOpen (function, default=undefined) — Callback when menu opens
+  onClose (function, default=undefined) — Callback when menu closes
+
+  Accessibility:
+  WCAG: AA
+  Keyboard: Tab to focus trigger/items. Enter/Space to activate item or open submenu. ArrowDown/ArrowUp to navigate submenus. Escape to close menu.
+  Screen reader: Announces menu roles and expansion states.
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Menu React Component — Luxis UI",
+  "description": "A flexible menu system including vertical/horizontal navigation menus and dropdown action menus. Supports nested submenus and responsive mobile views.",
+  "keywords": "menu, react menu, menu component, dropdown menu, action menu, navigation menu, luxis ui menu, typescript menu, accessible menu, react design system",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I install and use Menu in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install with npm install @luxis-ui/core. Import with import { Menu, MenuItem, ActionMenu } from '@luxis-ui/core'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What props does the Luxis UI Menu accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Menu accepts items (array of objects), orientation ('vertical' or 'horizontal'), responsive (boolean), and width. ActionMenu accepts items, trigger, position, and callbacks."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I create a dropdown menu?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the ActionMenu component and pass an array of items. It handles the trigger button and dropdown positioning automatically."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Luxis UI Menu different from MUI Menu?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Luxis UI Menu combines static navigation menus and dynamic dropdowns (via ActionMenu) in a unified, declarative API. It also handles responsive mobile hamburgers out of the box."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Menu
+
+<ComponentStatus status="stable" version="1.0.0" aria="WAI-ARIA Menu Button" />
+
+The Menu system provides a comprehensive set of components for building navigation sidebars, horizontal top bars, and contextual dropdown action menus. It includes built-in support for nested submenus, keyboard navigation, and responsive mobile layouts.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash install commands for npm, yarn, and pnpm
+USE WHEN: Setting up the project for the first time
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Shows the exact import statement for Menu components
+OUTPUT: Single import line ready to paste
+USE WHEN: Adding Menu components to any file
+SOURCE: packages/luxis-ui/src/components/Menu/index.ts
+-->
+```tsx
+import { Menu, MenuItem, ActionMenu } from '@luxis-ui/core';
+```
+
+<Callout type="info" title="Migrating from another library?">
+  Luxis UI's `Menu` handles static structural navigation, while `ActionMenu` replaces MUI's `<Menu>` or Chakra's `<MenuList>` for popover dropdown actions.
+</Callout>
+
+## Before You Start
+
+This package exports three main pieces: `Menu` (the container), `MenuItem` (the individual row), and `ActionMenu` (a wrapper that creates a dropdown triggered by a button). Use `Menu` for persistent navigation and `ActionMenu` for transient context menus.
+
+<Callout type="tip" title="New to Luxis UI?">
+  ActionMenu abstracts away the need to manage open/close state manually, unlike some other libraries.
+</Callout>
+
+## How to Use Menu in React
+
+The minimum code to render a working ActionMenu dropdown:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of ActionMenu
+OUTPUT: A button that opens a dropdown menu with two items
+USE WHEN: You need a simple context menu
+SOURCE: Derived from ActionMenu.tsx defaults
+-->
+```tsx
+import { ActionMenu } from '@luxis-ui/core';
+import { EditIcon, DeleteIcon } from '@luxis-ui/icons';
+
+export default function Example() {
+  return (
+    <ActionMenu
+      triggerLabel="Options"
+      items={[
+        { label: 'Edit Profile', icon: <EditIcon /> },
+        { label: 'Delete Account', icon: <DeleteIcon />, variant: 'danger' }
+      ]}
+    />
+  );
+}
+```
+
+This renders a trigger button labeled "Options". Clicking it reveals a dropdown with an edit action and a styled danger action for deletion.
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Playground
+PURPOSE: Interactive preview of Menu with key props
+OUTPUT: A vertical sidebar menu with active states and submenus
+USE WHEN: Exploring props before copying to your project
+SOURCE: N/A
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { Menu, MenuItem } from '@luxis-ui/core';
+import { SettingsIcon, UserIcon, DashboardIcon } from '@luxis-ui/icons';
+
+export default function LiveExample() {
+  return (
+    <div style={{ padding: '20px', background: '#f5f5f5', borderRadius: '8px' }}>
+      <Menu width={250}>
+        <MenuItem label="Dashboard" icon={<DashboardIcon />} active />
+        <MenuItem label="Users" icon={<UserIcon />} shortcut="⌘U" />
+        <MenuItem divider />
+        <MenuItem
+          label="Settings"
+          icon={<SettingsIcon />}
+          items={[
+            { label: 'General' },
+            { label: 'Security' },
+            { label: 'Billing' }
+          ]}
+        />
+      </Menu>
+    </div>
+  );
+}
+```
+
+## Menu Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### Horizontal Menu
+
+Use `orientation="horizontal"` to render a top navigation bar instead of a vertical sidebar.
+
+<!--
+EXAMPLE: Horizontal Menu
+PURPOSE: Demonstrates a horizontal navigation layout
+OUTPUT: A row of menu items suitable for a header
+USE WHEN: Building main site navigation
+SOURCE: packages/luxis-ui/src/Menu/Menu.tsx
+-->
+```tsx
+import { Menu, MenuItem } from '@luxis-ui/core';
+import { HomeIcon, BellIcon, UserIcon } from '@luxis-ui/icons';
+
+export default function HorizontalExample() {
+  return (
+    <Menu orientation="horizontal" responsive={false}>
+      <MenuItem label="Home" icon={<HomeIcon />} active />
+      <MenuItem label="Notifications" icon={<BellIcon />} />
+      <MenuItem divider />
+      <MenuItem label="Profile" icon={<UserIcon />} />
+    </Menu>
+  );
+}
+```
+
+This automatically adjusts padding and hover styling for a horizontal layout.
+
+---
+
+### Nested Submenus
+
+Both `Menu` and `ActionMenu` support nested arrays of items to create submenus.
+
+<!--
+EXAMPLE: Nested Submenus
+PURPOSE: Shows how to create multi-level menus
+OUTPUT: A menu with an expandable nested section
+USE WHEN: Organizing complex navigation hierarchies
+SOURCE: packages/luxis-ui/src/Menu/Menu.tsx
+-->
+```tsx
+import { Menu, MenuItem } from '@luxis-ui/core';
+import { FolderIcon, FileIcon } from '@luxis-ui/icons';
+
+export default function SubmenuExample() {
+  return (
+    <Menu width={200}>
+      <MenuItem label="Recent Files" icon={<FileIcon />} />
+      <MenuItem
+        label="Projects"
+        icon={<FolderIcon />}
+        items={[
+          { label: 'Website Redesign', icon: <FileIcon /> },
+          { label: 'Mobile App', icon: <FileIcon /> },
+          {
+            label: 'Archives',
+            icon: <FolderIcon />,
+            items: [
+              { label: '2022 Data' },
+              { label: '2023 Data' }
+            ]
+          }
+        ]}
+      />
+    </Menu>
+  );
+}
+```
+
+In a vertical menu, submenus expand inline via an accordion effect.
+
+---
+
+### Custom Trigger ActionMenu
+
+You can replace the default ActionMenu button with any custom component.
+
+<!--
+EXAMPLE: Custom Trigger
+PURPOSE: Shows how to pass a custom React node as the menu trigger
+OUTPUT: An avatar image that acts as a dropdown trigger
+USE WHEN: Building profile dropdowns or icon-only menus
+SOURCE: packages/luxis-ui/src/Menu/ActionMenu.tsx
+-->
+```tsx
+import { ActionMenu } from '@luxis-ui/core';
+import { LogoutIcon, SettingsIcon } from '@luxis-ui/icons';
+
+export default function CustomTriggerExample() {
+  const customAvatar = (
+    <div style={{
+      width: 40, height: 40, borderRadius: '50%',
+      background: '#3b82f6', color: 'white',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      cursor: 'pointer', fontWeight: 'bold'
+    }}>
+      JD
+    </div>
+  );
+
+  return (
+    <ActionMenu
+      trigger={customAvatar}
+      position="bottom-start"
+      items={[
+        { label: 'Account Settings', icon: <SettingsIcon /> },
+        { divider: true },
+        { label: 'Sign Out', icon: <LogoutIcon />, variant: 'danger' }
+      ]}
+    />
+  );
+}
+```
+
+This is ideal for user avatars in application headers.
+
+---
+
+### Controlled ActionMenu (Render Function)
+
+When you need total control over the trigger's state and rendering logic, pass a function as the `trigger` prop.
+
+When to use: When you need the trigger button to reflect the open/closed state visually or handle its own click events.
+
+<Callout type="info" title="Controlled vs Uncontrolled">
+  By default ActionMenu manages its own state (uncontrolled). Use the render prop pattern when the trigger component needs access to `isOpen` or `toggle`.
+</Callout>
+
+<!--
+EXAMPLE: Controlled ActionMenu
+PURPOSE: Using a render function for the trigger
+OUTPUT: A custom button that changes text based on menu state
+USE WHEN: The trigger needs complex internal state logic based on the menu
+SOURCE: packages/luxis-ui/src/Menu/ActionMenu.tsx
+-->
+```tsx
+import { ActionMenu } from '@luxis-ui/core';
+import { EditIcon } from '@luxis-ui/icons';
+
+export default function RenderPropExample() {
+  return (
+    <ActionMenu
+      items={[
+        { label: 'Rename', icon: <EditIcon /> },
+        { label: 'Move to folder' }
+      ]}
+      trigger={({ isOpen, toggle, disabled }) => (
+        <button
+          onClick={toggle}
+          disabled={disabled}
+          style={{
+            background: isOpen ? '#3b82f6' : '#e5e7eb',
+            color: isOpen ? 'white' : 'black',
+            padding: '8px 16px',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer'
+          }}
+        >
+          {isOpen ? 'Close Options ▲' : 'Open Options ▼'}
+        </button>
+      )}
+    />
+  );
+}
+```
+
+## Menu Best Practices
+
+Follow these guidelines to ensure your menus are intuitive and accessible.
+
+<DoAndDont
+  good={`// ✅ Group related actions with dividers
+<ActionMenu items={[
+  { label: 'Copy' },
+  { label: 'Paste' },
+  { divider: true },
+  { label: 'Delete', variant: 'danger' }
+]} />`}
+  bad={`// ❌ Don't mix destructive actions with safe ones without visual separation
+<ActionMenu items={[
+  { label: 'Copy' },
+  { label: 'Delete', variant: 'danger' },
+  { label: 'Paste' }
+]} />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use the danger variant for destructive actions
+<MenuItem label="Delete Data" variant="danger" />`}
+  bad={`// ❌ Don't rely solely on icons to convey destruction
+<MenuItem label="Delete Data" icon={<TrashIcon color="red" />} />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use ActionMenu for context menus
+<ActionMenu triggerLabel="More" items={actions} />`}
+  bad={`// ❌ Don't use Menu inside a modal for simple dropdowns
+<Modal><Menu items={actions} /></Modal>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Provide shortcuts for power users
+<MenuItem label="Save" shortcut="⌘S" />`}
+  bad={`// ❌ Don't use shortcuts for rarely used items
+<MenuItem label="Logout" shortcut="⌘L" />`}
+/>
+
+## Menu Props & API Reference
+
+Complete reference for all props. All types and defaults sourced directly from `packages/luxis-ui/src/Menu/Menu.tsx` and `ActionMenu.tsx`.
+
+### Menu Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `children` | `ReactNode` | `undefined` | false | Custom children (MenuItem components) |
+| `className` | `string` | `''` | false | Custom className |
+| `items` | `MenuItemProps[]` | `undefined` | false | Menu items configuration |
+| `orientation` | `'vertical' \| 'horizontal'` | `'vertical'` | false | Menu orientation |
+| `responsive` | `boolean` | `true` | false | Whether menu converts to hamburger on mobile |
+| `width` | `string \| number` | `undefined` | false | Menu width (for vertical menus) |
+
+### MenuItem Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `label` | `string` | - | true | Menu item label |
+| `active` | `boolean` | `false` | false | Whether the item is active/selected |
+| `disabled` | `boolean` | `false` | false | Whether the item is disabled |
+| `divider` | `boolean` | `false` | false | Divider after this item |
+| `icon` | `ReactNode` | `undefined` | false | Icon to display before label |
+| `items` | `MenuItemProps[]` | `undefined` | false | Submenu items for multi-level menus |
+| `onClick` | `() => void` | `undefined` | false | Click handler |
+| `rightIcon` | `ReactNode` | `undefined` | false | Icon to display after label |
+| `shortcut` | `string` | `undefined` | false | Keyboard shortcut to display |
+| `variant` | `'default' \| 'danger'` | `'default'` | false | Item variant |
+
+### ActionMenu Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `items` | `MenuItemProps[]` | - | true | Menu items to display in dropdown |
+| `className` | `string` | `''` | false | Custom className for the menu |
+| `disabled` | `boolean` | `false` | false | Whether the menu is disabled |
+| `onClose` | `() => void` | `undefined` | false | Callback when menu closes |
+| `onOpen` | `() => void` | `undefined` | false | Callback when menu opens |
+| `position` | `'bottom-start' \| 'bottom-end' \| 'top-start' \| 'top-end'` | `'bottom-start'` | false | Position of the menu relative to trigger |
+| `trigger` | `ReactNode \| function` | `undefined` | false | Trigger element or render function |
+| `triggerClassName` | `string` | `''` | false | Custom className for the trigger |
+| `triggerIcon` | `ReactNode` | `undefined` | false | Trigger icon (used if trigger is not provided) |
+| `triggerLabel` | `string` | `'Actions'` | false | Trigger label text |
+
+### HTML Native Props
+
+Menu components forward standard HTML attributes to their container elements.
+
+<details>
+<summary>View full TypeScript interface</summary>
+
+<!--
+EXAMPLE: TypeScript Interface
+PURPOSE: Full type definition for Menu
+OUTPUT: Complete TypeScript interface
+USE WHEN: Typing component props in your codebase
+SOURCE: packages/luxis-ui/src/Menu/Menu.tsx
+-->
+```ts
+export interface MenuItemProps {
+  label: string;
+  onClick?: () => void;
+  icon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+  disabled?: boolean;
+  active?: boolean;
+  variant?: 'default' | 'danger';
+  shortcut?: string;
+  divider?: boolean;
+  items?: MenuItemProps[];
+}
+
+export interface MenuProps {
+  items?: MenuItemProps[];
+  children?: React.ReactNode;
+  orientation?: 'vertical' | 'horizontal';
+  responsive?: boolean;
+  className?: string;
+  width?: string | number;
+}
+
+export interface ActionMenuProps {
+  items: MenuItemProps[];
+  trigger?: React.ReactNode | ((props: { isOpen: boolean; toggle: () => void; disabled: boolean }) => React.ReactNode);
+  triggerLabel?: string;
+  triggerIcon?: React.ReactNode;
+  position?: 'bottom-start' | 'bottom-end' | 'top-start' | 'top-end';
+  className?: string;
+  triggerClassName?: string;
+  disabled?: boolean;
+  onOpen?: () => void;
+  onClose?: () => void;
+}
+```
+
+</details>
+
+## Menu Accessibility Guide
+
+Menu follows the Menu Button WAI-ARIA pattern and meets WCAG AA standards.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| <KeyboardKey>Tab</KeyboardKey> | Focuses menu items |
+| <KeyboardKey>Enter</KeyboardKey> | Activates item, toggles submenu, or opens ActionMenu |
+| <KeyboardKey>Space</KeyboardKey> | Activates item, toggles submenu, or opens ActionMenu |
+| <KeyboardKey>ArrowDown</KeyboardKey> | Opens submenu |
+| <KeyboardKey>ArrowUp</KeyboardKey> | Closes submenu |
+| <KeyboardKey>Escape</KeyboardKey> | Closes ActionMenu or responsive mobile menu |
+
+### ARIA Attributes
+
+| Attribute | Value | When |
+|-----------|-------|------|
+| `role` | `"menu"` | Applied to the container |
+| `role` | `"menuitem"` | Applied to individual items |
+| `aria-haspopup` | `"menu"` | When an item has a submenu or on the ActionMenu trigger |
+| `aria-expanded` | `boolean` | Indicates if a submenu or ActionMenu is open |
+| `aria-disabled` | `"true"` | When an item or menu is disabled |
+
+### Screen Reader Behavior
+
+Screen readers will identify the `ActionMenu` trigger as a button with a menu popup. When opened, it will read the contents as a menu list. `MenuItem` components announce their label, state (e.g., active or disabled), and whether they contain a submenu (collapsible/expandable).
+
+### Accessibility Checklist
+
+- [ ] Ensure `triggerLabel` is meaningful if not using a custom trigger with text.
+- [ ] Do not trap focus indefinitely within the menu.
+- [ ] Use valid `aria-label` attributes if rendering icon-only custom triggers.
+- [ ] Always verify with keyboard-only navigation before shipping
+
+## Menu Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties that store design decisions like colors, spacing, and radius. Override them to restyle Menu without fighting CSS specificity.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-background-hover` | Dynamic | Background color for hovered menu items |
+| `--lxs-background-active` | Dynamic | Background color for active menu items |
+| `--lxs-border-color` | Dynamic | Color of menu dividers |
+| `--lxs-shadow-sm` | Dynamic | Shadow applied to vertical menus |
+| `--lxs-shadow-lg` | Dynamic | Shadow applied to ActionMenu dropdowns |
+
+**Override globally:**
+```css
+:root {
+  --lxs-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+```
+
+**Override for one section:**
+```css
+.my-dashboard {
+  --lxs-background-hover: #e0f2fe;
+}
+```
+
+## Customizing Menu
+
+Three levels — start with Level 1 and go deeper only if needed.
+
+### Level 1 — className
+
+<!--
+EXAMPLE: className Override
+PURPOSE: Applying custom classes to ActionMenu
+OUTPUT: ActionMenu with additional container styling
+USE WHEN: Quick one-off style overrides
+SOURCE: N/A
+-->
+```tsx
+<ActionMenu
+  items={[{ label: 'Account Settings' }]}
+  className="my-custom-dropdown"
+  triggerClassName="my-custom-button"
+/>
+```
+
+### Level 2 — Design Tokens
+
+<!--
+EXAMPLE: Token Override
+PURPOSE: Restyling via CSS custom properties
+OUTPUT: Menu with a custom hover background
+USE WHEN: Theming consistently across all instances
+SOURCE: N/A
+-->
+```tsx
+<Menu
+  items={[{ label: 'Account Settings' }]}
+  style={{ '--lxs-background-hover': '#fee2e2' } as React.CSSProperties}
+/>
+```
+
+### Using with forwardRef
+
+<!--
+EXAMPLE: forwardRef
+PURPOSE: Accessing the underlying DOM node
+OUTPUT: Menu with attached ref
+USE WHEN: Calling native DOM methods or measuring the menu
+SOURCE: N/A
+-->
+```tsx
+import { useRef, useEffect } from 'react';
+import { Menu, MenuItem } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    console.log('Menu mounted:', ref.current);
+  }, []);
+
+  return (
+    <Menu ref={ref}>
+      <MenuItem label="Home" />
+    </Menu>
+  );
+}
+```
+
+## Common Menu Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Table Row Actions
+
+Used when: Providing context-specific actions for an item in a list or data grid.
+
+<!--
+EXAMPLE: Table Row Actions
+PURPOSE: Context menu for data rows
+OUTPUT: A small icon button that reveals actions
+USE WHEN: Saving space in dense data displays
+SOURCE: Common usage pattern for ActionMenu
+-->
+```tsx
+import { ActionMenu } from '@luxis-ui/core';
+import { MoreVerticalIcon, EditIcon, ShareIcon, TrashIcon } from '@luxis-ui/icons';
+
+export default function TableRowActions() {
+  return (
+    <ActionMenu
+      triggerIcon={<MoreVerticalIcon />}
+      triggerLabel=""
+      position="bottom-end"
+      items={[
+        { label: 'Edit Record', icon: <EditIcon /> },
+        { label: 'Share Link', icon: <ShareIcon /> },
+        { divider: true },
+        { label: 'Delete Record', icon: <TrashIcon />, variant: 'danger' }
+      ]}
+    />
+  );
+}
+```
+
+### Application Sidebar
+
+Used when: Creating the primary vertical navigation for a dashboard.
+
+<!--
+EXAMPLE: Application Sidebar
+PURPOSE: Persistent vertical navigation
+OUTPUT: A vertical menu with an active state
+USE WHEN: Building admin panels or dashboards
+SOURCE: Common usage pattern for Menu
+-->
+```tsx
+import { Menu, MenuItem } from '@luxis-ui/core';
+import { HomeIcon, ChartIcon, UsersIcon } from '@luxis-ui/icons';
+
+export default function Sidebar() {
+  return (
+    <div style={{ width: 240, height: '100vh', borderRight: '1px solid #e5e5e5' }}>
+      <Menu width="100%">
+        <MenuItem label="Overview" icon={<HomeIcon />} active />
+        <MenuItem label="Analytics" icon={<ChartIcon />} />
+        <MenuItem label="Team Members" icon={<UsersIcon />} />
+      </Menu>
+    </div>
+  );
+}
+```
+
+### User Profile Dropdown
+
+Used when: Providing account-level actions in a global application header.
+
+<!--
+EXAMPLE: User Profile Dropdown
+PURPOSE: ActionMenu acting as a profile widget
+OUTPUT: A dropdown triggered by user info
+USE WHEN: Standard application top bar
+SOURCE: Common usage pattern for ActionMenu
+-->
+```tsx
+import { ActionMenu } from '@luxis-ui/core';
+import { SettingsIcon, CreditCardIcon, LogoutIcon } from '@luxis-ui/icons';
+
+export default function ProfileDropdown() {
+  return (
+    <ActionMenu
+      triggerLabel="Jane Doe"
+      position="bottom-end"
+      items={[
+        { label: 'Account Settings', icon: <SettingsIcon /> },
+        { label: 'Billing & Plans', icon: <CreditCardIcon /> },
+        { divider: true },
+        { label: 'Sign Out', icon: <LogoutIcon />, variant: 'danger' }
+      ]}
+    />
+  );
+}
+```
+
+## Troubleshooting Menu
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Dropdown goes off-screen | `position="bottom-end"` near right edge | `position="bottom-start"` or adapt based on layout |
+| Mobile menu doesn't appear | Missing `<meta name="viewport">` | Ensure standard responsive meta tag is present |
+| ActionMenu won't close on click | Missing `onClick` in item | Ensure `onClick: () => {...}` is defined |
+| Submenu icons don't align | Mixing items with/without icons | Pass an empty/transparent icon to align text |
+
+### Frequently Asked Questions
+
+**Q: How do I route to a new page using a MenuItem?**
+A: Provide an `onClick` handler that calls your router's navigation method (e.g., `router.push('/page')`), or wrap the MenuItem text in a standard Link component if appropriate for your setup.
+
+**Q: Can I keep the ActionMenu open after clicking an item?**
+A: By default, `ActionMenu` closes when an item with an `onClick` handler is clicked. To prevent this, you would need to implement a fully custom trigger using the render function pattern and manage the `isOpen` state manually if necessary, though this goes against typical dropdown UX.
+
+**Q: How do I change the width of the ActionMenu dropdown?**
+A: Use standard CSS targeting the class passed to `className` on the `ActionMenu`, e.g., `.my-menu { width: 300px; }`.
+
+**Q: Does Menu support dark mode?**
+A: Yes. All Menu components listen for the `data-theme="dark"` attribute on the document root and adjust their colors, borders, and hover states automatically.
+
+## Related Components
+
+<RelatedComponent
+  name="Button"
+  description="Used to trigger actions directly, or can be used as a custom trigger for ActionMenu."
+  href="/docs/components/button"
+/>
+<RelatedComponent
+  name="Header"
+  description="Often contains horizontal Menus or ActionMenus for navigation and profiles."
+  href="/docs/components/header"
+/>
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Release | Initial release |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Menu
+
+> Menu is a Components React component in Luxis UI for creating structural navigation sidebars and contextual dropdown menus (ActionMenu).
+
+## Source
+packages/luxis-ui/src/Menu/Menu.tsx
+packages/luxis-ui/src/Menu/ActionMenu.tsx
+
+## Story
+app/storybook/src/stories/Menu.stories.ts
+
+## Install
+\`\`\`bash
+npm install @luxis-ui/core
+\`\`\`
+
+## Import
+\`\`\`tsx
+import { Menu, MenuItem, ActionMenu } from '@luxis-ui/core';
+\`\`\`
+
+## Minimal usage
+\`\`\`tsx
+import { ActionMenu } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <ActionMenu
+      triggerLabel="Options"
+      items={[
+        { label: 'Edit Profile' },
+        { label: 'Delete Account', variant: 'danger' }
+      ]}
+    />
+  );
+}
+\`\`\`
+
+## Key props
+- `items` (MenuItemProps[], default=`undefined`): Menu items configuration
+- `orientation` (string, default=`'vertical'`): Menu orientation
+- `trigger` (ReactNode | function, default=`undefined`): Trigger element for ActionMenu
+- `position` (string, default=`'bottom-start'`): Position of the ActionMenu
+- `responsive` (boolean, default=`true`): Converts horizontal menus to hamburgers on mobile
+
+## When to use
+Use Menu for static sidebar navigation. Use ActionMenu for context menus and profile dropdowns.
+
+## When NOT to use
+Do not use Menu for selecting form values; use a Select component instead.
+
+## Accessibility
+WCAG: AA
+ARIA: Menu Button
+Keyboard: Tab, Enter, Space, ArrowDown, ArrowUp, Escape
+
+## Docs
+https://luxis-ui.dev/docs/components/menu
+LLMS_TXT_ENTRY_END
+*/}
