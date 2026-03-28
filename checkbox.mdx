@@ -1,0 +1,711 @@
+---
+title: "Checkbox — Luxis UI React Component"
+description: "A boolean input control that allows the user to select one or more items from a set."
+status: stable
+since: "1.0.0"
+category: "Components"
+npm: "@luxis-ui/core"
+import: "import { Checkbox } from '@luxis-ui/core'"
+component: "Checkbox"
+keywords:
+  - checkbox
+  - react checkbox
+  - toggle
+  - checkmark
+  - luxis ui checkbox
+  - typescript checkbox
+  - accessible checkbox
+slug: /components/checkbox
+canonical: "https://luxis-ui.dev/docs/components/checkbox"
+og_image: "/img/og/checkbox.png"
+llm_summary: >
+  Checkbox renders a `<label>` wrapping a visually hidden native `<input type="checkbox">` and a custom styled SVG box. It supports `checked`, `disabled`, and `indeterminate` states. Always pass the text description via the `label` prop, NOT as children. Use for Boolean choices or multi-selection in a list. It follows native HTML checkbox accessibility patterns. Import with `import { Checkbox } from '@luxis-ui/core'`. Key props: `label` (ReactNode), `checked` (boolean), `indeterminate` (boolean), `variant` ('primary', 'secondary', 'success', 'error', 'warning', 'info'), `size` ('sm', 'md', 'lg'), and `error` (boolean).
+---
+
+{/*
+LLM_CONTEXT
+  component    : Checkbox
+  source       : packages/luxis-ui/src/components/Checkbox/Checkbox.tsx
+  story        : app/storybook/src/stories/Checkbox.stories.tsx
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components
+  status       : stable
+  aria-pattern : checkbox
+
+  What it renders:
+  Checkbox renders a `div` containing a `<label>`. Inside the label is an `<input type="checkbox">` (visually hidden for accessibility), a `span` acting as the custom box/checkmark, and a `span` for the label text. It optionally renders a helper text `div` below.
+
+  When to use:
+  - When users need to select one or more options from a list (e.g., filtering a data grid).
+  - To toggle a single Boolean setting (e.g., "I agree to the Terms of Service").
+  - To represent a "Select All" state using the `indeterminate` prop.
+
+  When NOT to use:
+  - When users can only select exactly one option from a list. Use `RadioGroup` instead.
+  - When toggling an immediate system state (like airplane mode) without submitting a form. Use `ToggleButton` instead.
+
+  Ecosystem equivalents:
+  - MUI        : <Checkbox>
+  - Chakra UI  : <Checkbox>
+  - shadcn/ui  : Checkbox (Radix)
+  - Radix UI   : Checkbox
+  - HTML native: <input type="checkbox">
+
+  Props (from source):
+  label (ReactNode, default=undefined) — The text for the checkbox. Do not use children.
+  checked (boolean, default=undefined) — Controlled value.
+  indeterminate (boolean, default=false) — Shows a dash instead of a checkmark.
+  disabled (boolean, default=false) — Disables the input natively.
+  size ('sm'|'md'|'lg', default='md') — Scales the checkbox box and text.
+  variant ('primary'|'secondary'|'success'|'error'|'warning'|'info', default='primary') — Semantic color of the checked state.
+  error (boolean, default=false) — Displays red error styling.
+  helperText (ReactNode, default=undefined) — Subtext rendered below the label.
+  onChange ((event) => void) — Standard React change handler.
+  className (string) — Custom class for the wrapper.
+  boxClassName (string) — Custom class specifically for the square box.
+
+  Accessibility:
+  WCAG: AA
+  Keyboard: Tab to focus the hidden input, Space to toggle.
+  Screen reader: The native hidden input handles all screen reader interactions perfectly. The text is associated automatically because it is nested inside the `<label>` tag.
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Checkbox React Component — Luxis UI",
+  "description": "A boolean input control that allows the user to select one or more items from a set.",
+  "keywords": "checkbox, react checkbox, toggle, checkmark, luxis ui checkbox",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I use the Checkbox component?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Import it from @luxis-ui/core and use the label prop for text: <Checkbox label='Accept Terms' />."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I make a 'Select All' checkbox?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the indeterminate prop. When true, it renders a horizontal dash instead of a checkmark, signifying that only some child items are selected."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why do I get a void element error?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You likely passed text as children, e.g., <Checkbox>Text</Checkbox>. The Luxis UI Checkbox expects text to be passed via the label prop to ensure valid HTML nesting."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the Checkbox accessible?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, it uses a visually hidden native <input type='checkbox'> wrapped inside a <label> tag, ensuring perfect keyboard and screen reader support without complex ARIA roles."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Checkbox
+
+<ComponentStatus status="stable" version="1.0.0" aria="Native input[type=checkbox]" />
+
+Checkboxes allow users to select multiple items from a list, or to mark a single standalone item as explicitly true or false.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash commands
+USE WHEN: Setting up the project
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Component import
+OUTPUT: Import statement
+USE WHEN: Using the component
+SOURCE: N/A
+-->
+```tsx
+import { Checkbox } from '@luxis-ui/core';
+```
+
+## Before You Start
+
+Unlike native HTML `<button>` tags where text is passed as `children`, the Luxis UI Checkbox expects its text description to be passed via the `label` prop. This ensures proper DOM structuring (wrapping the hidden input and the text in a single label) and prevents React layout errors.
+
+The Quick Start example below will render a standard primary-colored checkbox.
+
+## How to Use Checkbox in React
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of Checkbox
+OUTPUT: A single checkbox with a text label
+USE WHEN: You need a standalone boolean toggle
+SOURCE: Derived from Checkbox.tsx
+-->
+```tsx
+import { useState } from 'react';
+import { Checkbox } from '@luxis-ui/core';
+
+export default function Example() {
+  const [agreed, setAgreed] = useState(false);
+
+  return (
+    <Checkbox
+      label="I agree to the Terms of Service"
+      checked={agreed}
+      onChange={(e) => setAgreed(e.target.checked)}
+    />
+  );
+}
+```
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Preview
+PURPOSE: Interactive playground
+OUTPUT: A rendered block
+USE WHEN: N/A
+SOURCE: N/A
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { Checkbox } from '@luxis-ui/core';
+
+export default function LiveExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <Checkbox label="Subscribe to newsletter" defaultChecked />
+      <Checkbox label="Receive SMS alerts" variant="secondary" />
+    </div>
+  );
+}
+```
+
+## Checkbox Examples
+
+Copy-paste ready examples for every configuration. Each example is self-contained.
+
+---
+
+### Checkbox Indeterminate State
+
+The `indeterminate` state is a visual-only state (it does not strictly affect the underlying HTML `checked` boolean value conceptually) used primarily in "Select All" scenarios when a list is partially selected.
+
+<!--
+EXAMPLE: Indeterminate State
+PURPOSE: Demonstrates partial selection
+OUTPUT: A checkbox with a horizontal dash instead of a checkmark
+USE WHEN: A parent checkbox controls a list where only some children are checked
+SOURCE: app/storybook/src/stories/Checkbox.stories.tsx
+-->
+```tsx
+import { useState } from 'react';
+import { Checkbox } from '@luxis-ui/core';
+
+export default function IndeterminateExample() {
+  const [checkedItems, setCheckedItems] = useState([true, false]);
+
+  const allChecked = checkedItems.every(Boolean);
+  const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <Checkbox
+        label="Select All Privileges"
+        checked={allChecked}
+        indeterminate={isIndeterminate}
+        onChange={(e) => setCheckedItems([e.target.checked, e.target.checked])}
+      />
+      <div style={{ paddingLeft: '24px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <Checkbox
+          label="Read Access"
+          checked={checkedItems[0]}
+          onChange={(e) => setCheckedItems([e.target.checked, checkedItems[1]])}
+        />
+        <Checkbox
+          label="Write Access"
+          checked={checkedItems[1]}
+          onChange={(e) => setCheckedItems([checkedItems[0], e.target.checked])}
+        />
+      </div>
+    </div>
+  );
+}
+```
+
+---
+
+### Checkbox With Helper Text
+
+Use the `helperText` prop to provide secondary information without cluttering the primary label.
+
+<!--
+EXAMPLE: Helper Text
+PURPOSE: Adding secondary context
+OUTPUT: A checkbox with a main label and smaller gray text below it
+USE WHEN: The user needs clarification on what checking the box entails
+SOURCE: app/storybook/src/stories/Checkbox.stories.tsx
+-->
+```tsx
+import { Checkbox } from '@luxis-ui/core';
+
+export default function HelperTextExample() {
+  return (
+    <Checkbox
+      label="Enable two-factor authentication"
+      helperText="We will send a code to your phone every time you log in."
+      variant="success"
+    />
+  );
+}
+```
+
+---
+
+### Checkbox Error State
+
+If a user submits a form without checking a required box (like Terms of Service), use the `error` prop to highlight it in red.
+
+<!--
+EXAMPLE: Error State
+PURPOSE: Demonstrates form validation feedback
+OUTPUT: A checkbox outlined in red with red helper text
+USE WHEN: A required boolean field is missing
+SOURCE: app/storybook/src/stories/Checkbox.stories.tsx
+-->
+```tsx
+import { Checkbox } from '@luxis-ui/core';
+
+export default function ErrorExample() {
+  return (
+    <Checkbox
+      label="I have read the Privacy Policy"
+      error={true}
+      helperText="You must accept the privacy policy to continue."
+    />
+  );
+}
+```
+
+---
+
+### Checkbox Sizes
+
+Checkboxes support three sizes, scaling both the square input and the adjacent label text.
+
+<!--
+EXAMPLE: Sizes
+PURPOSE: Demonstrates scaling
+OUTPUT: Three checkboxes of increasing dimensions
+USE WHEN: Adapting the form to different UI densities
+SOURCE: app/storybook/src/stories/Checkbox.stories.tsx
+-->
+```tsx
+import { Checkbox } from '@luxis-ui/core';
+
+export default function SizesExample() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <Checkbox size="sm" label="Small Checkbox" />
+      <Checkbox size="md" label="Medium Checkbox" />
+      <Checkbox size="lg" label="Large Checkbox" />
+    </div>
+  );
+}
+```
+
+## Checkbox Best Practices
+
+<DoAndDont
+  good={`// ✅ Pass text via the label prop
+<Checkbox label="Subscribe to newsletter" />`}
+  bad={`// ❌ Pass text as children (causes void element errors and layout breaks)
+<Checkbox>Subscribe to newsletter</Checkbox>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use CheckboxGroup for lists of options
+<CheckboxGroup options={roles} onChange={setRoles} />`}
+  bad={`// ❌ Map standalone checkboxes manually without a group manager
+{roles.map(r => <Checkbox key={r.id} label={r.name} />)}`}
+/>
+
+<DoAndDont
+  good={`// ✅ Keep labels concise
+<Checkbox label="Remember my login" />`}
+  bad={`// ❌ Make labels massive paragraphs
+<Checkbox label="Check this box if you want the application to place a cookie on your machine so that for the next 30 days you do not have to type your password." />`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use Radio buttons for mutually exclusive choices
+<RadioGroup options={[{label: "Yes"}, {label: "No"}]} />`}
+  bad={`// ❌ Use Checkboxes for mutually exclusive choices
+<Checkbox label="Yes" />
+<Checkbox label="No" />`}
+/>
+
+## Checkbox Props & API Reference
+
+Complete reference for all props. All types and defaults are sourced directly from `packages/luxis-ui/src/components/Checkbox/Checkbox.tsx`.
+
+### Checkbox Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `boxClassName` | `string` | `''` | | Custom CSS class specifically for the visual box element |
+| `checked` | `boolean` | `undefined` | | If true, the checkbox is checked |
+| `className` | `string` | `''` | | Custom CSS class for the outermost container |
+| `disabled` | `boolean` | `false` | | If true, the checkbox is disabled natively |
+| `error` | `boolean` | `false` | | If true, displays red error styling |
+| `helperText` | `React.ReactNode` | `undefined` | | Text displayed below the checkbox |
+| `indeterminate`| `boolean` | `false` | | If true, the checkbox appears indeterminate (dash) |
+| `label` | `React.ReactNode` | `undefined` | | The label for the checkbox |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | | The size of the checkbox |
+| `variant` | `'primary' \| 'secondary' \| 'success' \| 'error' \| 'warning' \| 'info'` | `'primary'` | | Semantic color of the checked state |
+
+### Event Handler Props
+
+Because Checkbox passes rest props `...props` to the underlying input element, it accepts standard React input events.
+
+| Prop | Signature | Description |
+|------|-----------|-------------|
+| `onChange` | `(event: React.ChangeEvent<HTMLInputElement>) => void` | Callback fired when the state is changed. Access the value via `event.target.checked`. |
+
+<details>
+<summary>View full TypeScript interface</summary>
+<!--
+EXAMPLE: Types
+PURPOSE: Reference interface
+OUTPUT: TS Code
+USE WHEN: Need type signatures
+SOURCE: Checkbox.tsx
+-->
+```ts
+import { InputHTMLAttributes, ReactNode } from 'react';
+import { Size } from '../../theme';
+
+export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
+  checked?: boolean;
+  indeterminate?: boolean;
+  disabled?: boolean;
+  label?: ReactNode;
+  size?: Size;
+  variant?: 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info';
+  error?: boolean;
+  helperText?: ReactNode;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  className?: string;
+  boxClassName?: string;
+}
+```
+</details>
+
+## Checkbox Accessibility Guide
+
+The Checkbox component relies on native HTML semantics, ensuring perfect accessibility without requiring complex ARIA attributes.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| <KeyboardKey>Tab</KeyboardKey> | Moves focus to the checkbox. |
+| <KeyboardKey>Space</KeyboardKey> | Toggles the checked state. |
+
+### Screen Reader Behavior
+
+The component renders a standard `<label>` that directly wraps the native `<input type="checkbox">`. Because of this implicit wrapping, screen readers will automatically read the `label` text when the input is focused, and will accurately announce the current `checked` or `disabled` state natively.
+
+### Accessibility Checklist
+
+- [ ] Ensure every checkbox has a `label` prop. If you are building a custom grid layout where the label is visually hidden elsewhere, pass `aria-label` directly to the component.
+- [ ] If using `helperText` that contains vital instructions, ensure it is linked via `aria-describedby` manually if strict adherence is required, though visual proximity usually suffices.
+
+## Checkbox Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties (variables) that store design decisions. Override them to restyle Checkbox without writing custom CSS selectors.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-checkbox-size` | `20px` (md) | Dimensions of the box |
+| `--lxs-checkbox-border-width` | `2px` | Thickness of the border |
+| `--lxs-checkbox-border-radius`| `4px` | Corner roundness of the box |
+
+<!--
+EXAMPLE: CSS Override
+PURPOSE: Demonstrates token customization
+OUTPUT: CSS variables
+USE WHEN: Theming the component globally
+SOURCE: N/A
+-->
+```css
+:root {
+  /* Make all checkboxes perfectly circular */
+  --lxs-checkbox-border-radius: 9999px;
+}
+```
+
+## Customizing Checkbox
+
+Three levels of customization — start with Level 1 and only go deeper if needed.
+
+### Level 1 — className (Quickest)
+
+<!--
+EXAMPLE: Customization Snippet
+PURPOSE: Demonstrates a specific configuration via classes
+OUTPUT: A styled component
+USE WHEN: Applying specific attributes or styling
+SOURCE: N/A
+-->
+```tsx
+import { Checkbox } from '@luxis-ui/core';
+
+export default function CustomClass() {
+  return (
+    <Checkbox
+      className="mt-4 mb-2"
+      boxClassName="border-blue-500 shadow-sm"
+      label="Customized Box"
+    />
+  );
+}
+```
+
+### Level 2 — Design Tokens (Theme-Wide)
+
+See [Design Tokens](#checkbox-design-tokens) above to change sizes or borders.
+
+### Using with forwardRef
+
+The `ref` is forwarded directly to the hidden native `<input type="checkbox">` element, allowing you to focus it programmatically or hook it into uncontrolled form libraries like `react-hook-form`.
+
+<!--
+EXAMPLE: Customization Snippet
+PURPOSE: Demonstrates forwarding a ref
+OUTPUT: A component exposing its DOM node
+USE WHEN: Accessing native DOM methods or form libraries
+SOURCE: N/A
+-->
+```tsx
+import { forwardRef, useRef, useEffect } from 'react';
+import { Checkbox } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    // Focus the checkbox on mount
+    inputRef.current?.focus();
+  }, []);
+
+  return <Checkbox ref={inputRef} label="I am focused" />;
+}
+```
+
+## Common Checkbox Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Using with React Hook Form
+
+Used when: Building complex forms where uncontrolled inputs are preferred.
+
+<!--
+EXAMPLE: Form Pattern
+PURPOSE: Using Checkbox inside a form library
+OUTPUT: A registered input field
+USE WHEN: Submitting user data
+SOURCE: Pattern derived from standard usage
+-->
+```tsx
+import { useForm } from 'react-hook-form';
+import { Checkbox, Button } from '@luxis-ui/core';
+
+export default function ReactHookFormPattern() {
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
+  const onSubmit = (data: any) => console.log(data);
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <Checkbox
+        label="Accept Marketing Emails"
+        {...register("marketing", { required: "This field is required" })}
+        error={!!errors.marketing}
+        helperText={errors.marketing?.message as string}
+      />
+      <Button type="submit" style={{ width: 'fit-content' }}>Register</Button>
+    </form>
+  );
+}
+```
+
+### Data Table Row Selection
+
+Used when: Users need to select rows in a custom list to perform bulk actions.
+
+<!--
+EXAMPLE: Layout Pattern
+PURPOSE: Composition
+OUTPUT: A row with a leading checkbox
+USE WHEN: Building custom grids
+SOURCE: N/A
+-->
+```tsx
+import { useState } from 'react';
+import { Checkbox, Card } from '@luxis-ui/core';
+
+export default function ListSelection() {
+  const [selected, setSelected] = useState(false);
+
+  return (
+    <Card
+      variant={selected ? "filled" : "outlined"}
+      padding="16px"
+      style={{ display: 'flex', alignItems: 'center', gap: '16px', transition: 'background 0.2s' }}
+    >
+      <Checkbox checked={selected} onChange={(e) => setSelected(e.target.checked)} />
+      <div>
+        <h4 style={{ margin: 0 }}>Invoice #8821</h4>
+        <p style={{ margin: 0, color: '#666', fontSize: '14px' }}>$1,200.00 • Due in 5 days</p>
+      </div>
+    </Card>
+  );
+}
+```
+
+## Troubleshooting Checkbox
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| "Void element" error crashes React | `<Checkbox>Text</Checkbox>` | Use `<Checkbox label="Text" />` |
+| Form state doesn't update | Using `value={checked}` | Checkboxes use `checked` and `onChange(e => e.target.checked)` |
+| Label text is not clickable | Wrapping Checkbox in your own `<label>` | Luxis UI Checkbox already wraps itself in a `<label>`. Do not double-wrap. |
+| Custom styles ignored | Setting `className` on the box | Use `boxClassName` for the visual square, and `className` for the wrapper. |
+
+### Frequently Asked Questions
+
+**Q: Can I change the checkmark color?**
+A: Yes, use the `variant` prop to change the background and border color. The checkmark icon itself is always white/transparent to contrast with the semantic background.
+
+**Q: Is it responsive?**
+A: Yes, the container is `display: flex` and the text will wrap naturally if placed in a narrow container.
+
+**Q: How do I manage an array of checkboxes easily?**
+A: Do not manage multiple single `Checkbox` components manually. Use the `<CheckboxGroup>` component which manages the array state for you automatically.
+
+## Related Components
+
+<RelatedComponent name="CheckboxGroup" description="Use when you need to manage an array of selected values from a list." href="/docs/components/checkboxgroup" />
+<RelatedComponent name="Radio" description="Use when the user must select exactly one option, mutually excluding all others." href="/docs/components/radio" />
+<RelatedComponent name="ToggleButton" description="Use for immediate on/off states that don't look like form fields (e.g. Bold text)." href="/docs/components/togglebutton" />
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Feature | Initial release of Checkbox component. |
+| 1.1.0 | Feature | Added `boxClassName` for precise target customization. |
+| 1.2.0 | Fix | Improved indeterminate SVG alignment. |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Checkbox
+
+> Checkbox is a React component in Luxis UI for boolean form inputs.
+
+## Source
+packages/luxis-ui/src/components/Checkbox/Checkbox.tsx
+
+## Story
+app/storybook/src/stories/Checkbox.stories.tsx
+
+## Install
+```bash
+npm install @luxis-ui/core
+```
+
+## Import
+```tsx
+import { Checkbox } from '@luxis-ui/core';
+```
+
+## Minimal usage
+```tsx
+import { useState } from 'react';
+import { Checkbox } from '@luxis-ui/core';
+
+export default function Example() {
+  const [val, setVal] = useState(false);
+  return (
+    <Checkbox
+      label="Accept Terms"
+      checked={val}
+      onChange={(e) => setVal(e.target.checked)}
+    />
+  );
+}
+```
+
+## Key props
+- `label` (ReactNode): Text description. NEVER pass text as children.
+- `checked` (boolean): Controlled state.
+- `indeterminate` (boolean): Shows dash instead of checkmark.
+- `variant` ('primary' | 'success' | 'error' | etc): Color.
+- `error` (boolean): Red outline.
+- `onChange` (event => void): Standard input event.
+
+## When to use
+Single boolean settings or multi-selection lists.
+
+## When NOT to use
+Mutually exclusive options (use Radio). Immediate system state toggles (use ToggleButton).
+
+## Accessibility
+WCAG: AA
+Keyboard: Tab, Space
+Screen Reader: Native hidden input handles interaction perfectly.
+
+## Docs
+https://luxis-ui.dev/docs/components/checkbox
+LLMS_TXT_ENTRY_END
+*/}

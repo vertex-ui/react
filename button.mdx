@@ -1,0 +1,853 @@
+---
+title: "Button — Luxis UI React Component"
+description: "The primary interactive element used to trigger actions, submit forms, and navigate."
+status: stable
+since: "1.0.0"
+category: "Components"
+npm: "@luxis-ui/core"
+import: "import { Button } from '@luxis-ui/core'"
+component: "Button"
+keywords:
+  - button
+  - react button
+  - call to action
+  - luxis ui button
+  - typescript button
+  - accessible button
+  - react design system
+slug: /components/button
+canonical: "https://luxis-ui.dev/docs/components/button"
+og_image: "/img/og/button.png"
+llm_summary: >
+  Button renders a standard `<button type="button">` or `<a>` element depending on the `asLink` prop. Use it to trigger actions, submit forms, or navigate. It supports variants ('primary', 'secondary', 'outline', 'ghost', 'danger', 'success', 'warning'), sizes ('sm', 'md', 'lg'), shapes ('default', 'pill', 'square'), and states (`loading`, `disabled`). It allows injecting `leftIcon` and `rightIcon`. Import with `import { Button } from '@luxis-ui/core'`. Note: Avoid wrapping clickable divs inside buttons; use standard props.
+---
+
+{/*
+LLM_CONTEXT
+  component    : Button
+  source       : packages/luxis-ui/src/components/Button/Button.tsx
+  story        : app/storybook/src/stories/Button.stories.tsx
+  package      : @luxis-ui/core
+  framework    : React 18+, TypeScript
+  category     : Components
+  status       : stable
+  aria-pattern : button
+
+  What it renders:
+  Button renders a `<button type="button">` by default, or an `<a>` (or framework Link) if `asLink` is true.
+
+  When to use:
+  - Submitting forms.
+  - Opening modals or dialogs.
+  - Important calls to action (CTA) like "Checkout" or "Create Project".
+
+  When NOT to use:
+  - For standard inline text links within paragraphs (use the `Link` component instead).
+  - For static status indicators (use `Badge` instead).
+
+  Ecosystem equivalents:
+  - MUI        : <Button>
+  - Chakra UI  : <Button>
+  - shadcn/ui  : Button
+  - Radix UI   : Button
+  - HTML native: <button>
+
+  Props (from source):
+  variant ('primary'|'secondary'|'outline'|'ghost'|'danger'|'success'|'warning', default='primary') — Visual style variant.
+  size ('sm'|'md'|'lg', default=undefined) — Size variant, defaults to theme defaultSize.
+  fullWidth (boolean, default=false) — Spans 100% of parent width.
+  loading (boolean, default=false) — Shows spinner and disables button.
+  loadingText (string, default=undefined) — Replaces children with this text when loading.
+  disabled (boolean, default=false) — Disables interaction natively.
+  iconOnly (boolean, default=false) — Adjusts padding for a 1:1 aspect ratio button.
+  asLink (boolean, default=false) — Renders the button as an anchor tag.
+  href (string) — Link href, required if asLink is true.
+  target (string) — Target attribute when rendering as link.
+  rel (string) — Rel attribute when rendering as link.
+  leftIcon (ReactNode, default=undefined) — Icon before text.
+  rightIcon (ReactNode, default=undefined) — Icon after text.
+  textColor (string) — Dynamic inline style override.
+  darkText (boolean) — Force dark text overriding contrast logic.
+  shape ('default'|'pill'|'square', default='default') — Button shape.
+  type ('button'|'submit'|'reset', default='button') — HTML button type.
+
+  Accessibility:
+  WCAG: AA
+  Keyboard: Tab to focus, Enter or Space to activate.
+  Screen reader: If `iconOnly` is true, an `aria-label` must be provided by the developer. It uses `aria-busy` when loading.
+END_LLM_CONTEXT
+*/}
+
+<script type="application/ld+json">{`
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Button React Component — Luxis UI",
+  "description": "The primary interactive element used to trigger actions, submit forms, and navigate.",
+  "keywords": "button, react button, call to action, luxis ui button",
+  "author": { "@type": "Organization", "name": "Luxis UI" },
+  "programmingLanguage": ["TypeScript", "React"],
+  "about": {
+    "@type": "SoftwareSourceCode",
+    "name": "@luxis-ui/core",
+    "runtimePlatform": "React"
+  },
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I use the Button component?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Import it from @luxis-ui/core and use <Button>Click me</Button>."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I make the button a link?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pass the asLink={true} prop and provide an href prop. This will render an accessible <a> tag that looks exactly like a button."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I handle loading states?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pass the loading={true} prop. This will disable the button and render a spinner. You can optionally pass loadingText to replace the button's children while loading."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I add an icon?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the leftIcon or rightIcon props to pass an SVG or ReactNode."
+        }
+      }
+    ]
+  }
+}
+`}</script>
+
+# Button
+
+<ComponentStatus status="stable" version="1.0.0" aria="WAI-ARIA button" />
+
+Buttons are the primary interactive element in Luxis UI. They allow users to take actions, make choices, and navigate with a single click.
+
+<!--
+EXAMPLE: Installation
+PURPOSE: Shows how to install the package
+OUTPUT: Bash commands
+USE WHEN: Setting up the project
+SOURCE: N/A
+-->
+```bash
+npm install @luxis-ui/core
+# or
+yarn add @luxis-ui/core
+# or
+pnpm add @luxis-ui/core
+```
+
+<!--
+EXAMPLE: Import
+PURPOSE: Component import
+OUTPUT: Import statement
+USE WHEN: Using the component
+SOURCE: N/A
+-->
+```tsx
+import { Button } from '@luxis-ui/core';
+```
+
+## Before You Start
+
+By default, the component renders an HTML `<button type="button">`. It does not submit forms unless you explicitly pass `type="submit"`.
+
+If you pass `asLink={true}`, it will seamlessly switch its underlying DOM node to an `<a>` tag while retaining the exact same visual button styling.
+
+The Quick Start example below will produce a solid primary-colored button.
+
+## How to Use Button in React
+
+The minimum code to render a working Button:
+
+<!--
+EXAMPLE: Basic Usage
+PURPOSE: Minimum viable implementation of Button
+OUTPUT: A solid primary-colored button
+USE WHEN: Standard form submission or major CTA
+SOURCE: Derived from Button.tsx
+-->
+```tsx
+import { Button } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Button onClick={() => console.log('Saving...')}>
+      Save Changes
+    </Button>
+  );
+}
+```
+
+## Try It Live
+
+Edit the code below — the preview updates in real time.
+
+<!--
+EXAMPLE: Live Preview
+PURPOSE: Interactive playground
+OUTPUT: A rendered block
+USE WHEN: N/A
+SOURCE: N/A
+-->
+```tsx live
+// ✏️ Edit this code — the preview updates in real time
+import { Button } from '@luxis-ui/core';
+
+export default function LiveExample() {
+  return (
+    <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+      <Button variant="primary">Create Project</Button>
+      <Button variant="ghost">Cancel</Button>
+    </div>
+  );
+}
+```
+
+## Button Examples
+
+Copy-paste ready examples for every variant. Each example is self-contained.
+
+---
+
+### Button Variants
+
+Buttons come in several semantic variants to establish visual hierarchy on a page. Use `primary` for the main call to action, `secondary` or `outline` for alternative choices, and `ghost` for subtle tertiary actions.
+
+<!--
+EXAMPLE: Variants
+PURPOSE: Demonstrates hierarchy via visual weight
+OUTPUT: A row of buttons with solid, outlined, and transparent styles
+USE WHEN: Establishing primary vs secondary actions on a page
+SOURCE: app/storybook/src/stories/Button.stories.tsx
+-->
+```tsx
+import { Button } from '@luxis-ui/core';
+
+export default function VariantsExample() {
+  return (
+    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+      <Button variant="primary">Checkout</Button>
+      <Button variant="secondary">Add to Cart</Button>
+      <Button variant="outline">View Details</Button>
+      <Button variant="ghost">Share</Button>
+      <Button variant="danger">Delete Item</Button>
+    </div>
+  );
+}
+```
+
+---
+
+### Button Sizes
+
+Buttons support three sizes. If you do not provide a size, the button will default to your global `ThemeProvider` size setting (usually `md`).
+
+<!--
+EXAMPLE: Sizes
+PURPOSE: Demonstrates the sm, md, and lg sizes
+OUTPUT: Three buttons of increasing dimensions
+USE WHEN: Adapting the button to different UI contexts (dense tables vs marketing pages)
+SOURCE: app/storybook/src/stories/Button.stories.tsx
+-->
+```tsx
+import { Button } from '@luxis-ui/core';
+
+export default function SizesExample() {
+  return (
+    <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+      <Button size="sm">Small</Button>
+      <Button size="md">Medium</Button>
+      <Button size="lg">Large</Button>
+    </div>
+  );
+}
+```
+
+---
+
+### Button Loading State
+
+Set the `loading` prop to `true` to instantly disable the button and display a loading spinner. If you provide `loadingText`, the button's children will be temporarily replaced.
+
+<!--
+EXAMPLE: Loading State
+PURPOSE: Demonstrates asynchronous action feedback
+OUTPUT: A button with a spinner and changing text
+USE WHEN: Waiting for an API response after clicking
+SOURCE: app/storybook/src/stories/Button.stories.tsx
+-->
+```tsx
+import { useState } from 'react';
+import { Button } from '@luxis-ui/core';
+
+export default function LoadingExample() {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleClick = () => {
+    setIsLoading(true);
+    // Simulate network request
+    setTimeout(() => setIsLoading(false), 2000);
+  };
+
+  return (
+    <Button
+      onClick={handleClick}
+      loading={isLoading}
+      loadingText="Processing Payment..."
+    >
+      Confirm Order
+    </Button>
+  );
+}
+```
+
+---
+
+### Button With Icons
+
+Enhance the scannability of your actions by adding icons before or after the text using the `leftIcon` and `rightIcon` props.
+
+<!--
+EXAMPLE: Icons
+PURPOSE: Demonstrates left and right icon injection
+OUTPUT: Buttons containing emojis/SVGs alongside text
+USE WHEN: Making actions easier to recognize quickly
+SOURCE: app/storybook/src/stories/Button.stories.tsx
+-->
+```tsx
+import { Button } from '@luxis-ui/core';
+
+export default function IconExample() {
+  return (
+    <div style={{ display: 'flex', gap: '16px' }}>
+      <Button leftIcon={<span aria-hidden="true">➕</span>}>
+        New Workspace
+      </Button>
+      <Button variant="outline" rightIcon={<span aria-hidden="true">➡️</span>}>
+        Continue
+      </Button>
+    </div>
+  );
+}
+```
+
+---
+
+### Button Icon Only
+
+If your button has no text children, use the `iconOnly` prop. This ensures the component calculates equal padding on all sides to create a perfect square (or circle if `shape="pill"`).
+
+<!--
+EXAMPLE: Icon Only
+PURPOSE: Creating square/circular icon buttons
+OUTPUT: A 1:1 aspect ratio button containing only an icon
+USE WHEN: You are limited on space (e.g., a toolbar)
+SOURCE: app/storybook/src/stories/Button.stories.tsx
+-->
+```tsx
+import { Button } from '@luxis-ui/core';
+
+export default function IconOnlyExample() {
+  return (
+    <div style={{ display: 'flex', gap: '16px' }}>
+      {/* ⚠️ Always provide an aria-label when there is no visible text! */}
+      <Button iconOnly aria-label="Search Database">
+        🔍
+      </Button>
+
+      <Button iconOnly shape="pill" variant="secondary" aria-label="User Settings">
+        ⚙️
+      </Button>
+    </div>
+  );
+}
+```
+
+---
+
+### Button As Link
+
+When an action navigates the user to a new URL instead of triggering a JavaScript state change, use the `asLink` prop to maintain proper semantic HTML (`<a>`).
+
+<!--
+EXAMPLE: As Link
+PURPOSE: Renders an anchor tag styled as a button
+OUTPUT: A clickable link looking exactly like a button
+USE WHEN: Navigating to a new page or external site
+SOURCE: app/storybook/src/stories/Button.stories.tsx
+-->
+```tsx
+import { Button } from '@luxis-ui/core';
+
+export default function LinkExample() {
+  return (
+    <Button
+      asLink
+      href="https://luxis-ui.dev"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Read Documentation
+    </Button>
+  );
+}
+```
+
+---
+
+### Button Shapes
+
+Change the geometric shape of the button using the `shape` prop.
+
+<!--
+EXAMPLE: Shapes
+PURPOSE: Demonstrates border-radius variations
+OUTPUT: Standard, fully rounded, and sharp square buttons
+USE WHEN: Matching a specific brand aesthetic
+SOURCE: app/storybook/src/stories/Button.stories.tsx
+-->
+```tsx
+import { Button } from '@luxis-ui/core';
+
+export default function ShapesExample() {
+  return (
+    <div style={{ display: 'flex', gap: '16px' }}>
+      <Button shape="default">Standard</Button>
+      <Button shape="pill">Rounded Pill</Button>
+      <Button shape="square">Sharp Square</Button>
+    </div>
+  );
+}
+```
+
+## Button Best Practices
+
+Proper button usage is critical for user flow and accessibility.
+
+<DoAndDont
+  good={`// ✅ Use type="submit" for form actions
+<form onSubmit={handleSubmit}>
+  <Button type="submit" variant="primary">Log In</Button>
+</form>`}
+  bad={`// ❌ Assume the button will submit the form automatically
+<form onSubmit={handleSubmit}>
+  <Button variant="primary">Log In</Button> // defaults to type="button"
+</form>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Provide an aria-label for icon-only buttons
+<Button iconOnly aria-label="Refresh data">
+  <RefreshIcon />
+</Button>`}
+  bad={`// ❌ Leave icon-only buttons without accessible names
+<Button iconOnly>
+  <RefreshIcon />
+</Button>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Use asLink when navigating to a URL
+<Button asLink href="/dashboard" variant="primary">
+  Go to Dashboard
+</Button>`}
+  bad={`// ❌ Use a router push inside an onClick for simple navigation
+<Button onClick={() => router.push('/dashboard')}>
+  Go to Dashboard
+</Button>`}
+/>
+
+<DoAndDont
+  good={`// ✅ Restrict to one primary button per view/section
+<div className="modal-footer">
+  <Button variant="ghost">Cancel</Button>
+  <Button variant="primary">Confirm Payment</Button>
+</div>`}
+  bad={`// ❌ Place multiple primary buttons next to each other
+<div className="modal-footer">
+  <Button variant="primary">Cancel</Button>
+  <Button variant="primary">Confirm Payment</Button>
+</div>`}
+/>
+
+## Button Props & API Reference
+
+Complete reference for all props. All types and defaults are sourced directly from `packages/luxis-ui/src/components/Button/Button.tsx`.
+
+### Button Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `asLink` | `boolean` | `false` | | Renders the button as an anchor tag |
+| `children` | `React.ReactNode` | `undefined` | | The main text content |
+| `darkText` | `boolean` | `undefined` | | Forces dark text, overriding automatic contrast calculations |
+| `disabled` | `boolean` | `false` | | Disables interaction and applies visual opacity |
+| `fullWidth` | `boolean` | `false` | | Spans 100% of the parent container's width |
+| `href` | `string` | `undefined` | | URL (only works if `asLink` is true) |
+| `iconOnly` | `boolean` | `false` | | Adjusts padding for a 1:1 aspect ratio |
+| `leftIcon` | `React.ReactNode` | `undefined` | | Icon rendered before the text |
+| `loading` | `boolean` | `false` | | Shows spinner and sets `disabled={true}` |
+| `loadingText` | `string` | `undefined` | | Text that temporarily replaces `children` when loading |
+| `rel` | `string` | `undefined` | | Rel attribute when rendering as link |
+| `rightIcon` | `React.ReactNode` | `undefined` | | Icon rendered after the text |
+| `shape` | `'default' \| 'pill' \| 'square'` | `'default'` | | Border radius styling |
+| `size` | `'sm' \| 'md' \| 'lg'` | `undefined` | | Dimensional size (height and font-size) |
+| `target` | `string` | `undefined` | | Target attribute when rendering as link |
+| `textColor` | `string` | `undefined` | | Overrides text color using CSS variables |
+| `variant` | `'primary' \| 'secondary' \| 'outline' \| 'ghost' \| 'danger' \| 'success' \| 'warning'` | `'primary'` | | Visual style |
+
+### HTML Native Props
+
+Because Button passes rest props to the underlying element, it accepts all standard HTML Button or Anchor attributes.
+
+| Prop | Description | Example Value |
+|------|-------------|---------------|
+| `onClick` | Callback fired when the button is clicked | `(e) => console.log(e)` |
+| `type` | HTML button type behavior | `"submit"`, `"button"`, `"reset"` |
+| `className` | Additional CSS class names | `"my-custom-class"` |
+| `style` | Inline CSS styles | `{{ marginTop: '16px' }}` |
+| `aria-*` | Standard WAI-ARIA attributes | `aria-label="Close"` |
+
+<details>
+<summary>View full TypeScript interface</summary>
+<!--
+EXAMPLE: Types
+PURPOSE: View TypeScript Interfaces
+OUTPUT: TS Code
+USE WHEN: You need to type your components
+SOURCE: Button.tsx
+-->
+```ts
+import { ButtonHTMLAttributes } from 'react';
+import { Size } from '../../theme';
+
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'success' | 'warning';
+  size?: Size;
+  fullWidth?: boolean;
+  loading?: boolean;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+  iconOnly?: boolean;
+  loadingText?: string;
+  asLink?: boolean;
+  href?: string;
+  target?: string;
+  rel?: string;
+  textColor?: string;
+  darkText?: boolean;
+  shape?: 'default' | 'pill' | 'square';
+  children?: React.ReactNode;
+}
+```
+
+</details>
+
+## Button Accessibility Guide
+
+The Button component maps to native HTML elements, meaning it gets standard focus ring and keyboard interactions for free.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| <KeyboardKey>Tab</KeyboardKey> | Moves focus to the button. |
+| <KeyboardKey>Enter</KeyboardKey> | Triggers the `onClick` event. |
+| <KeyboardKey>Space</KeyboardKey> | Triggers the `onClick` event (if it is a `<button>`, not an `<a>`). |
+
+### ARIA Attributes
+
+| Attribute | Value | When |
+|-----------|-------|------|
+| `role` | `"button"` | Not explicitly set because native `<button>` has implicit role. |
+| `aria-disabled` | `"true"` | When `disabled` or `loading` is true. |
+| `aria-busy` | `"true"` | When `loading` is true. |
+
+### Accessibility Checklist
+
+- [ ] Provide an `aria-label` whenever you use `iconOnly={true}`.
+- [ ] If using an icon alongside text, you do not need an `aria-label` as long as the text describes the action. You should set `aria-hidden="true"` on the icon itself.
+
+## Button Design Tokens
+
+<Callout type="tip" title="What are design tokens?">
+  Design tokens are CSS custom properties (variables) that store design decisions. Overriding them allows you to restyle components without wrestling with CSS specificity conflicts.
+</Callout>
+
+| Token | Default Value | Description |
+|-------|--------------|-------------|
+| `--lxs-button-radius` | `var(--lxs-radius-base)` | Default corner roundness |
+| `--lxs-button-padding-x` | `var(--lxs-spacing-4)` | Horizontal padding (md size) |
+| `--lxs-button-transition`| `all 0.2s ease` | Hover animation speed |
+
+## Customizing Button
+
+Three levels of customization — start with Level 1 and only go deeper if needed.
+
+### Level 1 — className (Quickest)
+
+<!--
+EXAMPLE: Customization Snippet
+PURPOSE: Demonstrates a specific configuration via classes
+OUTPUT: A styled component
+USE WHEN: Applying specific attributes or styling
+SOURCE: N/A
+-->
+```tsx
+import { Button } from '@luxis-ui/core';
+
+export default function CustomClass() {
+  // Pass Tailwind classes or your own CSS classes
+  return (
+    <Button className="shadow-xl hover:scale-105" variant="primary">
+      Floating Button
+    </Button>
+  );
+}
+```
+
+### Level 2 — Design Tokens (Theme-Wide)
+
+You can pass standard CSS variables into the inline `style` prop. This is how the component applies dynamic styles like `textColor` internally.
+
+<!--
+EXAMPLE: CSS Override
+PURPOSE: Demonstrates token customization
+OUTPUT: A component styled via inline css variables
+USE WHEN: Theming the component locally
+SOURCE: N/A
+-->
+```tsx
+import { Button } from '@luxis-ui/core';
+
+export default function TokenOverride() {
+  return (
+    <Button
+      variant="outline"
+      style={{ '--lxs-color-primary-500': '#8b5cf6' } as React.CSSProperties}
+    >
+      Custom Purple Border
+    </Button>
+  );
+}
+```
+
+### Using with forwardRef
+
+The Button correctly forwards its `ref` to the underlying DOM node (`HTMLButtonElement` or `HTMLAnchorElement`).
+
+<!--
+EXAMPLE: Customization Snippet
+PURPOSE: Demonstrates forwarding a ref
+OUTPUT: A component exposing its DOM node
+USE WHEN: Accessing native DOM methods like focus()
+SOURCE: N/A
+-->
+```tsx
+import { forwardRef, useRef, useEffect } from 'react';
+import { Button } from '@luxis-ui/core';
+
+export default function RefExample() {
+  const btnRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    // Focus the button immediately when the component mounts
+    btnRef.current?.focus();
+  }, []);
+
+  return <Button ref={btnRef}>I am focused</Button>;
+}
+```
+
+## Common Button Patterns
+
+Copy-paste patterns for the most common real-world scenarios.
+
+### Form Submission Footer
+
+Used when: Presenting actions at the bottom of a form or modal.
+
+<!--
+EXAMPLE: Form Pattern
+PURPOSE: Using Button inside a form
+OUTPUT: A structured block with right-aligned actions
+USE WHEN: Submitting user data in a modal
+SOURCE: N/A
+-->
+```tsx
+import { Button } from '@luxis-ui/core';
+
+export default function FormFooter() {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', marginTop: '24px' }}>
+      <Button variant="ghost">Cancel</Button>
+      <Button variant="primary" type="submit">Save Changes</Button>
+    </div>
+  );
+}
+```
+
+### Destructive Action Confirmation
+
+Used when: Ensuring a user wants to perform an irreversible action.
+
+<!--
+EXAMPLE: Layout Pattern
+PURPOSE: Composition
+OUTPUT: A danger section highlighting a destructive action
+USE WHEN: Deleting records or removing access
+SOURCE: N/A
+-->
+```tsx
+import { Button } from '@luxis-ui/core';
+
+export default function DestructiveAction() {
+  return (
+    <div style={{ padding: '16px', border: '1px solid #fee2e2', borderRadius: '8px', background: '#fef2f2' }}>
+      <h3 style={{ margin: '0 0 8px 0', color: '#991b1b' }}>Danger Zone</h3>
+      <p style={{ margin: '0 0 16px 0', color: '#7f1d1d' }}>Deleting this project cannot be undone.</p>
+      <Button variant="danger">Permanently Delete Project</Button>
+    </div>
+  );
+}
+```
+
+### Responsive Full-Width Mobile CTA
+
+Used when: A button needs to stretch on small screens but remain constrained on desktops.
+
+<!--
+EXAMPLE: Layout Pattern
+PURPOSE: Adapting button layout for mobile
+OUTPUT: A button that spans full width
+USE WHEN: Creating mobile-friendly checkout flows
+SOURCE: N/A
+-->
+```tsx
+import { Button } from '@luxis-ui/core';
+
+export default function MobileButton() {
+  return (
+    <div className="mobile-wrapper">
+      <Button variant="primary" fullWidth>
+        Checkout Now
+      </Button>
+    </div>
+  );
+}
+```
+
+## Troubleshooting Button
+
+### Common Mistakes
+
+| Symptom | Wrong ❌ | Right ✅ |
+|---------|---------|---------|
+| Next.js `<Link>` causes a full page reload | Wrapping `<Button>` in `<Link>` | Set the global `linkComponent` in your `ThemeProvider` and use `<Button asLink href="...">` |
+| Clicking button submits a form unexpectedly | Forgetting to set `type` | `<Button type="button">` prevents form submission (Luxis UI defaults to button, but native HTML defaults to submit if inside a form, so be explicit) |
+| Screen readers ignore icon | `iconOnly` without `aria-label` | Add `aria-label="Action description"` |
+| React warning about invalid DOM nesting | `<Button><div>...</div></Button>` | Do not put block elements like `div` inside a `<button>`. Use `span` or semantic inline formatting. |
+
+### Frequently Asked Questions
+
+**Q: Can I change the color of a specific variant globally?**
+A: Yes, use your CSS stylesheet to redefine the CSS variable for the theme's core colors. For example, changing `--lxs-color-primary-500` will change all primary buttons.
+
+**Q: How do I disable the hover effect?**
+A: You can override the CSS class `.lxs-button:hover` or pass inline styles to reset `background-color` or `transform`.
+
+**Q: Is the Button responsive?**
+A: By default, it sizes itself to its text content. If you want it to fill a container on small screens, use the `fullWidth` prop.
+
+**Q: Can I use an SVG instead of an emoji for an icon?**
+A: Yes, the `leftIcon` and `rightIcon` props accept any valid React node, including imported SVG components.
+
+## Related Components
+
+<RelatedComponent name="ToggleButton" description="A button that maintains an active/inactive toggle state." href="/docs/components/togglebutton" />
+<RelatedComponent name="Menu" description="Use ActionMenu to attach a dropdown list of options to a button." href="/docs/components/menu" />
+<RelatedComponent name="Link" description="For standard inline text links, use the Link component rather than an asLink button." href="/docs/components/link" />
+
+## Changelog
+
+| Version | Type | Description |
+|---------|------|-------------|
+| 1.0.0 | Feature | Initial release of Button component. |
+| 1.1.0 | Feature | Added `shape` prop supporting pill and square geometries. |
+| 1.2.0 | Fix | Improved loading spinner alignment in iconOnly mode. |
+
+{/*
+LLMS_TXT_ENTRY_START
+# Button
+
+> Button is a Components React component in Luxis UI for triggering actions or navigation.
+
+## Source
+packages/luxis-ui/src/components/Button/Button.tsx
+
+## Story
+app/storybook/src/stories/Button.stories.tsx
+
+## Install
+```bash
+npm install @luxis-ui/core
+```
+
+## Import
+```tsx
+import { Button } from '@luxis-ui/core';
+```
+
+## Minimal usage
+```tsx
+import { Button } from '@luxis-ui/core';
+
+export default function Example() {
+  return (
+    <Button variant="primary" onClick={() => alert("Action!")}>
+      Click Me
+    </Button>
+  );
+}
+```
+
+## Key props
+- `variant` ('primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'success' | 'warning', default='primary')
+- `size` ('sm' | 'md' | 'lg')
+- `loading` (boolean): Shows spinner and disables.
+- `asLink` (boolean): Renders as anchor tag using the `href` prop.
+- `iconOnly` (boolean): Sets padding for square aspect ratio (requires aria-label).
+- `leftIcon` / `rightIcon` (ReactNode): Adds visual indicators.
+
+## When to use
+Form submissions, primary calls to action, opening modals, or distinct navigation.
+
+## When NOT to use
+Standard inline paragraph links (use Link). Status tags (use Badge).
+
+## Accessibility
+WCAG: AA
+ARIA: button
+Keyboard: Tab, Enter, Space
+
+## Docs
+https://luxis-ui.dev/docs/components/button
+LLMS_TXT_ENTRY_END
+*/}
